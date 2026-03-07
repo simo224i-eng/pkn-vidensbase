@@ -14,7 +14,7 @@ st.set_page_config(page_title="🏛️ PKN VIDENSBASE", layout="wide", initial_s
 if "GEMINI_API_KEY" in st.secrets:
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 else:
-    st.error("⚠️ API-nøgle mangler!")
+    st.error("⚠️ API-nøgle mangler i Streamlit Secrets!")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -33,7 +33,7 @@ df_raw = load_data()
 # --- 3. SIDEBAR: FILTRE ---
 st.sidebar.title("🔍 Plan-Filter")
 
-fritekst_soegning = st.sidebar.text_input("Søg specifikt efter emne (f.eks. 'officialprincippet'):", "")
+fritekst_soegning = st.sidebar.text_input("Søg specifikt efter emne:", "")
 type_valg = st.sidebar.multiselect("Afgørelsestype:", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan"], default=["Lokalplan"])
 sags_fokus = st.sidebar.radio("Sagsgruppe:", ["Realitetsbehandling (Jura)", "Afvisninger", "Genoptagelser", "Alt"])
 udfald_medhold = st.sidebar.toggle("Vis kun sager med MEDHOLD")
@@ -71,32 +71,34 @@ with tab1:
         with st.chat_message("assistant"):
             with st.spinner("Genemsøger praksis (RAG)..."):
                 try:
-                    # RAG LOGIK: Saml tekst fra de filtrerede sager (head 200 for hastighed)
+                    # 1. Saml tekst fra de filtrerede sager
                     all_text_to_index = ""
                     for _, row in df_filtered.head(200).iterrows():
                         all_text_to_index += f"SAG: {row['Titel']}\n{row['Tekst']}\n\n"
                     
-                    # 1. Chunking
+                    # 2. Chunking
                     text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
                     chunks = text_splitter.split_text(all_text_to_index)
                     
-                    # 2. Embeddings & Søgning (FIXET: Modelnavn og parentes)
-                    embeddings = GoogleGenerativeAIEmbeddings(model="text-embedding-004", google_api_key=st.secrets["GEMINI_API_KEY"])
+                    # 3. Embeddings (FIXET: Vi bruger nu det korrekte modelnavn her)
+                    embeddings = GoogleGenerativeAIEmbeddings(
+                        model="text-embedding-04", 
+                        google_api_key=st.secrets["GEMINI_API_KEY"]
+                    )
                     vectorstore = FAISS.from_texts(chunks, embeddings)
                     
-                    # 3. Hent de 60 vigtigste bidder
+                    # 4. Hent bidder og svar
                     relevant_chunks = vectorstore.similarity_search(prompt, k=60)
                     kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
                     
-                    # 4. Generer svar
                     model = genai.GenerativeModel('gemini-1.5-pro')
-                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på disse uddrag fra Planklagenævnet:\n\n{kontekst}\n\nDa retlige regler ofte står ordret, skal du prioritere præcise formuleringer. Citér titlerne på de sager, du bruger."
+                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på denne praksis:\n\n{kontekst}\n\nNævn de sags-titler du bruger."
                     
                     response = model.generate_content(system_prompt + "\n\nSpørgsmål: " + prompt)
                     st.markdown(response.text)
                     st.session_state.messages.append({"role": "assistant", "content": response.text})
                 except Exception as e:
-                    st.error(f"Fejl i RAG: {e}")
+                    st.error(f"Fejl i søgningen: {e}")
 
 # --- FANE 2: DOKUMENT LÆSER ---
 with tab2:
