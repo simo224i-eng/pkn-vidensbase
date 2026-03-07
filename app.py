@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import os
-from google import genai
-from google.genai import types
+import requests
+import google.generativeai as genai
 
 # RAG Biblioteker
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -16,7 +16,8 @@ if "GEMINI_API_KEY" not in st.secrets:
     st.error("⚠️ API-nøgle mangler i Streamlit secrets!")
     st.stop()
 
-client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+genai.configure(api_key=GEMINI_API_KEY)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -35,27 +36,23 @@ def load_data():
 
 df_raw = load_data()
 
-# --- 3. EMBEDDING MODEL (ny google-genai SDK, bruger v1 API) ---
+# --- 3. EMBEDDING MODEL (direkte REST API v1 - omgår SDK's v1beta) ---
+def _embed_via_rest(text: str, model: str, api_key: str) -> list:
+    url = f"https://generativelanguage.googleapis.com/v1/models/{model}:embedContent"
+    body = {"model": f"models/{model}", "content": {"parts": [{"text": text}]}}
+    r = requests.post(url, json=body, params={"key": api_key}, timeout=30)
+    r.raise_for_status()
+    return r.json()["embedding"]["values"]
+
 class GeminiEmbeddings(Embeddings):
     def __init__(self, model="text-embedding-004"):
         self.model = model
 
     def embed_documents(self, texts):
-        embeddings = []
-        for text in texts:
-            response = client.models.embed_content(
-                model=self.model,
-                contents=text
-            )
-            embeddings.append(response.embeddings[0].values)
-        return embeddings
+        return [_embed_via_rest(t, self.model, GEMINI_API_KEY) for t in texts]
 
     def embed_query(self, text):
-        response = client.models.embed_content(
-            model=self.model,
-            contents=text
-        )
-        return response.embeddings[0].values
+        return _embed_via_rest(text, self.model, GEMINI_API_KEY)
 
 @st.cache_resource
 def get_embedding_model():
@@ -67,7 +64,6 @@ def get_embedding_model():
             return emb, model_name, None
         except Exception as e:
             errors.append(f"{model_name}: {e}")
-            continue
     return None, None, " | ".join(errors)
 
 # --- 4. SIDEBAR: FILTRE (TRAGTEN) ---
@@ -196,9 +192,8 @@ with tab1:
                             f"SPØRGSMÅL: {prompt}"
                         )
 
-                        response = client.models.generate_content(
-                            model="gemini-2.0-flash",
-                            contents=system_prompt
+                        response = genai.GenerativeModel("gemini-2.0-flash").generate_content(
+                            system_prompt
                         )
                         answer = response.text
                         st.markdown(answer)
