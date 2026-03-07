@@ -20,7 +20,7 @@ if "messages" not in st.session_state:
 @st.cache_data
 def load_data():
     # Sørg for at filnavnet matcher din rigtige fil
-    if os.path.exists('pkn_vidensbase_fuld_tekst.csv'):
+    if os.path.exists('pkn_vidensbase_fuld_tekst.csv.zip'):
         df = pd.read_csv('pkn_vidensbase_fuld_tekst.csv.zip', compression='zip')
         df['Dato'] = pd.to_datetime(df['Dato'], errors='coerce').dt.date
         return df.sort_values(by='Dato', ascending=False)
