@@ -82,7 +82,7 @@ with tab1:
                     
                     # 3. Embeddings (FIXET: Vi bruger nu det korrekte modelnavn her)
                     embeddings = GoogleGenerativeAIEmbeddings(
-                        model="text-embedding-04", 
+                        model="text-embedding-004", 
                         google_api_key=st.secrets["GEMINI_API_KEY"]
                     )
                     vectorstore = FAISS.from_texts(chunks, embeddings)
