@@ -73,7 +73,11 @@ def strip_html(text: str) -> str:
 
 def kategoriser(titel: str) -> str:
     t = titel.lower()
-    if "lokalplan" in t:            return "Lokalplan"
+    if "lokalplan" in t:
+        if "dispensation" in t:        return "Lokalplan – Dispensation"
+        if "overensstemmelse" in t:    return "Lokalplan – Overensstemmelse"
+        if "vedtagelse" in t:          return "Lokalplan – Vedtagelse"
+        return "Lokalplan – Andet"
     if "landzone" in t:             return "Landzone"
     if "strandbeskyttelse" in t:    return "Strandbeskyttelse"
     if "naturbeskyttelse" in t:     return "Naturbeskyttelse"
