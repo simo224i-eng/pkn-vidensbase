@@ -63,4 +63,49 @@ with tab1:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt :=
+    if prompt := st.chat_input("Spørg ind til praksis..."):
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        
+        with st.chat_message("assistant"):
+            with st.spinner("Genemsøger praksis (RAG)..."):
+                try:
+                    # 1. Saml tekst fra de filtrerede sager
+                    all_text_to_index = ""
+                    for _, row in df_filtered.head(200).iterrows():
+                        all_text_to_index += f"SAG: {row['Titel']}\n{row['Tekst']}\n\n"
+                    
+                    # 2. Chunking
+                    text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
+                    chunks = text_splitter.split_text(all_text_to_index)
+                    
+                    # 3. Embeddings (DENNE LINJE ER FIXET)
+                    embeddings = GoogleGenerativeAIEmbeddings(
+                        model="models/text-embedding-004", 
+                        google_api_key=st.secrets["GEMINI_API_KEY"]
+                    )
+                    vectorstore = FAISS.from_texts(chunks, embeddings)
+                    
+                    # 4. Hent bidder og generer svar
+                    relevant_chunks = vectorstore.similarity_search(prompt, k=60)
+                    kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
+                    
+                    model = genai.GenerativeModel('gemini-1.5-pro')
+                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på disse sager fra Planklagenævnet:\n\n{kontekst}\n\nNævn titlerne på de sager du bruger."
+                    
+                    response = model.generate_content(system_prompt + "\n\nSpørgsmål: " + prompt)
+                    st.markdown(response.text)
+                    st.session_state.messages.append({"role": "assistant", "content": response.text})
+                except Exception as e:
+                    st.error(f"Fejl i søgningen: {e}")
+
+# --- FANE 2: DOKUMENT LÆSER ---
+with tab2:
+    if not df_filtered.empty:
+        sag_titler = ["Vælg en sag..."] + df_filtered['Titel'].tolist()
+        valgt_sag = st.selectbox("Læs sag:", sag_titler)
+        if valgt_sag != "Vælg en sag...":
+            data = df_filtered[df_filtered['Titel'] == valgt_sag].iloc[0]
+            st.markdown(f"### {data['Titel']}")
+            st.markdown(f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>", unsafe_allow_html=True)
