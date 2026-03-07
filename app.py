@@ -86,7 +86,7 @@ with tab1:
                     chunks = text_splitter.split_text(all_text_to_index)
                     
                     # 2. Embeddings & Søgning
-                    embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", google_api_key=st.secrets["GEMINI_API_KEY"])
+                    embeddings = GoogleGenerativeAIEmbeddings(model="text-embedding-004", google_api_key=st.secrets["GEMINI_API_KEY"])
                     vectorstore = FAISS.from_texts(chunks, embeddings)
                     
                     # 3. Hent de 60 vigtigste bidder
