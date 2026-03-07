@@ -99,6 +99,13 @@ def extract_kommune(titel: str) -> str:
     return m.group(1) if m else None
 
 
+def detect_sagsgruppe(titel: str, tekst: str) -> str:
+    t = (titel + " " + tekst[:500]).lower()
+    if "genoptagelse" in t:    return "Genoptagelse"
+    if "afvisning" in t or "afvises" in t or "klageberettiget" in t: return "Afvisning"
+    return "Realitetsbehandling"
+
+
 BADGE = {"Medhold": "badge-medhold", "Afslag": "badge-afslag",
          "Afvist": "badge-afvist", "Ukendt": "badge-ukendt"}
 
@@ -125,9 +132,10 @@ def load_data():
     df = pd.DataFrame(rows)
     df["Dato"]     = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]       = df["Dato"].dt.year.astype("Int64")
-    df["Kategori"] = df["Titel"].apply(kategoriser)
-    df["Udfald"]   = df["Titel"].apply(detect_udfald)
-    df["Kommune"]  = df["Titel"].apply(extract_kommune)
+    df["Kategori"]   = df["Titel"].apply(kategoriser)
+    df["Udfald"]     = df["Titel"].apply(detect_udfald)
+    df["Kommune"]    = df["Titel"].apply(extract_kommune)
+    df["Sagsgruppe"] = df.apply(lambda r: detect_sagsgruppe(r["Titel"], r["Tekst"]), axis=1)
     return df
 
 
@@ -209,10 +217,11 @@ with st.sidebar:
     st.markdown("---")
 
     søg_input   = st.text_input("🔍 Søg i afgørelser", placeholder="f.eks. terrasse lokalplan…")
-    valgte_kats = st.multiselect("Kategori", sorted(df["Kategori"].unique()))
+    valgte_kats    = st.multiselect("Kategori", sorted(df["Kategori"].unique()))
+    sagsgruppe_valg = st.multiselect("Sagsgruppe", ["Realitetsbehandling", "Afvisning", "Genoptagelse"])
     år_min, år_max = int(df["År"].min()), int(df["År"].max())
-    år_range    = st.slider("Årsinterval", år_min, år_max, (år_min, år_max))
-    udfald_valg = st.multiselect("Udfald", ["Medhold", "Afslag", "Afvist", "Ukendt"])
+    år_range       = st.slider("Årsinterval", år_min, år_max, (år_min, år_max))
+    udfald_valg    = st.multiselect("Udfald", ["Medhold", "Afslag", "Afvist", "Ukendt"])
 
     st.markdown("---")
     st.markdown(f"**{len(df):,}** afgørelser · {år_min}–{år_max}")
@@ -220,8 +229,9 @@ with st.sidebar:
 
 # ── Filtrering ────────────────────────────────────────────────────────────────
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
-if valgte_kats:  mask &= df["Kategori"].isin(valgte_kats)
-if udfald_valg:  mask &= df["Udfald"].isin(udfald_valg)
+if valgte_kats:     mask &= df["Kategori"].isin(valgte_kats)
+if sagsgruppe_valg: mask &= df["Sagsgruppe"].isin(sagsgruppe_valg)
+if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
 sub_idx   = df[mask].index.tolist()
 
@@ -247,11 +257,12 @@ with tab_søg:
         badge_cls = BADGE.get(row["Udfald"], "badge-ukendt")
         dato_str  = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y")
         st.markdown(f"# {row['Titel']}")
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Dato",     dato_str)
-        c2.metric("Kategori", row["Kategori"])
-        c3.metric("Udfald",   row["Udfald"])
-        c4.metric("Kommune",  row["Kommune"] or "–")
+        c1, c2, c3, c4, c5 = st.columns(5)
+        c1.metric("Dato",       dato_str)
+        c2.metric("Kategori",   row["Kategori"])
+        c3.metric("Sagsgruppe", row.get("Sagsgruppe", "–"))
+        c4.metric("Udfald",     row["Udfald"])
+        c5.metric("Kommune",    row["Kommune"] or "–")
         st.markdown(f"[🔗 Åbn original afgørelse på PKN's hjemmeside]({row['Link']})")
         st.divider()
 
@@ -287,7 +298,7 @@ with tab_søg:
                 dato_str  = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 st.markdown(f"""
 <div class="pkn-card">
-  <div class="pkn-card-meta">{dato_str} &nbsp;·&nbsp; {row['Kategori']}
+  <div class="pkn-card-meta">{dato_str} &nbsp;·&nbsp; {row['Kategori']} &nbsp;·&nbsp; {row['Sagsgruppe']}
     &nbsp;<span class="pkn-badge {badge_cls}">{row['Udfald']}</span>
   </div>
   <div class="pkn-card-title">{row['Titel']}</div>
