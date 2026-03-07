@@ -80,7 +80,7 @@ with tab1:
                     text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
                     chunks = text_splitter.split_text(all_text_to_index)
                     
-                    # 3. Embeddings (FIXET: Vi bruger nu det korrekte modelnavn her)
+                    # 3. Embeddings (FIXET: Vi bruger nu kun navnet uden præfiks)
                     embeddings = GoogleGenerativeAIEmbeddings(
                         model="text-embedding-004", 
                         google_api_key=st.secrets["GEMINI_API_KEY"]
@@ -92,7 +92,7 @@ with tab1:
                     kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
                     
                     model = genai.GenerativeModel('gemini-1.5-pro')
-                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på denne praksis:\n\n{kontekst}\n\nNævn de sags-titler du bruger."
+                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på disse sager fra Planklagenævnet:\n\n{kontekst}\n\nCitér altid titlerne på de sager, du bruger."
                     
                     response = model.generate_content(system_prompt + "\n\nSpørgsmål: " + prompt)
                     st.markdown(response.text)
