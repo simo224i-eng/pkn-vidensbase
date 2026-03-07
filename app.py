@@ -35,17 +35,16 @@ st.sidebar.title("🔍 Plan-Filter")
 
 fritekst_soegning = st.sidebar.text_input("Søg specifikt efter emne:", "")
 
-# Her er Screeningsafgørelse nu en del af grupperne
+# Her er alle kategorier samlet ét sted
 type_valg = st.sidebar.multiselect(
     "Afgørelsestype:", 
-    ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Screeningsafgørelse"], 
+    ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Screeningsafgørelse", "Miljørapport"], 
     default=["Lokalplan"]
 )
 
 sags_fokus = st.sidebar.radio("Sagsgruppe:", ["Realitetsbehandling (Jura)", "Afvisninger", "Genoptagelser", "Alt"])
 
 st.sidebar.markdown("---")
-vis_miljoe = st.sidebar.toggle("Kun sager med Miljørapport")
 udfald_medhold = st.sidebar.toggle("Vis kun sager med MEDHOLD")
 
 # --- ANVEND FILTRE ---
@@ -59,8 +58,10 @@ if type_valg:
     for t in type_valg:
         if t == "Screeningsafgørelse":
             mask |= df_filtered['Titel'].str.contains("screeningsafgørelse om, at", case=False, na=False)
+        elif t == "Miljørapport":
+            mask |= df_filtered['Titel'].str.contains("med tilhørende miljørapport", case=False, na=False)
         else:
-            # De tre standardtyper kræver 'endelige vedtagelse' og ingen 'Dispensation'
+            # Plan-typerne kræver 'endelige vedtagelse' og ingen 'Dispensation'
             type_mask = df_filtered['Titel'].str.contains(t, case=False, na=False)
             type_mask &= df_filtered['Titel'].str.contains('endelige vedtagelse', case=False, na=False)
             type_mask &= ~df_filtered['Titel'].str.contains('Dispensation', case=False, na=False)
@@ -69,9 +70,6 @@ if type_valg:
 
 if sags_fokus == "Realitetsbehandling (Jura)":
     df_filtered = df_filtered[~df_filtered['Titel'].str.contains("Afvisning|Genoptagelse|Dispensation", case=False, na=False)]
-
-if vis_miljoe:
-    df_filtered = df_filtered[df_filtered['Titel'].str.contains("med tilhørende miljørapport", case=False, na=False)]
 
 if udfald_medhold:
     df_filtered = df_filtered[df_filtered['Tekst'].str.contains("ophæver|hjemviser", case=False, na=False)]
@@ -96,7 +94,7 @@ with tab1:
             with st.spinner("Gennemsøger praksis (RAG)..."):
                 try:
                     all_text_to_index = ""
-                    for _, row in df_filtered.head(100).iterrows():
+                    for _, row in df_filtered.head(150).iterrows():
                         all_text_to_index += f"SAG: {row['Titel']}\n{row['Tekst']}\n\n"
                     
                     text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
@@ -128,6 +126,5 @@ with tab2:
         if valgt_sag != "Vælg en sag...":
             data = df_filtered[df_filtered['Titel'] == valgt_sag].iloc[0]
             st.markdown(f"### {data['Titel']}")
-            # HTML boks skrevet robust for at undgå SyntaxError
             html_content = f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>"
             st.markdown(html_content, unsafe_allow_html=True)
