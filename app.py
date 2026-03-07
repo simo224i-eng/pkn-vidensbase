@@ -75,7 +75,7 @@ with tab1:
                     
                     # FIX: Her bruger vi det mest stabile modelnavn uden "models/" præfiks
                     embeddings = GoogleGenerativeAIEmbeddings(
-                        model="text-embedding-04", 
+                        model="text-embedding-004", 
                         google_api_key=st.secrets["GEMINI_API_KEY"]
                     )
                     vectorstore = FAISS.from_texts(chunks, embeddings)
@@ -83,8 +83,9 @@ with tab1:
                     relevant_chunks = vectorstore.similarity_search(prompt, k=40)
                     kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
                     
-                    model = genai.GenerativeModel('gemini-1.5-pro')
-                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på disse sager:\n\n{kontekst}\n\nCitér titlerne på de sager du bruger."
+                    model = genai.GenerativeModel('gemini-2.0-pro')
+                    prompt_text = "Du er en juridisk ekspert. Svar på dansk baseret på disse sager:\n\n" + kontekst
+                    system_prompt = prompt_text + "\n\nCitér titlerne på de sager du bruger."
                     
                     response = model.generate_content(system_prompt + "\n\nSpørgsmål: " + prompt)
                     st.markdown(response.text)
@@ -99,4 +100,5 @@ with tab2:
         if valgt_sag != "Vælg en sag...":
             data = df_filtered[df_filtered['Titel'] == valgt_sag].iloc[0]
             st.markdown(f"### {data['Titel']}")
-            st.markdown(f"<div style='height:
+            html_box = f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>"
+            st.markdown(html_box, unsafe_allow_html=True)
