@@ -173,7 +173,7 @@ AFGØRELSER:
 {kontekst}
 
 SVAR:"""
-    model = genai.GenerativeModel("gemini-2.0-flash")
+    model = genai.GenerativeModel("gemini-1.5-flash")
     return model.generate_content(prompt).text
 
 
@@ -187,7 +187,7 @@ TITEL: {titel}
 TEKST: {tekst[:3000]}
 
 RESUMÉ:"""
-    return genai.GenerativeModel("gemini-2.0-flash").generate_content(prompt).text
+    return genai.GenerativeModel("gemini-1.5-flash").generate_content(prompt).text
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
