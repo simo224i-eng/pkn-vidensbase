@@ -263,13 +263,20 @@ with tab_søg:
             st.markdown("### ✨ AI-resumé")
             if st.button("Generer resumé med Gemini"):
                 with st.spinner("Resumerer…"):
-                    st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
+                    try:
+                        st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
+                    except Exception as e:
+                        st.session_state._resumé = f"Fejl: {e}"
             if "_resumé" in st.session_state:
                 st.info(st.session_state._resumé)
 
     else:
+        total_filtreret = len(df_filter)
         hits  = len(df_vis)
-        label = f"**{hits}** afgørelser" + (f' matcher "{søg_input}"' if søg_input else " (nyeste først)")
+        if søg_input:
+            label = f"**{hits}** resultater for \"{søg_input}\" (ud af {total_filtreret:,} filtrerede)"
+        else:
+            label = f"Viser {hits} af **{total_filtreret:,}** afgørelser (nyeste først)"
         st.markdown(label)
 
         if hits == 0:
@@ -396,7 +403,10 @@ with tab_ai:
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
                 with st.spinner("Søger og genererer svar…"):
                     hits_ai = tfidf_søg(f, df, vec, mat, top_n=8)
-                    svar    = gemini_svar(f, hits_ai.to_dict("records"))
+                    try:
+                        svar = gemini_svar(f, hits_ai.to_dict("records"))
+                    except Exception as e:
+                        svar = f"Fejl ved Gemini API: {e}"
                 st.session_state.chat_historik.append(
                     {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
                 st.rerun()
@@ -432,7 +442,10 @@ with tab_ai:
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
             with st.spinner("Søger og genererer svar…"):
                 hits_ai = tfidf_søg(spørgsmål, df, vec, mat, top_n=8)
-                svar    = gemini_svar(spørgsmål, hits_ai.to_dict("records"))
+                try:
+                    svar = gemini_svar(spørgsmål, hits_ai.to_dict("records"))
+                except Exception as e:
+                    svar = f"Fejl ved Gemini API: {e}"
             st.session_state.chat_historik.append(
                 {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
             st.rerun()
