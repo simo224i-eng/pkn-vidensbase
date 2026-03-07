@@ -94,9 +94,10 @@ with tab1:
                     kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
                     
                     # 4. Generer svar
-                    model = genai.GenerativeModel('gemini-1.5-pro') # Eller gemini-3.1-pro-preview hvis tilgængelig
-                    system_prompt = f"""Du er en juridisk ekspert. Her er de 60 mest relevante bidder fra praksis:
-                    {kontekst}
+                    kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
+                    
+                    model = genai.GenerativeModel('gemini-1.5-pro')
+                    system_prompt = f"Du er en juridisk ekspert. Her er praksis fra Planklagenævnet:\n{kontekst}\n\nSvar på dansk og citér titlerne på de sager, du bruger."
                     
                     Svar på spørgsmålet baseret på disse bidder. Da retlige regler altid står ordret, skal du kigge efter præcise formuleringer som f.eks. 'officialprincippet'. 
                     Nævn de titler du bruger."""
