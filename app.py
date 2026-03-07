@@ -5,7 +5,7 @@ import csv
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-import google.generativeai as genai
+import requests
 
 st.set_page_config(
     page_title="PKN Indsigt",
@@ -47,8 +47,13 @@ st.markdown("""
 
 # ── API ───────────────────────────────────────────────────────────────────────
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
-if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+
+def _gemini(prompt: str) -> str:
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+    body = {"contents": [{"parts": [{"text": prompt}]}]}
+    r = requests.post(url, json=body, params={"key": GEMINI_API_KEY}, timeout=60)
+    r.raise_for_status()
+    return r.json()["candidates"][0]["content"]["parts"][0]["text"]
 
 # ── Hjælpefunktioner ──────────────────────────────────────────────────────────
 def strip_html(text: str) -> str:
@@ -173,8 +178,7 @@ AFGØRELSER:
 {kontekst}
 
 SVAR:"""
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    return model.generate_content(prompt).text
+    return _gemini(prompt)
 
 
 def gemini_resumé(titel: str, tekst: str) -> str:
@@ -187,7 +191,7 @@ TITEL: {titel}
 TEKST: {tekst[:3000]}
 
 RESUMÉ:"""
-    return genai.GenerativeModel("gemini-1.5-flash").generate_content(prompt).text
+    return _gemini(prompt)
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
