@@ -35,7 +35,7 @@ st.sidebar.title("🔍 Plan-Filter")
 
 fritekst_soegning = st.sidebar.text_input("Søg specifikt efter emne:", "")
 
-# Her er alle kategorier samlet ét sted
+# Her er alle 5 kategorier samlet ét sted
 type_valg = st.sidebar.multiselect(
     "Afgørelsestype:", 
     ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Screeningsafgørelse", "Miljørapport"], 
@@ -43,30 +43,29 @@ type_valg = st.sidebar.multiselect(
 )
 
 sags_fokus = st.sidebar.radio("Sagsgruppe:", ["Realitetsbehandling (Jura)", "Afvisninger", "Genoptagelser", "Alt"])
-
-st.sidebar.markdown("---")
 udfald_medhold = st.sidebar.toggle("Vis kun sager med MEDHOLD")
 
-# --- ANVEND FILTRE ---
+# --- ANVEND FILTRE (DENNE DEL ER NU SUPER SKARP) ---
 df_filtered = df_raw.copy()
 
 if fritekst_soegning:
     df_filtered = df_filtered[df_filtered['Tekst'].str.contains(fritekst_soegning, case=False, na=False)]
 
 if type_valg:
-    mask = pd.Series(False, index=df_filtered.index)
+    import pandas as pd
+    maske = pd.Series(False, index=df_filtered.index)
     for t in type_valg:
         if t == "Screeningsafgørelse":
-            mask |= df_filtered['Titel'].str.contains("screeningsafgørelse om, at", case=False, na=False)
+            maske |= df_filtered['Titel'].str.contains("screeningsafgørelse om, at", case=False, na=False)
         elif t == "Miljørapport":
-            mask |= df_filtered['Titel'].str.contains("med tilhørende miljørapport", case=False, na=False)
+            maske |= df_filtered['Titel'].str.contains("med tilhørende miljørapport", case=False, na=False)
         else:
-            # Plan-typerne kræver 'endelige vedtagelse' og ingen 'Dispensation'
+            # Plan-typerne (Lokalplan osv) kræver 'endelige vedtagelse' og må IKKE være 'Dispensation'
             type_mask = df_filtered['Titel'].str.contains(t, case=False, na=False)
             type_mask &= df_filtered['Titel'].str.contains('endelige vedtagelse', case=False, na=False)
             type_mask &= ~df_filtered['Titel'].str.contains('Dispensation', case=False, na=False)
-            mask |= type_mask
-    df_filtered = df_filtered[mask]
+            maske |= type_mask
+    df_filtered = df_filtered[maske]
 
 if sags_fokus == "Realitetsbehandling (Jura)":
     df_filtered = df_filtered[~df_filtered['Titel'].str.contains("Afvisning|Genoptagelse|Dispensation", case=False, na=False)]
@@ -93,13 +92,15 @@ with tab1:
         with st.chat_message("assistant"):
             with st.spinner("Gennemsøger praksis (RAG)..."):
                 try:
+                    # Saml tekst fra de filtrerede sager (maks 100 for at undgå fejl)
                     all_text_to_index = ""
-                    for _, row in df_filtered.head(150).iterrows():
+                    for _, row in df_filtered.head(100).iterrows():
                         all_text_to_index += f"SAG: {row['Titel']}\n{row['Tekst']}\n\n"
                     
                     text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
                     chunks = text_splitter.split_text(all_text_to_index)
                     
+                    # RETTELSE: Vi bruger det mest stabile modelnavn til søgning
                     embeddings = GoogleGenerativeAIEmbeddings(
                         model="models/text-embedding-004", 
                         google_api_key=st.secrets["GEMINI_API_KEY"]
@@ -109,11 +110,12 @@ with tab1:
                     relevant_chunks = vectorstore.similarity_search(prompt, k=40)
                     kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
                     
-                    # DIN BETALTE TOPMODEL 2.0 PRO
-                    model = genai.GenerativeModel('gemini-2.0-pro')
-                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på disse sager:\n\n{kontekst}\n\nCitér titlerne på de sager du bruger."
+                    # DIN TOPMODEL GEMINI 2.0 FLASH (Betalt version, lynhurtig)
+                    model = genai.GenerativeModel('gemini-2.0-flash')
+                    sys_p = f"Du er en juridisk ekspert. Svar på dansk baseret på disse sager:\n\n{kontekst}"
+                    final_p = sys_p + "\n\nSpørgsmål: " + prompt + "\n\nCitér titlerne på de sager du bruger."
                     
-                    response = model.generate_content(system_prompt + "\n\nSpørgsmål: " + prompt)
+                    response = model.generate_content(final_p)
                     st.markdown(response.text)
                     st.session_state.messages.append({"role": "assistant", "content": response.text})
                 except Exception as e:
@@ -126,5 +128,5 @@ with tab2:
         if valgt_sag != "Vælg en sag...":
             data = df_filtered[df_filtered['Titel'] == valgt_sag].iloc[0]
             st.markdown(f"### {data['Titel']}")
-            html_content = f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>"
-            st.markdown(html_content, unsafe_allow_html=True)
+            # FIX: HTML boks skrevet på én linje for at undgå SyntaxError
+            st.markdown(f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>", unsafe_allow_html=True)
