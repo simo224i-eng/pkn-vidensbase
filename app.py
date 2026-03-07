@@ -35,7 +35,7 @@ st.sidebar.title("🔍 Plan-Filter")
 
 fritekst_soegning = st.sidebar.text_input("Søg specifikt efter emne:", "")
 
-# Her er alle 5 kategorier samlet ét sted
+# Samlet liste med alle dine kategorier
 type_valg = st.sidebar.multiselect(
     "Afgørelsestype:", 
     ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Screeningsafgørelse", "Miljørapport"], 
@@ -45,7 +45,7 @@ type_valg = st.sidebar.multiselect(
 sags_fokus = st.sidebar.radio("Sagsgruppe:", ["Realitetsbehandling (Jura)", "Afvisninger", "Genoptagelser", "Alt"])
 udfald_medhold = st.sidebar.toggle("Vis kun sager med MEDHOLD")
 
-# --- ANVEND FILTRE (DENNE DEL ER NU SUPER SKARP) ---
+# --- ANVEND FILTRE ---
 df_filtered = df_raw.copy()
 
 if fritekst_soegning:
@@ -60,7 +60,6 @@ if type_valg:
         elif t == "Miljørapport":
             maske |= df_filtered['Titel'].str.contains("med tilhørende miljørapport", case=False, na=False)
         else:
-            # Plan-typerne (Lokalplan osv) kræver 'endelige vedtagelse' og må IKKE være 'Dispensation'
             type_mask = df_filtered['Titel'].str.contains(t, case=False, na=False)
             type_mask &= df_filtered['Titel'].str.contains('endelige vedtagelse', case=False, na=False)
             type_mask &= ~df_filtered['Titel'].str.contains('Dispensation', case=False, na=False)
@@ -92,7 +91,6 @@ with tab1:
         with st.chat_message("assistant"):
             with st.spinner("Gennemsøger praksis (RAG)..."):
                 try:
-                    # Saml tekst fra de filtrerede sager (maks 100 for at undgå fejl)
                     all_text_to_index = ""
                     for _, row in df_filtered.head(100).iterrows():
                         all_text_to_index += f"SAG: {row['Titel']}\n{row['Tekst']}\n\n"
@@ -100,9 +98,9 @@ with tab1:
                     text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
                     chunks = text_splitter.split_text(all_text_to_index)
                     
-                    # RETTELSE: Vi bruger det mest stabile modelnavn til søgning
+                    # FIX: Vi fjerner 'models/' præfikset her for at stoppe 404-fejlen
                     embeddings = GoogleGenerativeAIEmbeddings(
-                        model="models/text-embedding-004", 
+                        model="text-embedding-004", 
                         google_api_key=st.secrets["GEMINI_API_KEY"]
                     )
                     vectorstore = FAISS.from_texts(chunks, embeddings)
@@ -110,10 +108,10 @@ with tab1:
                     relevant_chunks = vectorstore.similarity_search(prompt, k=40)
                     kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
                     
-                    # DIN TOPMODEL GEMINI 2.0 FLASH (Betalt version, lynhurtig)
+                    # DIN TOPMODEL GEMINI 2.0 FLASH
                     model = genai.GenerativeModel('gemini-2.0-flash')
-                    sys_p = f"Du er en juridisk ekspert. Svar på dansk baseret på disse sager:\n\n{kontekst}"
-                    final_p = sys_p + "\n\nSpørgsmål: " + prompt + "\n\nCitér titlerne på de sager du bruger."
+                    sys_p = "Du er en juridisk ekspert. Svar på dansk baseret på disse sager:\n\n" + kontekst
+                    final_p = sys_p + "\n\nSpørgsmål: " + prompt
                     
                     response = model.generate_content(final_p)
                     st.markdown(response.text)
@@ -128,5 +126,5 @@ with tab2:
         if valgt_sag != "Vælg en sag...":
             data = df_filtered[df_filtered['Titel'] == valgt_sag].iloc[0]
             st.markdown(f"### {data['Titel']}")
-            # FIX: HTML boks skrevet på én linje for at undgå SyntaxError
+            # FIX: HTML boks skrevet ultra-simpelt for at undgå SyntaxError
             st.markdown(f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>", unsafe_allow_html=True)
