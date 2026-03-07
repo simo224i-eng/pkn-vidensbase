@@ -38,7 +38,7 @@ df_raw = load_data()
 @st.cache_resource
 def get_embedding_model():
     from langchain_community.embeddings import HuggingFaceEmbeddings
-    emb = HuggingFaceEmbeddings(model_name="paraphrase-multilingual-MiniLM-L12-v2")
+    emb = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     return emb
 
 # --- 4. SIDEBAR: FILTRE (TRAGTEN) ---
