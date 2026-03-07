@@ -38,7 +38,6 @@ type_valg = st.sidebar.multiselect("Afgørelsestype:", ["Lokalplan", "Kommunepla
 sags_fokus = st.sidebar.radio("Sagsgruppe:", ["Realitetsbehandling (Jura)", "Afvisninger", "Genoptagelser", "Alt"])
 udfald_medhold = st.sidebar.toggle("Vis kun sager med MEDHOLD")
 
-# ANVEND FILTRE
 df_filtered = df_raw.copy()
 
 if fritekst_soegning:
@@ -72,11 +71,39 @@ with tab1:
         with st.chat_message("assistant"):
             with st.spinner("Genemsøger praksis (RAG)..."):
                 try:
-                    # RAG LOGIK: Saml tekst fra de filtrerede sager
+                    # RAG LOGIK: Saml tekst fra de filtrerede sager (head 200 for hastighed)
                     all_text_to_index = ""
-                    # Vi tager de 200 nyeste for at sikre hastighed og relevans
                     for _, row in df_filtered.head(200).iterrows():
                         all_text_to_index += f"SAG: {row['Titel']}\n{row['Tekst']}\n\n"
                     
-                    # 1. Chunking (Smart-Saks)
-                    text_splitter = RecursiveCharacter
+                    # 1. Chunking
+                    text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
+                    chunks = text_splitter.split_text(all_text_to_index)
+                    
+                    # 2. Embeddings & Søgning (FIXET: Modelnavn og parentes)
+                    embeddings = GoogleGenerativeAIEmbeddings(model="text-embedding-004", google_api_key=st.secrets["GEMINI_API_KEY"])
+                    vectorstore = FAISS.from_texts(chunks, embeddings)
+                    
+                    # 3. Hent de 60 vigtigste bidder
+                    relevant_chunks = vectorstore.similarity_search(prompt, k=60)
+                    kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
+                    
+                    # 4. Generer svar
+                    model = genai.GenerativeModel('gemini-1.5-pro')
+                    system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på disse uddrag fra Planklagenævnet:\n\n{kontekst}\n\nDa retlige regler ofte står ordret, skal du prioritere præcise formuleringer. Citér titlerne på de sager, du bruger."
+                    
+                    response = model.generate_content(system_prompt + "\n\nSpørgsmål: " + prompt)
+                    st.markdown(response.text)
+                    st.session_state.messages.append({"role": "assistant", "content": response.text})
+                except Exception as e:
+                    st.error(f"Fejl i RAG: {e}")
+
+# --- FANE 2: DOKUMENT LÆSER ---
+with tab2:
+    if not df_filtered.empty:
+        sag_titler = ["Vælg en sag..."] + df_filtered['Titel'].tolist()
+        valgt_sag = st.selectbox("Læs sag:", sag_titler)
+        if valgt_sag != "Vælg en sag...":
+            data = df_filtered[df_filtered['Titel'] == valgt_sag].iloc[0]
+            st.markdown(f"### {data['Titel']}")
+            st.markdown(f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>", unsafe_allow_html=True)
