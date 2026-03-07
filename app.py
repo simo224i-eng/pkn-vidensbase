@@ -34,40 +34,46 @@ df_raw = load_data()
 st.sidebar.title("🔍 Plan-Filter")
 
 fritekst_soegning = st.sidebar.text_input("Søg specifikt efter emne:", "")
-type_valg = st.sidebar.multiselect("Afgørelsestype:", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan"], default=["Lokalplan"])
+
+# Her er Screeningsafgørelse nu en del af grupperne
+type_valg = st.sidebar.multiselect(
+    "Afgørelsestype:", 
+    ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Screeningsafgørelse"], 
+    default=["Lokalplan"]
+)
+
 sags_fokus = st.sidebar.radio("Sagsgruppe:", ["Realitetsbehandling (Jura)", "Afvisninger", "Genoptagelser", "Alt"])
 
 st.sidebar.markdown("---")
-# NYE FILTRE
-vis_screening = st.sidebar.toggle("Kun screeningsafgørelser")
 vis_miljoe = st.sidebar.toggle("Kun sager med Miljørapport")
 udfald_medhold = st.sidebar.toggle("Vis kun sager med MEDHOLD")
 
-# ANVEND FILTRE
+# --- ANVEND FILTRE ---
 df_filtered = df_raw.copy()
 
 if fritekst_soegning:
     df_filtered = df_filtered[df_filtered['Tekst'].str.contains(fritekst_soegning, case=False, na=False)]
 
 if type_valg:
-    pattern = '|'.join(type_valg)
-    df_filtered = df_filtered[df_filtered['Titel'].str.contains(pattern, case=False, na=False)]
-    # Behold kun de endelige vedtagelser og fjern dispensationer for renhed
-    df_filtered = df_filtered[df_filtered['Titel'].str.contains('endelige vedtagelse', case=False, na=False)]
-    df_filtered = df_filtered[~df_filtered['Titel'].str.contains('Dispensation', case=False, na=False)]
+    mask = pd.Series(False, index=df_filtered.index)
+    for t in type_valg:
+        if t == "Screeningsafgørelse":
+            mask |= df_filtered['Titel'].str.contains("screeningsafgørelse om, at", case=False, na=False)
+        else:
+            # De tre standardtyper kræver 'endelige vedtagelse' og ingen 'Dispensation'
+            type_mask = df_filtered['Titel'].str.contains(t, case=False, na=False)
+            type_mask &= df_filtered['Titel'].str.contains('endelige vedtagelse', case=False, na=False)
+            type_mask &= ~df_filtered['Titel'].str.contains('Dispensation', case=False, na=False)
+            mask |= type_mask
+    df_filtered = df_filtered[mask]
 
 if sags_fokus == "Realitetsbehandling (Jura)":
     df_filtered = df_filtered[~df_filtered['Titel'].str.contains("Afvisning|Genoptagelse|Dispensation", case=False, na=False)]
-
-# LOGIK FOR NYE FILTRE
-if vis_screening:
-    df_filtered = df_filtered[df_filtered['Titel'].str.contains("screeningsafgørelse om, at", case=False, na=False)]
 
 if vis_miljoe:
     df_filtered = df_filtered[df_filtered['Titel'].str.contains("med tilhørende miljørapport", case=False, na=False)]
 
 if udfald_medhold:
-    # Her antager vi at du har en kolonne eller logik til medhold
     df_filtered = df_filtered[df_filtered['Tekst'].str.contains("ophæver|hjemviser", case=False, na=False)]
 
 st.sidebar.success(f"Viser {len(df_filtered)} afgørelser efter filtrering.")
@@ -96,7 +102,6 @@ with tab1:
                     text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
                     chunks = text_splitter.split_text(all_text_to_index)
                     
-                    # Rigtig model-string til LangChain Google GenAI
                     embeddings = GoogleGenerativeAIEmbeddings(
                         model="models/text-embedding-004", 
                         google_api_key=st.secrets["GEMINI_API_KEY"]
@@ -106,7 +111,7 @@ with tab1:
                     relevant_chunks = vectorstore.similarity_search(prompt, k=40)
                     kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
                     
-                    # HER BRUGER VI DIN TOPMODEL 2.0 PRO
+                    # DIN BETALTE TOPMODEL 2.0 PRO
                     model = genai.GenerativeModel('gemini-2.0-pro')
                     system_prompt = f"Du er en juridisk ekspert. Svar på dansk baseret på disse sager:\n\n{kontekst}\n\nCitér titlerne på de sager du bruger."
                     
@@ -123,6 +128,6 @@ with tab2:
         if valgt_sag != "Vælg en sag...":
             data = df_filtered[df_filtered['Titel'] == valgt_sag].iloc[0]
             st.markdown(f"### {data['Titel']}")
-            # FIXET: Robust HTML boks på én linje for at undgå SyntaxError
-            html_box = f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>"
-            st.markdown(html_box, unsafe_allow_html=True)
+            # HTML boks skrevet robust for at undgå SyntaxError
+            html_content = f"<div style='height: 600px; overflow-y: scroll;'>{data['Tekst']}</div>"
+            st.markdown(html_content, unsafe_allow_html=True)
