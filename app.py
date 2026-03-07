@@ -1,13 +1,11 @@
 import streamlit as st
 import pandas as pd
 import os
-import requests
 import google.generativeai as genai
 
 # RAG Biblioteker
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_core.embeddings import Embeddings
 
 # --- 1. KONFIGURATION & DESIGN ---
 st.set_page_config(page_title="🏛️ PKN VIDENSBASE", layout="wide", initial_sidebar_state="expanded")
@@ -36,40 +34,12 @@ def load_data():
 
 df_raw = load_data()
 
-# --- 3. EMBEDDING MODEL (direkte REST API v1 - omgår SDK's v1beta) ---
-def _embed_via_rest(text: str, model: str, api_key: str) -> list:
-    # Prøv v1beta (hvor Gemini embedding-modeller faktisk bor)
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:embedContent"
-    body = {"model": f"models/{model}", "content": {"parts": [{"text": text}]}}
-    r = requests.post(url, json=body, params={"key": api_key}, timeout=30)
-    if r.status_code == 404:
-        # Fallback til v1
-        url = f"https://generativelanguage.googleapis.com/v1/models/{model}:embedContent"
-        r = requests.post(url, json=body, params={"key": api_key}, timeout=30)
-    r.raise_for_status()
-    return r.json()["embedding"]["values"]
-
-class GeminiEmbeddings(Embeddings):
-    def __init__(self, model="text-embedding-004"):
-        self.model = model
-
-    def embed_documents(self, texts):
-        return [_embed_via_rest(t, self.model, GEMINI_API_KEY) for t in texts]
-
-    def embed_query(self, text):
-        return _embed_via_rest(text, self.model, GEMINI_API_KEY)
-
+# --- 3. EMBEDDING MODEL (lokal sentence-transformers, ingen API-kald) ---
 @st.cache_resource
 def get_embedding_model():
-    errors = []
-    for model_name in ["text-embedding-004", "embedding-001"]:
-        try:
-            emb = GeminiEmbeddings(model=model_name)
-            emb.embed_query("test")
-            return emb, model_name, None
-        except Exception as e:
-            errors.append(f"{model_name}: {e}")
-    return None, None, " | ".join(errors)
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+    emb = HuggingFaceEmbeddings(model_name="paraphrase-multilingual-MiniLM-L12-v2")
+    return emb
 
 # --- 4. SIDEBAR: FILTRE (TRAGTEN) ---
 st.sidebar.title("🔍 Plan-Filter")
@@ -176,10 +146,7 @@ with tab1:
                         )
                         chunks = text_splitter.split_text(all_text_to_index)
 
-                        embeddings, model_used, emb_error = get_embedding_model()
-                        if embeddings is None:
-                            st.error(f"Embedding fejl: {emb_error}")
-                            st.stop()
+                        embeddings = get_embedding_model()
 
                         vectorstore = FAISS.from_texts(chunks, embeddings)
 
