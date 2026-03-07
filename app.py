@@ -62,14 +62,16 @@ class GeminiEmbeddings(Embeddings):
 
 @st.cache_resource
 def get_embedding_model():
+    errors = []
     for model_name in ["models/text-embedding-004", "models/embedding-001"]:
         try:
             emb = GeminiEmbeddings(model=model_name)
             emb.embed_query("test")
-            return emb, model_name
-        except Exception:
+            return emb, model_name, None
+        except Exception as e:
+            errors.append(f"{model_name}: {e}")
             continue
-    return None, None
+    return None, None, " | ".join(errors)
 
 # --- 4. SIDEBAR: FILTRE (TRAGTEN) ---
 st.sidebar.title("🔍 Plan-Filter")
@@ -193,9 +195,9 @@ with tab1:
                         chunks = text_splitter.split_text(all_text_to_index)
 
                         # 2. Embeddings & Søgning
-                        embeddings, model_used = get_embedding_model()
+                        embeddings, model_used, emb_error = get_embedding_model()
                         if embeddings is None:
-                            st.error("Kunne ikke initialisere embedding-model. Tjek din API-nøgle.")
+                            st.error(f"Kunne ikke initialisere embedding-model: {emb_error}")
                             st.stop()
 
                         vectorstore = FAISS.from_texts(chunks, embeddings)
