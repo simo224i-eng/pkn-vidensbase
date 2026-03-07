@@ -100,6 +100,10 @@ BADGE = {"Medhold": "badge-medhold", "Afslag": "badge-afslag",
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…")
 def load_data():
+    import os, zipfile
+    if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
+        with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
+            z.extractall(".")
     csv.field_size_limit(10_000_000)
     rows = []
     with open("pkn_vidensbase_fuld_tekst.csv", newline="", encoding="utf-8") as f:
