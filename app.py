@@ -6,7 +6,7 @@ import os
 # RAG Biblioteker
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain.schema.embeddings import Embeddings
+from langchain_core.embeddings import Embeddings
 
 # --- 1. KONFIGURATION & DESIGN ---
 st.set_page_config(page_title="🏛️ PKN VIDENSBASE", layout="wide", initial_sidebar_state="expanded")
