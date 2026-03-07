@@ -21,7 +21,7 @@ if "messages" not in st.session_state:
 def load_data():
     # Sørg for at filnavnet matcher din rigtige fil
     if os.path.exists('pkn_vidensbase_fuld_tekst.csv'):
-        df = pd.read_csv('pkn_vidensbase_fuld_tekst.csv')
+        df = pd.read_csv('pkn_vidensbase_fuld_tekst.csv.zip', compression='zip')
         df['Dato'] = pd.to_datetime(df['Dato'], errors='coerce').dt.date
         return df.sort_values(by='Dato', ascending=False)
     # Mock data hvis filen ikke findes endnu
@@ -147,7 +147,7 @@ with chat_col:
         with st.chat_message("assistant"):
             with st.spinner("Gennemgår praksis..."):
                 try:
-                    model = genai.GenerativeModel('gemini-1.5-flash')
+                    model = genai.GenerativeModel('gemini-3.1-pro-preview')
                     response = model.generate_content(system_prompt + "\n\nSpørgsmål: " + prompt)
                     st.markdown(response.text)
                     st.session_state.messages.append({"role": "assistant", "content": response.text})
