@@ -1,9 +1,10 @@
 streamlit
 pandas
-google-genai
+google-generativeai
 langchain
 langchain-core
 langchain-community
 langchain-text-splitters
 faiss-cpu
 sentence-transformers
+requests
