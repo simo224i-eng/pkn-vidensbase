@@ -48,8 +48,38 @@ st.markdown("""
 # ── API ───────────────────────────────────────────────────────────────────────
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
 
+_GEMINI_MODELS = [
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-latest",
+    "gemini-pro",
+    "gemini-1.0-pro",
+]
+
+def _find_working_model():
+    """Prøv flere modeller og returner den første der virker."""
+    body = {"contents": [{"parts": [{"text": "test"}]}]}
+    for model in _GEMINI_MODELS:
+        for ver in ["v1beta", "v1"]:
+            url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent"
+            try:
+                r = requests.post(url, json=body, params={"key": GEMINI_API_KEY}, timeout=15)
+                if r.status_code == 200:
+                    return ver, model
+            except Exception:
+                pass
+    return None, None
+
+@st.cache_data(show_spinner="Finder Gemini-model…")
+def _get_gemini_config():
+    ver, model = _find_working_model()
+    return ver, model
+
 def _gemini(prompt: str) -> str:
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+    ver, model = _get_gemini_config()
+    if not model:
+        return "Kunne ikke finde en tilgængelig Gemini-model. Tjek din API-nøgle."
+    url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent"
     body = {"contents": [{"parts": [{"text": prompt}]}]}
     r = requests.post(url, json=body, params={"key": GEMINI_API_KEY}, timeout=60)
     r.raise_for_status()
