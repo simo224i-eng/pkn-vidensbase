@@ -46,44 +46,23 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── API ───────────────────────────────────────────────────────────────────────
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", "")
 
-_GEMINI_MODELS = [
-    "gemini-2.0-flash",
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-pro",
-    "gemini-1.0-pro",
-]
-
-def _find_working_model():
-    """Prøv flere modeller og returner den første der virker."""
-    body = {"contents": [{"parts": [{"text": "test"}]}]}
-    for model in _GEMINI_MODELS:
-        for ver in ["v1beta", "v1"]:
-            url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent"
-            try:
-                r = requests.post(url, json=body, params={"key": GEMINI_API_KEY}, timeout=15)
-                if r.status_code == 200:
-                    return ver, model
-            except Exception:
-                pass
-    return None, None
-
-@st.cache_data(show_spinner="Finder Gemini-model…")
-def _get_gemini_config():
-    ver, model = _find_working_model()
-    return ver, model
-
-def _gemini(prompt: str) -> str:
-    ver, model = _get_gemini_config()
-    if not model:
-        return "Kunne ikke finde en tilgængelig Gemini-model. Tjek din API-nøgle."
-    url = f"https://generativelanguage.googleapis.com/{ver}/models/{model}:generateContent"
-    body = {"contents": [{"parts": [{"text": prompt}]}]}
-    r = requests.post(url, json=body, params={"key": GEMINI_API_KEY}, timeout=60)
+def _llm(prompt: str) -> str:
+    if not OPENAI_API_KEY:
+        return "Tilføj OPENAI_API_KEY i Streamlit secrets."
+    r = requests.post(
+        "https://api.openai.com/v1/chat/completions",
+        headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
+        json={
+            "model": "gpt-4o-mini",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.3,
+        },
+        timeout=60,
+    )
     r.raise_for_status()
-    return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+    return r.json()["choices"][0]["message"]["content"]
 
 # ── Hjælpefunktioner ──────────────────────────────────────────────────────────
 def strip_html(text: str) -> str:
@@ -203,8 +182,8 @@ def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30):
 
 
 def gemini_svar(spørgsmål: str, docs: list) -> str:
-    if not GEMINI_API_KEY:
-        return "Ingen Gemini API-nøgle fundet. Tilføj GEMINI_API_KEY i Streamlit secrets."
+    if not OPENAI_API_KEY:
+        return "Tilføj OPENAI_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
         f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:1200]}"
         for i, d in enumerate(docs)
@@ -220,11 +199,11 @@ AFGØRELSER:
 {kontekst}
 
 SVAR:"""
-    return _gemini(prompt)
+    return _llm(prompt)
 
 
 def gemini_resumé(titel: str, tekst: str) -> str:
-    if not GEMINI_API_KEY:
+    if not OPENAI_API_KEY:
         return "Ingen API-nøgle."
     prompt = f"""Lav et kort, struktureret resumé af denne PKN-afgørelse på dansk.
 Inkluder: Sagens kerne, Klagenævnets vurdering, Resultat. Max 200 ord.
@@ -233,7 +212,7 @@ TITEL: {titel}
 TEKST: {tekst[:3000]}
 
 RESUMÉ:"""
-    return _gemini(prompt)
+    return _llm(prompt)
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
@@ -306,7 +285,7 @@ with tab_søg:
                 st.markdown(row["Tekst"])
         with col_ai:
             st.markdown("### ✨ AI-resumé")
-            if st.button("Generer resumé med Gemini"):
+            if st.button("Generer AI-resumé"):
                 with st.spinner("Resumerer…"):
                     try:
                         st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
@@ -432,8 +411,8 @@ with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
     st.markdown("AI'en søger i alle **4.780 afgørelser** og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
 
-    if not GEMINI_API_KEY:
-        st.error("Tilføj `GEMINI_API_KEY` i Streamlit secrets.")
+    if not OPENAI_API_KEY:
+        st.error("Tilføj `OPENAI_API_KEY` i Streamlit secrets.")
     else:
         # Forslagsknapper
         forslag = [
