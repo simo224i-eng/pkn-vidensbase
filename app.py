@@ -38,9 +38,14 @@ df_raw = load_data()
 
 # --- 3. EMBEDDING MODEL (direkte REST API v1 - omgår SDK's v1beta) ---
 def _embed_via_rest(text: str, model: str, api_key: str) -> list:
-    url = f"https://generativelanguage.googleapis.com/v1/models/{model}:embedContent"
+    # Prøv v1beta (hvor Gemini embedding-modeller faktisk bor)
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:embedContent"
     body = {"model": f"models/{model}", "content": {"parts": [{"text": text}]}}
     r = requests.post(url, json=body, params={"key": api_key}, timeout=30)
+    if r.status_code == 404:
+        # Fallback til v1
+        url = f"https://generativelanguage.googleapis.com/v1/models/{model}:embedContent"
+        r = requests.post(url, json=body, params={"key": api_key}, timeout=30)
     r.raise_for_status()
     return r.json()["embedding"]["values"]
 
