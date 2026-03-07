@@ -63,30 +63,4 @@ with tab1:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("Spørg ind til praksis..."):
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        
-        with st.chat_message("assistant"):
-            with st.spinner("Genemsøger praksis (RAG)..."):
-                try:
-                    # 1. Saml tekst fra de filtrerede sager (begræns til 200 for hastighed)
-                    all_text_to_index = ""
-                    for _, row in df_filtered.head(200).iterrows():
-                        all_text_to_index += f"SAG: {row['Titel']}\n{row['Tekst']}\n\n"
-                    
-                    # 2. Chunking (Smart-Saks)
-                    text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=400)
-                    chunks = text_splitter.split_text(all_text_to_index)
-                    
-                    # 3. Embeddings (FIXET: Navnet tilpasses Googles krav)
-                    embeddings = GoogleGenerativeAIEmbeddings(
-                        model="text-embedding-004", 
-                        google_api_key=st.secrets["GEMINI_API_KEY"]
-                    )
-                    vectorstore = FAISS.from_texts(chunks, embeddings)
-                    
-                    # 4. Hent de 60 vigtigste bidder og svar
-                    relevant_chunks = vectorstore.similarity_search(prompt, k=60)
-                    kontekst = "\n---\n".join([c.page_content for c in relevant_chunks])
+    if prompt :=
