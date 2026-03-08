@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import requests
 
 st.set_page_config(
-    page_title="PKN Indsigt",
+    page_title="Harald – PKN Vidensbase",
     page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -16,33 +16,88 @@ st.set_page_config(
 
 # ── Styling ──────────────────────────────────────────────────────────────────
 st.markdown("""
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-[data-testid="stAppViewContainer"] { background: #f8f9fb; }
-[data-testid="stSidebar"] { background: #1a1f36; }
-[data-testid="stSidebar"] * { color: #e0e4f0 !important; }
-[data-testid="stSidebar"] .stTextInput input { background: #2a2f4a !important; border-color: #3a3f5a !important; }
+/* ── Base ── */
+[data-testid="stAppViewContainer"] { background: #f0f4f9; font-family: 'Inter', system-ui, sans-serif; }
+[data-testid="stMain"] .block-container { padding-top: 1.8rem; }
 
-.pkn-card {
-    background: white; border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
-    border-left: 4px solid #4f6ef7; box-shadow: 0 1px 4px rgba(0,0,0,.07);
+/* ── Sidebar ── */
+[data-testid="stSidebar"] { background: #0c1a32 !important; border-right: 1px solid #1c3058; }
+[data-testid="stSidebar"] * { color: #b8c9e0 !important; font-family: 'Inter', sans-serif !important; }
+[data-testid="stSidebar"] .stTextInput input {
+    background: #142241 !important; border: 1px solid #244070 !important;
+    color: #dce6f5 !important; border-radius: 6px !important;
 }
-.pkn-card-title { font-size: 15px; font-weight: 600; color: #1a1f36; margin: 4px 0 8px; }
-.pkn-card-meta  { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
-.pkn-card-excerpt { font-size: 13px; color: #374151; line-height: 1.5; }
-.pkn-badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-right: 6px; }
-.badge-medhold { background: #d1fae5; color: #065f46; }
+[data-testid="stSidebar"] [data-baseweb="select"] > div { background: #142241 !important; border-color: #244070 !important; }
+[data-testid="stSidebar"] hr { border-color: #1c3058 !important; }
+[data-testid="stSidebar"] .stSlider [data-testid="stThumbValue"] { color: #c49a3c !important; }
+[data-testid="stSidebar"] .stSlider [role="slider"] { background: #c49a3c !important; }
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #c49a3c !important; }
+
+/* ── Sidebar branding ── */
+.h-brand-wrap { text-align: center; padding: 1.6rem 0 1.4rem; border-bottom: 1px solid #1c3058; margin-bottom: 1.4rem; }
+.h-shield { font-size: 36px; display: block; margin-bottom: 6px; filter: drop-shadow(0 0 6px rgba(196,154,60,.35)); }
+.h-brand  { font-family: 'Cinzel', Georgia, serif !important; font-size: 26px; font-weight: 900;
+            letter-spacing: 7px; color: #c49a3c !important; display: block; }
+.h-sub    { font-size: 10px; color: #5a7a9e !important; letter-spacing: 2px;
+            text-transform: uppercase; margin-top: 5px; display: block; }
+
+/* ── Sidebar section labels ── */
+.h-filter-label { font-size: 10px !important; font-weight: 700 !important; color: #c49a3c !important;
+                  text-transform: uppercase; letter-spacing: 2px; margin: 1.2rem 0 0.3rem;
+                  display: block; }
+
+/* ── Page header ── */
+.h-page-header { margin-bottom: 1.6rem; padding-bottom: 1rem; border-bottom: 2px solid #dce4ef; }
+.h-page-title  { font-family: 'Cinzel', Georgia, serif; font-size: 1.9rem; font-weight: 900;
+                 color: #0c1a32; letter-spacing: 5px; margin: 0 0 4px; }
+.h-page-meta   { font-size: 13px; color: #7a8faa; margin: 0; }
+.h-gold-line   { height: 3px; width: 48px; background: linear-gradient(90deg,#c49a3c,#e8c97a);
+                 border-radius: 2px; margin: 6px 0; }
+
+/* ── Cards ── */
+.pkn-card {
+    background: #ffffff; border-radius: 8px; padding: 16px 20px; margin-bottom: 10px;
+    border-left: 4px solid #c49a3c;
+    box-shadow: 0 1px 6px rgba(12,26,50,.07), 0 0 0 1px rgba(12,26,50,.04);
+    transition: box-shadow .15s, transform .15s;
+}
+.pkn-card:hover { box-shadow: 0 4px 18px rgba(12,26,50,.12), 0 0 0 1px rgba(196,154,60,.2); }
+.pkn-card-title   { font-size: 14.5px; font-weight: 600; color: #0c1a32; margin: 5px 0 8px; line-height: 1.45; }
+.pkn-card-meta    { font-size: 11.5px; color: #8a9db8; margin-bottom: 7px; }
+.pkn-card-excerpt { font-size: 13px; color: #3d5070; line-height: 1.55; }
+
+/* ── Badges ── */
+.pkn-badge { display: inline-block; padding: 2px 9px; border-radius: 4px;
+             font-size: 10.5px; font-weight: 700; margin-right: 5px; letter-spacing: .3px; }
+.badge-medhold      { background: #d1fae5; color: #065f46; }
 .badge-ikke-medhold { background: #fee2e2; color: #991b1b; }
-.badge-ugyldig { background: #ede9fe; color: #5b21b6; }
-.badge-afvist  { background: #fef3c7; color: #92400e; }
-.badge-ukendt  { background: #e5e7eb; color: #374151; }
+.badge-ugyldig      { background: #ede9fe; color: #5b21b6; }
+.badge-afvist       { background: #fef3c7; color: #92400e; }
+.badge-ukendt       { background: #e8ecf2; color: #4a5568; }
 
-.stat-card { background: white; border-radius: 12px; padding: 20px 24px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
-.stat-number { font-size: 36px; font-weight: 700; color: #4f6ef7; }
-.stat-label  { font-size: 13px; color: #6b7280; margin-top: 4px; }
+/* ── Stat cards ── */
+.stat-card   { background: #fff; border-radius: 8px; padding: 22px 20px; text-align: center;
+               box-shadow: 0 1px 6px rgba(12,26,50,.07); border-top: 3px solid #c49a3c; }
+.stat-number { font-family: 'Cinzel', Georgia, serif; font-size: 34px; font-weight: 700; color: #0c1a32; }
+.stat-label  { font-size: 11px; color: #8a9db8; margin-top: 6px;
+               text-transform: uppercase; letter-spacing: 1.2px; }
 
-.chat-user      { background: #4f6ef7; color: white; border-radius: 16px 16px 4px 16px; padding: 12px 16px; margin: 8px 0; max-width: 75%; margin-left: auto; }
-.chat-assistant { background: white; color: #1a1f36; border-radius: 16px 16px 16px 4px; padding: 12px 16px; margin: 8px 0; max-width: 85%; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-.source-chip { display: inline-block; padding: 3px 10px; border-radius: 20px; background: #eff2ff; color: #4f6ef7; font-size: 11px; margin: 3px; text-decoration: none; }
+/* ── Chat ── */
+.chat-user      { background: #1a3060; color: #fff; border-radius: 16px 16px 4px 16px;
+                  padding: 12px 16px; margin: 8px 0; max-width: 76%; margin-left: auto; }
+.chat-assistant { background: #fff; color: #0c1a32; border-radius: 16px 16px 16px 4px;
+                  padding: 12px 16px; margin: 8px 0; max-width: 86%;
+                  box-shadow: 0 1px 6px rgba(12,26,50,.08); border-left: 3px solid #c49a3c; }
+.source-chip    { display: inline-block; padding: 3px 10px; border-radius: 4px;
+                  background: #f0f4f9; color: #1a3060; font-size: 11px; margin: 3px;
+                  text-decoration: none; border: 1px solid #cfd8e8; }
+
+/* ── Tabs (cosmetic) ── */
+[data-testid="stTabs"] [role="tab"]          { font-size: 14px; font-weight: 500; color: #6b7f99; }
+[data-testid="stTabs"] [role="tab"][aria-selected="true"]
+    { color: #0c1a32 !important; border-bottom-color: #c49a3c !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -261,21 +316,35 @@ vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## ⚖️ PKN Indsigt")
-    st.caption("Planklagenævnets afgørelsesdatabase")
-    st.markdown("---")
+    st.markdown("""
+<div class="h-brand-wrap">
+  <span class="h-shield">⚖</span>
+  <span class="h-brand">HARALD</span>
+  <span class="h-sub">Planklagenævnets Vidensbase</span>
+</div>""", unsafe_allow_html=True)
 
-    søg_input   = st.text_input("🔍 Søg i afgørelser", placeholder="f.eks. terrasse lokalplan…")
-    valgte_kats    = st.multiselect("Kategori", sorted(df["Kategori"].unique()))
-    plantype_valg  = st.multiselect("Plantype", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"])
-    sagsgruppe_valg = st.multiselect("Sagsgruppe", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"])
+    st.markdown('<span class="h-filter-label">Søgning</span>', unsafe_allow_html=True)
+    søg_input   = st.text_input("", placeholder="f.eks. terrasse lokalplan…", label_visibility="collapsed")
+
+    st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
+    valgte_kats    = st.multiselect("", sorted(df["Kategori"].unique()), label_visibility="collapsed", key="kat")
+
+    st.markdown('<span class="h-filter-label">Plantype</span>', unsafe_allow_html=True)
+    plantype_valg  = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
+
+    st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
+    sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
+
+    st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
     år_min, år_max = int(df["År"].min()), int(df["År"].max())
-    år_range       = st.slider("Årsinterval", år_min, år_max, (år_min, år_max))
-    udfald_valg    = st.multiselect("Udfald", ["Medhold", "Ikke medhold", "Afgørelse ugyldig", "Afvist", "Ukendt"])
+    år_range       = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
+
+    st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
+    udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Afgørelse ugyldig", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
 
     st.markdown("---")
-    st.markdown(f"**{len(df):,}** afgørelser · {år_min}–{år_max}")
-    st.markdown(f"Opdateret: {df['Dato'].max().strftime('%d.%m.%Y')}")
+    st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; {år_min}–{år_max}</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='font-size:11px;color:#3d5878'>Opdateret {df['Dato'].max().strftime('%d.%m.%Y')}</span>", unsafe_allow_html=True)
 
 
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
@@ -343,10 +412,19 @@ with st.sidebar:
         )
 
 
+# ── Page header ───────────────────────────────────────────────────────────────
+st.markdown(f"""
+<div class="h-page-header">
+  <h1 class="h-page-title">HARALD</h1>
+  <div class="h-gold-line"></div>
+  <p class="h-page-meta">Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}</p>
+</div>
+""", unsafe_allow_html=True)
+
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 1 – AFGØRELSER
 # ════════════════════════════════════════════════════════════════════════════
-tab_søg, tab_stat, tab_ai = st.tabs(["🔍 Afgørelser", "📊 Statistik", "🤖 AI Assistent"])
+tab_søg, tab_stat, tab_ai = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  "])
 
 with tab_søg:
 
@@ -446,7 +524,7 @@ with tab_stat:
     with col_l:
         st.markdown("#### Afgørelser per år")
         år_df = d.groupby("År").size().reset_index(name="Antal")
-        fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#4f6ef7"])
+        fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#c49a3c"])
         fig.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -474,7 +552,7 @@ with tab_stat:
         kom_df = (d.dropna(subset=["Kommune"]).groupby("Kommune").size()
                    .reset_index(name="Sager").sort_values("Sager",ascending=True).tail(15))
         fig4 = px.bar(kom_df, x="Sager", y="Kommune", orientation="h",
-                      color_discrete_sequence=["#4f6ef7"])
+                      color_discrete_sequence=["#1a3060"])
         fig4.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
         st.plotly_chart(fig4, use_container_width=True)
 
