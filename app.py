@@ -229,23 +229,22 @@ def logo(w: int) -> str:
     return LOGO_IMG.replace("{w}", str(w))
 
 # ── API ───────────────────────────────────────────────────────────────────────
-OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", "")
+GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+_GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 def _llm(prompt: str) -> str:
-    if not OPENAI_API_KEY:
-        return "Tilføj OPENAI_API_KEY i Streamlit secrets."
+    if not GEMINI_API_KEY:
+        return "Tilføj GEMINI_API_KEY i Streamlit secrets (Settings → Secrets)."
     r = requests.post(
-        "https://api.openai.com/v1/chat/completions",
-        headers={"Authorization": f"Bearer {OPENAI_API_KEY}"},
+        f"{_GEMINI_URL}?key={GEMINI_API_KEY}",
         json={
-            "model": "gpt-4o-mini",
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.3,
+            "contents": [{"parts": [{"text": prompt}]}],
+            "generationConfig": {"temperature": 0.3, "maxOutputTokens": 2000},
         },
         timeout=60,
     )
     r.raise_for_status()
-    return r.json()["choices"][0]["message"]["content"]
+    return r.json()["candidates"][0]["content"]["parts"][0]["text"]
 
 # ── Hjælpefunktioner ──────────────────────────────────────────────────────────
 def strip_html(text: str) -> str:
@@ -400,8 +399,8 @@ def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30):
 
 
 def gemini_svar(spørgsmål: str, docs: list) -> str:
-    if not OPENAI_API_KEY:
-        return "Tilføj OPENAI_API_KEY i Streamlit secrets."
+    if not GEMINI_API_KEY:
+        return "Tilføj GEMINI_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
         f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:1200]}"
         for i, d in enumerate(docs)
@@ -421,7 +420,7 @@ SVAR:"""
 
 
 def gemini_resumé(titel: str, tekst: str) -> str:
-    if not OPENAI_API_KEY:
+    if not GEMINI_API_KEY:
         return "Ingen API-nøgle."
     prompt = f"""Lav et kort, struktureret resumé af denne PKN-afgørelse på dansk.
 Inkluder: Sagens kerne, Klagenævnets vurdering, Resultat. Max 200 ord.
@@ -712,8 +711,8 @@ with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
     st.markdown("AI'en søger i alle **4.780 afgørelser** og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
 
-    if not OPENAI_API_KEY:
-        st.error("Tilføj `OPENAI_API_KEY` i Streamlit secrets.")
+    if not GEMINI_API_KEY:
+        st.error("Tilføj `GEMINI_API_KEY` i Streamlit secrets.")
     else:
         # Forslagsknapper
         forslag = [
