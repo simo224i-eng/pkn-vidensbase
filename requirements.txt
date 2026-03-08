@@ -3,4 +3,3 @@ pandas
 scikit-learn
 plotly
 requests
-google-generativeai
