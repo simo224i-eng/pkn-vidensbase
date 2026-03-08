@@ -192,7 +192,7 @@ def logo(w: int) -> str:
 
 # ── API ───────────────────────────────────────────────────────────────────────
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
-_GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+_GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 def _llm(prompt: str) -> str:
     if not GEMINI_API_KEY:
