@@ -81,22 +81,34 @@ def strip_html(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def detect_plantype(titel: str) -> str:
+    t = titel.lower()
+    if "kommuneplantillæg" in t: return "Kommuneplantillæg"
+    if "kommuneplan" in t:       return "Kommuneplan"
+    if "lokalplan" in t:         return "Lokalplan"
+    return "Andet"
+
+
 def kategoriser(titel: str) -> str:
     t = titel.lower()
+    # Miljø-kategorier har højeste prioritet
+    if "screeningsafgørelse" in t or "screeningen" in t:
+        return "Screening"
+    if "miljøvurdering" in t or "miljørapport" in t or "vvm" in t:
+        return "Miljøvurdering"
     if "lokalplan" in t:
-        if "dispensation" in t:        return "Lokalplan – Dispensation"
-        if "overensstemmelse" in t:    return "Lokalplan – Overensstemmelse"
-        if "vedtagelse" in t:          return "Lokalplan – Vedtagelse"
-        return "Lokalplan – Andet"
+        if "dispensation" in t:        return "Dispensation"
+        if "overensstemmelse" in t:    return "Overensstemmelse"
+        if "vedtagelse" in t:          return "Vedtagelse"
+        return "Andet"
+    if "kommuneplantillæg" in t or "kommuneplan" in t:
+        if "vedtagelse" in t:          return "Vedtagelse"
+        return "Andet"
     if "landzone" in t:             return "Landzone"
     if "strandbeskyttelse" in t:    return "Strandbeskyttelse"
-    if "naturbeskyttelse" in t:     return "Naturbeskyttelse"
     if "skovloven" in t or " skov " in t: return "Skovloven"
-    if "kystzone" in t or "kystnær" in t: return "Kystbeskyttelse"
     if "fredning" in t:             return "Fredning"
-    if "miljøvurdering" in t or "vvm" in t: return "Miljøvurdering"
     if "opsættende virkning" in t:  return "Opsættende virkning"
-    if "afvisning" in t:            return "Afvisning"
     return "Andet"
 
 
@@ -169,6 +181,7 @@ def load_data():
     df["Dato"]     = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]       = df["Dato"].dt.year.astype("Int64")
     df["Kategori"]   = df["Titel"].apply(kategoriser)
+    df["Plantype"]   = df["Titel"].apply(detect_plantype)
     df["Udfald"]     = df.apply(lambda r: detect_udfald(r["Titel"], r.get("Tekst", "")), axis=1)
     df["Kommune"]    = df["Titel"].apply(extract_kommune)
     df["Sagsgruppe"] = df.apply(lambda r: detect_sagsgruppe(r["Titel"], r["Tekst"]), axis=1)
@@ -254,6 +267,7 @@ with st.sidebar:
 
     søg_input   = st.text_input("🔍 Søg i afgørelser", placeholder="f.eks. terrasse lokalplan…")
     valgte_kats    = st.multiselect("Kategori", sorted(df["Kategori"].unique()))
+    plantype_valg  = st.multiselect("Plantype", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"])
     sagsgruppe_valg = st.multiselect("Sagsgruppe", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"])
     år_min, år_max = int(df["År"].min()), int(df["År"].max())
     år_range       = st.slider("Årsinterval", år_min, år_max, (år_min, år_max))
@@ -266,6 +280,7 @@ with st.sidebar:
 # ── Filtrering ────────────────────────────────────────────────────────────────
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
 if valgte_kats:     mask &= df["Kategori"].isin(valgte_kats)
+if plantype_valg:   mask &= df["Plantype"].isin(plantype_valg)
 if sagsgruppe_valg: mask &= df["Sagsgruppe"].isin(sagsgruppe_valg)
 if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
