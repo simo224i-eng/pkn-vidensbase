@@ -117,7 +117,19 @@ try:
 except AttributeError:
     st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
-# ── Logo SVG (embedded – no file needed) ─────────────────────────────────────
+# ── Logo PNG ──────────────────────────────────────────────────────────────────
+import base64 as _b64, pathlib as _pl
+_LOGO_PATH = _pl.Path(__file__).parent / "logo.png"
+if _LOGO_PATH.exists():
+    _logo_b64 = _b64.b64encode(_LOGO_PATH.read_bytes()).decode()
+    LOGO_IMG = f'<img src="data:image/png;base64,{_logo_b64}" width="{{w}}" style="display:block;margin:0 auto"/>'
+else:
+    LOGO_IMG = ""
+
+def logo(w: int) -> str:
+    return LOGO_IMG.replace("{w}", str(w))
+
+# ── (legacy SVG kept for reference only) ──────────────────────────────────────
 LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 210">
   <defs>
     <linearGradient id="shG" x1="10%" y1="0%" x2="90%" y2="100%">
@@ -192,12 +204,6 @@ LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 210">
         stroke-linecap="round" stroke-linejoin="round"/>
 </svg>"""
 
-# Base64-encode so it works as <img src="data:..."> in st.markdown (Streamlit strips inline SVG)
-import base64 as _b64
-LOGO_IMG = f'<img src="data:image/svg+xml;base64,{_b64.b64encode(LOGO_SVG.encode()).decode()}" width="{{w}}" style="display:block;margin:0 auto"/>'
-
-def logo(w: int) -> str:
-    return LOGO_IMG.replace("{w}", str(w))
 
 # ── API ───────────────────────────────────────────────────────────────────────
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
