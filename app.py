@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 # ── Styling ──────────────────────────────────────────────────────────────────
-st.markdown("""
+_CSS_HTML = """
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Base ── */
@@ -99,7 +99,11 @@ st.markdown("""
 [data-testid="stTabs"] [role="tab"][aria-selected="true"]
     { color: #0c1a32 !important; border-bottom-color: #c49a3c !important; }
 </style>
-""", unsafe_allow_html=True)
+"""
+try:
+    st.html(_CSS_HTML)
+except AttributeError:
+    st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
 # ── API ───────────────────────────────────────────────────────────────────────
 OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", "")
