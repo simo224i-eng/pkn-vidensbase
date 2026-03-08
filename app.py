@@ -344,7 +344,7 @@ BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
-def load_data(version: int = 3):  # bump version to bust cache
+def load_data(version: int = 4):  # bump version to bust cache
     import os, zipfile
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
         with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
