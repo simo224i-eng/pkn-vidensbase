@@ -277,7 +277,7 @@ with st.sidebar:
     st.markdown(f"**{len(df):,}** afgørelser · {år_min}–{år_max}")
     st.markdown(f"Opdateret: {df['Dato'].max().strftime('%d.%m.%Y')}")
 
-# ── Filtrering ────────────────────────────────────────────────────────────────
+
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
 if valgte_kats:     mask &= df["Kategori"].isin(valgte_kats)
 if plantype_valg:   mask &= df["Plantype"].isin(plantype_valg)
@@ -290,6 +290,58 @@ if søg_input.strip():
     df_vis = tfidf_søg(søg_input, df, vec, mat, sub_idx=sub_idx, top_n=25)
 else:
     df_vis = df_filter.sort_values("Dato", ascending=False).head(25)
+
+
+def build_download_text(data: pd.DataFrame) -> str:
+    """Bygger en struktureret tekstfil med alle afgørelser – optimeret til LLM-upload."""
+    lines = [
+        "PLANKLAGENÆVNETS AFGØRELSER – EKSPORT",
+        f"Antal afgørelser: {len(data)}",
+        f"Genereret: {pd.Timestamp.now().strftime('%d.%m.%Y %H:%M')}",
+        "=" * 72,
+        "",
+    ]
+    for _, row in data.iterrows():
+        dato = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
+        lines += [
+            f"AFGØRELSE: {row['Titel']}",
+            f"DATO:       {dato}",
+            f"KATEGORI:   {row['Kategori']}  |  PLANTYPE: {row.get('Plantype', '–')}",
+            f"UDFALD:     {row['Udfald']}  |  SAGSGRUPPE: {row.get('Sagsgruppe', '–')}",
+            f"KOMMUNE:    {row['Kommune'] or '–'}",
+            f"KILDE:      {row['Link']}",
+            "-" * 72,
+            row["Tekst"].strip(),
+            "",
+            "=" * 72,
+            "",
+        ]
+    return "\n".join(lines)
+
+
+with st.sidebar:
+    n = len(df_filter)
+    st.markdown("---")
+    if n == 0:
+        st.caption("Ingen afgørelser matcher filtrene.")
+    elif n > 500:
+        st.caption(f"⚠️ {n:,} afgørelser valgt – filen kan blive stor.")
+        dl_bytes = build_download_text(df_filter).encode("utf-8")
+        st.download_button(
+            label=f"⬇️ Download alle {n:,} afgørelser (.txt)",
+            data=dl_bytes,
+            file_name="pkn_afgørelser.txt",
+            mime="text/plain",
+        )
+    else:
+        dl_bytes = build_download_text(df_filter).encode("utf-8")
+        st.download_button(
+            label=f"⬇️ Download {n:,} afgørelser (.txt)",
+            data=dl_bytes,
+            file_name="pkn_afgørelser.txt",
+            mime="text/plain",
+        )
+
 
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 1 – AFGØRELSER
