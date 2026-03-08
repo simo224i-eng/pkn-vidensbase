@@ -118,68 +118,78 @@ except AttributeError:
     st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
 # ── Logo SVG (embedded – no file needed) ─────────────────────────────────────
-LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 210">
   <defs>
-    <linearGradient id="shG" x1="20%" y1="0%" x2="80%" y2="100%">
-      <stop offset="0%" stop-color="#4a7fd4"/>
+    <linearGradient id="shG" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#5585d8"/>
       <stop offset="100%" stop-color="#1a3a8f"/>
     </linearGradient>
     <linearGradient id="cuG" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#c8885a"/>
-      <stop offset="100%" stop-color="#7a4a20"/>
+      <stop offset="100%" stop-color="#8b5020"/>
     </linearGradient>
+    <!-- Classic flat-top shield clip -->
     <clipPath id="shC">
-      <path d="M100,10 C70,10 28,24 28,62 L28,118 C28,164 100,206 100,206
-               C100,206 172,164 172,118 L172,62 C172,24 130,10 100,10 Z"/>
+      <path d="M36,14 L164,14 C174,14 176,24 176,50
+               L176,108 C176,152 100,194 100,194
+               C100,194 24,152 24,108 L24,50
+               C24,24 26,14 36,14 Z"/>
     </clipPath>
   </defs>
 
-  <!-- Shield fill (white) -->
-  <path d="M100,10 C70,10 28,24 28,62 L28,118 C28,164 100,206 100,206
-           C100,206 172,164 172,118 L172,62 C172,24 130,10 100,10 Z"
+  <!-- Shield white fill -->
+  <path d="M36,14 L164,14 C174,14 176,24 176,50
+           L176,108 C176,152 100,194 100,194
+           C100,194 24,152 24,108 L24,50
+           C24,24 26,14 36,14 Z"
         fill="white"/>
 
-  <!-- Copper S-curves (decorative background) -->
-  <path d="M72,36 C50,52 50,72 72,82 C94,92 94,118 72,134"
-        fill="none" stroke="url(#cuG)" stroke-width="9" stroke-linecap="round"
-        clip-path="url(#shC)" opacity="0.85"/>
-  <path d="M128,36 C150,52 150,72 128,82 C106,92 106,118 128,134"
-        fill="none" stroke="url(#cuG)" stroke-width="9" stroke-linecap="round"
-        clip-path="url(#shC)" opacity="0.85"/>
+  <!-- Copper S-curves (left side) -->
+  <path d="M76,28 C52,42 52,66 78,78 C104,90 104,116 78,132"
+        fill="none" stroke="url(#cuG)" stroke-width="10"
+        stroke-linecap="round" clip-path="url(#shC)" opacity="0.88"/>
+  <!-- Copper S-curves (right side, mirror) -->
+  <path d="M124,28 C148,42 148,66 122,78 C96,90 96,116 122,132"
+        fill="none" stroke="url(#cuG)" stroke-width="10"
+        stroke-linecap="round" clip-path="url(#shC)" opacity="0.88"/>
 
-  <!-- Shield border (blue gradient, outer) -->
-  <path d="M100,10 C70,10 28,24 28,62 L28,118 C28,164 100,206 100,206
-           C100,206 172,164 172,118 L172,62 C172,24 130,10 100,10 Z"
-        fill="none" stroke="url(#shG)" stroke-width="6"/>
+  <!-- Shield outer border (blue gradient) -->
+  <path d="M36,14 L164,14 C174,14 176,24 176,50
+           L176,108 C176,152 100,194 100,194
+           C100,194 24,152 24,108 L24,50
+           C24,24 26,14 36,14 Z"
+        fill="none" stroke="url(#shG)" stroke-width="7"/>
 
-  <!-- Shield inner border line -->
-  <path d="M100,22 C76,22 40,34 40,66 L40,116 C40,154 100,192 100,192
-           C100,192 160,154 160,116 L160,66 C160,34 124,22 100,22 Z"
-        fill="none" stroke="url(#shG)" stroke-width="2" opacity="0.4"/>
+  <!-- Shield inner border (subtle) -->
+  <path d="M44,24 L156,24 C163,24 165,32 165,54
+           L165,106 C165,144 100,182 100,182
+           C100,182 35,144 35,106 L35,54
+           C35,32 37,24 44,24 Z"
+        fill="none" stroke="url(#shG)" stroke-width="2" opacity="0.3"/>
 
-  <!-- Scales of Justice (blue, prominent) -->
-  <!-- Pivot dot -->
-  <circle cx="100" cy="58" r="5" fill="url(#shG)"/>
-  <!-- Centre post -->
-  <rect x="98" y="58" width="4" height="72" rx="2" fill="url(#shG)"/>
+  <!-- ── Scales of Justice (blue, large and centred) ── -->
+  <!-- Pivot circle -->
+  <circle cx="100" cy="55" r="5.5" fill="url(#shG)"/>
+  <!-- Vertical post -->
+  <rect x="97.5" y="55" width="5" height="72" rx="2.5" fill="url(#shG)"/>
   <!-- Base platform -->
-  <rect x="80" y="126" width="40" height="5" rx="2.5" fill="url(#shG)"/>
+  <rect x="77" y="123" width="46" height="5.5" rx="2.75" fill="url(#shG)"/>
   <!-- Horizontal beam -->
-  <rect x="44" y="72" width="112" height="5" rx="2.5" fill="url(#shG)"/>
-  <!-- Left chain -->
-  <line x1="60" y1="77" x2="54" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="60" y1="77" x2="70" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Right chain -->
-  <line x1="140" y1="77" x2="130" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="140" y1="77" x2="146" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Left pan -->
-  <path d="M46,100 Q62,120 78,100"
-        stroke="url(#shG)" stroke-width="3" fill="rgba(74,127,212,0.12)"
-        stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="40" y="68" width="120" height="5.5" rx="2.75" fill="url(#shG)"/>
+  <!-- Left V-chain -->
+  <line x1="56" y1="73.5" x2="47" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="56" y1="73.5" x2="70" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Right V-chain -->
+  <line x1="144" y1="73.5" x2="130" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="144" y1="73.5" x2="153" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Left pan (bowl arc) -->
+  <path d="M40,98 Q58,120 76,98"
+        stroke="url(#shG)" stroke-width="3.5" fill="rgba(74,127,212,0.15)"
+        stroke-linecap="round" stroke-linejoin="round"/>
   <!-- Right pan -->
-  <path d="M122,100 Q138,120 154,100"
-        stroke="url(#shG)" stroke-width="3" fill="rgba(74,127,212,0.12)"
-        stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M124,98 Q142,120 160,98"
+        stroke="url(#shG)" stroke-width="3.5" fill="rgba(74,127,212,0.15)"
+        stroke-linecap="round" stroke-linejoin="round"/>
 </svg>"""
 
 # Base64-encode so it works as <img src="data:..."> in st.markdown (Streamlit strips inline SVG)
