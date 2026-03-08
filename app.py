@@ -32,6 +32,7 @@ st.markdown("""
 .pkn-badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-right: 6px; }
 .badge-medhold { background: #d1fae5; color: #065f46; }
 .badge-afslag  { background: #fee2e2; color: #991b1b; }
+.badge-ugyldig { background: #ede9fe; color: #5b21b6; }
 .badge-afvist  { background: #fef3c7; color: #92400e; }
 .badge-ukendt  { background: #e5e7eb; color: #374151; }
 
@@ -101,9 +102,11 @@ def kategoriser(titel: str) -> str:
 
 def detect_udfald(titel: str) -> str:
     t = titel.lower()
-    if "medhold" in t:                                      return "Medhold"
+    if any(k in t for k in ("ophævet", "ugyldig", "ugyldigt", "annulleret",
+                             "hjemvisning", "hjemvises")):       return "Afgørelse ugyldig"
+    if "medhold" in t:                                           return "Medhold"
     if "stadfæst" in t or "afslag" in t or "ikke medhold" in t: return "Afslag"
-    if "afvisning" in t or "afvises" in t:                  return "Afvist"
+    if "afvisning" in t or "afvises" in t:                       return "Afvist"
     return "Ukendt"
 
 
@@ -115,12 +118,13 @@ def extract_kommune(titel: str) -> str:
 def detect_sagsgruppe(titel: str, tekst: str) -> str:
     t = (titel + " " + tekst[:500]).lower()
     if "genoptagelse" in t:    return "Genoptagelse"
+    if "opsættende virkning" in t or "afslag på opsættende" in t: return "Opsættende virkning"
     if "afvisning" in t or "afvises" in t or "klageberettiget" in t: return "Afvisning"
     return "Realitetsbehandling"
 
 
 BADGE = {"Medhold": "badge-medhold", "Afslag": "badge-afslag",
-         "Afvist": "badge-afvist", "Ukendt": "badge-ukendt"}
+         "Afgørelse ugyldig": "badge-ugyldig", "Afvist": "badge-afvist", "Ukendt": "badge-ukendt"}
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…")
@@ -231,10 +235,10 @@ with st.sidebar:
 
     søg_input   = st.text_input("🔍 Søg i afgørelser", placeholder="f.eks. terrasse lokalplan…")
     valgte_kats    = st.multiselect("Kategori", sorted(df["Kategori"].unique()))
-    sagsgruppe_valg = st.multiselect("Sagsgruppe", ["Realitetsbehandling", "Afvisning", "Genoptagelse"])
+    sagsgruppe_valg = st.multiselect("Sagsgruppe", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"])
     år_min, år_max = int(df["År"].min()), int(df["År"].max())
     år_range       = st.slider("Årsinterval", år_min, år_max, (år_min, år_max))
-    udfald_valg    = st.multiselect("Udfald", ["Medhold", "Afslag", "Afvist", "Ukendt"])
+    udfald_valg    = st.multiselect("Udfald", ["Medhold", "Afslag", "Afgørelse ugyldig", "Afvist", "Ukendt"])
 
     st.markdown("---")
     st.markdown(f"**{len(df):,}** afgørelser · {år_min}–{år_max}")
@@ -373,7 +377,7 @@ with tab_stat:
     with col_ll:
         st.markdown("#### Udfald over tid")
         udfald_år = d.groupby(["År","Udfald"]).size().reset_index(name="Antal")
-        farver = {"Medhold":"#10b981","Afslag":"#ef4444","Afvist":"#f59e0b","Ukendt":"#94a3b8"}
+        farver = {"Medhold":"#10b981","Afslag":"#ef4444","Afgørelse ugyldig":"#8b5cf6","Afvist":"#f59e0b","Ukendt":"#94a3b8"}
         fig3 = px.bar(udfald_år, x="År", y="Antal", color="Udfald",
                       color_discrete_map=farver, barmode="stack")
         fig3.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
