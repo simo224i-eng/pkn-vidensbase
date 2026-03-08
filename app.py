@@ -392,7 +392,7 @@ def gemini_svar(spørgsmål: str, docs: list) -> str:
     if not ANTHROPIC_API_KEY:
         return "Tilføj GEMINI_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:5000]}"
+        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst']}"
         for i, d in enumerate(docs)
     )
     prompt = f"""Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.
