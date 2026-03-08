@@ -489,8 +489,15 @@ _vis_antal = st.session_state.get("vis_antal", 25)
 
 if søg_input.strip():
     df_vis = tfidf_søg(søg_input, df, vec, mat, sub_idx=sub_idx, top_n=25)
+    # Beregn hvilke originale df-indekser der matcher søgningen (bruges af AI)
+    from sklearn.metrics.pairwise import cosine_similarity as _cos
+    _qv = vec.transform([søg_input])
+    _scores = _cos(_qv, mat[sub_idx]).flatten()
+    _top = _scores.argsort()[-200:][::-1]
+    ai_sub_idx = [sub_idx[i] for i in _top if _scores[i] > 0.01] or sub_idx
 else:
     df_vis = df_filter.sort_values("Dato", ascending=False).head(_vis_antal)
+    ai_sub_idx = sub_idx
 
 
 def build_download_text(data: pd.DataFrame) -> str:
@@ -719,8 +726,8 @@ with tab_stat:
 # ════════════════════════════════════════════════════════════════════════════
 with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
-    n_filter = len(df_filter)
-    filter_tekst = f"**{n_filter:,}** filtrerede afgørelser" if n_filter < len(df) else f"alle **{len(df):,}** afgørelser"
+    n_ai = len(ai_sub_idx)
+    filter_tekst = f"alle **{len(df):,}** afgørelser" if n_ai == len(df) else f"**{n_ai:,}** afgørelser (filtreret)"
     st.markdown(f"AI'en søger i {filter_tekst} og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
 
     if not ANTHROPIC_API_KEY:
@@ -738,7 +745,7 @@ with tab_ai:
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
                 with st.spinner("Søger og genererer svar…"):
-                    hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=sub_idx, top_n=8)
+                    hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
                     try:
                         svar = gemini_svar(f, hits_ai.to_dict("records"))
                     except Exception as e:
@@ -777,7 +784,7 @@ with tab_ai:
         if send and spørgsmål.strip():
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
             with st.spinner("Søger og genererer svar…"):
-                hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=sub_idx, top_n=8)
+                hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
                 try:
                     svar = gemini_svar(spørgsmål, hits_ai.to_dict("records"))
                 except Exception as e:
