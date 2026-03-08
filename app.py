@@ -31,7 +31,7 @@ st.markdown("""
 .pkn-card-excerpt { font-size: 13px; color: #374151; line-height: 1.5; }
 .pkn-badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-right: 6px; }
 .badge-medhold { background: #d1fae5; color: #065f46; }
-.badge-afslag  { background: #fee2e2; color: #991b1b; }
+.badge-ikke-medhold { background: #fee2e2; color: #991b1b; }
 .badge-ugyldig { background: #ede9fe; color: #5b21b6; }
 .badge-afvist  { background: #fef3c7; color: #92400e; }
 .badge-ukendt  { background: #e5e7eb; color: #374151; }
@@ -122,7 +122,7 @@ def detect_udfald(titel: str, tekst: str = "") -> str:
     if any(k in t for k in ("ophævet", "ugyldig", "ugyldigt", "annulleret",
                              "hjemvisning", "hjemvises")):       return "Afgørelse ugyldig"
     if "medhold" in t:                                           return "Medhold"
-    if "stadfæst" in t or "afslag" in t or "ikke medhold" in t: return "Afslag"
+    if "stadfæst" in t or "ikke medhold" in t:                  return "Ikke medhold"
     if "afvisning" in t or "afvises" in t:                       return "Afvist"
 
     # Slå op i brødteksten – brug SIDSTE "Afsluttende bemærkninger"-sektion
@@ -133,7 +133,7 @@ def detect_udfald(titel: str, tekst: str = "") -> str:
     if any(k in conc for k in ("ophæver", "hjemviser", "hjemvisning")):
         return "Afgørelse ugyldig"
     if "kan ikke give medhold" in conc or "ikke medhold" in conc:
-        return "Afslag"
+        return "Ikke medhold"
     if "afviser" in conc and ("klagen" in conc or "klager" in conc):
         return "Afvist"
     if "medhold" in conc:
@@ -154,7 +154,7 @@ def detect_sagsgruppe(titel: str, tekst: str) -> str:
     return "Realitetsbehandling"
 
 
-BADGE = {"Medhold": "badge-medhold", "Afslag": "badge-afslag",
+BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
          "Afgørelse ugyldig": "badge-ugyldig", "Afvist": "badge-afvist", "Ukendt": "badge-ukendt"}
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
@@ -271,7 +271,7 @@ with st.sidebar:
     sagsgruppe_valg = st.multiselect("Sagsgruppe", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"])
     år_min, år_max = int(df["År"].min()), int(df["År"].max())
     år_range       = st.slider("Årsinterval", år_min, år_max, (år_min, år_max))
-    udfald_valg    = st.multiselect("Udfald", ["Medhold", "Afslag", "Afgørelse ugyldig", "Afvist", "Ukendt"])
+    udfald_valg    = st.multiselect("Udfald", ["Medhold", "Ikke medhold", "Afgørelse ugyldig", "Afvist", "Ukendt"])
 
     st.markdown("---")
     st.markdown(f"**{len(df):,}** afgørelser · {år_min}–{år_max}")
@@ -463,7 +463,7 @@ with tab_stat:
     with col_ll:
         st.markdown("#### Udfald over tid")
         udfald_år = d.groupby(["År","Udfald"]).size().reset_index(name="Antal")
-        farver = {"Medhold":"#10b981","Afslag":"#ef4444","Afgørelse ugyldig":"#8b5cf6","Afvist":"#f59e0b","Ukendt":"#94a3b8"}
+        farver = {"Medhold":"#10b981","Ikke medhold":"#ef4444","Afgørelse ugyldig":"#8b5cf6","Afvist":"#f59e0b","Ukendt":"#94a3b8"}
         fig3 = px.bar(udfald_år, x="År", y="Antal", color="Udfald",
                       color_discrete_map=farver, barmode="stack")
         fig3.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
