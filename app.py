@@ -191,19 +191,24 @@ def logo(w: int) -> str:
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
-import google.generativeai as _genai
-
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+GROQ_API_KEY = st.secrets.get("GROQ_API_KEY", "")
 
 def _llm(prompt: str) -> str:
-    if not GEMINI_API_KEY:
-        return "Tilføj GEMINI_API_KEY i Streamlit secrets (Settings → Secrets)."
-    _genai.configure(api_key=GEMINI_API_KEY)
-    model = _genai.GenerativeModel(
-        "gemini-2.0-flash",
-        generation_config={"temperature": 0.3, "max_output_tokens": 2000},
+    if not GROQ_API_KEY:
+        return "Tilføj GROQ_API_KEY i Streamlit secrets (Settings → Secrets)."
+    r = requests.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+        json={
+            "model": "llama-3.3-70b-versatile",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.3,
+            "max_tokens": 2000,
+        },
+        timeout=60,
     )
-    return model.generate_content(prompt).text
+    r.raise_for_status()
+    return r.json()["choices"][0]["message"]["content"]
 
 # ── Hjælpefunktioner ──────────────────────────────────────────────────────────
 def strip_html(text: str) -> str:
