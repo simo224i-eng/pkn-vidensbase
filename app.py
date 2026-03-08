@@ -397,7 +397,7 @@ with tab_stat:
            .apply(lambda x: pd.Series({
                "Sager": len(x),
                "Medhold_%": round((x["Udfald"]=="Medhold").mean()*100, 1)
-           }))
+           }), include_groups=False)
            .reset_index()
            .sort_values("Medhold_%", ascending=True))
     fig5 = px.bar(mr, x="Medhold_%", y="Kategori", orientation="h",
