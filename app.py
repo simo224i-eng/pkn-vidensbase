@@ -387,7 +387,7 @@ def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30):
 
 
 def gemini_svar(spørgsmål: str, docs: list) -> str:
-    if not GEMINI_API_KEY:
+    if not ANTHROPIC_API_KEY:
         return "Tilføj GEMINI_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
         f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:1200]}"
@@ -408,7 +408,7 @@ SVAR:"""
 
 
 def gemini_resumé(titel: str, tekst: str) -> str:
-    if not GEMINI_API_KEY:
+    if not ANTHROPIC_API_KEY:
         return "Ingen API-nøgle."
     prompt = f"""Lav et kort, struktureret resumé af denne PKN-afgørelse på dansk.
 Inkluder: Sagens kerne, Klagenævnets vurdering, Resultat. Max 200 ord.
@@ -721,8 +721,8 @@ with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
     st.markdown("AI'en søger i alle **4.780 afgørelser** og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
 
-    if not GEMINI_API_KEY:
-        st.error("Tilføj `GEMINI_API_KEY` i Streamlit secrets.")
+    if not ANTHROPIC_API_KEY:
+        st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:
         # Forslagsknapper
         forslag = [
