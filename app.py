@@ -512,10 +512,18 @@ if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
 sub_idx   = df[mask].index.tolist()
 
+# Nulstil side-tæller når filteret ændrer sig
+_filter_sig = (len(df_filter), df_filter["Link"].iloc[0] if len(df_filter) > 0 else "")
+if st.session_state.get("_filter_sig") != _filter_sig:
+    st.session_state["vis_antal"] = 25
+    st.session_state["_filter_sig"] = _filter_sig
+
+_vis_antal = st.session_state.get("vis_antal", 25)
+
 if søg_input.strip():
     df_vis = tfidf_søg(søg_input, df, vec, mat, sub_idx=sub_idx, top_n=25)
 else:
-    df_vis = df_filter.sort_values("Dato", ascending=False).head(25)
+    df_vis = df_filter.sort_values("Dato", ascending=False).head(_vis_antal)
 
 
 def build_download_text(data: pd.DataFrame) -> str:
@@ -655,6 +663,12 @@ with tab_søg:
                         st.rerun()
                 with c2:
                     st.markdown(f"[Åbn original ↗]({row['Link']})")
+
+            if not søg_input.strip() and _vis_antal < total_filtreret:
+                tilbage = total_filtreret - _vis_antal
+                if st.button(f"Vis 25 mere ({tilbage} tilbage)", use_container_width=True):
+                    st.session_state["vis_antal"] = _vis_antal + 25
+                    st.rerun()
 
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 2 – STATISTIK
