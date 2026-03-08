@@ -393,20 +393,23 @@ with tab_stat:
         st.plotly_chart(fig4, use_container_width=True)
 
     st.markdown("#### Medhold-rate per kategori")
-    mr = (d.groupby("Kategori")
-           .apply(lambda x: pd.Series({
-               "Sager": len(x),
-               "Medhold_%": round((x["Udfald"]=="Medhold").mean()*100, 1)
-           }), include_groups=False)
-           .reset_index()
-           .sort_values("Medhold_%", ascending=True))
-    fig5 = px.bar(mr, x="Medhold_%", y="Kategori", orientation="h",
-                  color="Medhold_%", color_continuous_scale=["#fee2e2","#10b981"],
-                  hover_data={"Sager": True},
-                  labels={"Medhold_%": "Medhold (%)"})
-    fig5.update_layout(plot_bgcolor="white", paper_bgcolor="white",
-                       coloraxis_showscale=False, margin=dict(t=10,b=10,l=10,r=10))
-    st.plotly_chart(fig5, use_container_width=True)
+    if d.empty:
+        st.info("Ingen data at vise med de valgte filtre.")
+    else:
+        mr = (d.groupby("Kategori")
+               .apply(lambda x: pd.Series({
+                   "Sager": len(x),
+                   "Medhold_%": round((x["Udfald"]=="Medhold").mean()*100, 1)
+               }), include_groups=False)
+               .reset_index()
+               .sort_values("Medhold_%", ascending=True))
+        fig5 = px.bar(mr, x="Medhold_%", y="Kategori", orientation="h",
+                      color="Medhold_%", color_continuous_scale=["#fee2e2","#10b981"],
+                      hover_data={"Sager": True},
+                      labels={"Medhold_%": "Medhold (%)"})
+        fig5.update_layout(plot_bgcolor="white", paper_bgcolor="white",
+                           coloraxis_showscale=False, margin=dict(t=10,b=10,l=10,r=10))
+        st.plotly_chart(fig5, use_container_width=True)
 
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 3 – AI ASSISTENT
