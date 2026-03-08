@@ -39,8 +39,16 @@ _CSS_HTML = """
 
 /* ── Sidebar branding ── */
 .h-brand-wrap {
-    text-align: center; padding: 1.8rem 0 1.6rem;
+    text-align: center; padding: 1.6rem 0 1.4rem;
     border-bottom: 1px solid #1e293b; margin-bottom: 1.6rem;
+}
+.h-logo-box {
+    display: inline-block;
+    background: #f0f4f8;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
 .h-brand { font-family: 'Cinzel', Georgia, serif !important; font-size: 22px; font-weight: 900;
            letter-spacing: 6px; color: #c49a3c !important; display: block; }
@@ -441,8 +449,7 @@ vec, mat = build_index(len(df))
 with st.sidebar:
     st.markdown(f"""
 <div class="h-brand-wrap">
-  <div style="margin:0 auto 8px">{logo(72)}</div>
-  <span class="h-brand">HARALD</span>
+  <div class="h-logo-box">{logo(148)}</div>
   <span class="h-sub">Planklagenævnets Vidensbase</span>
 </div>""", unsafe_allow_html=True)
 
@@ -556,13 +563,10 @@ with st.sidebar:
 
 # ── Page header ───────────────────────────────────────────────────────────────
 st.markdown(f"""
-<div class="h-page-header" style="display:flex;align-items:center;gap:18px">
-  <div style="flex-shrink:0">{logo(62)}</div>
-  <div>
-    <h1 class="h-page-title">HARALD</h1>
-    <div class="h-gold-line"></div>
-    <p class="h-page-meta">Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}</p>
-  </div>
+<div class="h-page-header">
+  <h1 class="h-page-title">HARALD</h1>
+  <div class="h-gold-line"></div>
+  <p class="h-page-meta">Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}</p>
 </div>
 """, unsafe_allow_html=True)
 
