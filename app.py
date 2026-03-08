@@ -719,7 +719,9 @@ with tab_stat:
 # ════════════════════════════════════════════════════════════════════════════
 with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
-    st.markdown("AI'en søger i alle **4.780 afgørelser** og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
+    n_filter = len(df_filter)
+    filter_tekst = f"**{n_filter:,}** filtrerede afgørelser" if n_filter < len(df) else f"alle **{len(df):,}** afgørelser"
+    st.markdown(f"AI'en søger i {filter_tekst} og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
 
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
@@ -736,7 +738,7 @@ with tab_ai:
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
                 with st.spinner("Søger og genererer svar…"):
-                    hits_ai = tfidf_søg(f, df, vec, mat, top_n=8)
+                    hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=sub_idx, top_n=8)
                     try:
                         svar = gemini_svar(f, hits_ai.to_dict("records"))
                     except Exception as e:
@@ -775,7 +777,7 @@ with tab_ai:
         if send and spørgsmål.strip():
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
             with st.spinner("Søger og genererer svar…"):
-                hits_ai = tfidf_søg(spørgsmål, df, vec, mat, top_n=8)
+                hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=sub_idx, top_n=8)
                 try:
                     svar = gemini_svar(spørgsmål, hits_ai.to_dict("records"))
                 except Exception as e:
