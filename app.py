@@ -37,7 +37,6 @@ _CSS_HTML = """
 
 /* ── Sidebar branding ── */
 .h-brand-wrap { text-align: center; padding: 1.6rem 0 1.4rem; border-bottom: 1px solid #1c3058; margin-bottom: 1.4rem; }
-.h-shield { font-size: 36px; display: block; margin-bottom: 6px; filter: drop-shadow(0 0 6px rgba(196,154,60,.35)); }
 .h-brand  { font-family: 'Cinzel', Georgia, serif !important; font-size: 26px; font-weight: 900;
             letter-spacing: 7px; color: #c49a3c !important; display: block; }
 .h-sub    { font-size: 10px; color: #5a7a9e !important; letter-spacing: 2px;
@@ -104,6 +103,59 @@ try:
     st.html(_CSS_HTML)
 except AttributeError:
     st.markdown(_CSS_HTML, unsafe_allow_html=True)
+
+# ── Logo SVG (embedded – no file needed) ─────────────────────────────────────
+LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0c1a40"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8c97a"/>
+      <stop offset="100%" stop-color="#b07828"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield shadow -->
+  <path d="M100 8 L178 38 L178 118 C178 166 100 202 100 202 C100 202 22 166 22 118 L22 38 Z"
+        fill="#060e1e" opacity="0.4" transform="translate(2,3)"/>
+  <!-- Shield main -->
+  <path d="M100 8 L178 38 L178 118 C178 166 100 202 100 202 C100 202 22 166 22 118 L22 38 Z"
+        fill="url(#shieldGrad)"/>
+  <!-- Gold outer border -->
+  <path d="M100 8 L178 38 L178 118 C178 166 100 202 100 202 C100 202 22 166 22 118 L22 38 Z"
+        fill="none" stroke="url(#goldGrad)" stroke-width="3.5"/>
+  <!-- Inner shield frame -->
+  <path d="M100 22 L164 47 L164 116 C164 155 100 188 100 188 C100 188 36 155 36 116 L36 47 Z"
+        fill="none" stroke="#c49a3c" stroke-width="1.5" opacity="0.6"/>
+  <!-- Corner knot ornaments -->
+  <path d="M36 49 Q44 38 54 44 Q44 50 36 49Z" fill="#c49a3c" opacity="0.7"/>
+  <path d="M164 49 Q156 38 146 44 Q156 50 164 49Z" fill="#c49a3c" opacity="0.7"/>
+  <path d="M44 114 Q36 126 44 136 Q50 126 44 114Z" fill="#c49a3c" opacity="0.5"/>
+  <path d="M156 114 Q164 126 156 136 Q150 126 156 114Z" fill="#c49a3c" opacity="0.5"/>
+  <!-- Top diamond ornament -->
+  <polygon points="100,18 106,26 100,34 94,26" fill="#c49a3c" opacity="0.8"/>
+  <!-- Scales center post -->
+  <rect x="98" y="66" width="4" height="80" rx="2" fill="url(#goldGrad)"/>
+  <!-- Top pivot circle -->
+  <circle cx="100" cy="64" r="6" fill="url(#goldGrad)"/>
+  <!-- Base foot -->
+  <rect x="84" y="143" width="32" height="5" rx="2.5" fill="url(#goldGrad)"/>
+  <!-- Beam -->
+  <rect x="48" y="86" width="104" height="4" rx="2" fill="url(#goldGrad)"/>
+  <!-- Left chain lines -->
+  <line x1="60" y1="90" x2="55" y2="112" stroke="#c49a3c" stroke-width="2"/>
+  <line x1="60" y1="90" x2="66" y2="112" stroke="#c49a3c" stroke-width="2"/>
+  <!-- Right chain lines -->
+  <line x1="140" y1="90" x2="134" y2="112" stroke="#c49a3c" stroke-width="2"/>
+  <line x1="140" y1="90" x2="145" y2="112" stroke="#c49a3c" stroke-width="2"/>
+  <!-- Left pan -->
+  <path d="M46 112 Q60 124 74 112" stroke="url(#goldGrad)" stroke-width="2.5" fill="rgba(196,154,60,0.20)"/>
+  <line x1="46" y1="112" x2="74" y2="112" stroke="#c49a3c" stroke-width="1.5"/>
+  <!-- Right pan -->
+  <path d="M126 112 Q140 124 154 112" stroke="url(#goldGrad)" stroke-width="2.5" fill="rgba(196,154,60,0.20)"/>
+  <line x1="126" y1="112" x2="154" y2="112" stroke="#c49a3c" stroke-width="1.5"/>
+</svg>"""
 
 # ── API ───────────────────────────────────────────────────────────────────────
 OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", "")
@@ -320,9 +372,9 @@ vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("""
+    st.markdown(f"""
 <div class="h-brand-wrap">
-  <span class="h-shield">⚖</span>
+  <div style="width:72px;height:79px;margin:0 auto 6px">{LOGO_SVG}</div>
   <span class="h-brand">HARALD</span>
   <span class="h-sub">Planklagenævnets Vidensbase</span>
 </div>""", unsafe_allow_html=True)
@@ -418,10 +470,13 @@ with st.sidebar:
 
 # ── Page header ───────────────────────────────────────────────────────────────
 st.markdown(f"""
-<div class="h-page-header">
-  <h1 class="h-page-title">HARALD</h1>
-  <div class="h-gold-line"></div>
-  <p class="h-page-meta">Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}</p>
+<div class="h-page-header" style="display:flex;align-items:center;gap:18px">
+  <div style="width:60px;height:66px;flex-shrink:0">{LOGO_SVG}</div>
+  <div>
+    <h1 class="h-page-title">HARALD</h1>
+    <div class="h-gold-line"></div>
+    <p class="h-page-meta">Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}</p>
+  </div>
 </div>
 """, unsafe_allow_html=True)
 
