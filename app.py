@@ -44,16 +44,12 @@ _CSS_HTML = """
 }
 .h-logo-box {
     display: inline-block;
-    background: #f0f4f8;
-    border-radius: 12px;
-    padding: 10px 14px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    padding: 6px 10px;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 3px 12px rgba(196,154,60,0.22));
 }
-.h-brand { font-family: 'Cinzel', Georgia, serif !important; font-size: 22px; font-weight: 900;
-           letter-spacing: 6px; color: #c49a3c !important; display: block; }
-.h-sub   { font-size: 9px; color: #475569 !important; letter-spacing: 2.5px;
-           text-transform: uppercase; margin-top: 6px; display: block; }
+.h-sub   { font-size: 9px; color: #3d5270 !important; letter-spacing: 2.5px;
+           text-transform: uppercase; margin-top: 2px; display: block; }
 
 /* ── Sidebar section labels ── */
 .h-filter-label { font-size: 9px !important; font-weight: 600 !important; color: #475569 !important;
@@ -125,92 +121,69 @@ try:
 except AttributeError:
     st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
-# ── Logo PNG ──────────────────────────────────────────────────────────────────
-import base64 as _b64, pathlib as _pl
-_LOGO_PATH = _pl.Path(__file__).parent / "logo.png"
-if _LOGO_PATH.exists():
-    _logo_b64 = _b64.b64encode(_LOGO_PATH.read_bytes()).decode()
-    LOGO_IMG = f'<img src="data:image/png;base64,{_logo_b64}" width="{{w}}" style="display:block;margin:0 auto"/>'
-else:
-    LOGO_IMG = ""
-
-def logo(w: int) -> str:
-    return LOGO_IMG.replace("{w}", str(w))
-
-# ── (legacy SVG kept for reference only) ──────────────────────────────────────
-LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 210">
+# ── Logo SVG ──────────────────────────────────────────────────────────────────
+_LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 248" width="{w}" style="display:block;margin:0 auto">
   <defs>
-    <linearGradient id="shG" x1="10%" y1="0%" x2="90%" y2="100%">
-      <stop offset="0%" stop-color="#5585d8"/>
-      <stop offset="100%" stop-color="#1a3a8f"/>
+    <linearGradient id="lgG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8c86a"/>
+      <stop offset="100%" stop-color="#b8882e"/>
     </linearGradient>
-    <linearGradient id="cuG" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#c8885a"/>
-      <stop offset="100%" stop-color="#8b5020"/>
+    <linearGradient id="shFill" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#192340"/>
+      <stop offset="100%" stop-color="#0d1628"/>
     </linearGradient>
-    <!-- Classic flat-top shield clip -->
-    <clipPath id="shC">
-      <path d="M36,14 L164,14 C174,14 176,24 176,50
-               L176,108 C176,152 100,194 100,194
-               C100,194 24,152 24,108 L24,50
-               C24,24 26,14 36,14 Z"/>
-    </clipPath>
   </defs>
 
-  <!-- Shield white fill -->
+  <!-- Shield -->
   <path d="M36,14 L164,14 C174,14 176,24 176,50
            L176,108 C176,152 100,194 100,194
            C100,194 24,152 24,108 L24,50
            C24,24 26,14 36,14 Z"
-        fill="white"/>
-
-  <!-- Copper S-curves (left side) -->
-  <path d="M76,28 C52,42 52,66 78,78 C104,90 104,116 78,132"
-        fill="none" stroke="url(#cuG)" stroke-width="10"
-        stroke-linecap="round" clip-path="url(#shC)" opacity="0.88"/>
-  <!-- Copper S-curves (right side, mirror) -->
-  <path d="M124,28 C148,42 148,66 122,78 C96,90 96,116 122,132"
-        fill="none" stroke="url(#cuG)" stroke-width="10"
-        stroke-linecap="round" clip-path="url(#shC)" opacity="0.88"/>
-
-  <!-- Shield outer border (blue gradient) -->
-  <path d="M36,14 L164,14 C174,14 176,24 176,50
-           L176,108 C176,152 100,194 100,194
-           C100,194 24,152 24,108 L24,50
-           C24,24 26,14 36,14 Z"
-        fill="none" stroke="url(#shG)" stroke-width="7"/>
-
-  <!-- Shield inner border (subtle) -->
+        fill="url(#shFill)" stroke="url(#lgG)" stroke-width="3"/>
+  <!-- Inner shield line -->
   <path d="M44,24 L156,24 C163,24 165,32 165,54
            L165,106 C165,144 100,182 100,182
            C100,182 35,144 35,106 L35,54
            C35,32 37,24 44,24 Z"
-        fill="none" stroke="url(#shG)" stroke-width="2" opacity="0.3"/>
+        fill="none" stroke="#c49a3c" stroke-width="0.9" opacity="0.35"/>
 
-  <!-- ── Scales of Justice (blue, large and centred) ── -->
-  <!-- Pivot circle -->
-  <circle cx="100" cy="55" r="5.5" fill="url(#shG)"/>
+  <!-- Scales pivot -->
+  <circle cx="100" cy="55" r="4.5" fill="#c49a3c"/>
   <!-- Vertical post -->
-  <rect x="97.5" y="55" width="5" height="72" rx="2.5" fill="url(#shG)"/>
+  <rect x="98" y="55" width="4" height="70" rx="2" fill="url(#lgG)"/>
   <!-- Base platform -->
-  <rect x="77" y="123" width="46" height="5.5" rx="2.75" fill="url(#shG)"/>
+  <rect x="78" y="121" width="44" height="5" rx="2.5" fill="url(#lgG)"/>
   <!-- Horizontal beam -->
-  <rect x="40" y="68" width="120" height="5.5" rx="2.75" fill="url(#shG)"/>
+  <rect x="42" y="68" width="116" height="4.5" rx="2.25" fill="url(#lgG)"/>
+
   <!-- Left V-chain -->
-  <line x1="56" y1="73.5" x2="47" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
-  <line x1="56" y1="73.5" x2="70" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="57" y1="72.5" x2="46" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="57" y1="72.5" x2="71" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Left pan -->
+  <path d="M40,97 Q58,119 76,97" stroke="url(#lgG)" stroke-width="3" fill="rgba(196,154,60,0.13)" stroke-linecap="round"/>
+
   <!-- Right V-chain -->
-  <line x1="144" y1="73.5" x2="130" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
-  <line x1="144" y1="73.5" x2="153" y2="98" stroke="url(#shG)" stroke-width="3" stroke-linecap="round"/>
-  <!-- Left pan (bowl arc) -->
-  <path d="M40,98 Q58,120 76,98"
-        stroke="url(#shG)" stroke-width="3.5" fill="rgba(74,127,212,0.15)"
-        stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="143" y1="72.5" x2="129" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="143" y1="72.5" x2="154" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
   <!-- Right pan -->
-  <path d="M124,98 Q142,120 160,98"
-        stroke="url(#shG)" stroke-width="3.5" fill="rgba(74,127,212,0.15)"
-        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M124,97 Q142,119 160,97" stroke="url(#lgG)" stroke-width="3" fill="rgba(196,154,60,0.13)" stroke-linecap="round"/>
+
+  <!-- HARALD -->
+  <text x="100" y="224" text-anchor="middle"
+        font-family="Cinzel,Georgia,serif" font-size="22" font-weight="700"
+        fill="url(#lgG)" letter-spacing="6">HARALD</text>
+
+  <!-- Divider -->
+  <line x1="48" y1="231" x2="152" y2="231" stroke="#c49a3c" stroke-width="0.7" opacity="0.4"/>
+
+  <!-- Tagline -->
+  <text x="100" y="244" text-anchor="middle"
+        font-family="Inter,system-ui,sans-serif" font-size="7.5" font-weight="500"
+        fill="#4a6a8a" letter-spacing="2.8">LEGAL TECH AI</text>
 </svg>"""
+
+def logo(w: int) -> str:
+    return _LOGO_SVG.replace("{w}", str(w))
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
@@ -449,7 +422,7 @@ vec, mat = build_index(len(df))
 with st.sidebar:
     st.markdown(f"""
 <div class="h-brand-wrap">
-  <div class="h-logo-box">{logo(148)}</div>
+  <div class="h-logo-box">{logo(152)}</div>
   <span class="h-sub">Planklagenævnets Vidensbase</span>
 </div>""", unsafe_allow_html=True)
 
