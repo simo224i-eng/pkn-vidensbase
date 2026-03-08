@@ -480,8 +480,8 @@ if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
 sub_idx   = df[mask].index.tolist()
 
-# Nulstil side-tæller når filteret ændrer sig
-_filter_sig = (len(df_filter), df_filter["Link"].iloc[0] if len(df_filter) > 0 else "")
+# Nulstil side-tæller når filteret eller søgeordet ændrer sig
+_filter_sig = (len(df_filter), df_filter["Link"].iloc[0] if len(df_filter) > 0 else "", søg_input.strip())
 if st.session_state.get("_filter_sig") != _filter_sig:
     st.session_state["vis_antal"] = 25
     st.session_state["_filter_sig"] = _filter_sig
@@ -489,7 +489,7 @@ if st.session_state.get("_filter_sig") != _filter_sig:
 _vis_antal = st.session_state.get("vis_antal", 25)
 
 if søg_input.strip():
-    df_vis = tfidf_søg(søg_input, df, vec, mat, sub_idx=sub_idx, top_n=25)
+    df_vis = tfidf_søg(søg_input, df, vec, mat, sub_idx=sub_idx, top_n=max(len(sub_idx), 1))
     # Beregn hvilke originale df-indekser der matcher søgningen (bruges af AI)
     from sklearn.metrics.pairwise import cosine_similarity as _cos
     _qv = vec.transform([søg_input])
@@ -609,13 +609,13 @@ with tab_søg:
         if søg_input:
             label = f"**{hits}** resultater for \"{søg_input}\" (ud af {total_filtreret:,} filtrerede)"
         else:
-            label = f"Viser {hits} af **{total_filtreret:,}** afgørelser (nyeste først)"
+            label = f"Viser {min(_vis_antal, hits)} af **{total_filtreret:,}** afgørelser (nyeste først)"
         st.markdown(label)
 
         if hits == 0:
             st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
         else:
-            for _, row in df_vis.iterrows():
+            for _, row in df_vis.head(_vis_antal).iterrows():
                 badge_cls = BADGE.get(row["Udfald"], "badge-ukendt")
                 dato_str  = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 st.markdown(f"""
@@ -637,8 +637,8 @@ with tab_søg:
                 with c2:
                     st.markdown(f"[Åbn original ↗]({row['Link']})")
 
-            if not søg_input.strip() and _vis_antal < total_filtreret:
-                tilbage = total_filtreret - _vis_antal
+            if _vis_antal < hits:
+                tilbage = hits - _vis_antal
                 if st.button(f"Vis 25 mere ({tilbage} tilbage)", use_container_width=True):
                     st.session_state["vis_antal"] = _vis_antal + 25
                     st.rerun()
