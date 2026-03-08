@@ -118,120 +118,68 @@ except AttributeError:
     st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
 # ── Logo SVG (embedded – no file needed) ─────────────────────────────────────
-LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 222">
+LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
   <defs>
-    <linearGradient id="sG" x1="25%" y1="0%" x2="75%" y2="100%">
-      <stop offset="0%" stop-color="#2044a8"/>
-      <stop offset="100%" stop-color="#0b1840"/>
+    <linearGradient id="shG" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#4a7fd4"/>
+      <stop offset="100%" stop-color="#1a3a8f"/>
     </linearGradient>
-    <linearGradient id="gG" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#e0b84e"/>
-      <stop offset="100%" stop-color="#9c6810"/>
+    <linearGradient id="cuG" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c8885a"/>
+      <stop offset="100%" stop-color="#7a4a20"/>
     </linearGradient>
-    <!-- shield clip so knotwork stays inside -->
-    <clipPath id="sc">
-      <path d="M100,14 C68,14 26,28 24,66 L24,124 C24,170 100,212 100,212
-               C100,212 176,170 176,124 L176,66 C174,28 132,14 100,14 Z"/>
+    <clipPath id="shC">
+      <path d="M100,10 C70,10 28,24 28,62 L28,118 C28,164 100,206 100,206
+               C100,206 172,164 172,118 L172,62 C172,24 130,10 100,10 Z"/>
     </clipPath>
   </defs>
 
-  <!-- ── Shield shadow ── -->
-  <path d="M100,14 C68,14 26,28 24,66 L24,124 C24,170 100,212 100,212
-           C100,212 176,170 176,124 L176,66 C174,28 132,14 100,14 Z"
-        fill="#04091a" opacity="0.35" transform="translate(3,4)"/>
+  <!-- Shield fill (white) -->
+  <path d="M100,10 C70,10 28,24 28,62 L28,118 C28,164 100,206 100,206
+           C100,206 172,164 172,118 L172,62 C172,24 130,10 100,10 Z"
+        fill="white"/>
 
-  <!-- ── Shield body ── -->
-  <path d="M100,14 C68,14 26,28 24,66 L24,124 C24,170 100,212 100,212
-           C100,212 176,170 176,124 L176,66 C174,28 132,14 100,14 Z"
-        fill="url(#sG)"/>
+  <!-- Copper S-curves (decorative background) -->
+  <path d="M72,36 C50,52 50,72 72,82 C94,92 94,118 72,134"
+        fill="none" stroke="url(#cuG)" stroke-width="9" stroke-linecap="round"
+        clip-path="url(#shC)" opacity="0.85"/>
+  <path d="M128,36 C150,52 150,72 128,82 C106,92 106,118 128,134"
+        fill="none" stroke="url(#cuG)" stroke-width="9" stroke-linecap="round"
+        clip-path="url(#shC)" opacity="0.85"/>
 
-  <!-- ── Gold outer border ── -->
-  <path d="M100,14 C68,14 26,28 24,66 L24,124 C24,170 100,212 100,212
-           C100,212 176,170 176,124 L176,66 C174,28 132,14 100,14 Z"
-        fill="none" stroke="url(#gG)" stroke-width="4.5"/>
+  <!-- Shield border (blue gradient, outer) -->
+  <path d="M100,10 C70,10 28,24 28,62 L28,118 C28,164 100,206 100,206
+           C100,206 172,164 172,118 L172,62 C172,24 130,10 100,10 Z"
+        fill="none" stroke="url(#shG)" stroke-width="6"/>
 
-  <!-- ── Inner shield border ── -->
-  <path d="M100,28 C74,28 38,40 36,70 L36,120 C36,158 100,196 100,196
-           C100,196 164,158 164,120 L164,70 C162,40 126,28 100,28 Z"
-        fill="none" stroke="#c49a3c" stroke-width="1.8" opacity="0.65"/>
+  <!-- Shield inner border line -->
+  <path d="M100,22 C76,22 40,34 40,66 L40,116 C40,154 100,192 100,192
+           C100,192 160,154 160,116 L160,66 C160,34 124,22 100,22 Z"
+        fill="none" stroke="url(#shG)" stroke-width="2" opacity="0.4"/>
 
-  <!-- ════ KNOTWORK ════ -->
-  <!-- Each strand: gold outer glow → dark navy fill → bright edge -->
-  <!-- Strand A: upper-left → lower-right S-curve -->
-  <!-- Strand B: upper-right → lower-left S-curve (mirror) -->
-
-  <!-- Gold glow (widest, drawn first) -->
-  <path d="M 64,42 C 110,42 114,90 100,112 C 86,134 90,174 136,178"
-        fill="none" stroke="#c49a3c" stroke-width="22" stroke-linecap="round"
-        clip-path="url(#sc)" opacity="0.35"/>
-  <path d="M 136,42 C 90,42 86,90 100,112 C 114,134 110,174 64,178"
-        fill="none" stroke="#c49a3c" stroke-width="22" stroke-linecap="round"
-        clip-path="url(#sc)" opacity="0.35"/>
-
-  <!-- Navy strand bodies -->
-  <path d="M 64,42 C 110,42 114,90 100,112 C 86,134 90,174 136,178"
-        fill="none" stroke="#18368a" stroke-width="15" stroke-linecap="round"
-        clip-path="url(#sc)"/>
-  <path d="M 136,42 C 90,42 86,90 100,112 C 114,134 110,174 64,178"
-        fill="none" stroke="#18368a" stroke-width="15" stroke-linecap="round"
-        clip-path="url(#sc)"/>
-
-  <!-- Bright centre highlight on strands -->
-  <path d="M 64,42 C 110,42 114,90 100,112 C 86,134 90,174 136,178"
-        fill="none" stroke="#2e58d0" stroke-width="7" stroke-linecap="round"
-        clip-path="url(#sc)"/>
-  <path d="M 136,42 C 90,42 86,90 100,112 C 114,134 110,174 64,178"
-        fill="none" stroke="#2e58d0" stroke-width="7" stroke-linecap="round"
-        clip-path="url(#sc)"/>
-
-  <!-- Over/under at UPPER crossing (~100,88): strand A goes over -->
-  <!-- Shield-colour patch to cut strand B -->
-  <ellipse cx="100" cy="88" rx="10" ry="9" fill="#1530789" opacity="0"/>
-  <path d="M 88,80 C 96,86 104,90 112,88"
-        fill="none" stroke="#0e1e50" stroke-width="16" stroke-linecap="round"/>
-  <!-- Re-draw strand A segment on top -->
-  <path d="M 82,74 C 94,82 106,90 112,100"
-        fill="none" stroke="#18368a" stroke-width="15" stroke-linecap="round"/>
-  <path d="M 82,74 C 94,82 106,90 112,100"
-        fill="none" stroke="#2e58d0" stroke-width="7" stroke-linecap="round"/>
-
-  <!-- Over/under at LOWER crossing (~100,132): strand B goes over -->
-  <path d="M 88,124 C 96,130 104,136 112,132"
-        fill="none" stroke="#0e1e50" stroke-width="16" stroke-linecap="round"/>
-  <path d="M 112,124 C 104,130 96,136 88,132"
-        fill="none" stroke="#18368a" stroke-width="15" stroke-linecap="round"/>
-  <path d="M 112,124 C 104,130 96,136 88,132"
-        fill="none" stroke="#2e58d0" stroke-width="7" stroke-linecap="round"/>
-
-  <!-- Gold trim lines on strand edges (fine parallel lines) -->
-  <path d="M 64,42 C 110,42 114,90 100,112 C 86,134 90,174 136,178"
-        fill="none" stroke="#c49a3c" stroke-width="1.5" stroke-linecap="round"
-        clip-path="url(#sc)" opacity="0.7"/>
-  <path d="M 136,42 C 90,42 86,90 100,112 C 114,134 110,174 64,178"
-        fill="none" stroke="#c49a3c" stroke-width="1.5" stroke-linecap="round"
-        clip-path="url(#sc)" opacity="0.7"/>
-
-  <!-- ════ SCALES OF JUSTICE ════ -->
-  <!-- Pivot circle -->
-  <circle cx="100" cy="68" r="6" fill="url(#gG)"/>
-  <!-- Center post -->
-  <rect x="97.5" y="68" width="5" height="74" rx="2.5" fill="url(#gG)"/>
+  <!-- Scales of Justice (blue, prominent) -->
+  <!-- Pivot dot -->
+  <circle cx="100" cy="58" r="5" fill="url(#shG)"/>
+  <!-- Centre post -->
+  <rect x="98" y="58" width="4" height="72" rx="2" fill="url(#shG)"/>
   <!-- Base platform -->
-  <rect x="82" y="138" width="36" height="6" rx="3" fill="url(#gG)"/>
-  <!-- Beam -->
-  <rect x="46" y="87" width="108" height="5" rx="2.5" fill="url(#gG)"/>
-  <!-- Left V-chain -->
-  <line x1="61" y1="92" x2="55" y2="114" stroke="#d4a040" stroke-width="2.2"/>
-  <line x1="61" y1="92" x2="70" y2="114" stroke="#d4a040" stroke-width="2.2"/>
-  <!-- Right V-chain -->
-  <line x1="139" y1="92" x2="130" y2="114" stroke="#d4a040" stroke-width="2.2"/>
-  <line x1="139" y1="92" x2="145" y2="114" stroke="#d4a040" stroke-width="2.2"/>
-  <!-- Left pan (bowl arc) -->
-  <path d="M 48,114 Q 62,130 76,114"
-        stroke="url(#gG)" stroke-width="3" fill="rgba(196,154,60,0.22)" stroke-linejoin="round"/>
+  <rect x="80" y="126" width="40" height="5" rx="2.5" fill="url(#shG)"/>
+  <!-- Horizontal beam -->
+  <rect x="44" y="72" width="112" height="5" rx="2.5" fill="url(#shG)"/>
+  <!-- Left chain -->
+  <line x1="60" y1="77" x2="54" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="60" y1="77" x2="70" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right chain -->
+  <line x1="140" y1="77" x2="130" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="140" y1="77" x2="146" y2="100" stroke="url(#shG)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Left pan -->
+  <path d="M46,100 Q62,120 78,100"
+        stroke="url(#shG)" stroke-width="3" fill="rgba(74,127,212,0.12)"
+        stroke-linejoin="round" stroke-linecap="round"/>
   <!-- Right pan -->
-  <path d="M 124,114 Q 138,130 152,114"
-        stroke="url(#gG)" stroke-width="3" fill="rgba(196,154,60,0.22)" stroke-linejoin="round"/>
+  <path d="M122,100 Q138,120 154,100"
+        stroke="url(#shG)" stroke-width="3" fill="rgba(74,127,212,0.12)"
+        stroke-linejoin="round" stroke-linecap="round"/>
 </svg>"""
 
 # Base64-encode so it works as <img src="data:..."> in st.markdown (Streamlit strips inline SVG)
