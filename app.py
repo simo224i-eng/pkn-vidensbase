@@ -276,18 +276,24 @@ def detect_plantype(titel: str) -> list:
 
 def kategoriser(titel: str) -> str:
     t = titel.lower()
-    # Miljø-kategorier har højeste prioritet
+    # 1. "vedtagelse af [plan]" — plan-adoption er primær emne; miljørapport/screening er bilag
+    vedtagelse_af_plan = bool(re.search(r"vedtagelse af\b.{0,80}?(lokalplan|kommuneplantillæg|kommuneplan)", t))
+    if vedtagelse_af_plan:
+        if "lokalplan" in t:
+            if "dispensation" in t:     return "Dispensation"
+            if "overensstemmelse" in t: return "Overensstemmelse"
+        return "Vedtagelse"
+    # 2. Screening og miljøvurdering som primær emne
     if "screeningsafgørelse" in t or "screeningen" in t:
         return "Screening"
     if "miljøvurdering" in t or "miljørapport" in t or "vvm" in t:
         return "Miljøvurdering"
+    # 3. Øvrige plan-sager
     if "lokalplan" in t:
         if "dispensation" in t:        return "Dispensation"
         if "overensstemmelse" in t:    return "Overensstemmelse"
-        if "vedtagelse" in t:          return "Vedtagelse"
         return "Andet"
-    if "kommuneplantillæg" in t or "kommuneplan" in t:
-        if "vedtagelse" in t:          return "Vedtagelse"
+    if "kommuneplantillæg" in t or re.search(r"kommuneplan(?!tillæg)", t):
         return "Andet"
     if "landzone" in t:             return "Landzone"
     if "strandbeskyttelse" in t:    return "Strandbeskyttelse"
@@ -344,7 +350,7 @@ BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
-def load_data(version: int = 4):  # bump version to bust cache
+def load_data(version: int = 6):  # bump version to bust cache
     import os, zipfile
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
         with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
