@@ -9,11 +9,10 @@ Kræver: pip install requests beautifulsoup4
 
 import csv
 import html
+import json
 import re
 import sys
 import time
-import json
-from datetime import datetime
 from pathlib import Path
 
 import requests
@@ -204,8 +203,7 @@ def main():
     if ny_batch:
         append_to_csv(CSV_PATH, ny_batch)
 
-    total_ny = len([a for a in nye])
-    print(f"\nFærdig! Tilføjede op til {total_ny} nye afgørelser til {CSV_PATH}")
+    print(f"\nFærdig! Tilføjede op til {len(nye)} nye afgørelser til {CSV_PATH}")
     print("Husk at genzippe CSV-filen og uploade til Streamlit Cloud.")
 
 

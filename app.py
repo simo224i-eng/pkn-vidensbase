@@ -37,6 +37,25 @@ _CSS_HTML = """
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #c49a3c !important; }
 [data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #64748b !important; }
 
+/* ── Sidebar collapse-knap: erstat keyboard-ikon med pil ── */
+[data-testid="collapsedControl"] { background: #1e293b !important; border-radius: 0 6px 6px 0 !important; }
+[data-testid="collapsedControl"] svg { display: none !important; }
+[data-testid="collapsedControl"]::after {
+    content: "›";
+    font-size: 22px;
+    color: #c49a3c;
+    font-weight: 300;
+    line-height: 1;
+}
+[data-testid="stSidebarCollapseButton"] button { background: transparent !important; border: none !important; }
+[data-testid="stSidebarCollapseButton"] svg { display: none !important; }
+[data-testid="stSidebarCollapseButton"] button::after {
+    content: "‹";
+    font-size: 22px;
+    color: #94a3b8;
+    font-weight: 300;
+}
+
 /* ── Sidebar branding ── */
 .h-brand-wrap {
     text-align: center; padding: 1.6rem 0 1.4rem;
@@ -458,6 +477,7 @@ def erstat_kilde_refs(tekst: str, kilder: list) -> str:
 if "chat_historik"   not in st.session_state: st.session_state.chat_historik   = []
 if "valgt_afgørelse" not in st.session_state: st.session_state.valgt_afgørelse = None
 if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       = False
+if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
 df       = load_data(10)
@@ -629,14 +649,24 @@ with tab_søg:
                 st.markdown(row["Tekst"])
         with col_ai:
             st.markdown("### ✨ AI-resumé")
-            if st.button("Generer AI-resumé"):
-                with st.spinner("Resumerer…"):
-                    try:
-                        st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
-                    except Exception as e:
-                        st.session_state._resumé = f"Fejl: {e}"
-            if "_resumé" in st.session_state:
-                st.info(st.session_state._resumé)
+            if not st.session_state.resumé_adgang:
+                pw = st.text_input("Adgangskode", type="password", key="resumé_pw_input",
+                                   placeholder="Indtast adgangskode…")
+                if st.button("Lås op", key="resumé_pw_btn"):
+                    if pw == "B465545":
+                        st.session_state.resumé_adgang = True
+                        st.rerun()
+                    else:
+                        st.error("Forkert adgangskode.")
+            else:
+                if st.button("Generer AI-resumé"):
+                    with st.spinner("Resumerer…"):
+                        try:
+                            st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
+                        except Exception as e:
+                            st.session_state._resumé = f"Fejl: {e}"
+                if "_resumé" in st.session_state:
+                    st.info(st.session_state._resumé)
 
     else:
         total_filtreret = len(df_filter)
