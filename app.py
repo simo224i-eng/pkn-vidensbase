@@ -19,84 +19,97 @@ _CSS_HTML = """
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Base ── */
-[data-testid="stAppViewContainer"] { background: #f0f4f9; font-family: 'Inter', system-ui, sans-serif; }
-[data-testid="stMain"] .block-container { padding-top: 1.8rem; }
+[data-testid="stAppViewContainer"] { background: #f8fafc; font-family: 'Inter', system-ui, sans-serif; }
+[data-testid="stMain"] .block-container { padding-top: 2rem; }
 
 /* ── Sidebar ── */
-[data-testid="stSidebar"] { background: #0c1a32 !important; border-right: 1px solid #1c3058; }
-[data-testid="stSidebar"] * { color: #b8c9e0 !important; font-family: 'Inter', sans-serif !important; }
+[data-testid="stSidebar"] { background: #0f172a !important; border-right: none; }
+[data-testid="stSidebar"] * { color: #94a3b8 !important; font-family: 'Inter', sans-serif !important; }
 [data-testid="stSidebar"] .stTextInput input {
-    background: #142241 !important; border: 1px solid #244070 !important;
-    color: #dce6f5 !important; border-radius: 6px !important;
+    background: #1e293b !important; border: 1px solid #334155 !important;
+    color: #e2e8f0 !important; border-radius: 5px !important; font-size: 13px !important;
 }
-[data-testid="stSidebar"] [data-baseweb="select"] > div { background: #142241 !important; border-color: #244070 !important; }
-[data-testid="stSidebar"] hr { border-color: #1c3058 !important; }
-[data-testid="stSidebar"] .stSlider [data-testid="stThumbValue"] { color: #c49a3c !important; }
+[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    background: #1e293b !important; border-color: #334155 !important; border-radius: 5px !important;
+}
+[data-testid="stSidebar"] hr { border-color: #1e293b !important; }
 [data-testid="stSidebar"] .stSlider [role="slider"] { background: #c49a3c !important; }
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #c49a3c !important; }
+[data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #64748b !important; }
 
 /* ── Sidebar branding ── */
-.h-brand-wrap { text-align: center; padding: 1.6rem 0 1.4rem; border-bottom: 1px solid #1c3058; margin-bottom: 1.4rem; }
-.h-brand  { font-family: 'Cinzel', Georgia, serif !important; font-size: 26px; font-weight: 900;
-            letter-spacing: 7px; color: #c49a3c !important; display: block; }
-.h-sub    { font-size: 10px; color: #5a7a9e !important; letter-spacing: 2px;
-            text-transform: uppercase; margin-top: 5px; display: block; }
+.h-brand-wrap {
+    text-align: center; padding: 1.8rem 0 1.6rem;
+    border-bottom: 1px solid #1e293b; margin-bottom: 1.6rem;
+}
+.h-brand { font-family: 'Cinzel', Georgia, serif !important; font-size: 22px; font-weight: 900;
+           letter-spacing: 6px; color: #c49a3c !important; display: block; }
+.h-sub   { font-size: 9px; color: #475569 !important; letter-spacing: 2.5px;
+           text-transform: uppercase; margin-top: 6px; display: block; }
 
 /* ── Sidebar section labels ── */
-.h-filter-label { font-size: 10px !important; font-weight: 700 !important; color: #c49a3c !important;
-                  text-transform: uppercase; letter-spacing: 2px; margin: 1.2rem 0 0.3rem;
+.h-filter-label { font-size: 9px !important; font-weight: 600 !important; color: #475569 !important;
+                  text-transform: uppercase; letter-spacing: 1.5px; margin: 1.4rem 0 0.35rem;
                   display: block; }
 
 /* ── Page header ── */
-.h-page-header { margin-bottom: 1.6rem; padding-bottom: 1rem; border-bottom: 2px solid #dce4ef; }
-.h-page-title  { font-family: 'Cinzel', Georgia, serif; font-size: 1.9rem; font-weight: 900;
-                 color: #0c1a32; letter-spacing: 5px; margin: 0 0 4px; }
-.h-page-meta   { font-size: 13px; color: #7a8faa; margin: 0; }
-.h-gold-line   { height: 3px; width: 48px; background: linear-gradient(90deg,#c49a3c,#e8c97a);
-                 border-radius: 2px; margin: 6px 0; }
+.h-page-header { margin-bottom: 1.8rem; padding-bottom: 1.2rem; border-bottom: 1px solid #e2e8f0; }
+.h-page-title  { font-family: 'Cinzel', Georgia, serif; font-size: 1.65rem; font-weight: 900;
+                 color: #0f172a; letter-spacing: 5px; margin: 0 0 4px; }
+.h-page-meta   { font-size: 12.5px; color: #94a3b8; margin: 0; }
+.h-gold-line   { height: 2px; width: 32px; background: #c49a3c;
+                 border-radius: 1px; margin: 6px 0 8px; }
 
 /* ── Cards ── */
 .pkn-card {
-    background: #ffffff; border-radius: 8px; padding: 16px 20px; margin-bottom: 10px;
-    border-left: 4px solid #c49a3c;
-    box-shadow: 0 1px 6px rgba(12,26,50,.07), 0 0 0 1px rgba(12,26,50,.04);
-    transition: box-shadow .15s, transform .15s;
+    background: #ffffff; border-radius: 6px; padding: 18px 22px; margin-bottom: 6px;
+    border: 1px solid #e2e8f0;
+    transition: border-color .12s, box-shadow .12s;
 }
-.pkn-card:hover { box-shadow: 0 4px 18px rgba(12,26,50,.12), 0 0 0 1px rgba(196,154,60,.2); }
-.pkn-card-title   { font-size: 14.5px; font-weight: 600; color: #0c1a32; margin: 5px 0 8px; line-height: 1.45; }
-.pkn-card-meta    { font-size: 11.5px; color: #8a9db8; margin-bottom: 7px; }
-.pkn-card-excerpt { font-size: 13px; color: #3d5070; line-height: 1.55; }
+.pkn-card:hover {
+    border-color: #c49a3c;
+    box-shadow: 0 2px 12px rgba(15,23,42,.06);
+}
+.pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #0f172a; margin: 4px 0 8px; line-height: 1.5; }
+.pkn-card-meta    { font-size: 11px; color: #94a3b8; margin-bottom: 5px; letter-spacing: .1px; }
+.pkn-card-excerpt { font-size: 12.5px; color: #475569; line-height: 1.6; }
 
 /* ── Badges ── */
-.pkn-badge { display: inline-block; padding: 2px 9px; border-radius: 4px;
-             font-size: 10.5px; font-weight: 700; margin-right: 5px; letter-spacing: .3px; }
-.badge-medhold      { background: #d1fae5; color: #065f46; }
-.badge-ikke-medhold { background: #fee2e2; color: #991b1b; }
-.badge-ophaevet      { background: #ede9fe; color: #5b21b6; }
-.badge-afvist       { background: #fef3c7; color: #92400e; }
-.badge-ukendt       { background: #e8ecf2; color: #4a5568; }
+.pkn-badge { display: inline-block; padding: 2px 8px; border-radius: 20px;
+             font-size: 10px; font-weight: 600; margin-right: 4px; letter-spacing: .1px; }
+.badge-medhold      { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.badge-ikke-medhold { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.badge-ophaevet     { background: #f5f3ff; color: #5b21b6; border: 1px solid #ddd6fe; }
+.badge-afvist       { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.badge-ukendt       { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
 
 /* ── Stat cards ── */
-.stat-card   { background: #fff; border-radius: 8px; padding: 22px 20px; text-align: center;
-               box-shadow: 0 1px 6px rgba(12,26,50,.07); border-top: 3px solid #c49a3c; }
-.stat-number { font-family: 'Cinzel', Georgia, serif; font-size: 34px; font-weight: 700; color: #0c1a32; }
-.stat-label  { font-size: 11px; color: #8a9db8; margin-top: 6px;
-               text-transform: uppercase; letter-spacing: 1.2px; }
+.stat-card   { background: #fff; border-radius: 6px; padding: 22px 18px; text-align: center;
+               border: 1px solid #e2e8f0; }
+.stat-number { font-family: 'Cinzel', Georgia, serif; font-size: 28px; font-weight: 700; color: #0f172a; }
+.stat-label  { font-size: 10px; color: #94a3b8; margin-top: 5px;
+               text-transform: uppercase; letter-spacing: 1px; }
 
 /* ── Chat ── */
-.chat-user      { background: #1a3060; color: #fff; border-radius: 16px 16px 4px 16px;
-                  padding: 12px 16px; margin: 8px 0; max-width: 76%; margin-left: auto; }
-.chat-assistant { background: #fff; color: #0c1a32; border-radius: 16px 16px 16px 4px;
-                  padding: 12px 16px; margin: 8px 0; max-width: 86%;
-                  box-shadow: 0 1px 6px rgba(12,26,50,.08); border-left: 3px solid #c49a3c; }
-.source-chip    { display: inline-block; padding: 3px 10px; border-radius: 4px;
-                  background: #f0f4f9; color: #1a3060; font-size: 11px; margin: 3px;
-                  text-decoration: none; border: 1px solid #cfd8e8; }
+.chat-user      { background: #0f172a; color: #f1f5f9; border-radius: 12px 12px 2px 12px;
+                  padding: 10px 14px; margin: 6px 0; max-width: 74%; margin-left: auto;
+                  font-size: 13px; line-height: 1.5; }
+.chat-assistant { background: #fff; color: #0f172a; border-radius: 12px 12px 12px 2px;
+                  padding: 10px 14px; margin: 6px 0; max-width: 84%;
+                  border: 1px solid #e2e8f0; font-size: 13px; line-height: 1.5; }
+.source-chip    { display: inline-block; padding: 3px 9px; border-radius: 4px;
+                  background: #f8fafc; color: #475569; font-size: 11px; margin: 3px;
+                  text-decoration: none; border: 1px solid #e2e8f0; }
 
-/* ── Tabs (cosmetic) ── */
-[data-testid="stTabs"] [role="tab"]          { font-size: 14px; font-weight: 500; color: #6b7f99; }
+/* ── Tabs ── */
+[data-testid="stTabs"] [role="tab"] { font-size: 13px; font-weight: 500; color: #94a3b8; padding: 8px 18px; }
 [data-testid="stTabs"] [role="tab"][aria-selected="true"]
-    { color: #0c1a32 !important; border-bottom-color: #c49a3c !important; }
+    { color: #0f172a !important; border-bottom-color: #c49a3c !important; font-weight: 600; }
+
+/* ── Buttons ── */
+[data-testid="stBaseButton-secondary"] { border-color: #e2e8f0 !important; color: #475569 !important;
+    font-size: 12px !important; border-radius: 5px !important; }
+[data-testid="stBaseButton-secondary"]:hover { border-color: #c49a3c !important; color: #0f172a !important; }
 </style>
 """
 try:
