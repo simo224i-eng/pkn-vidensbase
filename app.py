@@ -248,7 +248,8 @@ def kategoriser(titel: str) -> list:
     """Returnerer liste af kategorier – en sag kan have flere (fx Vedtagelse + Miljøvurdering)."""
     t = titel.lower()
     # 1. Vedtagelse af plan — bilag (miljørapport/screening) tilføjes som ekstra kategori
-    is_vedtagelse = bool(re.search(r"vedtagelse af\b.{0,80}?(lokalplan|kommuneplantillæg|kommuneplan)", t))
+    is_plan = bool(re.search(r"lokalplan|kommuneplantillæg|kommuneplan|byplanvedtægt", t))
+    is_vedtagelse = bool(re.search(r"vedtagelse af\b.{0,80}?(lokalplan|kommuneplantillæg|kommuneplan|byplanvedtægt)", t))
     if is_vedtagelse:
         if "dispensation" in t:
             kats = ["Dispensation"]
@@ -261,24 +262,37 @@ def kategoriser(titel: str) -> list:
         if "miljørapport" in t or "miljøvurdering" in t or "vvm" in t:
             kats.append("Miljøvurdering")
         return kats
-    # 2. Screening = screeningsafgørelse (beslutning om IKKE at udarbejde miljørapport)
+    # 2. Screening = screeningsafgørelse
     if "screeningsafgørelse" in t or "screeningen" in t:
         return ["Screening"]
     # 3. Miljøvurdering = faktisk miljørapport udarbejdet
-    if "miljøvurdering" in t or "miljørapport" in t or "vvm" in t:
+    if "miljøvurdering" in t or "miljørapport" in t or re.search(r"\bvvm\b", t):
         return ["Miljøvurdering"]
-    # 4. Øvrige plan-sager
-    if "lokalplan" in t:
-        if "dispensation" in t:        return ["Dispensation"]
-        if "overensstemmelse" in t:    return ["Overensstemmelse"]
+    # 4. Dispensation – lokalplan, kommuneplan eller byplanvedtægt
+    if "dispensation" in t and is_plan:
+        return ["Dispensation"]
+    if "dispensation" in t and any(k in t for k in ("byplanvedtægt", "planlovens", "planlov", "servitut")):
+        return ["Dispensation"]
+    # 5. Overensstemmelse
+    if "overensstemmelse" in t and is_plan:
+        return ["Overensstemmelse"]
+    # 6. Planvedtagelse uden "vedtagelse af" (f.eks. "endelig vedtagelse")
+    if re.search(r"endelig vedtagelse", t) and is_plan:
+        return ["Vedtagelse"]
+    # 7. Øvrige plan-sager der nævner en plantype
+    if "lokalplan" in t or "byplanvedtægt" in t:
         return ["Andet"]
     if "kommuneplantillæg" in t or re.search(r"kommuneplan(?!tillæg)", t):
         return ["Andet"]
-    if "landzone" in t:             return ["Landzone"]
-    if "strandbeskyttelse" in t:    return ["Strandbeskyttelse"]
-    if "skovloven" in t or " skov " in t: return ["Skovloven"]
-    if "fredning" in t:             return ["Fredning"]
-    if "opsættende virkning" in t:  return ["Opsættende virkning"]
+    # 8. Temabaserede kategorier
+    if "landzone" in t:                                  return ["Landzone"]
+    if "strandbeskyttelse" in t or "strandbeskyttelses" in t: return ["Strandbeskyttelse"]
+    if "naturbeskyttelse" in t:                          return ["Naturbeskyttelse"]
+    if "skovloven" in t or re.search(r"\bskov\b", t):   return ["Skovloven"]
+    if "fredning" in t or "fredede" in t:                return ["Fredning"]
+    if "opsættende virkning" in t:                       return ["Opsættende virkning"]
+    if "byggelinje" in t:                                return ["Byggelinje"]
+    if "vejloven" in t or "vejret" in t:                 return ["Vejret"]
     return ["Andet"]
 
 
@@ -329,7 +343,7 @@ BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
-def load_data(version: int = 9):  # bump version to bust cache
+def load_data(version: int = 10):  # bump version to bust cache
     import os, zipfile
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
         with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
@@ -362,7 +376,7 @@ def load_data(version: int = 9):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(9)
+    df2 = load_data(10)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -446,7 +460,7 @@ if "valgt_afgørelse" not in st.session_state: st.session_state.valgt_afgørelse
 if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(9)
+df       = load_data(10)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
