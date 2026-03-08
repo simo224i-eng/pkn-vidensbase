@@ -423,6 +423,7 @@ RESUMÉ:"""
 # ── Session state ─────────────────────────────────────────────────────────────
 if "chat_historik"   not in st.session_state: st.session_state.chat_historik   = []
 if "valgt_afgørelse" not in st.session_state: st.session_state.valgt_afgørelse = None
+if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
 df       = load_data(3)
@@ -726,6 +727,18 @@ with tab_stat:
 # ════════════════════════════════════════════════════════════════════════════
 with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
+
+    if not st.session_state.ai_adgang:
+        st.markdown("Denne funktion kræver adgangskode.")
+        pwd_input = st.text_input("Adgangskode", type="password", key="pwd_input")
+        if st.button("Log ind", key="pwd_btn"):
+            if pwd_input == "B465545":
+                st.session_state.ai_adgang = True
+                st.rerun()
+            else:
+                st.error("Forkert adgangskode.")
+        st.stop()
+
     n_ai = len(ai_sub_idx)
     filter_tekst = f"alle **{len(df):,}** afgørelser" if n_ai == len(df) else f"**{n_ai:,}** afgørelser (filtreret)"
     st.markdown(f"AI'en søger i {filter_tekst} og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
