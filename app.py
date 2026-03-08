@@ -191,24 +191,28 @@ def logo(w: int) -> str:
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
-GROQ_API_KEY = st.secrets.get("GROQ_API_KEY", "")
+ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
 def _llm(prompt: str) -> str:
-    if not GROQ_API_KEY:
-        return "Tilføj GROQ_API_KEY i Streamlit secrets (Settings → Secrets)."
+    if not ANTHROPIC_API_KEY:
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
     r = requests.post(
-        "https://api.groq.com/openai/v1/chat/completions",
-        headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+        "https://api.anthropic.com/v1/messages",
+        headers={
+            "x-api-key": ANTHROPIC_API_KEY,
+            "anthropic-version": "2023-06-01",
+            "Content-Type": "application/json",
+        },
         json={
-            "model": "llama-3.3-70b-versatile",
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.3,
+            "model": "claude-haiku-4-5-20251001",
             "max_tokens": 2000,
+            "temperature": 0.3,
+            "messages": [{"role": "user", "content": prompt}],
         },
         timeout=60,
     )
     r.raise_for_status()
-    return r.json()["choices"][0]["message"]["content"]
+    return r.json()["content"][0]["text"]
 
 # ── Hjælpefunktioner ──────────────────────────────────────────────────────────
 def strip_html(text: str) -> str:
