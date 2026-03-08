@@ -274,33 +274,42 @@ def detect_plantype(titel: str) -> list:
     return types if types else ["Andet"]
 
 
-def kategoriser(titel: str) -> str:
+def kategoriser(titel: str) -> list:
+    """Returnerer liste af kategorier – en sag kan have flere (fx Vedtagelse + Miljøvurdering)."""
     t = titel.lower()
-    # 1. "vedtagelse af [plan]" — plan-adoption er primær emne; miljørapport/screening er bilag
-    vedtagelse_af_plan = bool(re.search(r"vedtagelse af\b.{0,80}?(lokalplan|kommuneplantillæg|kommuneplan)", t))
-    if vedtagelse_af_plan:
-        if "lokalplan" in t:
-            if "dispensation" in t:     return "Dispensation"
-            if "overensstemmelse" in t: return "Overensstemmelse"
-        return "Vedtagelse"
-    # 2. Screening og miljøvurdering som primær emne
+    # 1. Vedtagelse af plan — bilag (miljørapport/screening) tilføjes som ekstra kategori
+    is_vedtagelse = bool(re.search(r"vedtagelse af\b.{0,80}?(lokalplan|kommuneplantillæg|kommuneplan)", t))
+    if is_vedtagelse:
+        if "dispensation" in t:
+            kats = ["Dispensation"]
+        elif "overensstemmelse" in t:
+            kats = ["Overensstemmelse"]
+        else:
+            kats = ["Vedtagelse"]
+        if "screeningsafgørelse" in t:
+            kats.append("Screening")
+        if "miljørapport" in t or "miljøvurdering" in t or "vvm" in t:
+            kats.append("Miljøvurdering")
+        return kats
+    # 2. Screening = screeningsafgørelse (beslutning om IKKE at udarbejde miljørapport)
     if "screeningsafgørelse" in t or "screeningen" in t:
-        return "Screening"
+        return ["Screening"]
+    # 3. Miljøvurdering = faktisk miljørapport udarbejdet
     if "miljøvurdering" in t or "miljørapport" in t or "vvm" in t:
-        return "Miljøvurdering"
-    # 3. Øvrige plan-sager
+        return ["Miljøvurdering"]
+    # 4. Øvrige plan-sager
     if "lokalplan" in t:
-        if "dispensation" in t:        return "Dispensation"
-        if "overensstemmelse" in t:    return "Overensstemmelse"
-        return "Andet"
+        if "dispensation" in t:        return ["Dispensation"]
+        if "overensstemmelse" in t:    return ["Overensstemmelse"]
+        return ["Andet"]
     if "kommuneplantillæg" in t or re.search(r"kommuneplan(?!tillæg)", t):
-        return "Andet"
-    if "landzone" in t:             return "Landzone"
-    if "strandbeskyttelse" in t:    return "Strandbeskyttelse"
-    if "skovloven" in t or " skov " in t: return "Skovloven"
-    if "fredning" in t:             return "Fredning"
-    if "opsættende virkning" in t:  return "Opsættende virkning"
-    return "Andet"
+        return ["Andet"]
+    if "landzone" in t:             return ["Landzone"]
+    if "strandbeskyttelse" in t:    return ["Strandbeskyttelse"]
+    if "skovloven" in t or " skov " in t: return ["Skovloven"]
+    if "fredning" in t:             return ["Fredning"]
+    if "opsættende virkning" in t:  return ["Opsættende virkning"]
+    return ["Andet"]
 
 
 def _strip_html(t: str) -> str:
@@ -350,7 +359,7 @@ BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
-def load_data(version: int = 6):  # bump version to bust cache
+def load_data(version: int = 7):  # bump version to bust cache
     import os, zipfile
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
         with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
@@ -371,8 +380,9 @@ def load_data(version: int = 6):  # bump version to bust cache
     df = pd.DataFrame(rows)
     df["Dato"]     = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]       = df["Dato"].dt.year.astype("Int64")
-    df["Kategori"]   = df["Titel"].apply(kategoriser)
-    df["Plantype"]   = df["Titel"].apply(detect_plantype)
+    df["Kategori"]        = df["Titel"].apply(kategoriser)
+    df["Kategori_primær"] = df["Kategori"].apply(lambda x: x[0])
+    df["Plantype"]        = df["Titel"].apply(detect_plantype)
     df["Udfald"]     = df.apply(lambda r: detect_udfald(r["Titel"], r.get("Tekst", "")), axis=1)
     df["Kommune"]    = df["Titel"].apply(extract_kommune)
     df["Sagsgruppe"] = df.apply(lambda r: detect_sagsgruppe(r["Titel"], r["Tekst"]), axis=1)
@@ -463,10 +473,13 @@ with st.sidebar:
     søg_input   = st.text_input("", placeholder="f.eks. terrasse lokalplan…", label_visibility="collapsed")
 
     st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
-    valgte_kats    = st.multiselect("", sorted(df["Kategori"].unique()), label_visibility="collapsed", key="kat")
+    _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
+    valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
+    isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if valgte_kats else False
 
     st.markdown('<span class="h-filter-label">Plantype</span>', unsafe_allow_html=True)
-    plantype_valg  = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
+    plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
+    isoler_pt     = st.checkbox("Isoler (kun rene sager)", key="iso_pt") if plantype_valg else False
 
     st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
     sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
@@ -484,8 +497,16 @@ with st.sidebar:
 
 
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
-if valgte_kats:     mask &= df["Kategori"].isin(valgte_kats)
-if plantype_valg:   mask &= df["Plantype"].apply(lambda pts: any(pt in pts for pt in plantype_valg))
+if valgte_kats:
+    if isoler_kat:
+        mask &= df["Kategori"].apply(lambda kats: set(kats).issubset(set(valgte_kats)))
+    else:
+        mask &= df["Kategori"].apply(lambda kats: any(k in kats for k in valgte_kats))
+if plantype_valg:
+    if isoler_pt:
+        mask &= df["Plantype"].apply(lambda pts: set(pts).issubset(set(plantype_valg)))
+    else:
+        mask &= df["Plantype"].apply(lambda pts: any(pt in pts for pt in plantype_valg))
 if sagsgruppe_valg: mask &= df["Sagsgruppe"].isin(sagsgruppe_valg)
 if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
@@ -511,7 +532,7 @@ def build_download_text(data: pd.DataFrame) -> str:
         lines += [
             f"AFGØRELSE: {row['Titel']}",
             f"DATO:       {dato}",
-            f"KATEGORI:   {row['Kategori']}  |  PLANTYPE: {', '.join(row.get('Plantype', ['–']))}",
+            f"KATEGORI:   {' / '.join(row.get('Kategori', ['–']))}  |  PLANTYPE: {', '.join(row.get('Plantype', ['–']))}",
             f"UDFALD:     {row['Udfald']}  |  SAGSGRUPPE: {row.get('Sagsgruppe', '–')}",
             f"KOMMUNE:    {row['Kommune'] or '–'}",
             f"KILDE:      {row['Link']}",
@@ -579,7 +600,7 @@ with tab_søg:
         st.markdown(f"# {row['Titel']}")
         c1, c2, c3, c4, c5 = st.columns(5)
         c1.metric("Dato",       dato_str)
-        c2.metric("Kategori",   row["Kategori"])
+        c2.metric("Kategori",   " / ".join(row["Kategori"]))
         c3.metric("Sagsgruppe", row.get("Sagsgruppe", "–"))
         c4.metric("Udfald",     row["Udfald"])
         c5.metric("Kommune",    row["Kommune"] or "–")
@@ -618,7 +639,7 @@ with tab_søg:
                 dato_str  = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 st.markdown(f"""
 <div class="pkn-card">
-  <div class="pkn-card-meta">{dato_str} &nbsp;·&nbsp; {row['Kategori']} &nbsp;·&nbsp; {row['Sagsgruppe']}
+  <div class="pkn-card-meta">{dato_str} &nbsp;·&nbsp; {" / ".join(row['Kategori'])} &nbsp;·&nbsp; {row['Sagsgruppe']}
     &nbsp;<span class="pkn-badge {badge_cls}">{row['Udfald']}</span>
   </div>
   <div class="pkn-card-title">{row['Titel']}</div>
@@ -654,7 +675,7 @@ with tab_stat:
         st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Kommune"].nunique()}</div>'
                     f'<div class="stat-label">Kommuner</div></div>', unsafe_allow_html=True)
     with k4:
-        st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Kategori"].nunique()}</div>'
+        st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Kategori_primær"].nunique()}</div>'
                     f'<div class="stat-label">Kategorier</div></div>', unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -669,7 +690,7 @@ with tab_stat:
 
     with col_r:
         st.markdown("#### Fordeling på kategori")
-        kat_df = d.groupby("Kategori").size().reset_index(name="Antal")
+        kat_df = d.groupby("Kategori_primær").size().reset_index(name="Antal").rename(columns={"Kategori_primær": "Kategori"})
         fig2 = px.pie(kat_df, values="Antal", names="Kategori",
                       color_discrete_sequence=px.colors.qualitative.Set3, hole=0.4)
         fig2.update_layout(margin=dict(t=10,b=10,l=10,r=10))
@@ -699,12 +720,13 @@ with tab_stat:
     if d.empty:
         st.info("Ingen data at vise med de valgte filtre.")
     else:
-        mr = (d.groupby("Kategori")
+        mr = (d.groupby("Kategori_primær")
                .apply(lambda x: pd.Series({
                    "Sager": len(x),
                    "Medhold_%": round((x["Udfald"]=="Medhold").mean()*100, 1)
                }), include_groups=False)
                .reset_index()
+               .rename(columns={"Kategori_primær": "Kategori"})
                .sort_values("Medhold_%", ascending=True))
         fig5 = px.bar(mr, x="Medhold_%", y="Kategori", orientation="h",
                       color="Medhold_%", color_continuous_scale=["#fee2e2","#10b981"],
