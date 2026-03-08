@@ -222,6 +222,8 @@ def strip_html(text: str) -> str:
         "&Oslash;": "Ø", "&AElig;": "Æ", "&Aring;": "Å",
         "&ndash;": "–", "&mdash;": "—", "&ldquo;": '"', "&rdquo;": '"',
         "&laquo;": "«", "&raquo;": "»", "&bull;": "•", "&hellip;": "…",
+        "&sect;": "§", "&para;": "¶", "&copy;": "©", "&reg;": "®",
+        "&#167;": "§",
     }
     text = re.sub(r"<[^>]+>", " ", text)
     for ent, rep in entities.items():
@@ -327,7 +329,7 @@ BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
-def load_data(version: int = 7):  # bump version to bust cache
+def load_data(version: int = 8):  # bump version to bust cache
     import os, zipfile
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
         with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
