@@ -262,12 +262,16 @@ def strip_html(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def detect_plantype(titel: str) -> str:
+def detect_plantype(titel: str) -> list:
     t = titel.lower()
-    if "kommuneplantillæg" in t: return "Kommuneplantillæg"
-    if "kommuneplan" in t:       return "Kommuneplan"
-    if "lokalplan" in t:         return "Lokalplan"
-    return "Andet"
+    types = []
+    if "kommuneplantillæg" in t:
+        types.append("Kommuneplantillæg")
+    if re.search(r"kommuneplan(?!tillæg)", t):
+        types.append("Kommuneplan")
+    if "lokalplan" in t:
+        types.append("Lokalplan")
+    return types if types else ["Andet"]
 
 
 def kategoriser(titel: str) -> str:
@@ -475,7 +479,7 @@ with st.sidebar:
 
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
 if valgte_kats:     mask &= df["Kategori"].isin(valgte_kats)
-if plantype_valg:   mask &= df["Plantype"].isin(plantype_valg)
+if plantype_valg:   mask &= df["Plantype"].apply(lambda pts: any(pt in pts for pt in plantype_valg))
 if sagsgruppe_valg: mask &= df["Sagsgruppe"].isin(sagsgruppe_valg)
 if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
@@ -501,7 +505,7 @@ def build_download_text(data: pd.DataFrame) -> str:
         lines += [
             f"AFGØRELSE: {row['Titel']}",
             f"DATO:       {dato}",
-            f"KATEGORI:   {row['Kategori']}  |  PLANTYPE: {row.get('Plantype', '–')}",
+            f"KATEGORI:   {row['Kategori']}  |  PLANTYPE: {', '.join(row.get('Plantype', ['–']))}",
             f"UDFALD:     {row['Udfald']}  |  SAGSGRUPPE: {row.get('Sagsgruppe', '–')}",
             f"KOMMUNE:    {row['Kommune'] or '–'}",
             f"KILDE:      {row['Link']}",
