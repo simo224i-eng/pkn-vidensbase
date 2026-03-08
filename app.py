@@ -100,13 +100,32 @@ def kategoriser(titel: str) -> str:
     return "Andet"
 
 
-def detect_udfald(titel: str) -> str:
+def _strip_html(t: str) -> str:
+    import html as _html
+    return _html.unescape(re.sub(r"<[^>]+>", " ", str(t)))
+
+
+def detect_udfald(titel: str, tekst: str = "") -> str:
     t = titel.lower()
     if any(k in t for k in ("ophævet", "ugyldig", "ugyldigt", "annulleret",
                              "hjemvisning", "hjemvises")):       return "Afgørelse ugyldig"
     if "medhold" in t:                                           return "Medhold"
     if "stadfæst" in t or "afslag" in t or "ikke medhold" in t: return "Afslag"
     if "afvisning" in t or "afvises" in t:                       return "Afvist"
+
+    # Slå op i brødteksten – brug SIDSTE "Afsluttende bemærkninger"-sektion
+    tx = _strip_html(tekst).lower()
+    positions = [m.start() for m in re.finditer(r"afsluttende bem[æa]rkninger", tx)]
+    conc = tx[positions[-1]:positions[-1] + 500] if positions else tx[-800:]
+
+    if any(k in conc for k in ("ophæver", "hjemviser", "hjemvisning")):
+        return "Afgørelse ugyldig"
+    if "kan ikke give medhold" in conc or "ikke medhold" in conc:
+        return "Afslag"
+    if "afviser" in conc and ("klagen" in conc or "klager" in conc):
+        return "Afvist"
+    if "medhold" in conc:
+        return "Medhold"
     return "Ukendt"
 
 
@@ -150,7 +169,7 @@ def load_data():
     df["Dato"]     = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]       = df["Dato"].dt.year.astype("Int64")
     df["Kategori"]   = df["Titel"].apply(kategoriser)
-    df["Udfald"]     = df["Titel"].apply(detect_udfald)
+    df["Udfald"]     = df.apply(lambda r: detect_udfald(r["Titel"], r.get("Tekst", "")), axis=1)
     df["Kommune"]    = df["Titel"].apply(extract_kommune)
     df["Sagsgruppe"] = df.apply(lambda r: detect_sagsgruppe(r["Titel"], r["Tekst"]), axis=1)
     return df
