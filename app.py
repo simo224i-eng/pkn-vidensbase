@@ -437,7 +437,7 @@ with st.sidebar:
   <span class="h-sub">Planklagenævnets Vidensbase</span>
 </div>""", unsafe_allow_html=True)
 
-    st.markdown('<span class="h-filter-label">Søgning</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Søgeord (f.eks. planlovens § 15)</span>', unsafe_allow_html=True)
     søg_input   = st.text_input("", placeholder="f.eks. terrasse lokalplan…", label_visibility="collapsed")
 
     st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
@@ -501,11 +501,12 @@ else:
     ai_sub_idx = sub_idx
 
 
-def build_download_text(data: pd.DataFrame) -> str:
+def build_download_text(data: pd.DataFrame, søgeord: str = "") -> str:
     """Bygger en struktureret tekstfil med alle afgørelser – optimeret til LLM-upload."""
     lines = [
         "PLANKLAGENÆVNETS AFGØRELSER – EKSPORT",
         f"Antal afgørelser: {len(data)}",
+        f"Søgeord: {søgeord if søgeord.strip() else '(ingen – kun filteret på kategori/plantype/udfald mv.)'}",
         f"Genereret: {pd.Timestamp.now().strftime('%d.%m.%Y %H:%M')}",
         "=" * 72,
         "",
@@ -535,7 +536,7 @@ with st.sidebar:
         st.caption("Ingen afgørelser matcher filtrene.")
     elif n > 500:
         st.caption(f"⚠️ {n:,} afgørelser valgt – filen kan blive stor.")
-        dl_bytes = build_download_text(df_filter).encode("utf-8")
+        dl_bytes = build_download_text(df_filter, søgeord=søg_input).encode("utf-8")
         st.download_button(
             label=f"⬇️ Download alle {n:,} afgørelser (.txt)",
             data=dl_bytes,
@@ -543,7 +544,7 @@ with st.sidebar:
             mime="text/plain",
         )
     else:
-        dl_bytes = build_download_text(df_filter).encode("utf-8")
+        dl_bytes = build_download_text(df_filter, søgeord=søg_input).encode("utf-8")
         st.download_button(
             label=f"⬇️ Download {n:,} afgørelser (.txt)",
             data=dl_bytes,
