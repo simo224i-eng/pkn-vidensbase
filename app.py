@@ -489,13 +489,14 @@ if st.session_state.get("_filter_sig") != _filter_sig:
 _vis_antal = st.session_state.get("vis_antal", 25)
 
 if søg_input.strip():
-    df_vis = tfidf_søg(søg_input, df, vec, mat, sub_idx=sub_idx, top_n=max(len(sub_idx), 1))
-    # Beregn hvilke originale df-indekser der matcher søgningen (bruges af AI)
-    from sklearn.metrics.pairwise import cosine_similarity as _cos
-    _qv = vec.transform([søg_input])
-    _scores = _cos(_qv, mat[sub_idx]).flatten()
-    _top = _scores.argsort()[-200:][::-1]
-    ai_sub_idx = [sub_idx[i] for i in _top if _scores[i] > 0.01] or sub_idx
+    _q = søg_input.strip()
+    _text_mask = (
+        df_filter["Titel"].str.contains(_q, case=False, na=False) |
+        df_filter["Tekst"].str.contains(_q, case=False, na=False)
+    )
+    df_vis     = df_filter[_text_mask].sort_values("Dato", ascending=False).reset_index(drop=True)
+    _matched   = df_filter.index[_text_mask].tolist()
+    ai_sub_idx = [sub_idx[i] for i in _matched] if _matched else sub_idx
 else:
     df_vis = df_filter.sort_values("Dato", ascending=False).head(_vis_antal)
     ai_sub_idx = sub_idx
@@ -771,17 +772,27 @@ with tab_ai:
         st.divider()
 
         # Historik
-        for msg in st.session_state.chat_historik:
+        for msg_idx, msg in enumerate(st.session_state.chat_historik):
             if msg["rolle"] == "bruger":
                 st.markdown(f'<div class="chat-user">{msg["tekst"]}</div>', unsafe_allow_html=True)
             else:
-                st.markdown(f'<div class="chat-assistant">{msg["tekst"]}</div>', unsafe_allow_html=True)
-                if msg.get("kilder"):
-                    chips = " ".join(
-                        f'<a class="source-chip" href="{k["Link"]}" target="_blank">[{i+1}] {k["Titel"][:55]}…</a>'
-                        for i, k in enumerate(msg["kilder"][:5])
-                    )
-                    st.markdown(f"**Kilder:** {chips}", unsafe_allow_html=True)
+                col_svar, col_kld = st.columns([3, 2])
+                with col_svar:
+                    st.markdown(f'<div class="chat-assistant">{msg["tekst"]}</div>', unsafe_allow_html=True)
+                with col_kld:
+                    if msg.get("kilder"):
+                        st.markdown('<span style="font-size:11px;font-weight:600;color:#475569;text-transform:uppercase;letter-spacing:1px">Kilder – klik for at læse</span>', unsafe_allow_html=True)
+                        for i, k in enumerate(msg["kilder"][:8]):
+                            try:
+                                dato_str = pd.Timestamp(k["Dato"]).strftime("%d.%m.%Y")
+                            except Exception:
+                                dato_str = "–"
+                            udfald   = k.get("Udfald", "")
+                            badge    = f'<span class="pkn-badge {BADGE.get(udfald, "badge-ukendt")}">{udfald}</span>' if udfald else ""
+                            with st.expander(f"[{i+1}] {k['Titel'][:70]}"):
+                                st.markdown(f'<span style="font-size:12px;color:#5a7a9e">{dato_str} &nbsp;·&nbsp; {k.get("Sagsgruppe","")} &nbsp;{badge}</span>', unsafe_allow_html=True)
+                                st.markdown(k["Tekst"][:2500])
+                                st.markdown(f"[Åbn original afgørelse ↗]({k['Link']})")
 
         # Input-form
         with st.form("chat_form", clear_on_submit=True):
