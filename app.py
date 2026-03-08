@@ -392,13 +392,13 @@ def gemini_svar(spørgsmål: str, docs: list) -> str:
     if not ANTHROPIC_API_KEY:
         return "Tilføj GEMINI_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:1200]}"
+        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:1500]}"
         for i, d in enumerate(docs)
     )
     prompt = f"""Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.
 Besvar følgende spørgsmål KUN baseret på de vedlagte PKN-afgørelser.
-Henvis til [Kilde X] når du bruger information fra en bestemt afgørelse.
-Svar på dansk, præcist og struktureret med afsnit hvis relevant.
+Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn der stammer fra en afgørelse – f.eks. [Kilde 3] eller [Kilde 1, 2].
+Svar på dansk, præcist og struktureret med overskrifter og afsnit.
 
 SPØRGSMÅL: {spørgsmål}
 
@@ -420,6 +420,24 @@ TEKST: {tekst[:3000]}
 
 RESUMÉ:"""
     return _llm(prompt)
+
+
+def erstat_kilde_refs(tekst: str, kilder: list) -> str:
+    """Erstat [Kilde X] / [Kilde X, Y] i AI-svaret med KommuneNavn · År."""
+    def repl(m):
+        nums = [int(x) for x in re.findall(r'\d+', m.group(1))]
+        refs = []
+        for n in nums:
+            if 1 <= n <= len(kilder):
+                k = kilder[n - 1]
+                kom = extract_kommune(k.get("Titel", "")) or "Kilde"
+                try:
+                    år = str(pd.Timestamp(k["Dato"]).year)
+                except Exception:
+                    år = "–"
+                refs.append(f"*{kom} {år}*")
+        return "[" + ", ".join(refs) + "]" if refs else m.group(0)
+    return re.sub(r"\[Kilde\s+([\d,\s]+)\]", repl, tekst)
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
@@ -778,13 +796,22 @@ with tab_ai:
             if msg["rolle"] == "bruger":
                 st.markdown(f'<div class="chat-user">{msg["tekst"]}</div>', unsafe_allow_html=True)
             else:
+                # Erstat [Kilde X] i AI-teksten med kommune-navne
+                kilder = msg.get("kilder", [])
+                vist_tekst = erstat_kilde_refs(msg["tekst"], kilder) if kilder else msg["tekst"]
+
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
-                    st.markdown(f'<div class="chat-assistant">{msg["tekst"]}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
                 with col_kld:
-                    if msg.get("kilder"):
-                        st.markdown('<span style="font-size:11px;font-weight:600;color:#475569;text-transform:uppercase;letter-spacing:1px">Kilder – klik for at læse</span>', unsafe_allow_html=True)
-                        for i, k in enumerate(msg["kilder"][:8]):
+                    if kilder:
+                        st.markdown(
+                            '<div style="font-size:11px;font-weight:700;color:#475569;'
+                            'text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">'
+                            'Kilder</div>',
+                            unsafe_allow_html=True
+                        )
+                        for i, k in enumerate(kilder[:8]):
                             try:
                                 ts       = pd.Timestamp(k["Dato"])
                                 dato_str = ts.strftime("%d.%m.%Y")
@@ -792,31 +819,58 @@ with tab_ai:
                             except Exception:
                                 dato_str = "–"
                                 år_str   = "–"
-                            kommune  = extract_kommune(k.get("Titel", "")) or "Ukendt kommune"
-                            udfald   = k.get("Udfald", "")
+                            kommune   = extract_kommune(k.get("Titel", "")) or "Ukendt kommune"
+                            udfald    = k.get("Udfald", "")
                             badge_cls = BADGE.get(udfald, "badge-ukendt")
+                            badge_html = f'<span class="pkn-badge {badge_cls}">{udfald}</span>' if udfald else ""
+
                             with st.expander(f"[{i+1}] {kommune} · {år_str}"):
-                                # Titel som klikbar knap der åbner afgørelsen i appen
-                                st.markdown(f'<div style="font-size:13px;font-weight:600;color:#1e3a5f;margin-bottom:6px">{k["Titel"]}</div>', unsafe_allow_html=True)
+                                # Åbn-knap øverst – mest fremtrædende handling
+                                if st.button(
+                                    f"▶ Åbn afgørelsen i Harald",
+                                    key=f"kilde_open_{msg_idx}_{i}",
+                                    use_container_width=True,
+                                    type="primary",
+                                ):
+                                    st.session_state.valgt_afgørelse = k
+                                    if "_resumé" in st.session_state:
+                                        del st.session_state["_resumé"]
+                                    st.rerun()
+
+                                # Titel + metadata
                                 st.markdown(
-                                    f'<span style="font-size:11px;color:#5a7a9e">'
-                                    f'{dato_str} &nbsp;·&nbsp; {k.get("Sagsgruppe","")}'
-                                    f'&nbsp; <span class="pkn-badge {badge_cls}">{udfald}</span></span>',
+                                    f'<div style="font-size:13px;font-weight:600;color:#1e3a5f;'
+                                    f'margin:8px 0 4px 0;line-height:1.4">{k["Titel"]}</div>',
                                     unsafe_allow_html=True
                                 )
-                                st.markdown("")
-                                # Formateret tekst: afsnit ved sætningsskift foran stort bogstav
-                                tekst_fmt = re.sub(r'\. ([A-ZÆØÅ])', r'.\n\n\1', k.get("Tekst", "")[:3000])
-                                st.markdown(tekst_fmt)
-                                c_btn, c_lnk = st.columns([1, 1])
-                                with c_btn:
-                                    if st.button("Åbn i Harald", key=f"kilde_open_{msg_idx}_{i}", use_container_width=True):
-                                        st.session_state.valgt_afgørelse = k
-                                        if "_resumé" in st.session_state:
-                                            del st.session_state["_resumé"]
-                                        st.rerun()
-                                with c_lnk:
-                                    st.markdown(f"[Original ↗]({k['Link']})")
+                                st.markdown(
+                                    f'<div style="font-size:11px;color:#64748b;margin-bottom:10px">'
+                                    f'{dato_str} &nbsp;·&nbsp; {k.get("Sagsgruppe", "")}'
+                                    f'&nbsp;&nbsp;{badge_html}</div>',
+                                    unsafe_allow_html=True
+                                )
+
+                                # Fuld tekst i scrollbar boks
+                                tekst_rå = k.get("Tekst", "")
+                                # Opdel i afsnit ved sætningsskift foran stort bogstav
+                                tekst_fmt = re.sub(r'\. ([A-ZÆØÅ])', r'.</p><p>\1', tekst_rå)
+                                tekst_html = (
+                                    '<div style="font-size:13px;line-height:1.7;color:#1e293b;'
+                                    'max-height:420px;overflow-y:auto;padding:12px 14px;'
+                                    'background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;'
+                                    'margin-bottom:8px">'
+                                    f'<p>{tekst_fmt}</p>'
+                                    '</div>'
+                                )
+                                st.markdown(tekst_html, unsafe_allow_html=True)
+
+                                # Link til original
+                                st.markdown(
+                                    f'<a href="{k["Link"]}" target="_blank" '
+                                    f'style="font-size:12px;color:#2563eb;text-decoration:none">'
+                                    f'Åbn original afgørelse på PKN\'s hjemmeside ↗</a>',
+                                    unsafe_allow_html=True
+                                )
 
         # Input-form
         with st.form("chat_form", clear_on_submit=True):
