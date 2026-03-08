@@ -158,8 +158,8 @@ BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
          "Afgørelse ugyldig": "badge-ugyldig", "Afvist": "badge-afvist", "Ukendt": "badge-ukendt"}
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
-@st.cache_data(show_spinner="Indlæser 4.780 afgørelser…")
-def load_data():
+@st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
+def load_data(version: int = 3):  # bump version to bust cache
     import os, zipfile
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
         with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
@@ -191,7 +191,7 @@ def load_data():
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data()
+    df2 = load_data(3)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -256,7 +256,7 @@ if "chat_historik"   not in st.session_state: st.session_state.chat_historik   =
 if "valgt_afgørelse" not in st.session_state: st.session_state.valgt_afgørelse = None
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data()
+df       = load_data(3)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
