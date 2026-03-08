@@ -182,8 +182,12 @@ _LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 248" wid
         fill="#4a6a8a" letter-spacing="2.8">LEGAL TECH AI</text>
 </svg>"""
 
+import base64 as _b64
+
 def logo(w: int) -> str:
-    return _LOGO_SVG.replace("{w}", str(w))
+    svg = _LOGO_SVG.replace("{w}", str(w))
+    b64 = _b64.b64encode(svg.encode()).decode()
+    return f'<img src="data:image/svg+xml;base64,{b64}" width="{w}" style="display:block;margin:0 auto"/>'
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
