@@ -72,7 +72,7 @@ _CSS_HTML = """
              font-size: 10.5px; font-weight: 700; margin-right: 5px; letter-spacing: .3px; }
 .badge-medhold      { background: #d1fae5; color: #065f46; }
 .badge-ikke-medhold { background: #fee2e2; color: #991b1b; }
-.badge-ugyldig      { background: #ede9fe; color: #5b21b6; }
+.badge-ophaevet      { background: #ede9fe; color: #5b21b6; }
 .badge-afvist       { background: #fef3c7; color: #92400e; }
 .badge-ukendt       { background: #e8ecf2; color: #4a5568; }
 
@@ -301,7 +301,7 @@ def _strip_html(t: str) -> str:
 def detect_udfald(titel: str, tekst: str = "") -> str:
     t = titel.lower()
     if any(k in t for k in ("ophævet", "ugyldig", "ugyldigt", "annulleret",
-                             "hjemvisning", "hjemvises")):       return "Afgørelse ugyldig"
+                             "hjemvisning", "hjemvises")):       return "Ophævet"
     if "medhold" in t:                                           return "Medhold"
     if "stadfæst" in t or "ikke medhold" in t:                  return "Ikke medhold"
     if "afvisning" in t or "afvises" in t:                       return "Afvist"
@@ -312,7 +312,7 @@ def detect_udfald(titel: str, tekst: str = "") -> str:
     conc = tx[positions[-1]:positions[-1] + 500] if positions else tx[-800:]
 
     if any(k in conc for k in ("ophæver", "hjemviser", "hjemvisning")):
-        return "Afgørelse ugyldig"
+        return "Ophævet"
     if "kan ikke give medhold" in conc or "ikke medhold" in conc:
         return "Ikke medhold"
     if "afviser" in conc and ("klagen" in conc or "klager" in conc):
@@ -336,7 +336,7 @@ def detect_sagsgruppe(titel: str, tekst: str) -> str:
 
 
 BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
-         "Afgørelse ugyldig": "badge-ugyldig", "Afvist": "badge-afvist", "Ukendt": "badge-ukendt"}
+         "Ophævet": "badge-ophaevet", "Afvist": "badge-afvist", "Ukendt": "badge-ukendt"}
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
@@ -466,7 +466,7 @@ with st.sidebar:
     år_range       = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
 
     st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
-    udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Afgørelse ugyldig", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
+    udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
 
     st.markdown("---")
     st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; {år_min}–{år_max}</span>", unsafe_allow_html=True)
@@ -670,7 +670,7 @@ with tab_stat:
     with col_ll:
         st.markdown("#### Udfald over tid")
         udfald_år = d.groupby(["År","Udfald"]).size().reset_index(name="Antal")
-        farver = {"Medhold":"#10b981","Ikke medhold":"#ef4444","Afgørelse ugyldig":"#8b5cf6","Afvist":"#f59e0b","Ukendt":"#94a3b8"}
+        farver = {"Medhold":"#10b981","Ikke medhold":"#ef4444","Ophævet":"#8b5cf6","Afvist":"#f59e0b","Ukendt":"#94a3b8"}
         fig3 = px.bar(udfald_år, x="År", y="Antal", color="Udfald",
                       color_discrete_map=farver, barmode="stack")
         fig3.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
