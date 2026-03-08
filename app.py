@@ -221,6 +221,13 @@ LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 222">
         stroke="url(#gG)" stroke-width="3" fill="rgba(196,154,60,0.22)" stroke-linejoin="round"/>
 </svg>"""
 
+# Base64-encode so it works as <img src="data:..."> in st.markdown (Streamlit strips inline SVG)
+import base64 as _b64
+LOGO_IMG = f'<img src="data:image/svg+xml;base64,{_b64.b64encode(LOGO_SVG.encode()).decode()}" width="{{w}}" style="display:block;margin:0 auto"/>'
+
+def logo(w: int) -> str:
+    return LOGO_IMG.replace("{w}", str(w))
+
 # ── API ───────────────────────────────────────────────────────────────────────
 OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", "")
 
@@ -438,7 +445,7 @@ vec, mat = build_index(len(df))
 with st.sidebar:
     st.markdown(f"""
 <div class="h-brand-wrap">
-  <div style="width:72px;height:79px;margin:0 auto 6px">{LOGO_SVG}</div>
+  <div style="margin:0 auto 8px">{logo(72)}</div>
   <span class="h-brand">HARALD</span>
   <span class="h-sub">Planklagenævnets Vidensbase</span>
 </div>""", unsafe_allow_html=True)
@@ -535,7 +542,7 @@ with st.sidebar:
 # ── Page header ───────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div class="h-page-header" style="display:flex;align-items:center;gap:18px">
-  <div style="width:60px;height:66px;flex-shrink:0">{LOGO_SVG}</div>
+  <div style="flex-shrink:0">{logo(62)}</div>
   <div>
     <h1 class="h-page-title">HARALD</h1>
     <div class="h-gold-line"></div>
