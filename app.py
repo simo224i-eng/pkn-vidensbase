@@ -191,22 +191,19 @@ def logo(w: int) -> str:
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
+import google.generativeai as _genai
+
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
-_GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 def _llm(prompt: str) -> str:
     if not GEMINI_API_KEY:
         return "Tilføj GEMINI_API_KEY i Streamlit secrets (Settings → Secrets)."
-    r = requests.post(
-        f"{_GEMINI_URL}?key={GEMINI_API_KEY}",
-        json={
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.3, "maxOutputTokens": 2000},
-        },
-        timeout=60,
+    _genai.configure(api_key=GEMINI_API_KEY)
+    model = _genai.GenerativeModel(
+        "gemini-2.0-flash",
+        generation_config={"temperature": 0.3, "max_output_tokens": 2000},
     )
-    r.raise_for_status()
-    return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+    return model.generate_content(prompt).text
 
 # ── Hjælpefunktioner ──────────────────────────────────────────────────────────
 def strip_html(text: str) -> str:
