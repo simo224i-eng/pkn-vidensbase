@@ -255,6 +255,27 @@ header[data-testid="stHeader"] { display: none !important; }
   strip();
   new MutationObserver(strip).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['title'] });
 })();
+
+// ── Tving varm parchment-baggrund (override Streamlit inline-styles) ──
+(function applyBg() {
+  var BG = 'linear-gradient(160deg, #fdf6ef 0%, #f5ede0 100%)';
+  var SELS = [
+    '[data-testid="stApp"]',
+    '[data-testid="stAppViewContainer"]',
+    '[data-testid="stMain"]',
+    '.main', 'body', 'html',
+  ];
+  function paint() {
+    SELS.forEach(function(sel) {
+      document.querySelectorAll(sel).forEach(function(el) {
+        el.style.setProperty('background', BG, 'important');
+        el.style.setProperty('background-color', 'transparent', 'important');
+      });
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(document.body, { subtree: true, childList: true });
+})();
 </script>
 """
 
