@@ -421,18 +421,25 @@ def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30):
     return result.reset_index(drop=True)
 
 
-def gemini_svar(spørgsmål: str, docs: list) -> str:
+def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     if not ANTHROPIC_API_KEY:
         return "Tilføj GEMINI_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
         f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst']}"
         for i, d in enumerate(docs)
     )
+    historik_tekst = ""
+    if historik:
+        for msg in historik[:-1]:  # ekskluder det aktuelle spørgsmål
+            rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
+            historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
+    samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
     prompt = f"""Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.
 Besvar følgende spørgsmål KUN baseret på de vedlagte PKN-afgørelser.
 Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn der stammer fra en afgørelse – f.eks. [Kilde 3] eller [Kilde 1, 2].
 Svar på dansk, præcist og struktureret med overskrifter og afsnit.
-
+Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst.
+{samtale_blok}
 SPØRGSMÅL: {spørgsmål}
 
 AFGØRELSER:
@@ -645,8 +652,20 @@ with tab_søg:
 
         col_tekst, col_ai = st.columns([3, 2])
         with col_tekst:
-            with st.expander("📄 Fuld afgørelsestekst", expanded=True):
-                st.markdown(row["Tekst"])
+            tekst_rå  = row["Tekst"]
+            # Sæt afsnitsskift ved sætningsskift foran stort bogstav
+            tekst_fmt = re.sub(r'\.(\s+)([A-ZÆØÅ])', r'.</p><p>\2', tekst_rå)
+            # Sæt også afsnit ved nummererede afsnit (fx "1. ", "2. ")
+            tekst_fmt = re.sub(r'(\s)(\d+\.\s+)([A-ZÆØÅ])', r'</p><p>\2\3', tekst_fmt)
+            tekst_html = (
+                '<div style="font-size:14px;line-height:1.8;color:#1e293b;'
+                'font-family:Inter,system-ui,sans-serif;'
+                'background:#fff;border:1px solid #e2e8f0;border-radius:8px;'
+                'padding:24px 28px;overflow-y:auto;max-height:72vh;">'
+                f'<p style="margin:0 0 1em 0">{tekst_fmt}</p>'
+                '</div>'
+            )
+            st.markdown(tekst_html, unsafe_allow_html=True)
         with col_ai:
             st.markdown("### ✨ AI-resumé")
             if not st.session_state.resumé_adgang:
@@ -826,7 +845,7 @@ with tab_ai:
                 with st.spinner("Søger og genererer svar…"):
                     hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
                     try:
-                        svar = gemini_svar(f, hits_ai.to_dict("records"))
+                        svar = gemini_svar(f, hits_ai.to_dict("records"), historik=st.session_state.chat_historik)
                     except Exception as e:
                         svar = f"Fejl ved Gemini API: {e}"
                 st.session_state.chat_historik.append(
@@ -933,7 +952,7 @@ with tab_ai:
             with st.spinner("Søger og genererer svar…"):
                 hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
                 try:
-                    svar = gemini_svar(spørgsmål, hits_ai.to_dict("records"))
+                    svar = gemini_svar(spørgsmål, hits_ai.to_dict("records"), historik=st.session_state.chat_historik)
                 except Exception as e:
                     svar = f"Fejl ved Gemini API: {e}"
             st.session_state.chat_historik.append(
