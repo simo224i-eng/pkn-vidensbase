@@ -284,28 +284,28 @@ with st.sidebar:
   <div class="h-logo-box">{logo(152)}</div>
 </div>""", unsafe_allow_html=True)
 
-    st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Søgeord</span>', unsafe_allow_html=True)
     søg_input   = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
 
-    st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
     _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Vedtagelse", "Screening", "Miljøvurdering"})
     isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if _isoler_relevant else False
 
-    st.markdown('<span class="h-filter-label">Plantype</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Plantype</span>', unsafe_allow_html=True)
     plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
     isoler_pt     = st.checkbox("Isoler (kun rene sager)", key="iso_pt") if plantype_valg else False
 
-    st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Sagsgruppe</span>', unsafe_allow_html=True)
     sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
 
-    st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Årsinterval</span>', unsafe_allow_html=True)
     år_min, år_max   = int(df["År"].min()), int(df["År"].max())
     _default_start   = max(2017, år_min)
     år_range         = st.slider("", år_min, år_max, (_default_start, år_max), label_visibility="collapsed")
 
-    st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Udfald</span>', unsafe_allow_html=True)
     udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
 
     st.markdown("---")

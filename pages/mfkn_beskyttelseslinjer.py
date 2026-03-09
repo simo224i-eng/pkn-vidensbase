@@ -225,23 +225,23 @@ with st.sidebar:
   <div class="h-logo-box">{logo(152)}</div>
 </div>""", unsafe_allow_html=True)
 
-    st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Søgeord</span>', unsafe_allow_html=True)
     søg_input = st.text_input("", placeholder="f.eks. terrasse strandbeskyttelse…", label_visibility="collapsed")
 
-    st.markdown('<span class="h-filter-label">Beskyttelseslinje</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Beskyttelseslinje</span>', unsafe_allow_html=True)
     _alle_kats = sorted(df["Kategori"].unique())
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="mfkn_kat")
 
-    st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Sagsgruppe</span>', unsafe_allow_html=True)
     sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"],
                                      label_visibility="collapsed", key="mfkn_sg")
 
-    st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Årsinterval</span>', unsafe_allow_html=True)
     år_min, år_max  = int(df["År"].min()), int(df["År"].max())
     _default_start  = max(2017, år_min)
     år_range = st.slider("", år_min, år_max, (_default_start, år_max), label_visibility="collapsed", key="mfkn_yr")
 
-    st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Udfald</span>', unsafe_allow_html=True)
     udfald_valg = st.multiselect("", ["Stadfæstelse", "Ophævet", "Ændring", "Afvist", "Hjemvist", "Ukendt"],
                                  label_visibility="collapsed", key="mfkn_ud")
 
