@@ -381,14 +381,7 @@ def kategoriser(titel: str) -> list:
     if "kommuneplantillæg" in t or re.search(r"kommuneplan(?!tillæg)", t):
         return ["Andet"]
     # 8. Temabaserede kategorier
-    if "landzone" in t:                                  return ["Landzone"]
-    if "strandbeskyttelse" in t or "strandbeskyttelses" in t: return ["Strandbeskyttelse"]
-    if "naturbeskyttelse" in t:                          return ["Naturbeskyttelse"]
-    if "skovloven" in t or re.search(r"\bskov\b", t):   return ["Skovloven"]
-    if "fredning" in t or "fredede" in t:                return ["Fredning"]
-    if "opsættende virkning" in t:                       return ["Opsættende virkning"]
-    if "byggelinje" in t:                                return ["Byggelinje"]
-    if "vejloven" in t or "vejret" in t:                 return ["Vejret"]
+    if "landzone" in t: return ["Landzone"]
     return ["Andet"]
 
 
