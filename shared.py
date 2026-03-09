@@ -20,11 +20,7 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stAppViewContainer"],
 [data-testid="stApp"],
 [data-testid="stMain"],
-.main, body {
-    background: linear-gradient(160deg, #fdf6ef 0%, #f5ede0 100%) !important;
-    font-family: 'Inter', system-ui, sans-serif;
-}
-[data-testid="stMain"] .block-container { background: transparent !important; }
+.main, body { font-family: 'Inter', system-ui, sans-serif; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] { background: linear-gradient(180deg, #141d2e 0%, #0f172a 55%, #0a1120 100%) !important; border-right: none; }
@@ -256,26 +252,6 @@ header[data-testid="stHeader"] { display: none !important; }
   new MutationObserver(strip).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['title'] });
 })();
 
-// ── Tving varm parchment-baggrund (override Streamlit inline-styles) ──
-(function applyBg() {
-  var BG = 'linear-gradient(160deg, #fdf6ef 0%, #f5ede0 100%)';
-  var SELS = [
-    '[data-testid="stApp"]',
-    '[data-testid="stAppViewContainer"]',
-    '[data-testid="stMain"]',
-    '.main', 'body', 'html',
-  ];
-  function paint() {
-    SELS.forEach(function(sel) {
-      document.querySelectorAll(sel).forEach(function(el) {
-        el.style.setProperty('background', BG, 'important');
-        el.style.setProperty('background-color', 'transparent', 'important');
-      });
-    });
-  }
-  paint();
-  new MutationObserver(paint).observe(document.body, { subtree: true, childList: true });
-})();
 </script>
 """
 
