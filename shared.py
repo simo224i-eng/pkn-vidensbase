@@ -278,10 +278,7 @@ _LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 248" wid
 
 
 def inject_css() -> None:
-    try:
-        st.html(_CSS_HTML)
-    except AttributeError:
-        st.markdown(_CSS_HTML, unsafe_allow_html=True)
+    st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
 
 def logo(w: int) -> str:
@@ -343,18 +340,37 @@ _HEADING_WORDS = [
 _HEADING_WORDS.sort(key=len, reverse=True)  # længste først – undgår delvis match
 
 
+_H_OPEN  = '<span class="detail-section-heading">'
+_H_CLOSE = '</span>'
+
+
 def format_afgørelse_tekst(tekst: str) -> str:
     """Formatér råtekst fra afgørelse til HTML med sektionsoverskrifter og afsnit."""
-    out = tekst
-    # Indsæt heading-markering: efter punktum + mellemrum + kendt overskriftsord
+    out = tekst.strip()
+
+    # 1. Overskrifter midt i tekst – kræver forudgående sætningsafslutning
     for h in _HEADING_WORDS:
-        pat = rf'([.!?]\s+)({re.escape(h)})(\s*:?\s+)'
-        out = re.sub(pat,
-                     rf'\1</p><span class="detail-section-heading">\2</span><p>',
-                     out, flags=re.IGNORECASE)
-    # Opdel resterende tekst i afsnit ved sætningsgrænser
+        esc = re.escape(h)
+        out = re.sub(
+            rf'([.!?])\s+({esc})\s*:?\s+',
+            rf'\1</p>{_H_OPEN}\2{_H_CLOSE}<p>',
+            out,
+        )
+
+    # 2. Overskrift ved tekststart (ingen forudgående tegnsætning)
+    for h in _HEADING_WORDS:
+        m = re.match(rf'^({re.escape(h)})\s*:?\s+', out)
+        if m:
+            out = f'{_H_OPEN}{m.group(1)}{_H_CLOSE}<p>{out[m.end():]}'
+            break
+
+    # 3. Opdel resterende tekst i afsnit ved sætningsgrænser
     out = re.sub(r'\.(\s+)([A-ZÆØÅ])', r'.</p><p>\2', out)
     out = re.sub(r'(\s)(\d+\.\s+)([A-ZÆØÅ])', r'</p><p>\2\3', out)
+
+    # 4. Afslut korrekt afhængig af om teksten begynder med en overskrift
+    if out.startswith(_H_OPEN):
+        return f'<div class="detail-reader">{out}</p></div>'
     return f'<div class="detail-reader"><p>{out}</p></div>'
 
 
