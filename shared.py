@@ -278,7 +278,10 @@ _LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 248" wid
 
 
 def inject_css() -> None:
-    st.markdown(_CSS_HTML, unsafe_allow_html=True)
+    try:
+        st.html(_CSS_HTML)
+    except AttributeError:
+        st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
 
 def logo(w: int) -> str:
