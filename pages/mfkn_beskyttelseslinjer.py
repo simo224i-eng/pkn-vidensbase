@@ -103,7 +103,7 @@ def _læs_mfkn_csv(sti: str) -> list:
     return rows
 
 
-def load_mfkn_data(version: int = 1):
+def load_mfkn_data(version: int = 2):
     csv_sti = "mfkn_nbl_beskyttelseslinier.csv"
     zip_sti = csv_sti + ".zip"
     if not os.path.exists(csv_sti) and os.path.exists(zip_sti):
@@ -238,8 +238,9 @@ with st.sidebar:
                                      label_visibility="collapsed", key="mfkn_sg")
 
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
-    år_min, år_max = int(df["År"].min()), int(df["År"].max())
-    år_range = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed", key="mfkn_yr")
+    år_min, år_max  = int(df["År"].min()), int(df["År"].max())
+    _default_start  = max(2017, år_min)
+    år_range = st.slider("", år_min, år_max, (_default_start, år_max), label_visibility="collapsed", key="mfkn_yr")
 
     st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
     udfald_valg = st.multiselect("", ["Stadfæstelse", "Ophævet", "Ændring", "Afvist", "Hjemvist", "Ukendt"],

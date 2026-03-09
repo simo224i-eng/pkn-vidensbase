@@ -10,10 +10,14 @@ import streamlit as st
 # ── Styling ───────────────────────────────────────────────────────────────────
 _CSS_HTML = """
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 <style>
+/* ── Skjul Streamlit header (keyboard_double_ fix) ── */
+header[data-testid="stHeader"] { display: none !important; }
+[data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
+
 /* ── Base ── */
 [data-testid="stAppViewContainer"] { background: #f8fafc; font-family: 'Inter', system-ui, sans-serif; }
-[data-testid="stMain"] .block-container { padding-top: 2rem; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] { background: #0f172a !important; border-right: none; }
@@ -33,10 +37,70 @@ _CSS_HTML = """
 /* ── Sidebar collapse-knap ── */
 [data-testid="collapsedControl"] { background: #1e293b !important; border-radius: 0 6px 6px 0 !important; }
 [data-testid="collapsedControl"] svg { display: none !important; }
-[data-testid="collapsedControl"]::after { content: "›"; font-size: 22px; color: #c49a3c; font-weight: 300; line-height: 1; }
+[data-testid="collapsedControl"]::after { content: "›"; font-size: 22px; color: #c49a3c; font-weight: 300; line-height: 1; display: block; }
 [data-testid="stSidebarCollapseButton"] button { background: transparent !important; border: none !important; }
 [data-testid="stSidebarCollapseButton"] svg { display: none !important; }
-[data-testid="stSidebarCollapseButton"] button::after { content: "‹"; font-size: 22px; color: #94a3b8; font-weight: 300; }
+[data-testid="stSidebarCollapseButton"] button::after { content: "‹"; font-size: 22px; color: #94a3b8; font-weight: 300; display: block; }
+
+/* ── Sidebar navigation (multipage) ── */
+[data-testid="stSidebarNav"] {
+    padding: 1.2rem 0 0 !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #1e293b;
+}
+[data-testid="stSidebarNav"]::before {
+    content: "NÆVN";
+    display: block;
+    font-size: 9px;
+    font-weight: 600;
+    color: #475569;
+    letter-spacing: 1.5px;
+    padding: 0 1rem 0.5rem;
+}
+[data-testid="stSidebarNavLink"] {
+    color: #64748b !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    padding: 7px 1rem !important;
+    border-radius: 0 !important;
+    border-left: 2px solid transparent !important;
+    transition: all .12s !important;
+    background: transparent !important;
+}
+[data-testid="stSidebarNavLink"]:hover {
+    color: #cbd5e1 !important;
+    background: rgba(255,255,255,.04) !important;
+    border-left-color: #334155 !important;
+}
+[data-testid="stSidebarNavLink"][aria-current="page"] {
+    color: #c49a3c !important;
+    background: rgba(196,154,60,.07) !important;
+    border-left-color: #c49a3c !important;
+    font-weight: 600 !important;
+}
+[data-testid="stSidebarNavSeparator"] { display: none !important; }
+
+/* ── Download-knap i sidebar ── */
+[data-testid="stSidebar"] [data-testid="stDownloadButton"] button {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #94a3b8 !important;
+    border-radius: 6px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    width: 100% !important;
+    padding: 8px 12px !important;
+    letter-spacing: 0.2px !important;
+    transition: border-color .12s, color .12s !important;
+}
+[data-testid="stSidebar"] [data-testid="stDownloadButton"] button:hover {
+    border-color: #c49a3c !important;
+    color: #e2e8f0 !important;
+}
+
+/* ── Skjul keyboard-hint på tabs ── */
+[data-testid="stTabs"] [role="tab"] span[data-testid],
+[data-testid="stTabs"] [role="tab"] kbd { display: none !important; }
 
 /* ── Sidebar branding ── */
 .h-brand-wrap { text-align: center; padding: 1.6rem 0 1.4rem; border-bottom: 1px solid #1e293b; margin-bottom: 1.6rem; }

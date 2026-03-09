@@ -75,26 +75,44 @@ def _strip_html(t: str) -> str:
 
 
 def detect_udfald(titel: str, tekst: str = "") -> str:
+    titel = titel or ""
+    tekst = tekst or ""
     t = titel.lower()
+
+    # ── Procedurelle sager – detektér direkte fra titel ──────────────────────
+    if "planklagenævnet orienterer" in t:               return "Orientering"
+    if re.search(r"afslag på gen[p]?tagelse", t):       return "Afvist"
+    if "afslag på opsættende virkning" in t:            return "Afvist"
+    if "meddelelse af opsættende virkning" in t:        return "Medhold"
+
+    # ── Realitetsafgørelser – titel ───────────────────────────────────────────
     if any(k in t for k in ("ophævet", "ugyldig", "ugyldigt", "annulleret",
                              "hjemvisning", "hjemvises")):       return "Ophævet"
     if "medhold" in t:                                           return "Medhold"
     if "stadfæst" in t or "ikke medhold" in t:                  return "Ikke medhold"
     if "afvisning" in t or "afvises" in t:                       return "Afvist"
 
-    # Slå op i brødteksten – brug SIDSTE "Afsluttende bemærkninger"-sektion
+    # ── Brødtekst – brug SIDSTE "Afsluttende bemærkninger"-sektion ───────────
     tx = _strip_html(tekst).lower()
     positions = [m.start() for m in re.finditer(r"afsluttende bem[æa]rkninger", tx)]
-    conc = tx[positions[-1]:positions[-1] + 500] if positions else tx[-800:]
+    conc = tx[positions[-1]:positions[-1] + 600] if positions else tx[-1000:]
 
-    if any(k in conc for k in ("ophæver", "hjemviser", "hjemvisning")):
+    if any(k in conc for k in ("ophæver", "hjemviser", "hjemvisning", "ugyldiggør")):
         return "Ophævet"
-    if "kan ikke give medhold" in conc or "ikke medhold" in conc:
+    if "kan ikke give medhold" in conc or "ikke medhold" in conc or "stadfæst" in conc:
         return "Ikke medhold"
     if "afviser" in conc and ("klagen" in conc or "klager" in conc):
         return "Afvist"
     if "medhold" in conc:
         return "Medhold"
+
+    # ── Bredere søgning i hele teksten ───────────────────────────────────────
+    if "klagen tages til følge" in tx:                           return "Medhold"
+    if "klagen tages ikke til følge" in tx:                      return "Ikke medhold"
+    if "nævnet ophæver" in tx or "ophæves hermed" in tx:        return "Ophævet"
+    if "nævnet stadfæster" in tx or "stadfæstes hermed" in tx:  return "Ikke medhold"
+
+    return "Ukendt"
 
 def detect_sagsgruppe(titel: str, tekst: str) -> str:
     t = (titel + " " + tekst[:500]).lower()
@@ -124,7 +142,7 @@ def _læs_csv(sti: str) -> list:
     return rows
 
 
-def load_data(version: int = 11):  # bump version to bust cache
+def load_data(version: int = 12):  # bump version to bust cache
     import os, zipfile
     # --- primær fil (zip → csv) ---
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
@@ -284,8 +302,9 @@ with st.sidebar:
     sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
 
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
-    år_min, år_max = int(df["År"].min()), int(df["År"].max())
-    år_range       = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
+    år_min, år_max   = int(df["År"].min()), int(df["År"].max())
+    _default_start   = max(2017, år_min)
+    år_range         = st.slider("", år_min, år_max, (_default_start, år_max), label_visibility="collapsed")
 
     st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
     udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
