@@ -605,7 +605,8 @@ with st.sidebar:
     st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
-    isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if valgte_kats else False
+    _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Vedtagelse", "Screening", "Miljøvurdering"})
+    isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if _isoler_relevant else False
 
     st.markdown('<span class="h-filter-label">Plantype</span>', unsafe_allow_html=True)
     plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
