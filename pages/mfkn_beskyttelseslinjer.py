@@ -7,7 +7,7 @@ import os
 import numpy as np
 import plotly.express as px
 import requests
-from shared import logo, _llm, strip_html, extract_kommune, BADGE
+from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -385,10 +385,7 @@ with tab_søg:
 
         col_tekst, col_ai = st.columns([3, 2], gap="large")
         with col_tekst:
-            tekst_rå  = row["Tekst"]
-            tekst_fmt = re.sub(r'\.(\s+)([A-ZÆØÅ])', r'.</p><p>\2', tekst_rå)
-            tekst_fmt = re.sub(r'(\s)(\d+\.\s+)([A-ZÆØÅ])', r'</p><p>\2\3', tekst_fmt)
-            st.markdown(f'<div class="detail-reader"><p>{tekst_fmt}</p></div>', unsafe_allow_html=True)
+            st.markdown(format_afgørelse_tekst(row["Tekst"]), unsafe_allow_html=True)
 
         with col_ai:
             st.markdown(

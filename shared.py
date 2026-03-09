@@ -200,6 +200,12 @@ header[data-testid="stHeader"] { display: none !important; }
 .detail-reader { font-size: 15px; line-height: 1.9; color: #1e293b; font-family: 'Inter', system-ui, sans-serif; font-weight: 400; }
 .detail-reader p { margin: 0 0 1.1em; }
 .detail-reader p:last-child { margin-bottom: 0; }
+.detail-section-heading {
+    display: block; font-size: 10.5px; font-weight: 700; color: #64748b;
+    text-transform: uppercase; letter-spacing: 1.6px;
+    margin: 2.2em 0 0.7em; padding: 0 0 6px 10px;
+    border-left: 2px solid #c49a3c; border-bottom: 1px solid #f1f5f9;
+}
 .detail-ai-panel { background: #0f172a; border-radius: 12px; padding: 24px; position: sticky; top: 1rem; }
 .detail-ai-title { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #c49a3c; margin-bottom: 16px; }
 .detail-ai-resume { font-size: 13px; line-height: 1.75; color: #cbd5e1; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 14px 16px; margin-top: 12px; }
@@ -324,6 +330,32 @@ def strip_html(text: str) -> str:
         text = text.replace(ent, rep)
     text = re.sub(r"&#\d+;", " ", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+_HEADING_WORDS = [
+    "Nævnets afgørelse", "Begrundelse for afgørelsen", "Oplysninger om sagen",
+    "Sagens oplysninger", "Klagen vedrører", "Nævnets bemærkninger",
+    "Nævnets vurdering", "Retlig vurdering", "Parternes synspunkter",
+    "Faktiske oplysninger", "Afgørelse", "Begrundelse", "Klagen",
+    "Sagsforløb", "Lovgrundlag", "Afstemning", "Klagetema",
+    "Plangrundlag", "Resumé", "Konklusion",
+]
+_HEADING_WORDS.sort(key=len, reverse=True)  # længste først – undgår delvis match
+
+
+def format_afgørelse_tekst(tekst: str) -> str:
+    """Formatér råtekst fra afgørelse til HTML med sektionsoverskrifter og afsnit."""
+    out = tekst
+    # Indsæt heading-markering: efter punktum + mellemrum + kendt overskriftsord
+    for h in _HEADING_WORDS:
+        pat = rf'([.!?]\s+)({re.escape(h)})(\s*:?\s+)'
+        out = re.sub(pat,
+                     rf'\1</p><span class="detail-section-heading">\2</span><p>',
+                     out, flags=re.IGNORECASE)
+    # Opdel resterende tekst i afsnit ved sætningsgrænser
+    out = re.sub(r'\.(\s+)([A-ZÆØÅ])', r'.</p><p>\2', out)
+    out = re.sub(r'(\s)(\d+\.\s+)([A-ZÆØÅ])', r'</p><p>\2\3', out)
+    return f'<div class="detail-reader"><p>{out}</p></div>'
 
 
 def extract_kommune(titel: str) -> str:
