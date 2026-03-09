@@ -133,6 +133,83 @@ _CSS_HTML = """
 [data-testid="stBaseButton-secondary"] { border-color: #e2e8f0 !important; color: #475569 !important;
     font-size: 12px !important; border-radius: 5px !important; }
 [data-testid="stBaseButton-secondary"]:hover { border-color: #c49a3c !important; color: #0f172a !important; }
+
+/* ── Detail view ── */
+.detail-back-row { margin-bottom: 2rem; }
+.detail-hero {
+    padding: 2.4rem 0 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 2.4rem;
+}
+.detail-udfald-row { margin-bottom: 1rem; }
+.detail-udfald-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; padding: 4px 12px;
+    border-radius: 20px; border: 1px solid;
+}
+.detail-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800; color: #0f172a;
+    line-height: 1.25; letter-spacing: -0.5px;
+    margin: 0 0 1.6rem;
+}
+.detail-gold-line {
+    height: 2px; width: 36px; background: #c49a3c;
+    border-radius: 2px; margin-bottom: 1.4rem;
+}
+.detail-meta-strip {
+    display: flex; flex-wrap: wrap; gap: 0;
+    border: 1px solid #e2e8f0; border-radius: 8px;
+    overflow: hidden; margin-bottom: 1.4rem;
+    width: fit-content;
+}
+.detail-meta-cell {
+    padding: 10px 20px;
+    border-right: 1px solid #e2e8f0;
+}
+.detail-meta-cell:last-child { border-right: none; }
+.detail-meta-lbl {
+    font-size: 9.5px; font-weight: 600; color: #94a3b8;
+    text-transform: uppercase; letter-spacing: 1.3px;
+    display: block; margin-bottom: 3px;
+}
+.detail-meta-val {
+    font-size: 13.5px; font-weight: 600; color: #0f172a;
+    white-space: nowrap;
+}
+.detail-source-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; color: #64748b; text-decoration: none;
+    border: 1px solid #e2e8f0; border-radius: 6px;
+    padding: 6px 14px; transition: all .12s;
+    font-weight: 500;
+}
+.detail-source-link:hover { border-color: #c49a3c; color: #0f172a; }
+.detail-reader {
+    font-size: 15px; line-height: 1.9; color: #1e293b;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+}
+.detail-reader p { margin: 0 0 1.1em; }
+.detail-reader p:last-child { margin-bottom: 0; }
+.detail-ai-panel {
+    background: #0f172a; border-radius: 12px;
+    padding: 24px; position: sticky; top: 1rem;
+}
+.detail-ai-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.8px;
+    text-transform: uppercase; color: #c49a3c;
+    margin-bottom: 16px;
+}
+.detail-ai-resume {
+    font-size: 13px; line-height: 1.75; color: #cbd5e1;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px; padding: 14px 16px;
+    margin-top: 12px;
+}
 </style>
 """
 try:
@@ -658,58 +735,99 @@ with tab_søg:
     # Detaljevisning
     if st.session_state.valgt_afgørelse is not None:
         row = st.session_state.valgt_afgørelse
-        if st.button("← Tilbage"):
+
+        # ── Tilbage-knap ────────────────────────────────────────────────────
+        if st.button("← Alle afgørelser"):
             st.session_state.valgt_afgørelse = None
             st.rerun()
 
+        # ── Hero-header ──────────────────────────────────────────────────────
         badge_cls = BADGE.get(row["Udfald"], "badge-ukendt")
         dato_str  = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y")
-        st.markdown(f"# {row['Titel']}")
-        c1, c2, c3, c4, c5 = st.columns(5)
-        c1.metric("Dato",       dato_str)
-        c2.metric("Kategori",   " / ".join(row["Kategori"]))
-        c3.metric("Sagsgruppe", row.get("Sagsgruppe", "–"))
-        c4.metric("Udfald",     row["Udfald"])
-        c5.metric("Kommune",    row["Kommune"] or "–")
-        st.markdown(f"[🔗 Åbn original afgørelse på PKN's hjemmeside]({row['Link']})")
-        st.divider()
+        kategori  = " / ".join(row["Kategori"]) if isinstance(row["Kategori"], list) else row["Kategori"]
+        sagsgruppe = row.get("Sagsgruppe") or "–"
+        kommune    = row.get("Kommune") or "–"
+        udfald     = row.get("Udfald") or "Ukendt"
 
-        col_tekst, col_ai = st.columns([3, 2])
+        # Farver til udfald-chip
+        chip_styles = {
+            "Medhold":       "background:#f0fdf4;color:#166534;border-color:#bbf7d0",
+            "Ikke medhold":  "background:#fef2f2;color:#991b1b;border-color:#fecaca",
+            "Ophævet":       "background:#f5f3ff;color:#5b21b6;border-color:#ddd6fe",
+            "Afvist":        "background:#fffbeb;color:#92400e;border-color:#fde68a",
+        }
+        chip_s = chip_styles.get(udfald, "background:#f8fafc;color:#64748b;border-color:#e2e8f0")
+
+        st.markdown(f"""
+<div class="detail-hero">
+  <div class="detail-udfald-row">
+    <span class="detail-udfald-chip" style="{chip_s}">{udfald}</span>
+  </div>
+  <h1 class="detail-title">{row['Titel']}</h1>
+  <div class="detail-gold-line"></div>
+  <div class="detail-meta-strip">
+    <div class="detail-meta-cell">
+      <span class="detail-meta-lbl">Dato</span>
+      <span class="detail-meta-val">{dato_str}</span>
+    </div>
+    <div class="detail-meta-cell">
+      <span class="detail-meta-lbl">Kategori</span>
+      <span class="detail-meta-val">{kategori}</span>
+    </div>
+    <div class="detail-meta-cell">
+      <span class="detail-meta-lbl">Sagsgruppe</span>
+      <span class="detail-meta-val">{sagsgruppe}</span>
+    </div>
+    <div class="detail-meta-cell">
+      <span class="detail-meta-lbl">Kommune</span>
+      <span class="detail-meta-val">{kommune}</span>
+    </div>
+  </div>
+  <a class="detail-source-link" href="{row['Link']}" target="_blank">
+    Åbn original på PKN's hjemmeside &nbsp;↗
+  </a>
+</div>
+""", unsafe_allow_html=True)
+
+        # ── Indhold: tekst + AI ──────────────────────────────────────────────
+        col_tekst, col_ai = st.columns([3, 2], gap="large")
         with col_tekst:
             tekst_rå  = row["Tekst"]
-            # Sæt afsnitsskift ved sætningsskift foran stort bogstav
             tekst_fmt = re.sub(r'\.(\s+)([A-ZÆØÅ])', r'.</p><p>\2', tekst_rå)
-            # Sæt også afsnit ved nummererede afsnit (fx "1. ", "2. ")
             tekst_fmt = re.sub(r'(\s)(\d+\.\s+)([A-ZÆØÅ])', r'</p><p>\2\3', tekst_fmt)
-            tekst_html = (
-                '<div style="font-size:14px;line-height:1.8;color:#1e293b;'
-                'font-family:Inter,system-ui,sans-serif;'
-                'background:#fff;border:1px solid #e2e8f0;border-radius:8px;'
-                'padding:24px 28px;overflow-y:auto;max-height:72vh;">'
-                f'<p style="margin:0 0 1em 0">{tekst_fmt}</p>'
-                '</div>'
+            st.markdown(
+                f'<div class="detail-reader"><p>{tekst_fmt}</p></div>',
+                unsafe_allow_html=True
             )
-            st.markdown(tekst_html, unsafe_allow_html=True)
+
         with col_ai:
-            st.markdown("### ✨ AI-resumé")
+            st.markdown(
+                '<div class="detail-ai-panel">'
+                '<div class="detail-ai-title">✦ &nbsp;AI-Resumé</div>',
+                unsafe_allow_html=True
+            )
             if not st.session_state.resumé_adgang:
                 pw = st.text_input("Adgangskode", type="password", key="resumé_pw_input",
-                                   placeholder="Indtast adgangskode…")
-                if st.button("Lås op", key="resumé_pw_btn"):
+                                   placeholder="Indtast adgangskode…", label_visibility="collapsed")
+                if st.button("Lås op →", key="resumé_pw_btn"):
                     if pw == "B465545":
                         st.session_state.resumé_adgang = True
                         st.rerun()
                     else:
                         st.error("Forkert adgangskode.")
             else:
-                if st.button("Generer AI-resumé"):
-                    with st.spinner("Resumerer…"):
+                if st.button("Generer resumé →", key="gen_resume_btn"):
+                    with st.spinner("Analyserer…"):
                         try:
                             st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
                         except Exception as e:
                             st.session_state._resumé = f"Fejl: {e}"
                 if "_resumé" in st.session_state:
-                    st.info(st.session_state._resumé)
+                    st.markdown(
+                        f'<div class="detail-ai-resume">{st.session_state._resumé}</div>',
+                        unsafe_allow_html=True
+                    )
+            st.markdown('</div>', unsafe_allow_html=True)
 
     else:
         total_filtreret = len(df_filter)
