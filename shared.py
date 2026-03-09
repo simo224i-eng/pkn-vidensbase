@@ -198,7 +198,7 @@ header[data-testid="stHeader"] { display: none !important; }
 (function removeSidebarTitles() {
   function strip() {
     document.querySelectorAll(
-      '[data-testid="stSidebarCollapseButton"] button, [data-testid="collapsedControl"] button'
+      '[data-testid="stSidebarCollapseButton"] button, [data-testid="collapsedControl"] button, [role="tab"]'
     ).forEach(function(el) {
       el.removeAttribute('title');
       el.removeAttribute('aria-label');
