@@ -11,8 +11,8 @@ from shared import inject_css
 inject_css()
 
 pg = st.navigation([
-    st.Page("pages/home.py",                     title="Forside",                   icon="🏛️", default=True),
-    st.Page("pages/pkn.py",                      title="PKN — Planklagenævnet",     icon="⚖️"),
-    st.Page("pages/mfkn_beskyttelseslinjer.py",  title="MFKN — Beskyttelseslinjer", icon="🌿"),
+    st.Page("pages/home.py",                     title="Forside",            icon=":material/home:",    default=True),
+    st.Page("pages/pkn.py",                      title="Planklagenævnet",    icon=":material/gavel:"),
+    st.Page("pages/mfkn_beskyttelseslinjer.py",  title="Beskyttelseslinjer", icon=":material/eco:"),
 ])
 pg.run()

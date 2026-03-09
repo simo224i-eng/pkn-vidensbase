@@ -282,7 +282,6 @@ with st.sidebar:
     st.markdown(f"""
 <div class="h-brand-wrap">
   <div class="h-logo-box">{logo(152)}</div>
-  <span class="h-sub">Planklagenævnets Vidensbase</span>
 </div>""", unsafe_allow_html=True)
 
     st.markdown('<span class="h-filter-label">Søgeord (f.eks. planlovens § 15)</span>', unsafe_allow_html=True)
@@ -348,7 +347,7 @@ if søg_input.strip():
     _matched   = df_filter.index[_text_mask].tolist()
     ai_sub_idx = [sub_idx[i] for i in _matched] if _matched else sub_idx
 else:
-    df_vis = df_filter.sort_values("Dato", ascending=False).head(_vis_antal)
+    df_vis = df_filter.sort_values("Dato", ascending=False)
     ai_sub_idx = sub_idx
 
 
@@ -530,26 +529,27 @@ with tab_søg:
             st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
         else:
             for _, row in df_vis.head(_vis_antal).iterrows():
-                badge_cls = BADGE.get(row["Udfald"], "badge-ukendt")
-                dato_str  = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
+                badge_cls   = BADGE.get(row["Udfald"], "badge-ukendt")
+                dato_str    = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
+                kat_str     = " / ".join(row["Kategori"]) if isinstance(row["Kategori"], list) else row["Kategori"]
                 st.markdown(f"""
 <div class="pkn-card">
-  <div class="pkn-card-meta">{dato_str} &nbsp;·&nbsp; {" / ".join(row['Kategori'])} &nbsp;·&nbsp; {row['Sagsgruppe']}
-    &nbsp;<span class="pkn-badge {badge_cls}">{row['Udfald']}</span>
+  <div class="pkn-card-toprow">
+    <span class="pkn-card-dato">{dato_str}</span>
+    <span class="pkn-badge {badge_cls}">{row['Udfald']}</span>
   </div>
   <div class="pkn-card-title">{row['Titel']}</div>
+  <div class="pkn-card-tags">
+    <span class="pkn-tag">{kat_str}</span>
+    <span class="pkn-tag">{row['Sagsgruppe']}</span>
+  </div>
   <div class="pkn-card-excerpt">{row['Excerpt']}…</div>
 </div>""", unsafe_allow_html=True)
-
-                c1, c2 = st.columns([1, 6])
-                with c1:
-                    if st.button("Læs mere", key=f"btn_{row['Link'][-20:]}"):
-                        st.session_state.valgt_afgørelse = row.to_dict()
-                        if "_resumé" in st.session_state:
-                            del st.session_state["_resumé"]
-                        st.rerun()
-                with c2:
-                    st.markdown(f"[Åbn original ↗]({row['Link']})")
+                if st.button("Læs afgørelse →", key=f"btn_{row['Link'][-20:]}"):
+                    st.session_state.valgt_afgørelse = row.to_dict()
+                    if "_resumé" in st.session_state:
+                        del st.session_state["_resumé"]
+                    st.rerun()
 
             if _vis_antal < hits:
                 tilbage = hits - _vis_antal

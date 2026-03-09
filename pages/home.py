@@ -6,7 +6,6 @@ with st.sidebar:
     st.markdown(f"""
 <div class="h-brand-wrap">
   <div class="h-logo-box">{logo(120)}</div>
-  <span class="h-sub">Juridisk Vidensbase</span>
 </div>""", unsafe_allow_html=True)
 
 st.markdown(f"""

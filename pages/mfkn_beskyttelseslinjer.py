@@ -223,7 +223,6 @@ with st.sidebar:
     st.markdown(f"""
 <div class="h-brand-wrap">
   <div class="h-logo-box">{logo(152)}</div>
-  <span class="h-sub">MFKN · Beskyttelseslinjer</span>
 </div>""", unsafe_allow_html=True)
 
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
@@ -276,7 +275,7 @@ if søg_input.strip():
     df_vis     = df_filter[_text_mask].sort_values("Dato", ascending=False).reset_index(drop=True)
     ai_sub_idx = [sub_idx[i] for i in df_filter.index[_text_mask].tolist()] if _text_mask.any() else sub_idx
 else:
-    df_vis = df_filter.sort_values("Dato", ascending=False).head(_vis_antal)
+    df_vis = df_filter.sort_values("Dato", ascending=False)
     ai_sub_idx = sub_idx
 
 # Download
@@ -437,22 +436,22 @@ with tab_søg:
                 dato_str  = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 st.markdown(f"""
 <div class="pkn-card">
-  <div class="pkn-card-meta">{dato_str} &nbsp;·&nbsp; {row['Kategori']} &nbsp;·&nbsp; {row['Sagsgruppe']}
-    &nbsp;<span class="pkn-badge {badge_cls}">{row['Udfald']}</span>
+  <div class="pkn-card-toprow">
+    <span class="pkn-card-dato">{dato_str}</span>
+    <span class="pkn-badge {badge_cls}">{row['Udfald']}</span>
   </div>
   <div class="pkn-card-title">{row['Titel']}</div>
+  <div class="pkn-card-tags">
+    <span class="pkn-tag">{row['Kategori']}</span>
+    <span class="pkn-tag">{row['Sagsgruppe']}</span>
+  </div>
   <div class="pkn-card-excerpt">{row['Excerpt']}…</div>
 </div>""", unsafe_allow_html=True)
-
-                c1, c2 = st.columns([1, 6])
-                with c1:
-                    if st.button("Læs mere", key=f"mfkn_btn_{row['Link'][-20:]}"):
-                        st.session_state.mfkn_valgt = row.to_dict()
-                        if "mfkn_resumé" in st.session_state:
-                            del st.session_state["mfkn_resumé"]
-                        st.rerun()
-                with c2:
-                    st.markdown(f"[Åbn original ↗]({row['Link']})")
+                if st.button("Læs afgørelse →", key=f"mfkn_btn_{row['Link'][-20:]}"):
+                    st.session_state.mfkn_valgt = row.to_dict()
+                    if "mfkn_resumé" in st.session_state:
+                        del st.session_state["mfkn_resumé"]
+                    st.rerun()
 
             if _vis_antal < hits:
                 tilbage = hits - _vis_antal

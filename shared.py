@@ -127,9 +127,9 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stTabs"] [role="tab"] kbd { display: none !important; }
 
 /* ── Sidebar branding ── */
-.h-brand-wrap { text-align: center; padding: 1.6rem 0 1.4rem; border-bottom: 1px solid #1e293b; margin-bottom: 1.6rem; }
-.h-logo-box { display: inline-block; padding: 6px 10px; margin-bottom: 4px; filter: drop-shadow(0 3px 12px rgba(196,154,60,0.22)); }
-.h-sub { font-size: 9px; color: #3d5270 !important; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 2px; display: block; }
+.h-brand-wrap { text-align: center; padding: 1.4rem 0 1.2rem; border-bottom: 1px solid #1e293b; margin-bottom: 1.6rem; }
+.h-logo-box { display: inline-block; padding: 6px 10px; margin-bottom: 0; filter: drop-shadow(0 3px 12px rgba(196,154,60,0.22)); }
+.h-sub { display: none; }
 
 /* ── Sidebar section labels ── */
 .h-filter-label { font-size: 9px !important; font-weight: 600 !important; color: #475569 !important;
@@ -143,13 +143,16 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Cards ── */
 .pkn-card {
-    background: #ffffff; border-radius: 6px; padding: 18px 22px; margin-bottom: 6px;
+    background: #ffffff; border-radius: 8px; padding: 18px 22px; margin-bottom: 4px;
     border: 1px solid #e2e8f0; transition: border-color .12s, box-shadow .12s;
 }
-.pkn-card:hover { border-color: #c49a3c; box-shadow: 0 2px 12px rgba(15,23,42,.06); }
-.pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #0f172a; margin: 4px 0 8px; line-height: 1.5; }
-.pkn-card-meta    { font-size: 11px; color: #94a3b8; margin-bottom: 5px; letter-spacing: .1px; }
-.pkn-card-excerpt { font-size: 12.5px; color: #475569; line-height: 1.6; }
+.pkn-card:hover { border-color: #c49a3c; box-shadow: 0 2px 14px rgba(15,23,42,.07); }
+.pkn-card-toprow  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.pkn-card-dato    { font-size: 11px; color: #94a3b8; font-weight: 500; letter-spacing: .2px; }
+.pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #0f172a; margin: 0 0 8px; line-height: 1.5; }
+.pkn-card-tags    { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+.pkn-tag          { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 500; color: #475569; background: #f1f5f9; border: 1px solid #e2e8f0; }
+.pkn-card-excerpt { font-size: 12.5px; color: #64748b; line-height: 1.6; }
 
 /* ── Badges ── */
 .pkn-badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; margin-right: 4px; letter-spacing: .1px; }
