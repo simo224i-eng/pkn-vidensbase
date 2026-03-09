@@ -38,7 +38,10 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="collapsedControl"] { background: #1e293b !important; border-radius: 0 6px 6px 0 !important; }
 [data-testid="collapsedControl"] svg { display: none !important; }
 [data-testid="collapsedControl"]::after { content: "›"; font-size: 22px; color: #c49a3c; font-weight: 300; line-height: 1; display: block; }
-[data-testid="stSidebarCollapseButton"] button { background: transparent !important; border: none !important; }
+[data-testid="stSidebarCollapseButton"] button {
+    background: transparent !important; border: none !important;
+    font-size: 0 !important; color: transparent !important;
+}
 [data-testid="stSidebarCollapseButton"] svg { display: none !important; }
 [data-testid="stSidebarCollapseButton"] button::after { content: "‹"; font-size: 22px; color: #94a3b8; font-weight: 300; display: block; }
 
@@ -174,6 +177,9 @@ header[data-testid="stHeader"] { display: none !important; }
 .detail-ai-title { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #c49a3c; margin-bottom: 16px; }
 .detail-ai-resume { font-size: 13px; line-height: 1.75; color: #cbd5e1; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 14px 16px; margin-top: 12px; }
 
+/* ── Skjul browser-tooltip på collapse-knap ── */
+[data-testid="stSidebarCollapseButton"] button::before { content: none !important; }
+
 /* ── Home page cards ── */
 .nævn-card {
     background: #fff; border-radius: 12px; padding: 2rem 2.4rem;
@@ -188,6 +194,20 @@ header[data-testid="stHeader"] { display: none !important; }
 .nævn-card-desc { font-size: 13px; color: #475569; line-height: 1.65; margin-bottom: 1.2rem; }
 .nævn-card-count { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
 </style>
+<script>
+(function removeSidebarTitles() {
+  function strip() {
+    document.querySelectorAll(
+      '[data-testid="stSidebarCollapseButton"] button, [data-testid="collapsedControl"] button'
+    ).forEach(function(el) {
+      el.removeAttribute('title');
+      el.removeAttribute('aria-label');
+    });
+  }
+  strip();
+  new MutationObserver(strip).observe(document.body, { subtree: true, childList: true, attributes: true });
+})();
+</script>
 """
 
 # ── Logo SVG ──────────────────────────────────────────────────────────────────
