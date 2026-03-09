@@ -545,8 +545,8 @@ _vis_antal = st.session_state.get("vis_antal", 25)
 if søg_input.strip():
     _q = søg_input.strip()
     _text_mask = (
-        df_filter["Titel"].str.contains(_q, case=False, na=False) |
-        df_filter["Tekst"].str.contains(_q, case=False, na=False)
+        df_filter["Titel"].str.contains(_q, case=False, na=False, regex=False) |
+        df_filter["Tekst"].str.contains(_q, case=False, na=False, regex=False)
     )
     df_vis     = df_filter[_text_mask].sort_values("Dato", ascending=False).reset_index(drop=True)
     _matched   = df_filter.index[_text_mask].tolist()
