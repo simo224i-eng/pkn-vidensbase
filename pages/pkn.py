@@ -544,6 +544,9 @@ with tab_søg:
     <span class="pkn-tag">{row['Sagsgruppe']}</span>
   </div>
   <div class="pkn-card-excerpt">{row['Excerpt']}…</div>
+  <div class="pkn-card-footer">
+    <a href="{row['Link']}" target="_blank" class="pkn-card-link">Åbn afgørelse på portalen ↗</a>
+  </div>
 </div>""", unsafe_allow_html=True)
                 if st.button("Læs afgørelse →", key=f"btn_{row['Link'][-20:]}"):
                     st.session_state.valgt_afgørelse = row.to_dict()
