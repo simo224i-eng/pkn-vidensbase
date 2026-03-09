@@ -284,8 +284,8 @@ with st.sidebar:
   <div class="h-logo-box">{logo(152)}</div>
 </div>""", unsafe_allow_html=True)
 
-    st.markdown('<span class="h-filter-label">Søgeord (f.eks. planlovens § 15)</span>', unsafe_allow_html=True)
-    søg_input   = st.text_input("", placeholder="f.eks. terrasse lokalplan…", label_visibility="collapsed")
+    st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
+    søg_input   = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
 
     st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
@@ -522,24 +522,34 @@ with tab_søg:
         if hits == 0:
             st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
         else:
+            _BADGE_STYLE = {
+                "Medhold":      "background:#f0fdf4;color:#166534;border:1px solid #bbf7d0",
+                "Ikke medhold": "background:#fef2f2;color:#991b1b;border:1px solid #fecaca",
+                "Ophævet":      "background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe",
+                "Afvist":       "background:#fffbeb;color:#92400e;border:1px solid #fde68a",
+                "Stadfæstelse": "background:#fef2f2;color:#991b1b;border:1px solid #fecaca",
+                "Ændring":      "background:#f0fdf4;color:#166534;border:1px solid #bbf7d0",
+                "Hjemvist":     "background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe",
+            }
+            _BADGE_DEFAULT = "background:#f8fafc;color:#64748b;border:1px solid #e2e8f0"
             for _, row in df_vis.head(_vis_antal).iterrows():
-                badge_cls   = BADGE.get(row["Udfald"], "badge-ukendt")
+                badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
                 dato_str    = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 kat_str     = " / ".join(row["Kategori"]) if isinstance(row["Kategori"], list) else row["Kategori"]
                 st.markdown(f"""
-<div class="pkn-card">
-  <div class="pkn-card-toprow">
-    <span class="pkn-card-dato">{dato_str}</span>
-    <span class="pkn-badge {badge_cls}">{row['Udfald']}</span>
+<div style="background:#ffffff;border-radius:8px;padding:18px 22px;margin-bottom:4px;border:1px solid #e2e8f0;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <span style="font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:.2px;">{dato_str}</span>
+    <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.1px;{badge_style}">{row['Udfald']}</span>
   </div>
-  <div class="pkn-card-title">{row['Titel']}</div>
-  <div class="pkn-card-tags">
-    <span class="pkn-tag">{kat_str}</span>
-    <span class="pkn-tag">{row['Sagsgruppe']}</span>
+  <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{row['Titel']}</div>
+  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+    <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{kat_str}</span>
+    <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{row['Sagsgruppe']}</span>
   </div>
-  <div class="pkn-card-excerpt">{row['Excerpt']}…</div>
-  <div class="pkn-card-footer">
-    <a href="{row['Link']}" target="_blank" class="pkn-card-link">Åbn afgørelse på portalen ↗</a>
+  <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{row['Excerpt']}…</div>
+  <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
+    <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
   </div>
 </div>""", unsafe_allow_html=True)
                 if st.button("Læs afgørelse →", key=f"btn_{row['Link'][-20:]}"):

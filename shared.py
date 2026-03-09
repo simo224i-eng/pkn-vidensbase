@@ -132,8 +132,9 @@ header[data-testid="stHeader"] { display: none !important; }
 .h-sub { display: none; }
 
 /* ── Sidebar section labels ── */
-.h-filter-label { font-size: 9px !important; font-weight: 600 !important; color: #475569 !important;
-                  text-transform: uppercase; letter-spacing: 1.5px; margin: 1.4rem 0 0.35rem; display: block; }
+.h-filter-label { font-family: 'Cinzel', Georgia, serif !important; font-size: 10px !important;
+                  font-weight: 700 !important; color: #c49a3c !important;
+                  text-transform: uppercase; letter-spacing: 2px; margin: 1.4rem 0 0.35rem; display: block; }
 
 /* ── Page header ── */
 .h-page-header { margin-bottom: 1.8rem; padding-bottom: 1.2rem; border-bottom: 1px solid #e2e8f0; }
