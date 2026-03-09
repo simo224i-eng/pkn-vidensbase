@@ -362,14 +362,10 @@ BADGE = {"Medhold": "badge-medhold", "Ikke medhold": "badge-ikke-medhold",
 
 # ── Data-loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
-def load_data(version: int = 10):  # bump version to bust cache
-    import os, zipfile
-    if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
-        with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
-            z.extractall(".")
-    csv.field_size_limit(10_000_000)
+def _læs_csv(sti: str) -> list:
+    """Læser én CSV og returnerer en liste af rækker med renset tekst."""
     rows = []
-    with open("pkn_vidensbase_fuld_tekst.csv", newline="", encoding="utf-8") as f:
+    with open(sti, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             tekst = strip_html(row["Tekst"])
@@ -380,6 +376,34 @@ def load_data(version: int = 10):  # bump version to bust cache
                 "Tekst":   tekst,
                 "Excerpt": tekst[:280],
             })
+    return rows
+
+
+def load_data(version: int = 11):  # bump version to bust cache
+    import os, zipfile
+    # --- primær fil (zip → csv) ---
+    if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
+        with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
+            z.extractall(".")
+    csv.field_size_limit(10_000_000)
+    rows = _læs_csv("pkn_vidensbase_fuld_tekst.csv")
+
+    # --- supplerende fil (miljøvurderingsloven) ---
+    ekstra_sti = "pkn_miljoevurderingsloven_fuld_tekst.csv"
+    ekstra_zip = ekstra_sti + ".zip"
+    if not os.path.exists(ekstra_sti) and os.path.exists(ekstra_zip):
+        with zipfile.ZipFile(ekstra_zip) as z:
+            z.extractall(".")
+    if os.path.exists(ekstra_sti):
+        ekstra = _læs_csv(ekstra_sti)
+        eksisterende_links = {r["Link"] for r in rows}
+        tilføjet = sum(
+            1 for r in ekstra
+            if r["Link"] not in eksisterende_links
+            and not rows.append(r)  # append returnerer None → tæl
+        )
+        _ = tilføjet  # brugt til evt. logging
+
     df = pd.DataFrame(rows)
     df["Dato"]     = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]       = df["Dato"].dt.year.astype("Int64")
@@ -395,7 +419,7 @@ def load_data(version: int = 10):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(10)
+    df2 = load_data(11)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -487,7 +511,7 @@ if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       =
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(10)
+df       = load_data(11)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
