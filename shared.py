@@ -35,20 +35,36 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #64748b !important; }
 
 /* ── Sidebar collapse-knap ── */
-[data-testid="collapsedControl"] { background: #1e293b !important; border-radius: 0 6px 6px 0 !important; }
-[data-testid="collapsedControl"] button {
-    background: transparent !important; border: none !important;
+/* Expand-knap (vises når sidebar er lukket) */
+[data-testid="collapsedControl"] {
+    background: #1e293b !important; border-radius: 0 6px 6px 0 !important;
+}
+/* Skjul al tekst og SVG – dæk begge strukturer (<button> eller <div><button>) */
+[data-testid="collapsedControl"],
+[data-testid="collapsedControl"] button,
+[data-testid="collapsedControl"] button * {
     font-size: 0 !important; color: transparent !important;
-    width: 100% !important; height: 100% !important;
 }
 [data-testid="collapsedControl"] svg { display: none !important; }
-[data-testid="collapsedControl"] button::after { content: "›"; font-size: 22px; color: #c49a3c; font-weight: 300; line-height: 1; display: block; }
-[data-testid="stSidebarCollapseButton"] button {
-    background: transparent !important; border: none !important;
+/* Vis "›" via ::after på selve elementet (virker uanset struktur) */
+[data-testid="collapsedControl"]::after {
+    content: "›"; font-size: 22px !important; color: #c49a3c !important;
+    font-weight: 300; display: flex !important; align-items: center;
+    justify-content: center; height: 100%; pointer-events: none;
+}
+/* Collapse-knap (inden i sidebar) */
+[data-testid="stSidebarCollapseButton"] button,
+[data-testid="stSidebarCollapseButton"] button * {
     font-size: 0 !important; color: transparent !important;
 }
+[data-testid="stSidebarCollapseButton"] button {
+    background: transparent !important; border: none !important;
+}
 [data-testid="stSidebarCollapseButton"] svg { display: none !important; }
-[data-testid="stSidebarCollapseButton"] button::after { content: "‹"; font-size: 22px; color: #94a3b8; font-weight: 300; display: block; }
+[data-testid="stSidebarCollapseButton"] button::after {
+    content: "‹"; font-size: 22px !important; color: #94a3b8 !important;
+    font-weight: 300; display: block !important;
+}
 
 /* ── Sidebar navigation (multipage) ── */
 [data-testid="stSidebarNav"] {
@@ -203,6 +219,7 @@ header[data-testid="stHeader"] { display: none !important; }
 (function removeIconTooltips() {
   var SEL = [
     '[data-testid="stSidebarCollapseButton"] button',
+    '[data-testid="collapsedControl"]',
     '[data-testid="collapsedControl"] button',
     '[role="tab"]',
     '[data-testid="stTabs"] button',
