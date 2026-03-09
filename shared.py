@@ -36,8 +36,13 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Sidebar collapse-knap ── */
 [data-testid="collapsedControl"] { background: #1e293b !important; border-radius: 0 6px 6px 0 !important; }
+[data-testid="collapsedControl"] button {
+    background: transparent !important; border: none !important;
+    font-size: 0 !important; color: transparent !important;
+    width: 100% !important; height: 100% !important;
+}
 [data-testid="collapsedControl"] svg { display: none !important; }
-[data-testid="collapsedControl"]::after { content: "›"; font-size: 22px; color: #c49a3c; font-weight: 300; line-height: 1; display: block; }
+[data-testid="collapsedControl"] button::after { content: "›"; font-size: 22px; color: #c49a3c; font-weight: 300; line-height: 1; display: block; }
 [data-testid="stSidebarCollapseButton"] button {
     background: transparent !important; border: none !important;
     font-size: 0 !important; color: transparent !important;
@@ -195,17 +200,20 @@ header[data-testid="stHeader"] { display: none !important; }
 .nævn-card-count { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
 </style>
 <script>
-(function removeSidebarTitles() {
+(function removeIconTooltips() {
+  var SEL = [
+    '[data-testid="stSidebarCollapseButton"] button',
+    '[data-testid="collapsedControl"] button',
+    '[role="tab"]',
+    '[data-testid="stTabs"] button',
+  ].join(', ');
   function strip() {
-    document.querySelectorAll(
-      '[data-testid="stSidebarCollapseButton"] button, [data-testid="collapsedControl"] button, [role="tab"]'
-    ).forEach(function(el) {
+    document.querySelectorAll(SEL).forEach(function(el) {
       el.removeAttribute('title');
-      el.removeAttribute('aria-label');
     });
   }
   strip();
-  new MutationObserver(strip).observe(document.body, { subtree: true, childList: true, attributes: true });
+  new MutationObserver(strip).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['title'] });
 })();
 </script>
 """
