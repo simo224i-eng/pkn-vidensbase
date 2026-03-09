@@ -17,10 +17,10 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
 
 /* ── Base ── */
-[data-testid="stAppViewContainer"] { background: #f8fafc; font-family: 'Inter', system-ui, sans-serif; }
+[data-testid="stAppViewContainer"] { background: linear-gradient(160deg, #faf9f6 0%, #f0f4f8 100%); min-height: 100vh; font-family: 'Inter', system-ui, sans-serif; }
 
 /* ── Sidebar ── */
-[data-testid="stSidebar"] { background: #0f172a !important; border-right: none; }
+[data-testid="stSidebar"] { background: linear-gradient(180deg, #141d2e 0%, #0f172a 55%, #0a1120 100%) !important; border-right: none; }
 [data-testid="stSidebar"] * { color: #94a3b8 !important; font-family: 'Inter', sans-serif !important; }
 [data-testid="stSidebar"] .stTextInput input {
     background: #1e293b !important; border: 1px solid #334155 !important;
@@ -97,8 +97,8 @@ header[data-testid="stHeader"] { display: none !important; }
     border-left-color: #334155 !important;
 }
 [data-testid="stSidebarNavLink"][aria-current="page"] {
-    color: #c49a3c !important;
-    background: rgba(196,154,60,.07) !important;
+    color: #e8c86a !important;
+    background: rgba(196,154,60,.12) !important;
     border-left-color: #c49a3c !important;
     font-weight: 600 !important;
 }
@@ -144,15 +144,17 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Cards ── */
 .pkn-card {
-    background: #ffffff; border-radius: 8px; padding: 18px 22px; margin-bottom: 4px;
-    border: 1px solid #e2e8f0; transition: border-color .12s, box-shadow .12s;
+    background: #ffffff; border-radius: 8px; padding: 18px 22px 18px 19px; margin-bottom: 4px;
+    border: 1px solid #e5e2db; border-left: 3px solid transparent;
+    box-shadow: 0 1px 4px rgba(15,23,42,.05);
+    transition: border-color .15s, border-left-color .15s, box-shadow .15s;
 }
-.pkn-card:hover { border-color: #c49a3c; box-shadow: 0 2px 14px rgba(15,23,42,.07); }
+.pkn-card:hover { border-color: #e8d09a; border-left-color: #c49a3c; box-shadow: 0 6px 24px rgba(196,154,60,.13); }
 .pkn-card-toprow  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .pkn-card-dato    { font-size: 11px; color: #94a3b8; font-weight: 500; letter-spacing: .2px; }
 .pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #0f172a; margin: 0 0 8px; line-height: 1.5; }
 .pkn-card-tags    { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
-.pkn-tag          { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 500; color: #475569; background: #f1f5f9; border: 1px solid #e2e8f0; }
+.pkn-tag          { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 500; color: #7a5c1e; background: #fef8ed; border: 1px solid #e8d49e; }
 .pkn-card-excerpt { font-size: 12.5px; color: #64748b; line-height: 1.6; }
 .pkn-card-footer  { margin-top: 10px; padding-top: 10px; border-top: 1px solid #f1f5f9; }
 .pkn-card-link    { font-size: 11px; color: #94a3b8; text-decoration: none; font-weight: 500; transition: color .12s; }
@@ -167,7 +169,7 @@ header[data-testid="stHeader"] { display: none !important; }
 .badge-ukendt       { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
 
 /* ── Stat cards ── */
-.stat-card   { background: #fff; border-radius: 6px; padding: 22px 18px; text-align: center; border: 1px solid #e2e8f0; }
+.stat-card   { background: #fff; border-radius: 8px; padding: 22px 18px; text-align: center; border: 1px solid #e5e2db; border-top: 3px solid #c49a3c; box-shadow: 0 1px 4px rgba(15,23,42,.05); }
 .stat-number { font-family: 'Cinzel', Georgia, serif; font-size: 28px; font-weight: 700; color: #0f172a; }
 .stat-label  { font-size: 10px; color: #94a3b8; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
 
@@ -217,11 +219,12 @@ header[data-testid="stHeader"] { display: none !important; }
 /* ── Home page cards ── */
 .nævn-card {
     background: #fff; border-radius: 12px; padding: 2rem 2.4rem;
-    border: 1px solid #e2e8f0; cursor: pointer;
-    transition: border-color .15s, box-shadow .15s, transform .15s;
+    border: 1px solid #e5e2db; border-top: 3px solid #e5e2db; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(15,23,42,.05);
+    transition: border-color .15s, border-top-color .15s, box-shadow .15s, transform .15s;
 }
-.nævn-card:hover { border-color: #c49a3c; box-shadow: 0 8px 32px rgba(15,23,42,.10); transform: translateY(-2px); }
-.nævn-card.mfkn:hover { border-color: #2d6a4f; }
+.nævn-card:hover { border-color: #e8d09a; border-top-color: #c49a3c; box-shadow: 0 10px 36px rgba(196,154,60,.14); transform: translateY(-3px); }
+.nævn-card.mfkn:hover { border-color: #a8d5be; border-top-color: #2d6a4f; box-shadow: 0 10px 36px rgba(45,106,79,.12); }
 .nævn-card-icon { font-size: 2.4rem; margin-bottom: 1rem; }
 .nævn-card-title { font-family: 'Cinzel', Georgia, serif; font-size: 1.1rem; font-weight: 700; color: #0f172a; letter-spacing: 3px; margin-bottom: 0.4rem; }
 .nævn-card-sub { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; }
