@@ -197,8 +197,8 @@ header[data-testid="stHeader"] { display: none !important; }
 .detail-meta-val { font-size: 13.5px; font-weight: 600; color: #0f172a; white-space: nowrap; }
 .detail-source-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #64748b; text-decoration: none; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 14px; transition: all .12s; font-weight: 500; }
 .detail-source-link:hover { border-color: #c49a3c; color: #0f172a; }
-.detail-reader { font-size: 15px; line-height: 1.9; color: #1e293b; font-family: 'Inter', system-ui, sans-serif; font-weight: 400; }
-.detail-reader p { margin: 0 0 1.1em; }
+.detail-reader { font-size: 16px; line-height: 2; color: #1e293b; font-family: 'Inter', system-ui, sans-serif; font-weight: 400; max-width: 72ch; }
+.detail-reader p { margin: 0 0 1.35em; }
 .detail-reader p:last-child { margin-bottom: 0; }
 .detail-section-heading {
     display: block; font-size: 10.5px; font-weight: 700; color: #64748b;
@@ -360,10 +360,11 @@ _HEADING_WORDS = [
 ]
 _HEADING_WORDS.sort(key=len, reverse=True)
 
-_H_OPEN  = ('<span style="display:block;font-size:10.5px;font-weight:700;'
-            'color:#64748b;text-transform:uppercase;letter-spacing:1.6px;'
-            'margin:2.2em 0 0.7em;padding:0 0 6px 10px;'
-            'border-left:3px solid #c49a3c;border-bottom:1px solid #f1f5f9;">')
+_H_OPEN  = ('<span style="display:block;font-size:11px;font-weight:700;'
+            'color:#475569;text-transform:uppercase;letter-spacing:2px;'
+            'margin:2.8em 0 0.9em;padding:9px 12px;'
+            'background:#f8fafc;border-left:3px solid #c49a3c;'
+            'border-radius:0 4px 4px 0;">')
 _H_CLOSE = '</span>'
 # Matcher sætningsafslutning + valgfrit afsnitstal (fx "1." "2)") + overskriftsord
 _HEADING_PRE = r'([.!?])\s+(?:\d+[.)]\s+)?'
