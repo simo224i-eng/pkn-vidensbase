@@ -333,36 +333,55 @@ def strip_html(text: str) -> str:
 
 
 _HEADING_WORDS = [
-    "Nævnets afgørelse", "Begrundelse for afgørelsen", "Oplysninger om sagen",
-    "Sagens oplysninger", "Klagen vedrører", "Nævnets bemærkninger",
-    "Nævnets vurdering", "Retlig vurdering", "Parternes synspunkter",
-    "Faktiske oplysninger", "Afgørelse", "Begrundelse", "Klagen",
-    "Sagsforløb", "Lovgrundlag", "Afstemning", "Klagetema",
-    "Plangrundlag", "Resumé", "Konklusion",
+    # Lange/specifikke varianter først (undgår delvis match)
+    "Planklagenævnets bemærkninger og afgørelse",
+    "Miljø- og Fødevareklagenævnets afgørelse",
+    "Nævnets bemærkninger og afgørelse",
+    "Begrundelse for afgørelsen",
+    "Oplysninger om sagen",
+    "Sagens oplysninger",
+    "Klagen vedrører",
+    "Nævnets bemærkninger",
+    "Nævnets vurdering",
+    "Nævnets afgørelse",
+    "Retlig vurdering",
+    "Parternes synspunkter",
+    "Faktiske oplysninger",
+    "Afgørelse",
+    "Begrundelse",
+    "Klagen",
+    "Sagsforløb",
+    "Lovgrundlag",
+    "Afstemning",
+    "Klagetema",
+    "Plangrundlag",
+    "Resumé",
+    "Konklusion",
 ]
-_HEADING_WORDS.sort(key=len, reverse=True)  # længste først – undgår delvis match
-
+_HEADING_WORDS.sort(key=len, reverse=True)
 
 _H_OPEN  = '<span class="detail-section-heading">'
 _H_CLOSE = '</span>'
+# Matcher sætningsafslutning + valgfrit afsnitstal (fx "1." "2)") + overskriftsord
+_HEADING_PRE = r'([.!?])\s+(?:\d+[.)]\s+)?'
 
 
 def format_afgørelse_tekst(tekst: str) -> str:
     """Formatér råtekst fra afgørelse til HTML med sektionsoverskrifter og afsnit."""
     out = tekst.strip()
 
-    # 1. Overskrifter midt i tekst – kræver forudgående sætningsafslutning
+    # 1. Overskrifter midt i tekst – matcher "…punkt. 1. Klagen …" og "…punkt. Klagen …"
     for h in _HEADING_WORDS:
         esc = re.escape(h)
         out = re.sub(
-            rf'([.!?])\s+({esc})\s*:?\s+',
+            rf'{_HEADING_PRE}({esc})\s*:?\s+',
             rf'\1</p>{_H_OPEN}\2{_H_CLOSE}<p>',
             out,
         )
 
     # 2. Overskrift ved tekststart (ingen forudgående tegnsætning)
     for h in _HEADING_WORDS:
-        m = re.match(rf'^({re.escape(h)})\s*:?\s+', out)
+        m = re.match(rf'^(?:\d+[.)]\s+)?({re.escape(h)})\s*:?\s+', out)
         if m:
             out = f'{_H_OPEN}{m.group(1)}{_H_CLOSE}<p>{out[m.end():]}'
             break
@@ -371,7 +390,7 @@ def format_afgørelse_tekst(tekst: str) -> str:
     out = re.sub(r'\.(\s+)([A-ZÆØÅ])', r'.</p><p>\2', out)
     out = re.sub(r'(\s)(\d+\.\s+)([A-ZÆØÅ])', r'</p><p>\2\3', out)
 
-    # 4. Afslut korrekt afhængig af om teksten begynder med en overskrift
+    # 4. Afslut korrekt
     if out.startswith(_H_OPEN):
         return f'<div class="detail-reader">{out}</p></div>'
     return f'<div class="detail-reader"><p>{out}</p></div>'
