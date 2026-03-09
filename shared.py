@@ -360,7 +360,10 @@ _HEADING_WORDS = [
 ]
 _HEADING_WORDS.sort(key=len, reverse=True)
 
-_H_OPEN  = '<span class="detail-section-heading">'
+_H_OPEN  = ('<span style="display:block;font-size:10.5px;font-weight:700;'
+            'color:#64748b;text-transform:uppercase;letter-spacing:1.6px;'
+            'margin:2.2em 0 0.7em;padding:0 0 6px 10px;'
+            'border-left:3px solid #c49a3c;border-bottom:1px solid #f1f5f9;">')
 _H_CLOSE = '</span>'
 # Matcher sætningsafslutning + valgfrit afsnitstal (fx "1." "2)") + overskriftsord
 _HEADING_PRE = r'([.!?])\s+(?:\d+[.)]\s+)?'
