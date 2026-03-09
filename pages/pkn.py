@@ -536,8 +536,8 @@ with tab_søg:
                 badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
                 dato_str    = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 kat_str     = " / ".join(row["Kategori"]) if isinstance(row["Kategori"], list) else row["Kategori"]
-                st.markdown(f"""
-<div style="background:#ffffff;border-radius:8px;padding:18px 22px;margin-bottom:4px;border:1px solid #e2e8f0;">
+                st.html(f"""
+<div style="background:#ffffff;border-radius:8px;padding:18px 22px;margin-bottom:4px;border:1px solid #e2e8f0;font-family:'Inter',system-ui,sans-serif;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
     <span style="font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:.2px;">{dato_str}</span>
     <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.1px;{badge_style}">{row['Udfald']}</span>
@@ -551,7 +551,7 @@ with tab_søg:
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
   </div>
-</div>""", unsafe_allow_html=True)
+</div>""")
                 if st.button("Læs afgørelse →", key=f"btn_{row['Link'][-20:]}"):
                     st.session_state.valgt_afgørelse = row.to_dict()
                     if "_resumé" in st.session_state:
