@@ -6,9 +6,29 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import requests
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity as cos_sim
 from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
+
+# ── TF-IDF søgning ───────────────────────────────────────────────────────────
+@st.cache_resource
+def _build_tfidf(_df):
+    """Bygger TF-IDF matrix på hele korpusset (titel + tekst). Cached ved opstart."""
+    corpus = (_df["Titel"].fillna("") + " " + _df["Tekst"].fillna("")).tolist()
+    vec = TfidfVectorizer(min_df=1, max_df=0.95, ngram_range=(1, 2), sublinear_tf=True)
+    matrix = vec.fit_transform(corpus)
+    return vec, matrix
+
+def tfidf_søg(query: str, df_full, filter_indices: list):
+    """Returnerer (positions_i_filter, scores) sorteret efter relevans."""
+    vec, matrix = _build_tfidf(df_full)
+    q_vec = vec.transform([query])
+    scores = cos_sim(q_vec, matrix[filter_indices]).flatten()
+    order = np.argsort(scores)[::-1]
+    valid = scores[order] > 0.005
+    return order[valid], scores
 
 # ── PKN-specifikke hjælpefunktioner ─────────────────────────────────────────
 
@@ -285,7 +305,8 @@ with st.sidebar:
 </div>""", unsafe_allow_html=True)
 
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Søgeord</span>', unsafe_allow_html=True)
-    søg_input   = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
+    søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
+    søge_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="søge_type")
 
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
@@ -329,15 +350,19 @@ if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
 sub_idx   = df[mask].index.tolist()
 
-# Nulstil side-tæller når filteret eller søgeordet ændrer sig
-_filter_sig = (len(df_filter), df_filter["Link"].iloc[0] if len(df_filter) > 0 else "", søg_input.strip())
+# Nulstil side-tæller når filteret, søgeordet eller søgetypen ændrer sig
+_filter_sig = (len(df_filter), df_filter["Link"].iloc[0] if len(df_filter) > 0 else "", søg_input.strip(), søge_type)
 if st.session_state.get("_filter_sig") != _filter_sig:
     st.session_state["vis_antal"] = 25
     st.session_state["_filter_sig"] = _filter_sig
 
 _vis_antal = st.session_state.get("vis_antal", 25)
 
-if søg_input.strip():
+if søg_input.strip() and søge_type == "Semantisk":
+    _top_pos, _scores = tfidf_søg(søg_input.strip(), df, sub_idx)
+    df_vis     = df_filter.iloc[_top_pos].reset_index(drop=True)
+    ai_sub_idx = [sub_idx[i] for i in _top_pos] if len(_top_pos) else sub_idx
+elif søg_input.strip():
     _q = søg_input.strip()
     _text_mask = (
         df_filter["Titel"].str.contains(_q, case=False, na=False, regex=False) |
@@ -514,7 +539,8 @@ with tab_søg:
         total_filtreret = len(df_filter)
         hits  = len(df_vis)
         if søg_input:
-            label = f"**{hits}** resultater for \"{søg_input}\" (ud af {total_filtreret:,} filtrerede)"
+            _type_label = "semantisk" if søge_type == "Semantisk" else "præcis"
+            label = f"**{hits}** resultater for \"{søg_input}\" · {_type_label} søgning (ud af {total_filtreret:,} filtrerede)"
         else:
             label = f"Viser {min(_vis_antal, hits)} af **{total_filtreret:,}** afgørelser (nyeste først)"
         st.markdown(label)
