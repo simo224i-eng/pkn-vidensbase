@@ -17,7 +17,14 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
 
 /* ── Base ── */
-[data-testid="stAppViewContainer"] { background: linear-gradient(160deg, #fdf6ef 0%, #f5ede0 100%); min-height: 100vh; font-family: 'Inter', system-ui, sans-serif; }
+[data-testid="stAppViewContainer"],
+[data-testid="stApp"],
+[data-testid="stMain"],
+.main, body {
+    background: linear-gradient(160deg, #fdf6ef 0%, #f5ede0 100%) !important;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+[data-testid="stMain"] .block-container { background: transparent !important; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] { background: linear-gradient(180deg, #141d2e 0%, #0f172a 55%, #0a1120 100%) !important; border-right: none; }
