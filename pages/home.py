@@ -18,47 +18,41 @@ st.markdown(f"""
     Juridisk Vidensbase · Legal Tech AI
   </p>
 </div>
-""", unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; max-width:900px; margin:0 auto 4rem;">
 
-col_pkn, col_mfkn = st.columns(2, gap="large")
+  <a href="/pkn" target="_self" style="text-decoration:none; color:inherit;">
+    <div class="nævn-card">
+      <div class="nævn-card-icon">⚖️</div>
+      <div class="nævn-card-title">PKN</div>
+      <div class="nævn-card-sub">Planklagenævnet</div>
+      <div class="nævn-card-desc">
+        Afgørelser om lokalplaner, kommuneplantillæg, dispensationer og planvedtagelser.
+        Søg, filtrer og analyser PKN's praksis med AI-assistance.
+      </div>
+      <div class="nævn-card-count">Plan- og byggeloven · 4.780+ afgørelser</div>
+      <div class="nævn-card-cta">Åbn PKN →</div>
+    </div>
+  </a>
 
-with col_pkn:
-    st.markdown("""
-<div class="nævn-card">
-  <div class="nævn-card-icon">⚖️</div>
-  <div class="nævn-card-title">PKN</div>
-  <div class="nævn-card-sub">Planklagenævnet</div>
-  <div class="nævn-card-desc">
-    Afgørelser om lokalplaner, kommuneplantillæg, dispensationer og planvedtagelser.
-    Søg, filtrer og analyser PKN's praksis med AI-assistance.
-  </div>
-  <div class="nævn-card-count">Plan- og byggeloven · 4.780+ afgørelser</div>
+  <a href="/mfkn_beskyttelseslinjer" target="_self" style="text-decoration:none; color:inherit;">
+    <div class="nævn-card mfkn">
+      <div class="nævn-card-icon">🌿</div>
+      <div class="nævn-card-title">MFKN</div>
+      <div class="nævn-card-sub">Miljø- og Fødevareklagenævnet</div>
+      <div class="nævn-card-desc">
+        Afgørelser om strandbeskyttelseslinjen, sø-, å- og fortidsmindebeskyttelseslinjer,
+        skovbyggelinjen og klitfredning.
+      </div>
+      <div class="nævn-card-count">Naturbeskyttelsesloven · 2.000+ afgørelser</div>
+      <div class="nævn-card-cta mfkn">Åbn MFKN →</div>
+    </div>
+  </a>
+
 </div>
-""", unsafe_allow_html=True)
-    if st.button("Åbn PKN →", use_container_width=True, key="btn_pkn"):
-        st.switch_page("pages/pkn.py")
 
-with col_mfkn:
-    st.markdown("""
-<div class="nævn-card mfkn">
-  <div class="nævn-card-icon">🌿</div>
-  <div class="nævn-card-title">MFKN</div>
-  <div class="nævn-card-sub">Miljø- og Fødevareklagenævnet</div>
-  <div class="nævn-card-desc">
-    Afgørelser om strandbeskyttelseslinjen, sø-, å- og fortidsmindebeskyttelseslinjer,
-    skovbyggelinjen og klitfredning.
-  </div>
-  <div class="nævn-card-count">Naturbeskyttelsesloven · 2.000+ afgørelser</div>
-</div>
-""", unsafe_allow_html=True)
-    if st.button("Åbn MFKN →", use_container_width=True, key="btn_mfkn"):
-        st.switch_page("pages/mfkn_beskyttelseslinjer.py")
-
-st.markdown("""
-<div style="text-align:center;margin-top:4rem;padding-top:2rem;border-top:1px solid #e2e8f0;">
-  <p style="font-size:11px;color:#cbd5e1;letter-spacing:1px;text-transform:uppercase;">
+<div style="text-align:center; padding-top:2rem; border-top:1px solid #e2e8f0;">
+  <p style="font-size:11px; color:#cbd5e1; letter-spacing:1px; text-transform:uppercase;">
     Harald · Legal Tech AI · Powered by Claude
   </p>
 </div>

@@ -221,18 +221,28 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Home page cards ── */
 .nævn-card {
-    background: #fffcf8; border-radius: 12px; padding: 2rem 2.4rem;
-    border: 1px solid #ece6dc; border-top: 3px solid #ece6dc; cursor: pointer;
-    box-shadow: 0 2px 8px rgba(60,20,20,.05);
-    transition: border-color .15s, border-top-color .15s, box-shadow .15s, transform .15s;
+    background: #fffcf8; border-radius: 14px; padding: 2.4rem 2.6rem 2rem;
+    border: 1px solid #ece6dc; border-top: 4px solid #c8b8a8;
+    box-shadow: 0 2px 12px rgba(60,20,20,.06);
+    transition: border-top-color .18s, box-shadow .18s, transform .18s;
+    display: flex; flex-direction: column; height: 100%;
 }
-.nævn-card:hover { border-color: #d4a090; border-top-color: #8C1C2E; box-shadow: 0 10px 36px rgba(140,28,46,.13); transform: translateY(-3px); }
-.nævn-card.mfkn:hover { border-color: #a8d5be; border-top-color: #2d6a4f; box-shadow: 0 10px 36px rgba(45,106,79,.12); }
-.nævn-card-icon { font-size: 2.4rem; margin-bottom: 1rem; }
-.nævn-card-title { font-family: 'Cinzel', Georgia, serif; font-size: 1.1rem; font-weight: 700; color: #1a0a0e; letter-spacing: 3px; margin-bottom: 0.4rem; }
-.nævn-card-sub { font-size: 11px; color: #a08070; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; }
-.nævn-card-desc { font-size: 13px; color: #4a3028; line-height: 1.65; margin-bottom: 1.2rem; }
-.nævn-card-count { font-size: 11px; font-weight: 600; color: #a08070; text-transform: uppercase; letter-spacing: 1px; }
+.nævn-card:hover { border-top-color: #8C1C2E; box-shadow: 0 12px 40px rgba(140,28,46,.14); transform: translateY(-4px); }
+.nævn-card.mfkn:hover { border-top-color: #2d6a4f; box-shadow: 0 12px 40px rgba(45,106,79,.13); }
+.nævn-card-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+.nævn-card-title { font-family: 'Cinzel', Georgia, serif; font-size: 1rem; font-weight: 700; color: #1a0a0e; letter-spacing: 4px; margin-bottom: 0.3rem; }
+.nævn-card-sub { font-size: 11px; color: #a08070; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid #ece6dc; }
+.nævn-card-desc { font-size: 13.5px; color: #4a3028; line-height: 1.7; margin-bottom: 1.4rem; flex: 1; }
+.nævn-card-count { font-size: 11px; font-weight: 600; color: #b09080; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.6rem; }
+.nævn-card-cta {
+    display: block; text-align: center; padding: 0.75rem 1rem;
+    background: transparent; border: 1.5px solid #8C1C2E; border-radius: 8px;
+    color: #8C1C2E; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    transition: background .15s, color .15s;
+}
+.nævn-card:hover .nævn-card-cta { background: #8C1C2E; color: #fff; }
+.nævn-card-cta.mfkn { border-color: #2d6a4f; color: #2d6a4f; }
+.nævn-card.mfkn:hover .nævn-card-cta.mfkn { background: #2d6a4f; color: #fff; }
 </style>
 <script>
 (function removeIconTooltips() {
