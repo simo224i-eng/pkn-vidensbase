@@ -396,7 +396,7 @@ def _llm(prompt: str) -> str:
 
 
 # ── Delte hjælpefunktioner ────────────────────────────────────────────────────
-def strip_html(text: str) -> str:
+def strip_html(text: str, preserve_headings: bool = False) -> str:
     entities = {
         "&nbsp;": " ", "&amp;": "&", "&lt;": "<", "&gt;": ">",
         "&oslash;": "ø", "&aelig;": "æ", "&aring;": "å",
@@ -406,10 +406,29 @@ def strip_html(text: str) -> str:
         "&sect;": "§", "&para;": "¶", "&copy;": "©", "&reg;": "®",
         "&#167;": "§",
     }
+    if preserve_headings:
+        # Preserve h2/h3 as structural markers before stripping all other tags
+        text = re.sub(r'<h2[^>]*>(.*?)</h2>', lambda m: f'\n## {m.group(1).strip()}\n', text, flags=re.I | re.S)
+        text = re.sub(r'<h3[^>]*>(.*?)</h3>', lambda m: f'\n### {m.group(1).strip()}\n', text, flags=re.I | re.S)
+        # Preserve paragraph/line breaks as newlines
+        text = re.sub(r'</p>|<br\s*/?>|</div>', '\n', text, flags=re.I)
     text = re.sub(r"<[^>]+>", " ", text)
     for ent, rep in entities.items():
         text = text.replace(ent, rep)
     text = re.sub(r"&#\d+;", " ", text)
+    if preserve_headings:
+        # Collapse spaces within lines but keep newlines
+        lines = [re.sub(r'[ \t]+', ' ', ln).strip() for ln in text.splitlines()]
+        # Remove consecutive blank lines
+        out_lines: list[str] = []
+        prev_blank = False
+        for ln in lines:
+            is_blank = ln == ""
+            if is_blank and prev_blank:
+                continue
+            out_lines.append(ln)
+            prev_blank = is_blank
+        return '\n'.join(out_lines).strip()
     return re.sub(r"\s+", " ", text).strip()
 
 
@@ -451,71 +470,139 @@ _H_CLOSE = '</div>'
 _HEADING_PRE = r'([.!?])\s+(?:\d+[.)]\s+)?'
 
 
+_H2_STYLE = (
+    'display:block;font-size:13px;font-weight:700;color:#3a1a10;'
+    'text-transform:uppercase;letter-spacing:2px;'
+    'margin:2.2em 0 0.6em;padding:10px 16px;'
+    'background:#fdf8f2;border-left:3px solid #c49a3c;border-radius:0 5px 5px 0;'
+)
+_H3_STYLE = (
+    'display:block;font-size:11px;font-weight:700;color:#5a3a20;'
+    'text-transform:uppercase;letter-spacing:1.8px;'
+    'margin:1.6em 0 0.5em;padding:6px 14px;'
+    'background:#fdf6ee;border-left:2px solid #d4a070;border-radius:0 4px 4px 0;'
+)
+
+
 def format_afgørelse_tekst(tekst: str) -> str:
-    """Formatér råtekst fra afgørelse til HTML med sektionsoverskrifter og afsnit."""
-    out = tekst.strip()
+    """Formatér råtekst fra afgørelse til HTML med sektionsoverskrifter og afsnit.
 
-    # 1. Style inline fodnotereferencer [1], [2] som superscript (inline style)
-    out = re.sub(
-        r'\[(\d{1,2})\]',
-        r'<sup style="font-size:9px;font-weight:700;color:#8C1C2E;vertical-align:super;letter-spacing:0;">[\1]</sup>',
-        out,
-    )
+    Input kan være multiline tekst med ## / ### markorer fra strip_html(preserve_headings=True)
+    eller plain tekst der stadig behandles med regex-fallback.
+    """
+    _P = 'style="margin:0 0 1.2em;font-size:15px;line-height:1.9;color:#1e293b;font-family:\'Inter\',system-ui,sans-serif;"'
 
-    # 2. Overskrifter midt i tekst.
-    # (?=[A-ZÆØÅ]) lookahead kræver at næste ord starter med stort bogstav –
-    # forhindrer at "Klagen og..." fejlagtigt bliver en overskrift.
-    for h in _HEADING_WORDS:
-        esc = re.escape(h)
+    # Check om inputtet indeholder heading-markers (fra preserve_headings=True)
+    has_markers = '\n## ' in tekst or '\n### ' in tekst or tekst.startswith('## ') or tekst.startswith('### ')
+
+    if has_markers:
+        # Ny sti: behandl linje for linje
+        html_parts: list[str] = []
+        para_lines: list[str] = []
+
+        def flush_para():
+            if not para_lines:
+                return
+            text_block = ' '.join(para_lines).strip()
+            if not text_block:
+                para_lines.clear()
+                return
+            # Style inline fodnotereferencer
+            text_block = re.sub(
+                r'\[(\d{1,2})\]',
+                r'<sup style="font-size:9px;font-weight:700;color:#8C1C2E;vertical-align:super;letter-spacing:0;">[\1]</sup>',
+                text_block,
+            )
+            # Split i sætningsgrupper (~280 tegn)
+            sentences = re.split(r'(?<=[.!?]) +(?=[A-ZÆØÅ0-9])', text_block)
+            buf = ""
+            for s in sentences:
+                if not buf:
+                    buf = s
+                elif len(buf) < 280:
+                    buf += " " + s
+                else:
+                    html_parts.append(f'<p {_P}>{buf}</p>')
+                    buf = s
+            if buf:
+                html_parts.append(f'<p {_P}>{buf}</p>')
+            para_lines.clear()
+
+        for line in tekst.splitlines():
+            stripped = line.strip()
+            if stripped.startswith('## '):
+                flush_para()
+                heading_text = stripped[3:].strip()
+                html_parts.append(f'<div style="{_H2_STYLE}">{heading_text}</div>')
+            elif stripped.startswith('### '):
+                flush_para()
+                heading_text = stripped[4:].strip()
+                html_parts.append(f'<div style="{_H3_STYLE}">{heading_text}</div>')
+            elif stripped == '':
+                # Blank line → paragraph break
+                flush_para()
+            else:
+                para_lines.append(stripped)
+
+        flush_para()
+        out = ''.join(html_parts)
+
+    else:
+        # Fallback (plain text, ingen markers): gammel regex-logik
+        out = tekst.strip()
+
+        # 1. Style inline fodnotereferencer
         out = re.sub(
-            rf'{_HEADING_PRE}({esc})\s*:?\s+(?=[A-ZÆØÅ])',
-            rf'\1</p>{_H_OPEN}\2{_H_CLOSE}<p>',
+            r'\[(\d{1,2})\]',
+            r'<sup style="font-size:9px;font-weight:700;color:#8C1C2E;vertical-align:super;letter-spacing:0;">[\1]</sup>',
             out,
         )
 
-    # 2b. Overskrift ved tekststart (ingen forudgående tegnsætning)
-    for h in _HEADING_WORDS:
-        m = re.match(rf'^(?:\d+[.)]\s+)?({re.escape(h)})\s*:?\s+', out)
-        if m:
-            out = f'{_H_OPEN}{m.group(1)}{_H_CLOSE}<p>{out[m.end():]}'
-            break
+        # 2. Kendte overskriftsord midt i tekst
+        for h in _HEADING_WORDS:
+            esc = re.escape(h)
+            out = re.sub(
+                rf'{_HEADING_PRE}({esc})\s*:?\s+(?=[A-ZÆØÅ])',
+                lambda m, hh=h: m.group(1) + f'</p><div style="{_H2_STYLE}">{hh}</div><p>',
+                out,
+            )
 
-    # 3. Split i to trin:
-    #    A) HÅRD split ved nummererede afsnitsmarkører (1. / 1.1. / 2.3.)
-    #       – disse bruges konsekvent på tværs af afgørelser i begge nævn
-    #    B) Blød sætningsgrupper: indenfor hvert blok grupperes sætninger
-    #       til ~260-tegns afsnit for behagelig læsning
+        # 2b. Overskrift ved tekststart
+        for h in _HEADING_WORDS:
+            m = re.match(rf'^(?:\d+[.)]\s+)?({re.escape(h)})\s*:?\s+', out)
+            if m:
+                out = f'<div style="{_H2_STYLE}">{m.group(1)}</div><p>{out[m.end():]}'
+                break
 
-    # A: markér nummererede sektioner med §§ som skilletegn
-    _SEP = "§§SPLIT§§"
-    out = re.sub(
-        r'([.!?])\s+(\d+(?:\.\d+)*\.\s+(?=[A-ZÆØÅ]))',
-        lambda m: m.group(1) + _SEP + m.group(2),
-        out,
-    )
+        # 3a. Hård split ved nummererede afsnitsmarkører
+        _SEP = "§§SPLIT§§"
+        out = re.sub(
+            r'([.!?])\s+(\d+(?:\.\d+)*\.\s+(?=[A-ZÆØÅ]))',
+            lambda m: m.group(1) + _SEP + m.group(2),
+            out,
+        )
 
-    # B: opdel i hårde blokke, derefter bløde sætningsgrupper
-    hard_blocks = out.split(_SEP)
-    chunks: list[str] = []
-    for block in hard_blocks:
-        sentences = re.split(r'(?<=[.!?]) +(?=[A-ZÆØÅ])', block)
-        buf = ""
-        for s in sentences:
-            if not buf:
-                buf = s
-            elif len(buf) < 280:
-                buf += " " + s
-            else:
+        # 3b. Bløde sætningsgrupper
+        hard_blocks = out.split(_SEP)
+        chunks: list[str] = []
+        for block in hard_blocks:
+            sentences = re.split(r'(?<=[.!?]) +(?=[A-ZÆØÅ])', block)
+            buf = ""
+            for s in sentences:
+                if not buf:
+                    buf = s
+                elif len(buf) < 280:
+                    buf += " " + s
+                else:
+                    chunks.append(buf)
+                    buf = s
+            if buf:
                 chunks.append(buf)
-                buf = s
-        if buf:
-            chunks.append(buf)
 
-    _P = 'style="margin:0 0 1.3em;font-size:15px;line-height:1.9;color:#1e293b;font-family:\'Inter\',system-ui,sans-serif;"'
-    out = "".join(
-        c if _H_OPEN[:12] in c else f"<p {_P}>{c}</p>"
-        for c in chunks
-    )
+        out = "".join(
+            c if (f'style="{_H2_STYLE}"' in c or f'style="{_H3_STYLE}"' in c) else f"<p {_P}>{c}</p>"
+            for c in chunks
+        )
 
     return (
         f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:15px;'

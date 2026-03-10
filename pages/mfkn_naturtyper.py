@@ -125,18 +125,20 @@ def _læs_nt_csv(sti: str) -> list:
     with open(sti, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            tekst = strip_html(row["Tekst"])
+            tekst = strip_html(row["Tekst"], preserve_headings=True)
+            excerpt_clean = re.sub(r'^#{2,3} ', '', tekst, flags=re.M).replace('\n', ' ')
+            excerpt_clean = re.sub(r'\s+', ' ', excerpt_clean).strip()
             rows.append({
                 "Dato":    row["Dato"],
                 "Titel":   row["Titel"],
                 "Link":    row["Link"],
                 "Tekst":   tekst,
-                "Excerpt": tekst[:280],
+                "Excerpt": excerpt_clean[:280],
             })
     return rows
 
 
-def load_nt_data(version: int = 1):
+def load_nt_data(version: int = 2):
     csv_sti = "mfkn_beskyttede_naturtyper.csv"
     zip_sti = csv_sti + ".zip"
     if not os.path.exists(csv_sti) and os.path.exists(zip_sti):

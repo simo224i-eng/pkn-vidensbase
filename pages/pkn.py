@@ -135,18 +135,21 @@ def _læs_csv(sti: str) -> list:
     with open(sti, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            tekst = strip_html(row["Tekst"])
+            tekst = strip_html(row["Tekst"], preserve_headings=True)
+            # Excerpt: strip heading markers and flatten newlines
+            excerpt_clean = re.sub(r'^#{2,3} ', '', tekst, flags=re.M).replace('\n', ' ')
+            excerpt_clean = re.sub(r'\s+', ' ', excerpt_clean).strip()
             rows.append({
                 "Dato":    row["Dato"],
                 "Titel":   row["Titel"],
                 "Link":    row["Link"],
                 "Tekst":   tekst,
-                "Excerpt": tekst[:280],
+                "Excerpt": excerpt_clean[:280],
             })
     return rows
 
 
-def load_data(version: int = 12):  # bump version to bust cache
+def load_data(version: int = 13):  # bump version to bust cache
     import os, zipfile
     # --- primær fil (zip → csv) ---
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
@@ -186,7 +189,7 @@ def load_data(version: int = 12):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(11)
+    df2 = load_data(13)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -278,7 +281,7 @@ if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       =
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(11)
+df       = load_data(13)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
