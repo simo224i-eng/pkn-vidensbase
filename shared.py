@@ -243,6 +243,28 @@ header[data-testid="stHeader"] { display: none !important; }
 .nævn-card:hover .nævn-card-cta { background: #8C1C2E; color: #fff; }
 .nævn-card-cta.mfkn { border-color: #2d6a4f; color: #2d6a4f; }
 .nævn-card.mfkn:hover .nævn-card-cta.mfkn { background: #2d6a4f; color: #fff; }
+
+/* ── Card v2: knap smelter visuelt sammen med kortet ── */
+.pkn-card-v2 { border-radius: 8px 8px 0 0; border-bottom: none !important; margin-bottom: 0; }
+div[data-testid="element-container"]:has(.pkn-card-v2) { margin-bottom: 0 !important; }
+div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] [data-testid="stBaseButton-secondary"] {
+    border-top: 1px solid #f0ece6 !important;
+    border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 8px !important; border-bottom-right-radius: 8px !important;
+    background: #f7f4f0 !important; color: #3a1a10 !important;
+    font-size: 12.5px !important; font-weight: 600 !important;
+    padding: 10px 22px !important; letter-spacing: 0.4px !important;
+}
+div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] [data-testid="stBaseButton-secondary"]:hover {
+    background: #ede8e0 !important; color: #1a0a0e !important;
+}
+div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] { margin-bottom: 14px !important; }
+
+/* ── Detail reader forbedringer ── */
+.detail-reader { font-size: 15.5px; line-height: 1.9; color: #1e2d3d; font-family: 'Inter', system-ui, sans-serif; max-width: 76ch; }
+.detail-reader p { margin: 0 0 1.1em; }
+.detail-reader p:last-child { margin-bottom: 0; }
+sup.detail-ref { font-size: 9px; font-weight: 700; color: #8C1C2E; vertical-align: super; letter-spacing: 0; }
 </style>
 <script>
 (function removeIconTooltips() {
@@ -392,7 +414,10 @@ def format_afgørelse_tekst(tekst: str) -> str:
     """Formatér råtekst fra afgørelse til HTML med sektionsoverskrifter og afsnit."""
     out = tekst.strip()
 
-    # 1. Overskrifter midt i tekst – matcher "…punkt. 1. Klagen …" og "…punkt. Klagen …"
+    # 1. Style inline fodnotereferencer [1], [2] som superscript
+    out = re.sub(r'\[(\d{1,2})\]', r'<sup class="detail-ref">[\1]</sup>', out)
+
+    # 2. Overskrifter midt i tekst – matcher "…punkt. 1. Klagen …" og "…punkt. Klagen …"
     for h in _HEADING_WORDS:
         esc = re.escape(h)
         out = re.sub(
@@ -401,16 +426,16 @@ def format_afgørelse_tekst(tekst: str) -> str:
             out,
         )
 
-    # 2. Overskrift ved tekststart (ingen forudgående tegnsætning)
+    # 2b. Overskrift ved tekststart (ingen forudgående tegnsætning)
     for h in _HEADING_WORDS:
         m = re.match(rf'^(?:\d+[.)]\s+)?({re.escape(h)})\s*:?\s+', out)
         if m:
             out = f'{_H_OPEN}{m.group(1)}{_H_CLOSE}<p>{out[m.end():]}'
             break
 
-    # 3. Opdel resterende tekst i afsnit ved sætningsgrænser
-    out = re.sub(r'\.(\s+)([A-ZÆØÅ])', r'.</p><p>\2', out)
-    out = re.sub(r'(\s)(\d+\.\s+)([A-ZÆØÅ])', r'</p><p>\2\3', out)
+    # 3. Split KUN ved nummererede afsnit (fx "... punkt. 1. Klagen ..."),
+    #    ikke ved hvert eneste store bogstav – giver mere læsbar, tæt tekst
+    out = re.sub(r'([.!?])\s+(\d+[.)]\s+[A-ZÆØÅ])', r'\1</p><p>\2', out)
 
     # 4. Afslut korrekt
     if out.startswith(_H_OPEN):

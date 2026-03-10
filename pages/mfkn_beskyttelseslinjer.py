@@ -436,7 +436,7 @@ with tab_søg:
                 badge_style = _BADGE_STYLE_MFKN.get(row["Udfald"], _BADGE_DEFAULT_MFKN)
                 dato_str  = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 st.html(f"""
-<div style="background:#ffffff;border-radius:8px;padding:18px 22px;margin-bottom:4px;border:1px solid #e2e8f0;font-family:'Inter',system-ui,sans-serif;">
+<div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
     <span style="font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:.2px;">{dato_str}</span>
     <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.1px;{badge_style}">{row['Udfald']}</span>
