@@ -777,7 +777,7 @@ with tab_ai:
                             'Kilder</div>',
                             unsafe_allow_html=True
                         )
-                        for i, k in enumerate(kilder[:8]):
+                        for i, k in enumerate(kilder):
                             try:
                                 ts       = pd.Timestamp(k["Dato"])
                                 dato_str = ts.strftime("%d.%m.%Y")
