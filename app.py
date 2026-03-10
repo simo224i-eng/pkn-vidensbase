@@ -11,6 +11,11 @@ from shared import inject_css
 inject_css()
 
 # ── Global adgangskodegate ────────────────────────────────────────────────────
+_SESSION_TOKEN = "v2"  # skift dette for at logge alle ud
+if st.session_state.get("_session_token") != _SESSION_TOKEN:
+    st.session_state["_autentificeret"] = False
+    st.session_state["_session_token"] = _SESSION_TOKEN
+
 if not st.session_state.get("_autentificeret"):
     st.markdown(
         "<h2 style='font-family:Cinzel,Georgia,serif;letter-spacing:4px;"
