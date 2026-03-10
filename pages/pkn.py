@@ -29,9 +29,9 @@ def detect_plantype(titel: str) -> list:
 
 
 def kategoriser(titel: str) -> list:
-    """Returnerer liste af kategorier – en sag kan have flere (fx Vedtagelse + Miljøvurdering)."""
+    """Returnerer liste af kategorier – en sag kan have flere (fx Planvedtagelse + Miljøvurdering)."""
     t = titel.lower()
-    # 1. Vedtagelse af plan — bilag (miljørapport/screening) tilføjes som ekstra kategori
+    # 1. Planvedtagelse af plan — bilag (miljørapport/screening) tilføjes som ekstra kategori
     is_plan = bool(re.search(r"lokalplan|kommuneplantillæg|kommuneplan|byplanvedtægt", t))
     is_vedtagelse = bool(re.search(r"vedtagelse af\b.{0,80}?(lokalplan|kommuneplantillæg|kommuneplan|byplanvedtægt)", t))
     if is_vedtagelse:
@@ -40,7 +40,7 @@ def kategoriser(titel: str) -> list:
         elif "overensstemmelse" in t:
             kats = ["Overensstemmelse"]
         else:
-            kats = ["Vedtagelse"]
+            kats = ["Planvedtagelse"]
         if "screeningsafgørelse" in t:
             kats.append("Screening")
         if "miljørapport" in t or "miljøvurdering" in t or "vvm" in t:
@@ -62,7 +62,7 @@ def kategoriser(titel: str) -> list:
         return ["Overensstemmelse"]
     # 6. Planvedtagelse uden "vedtagelse af" (f.eks. "endelig vedtagelse")
     if re.search(r"endelig vedtagelse", t) and is_plan:
-        return ["Vedtagelse"]
+        return ["Planvedtagelse"]
     # 7. Øvrige plan-sager der nævner en plantype
     if "lokalplan" in t or "byplanvedtægt" in t:
         return ["Andet"]
@@ -189,7 +189,7 @@ def load_data(version: int = 14):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(14)
+    df2 = load_data(15)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -320,7 +320,7 @@ if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       =
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(14)
+df       = load_data(15)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -337,7 +337,7 @@ with st.sidebar:
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
-    _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Vedtagelse", "Screening", "Miljøvurdering"})
+    _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Screening", "Miljøvurdering"})
     isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if _isoler_relevant else False
 
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Plantype</span>', unsafe_allow_html=True)
