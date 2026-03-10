@@ -285,35 +285,15 @@ RESUMÉ:"""
     return _llm(prompt)
 
 
-def erstat_kilde_refs(tekst: str, kilder: list) -> tuple[str, list]:
-    """Erstat [Kilde X] med blå navne-chips i teksten.
-    Returnér (html_tekst, liste af unikke referencer som (label, kilde_dict))."""
-    unique: dict[int, tuple[str, dict]] = {}  # idx → (label, kilde)
-
+def erstat_kilde_refs(tekst: str, kilder: list) -> str:
+    """Erstat [Kilde X] med footnote-superscript-cirkler ¹²³ i teksten."""
     def repl(m):
         nums = [int(x) for x in re.findall(r'\d+', m.group(1))]
-        spans = []
-        for n in nums:
-            if 1 <= n <= len(kilder):
-                k = kilder[n - 1]
-                kom = extract_kommune(k.get("Titel", "")) or "Kilde"
-                try:
-                    år = str(pd.Timestamp(k["Dato"]).year)
-                except Exception:
-                    år = "–"
-                label = f"{kom} {år}"
-                unique[n - 1] = (label, k)
-                spans.append(
-                    f'<span style="display:inline-block;color:#1d6fb8;font-weight:600;'
-                    f'font-size:0.88em;background:#eff6ff;border-radius:4px;'
-                    f'padding:1px 7px;border:1px solid #bfdbfe;white-space:nowrap;">'
-                    f'{label}</span>'
-                )
-        return " ".join(spans) if spans else m.group(0)
-
-    html = re.sub(r"\[Kilde\s+([\d,\s]+)\]", repl, tekst)
-    ordered = [v for _, v in sorted(unique.items())]
-    return html, ordered
+        return "".join(
+            f'<sup class="cite">{n}</sup>'
+            for n in nums if 1 <= n <= len(kilder)
+        ) or m.group(0)
+    return re.sub(r"\[Kilde\s+([\d,\s]+)\]", repl, tekst)
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
@@ -743,103 +723,36 @@ with tab_ai:
                     'text-transform:uppercase;letter-spacing:1.2px;">⚖ Harald</span></div>',
                     unsafe_allow_html=True,
                 )
-                # Erstat [Kilde X] i AI-teksten med blå navne-chips
+                # Erstat [Kilde X] med footnote-superscripts
                 kilder = msg.get("kilder", [])
-                if kilder:
-                    vist_tekst, ref_kilder = erstat_kilde_refs(msg["tekst"], kilder)
-                else:
-                    vist_tekst, ref_kilder = msg["tekst"], []
+                vist_tekst = erstat_kilde_refs(msg["tekst"], kilder) if kilder else msg["tekst"]
 
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
-                    # Klikbare kilde-knapper under AI-svaret
-                    if ref_kilder:
-                        st.markdown(
-                            '<div style="font-size:10px;color:#94a3b8;margin:6px 0 4px;'
-                            'text-transform:uppercase;letter-spacing:1px;font-weight:600;">Åbn afgørelse:</div>',
-                            unsafe_allow_html=True,
-                        )
-                        btn_cols = st.columns(min(len(ref_kilder), 3))
-                        for ci, (label, k) in enumerate(ref_kilder):
-                            with btn_cols[ci % 3]:
-                                if st.button(
-                                    f"↗ {label}",
-                                    key=f"ref_{msg_idx}_{ci}",
-                                    use_container_width=True,
-                                ):
-                                    st.session_state.valgt_afgørelse = k
-                                    if "_resumé" in st.session_state:
-                                        del st.session_state["_resumé"]
-                                    st.rerun()
                 with col_kld:
                     if kilder:
+                        # Marker-span aktiverer CSS :has()-scoping for kortene herunder
                         st.markdown(
-                            '<div style="font-size:11px;font-weight:700;color:#475569;'
-                            'text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">'
-                            'Kilder</div>',
-                            unsafe_allow_html=True
+                            '<div class="kilde-panel-hdr">'
+                            'Kilder<span class="kilde-panel-marker" style="display:none"></span>'
+                            '</div>',
+                            unsafe_allow_html=True,
                         )
                         for i, k in enumerate(kilder[:8]):
                             try:
-                                ts       = pd.Timestamp(k["Dato"])
-                                dato_str = ts.strftime("%d.%m.%Y")
-                                år_str   = str(ts.year)
+                                år_str = str(pd.Timestamp(k["Dato"]).year)
                             except Exception:
-                                dato_str = "–"
-                                år_str   = "–"
-                            kommune   = extract_kommune(k.get("Titel", "")) or "Ukendt kommune"
-                            udfald    = k.get("Udfald", "")
-                            badge_cls = BADGE.get(udfald, "badge-ukendt")
-                            badge_html = f'<span class="pkn-badge {badge_cls}">{udfald}</span>' if udfald else ""
-
-                            with st.expander(f"[{i+1}] {kommune} · {år_str}"):
-                                # Åbn-knap øverst – mest fremtrædende handling
-                                if st.button(
-                                    f"▶ Åbn afgørelsen i Harald",
-                                    key=f"kilde_open_{msg_idx}_{i}",
-                                    use_container_width=True,
-                                    type="primary",
-                                ):
-                                    st.session_state.valgt_afgørelse = k
-                                    if "_resumé" in st.session_state:
-                                        del st.session_state["_resumé"]
-                                    st.rerun()
-
-                                # Titel + metadata
-                                st.markdown(
-                                    f'<div style="font-size:13px;font-weight:600;color:#1e3a5f;'
-                                    f'margin:8px 0 4px 0;line-height:1.4">{k["Titel"]}</div>',
-                                    unsafe_allow_html=True
-                                )
-                                st.markdown(
-                                    f'<div style="font-size:11px;color:#64748b;margin-bottom:10px">'
-                                    f'{dato_str} &nbsp;·&nbsp; {k.get("Sagsgruppe", "")}'
-                                    f'&nbsp;&nbsp;{badge_html}</div>',
-                                    unsafe_allow_html=True
-                                )
-
-                                # Fuld tekst i scrollbar boks
-                                tekst_rå = k.get("Tekst", "")
-                                # Opdel i afsnit ved sætningsskift foran stort bogstav
-                                tekst_fmt = re.sub(r'\. ([A-ZÆØÅ])', r'.</p><p>\1', tekst_rå)
-                                tekst_html = (
-                                    '<div style="font-size:13px;line-height:1.7;color:#1e293b;'
-                                    'max-height:420px;overflow-y:auto;padding:12px 14px;'
-                                    'background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;'
-                                    'margin-bottom:8px">'
-                                    f'<p>{tekst_fmt}</p>'
-                                    '</div>'
-                                )
-                                st.markdown(tekst_html, unsafe_allow_html=True)
-
-                                # Link til original
-                                st.markdown(
-                                    f'<a href="{k["Link"]}" target="_blank" '
-                                    f'style="font-size:12px;color:#2563eb;text-decoration:none">'
-                                    f'Åbn original afgørelse på PKN\'s hjemmeside ↗</a>',
-                                    unsafe_allow_html=True
-                                )
+                                år_str = "–"
+                            kommune = extract_kommune(k.get("Titel", "")) or "Ukendt"
+                            udfald  = k.get("Udfald", "")
+                            udfald_sym = {"Medhold": " ✓", "Ikke medhold": " ✗", "Afvist": " ○"}.get(udfald, "")
+                            label = f"[{i+1}]  {kommune}  ·  {år_str}{udfald_sym}"
+                            if st.button(label, key=f"kilde_open_{msg_idx}_{i}", use_container_width=True):
+                                st.session_state.valgt_afgørelse = k
+                                if "_resumé" in st.session_state:
+                                    del st.session_state["_resumé"]
+                                st.rerun()
 
         # Input-form
         with st.form("chat_form", clear_on_submit=True):
