@@ -594,79 +594,112 @@ with tab_søg:
 with tab_stat:
     d = df_filter
 
-    # KPI
-    k1, k2, k3, k4 = st.columns(4)
-    with k1:
-        st.markdown(f'<div class="stat-card"><div class="stat-number">{len(d):,}</div>'
-                    f'<div class="stat-label">Afgørelser</div></div>', unsafe_allow_html=True)
-    with k2:
-        pct = (d["Udfald"] == "Medhold").mean() * 100
-        st.markdown(f'<div class="stat-card"><div class="stat-number">{pct:.0f}%</div>'
-                    f'<div class="stat-label">Medhold-rate</div></div>', unsafe_allow_html=True)
-    with k3:
-        st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Kommune"].nunique()}</div>'
-                    f'<div class="stat-label">Kommuner</div></div>', unsafe_allow_html=True)
-    with k4:
-        st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Kategori_primær"].nunique()}</div>'
-                    f'<div class="stat-label">Kategorier</div></div>', unsafe_allow_html=True)
+    _CHART_LAYOUT = dict(
+        plot_bgcolor="white", paper_bgcolor="white",
+        font=dict(family="Inter, system-ui, sans-serif", size=12, color="#334155"),
+        margin=dict(t=10, b=10, l=10, r=10),
+    )
+    _UDFALD_FARVER = {
+        "Medhold": "#10b981", "Ikke medhold": "#ef4444",
+        "Ophævet": "#8b5cf6", "Afvist": "#f59e0b", "Ukendt": "#94a3b8",
+    }
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    col_l, col_r = st.columns(2)
-
-    with col_l:
-        st.markdown("#### Afgørelser per år")
-        år_df = d.groupby("År").size().reset_index(name="Antal")
-        fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#c49a3c"])
-        fig.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
-        st.plotly_chart(fig, use_container_width=True)
-
-    with col_r:
-        st.markdown("#### Fordeling på kategori")
-        kat_df = d.groupby("Kategori_primær").size().reset_index(name="Antal").rename(columns={"Kategori_primær": "Kategori"})
-        fig2 = px.pie(kat_df, values="Antal", names="Kategori",
-                      color_discrete_sequence=px.colors.qualitative.Set3, hole=0.4)
-        fig2.update_layout(margin=dict(t=10,b=10,l=10,r=10))
-        st.plotly_chart(fig2, use_container_width=True)
-
-    col_ll, col_rr = st.columns(2)
-
-    with col_ll:
-        st.markdown("#### Udfald over tid")
-        udfald_år = d.groupby(["År","Udfald"]).size().reset_index(name="Antal")
-        farver = {"Medhold":"#10b981","Ikke medhold":"#ef4444","Ophævet":"#8b5cf6","Afvist":"#f59e0b","Ukendt":"#94a3b8"}
-        fig3 = px.bar(udfald_år, x="År", y="Antal", color="Udfald",
-                      color_discrete_map=farver, barmode="stack")
-        fig3.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
-        st.plotly_chart(fig3, use_container_width=True)
-
-    with col_rr:
-        st.markdown("#### Top 15 kommuner")
-        kom_df = (d.dropna(subset=["Kommune"]).groupby("Kommune").size()
-                   .reset_index(name="Sager").sort_values("Sager",ascending=True).tail(15))
-        fig4 = px.bar(kom_df, x="Sager", y="Kommune", orientation="h",
-                      color_discrete_sequence=["#1a3060"])
-        fig4.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10,b=10,l=10,r=10))
-        st.plotly_chart(fig4, use_container_width=True)
-
-    st.markdown("#### Medhold-rate per kategori")
     if d.empty:
         st.info("Ingen data at vise med de valgte filtre.")
     else:
-        mr = (d.groupby("Kategori_primær")
-               .apply(lambda x: pd.Series({
-                   "Sager": len(x),
-                   "Medhold_%": round((x["Udfald"]=="Medhold").mean()*100, 1)
-               }), include_groups=False)
-               .reset_index()
-               .rename(columns={"Kategori_primær": "Kategori"})
-               .sort_values("Medhold_%", ascending=True))
-        fig5 = px.bar(mr, x="Medhold_%", y="Kategori", orientation="h",
-                      color="Medhold_%", color_continuous_scale=["#fee2e2","#10b981"],
-                      hover_data={"Sager": True},
-                      labels={"Medhold_%": "Medhold (%)"})
-        fig5.update_layout(plot_bgcolor="white", paper_bgcolor="white",
-                           coloraxis_showscale=False, margin=dict(t=10,b=10,l=10,r=10))
-        st.plotly_chart(fig5, use_container_width=True)
+        # ── KPI-kort ──────────────────────────────────────────────────────
+        k1, k2, k3, k4 = st.columns(4)
+        pct_medhold = (d["Udfald"] == "Medhold").mean() * 100
+        år_span = f"{int(d['År'].min())}–{int(d['År'].max())}" if len(d) else "–"
+        for col, tal, label in [
+            (k1, f"{len(d):,}",               "Afgørelser"),
+            (k2, f"{pct_medhold:.0f}%",        "Medhold-rate"),
+            (k3, f"{d['Kommune'].nunique()}",  "Kommuner"),
+            (k4, år_span,                      "Årsinterval"),
+        ]:
+            col.markdown(
+                f'<div class="stat-card"><div class="stat-number">{tal}</div>'
+                f'<div class="stat-label">{label}</div></div>',
+                unsafe_allow_html=True,
+            )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # ── Række 1: Afgørelser per år + Udfald over tid ──────────────────
+        col_l, col_r = st.columns(2)
+        with col_l:
+            st.markdown("#### Afgørelser per år")
+            år_df = d.groupby("År").size().reset_index(name="Antal")
+            fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#c49a3c"])
+            fig.update_layout(**_CHART_LAYOUT)
+            fig.update_traces(marker_line_width=0)
+            st.plotly_chart(fig, use_container_width=True)
+
+        with col_r:
+            st.markdown("#### Udfald over tid")
+            udfald_år = d.groupby(["År", "Udfald"]).size().reset_index(name="Antal")
+            fig2 = px.bar(udfald_år, x="År", y="Antal", color="Udfald",
+                          color_discrete_map=_UDFALD_FARVER, barmode="stack")
+            fig2.update_layout(**_CHART_LAYOUT)
+            fig2.update_traces(marker_line_width=0)
+            st.plotly_chart(fig2, use_container_width=True)
+
+        # ── Række 2: Kategori + Sagsgruppe ────────────────────────────────
+        col_ll, col_rr = st.columns(2)
+        with col_ll:
+            st.markdown("#### Fordeling på kategori")
+            kat_df = (d.groupby("Kategori_primær").size()
+                       .reset_index(name="Antal")
+                       .rename(columns={"Kategori_primær": "Kategori"})
+                       .sort_values("Antal", ascending=True))
+            fig3 = px.bar(kat_df, x="Antal", y="Kategori", orientation="h",
+                          color_discrete_sequence=["#1a3060"])
+            fig3.update_layout(**_CHART_LAYOUT)
+            fig3.update_traces(marker_line_width=0)
+            st.plotly_chart(fig3, use_container_width=True)
+
+        with col_rr:
+            st.markdown("#### Fordeling på sagsgruppe")
+            sg_df = (d.dropna(subset=["Sagsgruppe"])
+                      .groupby("Sagsgruppe").size()
+                      .reset_index(name="Antal")
+                      .sort_values("Antal", ascending=True)
+                      .tail(15))
+            fig4 = px.bar(sg_df, x="Antal", y="Sagsgruppe", orientation="h",
+                          color_discrete_sequence=["#c49a3c"])
+            fig4.update_layout(**_CHART_LAYOUT)
+            fig4.update_traces(marker_line_width=0)
+            st.plotly_chart(fig4, use_container_width=True)
+
+        # ── Række 3: Top kommuner + Medhold-rate per kategori ─────────────
+        col_a, col_b = st.columns(2)
+        with col_a:
+            st.markdown("#### Top 15 kommuner")
+            kom_df = (d.dropna(subset=["Kommune"]).groupby("Kommune").size()
+                       .reset_index(name="Sager").sort_values("Sager", ascending=True).tail(15))
+            fig5 = px.bar(kom_df, x="Sager", y="Kommune", orientation="h",
+                          color_discrete_sequence=["#1a3060"])
+            fig5.update_layout(**_CHART_LAYOUT)
+            fig5.update_traces(marker_line_width=0)
+            st.plotly_chart(fig5, use_container_width=True)
+
+        with col_b:
+            st.markdown("#### Medhold-rate per kategori")
+            mr = (d.groupby("Kategori_primær")
+                   .apply(lambda x: pd.Series({
+                       "Sager": len(x),
+                       "Medhold_%": round((x["Udfald"] == "Medhold").mean() * 100, 1),
+                   }), include_groups=False)
+                   .reset_index()
+                   .rename(columns={"Kategori_primær": "Kategori"})
+                   .sort_values("Medhold_%", ascending=True))
+            fig6 = px.bar(mr, x="Medhold_%", y="Kategori", orientation="h",
+                          color="Medhold_%", color_continuous_scale=["#fee2e2", "#10b981"],
+                          hover_data={"Sager": True},
+                          labels={"Medhold_%": "Medhold (%)"})
+            fig6.update_layout(**_CHART_LAYOUT, coloraxis_showscale=False)
+            fig6.update_traces(marker_line_width=0)
+            st.plotly_chart(fig6, use_container_width=True)
 
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 3 – AI ASSISTENT
