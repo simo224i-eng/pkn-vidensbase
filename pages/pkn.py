@@ -678,14 +678,15 @@ with tab_ai:
 
     st.markdown(f"""
 <div class="ai-hero">
-  <div class="ai-hero-badge">⚖ AI Assistent</div>
-  <div class="ai-hero-title">Spørg til PKN-praksis</div>
-  <p class="ai-hero-sub">
-    Find mønstre og retningslinjer på tværs af
-    <strong>{antal_tekst} afgørelser{filtreret_label}</strong> ·
-    Svar med kildehenvisninger ·
-    Opfølgningsspørgsmål husker kontekst
-  </p>
+  <div class="ai-hero-icon">⚖</div>
+  <div>
+    <div class="ai-hero-title">Spørg til PKN-praksis</div>
+    <p class="ai-hero-sub">
+      Søger i <strong>{antal_tekst} afgørelser{filtreret_label}</strong>
+      og svarer med kildehenvisninger.
+      Opfølgningsspørgsmål husker kontekst.
+    </p>
+  </div>
 </div>
 """, unsafe_allow_html=True)
 

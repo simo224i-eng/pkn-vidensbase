@@ -140,10 +140,20 @@ header[data-testid="stHeader"] { display: none !important; }
                   text-transform: uppercase; letter-spacing: 2px; margin: 1.4rem 0 0.35rem; display: block; }
 
 /* ── Page header ── */
-.h-page-header { margin-bottom: 1.8rem; padding-bottom: 1.2rem; border-bottom: 1px solid #ece6dc; }
-.h-page-title  { font-family: 'Cinzel', Georgia, serif; font-size: 1.65rem; font-weight: 900; color: #1a0a0e; letter-spacing: 5px; margin: 0 0 4px; }
-.h-page-meta   { font-size: 12.5px; color: #a08070; margin: 0; }
-.h-gold-line   { height: 2px; width: 32px; background: #8C1C2E; border-radius: 1px; margin: 6px 0 8px; }
+.h-page-header {
+    margin-bottom: 2rem; padding-bottom: 1.4rem;
+    border-bottom: 1px solid #e8e0d4;
+    display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap;
+}
+.h-page-title {
+    font-family: 'Cinzel', Georgia, serif; font-size: 2rem; font-weight: 900;
+    color: #1a0a0e; letter-spacing: 6px; margin: 0; line-height: 1;
+}
+.h-page-meta {
+    font-size: 12px; color: #b09070; margin: 0; letter-spacing: 0.2px;
+    padding-left: 20px; border-left: 1px solid #d4c8b8;
+}
+.h-gold-line { display: none; }
 
 /* ── Cards ── */
 .pkn-card {
@@ -178,32 +188,24 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── AI Assistent intro ── */
 .ai-hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e2d4a 60%, #1a2a3f 100%);
-    border-radius: 14px; padding: 24px 28px 20px;
-    margin-bottom: 18px; position: relative; overflow: hidden;
-    border: 1px solid #2a3a52;
+    display: flex; align-items: center; gap: 18px;
+    background: linear-gradient(to right, #fdf8f2, #fff);
+    border-left: 3px solid #c49a3c; border-radius: 0 10px 10px 0;
+    padding: 18px 24px; margin-bottom: 20px;
 }
-.ai-hero::before {
-    content: ''; position: absolute; top: -40px; right: -40px;
-    width: 180px; height: 180px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(196,154,60,.18) 0%, transparent 70%);
-    pointer-events: none;
+.ai-hero-icon {
+    font-size: 26px; flex-shrink: 0; opacity: 0.75; line-height: 1;
 }
 .ai-hero-title {
-    font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700;
-    color: #f1f5f9; letter-spacing: 2px; margin: 0 0 6px;
+    font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;
+    color: #1a0a0e; letter-spacing: 2.5px; text-transform: uppercase;
+    margin: 0 0 5px;
 }
 .ai-hero-sub {
-    font-size: 13px; color: #94a3b8; line-height: 1.6; margin: 0;
+    font-size: 12.5px; color: #7a6050; line-height: 1.65; margin: 0;
 }
-.ai-hero-sub strong { color: #c49a3c; font-weight: 600; }
-.ai-hero-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(196,154,60,.15); border: 1px solid rgba(196,154,60,.35);
-    border-radius: 20px; padding: 3px 10px; font-size: 11px;
-    color: #c49a3c; font-weight: 600; letter-spacing: 0.5px;
-    margin-bottom: 12px;
-}
+.ai-hero-sub strong { color: #1a0a0e; font-weight: 600; }
+.ai-hero-badge { display: none; }
 
 /* Forslagsknapper – aktiveres via #ai-forslag-anchor ~ ... */
 #ai-forslag-anchor ~ div button,
