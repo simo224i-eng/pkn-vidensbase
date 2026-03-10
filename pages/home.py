@@ -1,5 +1,6 @@
 import streamlit as st
-from shared import logo
+from shared import logo, inject_css
+inject_css()
 
 # ── Forside ───────────────────────────────────────────────────────────────────
 with st.sidebar:
