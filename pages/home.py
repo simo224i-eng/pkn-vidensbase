@@ -22,6 +22,7 @@ _CTA_PKN  = (
     "color:#8C1C2E;font-size:13px;font-weight:600;letter-spacing:.4px;"
 )
 _CTA_MFKN = _CTA_PKN.replace("#8C1C2E", "#2d6a4f")
+_CTA_NT   = _CTA_PKN.replace("#8C1C2E", "#0e7490")
 
 st.markdown(f"""
 <style>
@@ -34,9 +35,14 @@ st.markdown(f"""
     border-top-color: #2d6a4f !important;
     box-shadow: 0 12px 40px rgba(45,106,79,.14) !important;
   }}
+  .h-nav-card.nt:hover {{
+    border-top-color: #0e7490 !important;
+    box-shadow: 0 12px 40px rgba(14,116,144,.14) !important;
+  }}
   .h-nav-card:hover .cta-pkn  {{ background:#8C1C2E; color:#fff; }}
   .h-nav-card:hover .cta-mfkn {{ background:#2d6a4f; color:#fff; }}
-  .cta-pkn, .cta-mfkn {{ transition: background .15s, color .15s; }}
+  .h-nav-card:hover .cta-nt   {{ background:#0e7490; color:#fff; }}
+  .cta-pkn, .cta-mfkn, .cta-nt {{ transition: background .15s, color .15s; }}
   .h-card-sub {{
     font-size:11px;color:#a08070;text-transform:uppercase;letter-spacing:1.5px;
     margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid #ece6dc;
@@ -53,7 +59,7 @@ st.markdown(f"""
   </p>
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:880px;margin:0 auto 4rem;">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;max-width:1260px;margin:0 auto 4rem;">
 
   <a href="/pkn" target="_self" style="text-decoration:none;color:inherit;">
     <div class="h-nav-card" style="{_CARD_S}">
@@ -76,14 +82,30 @@ st.markdown(f"""
       <div style="font-size:2rem;margin-bottom:1.2rem;">🌿</div>
       <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
                   color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">MFKN</div>
-      <div class="h-card-sub">Miljø- og Fødevareklagenævnet</div>
+      <div class="h-card-sub">Beskyttelseslinjer</div>
       <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;flex:1;">
         Afgørelser om strandbeskyttelseslinjen, sø-, å- og fortidsmindebeskyttelseslinjer,
         skovbyggelinjen og klitfredning.
       </div>
       <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
                   letter-spacing:1px;margin-bottom:1.4rem;">Naturbeskyttelsesloven · 2.000+ afgørelser</div>
-      <div class="cta-mfkn" style="{_CTA_MFKN}">Åbn MFKN →</div>
+      <div class="cta-mfkn" style="{_CTA_MFKN}">Åbn Beskyttelseslinjer →</div>
+    </div>
+  </a>
+
+  <a href="/mfkn_naturtyper" target="_self" style="text-decoration:none;color:inherit;">
+    <div class="h-nav-card nt" style="{_CARD_S}">
+      <div style="font-size:2rem;margin-bottom:1.2rem;">🌾</div>
+      <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
+                  color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">MFKN</div>
+      <div class="h-card-sub">Beskyttede Naturtyper</div>
+      <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;flex:1;">
+        Afgørelser om beskyttede naturtyper – eng, mose, hede, overdrev, sø og vandløb
+        efter naturbeskyttelseslovens § 3.
+      </div>
+      <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
+                  letter-spacing:1px;margin-bottom:1.4rem;">NBL § 3 · 1.410+ afgørelser</div>
+      <div class="cta-nt" style="{_CTA_NT}">Åbn Naturtyper →</div>
     </div>
   </a>
 

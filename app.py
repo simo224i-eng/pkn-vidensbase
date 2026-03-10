@@ -38,6 +38,7 @@ pg = st.navigation([
     st.Page("pages/home.py",                     title="Forside",            icon=":material/home:",    default=True),
     st.Page("pages/pkn.py",                      title="Planklagenævnet",    icon=":material/gavel:"),
     st.Page("pages/mfkn_beskyttelseslinjer.py",  title="Beskyttelseslinjer", icon=":material/eco:"),
+    st.Page("pages/mfkn_naturtyper.py",          title="Naturtyper",         icon=":material/park:"),
 ])
 pg.run()
 
