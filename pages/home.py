@@ -9,40 +9,8 @@ with st.sidebar:
   <div class="h-logo-box">{logo(120)}</div>
 </div>""", unsafe_allow_html=True)
 
-_CARD_S = (
-    "display:flex;flex-direction:column;height:100%;"
-    "background:#fffcf8;border-radius:14px;padding:2.4rem 2.6rem 2rem;"
-    "border:1px solid #ddd4c8;border-top:4px solid #c8b8a8;"
-    "box-shadow:0 2px 12px rgba(60,20,20,.07);"
-    "transition:border-top-color .18s,box-shadow .18s,transform .18s;"
-)
-_CTA_PKN  = (
-    "display:block;text-align:center;padding:.7rem 1rem;margin-top:auto;"
-    "border:1.5px solid #8C1C2E;border-radius:8px;"
-    "color:#8C1C2E;font-size:13px;font-weight:600;letter-spacing:.4px;"
-)
-_CTA_MFKN = _CTA_PKN.replace("#8C1C2E", "#2d6a4f")
-_CTA_NT   = _CTA_PKN.replace("#8C1C2E", "#0e7490")
-
 st.markdown(f"""
 <style>
-  .h-nav-card:hover {{
-    border-top-color: #8C1C2E !important;
-    box-shadow: 0 12px 40px rgba(140,28,46,.16) !important;
-    transform: translateY(-4px);
-  }}
-  .h-nav-card.mfkn:hover {{
-    border-top-color: #2d6a4f !important;
-    box-shadow: 0 12px 40px rgba(45,106,79,.14) !important;
-  }}
-  .h-nav-card.nt:hover {{
-    border-top-color: #0e7490 !important;
-    box-shadow: 0 12px 40px rgba(14,116,144,.14) !important;
-  }}
-  .h-nav-card:hover .cta-pkn  {{ background:#8C1C2E; color:#fff; }}
-  .h-nav-card:hover .cta-mfkn {{ background:#2d6a4f; color:#fff; }}
-  .h-nav-card:hover .cta-nt   {{ background:#0e7490; color:#fff; }}
-  .cta-pkn, .cta-mfkn, .cta-nt {{ transition: background .15s, color .15s; }}
   .h-card-sub {{
     font-size:11px;color:#a08070;text-transform:uppercase;letter-spacing:1.5px;
     margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid #ece6dc;
@@ -58,60 +26,66 @@ st.markdown(f"""
     Juridisk Vidensbase · Legal Tech AI
   </p>
 </div>
+""", unsafe_allow_html=True)
 
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;max-width:1260px;margin:0 auto 4rem;">
+_CARD = (
+    "background:#fffcf8;border-radius:14px;padding:2.4rem 2.6rem 1.6rem;"
+    "border:1px solid #ddd4c8;border-top:4px solid {color};"
+    "box-shadow:0 2px 12px rgba(60,20,20,.07);height:100%;"
+)
 
-  <a href="/pkn" target="_self" style="text-decoration:none;color:inherit;">
-    <div class="h-nav-card" style="{_CARD_S}">
-      <div style="font-size:2rem;margin-bottom:1.2rem;">⚖️</div>
-      <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
-                  color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">PKN</div>
-      <div class="h-card-sub">Planklagenævnet</div>
-      <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;flex:1;">
-        Afgørelser om lokalplaner, kommuneplantillæg, dispensationer og planvedtagelser.
-        Søg, filtrer og analyser PKN's praksis med AI-assistance.
-      </div>
-      <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
-                  letter-spacing:1px;margin-bottom:1.4rem;">Plan- og byggeloven · 4.780+ afgørelser</div>
-      <div class="cta-pkn" style="{_CTA_PKN}">Åbn PKN →</div>
-    </div>
-  </a>
+col1, col2, col3 = st.columns(3, gap="large")
 
-  <a href="/mfkn_beskyttelseslinjer" target="_self" style="text-decoration:none;color:inherit;">
-    <div class="h-nav-card mfkn" style="{_CARD_S}">
-      <div style="font-size:2rem;margin-bottom:1.2rem;">🌿</div>
-      <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
-                  color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">MFKN</div>
-      <div class="h-card-sub">Beskyttelseslinjer</div>
-      <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;flex:1;">
-        Afgørelser om strandbeskyttelseslinjen, sø-, å- og fortidsmindebeskyttelseslinjer,
-        skovbyggelinjen og klitfredning.
-      </div>
-      <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
-                  letter-spacing:1px;margin-bottom:1.4rem;">Naturbeskyttelsesloven · 2.000+ afgørelser</div>
-      <div class="cta-mfkn" style="{_CTA_MFKN}">Åbn Beskyttelseslinjer →</div>
-    </div>
-  </a>
+with col1:
+    st.html(f"""
+<div style="{_CARD.format(color='#8C1C2E')}">
+  <div style="font-size:2rem;margin-bottom:1.2rem;">⚖️</div>
+  <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
+              color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">PKN</div>
+  <div class="h-card-sub">Planklagenævnet</div>
+  <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;">
+    Afgørelser om lokalplaner, kommuneplantillæg, dispensationer og planvedtagelser.
+    Søg, filtrer og analyser PKN's praksis med AI-assistance.
+  </div>
+  <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
+              letter-spacing:1px;">Plan- og byggeloven · 4.780+ afgørelser</div>
+</div>""")
+    st.page_link("pages/pkn.py", label="Åbn PKN →", use_container_width=True)
 
-  <a href="/mfkn_naturtyper" target="_self" style="text-decoration:none;color:inherit;">
-    <div class="h-nav-card nt" style="{_CARD_S}">
-      <div style="font-size:2rem;margin-bottom:1.2rem;">🌾</div>
-      <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
-                  color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">MFKN</div>
-      <div class="h-card-sub">Beskyttede Naturtyper</div>
-      <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;flex:1;">
-        Afgørelser om beskyttede naturtyper – eng, mose, hede, overdrev, sø og vandløb
-        efter naturbeskyttelseslovens § 3.
-      </div>
-      <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
-                  letter-spacing:1px;margin-bottom:1.4rem;">NBL § 3 · 1.410+ afgørelser</div>
-      <div class="cta-nt" style="{_CTA_NT}">Åbn Naturtyper →</div>
-    </div>
-  </a>
+with col2:
+    st.html(f"""
+<div style="{_CARD.format(color='#2d6a4f')}">
+  <div style="font-size:2rem;margin-bottom:1.2rem;">🌿</div>
+  <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
+              color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">MFKN</div>
+  <div class="h-card-sub">Beskyttelseslinjer</div>
+  <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;">
+    Afgørelser om strandbeskyttelseslinjen, sø-, å- og fortidsmindebeskyttelseslinjer,
+    skovbyggelinjen og klitfredning.
+  </div>
+  <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
+              letter-spacing:1px;">Naturbeskyttelsesloven · 2.000+ afgørelser</div>
+</div>""")
+    st.page_link("pages/mfkn_beskyttelseslinjer.py", label="Åbn Beskyttelseslinjer →", use_container_width=True)
 
-</div>
+with col3:
+    st.html(f"""
+<div style="{_CARD.format(color='#0e7490')}">
+  <div style="font-size:2rem;margin-bottom:1.2rem;">🌾</div>
+  <div style="font-family:'Cinzel',Georgia,serif;font-size:1rem;font-weight:700;
+              color:#1a0a0e;letter-spacing:4px;margin-bottom:.3rem;">MFKN</div>
+  <div class="h-card-sub">Beskyttede Naturtyper</div>
+  <div style="font-size:13.5px;color:#4a3028;line-height:1.7;margin-bottom:1.4rem;">
+    Afgørelser om beskyttede naturtyper – eng, mose, hede, overdrev, sø og vandløb
+    efter naturbeskyttelseslovens § 3.
+  </div>
+  <div style="font-size:11px;font-weight:600;color:#b09080;text-transform:uppercase;
+              letter-spacing:1px;">NBL § 3 · 1.410+ afgørelser</div>
+</div>""")
+    st.page_link("pages/mfkn_naturtyper.py", label="Åbn Naturtyper →", use_container_width=True)
 
-<div style="text-align:center;padding-top:2rem;border-top:1px solid #e2e8f0;margin-bottom:2rem;">
+st.markdown("""
+<div style="text-align:center;padding-top:2rem;border-top:1px solid #e2e8f0;margin-top:2rem;margin-bottom:2rem;">
   <p style="font-size:11px;color:#cbd5e1;letter-spacing:1px;text-transform:uppercase;">
     Harald · Legal Tech AI · Powered by Claude
   </p>
