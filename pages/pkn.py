@@ -455,10 +455,11 @@ with st.sidebar:
 
 # ── Page header ───────────────────────────────────────────────────────────────
 st.markdown(f"""
-<div class="h-page-header">
-  <h1 class="h-page-title">HARALD</h1>
-  <div class="h-gold-line"></div>
-  <p class="h-page-meta">Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}</p>
+<div style="margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:1px solid #e8e0d4;display:flex;align-items:center;gap:0;flex-wrap:wrap;">
+  <h1 style="font-family:'Cinzel',Georgia,serif;font-size:2rem;font-weight:900;color:#1a0a0e;letter-spacing:6px;margin:0;line-height:1;flex-shrink:0;">HARALD</h1>
+  <span style="font-size:12px;color:#b09070;margin-left:22px;padding-left:22px;border-left:1px solid #d4c8b8;line-height:1.6;">
+    Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}
+  </span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -677,15 +678,15 @@ with tab_ai:
     filtreret_label = " (filtreret)" if filtreret else ""
 
     st.markdown(f"""
-<div class="ai-hero">
-  <div class="ai-hero-icon">⚖</div>
+<div style="display:flex;align-items:center;gap:16px;background:linear-gradient(to right,#fdf8f2,#fff);border-left:3px solid #c49a3c;border-radius:0 10px 10px 0;padding:16px 22px;margin-bottom:18px;">
+  <span style="font-size:24px;flex-shrink:0;opacity:0.7;line-height:1;">⚖</span>
   <div>
-    <div class="ai-hero-title">Spørg til PKN-praksis</div>
-    <p class="ai-hero-sub">
-      Søger i <strong>{antal_tekst} afgørelser{filtreret_label}</strong>
+    <div style="font-family:'Cinzel',Georgia,serif;font-size:13px;font-weight:700;color:#1a0a0e;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:4px;">Spørg til PKN-praksis</div>
+    <div style="font-size:12.5px;color:#7a6050;line-height:1.6;">
+      Søger i <strong style="color:#1a0a0e;">{antal_tekst} afgørelser{filtreret_label}</strong>
       og svarer med kildehenvisninger.
       Opfølgningsspørgsmål husker kontekst.
-    </p>
+    </div>
   </div>
 </div>
 """, unsafe_allow_html=True)
