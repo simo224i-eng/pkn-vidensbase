@@ -177,8 +177,26 @@ header[data-testid="stHeader"] { display: none !important; }
 .stat-label  { font-size: 10px; color: #a08070; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
 
 /* ── Chat ── */
-.chat-user      { background: #0f172a; color: #f1f5f9; border-radius: 12px 12px 2px 12px; padding: 10px 14px; margin: 6px 0; max-width: 74%; margin-left: auto; font-size: 13px; line-height: 1.5; }
-.chat-assistant { background: #fff; color: #0f172a; border-radius: 12px 12px 12px 2px; padding: 10px 14px; margin: 6px 0; max-width: 84%; border: 1px solid #e2e8f0; font-size: 13px; line-height: 1.5; }
+.chat-user {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+    color: #f1f5f9; border-radius: 16px 16px 4px 16px;
+    padding: 12px 16px; margin: 4px 0 4px auto; max-width: 78%;
+    font-size: 14px; line-height: 1.65; box-shadow: 0 2px 8px rgba(15,23,42,.18);
+}
+.chat-assistant {
+    background: #fff; color: #0f172a;
+    border-radius: 4px 16px 16px 16px;
+    padding: 14px 18px; margin: 4px 0; max-width: 92%;
+    border: 1px solid #e2e8f0; font-size: 14px; line-height: 1.7;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+/* Begræns heading-størrelser inde i chat — forhindrer Streamlit's globale h1/h2 CSS */
+.chat-assistant h1 { font-size: 15px !important; font-weight: 700 !important; margin: 0.9em 0 0.4em !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; }
+.chat-assistant h2 { font-size: 14px !important; font-weight: 700 !important; margin: 0.7em 0 0.3em !important; }
+.chat-assistant h3 { font-size: 13.5px !important; font-weight: 600 !important; margin: 0.6em 0 0.25em !important; }
+.chat-assistant p  { margin: 0 0 0.6em !important; }
+.chat-assistant ul, .chat-assistant ol { margin: 0.3em 0 0.6em 1.2em !important; }
+.chat-assistant li { margin-bottom: 0.2em !important; }
 .source-chip    { display: inline-block; padding: 3px 9px; border-radius: 4px; background: #f8fafc; color: #475569; font-size: 11px; margin: 3px; text-decoration: none; border: 1px solid #e2e8f0; }
 
 /* ── Tabs ── */

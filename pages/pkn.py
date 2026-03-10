@@ -248,15 +248,24 @@ def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
             rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
             historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
+    kilde_liste = "\n".join(
+        f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
+        for i, d in enumerate(docs)
+    )
     prompt = f"""Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.
-Besvar følgende spørgsmål KUN baseret på de {len(docs)} vedlagte PKN-afgørelser herunder.
-Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn der stammer fra en afgørelse – f.eks. [Kilde 3] eller [Kilde 1, 2].
-Svar på dansk, præcist og struktureret med overskrifter og afsnit.
-Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst – kilderne er de samme.
+
+VIGTIGE REGLER:
+1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.
+2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference. Eks: [Kilde 3] eller [Kilde 1, 2].
+3. Svar på dansk med overskrifter og afsnit.
+4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.
+
+KILDEREGISTER (brug disse numre i dine referencer):
+{kilde_liste}
 {samtale_blok}
 SPØRGSMÅL: {spørgsmål}
 
-AFGØRELSER ({len(docs)} stk.):
+AFGØRELSER:
 {kontekst}
 
 SVAR:"""
@@ -689,7 +698,7 @@ with tab_ai:
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
                 with st.spinner("Søger og genererer svar…"):
-                    hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+                    hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=12)
                     alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
                     try:
                         svar = gemini_svar(f, alle_kilder, historik=st.session_state.chat_historik)
@@ -704,8 +713,25 @@ with tab_ai:
         # Historik
         for msg_idx, msg in enumerate(st.session_state.chat_historik):
             if msg["rolle"] == "bruger":
-                st.markdown(f'<div class="chat-user">{msg["tekst"]}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    '<div style="display:flex;justify-content:flex-end;margin:1rem 0 0.2rem;">'
+                    '<span style="font-size:10px;font-weight:700;color:#64748b;'
+                    'text-transform:uppercase;letter-spacing:1.2px;">Du</span></div>',
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    f'<div style="display:flex;justify-content:flex-end;">'
+                    f'<div class="chat-user">{msg["tekst"]}</div></div>',
+                    unsafe_allow_html=True,
+                )
             else:
+                # Label: Harald
+                st.markdown(
+                    '<div style="display:flex;align-items:center;gap:6px;margin:1rem 0 0.2rem;">'
+                    '<span style="font-size:10px;font-weight:700;color:#c49a3c;'
+                    'text-transform:uppercase;letter-spacing:1.2px;">⚖ Harald</span></div>',
+                    unsafe_allow_html=True,
+                )
                 # Erstat [Kilde X] i AI-teksten med blå navne-chips
                 kilder = msg.get("kilder", [])
                 if kilder:
@@ -718,6 +744,11 @@ with tab_ai:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
                     # Klikbare kilde-knapper under AI-svaret
                     if ref_kilder:
+                        st.markdown(
+                            '<div style="font-size:10px;color:#94a3b8;margin:6px 0 4px;'
+                            'text-transform:uppercase;letter-spacing:1px;font-weight:600;">Åbn afgørelse:</div>',
+                            unsafe_allow_html=True,
+                        )
                         btn_cols = st.columns(min(len(ref_kilder), 3))
                         for ci, (label, k) in enumerate(ref_kilder):
                             with btn_cols[ci % 3]:
@@ -814,7 +845,7 @@ with tab_ai:
         if send and spørgsmål.strip():
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
             with st.spinner("Søger og genererer svar…"):
-                hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+                hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=ai_sub_idx, top_n=12)
                 alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
                 try:
                     svar = gemini_svar(spørgsmål, alle_kilder, historik=st.session_state.chat_historik)
