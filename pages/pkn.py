@@ -91,30 +91,45 @@ def detect_udfald(titel: str, tekst: str = "") -> str:
 
     # ── Realitetsafgørelser – titel ───────────────────────────────────────────
     if any(k in t for k in ("ophævet", "ugyldig", "ugyldigt", "annulleret",
-                             "hjemvisning", "hjemvises")):       return "Ophævet"
-    if "medhold" in t:                                           return "Medhold"
-    if "stadfæst" in t or "ikke medhold" in t:                  return "Ikke medhold"
-    if "afvisning" in t or "afvises" in t:                       return "Afvist"
+                             "hjemvisning", "hjemvises", "hjemvist",
+                             "delvist ophæv", "ændret af nævnet")):  return "Ophævet"
+    if "medhold" in t:                                               return "Medhold"
+    if any(k in t for k in ("stadfæst", "ikke medhold", "stadfæstelse")):
+                                                                     return "Ikke medhold"
+    if any(k in t for k in ("afvisning", "afvises", "afvist")):      return "Afvist"
 
     # ── Brødtekst – brug SIDSTE "Afsluttende bemærkninger"-sektion ───────────
     tx = _strip_html(tekst).lower()
     positions = [m.start() for m in re.finditer(r"afsluttende bem[æa]rkninger", tx)]
-    conc = tx[positions[-1]:positions[-1] + 600] if positions else tx[-1000:]
+    conc = tx[positions[-1]:positions[-1] + 800] if positions else tx[-1200:]
 
-    if any(k in conc for k in ("ophæver", "hjemviser", "hjemvisning", "ugyldiggør")):
+    if any(k in conc for k in ("ophæver", "hjemviser", "hjemvisning", "ugyldiggør",
+                                "ophæves", "hjemvises", "ændrer den påklagede",
+                                "ændres hermed", "påklagede afgørelse ændres")):
         return "Ophævet"
-    if "kan ikke give medhold" in conc or "ikke medhold" in conc or "stadfæst" in conc:
+    if any(k in conc for k in ("kan ikke give medhold", "ikke medhold", "stadfæst",
+                                "ikke grundlag for at ændre", "ingen anledning til at ændre",
+                                "ikke anledning til at", "nævnet finder ikke grundlag",
+                                "klagen ikke tages til følge", "tages ikke til følge")):
         return "Ikke medhold"
-    if "afviser" in conc and ("klagen" in conc or "klager" in conc):
+    if any(k in conc for k in ("afviser klagen", "afvises som", "afviser hermed",
+                                "klagen afvises")):
         return "Afvist"
-    if "medhold" in conc:
+    if any(k in conc for k in ("giver medhold", "gives medhold", "medhold i klagen",
+                                "tager klagen til følge", "klagen tages til følge",
+                                "medhold")):
         return "Medhold"
 
     # ── Bredere søgning i hele teksten ───────────────────────────────────────
-    if "klagen tages til følge" in tx:                           return "Medhold"
-    if "klagen tages ikke til følge" in tx:                      return "Ikke medhold"
-    if "nævnet ophæver" in tx or "ophæves hermed" in tx:        return "Ophævet"
-    if "nævnet stadfæster" in tx or "stadfæstes hermed" in tx:  return "Ikke medhold"
+    if any(k in tx for k in ("klagen tages til følge", "giver klageren medhold",
+                              "nævnet giver medhold")):             return "Medhold"
+    if any(k in tx for k in ("klagen tages ikke til følge", "nævnet stadfæster",
+                              "stadfæstes hermed", "ikke grundlag for at")):
+                                                                    return "Ikke medhold"
+    if any(k in tx for k in ("nævnet ophæver", "ophæves hermed", "nævnet hjemviser",
+                              "hjemvises hermed")):                 return "Ophævet"
+    if any(k in tx for k in ("klagen afvises", "afvises som åbenbart",
+                              "afvises som for sent")):             return "Afvist"
 
     return "Ukendt"
 
@@ -189,7 +204,7 @@ def load_data(version: int = 14):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(15)
+    df2 = load_data(16)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -320,7 +335,7 @@ if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       =
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(15)
+df       = load_data(16)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
