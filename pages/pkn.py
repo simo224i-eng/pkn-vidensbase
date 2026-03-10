@@ -495,13 +495,13 @@ with tab_søg:
                 '<div class="detail-ai-title">✦ &nbsp;AI-Resumé</div>',
                 unsafe_allow_html=True
             )
-                    if st.button("Generer resumé →", key="gen_resume_btn"):
-                    with st.spinner("Analyserer…"):
-                        try:
-                            st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
-                        except Exception as e:
-                            st.session_state._resumé = f"Fejl: {e}"
-                if "_resumé" in st.session_state:
+            if st.button("Generer resumé →", key="gen_resume_btn"):
+                with st.spinner("Analyserer…"):
+                    try:
+                        st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
+                    except Exception as e:
+                        st.session_state._resumé = f"Fejl: {e}"
+            if "_resumé" in st.session_state:
                     st.markdown(
                         f'<div class="detail-ai-resume">{st.session_state._resumé}</div>',
                         unsafe_allow_html=True

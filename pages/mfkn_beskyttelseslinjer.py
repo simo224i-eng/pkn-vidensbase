@@ -398,12 +398,12 @@ with tab_søg:
                 unsafe_allow_html=True
             )
             if st.button("Generer resumé →", key="mfkn_gen_res"):
-                    with st.spinner("Analyserer…"):
-                        try:
-                            st.session_state.mfkn_resumé = mfkn_resumé(row["Titel"], row["Tekst"])
-                        except Exception as e:
-                            st.session_state.mfkn_resumé = f"Fejl: {e}"
-                if "mfkn_resumé" in st.session_state:
+                with st.spinner("Analyserer…"):
+                    try:
+                        st.session_state.mfkn_resumé = mfkn_resumé(row["Titel"], row["Tekst"])
+                    except Exception as e:
+                        st.session_state.mfkn_resumé = f"Fejl: {e}"
+            if "mfkn_resumé" in st.session_state:
                     st.markdown(
                         f'<div class="detail-ai-resume">{st.session_state.mfkn_resumé}</div>',
                         unsafe_allow_html=True
