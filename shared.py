@@ -480,23 +480,38 @@ def format_afgørelse_tekst(tekst: str) -> str:
             out = f'{_H_OPEN}{m.group(1)}{_H_CLOSE}<p>{out[m.end():]}'
             break
 
-    # 3. Opdel i afsnit: grupper sætninger så hvert afsnit er ~200-350 tegn.
-    # Split ved sætningsgrænse + stort bogstav, saml derefter i grupper.
-    sentences = re.split(r'(?<=[.!?]) +(?=[A-ZÆØÅ])', out)
-    chunks: list[str] = []
-    buf = ""
-    for s in sentences:
-        if not buf:
-            buf = s
-        elif len(buf) < 260:
-            buf += " " + s
-        else:
-            chunks.append(buf)
-            buf = s
-    if buf:
-        chunks.append(buf)
+    # 3. Split i to trin:
+    #    A) HÅRD split ved nummererede afsnitsmarkører (1. / 1.1. / 2.3.)
+    #       – disse bruges konsekvent på tværs af afgørelser i begge nævn
+    #    B) Blød sætningsgrupper: indenfor hvert blok grupperes sætninger
+    #       til ~260-tegns afsnit for behagelig læsning
 
-    _P = 'style="margin:0 0 1.25em;font-size:15px;line-height:1.9;color:#1e293b;font-family:\'Inter\',system-ui,sans-serif;"'
+    # A: markér nummererede sektioner med §§ som skilletegn
+    _SEP = "§§SPLIT§§"
+    out = re.sub(
+        r'([.!?])\s+(\d+(?:\.\d+)*\.\s+(?=[A-ZÆØÅ]))',
+        lambda m: m.group(1) + _SEP + m.group(2),
+        out,
+    )
+
+    # B: opdel i hårde blokke, derefter bløde sætningsgrupper
+    hard_blocks = out.split(_SEP)
+    chunks: list[str] = []
+    for block in hard_blocks:
+        sentences = re.split(r'(?<=[.!?]) +(?=[A-ZÆØÅ])', block)
+        buf = ""
+        for s in sentences:
+            if not buf:
+                buf = s
+            elif len(buf) < 280:
+                buf += " " + s
+            else:
+                chunks.append(buf)
+                buf = s
+        if buf:
+            chunks.append(buf)
+
+    _P = 'style="margin:0 0 1.3em;font-size:15px;line-height:1.9;color:#1e293b;font-family:\'Inter\',system-ui,sans-serif;"'
     out = "".join(
         c if _H_OPEN[:12] in c else f"<p {_P}>{c}</p>"
         for c in chunks
