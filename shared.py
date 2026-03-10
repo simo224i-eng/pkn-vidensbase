@@ -176,6 +176,57 @@ header[data-testid="stHeader"] { display: none !important; }
 .stat-number { font-family: 'Cinzel', Georgia, serif; font-size: 28px; font-weight: 700; color: #1a0a0e; }
 .stat-label  { font-size: 10px; color: #a08070; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
 
+/* ── AI Assistent intro ── */
+.ai-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e2d4a 60%, #1a2a3f 100%);
+    border-radius: 14px; padding: 24px 28px 20px;
+    margin-bottom: 18px; position: relative; overflow: hidden;
+    border: 1px solid #2a3a52;
+}
+.ai-hero::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,154,60,.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+.ai-hero-title {
+    font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700;
+    color: #f1f5f9; letter-spacing: 2px; margin: 0 0 6px;
+}
+.ai-hero-sub {
+    font-size: 13px; color: #94a3b8; line-height: 1.6; margin: 0;
+}
+.ai-hero-sub strong { color: #c49a3c; font-weight: 600; }
+.ai-hero-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(196,154,60,.15); border: 1px solid rgba(196,154,60,.35);
+    border-radius: 20px; padding: 3px 10px; font-size: 11px;
+    color: #c49a3c; font-weight: 600; letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+/* Forslagsknapper – aktiveres via #ai-forslag-anchor ~ ... */
+#ai-forslag-anchor ~ div button,
+#ai-forslag-anchor ~ div ~ div button,
+#ai-forslag-anchor ~ div ~ div ~ div button,
+#ai-forslag-anchor ~ div ~ div ~ div ~ div button {
+    background: rgba(15,23,42,.05) !important;
+    border: 1px solid #dde3ed !important;
+    color: #334155 !important; border-radius: 10px !important;
+    font-size: 12.5px !important; line-height: 1.45 !important;
+    padding: 10px 14px !important; min-height: 60px !important;
+    text-align: left !important; transition: all .15s ease !important;
+    white-space: normal !important;
+}
+#ai-forslag-anchor ~ div button:hover,
+#ai-forslag-anchor ~ div ~ div button:hover,
+#ai-forslag-anchor ~ div ~ div ~ div button:hover,
+#ai-forslag-anchor ~ div ~ div ~ div ~ div button:hover {
+    background: #fef9ef !important;
+    border-color: #c49a3c !important;
+    color: #0f172a !important;
+}
+
 /* ── Chat ── */
 .chat-user {
     background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);

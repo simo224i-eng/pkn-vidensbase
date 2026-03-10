@@ -674,14 +674,23 @@ with tab_stat:
 # TAB 3 – AI ASSISTENT
 # ════════════════════════════════════════════════════════════════════════════
 with tab_ai:
-    st.markdown("### 🤖 Spørg til PKN-praksis")
-
     n_ai = len(ai_sub_idx)
-    filter_tekst = f"alle **{len(df):,}**" if n_ai == len(df) else f"**{n_ai:,}** (filtreret)"
-    st.markdown(
-        f"AI'en finder de mest relevante afgørelser fra {filter_tekst} og svarer med kildehenvisninger. "
-        f"Opfølgningsspørgsmål husker tidligere kildemateriale."
-    )
+    filtreret = n_ai != len(df)
+    antal_tekst = f"{n_ai:,}" if filtreret else f"{len(df):,}"
+    filtreret_label = " (filtreret)" if filtreret else ""
+
+    st.markdown(f"""
+<div class="ai-hero">
+  <div class="ai-hero-badge">⚖ AI Assistent</div>
+  <div class="ai-hero-title">Spørg til PKN-praksis</div>
+  <p class="ai-hero-sub">
+    Find mønstre og retningslinjer på tværs af
+    <strong>{antal_tekst} afgørelser{filtreret_label}</strong> ·
+    Svar med kildehenvisninger ·
+    Opfølgningsspørgsmål husker kontekst
+  </p>
+</div>
+""", unsafe_allow_html=True)
 
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
@@ -693,6 +702,8 @@ with tab_ai:
             "Hvilken praksis er der for strandbeskyttelseslinjen?",
             "Hvad kræves for dispensation fra lokalplan?",
         ]
+        # Anchor element so CSS sibling selector kan styre knappernes udseende
+        st.markdown('<div id="ai-forslag-anchor"></div>', unsafe_allow_html=True)
         cols = st.columns(4)
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
