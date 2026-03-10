@@ -227,6 +227,7 @@ with st.sidebar:
 
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Søgeord</span>', unsafe_allow_html=True)
     søg_input = st.text_input("", placeholder="f.eks. terrasse strandbeskyttelse…", label_visibility="collapsed")
+    søge_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="mfkn_søgetype")
 
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Beskyttelseslinje</span>', unsafe_allow_html=True)
     _alle_kats = sorted(df["Kategori"].unique())
@@ -260,14 +261,17 @@ if udfald_valg:     mask &= df["Udfald"].isin(udfald_valg)
 df_filter = df[mask].reset_index(drop=True)
 sub_idx   = df[mask].index.tolist()
 
-_filter_sig = (len(df_filter), df_filter["Link"].iloc[0] if len(df_filter) > 0 else "", søg_input.strip())
+_filter_sig = (len(df_filter), df_filter["Link"].iloc[0] if len(df_filter) > 0 else "", søg_input.strip(), søge_type)
 if st.session_state.get("mfkn_filter_sig") != _filter_sig:
     st.session_state["mfkn_vis_antal"] = 25
     st.session_state["mfkn_filter_sig"] = _filter_sig
 
 _vis_antal = st.session_state.get("mfkn_vis_antal", 25)
 
-if søg_input.strip():
+if søg_input.strip() and søge_type == "Semantisk":
+    df_vis     = tfidf_søg_mfkn(søg_input.strip(), df, vec, mat, sub_idx=sub_idx)
+    ai_sub_idx = sub_idx
+elif søg_input.strip():
     _text_mask = (
         df_filter["Titel"].str.contains(søg_input.strip(), case=False, na=False, regex=False) |
         df_filter["Tekst"].str.contains(søg_input.strip(), case=False, na=False, regex=False)
@@ -393,17 +397,7 @@ with tab_søg:
                 '<div class="detail-ai-title">✦ &nbsp;AI-Resumé</div>',
                 unsafe_allow_html=True
             )
-            if not st.session_state.mfkn_res_adg:
-                pw = st.text_input("Adgangskode", type="password", key="mfkn_res_pw",
-                                   placeholder="Indtast adgangskode…", label_visibility="collapsed")
-                if st.button("Lås op →", key="mfkn_res_btn"):
-                    if pw == "B465545":
-                        st.session_state.mfkn_res_adg = True
-                        st.rerun()
-                    else:
-                        st.error("Forkert adgangskode.")
-            else:
-                if st.button("Generer resumé →", key="mfkn_gen_res"):
+            if st.button("Generer resumé →", key="mfkn_gen_res"):
                     with st.spinner("Analyserer…"):
                         try:
                             st.session_state.mfkn_resumé = mfkn_resumé(row["Titel"], row["Tekst"])
@@ -556,17 +550,6 @@ with tab_stat:
 # ════════════════════════════════════════════════════════════════════════════
 with tab_ai:
     st.markdown("### 🤖 Spørg til MFKN-praksis")
-
-    if not st.session_state.mfkn_ai_adg:
-        st.markdown("Denne funktion kræver adgangskode.")
-        pwd_input = st.text_input("Adgangskode", type="password", key="mfkn_pwd")
-        if st.button("Log ind", key="mfkn_pwd_btn"):
-            if pwd_input == "B465545":
-                st.session_state.mfkn_ai_adg = True
-                st.rerun()
-            else:
-                st.error("Forkert adgangskode.")
-        st.stop()
 
     n_ai = len(ai_sub_idx)
     filter_tekst = f"alle **{len(df):,}** afgørelser" if n_ai == len(df) else f"**{n_ai:,}** afgørelser (filtreret)"

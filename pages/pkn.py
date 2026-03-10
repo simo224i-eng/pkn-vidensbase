@@ -495,17 +495,7 @@ with tab_søg:
                 '<div class="detail-ai-title">✦ &nbsp;AI-Resumé</div>',
                 unsafe_allow_html=True
             )
-            if not st.session_state.resumé_adgang:
-                pw = st.text_input("Adgangskode", type="password", key="resumé_pw_input",
-                                   placeholder="Indtast adgangskode…", label_visibility="collapsed")
-                if st.button("Lås op →", key="resumé_pw_btn"):
-                    if pw == "B465545":
-                        st.session_state.resumé_adgang = True
-                        st.rerun()
-                    else:
-                        st.error("Forkert adgangskode.")
-            else:
-                if st.button("Generer resumé →", key="gen_resume_btn"):
+                    if st.button("Generer resumé →", key="gen_resume_btn"):
                     with st.spinner("Analyserer…"):
                         try:
                             st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
@@ -658,17 +648,6 @@ with tab_stat:
 # ════════════════════════════════════════════════════════════════════════════
 with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
-
-    if not st.session_state.ai_adgang:
-        st.markdown("Denne funktion kræver adgangskode.")
-        pwd_input = st.text_input("Adgangskode", type="password", key="pwd_input")
-        if st.button("Log ind", key="pwd_btn"):
-            if pwd_input == "B465545":
-                st.session_state.ai_adgang = True
-                st.rerun()
-            else:
-                st.error("Forkert adgangskode.")
-        st.stop()
 
     n_ai = len(ai_sub_idx)
     filter_tekst = f"alle **{len(df):,}** afgørelser" if n_ai == len(df) else f"**{n_ai:,}** afgørelser (filtreret)"
