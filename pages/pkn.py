@@ -215,6 +215,26 @@ def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30):
     return result.reset_index(drop=True)
 
 
+def _saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
+    """Merge nye søgeresultater med alle tidligere viste kilder (dedupliceret på Link).
+    Sikrer at AI'en har kildekontinuitet på tværs af samtalens ture."""
+    seen = set()
+    merged = []
+    for rec in (nye_hits.to_dict("records") if hasattr(nye_hits, "to_dict") else nye_hits):
+        lnk = rec.get("Link", "")
+        if lnk not in seen:
+            seen.add(lnk)
+            merged.append(rec)
+    for msg in reversed(historik or []):
+        if msg.get("rolle") == "assistent":
+            for k in msg.get("kilder", []):
+                lnk = k.get("Link", "")
+                if lnk not in seen and len(merged) < max_total:
+                    seen.add(lnk)
+                    merged.append(k)
+    return merged[:max_total]
+
+
 def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     if not ANTHROPIC_API_KEY:
         return "Tilføj GEMINI_API_KEY i Streamlit secrets."
@@ -229,14 +249,14 @@ def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
             historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
     prompt = f"""Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.
-Besvar følgende spørgsmål KUN baseret på de vedlagte PKN-afgørelser.
+Besvar følgende spørgsmål KUN baseret på de {len(docs)} vedlagte PKN-afgørelser herunder.
 Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn der stammer fra en afgørelse – f.eks. [Kilde 3] eller [Kilde 1, 2].
 Svar på dansk, præcist og struktureret med overskrifter og afsnit.
-Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst.
+Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst – kilderne er de samme.
 {samtale_blok}
 SPØRGSMÅL: {spørgsmål}
 
-AFGØRELSER:
+AFGØRELSER ({len(docs)} stk.):
 {kontekst}
 
 SVAR:"""
@@ -648,8 +668,11 @@ with tab_ai:
     st.markdown("### 🤖 Spørg til PKN-praksis")
 
     n_ai = len(ai_sub_idx)
-    filter_tekst = f"alle **{len(df):,}** afgørelser" if n_ai == len(df) else f"**{n_ai:,}** afgørelser (filtreret)"
-    st.markdown(f"AI'en søger i {filter_tekst} og svarer med kildehenvisninger – ingen embedding-API nødvendig.")
+    filter_tekst = f"alle **{len(df):,}**" if n_ai == len(df) else f"**{n_ai:,}** (filtreret)"
+    st.markdown(
+        f"AI'en finder de mest relevante afgørelser fra {filter_tekst} og svarer med kildehenvisninger. "
+        f"Opfølgningsspørgsmål husker tidligere kildemateriale."
+    )
 
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
@@ -667,12 +690,13 @@ with tab_ai:
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
                 with st.spinner("Søger og genererer svar…"):
                     hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+                    alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
                     try:
-                        svar = gemini_svar(f, hits_ai.to_dict("records"), historik=st.session_state.chat_historik)
+                        svar = gemini_svar(f, alle_kilder, historik=st.session_state.chat_historik)
                     except Exception as e:
                         svar = f"Fejl ved Gemini API: {e}"
                 st.session_state.chat_historik.append(
-                    {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
+                    {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
                 st.rerun()
 
         st.divider()
@@ -791,10 +815,11 @@ with tab_ai:
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
             with st.spinner("Søger og genererer svar…"):
                 hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+                alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
                 try:
-                    svar = gemini_svar(spørgsmål, hits_ai.to_dict("records"), historik=st.session_state.chat_historik)
+                    svar = gemini_svar(spørgsmål, alle_kilder, historik=st.session_state.chat_historik)
                 except Exception as e:
                     svar = f"Fejl ved Gemini API: {e}"
             st.session_state.chat_historik.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
+                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
             st.rerun()
