@@ -105,7 +105,7 @@ def _læs_mfkn_csv(sti: str) -> list:
     return rows
 
 
-def load_mfkn_data(version: int = 3):
+def load_mfkn_data(version: int = 4):
     csv_sti = "mfkn_nbl_beskyttelseslinier.csv"
     zip_sti = csv_sti + ".zip"
     if not os.path.exists(csv_sti) and os.path.exists(zip_sti):

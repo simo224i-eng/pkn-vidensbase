@@ -149,7 +149,7 @@ def _læs_csv(sti: str) -> list:
     return rows
 
 
-def load_data(version: int = 13):  # bump version to bust cache
+def load_data(version: int = 14):  # bump version to bust cache
     import os, zipfile
     # --- primær fil (zip → csv) ---
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
@@ -189,7 +189,7 @@ def load_data(version: int = 13):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(13)
+    df2 = load_data(14)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -256,11 +256,14 @@ RESUMÉ:"""
     return _llm(prompt)
 
 
-def erstat_kilde_refs(tekst: str, kilder: list) -> str:
-    """Erstat [Kilde X] / [Kilde X, Y] i AI-svaret med KommuneNavn · År."""
+def erstat_kilde_refs(tekst: str, kilder: list) -> tuple[str, list]:
+    """Erstat [Kilde X] med blå navne-chips i teksten.
+    Returnér (html_tekst, liste af unikke referencer som (label, kilde_dict))."""
+    unique: dict[int, tuple[str, dict]] = {}  # idx → (label, kilde)
+
     def repl(m):
         nums = [int(x) for x in re.findall(r'\d+', m.group(1))]
-        refs = []
+        spans = []
         for n in nums:
             if 1 <= n <= len(kilder):
                 k = kilder[n - 1]
@@ -269,9 +272,19 @@ def erstat_kilde_refs(tekst: str, kilder: list) -> str:
                     år = str(pd.Timestamp(k["Dato"]).year)
                 except Exception:
                     år = "–"
-                refs.append(f"*{kom} {år}*")
-        return "[" + ", ".join(refs) + "]" if refs else m.group(0)
-    return re.sub(r"\[Kilde\s+([\d,\s]+)\]", repl, tekst)
+                label = f"{kom} {år}"
+                unique[n - 1] = (label, k)
+                spans.append(
+                    f'<span style="display:inline-block;color:#1d6fb8;font-weight:600;'
+                    f'font-size:0.88em;background:#eff6ff;border-radius:4px;'
+                    f'padding:1px 7px;border:1px solid #bfdbfe;white-space:nowrap;">'
+                    f'{label}</span>'
+                )
+        return " ".join(spans) if spans else m.group(0)
+
+    html = re.sub(r"\[Kilde\s+([\d,\s]+)\]", repl, tekst)
+    ordered = [v for _, v in sorted(unique.items())]
+    return html, ordered
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
@@ -281,7 +294,7 @@ if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       =
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(13)
+df       = load_data(14)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -669,13 +682,30 @@ with tab_ai:
             if msg["rolle"] == "bruger":
                 st.markdown(f'<div class="chat-user">{msg["tekst"]}</div>', unsafe_allow_html=True)
             else:
-                # Erstat [Kilde X] i AI-teksten med kommune-navne
+                # Erstat [Kilde X] i AI-teksten med blå navne-chips
                 kilder = msg.get("kilder", [])
-                vist_tekst = erstat_kilde_refs(msg["tekst"], kilder) if kilder else msg["tekst"]
+                if kilder:
+                    vist_tekst, ref_kilder = erstat_kilde_refs(msg["tekst"], kilder)
+                else:
+                    vist_tekst, ref_kilder = msg["tekst"], []
 
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
+                    # Klikbare kilde-knapper under AI-svaret
+                    if ref_kilder:
+                        btn_cols = st.columns(min(len(ref_kilder), 3))
+                        for ci, (label, k) in enumerate(ref_kilder):
+                            with btn_cols[ci % 3]:
+                                if st.button(
+                                    f"↗ {label}",
+                                    key=f"ref_{msg_idx}_{ci}",
+                                    use_container_width=True,
+                                ):
+                                    st.session_state.valgt_afgørelse = k
+                                    if "_resumé" in st.session_state:
+                                        del st.session_state["_resumé"]
+                                    st.rerun()
                 with col_kld:
                     if kilder:
                         st.markdown(

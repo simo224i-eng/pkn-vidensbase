@@ -138,7 +138,7 @@ def _læs_nt_csv(sti: str) -> list:
     return rows
 
 
-def load_nt_data(version: int = 2):
+def load_nt_data(version: int = 3):
     csv_sti = "mfkn_beskyttede_naturtyper.csv"
     zip_sti = csv_sti + ".zip"
     if not os.path.exists(csv_sti) and os.path.exists(zip_sti):

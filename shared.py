@@ -410,6 +410,10 @@ def strip_html(text: str, preserve_headings: bool = False) -> str:
         # Preserve h2/h3 as structural markers before stripping all other tags
         text = re.sub(r'<h2[^>]*>(.*?)</h2>', lambda m: f'\n## {m.group(1).strip()}\n', text, flags=re.I | re.S)
         text = re.sub(r'<h3[^>]*>(.*?)</h3>', lambda m: f'\n### {m.group(1).strip()}\n', text, flags=re.I | re.S)
+        text = re.sub(r'<h[456][^>]*>(.*?)</h[456]>', lambda m: f'\n#### {m.group(1).strip()}\n', text, flags=re.I | re.S)
+        # Bold/strong standalone paragraph → treat as sub-heading
+        text = re.sub(r'<p[^>]*>\s*<(?:strong|b)[^>]*>(.*?)</(?:strong|b)>\s*</p>',
+                      lambda m: f'\n#### {m.group(1).strip()}\n', text, flags=re.I | re.S)
         # Preserve paragraph/line breaks as newlines
         text = re.sub(r'</p>|<br\s*/?>|</div>', '\n', text, flags=re.I)
     text = re.sub(r"<[^>]+>", " ", text)
@@ -482,6 +486,12 @@ _H3_STYLE = (
     'margin:1.6em 0 0.5em;padding:6px 14px;'
     'background:#fdf6ee;border-left:2px solid #d4a070;border-radius:0 4px 4px 0;'
 )
+_H4_STYLE = (
+    'display:block;font-size:10.5px;font-weight:700;color:#7a4820;'
+    'text-transform:uppercase;letter-spacing:1.4px;'
+    'margin:1.1em 0 0.3em;padding:3px 12px;'
+    'border-left:2px dotted #c4a870;'
+)
 
 
 def format_afgørelse_tekst(tekst: str) -> str:
@@ -538,6 +548,10 @@ def format_afgørelse_tekst(tekst: str) -> str:
                 flush_para()
                 heading_text = stripped[4:].strip()
                 html_parts.append(f'<div style="{_H3_STYLE}">{heading_text}</div>')
+            elif stripped.startswith('#### '):
+                flush_para()
+                heading_text = stripped[5:].strip()
+                html_parts.append(f'<div style="{_H4_STYLE}">{heading_text}</div>')
             elif stripped == '':
                 # Blank line → paragraph break
                 flush_para()
