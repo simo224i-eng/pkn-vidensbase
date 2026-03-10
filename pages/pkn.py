@@ -13,22 +13,6 @@ from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgør
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
 # ── TF-IDF søgning ───────────────────────────────────────────────────────────
-@st.cache_resource
-def _build_tfidf(_df):
-    """Bygger TF-IDF matrix på hele korpusset (titel + tekst). Cached ved opstart."""
-    corpus = (_df["Titel"].fillna("") + " " + _df["Tekst"].fillna("")).tolist()
-    vec = TfidfVectorizer(min_df=1, max_df=0.95, ngram_range=(1, 2), sublinear_tf=True)
-    matrix = vec.fit_transform(corpus)
-    return vec, matrix
-
-def tfidf_søg(query: str, df_full, filter_indices: list):
-    """Returnerer (positions_i_filter, scores) sorteret efter relevans."""
-    vec, matrix = _build_tfidf(df_full)
-    q_vec = vec.transform([query])
-    scores = cos_sim(q_vec, matrix[filter_indices]).flatten()
-    order = np.argsort(scores)[::-1]
-    valid = scores[order] > 0.005
-    return order[valid], scores
 
 # ── PKN-specifikke hjælpefunktioner ─────────────────────────────────────────
 
@@ -359,9 +343,8 @@ if st.session_state.get("_filter_sig") != _filter_sig:
 _vis_antal = st.session_state.get("vis_antal", 25)
 
 if søg_input.strip() and søge_type == "Semantisk":
-    _top_pos, _scores = tfidf_søg(søg_input.strip(), df, sub_idx)
-    df_vis     = df_filter.iloc[_top_pos].reset_index(drop=True)
-    ai_sub_idx = [sub_idx[i] for i in _top_pos] if len(_top_pos) else sub_idx
+    df_vis     = tfidf_søg(søg_input.strip(), df, vec, mat, sub_idx=sub_idx)
+    ai_sub_idx = sub_idx
 elif søg_input.strip():
     _q = søg_input.strip()
     _text_mask = (
