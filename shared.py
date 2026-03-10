@@ -227,41 +227,6 @@ header[data-testid="stHeader"] { display: none !important; }
     color: #0f172a !important;
 }
 
-/* ── Inline citation footnotes ── */
-sup.cite {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 15px; height: 15px; border-radius: 50%;
-    background: #1e3a5f; color: #fff; font-size: 8px; font-weight: 700;
-    vertical-align: super; margin: 0 1px; line-height: 1; cursor: default;
-    flex-shrink: 0;
-}
-
-/* ── Kilde-panel (source cards in AI response right column) ── */
-.kilde-panel-hdr {
-    font-size: 10px; font-weight: 700; color: #94a3b8;
-    text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px;
-}
-/* Card-style buttons scoped via CSS :has() to column containing .kilde-panel-marker */
-[data-testid="stColumn"]:has(.kilde-panel-marker) .stButton > button {
-    background: #f8fafc !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 9px !important;
-    text-align: left !important;
-    padding: 9px 13px !important;
-    height: auto !important; min-height: 40px !important;
-    font-size: 12.5px !important; line-height: 1.45 !important;
-    color: #1e293b !important; font-weight: 500 !important;
-    letter-spacing: 0 !important;
-    white-space: normal !important;
-    transition: background .12s, border-color .12s, color .12s !important;
-}
-[data-testid="stColumn"]:has(.kilde-panel-marker) .stButton > button:hover {
-    background: #fef9ef !important;
-    border-color: #c49a3c !important;
-    color: #0f172a !important;
-    box-shadow: 0 2px 8px rgba(196,154,60,.14) !important;
-}
-
 /* ── Chat ── */
 .chat-user {
     background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
