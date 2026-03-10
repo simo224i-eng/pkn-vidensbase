@@ -417,11 +417,13 @@ def format_afgørelse_tekst(tekst: str) -> str:
     # 1. Style inline fodnotereferencer [1], [2] som superscript
     out = re.sub(r'\[(\d{1,2})\]', r'<sup class="detail-ref">[\1]</sup>', out)
 
-    # 2. Overskrifter midt i tekst – matcher "…punkt. 1. Klagen …" og "…punkt. Klagen …"
+    # 2. Overskrifter midt i tekst.
+    # (?=[A-ZÆØÅ]) lookahead kræver at næste ord starter med stort bogstav –
+    # forhindrer at "Klagen og..." fejlagtigt bliver en overskrift.
     for h in _HEADING_WORDS:
         esc = re.escape(h)
         out = re.sub(
-            rf'{_HEADING_PRE}({esc})\s*:?\s+',
+            rf'{_HEADING_PRE}({esc})\s*:?\s+(?=[A-ZÆØÅ])',
             rf'\1</p>{_H_OPEN}\2{_H_CLOSE}<p>',
             out,
         )
@@ -433,14 +435,28 @@ def format_afgørelse_tekst(tekst: str) -> str:
             out = f'{_H_OPEN}{m.group(1)}{_H_CLOSE}<p>{out[m.end():]}'
             break
 
-    # 3. Split KUN ved nummererede afsnit (fx "... punkt. 1. Klagen ..."),
-    #    ikke ved hvert eneste store bogstav – giver mere læsbar, tæt tekst
-    out = re.sub(r'([.!?])\s+(\d+[.)]\s+[A-ZÆØÅ])', r'\1</p><p>\2', out)
+    # 3. Opdel i afsnit: grupper sætninger så hvert afsnit er ~200-350 tegn.
+    # Split ved sætningsgrænse + stort bogstav, saml derefter i grupper.
+    sentences = re.split(r'(?<=[.!?]) +(?=[A-ZÆØÅ])', out)
+    chunks: list[str] = []
+    buf = ""
+    for s in sentences:
+        if not buf:
+            buf = s
+        elif len(buf) < 260:
+            buf += " " + s
+        else:
+            chunks.append(buf)
+            buf = s
+    if buf:
+        chunks.append(buf)
 
-    # 4. Afslut korrekt
-    if out.startswith(_H_OPEN):
-        return f'<div class="detail-reader">{out}</p></div>'
-    return f'<div class="detail-reader"><p>{out}</p></div>'
+    out = "".join(
+        c if _H_OPEN[:20] in c else f"<p>{c}</p>"
+        for c in chunks
+    )
+
+    return f'<div class="detail-reader">{out}</div>'
 
 
 def extract_kommune(titel: str) -> str:

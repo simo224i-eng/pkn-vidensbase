@@ -458,7 +458,7 @@ with tab_søg:
   <div class="detail-udfald-row">
     <span class="detail-udfald-chip" style="{chip_s}">{udfald}</span>
   </div>
-  <h1 class="detail-title">{row['Titel']}</h1>
+  <div class="detail-title">{row['Titel']}</div>
   <div class="detail-gold-line"></div>
   <div class="detail-meta-strip">
     <div class="detail-meta-cell">
