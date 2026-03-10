@@ -6,7 +6,7 @@ import zipfile
 import os
 import numpy as np
 import plotly.express as px
-from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst
+from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -380,36 +380,19 @@ with tab_søg:
         udfald   = row.get("Udfald") or "Ukendt"
         naturtype = row.get("Naturtype") or "–"
 
-        st.markdown(f"""
-<div class="detail-hero">
-  <div class="detail-udfald-row">
-    <span class="detail-udfald-chip" style="{chip_s}">{udfald}</span>
-  </div>
-  <div class="detail-title">{row['Titel']}</div>
-  <div class="detail-gold-line"></div>
-  <div class="detail-meta-strip">
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Dato</span>
-      <span class="detail-meta-val">{dato_str}</span>
-    </div>
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Naturtype</span>
-      <span class="detail-meta-val">{naturtype}</span>
-    </div>
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Sagstype</span>
-      <span class="detail-meta-val">{sagstype}</span>
-    </div>
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Kommune</span>
-      <span class="detail-meta-val">{kommune}</span>
-    </div>
-  </div>
-  <a class="detail-source-link" href="{row['Link']}" target="_blank">
-    Åbn original på MFKN's hjemmeside &nbsp;↗
-  </a>
-</div>
-""", unsafe_allow_html=True)
+        st.markdown(
+            render_detail_header(
+                titel=row["Titel"],
+                udfald=udfald,
+                chip_style=chip_s,
+                dato_str=dato_str,
+                meta_extra=[("Naturtype", naturtype), ("Sagstype", sagstype), ("Kommune", kommune)],
+                link=row["Link"],
+                link_label="Åbn original på MFKN's hjemmeside",
+                accent="#0e7490",
+            ),
+            unsafe_allow_html=True,
+        )
 
         col_tekst, col_ai = st.columns([3, 2], gap="large")
         with col_tekst:

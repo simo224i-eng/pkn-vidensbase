@@ -311,9 +311,7 @@ _LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 248" wid
   <line x1="143" y1="72.5" x2="129" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
   <line x1="143" y1="72.5" x2="154" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
   <path d="M124,97 Q142,119 160,97" stroke="url(#lgG)" stroke-width="3" fill="rgba(196,154,60,0.13)" stroke-linecap="round"/>
-  <text x="100" y="224" text-anchor="middle" font-family="Cinzel,Georgia,serif" font-size="22" font-weight="700" fill="url(#lgG)" letter-spacing="6">HARALD</text>
-  <line x1="48" y1="231" x2="152" y2="231" stroke="#c49a3c" stroke-width="0.7" opacity="0.4"/>
-  <text x="100" y="244" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="7.5" font-weight="500" fill="#4a6a8a" letter-spacing="2.8">LEGAL TECH AI</text>
+  <text x="100" y="224" text-anchor="middle" font-family="Cinzel,Georgia,serif" font-size="22" font-weight="700" fill="url(#lgG)" letter-spacing="6">Harald</text>
 </svg>"""
 
 
@@ -328,6 +326,49 @@ def logo(w: int) -> str:
     svg = _LOGO_SVG.replace("{w}", str(w))
     b64 = _b64.b64encode(svg.encode()).decode()
     return f'<img src="data:image/svg+xml;base64,{b64}" width="{w}" style="display:block;margin:0 auto"/>'
+
+
+def render_detail_header(
+    titel: str,
+    udfald: str,
+    chip_style: str,
+    dato_str: str,
+    meta_extra: list,          # liste af (label, value) tupler
+    link: str,
+    link_label: str = "Åbn original på nævnets hjemmeside",
+    accent: str = "#c49a3c",
+) -> str:
+    """Returnér detail-header HTML med udelukkende inline styles.
+    Bruges i stedet for CSS-klasser der kan blive strippet af Streamlit."""
+    all_meta = [("Dato", dato_str)] + list(meta_extra)
+    meta_cells = ""
+    for i, (lbl, val) in enumerate(all_meta):
+        border = "border-right:1px solid #ece6dc;" if i < len(all_meta) - 1 else ""
+        meta_cells += (
+            f'<div style="padding:9px 20px;{border}">'
+            f'<div style="font-size:9px;font-weight:700;color:#a08070;text-transform:uppercase;'
+            f'letter-spacing:1.4px;margin-bottom:3px;">{lbl}</div>'
+            f'<div style="font-size:13px;font-weight:600;color:#1a0a0e;white-space:nowrap;">{val}</div>'
+            f'</div>'
+        )
+    return (
+        f'<div style="padding:1.8rem 0 1.6rem;border-bottom:1px solid #ece6dc;margin-bottom:2rem;">'
+        f'<div style="margin-bottom:0.85rem;">'
+        f'<span style="{chip_style};font-size:10px;font-weight:700;letter-spacing:1.3px;'
+        f'text-transform:uppercase;padding:4px 11px;border-radius:20px;border:1px solid;">'
+        f'{udfald}</span></div>'
+        f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:clamp(1.25rem,2vw,1.7rem);'
+        f'font-weight:800;color:#1a0a0e;line-height:1.3;letter-spacing:-0.3px;margin:0 0 1.1rem;max-width:80ch;">'
+        f'{titel}</div>'
+        f'<div style="height:2px;width:28px;background:{accent};border-radius:2px;margin-bottom:1.1rem;"></div>'
+        f'<div style="display:inline-flex;flex-wrap:wrap;border:1px solid #ece6dc;border-radius:8px;'
+        f'overflow:hidden;background:#fffcf8;margin-bottom:1rem;">{meta_cells}</div><br>'
+        f'<a href="{link}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;'
+        f'font-size:12px;font-weight:500;color:#6b5040;text-decoration:none;border:1px solid #ece6dc;'
+        f'border-radius:6px;padding:7px 14px;background:#fffcf8;margin-top:0.6rem;">'
+        f'{link_label} &nbsp;↗</a>'
+        f'</div>'
+    )
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
@@ -400,12 +441,12 @@ _HEADING_WORDS = [
 ]
 _HEADING_WORDS.sort(key=len, reverse=True)
 
-_H_OPEN  = ('<span style="display:block;font-size:11px;font-weight:700;'
-            'color:#475569;text-transform:uppercase;letter-spacing:2px;'
-            'margin:2.8em 0 0.9em;padding:9px 12px;'
-            'background:#f8fafc;border-left:3px solid #c49a3c;'
-            'border-radius:0 4px 4px 0;">')
-_H_CLOSE = '</span>'
+_H_OPEN  = ('<div style="display:block;font-size:11.5px;font-weight:700;'
+            'color:#5a3a20;text-transform:uppercase;letter-spacing:2px;'
+            'margin:2.4em 0 0.8em;padding:10px 14px;'
+            'background:#fdf8f2;border-left:3px solid #c49a3c;'
+            'border-radius:0 5px 5px 0;">')
+_H_CLOSE = '</div>'
 # Matcher sætningsafslutning + valgfrit afsnitstal (fx "1." "2)") + overskriftsord
 _HEADING_PRE = r'([.!?])\s+(?:\d+[.)]\s+)?'
 
@@ -414,8 +455,12 @@ def format_afgørelse_tekst(tekst: str) -> str:
     """Formatér råtekst fra afgørelse til HTML med sektionsoverskrifter og afsnit."""
     out = tekst.strip()
 
-    # 1. Style inline fodnotereferencer [1], [2] som superscript
-    out = re.sub(r'\[(\d{1,2})\]', r'<sup class="detail-ref">[\1]</sup>', out)
+    # 1. Style inline fodnotereferencer [1], [2] som superscript (inline style)
+    out = re.sub(
+        r'\[(\d{1,2})\]',
+        r'<sup style="font-size:9px;font-weight:700;color:#8C1C2E;vertical-align:super;letter-spacing:0;">[\1]</sup>',
+        out,
+    )
 
     # 2. Overskrifter midt i tekst.
     # (?=[A-ZÆØÅ]) lookahead kræver at næste ord starter med stort bogstav –
@@ -451,12 +496,16 @@ def format_afgørelse_tekst(tekst: str) -> str:
     if buf:
         chunks.append(buf)
 
+    _P = 'style="margin:0 0 1.25em;font-size:15px;line-height:1.9;color:#1e293b;font-family:\'Inter\',system-ui,sans-serif;"'
     out = "".join(
-        c if _H_OPEN[:20] in c else f"<p>{c}</p>"
+        c if _H_OPEN[:12] in c else f"<p {_P}>{c}</p>"
         for c in chunks
     )
 
-    return f'<div class="detail-reader">{out}</div>'
+    return (
+        f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:15px;'
+        f'line-height:1.9;color:#1e293b;max-width:72ch;">{out}</div>'
+    )
 
 
 def extract_kommune(titel: str) -> str:

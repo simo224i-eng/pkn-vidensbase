@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import requests
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as cos_sim
-from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst
+from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -453,36 +453,18 @@ with tab_søg:
         }
         chip_s = chip_styles.get(udfald, "background:#f8fafc;color:#64748b;border-color:#e2e8f0")
 
-        st.markdown(f"""
-<div class="detail-hero">
-  <div class="detail-udfald-row">
-    <span class="detail-udfald-chip" style="{chip_s}">{udfald}</span>
-  </div>
-  <div class="detail-title">{row['Titel']}</div>
-  <div class="detail-gold-line"></div>
-  <div class="detail-meta-strip">
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Dato</span>
-      <span class="detail-meta-val">{dato_str}</span>
-    </div>
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Kategori</span>
-      <span class="detail-meta-val">{kategori}</span>
-    </div>
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Sagsgruppe</span>
-      <span class="detail-meta-val">{sagsgruppe}</span>
-    </div>
-    <div class="detail-meta-cell">
-      <span class="detail-meta-lbl">Kommune</span>
-      <span class="detail-meta-val">{kommune}</span>
-    </div>
-  </div>
-  <a class="detail-source-link" href="{row['Link']}" target="_blank">
-    Åbn original på PKN's hjemmeside &nbsp;↗
-  </a>
-</div>
-""", unsafe_allow_html=True)
+        st.markdown(
+            render_detail_header(
+                titel=row["Titel"],
+                udfald=udfald,
+                chip_style=chip_s,
+                dato_str=dato_str,
+                meta_extra=[("Kategori", kategori), ("Sagsgruppe", sagsgruppe), ("Kommune", kommune)],
+                link=row["Link"],
+                link_label="Åbn original på PKN's hjemmeside",
+            ),
+            unsafe_allow_html=True,
+        )
 
         # ── Indhold: tekst + AI ──────────────────────────────────────────────
         col_tekst, col_ai = st.columns([3, 2], gap="large")
