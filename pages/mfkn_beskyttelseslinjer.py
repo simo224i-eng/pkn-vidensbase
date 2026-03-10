@@ -435,7 +435,7 @@ with tab_søg:
             for _, row in df_vis.head(_vis_antal).iterrows():
                 badge_style = _BADGE_STYLE_MFKN.get(row["Udfald"], _BADGE_DEFAULT_MFKN)
                 dato_str  = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
-                st.html(f"""
+                st.markdown(f"""
 <div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
     <span style="font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:.2px;">{dato_str}</span>
@@ -450,7 +450,7 @@ with tab_søg:
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
   </div>
-</div>""")
+</div>""", unsafe_allow_html=True)
                 if st.button("Læs afgørelse →", key=f"mfkn_btn_{row['Link'][-20:]}"):
                     st.session_state.mfkn_valgt = row.to_dict()
                     if "mfkn_resumé" in st.session_state:
