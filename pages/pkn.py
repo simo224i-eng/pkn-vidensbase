@@ -304,7 +304,7 @@ def erstat_kilde_refs(tekst: str, kilder: list) -> tuple[str, list]:
                 label = f"{kom} {år}"
                 unique[n - 1] = (label, k)
                 spans.append(
-                    f'<strong>[{label}]</strong>'
+                    f'<span style="color:#a0692a;font-weight:600;white-space:nowrap;">[{label}]</span>'
                 )
         return " ".join(spans) if spans else m.group(0)
 
