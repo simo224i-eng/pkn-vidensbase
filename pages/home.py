@@ -7,18 +7,19 @@ st.markdown("""
 /* Page-link knapper på forsiden */
 [data-testid="stPageLink"] { margin-top: -2px !important; }
 [data-testid="stPageLink"] a {
-    display: flex !important; align-items: center; justify-content: center;
+    display: flex !important; align-items: center; justify-content: center; gap: 6px;
     width: 100%; padding: 11px 16px !important;
-    background: #1a0a0e !important; color: #e8ddd0 !important;
+    background: #fdf8f2 !important; color: #7a5a30 !important;
     border-radius: 0 0 14px 14px !important;
     font-size: 11px !important; font-weight: 700 !important;
     letter-spacing: 1.5px !important; text-transform: uppercase !important;
     text-decoration: none !important;
-    border: 1px solid #2e1810 !important; border-top: none !important;
-    transition: background .15s, color .15s !important;
+    border: 1px solid #ddd4c8 !important; border-top: none !important;
+    transition: background .15s, color .15s, border-color .15s !important;
 }
 [data-testid="stPageLink"] a:hover {
-    background: #c49a3c !important; color: #1a0a0e !important;
+    background: #c49a3c !important; color: #fff !important;
+    border-color: #c49a3c !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -65,7 +66,7 @@ with col1:
     Plan- og byggeloven · 5.000+ afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/pkn.py", label="Åbn PKN", use_container_width=True)
+    st.page_link("pages/pkn.py", label="Åbn PKN →", use_container_width=True)
 
 with col2:
     st.markdown(f"""
@@ -84,7 +85,7 @@ with col2:
     Naturbeskyttelsesloven · 2.000+ afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/mfkn_beskyttelseslinjer.py", label="Åbn Beskyttelseslinjer", use_container_width=True)
+    st.page_link("pages/mfkn_beskyttelseslinjer.py", label="Åbn Beskyttelseslinjer →", use_container_width=True)
 
 with col3:
     st.markdown(f"""
@@ -103,7 +104,7 @@ with col3:
     NBL § 3 · 1.410+ afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/mfkn_naturtyper.py", label="Åbn Naturtyper", use_container_width=True)
+    st.page_link("pages/mfkn_naturtyper.py", label="Åbn Naturtyper →", use_container_width=True)
 
 st.markdown("""
 <div style="text-align:center;padding-top:2.5rem;border-top:1px solid #ece6dc;
