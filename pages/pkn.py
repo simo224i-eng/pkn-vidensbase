@@ -42,16 +42,16 @@ def kategoriser(titel: str) -> list:
         else:
             kats = ["Planvedtagelse"]
         if "screeningsafgørelse" in t:
-            kats.append("Screening")
+            kats.append("Miljøvurderingsloven")
         if "miljørapport" in t or "miljøvurdering" in t or "vvm" in t:
-            kats.append("Miljøvurdering")
+            kats.append("Miljøvurderingsloven")
         return kats
-    # 2. Screening = screeningsafgørelse
+    # 2. Screeningsafgørelse under miljøvurderingsloven
     if "screeningsafgørelse" in t or "screeningen" in t:
-        return ["Screening"]
-    # 3. Miljøvurdering = faktisk miljørapport udarbejdet
+        return ["Miljøvurderingsloven"]
+    # 3. Miljørapport under miljøvurderingsloven
     if "miljøvurdering" in t or "miljørapport" in t or re.search(r"\bvvm\b", t):
-        return ["Miljøvurdering"]
+        return ["Miljøvurderingsloven"]
     # 4. Dispensation – lokalplan, kommuneplan eller byplanvedtægt
     if "dispensation" in t and is_plan:
         return ["Dispensation"]
@@ -71,6 +71,16 @@ def kategoriser(titel: str) -> list:
     # 8. Temabaserede kategorier
     if "landzone" in t: return ["Landzone"]
     return ["Andet"]
+
+
+def detect_dokumenttype(titel: str) -> str | None:
+    """Returnerer 'Screeningsafgørelse', 'Miljørapport' eller None for sager under miljøvurderingsloven."""
+    t = titel.lower()
+    if "screeningsafgørelse" in t or "screeningen" in t:
+        return "Screeningsafgørelse"
+    if "miljørapport" in t or "miljøvurdering" in t or re.search(r"\bvvm\b", t):
+        return "Miljørapport"
+    return None
 
 
 def _strip_html(t: str) -> str:
@@ -195,6 +205,7 @@ def load_data(version: int = 14):  # bump version to bust cache
     df["Kategori"]        = df["Titel"].apply(kategoriser)
     df["Kategori_primær"] = df["Kategori"].apply(lambda x: x[0])
     df["Plantype"]        = df["Titel"].apply(detect_plantype)
+    df["Dokumenttype"]    = df["Titel"].apply(detect_dokumenttype)
     df["Udfald"]     = df.apply(lambda r: detect_udfald(r["Titel"], r.get("Tekst", "")), axis=1)
     df["Kommune"]    = df["Titel"].apply(extract_kommune)
     df["Sagsgruppe"] = df.apply(lambda r: detect_sagsgruppe(r["Titel"], r["Tekst"]), axis=1)
@@ -352,8 +363,15 @@ with st.sidebar:
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
-    _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Screening", "Miljøvurdering"})
+    _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Miljøvurderingsloven"})
     isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if _isoler_relevant else False
+
+    _mvu_valgt = "Miljøvurderingsloven" in (valgte_kats or [])
+    if _mvu_valgt:
+        st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Dokumenttype</span>', unsafe_allow_html=True)
+        dokumenttype_valg = st.multiselect("", ["Screeningsafgørelse", "Miljørapport"], label_visibility="collapsed", key="dt")
+    else:
+        dokumenttype_valg = []
 
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Plantype</span>', unsafe_allow_html=True)
     plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
@@ -381,6 +399,8 @@ if valgte_kats:
         mask &= df["Kategori"].apply(lambda kats: set(kats).issubset(set(valgte_kats)))
     else:
         mask &= df["Kategori"].apply(lambda kats: any(k in kats for k in valgte_kats))
+if dokumenttype_valg:
+    mask &= df["Dokumenttype"].isin(dokumenttype_valg)
 if plantype_valg:
     if isoler_pt:
         mask &= df["Plantype"].apply(lambda pts: set(pts).issubset(set(plantype_valg)))
