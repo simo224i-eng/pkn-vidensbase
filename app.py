@@ -22,7 +22,7 @@ if not st.session_state.get("_autentificeret"):
     with col:
         pw = st.text_input("Adgangskode", type="password", placeholder="Indtast adgangskode…")
         if st.button("Log ind →", use_container_width=True):
-            if pw == "B465545":
+            if pw == "Ugv73uwz":
                 st.session_state["_autentificeret"] = True
                 st.rerun()
             else:
