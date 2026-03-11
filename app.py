@@ -11,7 +11,7 @@ from shared import inject_css
 inject_css()
 
 # ── Global adgangskodegate ────────────────────────────────────────────────────
-if not st.session_state.get("_autentificeret"):
+if not st.session_state.get("_autentificeret_v2"):
     st.markdown(
         "<h2 style='font-family:Cinzel,Georgia,serif;letter-spacing:4px;"
         "text-align:center;margin-top:4rem;color:#1a0a0e;'>HARALD</h2>"
@@ -23,7 +23,7 @@ if not st.session_state.get("_autentificeret"):
         pw = st.text_input("Adgangskode", type="password", placeholder="Indtast adgangskode…")
         if st.button("Log ind →", use_container_width=True):
             if pw == "Ugv73uwz":
-                st.session_state["_autentificeret"] = True
+                st.session_state["_autentificeret_v2"] = True
                 st.rerun()
             else:
                 st.error("Forkert adgangskode.")
