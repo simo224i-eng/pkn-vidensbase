@@ -180,37 +180,9 @@ def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
     return rows
 
 
-def load_data(version: int = 21):  # bump version to bust cache
-    import os, zipfile, glob as _glob, tempfile
+def load_data(version: int = 19):  # bump version to bust cache
+    import os, zipfile, glob as _glob
     csv.field_size_limit(10_000_000)
-
-    # Repo-rod (read-only på Streamlit Cloud) og skrivbar tmp-mappe
-    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    _tmp  = "/tmp/pkn_data"
-    os.makedirs(_tmp, exist_ok=True)
-
-    def _udpak(zip_sti: str) -> str:
-        """Udpak zip til /tmp og returner stien til den udpakkede CSV."""
-        navn = os.path.basename(zip_sti)[:-4]  # fjern .zip
-        dest = os.path.join(_tmp, navn)
-        if not os.path.exists(dest):
-            with zipfile.ZipFile(zip_sti) as z:
-                for member in z.namelist():
-                    if member.endswith(".csv"):
-                        with z.open(member) as src, open(dest, "wb") as dst:
-                            dst.write(src.read())
-                        break
-        return dest
-
-    def _find(navn: str) -> str:
-        """Returner CSV-sti: brug repo hvis den findes, ellers udpak zip til /tmp."""
-        repo_csv = os.path.join(_root, navn)
-        if os.path.exists(repo_csv):
-            return repo_csv
-        repo_zip = repo_csv + ".zip"
-        if os.path.exists(repo_zip):
-            return _udpak(repo_zip)
-        return ""
 
     rows = []
     seen_links: set[str] = set()
@@ -221,30 +193,39 @@ def load_data(version: int = 21):  # bump version to bust cache
                 seen_links.add(r["Link"])
                 rows.append(r)
 
-    # --- primær fil ---
-    _indlæs(_find("pkn_vidensbase_fuld_tekst.csv"),
+    # --- primær fil (zip → csv) ---
+    if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
+        with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
+            z.extractall(".")
+    _indlæs("pkn_vidensbase_fuld_tekst.csv",
             _LEGACY_RETSOMRAADE["pkn_vidensbase_fuld_tekst.csv"])
 
-    # --- supplerende filer: alle pkn_*.csv / pkn_*.csv.zip undtagen vidensbasen ---
-    navne = (
-        {os.path.basename(p) for p in _glob.glob(os.path.join(_root, "pkn_*.csv"))} |
-        {os.path.basename(p)[:-4] for p in _glob.glob(os.path.join(_root, "pkn_*.csv.zip"))}
-    )
-    for navn in sorted(navne):
-        if navn == "pkn_vidensbase_fuld_tekst.csv":
+    # --- supplerende filer: alle pkn_*.csv (og pkn_*.csv.zip) undtagen vidensbasen ---
+    kandidater = set(_glob.glob("pkn_*.csv")) | {z[:-4] for z in _glob.glob("pkn_*.csv.zip")}
+    for sti in sorted(kandidater):
+        if sti == "pkn_vidensbase_fuld_tekst.csv":
             continue
-        sti = _find(navn)
-        if sti:
-            _indlæs(sti, _LEGACY_RETSOMRAADE.get(navn, ""))
+        zip_sti = sti + ".zip"
+        if not os.path.exists(sti) and os.path.exists(zip_sti):
+            with zipfile.ZipFile(zip_sti) as z:
+                z.extractall(".")
+        if os.path.exists(sti):
+            _indlæs(sti, _LEGACY_RETSOMRAADE.get(sti, ""))
 
     df = pd.DataFrame(rows)
     df["Dato"]        = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]          = df["Dato"].dt.year.astype("Int64")
     df["Retsomraade"] = df["Retsomraade"].fillna("").astype(str)
 
-    # Patch: sager fra landzone-CSV'en tagges som Landzone
-    _lz_csv = _find("pkn_planloven_landzone.csv")
-    if _lz_csv and os.path.exists(_lz_csv):
+    # Patch: sager der optræder i landzone-CSV'en tagges som Landzone
+    # uanset om de allerede var i vidensbasen (deduplication fjerner dem derfra)
+    _lz_csv = "pkn_planloven_landzone.csv"
+    if not os.path.exists(_lz_csv):
+        _lz_zip = "pkn_planloven_landzone.csv.zip"
+        if os.path.exists(_lz_zip):
+            with zipfile.ZipFile(_lz_zip) as z:
+                z.extractall(".")
+    if os.path.exists(_lz_csv):
         with open(_lz_csv, newline="", encoding="utf-8") as _f:
             _lz_links = {r["Link"] for r in csv.DictReader(_f)}
         _lz_mask = df["Link"].isin(_lz_links)
@@ -266,7 +247,7 @@ def load_data(version: int = 21):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(21)
+    df2 = load_data(17)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -397,7 +378,7 @@ if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       =
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(21)
+df       = load_data(16)
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
