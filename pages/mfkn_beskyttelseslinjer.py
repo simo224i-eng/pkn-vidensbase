@@ -166,6 +166,11 @@ def mfkn_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
     prompt = f"""Du er en juridisk assistent specialiseret i dansk naturbeskyttelseslovgivning og MFKN's praksis for beskyttelseslinjer.
 Besvar følgende spørgsmål KUN baseret på de vedlagte MFKN-afgørelser.
+
+VIGTIGT: Fokuser udelukkende på MFKN's egne bemærkninger og vurderinger (typisk afsnit 3 "Nævnets bemærkninger og afgørelse").
+Undgå at referere til Kystdirektoratets afgørelse eller sagens faktiske oplysninger, medmindre det er nødvendigt for at forstå nævnets vurdering.
+Det er nævnets juridiske ræsonnement og praksis der er interessant – ikke gengivelse af hvad der er søgt om eller hvad Kystdirektoratet har afgjort.
+
 Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn – f.eks. [Kilde 3] eller [Kilde 1, 2].
 Svar på dansk, præcist og struktureret med overskrifter og afsnit.
 Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst.
