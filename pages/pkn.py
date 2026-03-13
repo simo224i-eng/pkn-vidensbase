@@ -180,7 +180,7 @@ def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
     return rows
 
 
-def load_data(version: int = 17):  # bump version to bust cache
+def load_data(version: int = 18):  # bump version to bust cache
     import os, zipfile, glob as _glob
     csv.field_size_limit(10_000_000)
 
@@ -200,9 +200,9 @@ def load_data(version: int = 17):  # bump version to bust cache
     _indlæs("pkn_vidensbase_fuld_tekst.csv",
             _LEGACY_RETSOMRAADE["pkn_vidensbase_fuld_tekst.csv"])
 
-    # --- supplerende filer: alle pkn_*.csv undtagen vidensbasen ---
-    ekstra_filer = sorted(_glob.glob("pkn_*.csv"))
-    for sti in ekstra_filer:
+    # --- supplerende filer: alle pkn_*.csv (og pkn_*.csv.zip) undtagen vidensbasen ---
+    kandidater = set(_glob.glob("pkn_*.csv")) | {z[:-4] for z in _glob.glob("pkn_*.csv.zip")}
+    for sti in sorted(kandidater):
         if sti == "pkn_vidensbase_fuld_tekst.csv":
             continue
         zip_sti = sti + ".zip"
