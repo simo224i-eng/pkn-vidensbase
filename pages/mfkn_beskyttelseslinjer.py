@@ -105,12 +105,23 @@ def _læs_mfkn_csv(sti: str) -> list:
     return rows
 
 
-def load_mfkn_data(version: int = 4):
-    csv_sti = "mfkn_nbl_beskyttelseslinier.csv"
-    zip_sti = csv_sti + ".zip"
-    if not os.path.exists(csv_sti) and os.path.exists(zip_sti):
-        with zipfile.ZipFile(zip_sti) as z:
-            z.extract("mfkn_nbl_beskyttelseslinier.csv", ".")
+def load_mfkn_data(version: int = 5):
+    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _tmp  = "/tmp/pkn_data"
+    os.makedirs(_tmp, exist_ok=True)
+    csv_navn = "mfkn_nbl_beskyttelseslinier.csv"
+    csv_sti  = os.path.join(_root, csv_navn)
+    if not os.path.exists(csv_sti):
+        zip_sti = csv_sti + ".zip"
+        dest    = os.path.join(_tmp, csv_navn)
+        if os.path.exists(zip_sti) and not os.path.exists(dest):
+            with zipfile.ZipFile(zip_sti) as z:
+                for member in z.namelist():
+                    if member.endswith(".csv"):
+                        with z.open(member) as src, open(dest, "wb") as dst:
+                            dst.write(src.read())
+                        break
+        csv_sti = dest
     csv.field_size_limit(10_000_000)
     rows = _læs_mfkn_csv(csv_sti)
     df = pd.DataFrame(rows)
