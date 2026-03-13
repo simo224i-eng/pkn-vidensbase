@@ -580,7 +580,20 @@ with tab_ai:
                             'text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">'
                             'Kilder</div>', unsafe_allow_html=True
                         )
-                        for i, k in enumerate(kilder[:8]):
+                        kilde_søg = st.text_input(
+                            "", placeholder="Søg i kilder…",
+                            key=f"kilde_søg_{msg_idx}",
+                            label_visibility="collapsed",
+                        )
+                        filtrerede_kilder = [
+                            k for k in kilder[:8]
+                            if not kilde_søg.strip() or
+                            kilde_søg.lower() in k.get("Titel", "").lower() or
+                            kilde_søg.lower() in k.get("Tekst", "").lower()
+                        ]
+                        if kilde_søg.strip() and not filtrerede_kilder:
+                            st.caption("Ingen kilder matcher søgningen.")
+                        for i, k in enumerate(filtrerede_kilder):
                             try:
                                 dato_str = pd.Timestamp(k["Dato"]).strftime("%d.%m.%Y")
                                 år_str   = str(pd.Timestamp(k["Dato"]).year)
