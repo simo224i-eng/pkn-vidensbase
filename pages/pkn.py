@@ -180,7 +180,7 @@ def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
     return rows
 
 
-def load_data(version: int = 18):  # bump version to bust cache
+def load_data(version: int = 19):  # bump version to bust cache
     import os, zipfile, glob as _glob
     csv.field_size_limit(10_000_000)
 
@@ -216,7 +216,25 @@ def load_data(version: int = 18):  # bump version to bust cache
     df["Dato"]        = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]          = df["Dato"].dt.year.astype("Int64")
     df["Retsomraade"] = df["Retsomraade"].fillna("").astype(str)
-    df["Kategori"]        = df["Titel"].apply(kategoriser)
+
+    # Patch: sager der optræder i landzone-CSV'en tagges som Landzone
+    # uanset om de allerede var i vidensbasen (deduplication fjerner dem derfra)
+    _lz_csv = "pkn_planloven_landzone.csv"
+    if not os.path.exists(_lz_csv):
+        _lz_zip = "pkn_planloven_landzone.csv.zip"
+        if os.path.exists(_lz_zip):
+            with zipfile.ZipFile(_lz_zip) as z:
+                z.extractall(".")
+    if os.path.exists(_lz_csv):
+        with open(_lz_csv, newline="", encoding="utf-8") as _f:
+            _lz_links = {r["Link"] for r in csv.DictReader(_f)}
+        _lz_mask = df["Link"].isin(_lz_links)
+        df.loc[_lz_mask, "Retsomraade"] = "Planloven, landzone (efter 1. februar 2017)"
+
+    df["Kategori"]        = df.apply(
+        lambda r: ["Landzone"] if "landzone" in r["Retsomraade"].lower() else kategoriser(r["Titel"]),
+        axis=1,
+    )
     df["Kategori_primær"] = df["Kategori"].apply(lambda x: x[0])
     df["Plantype"]        = df["Titel"].apply(detect_plantype)
     df["Dokumenttype"]    = df["Titel"].apply(detect_dokumenttype)
