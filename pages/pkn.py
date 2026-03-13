@@ -180,9 +180,15 @@ def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
     return rows
 
 
-def load_data(version: int = 19):  # bump version to bust cache
+def load_data(version: int = 20):  # bump version to bust cache
     import os, zipfile, glob as _glob
     csv.field_size_limit(10_000_000)
+
+    # Altid arbejd relativt til repo-roden (samme mappe som denne fil's forælder)
+    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    def _p(navn: str) -> str:
+        return os.path.join(_root, navn)
 
     rows = []
     seen_links: set[str] = set()
@@ -194,23 +200,26 @@ def load_data(version: int = 19):  # bump version to bust cache
                 rows.append(r)
 
     # --- primær fil (zip → csv) ---
-    if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
-        with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
-            z.extractall(".")
-    _indlæs("pkn_vidensbase_fuld_tekst.csv",
+    if not os.path.exists(_p("pkn_vidensbase_fuld_tekst.csv")):
+        with zipfile.ZipFile(_p("pkn_vidensbase_fuld_tekst.csv.zip")) as z:
+            z.extractall(_root)
+    _indlæs(_p("pkn_vidensbase_fuld_tekst.csv"),
             _LEGACY_RETSOMRAADE["pkn_vidensbase_fuld_tekst.csv"])
 
     # --- supplerende filer: alle pkn_*.csv (og pkn_*.csv.zip) undtagen vidensbasen ---
-    kandidater = set(_glob.glob("pkn_*.csv")) | {z[:-4] for z in _glob.glob("pkn_*.csv.zip")}
+    kandidater = (
+        set(_glob.glob(_p("pkn_*.csv"))) |
+        {z[:-4] for z in _glob.glob(_p("pkn_*.csv.zip"))}
+    )
     for sti in sorted(kandidater):
-        if sti == "pkn_vidensbase_fuld_tekst.csv":
+        if sti == _p("pkn_vidensbase_fuld_tekst.csv"):
             continue
         zip_sti = sti + ".zip"
         if not os.path.exists(sti) and os.path.exists(zip_sti):
             with zipfile.ZipFile(zip_sti) as z:
-                z.extractall(".")
+                z.extractall(_root)
         if os.path.exists(sti):
-            _indlæs(sti, _LEGACY_RETSOMRAADE.get(sti, ""))
+            _indlæs(sti, _LEGACY_RETSOMRAADE.get(os.path.basename(sti), ""))
 
     df = pd.DataFrame(rows)
     df["Dato"]        = pd.to_datetime(df["Dato"], errors="coerce")
@@ -218,13 +227,12 @@ def load_data(version: int = 19):  # bump version to bust cache
     df["Retsomraade"] = df["Retsomraade"].fillna("").astype(str)
 
     # Patch: sager der optræder i landzone-CSV'en tagges som Landzone
-    # uanset om de allerede var i vidensbasen (deduplication fjerner dem derfra)
-    _lz_csv = "pkn_planloven_landzone.csv"
+    _lz_csv = _p("pkn_planloven_landzone.csv")
     if not os.path.exists(_lz_csv):
-        _lz_zip = "pkn_planloven_landzone.csv.zip"
+        _lz_zip = _lz_csv + ".zip"
         if os.path.exists(_lz_zip):
             with zipfile.ZipFile(_lz_zip) as z:
-                z.extractall(".")
+                z.extractall(_root)
     if os.path.exists(_lz_csv):
         with open(_lz_csv, newline="", encoding="utf-8") as _f:
             _lz_links = {r["Link"] for r in csv.DictReader(_f)}
