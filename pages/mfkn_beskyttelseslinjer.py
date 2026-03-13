@@ -172,6 +172,7 @@ Undgå at referere til Kystdirektoratets afgørelse eller sagens faktiske oplysn
 Det er nævnets juridiske ræsonnement og praksis der er interessant – ikke gengivelse af hvad der er søgt om eller hvad Kystdirektoratet har afgjort.
 
 Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn – f.eks. [Kilde 3] eller [Kilde 1, 2].
+Hvis du er usikker på en detalje, eller den ikke fremgår direkte af kilderne, skal du skrive det eksplicit – f.eks. "det fremgår ikke direkte af de vedlagte afgørelser" eller "dette er ikke entydigt beskrevet i kilderne". Gæt aldrig.
 Svar på dansk, præcist og struktureret med overskrifter og afsnit.
 Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst.
 {samtale_blok}
