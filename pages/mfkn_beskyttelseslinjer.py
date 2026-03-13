@@ -31,9 +31,9 @@ except AttributeError:
 
 # ── MFKN-specifikke hjælpefunktioner ─────────────────────────────────────────
 
-def kategoriser_mfkn(titel: str) -> str:
-    t = titel.lower()
-    if "strandbeskyttelseslinje" in t or "havstokken" in t:
+def kategoriser_mfkn(titel: str, tekst: str = "") -> str:
+    t = (titel + " " + tekst[:800]).lower()
+    if "strandbeskyttelseslinje" in t or "havstokken" in t or "§ 15, stk. 1" in t or "§ 15 a" in t:
         return "Strandbeskyttelseslinje"
     if "fortidsmindebeskyttelseslinje" in t:
         return "Fortidsmindebeskyttelseslinje"
@@ -116,7 +116,7 @@ def load_mfkn_data(version: int = 4):
     df = pd.DataFrame(rows)
     df["Dato"]      = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"]        = df["Dato"].dt.year.astype("Int64")
-    df["Kategori"]  = df["Titel"].apply(kategoriser_mfkn)
+    df["Kategori"]  = df.apply(lambda r: kategoriser_mfkn(r["Titel"], r["Tekst"]), axis=1)
     df["Udfald"]    = df["Titel"].apply(detect_udfald_mfkn)
     df["Sagsgruppe"] = df["Titel"].apply(detect_sagsgruppe_mfkn)
     df["Kommune"]   = df["Titel"].apply(extract_kommune)
