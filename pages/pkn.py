@@ -152,56 +152,70 @@ def detect_sagsgruppe(titel: str, tekst: str) -> str:
 
 
 
+# ── Retsområde-mapping for gamle CSV-filer uden Retsomraade-kolonne ───────────
+_LEGACY_RETSOMRAADE = {
+    "pkn_vidensbase_fuld_tekst.csv":           "Planloven, retlig (efter 1. februar 2017)",
+    "pkn_miljoevurderingsloven_fuld_tekst.csv": "Miljøvurderingsloven",
+}
+
 # ── Data-loading ──────────────────────────────────────────────────────────────
-@st.cache_data(show_spinner="Indlæser 4.780 afgørelser…", ttl=None, hash_funcs=None)
-def _læs_csv(sti: str) -> list:
+@st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None, hash_funcs=None)
+def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
     """Læser én CSV og returnerer en liste af rækker med renset tekst."""
     rows = []
     with open(sti, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             tekst = strip_html(row["Tekst"], preserve_headings=True)
-            # Excerpt: strip heading markers and flatten newlines
             excerpt_clean = re.sub(r'^#{2,3} ', '', tekst, flags=re.M).replace('\n', ' ')
             excerpt_clean = re.sub(r'\s+', ' ', excerpt_clean).strip()
             rows.append({
-                "Dato":    row["Dato"],
-                "Titel":   row["Titel"],
-                "Link":    row["Link"],
-                "Tekst":   tekst,
-                "Excerpt": excerpt_clean[:280],
+                "Dato":        row["Dato"],
+                "Titel":       row["Titel"],
+                "Link":        row["Link"],
+                "Tekst":       tekst,
+                "Excerpt":     excerpt_clean[:280],
+                "Retsomraade": row.get("Retsomraade", fallback_retsomraade),
             })
     return rows
 
 
-def load_data(version: int = 14):  # bump version to bust cache
-    import os, zipfile
+def load_data(version: int = 17):  # bump version to bust cache
+    import os, zipfile, glob as _glob
+    csv.field_size_limit(10_000_000)
+
+    rows = []
+    seen_links: set[str] = set()
+
+    def _indlæs(sti: str, fallback: str = "") -> None:
+        for r in _læs_csv(sti, fallback):
+            if r["Link"] not in seen_links:
+                seen_links.add(r["Link"])
+                rows.append(r)
+
     # --- primær fil (zip → csv) ---
     if not os.path.exists("pkn_vidensbase_fuld_tekst.csv"):
         with zipfile.ZipFile("pkn_vidensbase_fuld_tekst.csv.zip") as z:
             z.extractall(".")
-    csv.field_size_limit(10_000_000)
-    rows = _læs_csv("pkn_vidensbase_fuld_tekst.csv")
+    _indlæs("pkn_vidensbase_fuld_tekst.csv",
+            _LEGACY_RETSOMRAADE["pkn_vidensbase_fuld_tekst.csv"])
 
-    # --- supplerende fil (miljøvurderingsloven) ---
-    ekstra_sti = "pkn_miljoevurderingsloven_fuld_tekst.csv"
-    ekstra_zip = ekstra_sti + ".zip"
-    if not os.path.exists(ekstra_sti) and os.path.exists(ekstra_zip):
-        with zipfile.ZipFile(ekstra_zip) as z:
-            z.extractall(".")
-    if os.path.exists(ekstra_sti):
-        ekstra = _læs_csv(ekstra_sti)
-        eksisterende_links = {r["Link"] for r in rows}
-        tilføjet = sum(
-            1 for r in ekstra
-            if r["Link"] not in eksisterende_links
-            and not rows.append(r)  # append returnerer None → tæl
-        )
-        _ = tilføjet  # brugt til evt. logging
+    # --- supplerende filer: alle pkn_*.csv undtagen vidensbasen ---
+    ekstra_filer = sorted(_glob.glob("pkn_*.csv"))
+    for sti in ekstra_filer:
+        if sti == "pkn_vidensbase_fuld_tekst.csv":
+            continue
+        zip_sti = sti + ".zip"
+        if not os.path.exists(sti) and os.path.exists(zip_sti):
+            with zipfile.ZipFile(zip_sti) as z:
+                z.extractall(".")
+        if os.path.exists(sti):
+            _indlæs(sti, _LEGACY_RETSOMRAADE.get(sti, ""))
 
     df = pd.DataFrame(rows)
-    df["Dato"]     = pd.to_datetime(df["Dato"], errors="coerce")
-    df["År"]       = df["Dato"].dt.year.astype("Int64")
+    df["Dato"]        = pd.to_datetime(df["Dato"], errors="coerce")
+    df["År"]          = df["Dato"].dt.year.astype("Int64")
+    df["Retsomraade"] = df["Retsomraade"].fillna("").astype(str)
     df["Kategori"]        = df["Titel"].apply(kategoriser)
     df["Kategori_primær"] = df["Kategori"].apply(lambda x: x[0])
     df["Plantype"]        = df["Titel"].apply(detect_plantype)
@@ -215,7 +229,7 @@ def load_data(version: int = 14):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(16)
+    df2 = load_data(17)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
