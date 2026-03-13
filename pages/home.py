@@ -57,13 +57,13 @@ with col1:
               color:#1a0a0e;letter-spacing:4px;margin-bottom:.25rem;">PKN</div>
   <div style="font-size:10.5px;color:#a08070;text-transform:uppercase;letter-spacing:1.5px;
               margin-bottom:1.1rem;padding-bottom:1.1rem;border-bottom:1px solid #ece6dc;">
-    Planklagenævnet
+    Planklagenævnet · efter 2017
   </div>
   <div style="font-size:13px;color:#4a3028;line-height:1.75;margin-bottom:1.3rem;">
-    Afgørelser om lokalplaner, kommuneplantillæg og planvedtagelser. Søg og analyser PKN's praksis.
+    Afgørelser om lokalplaner, kommuneplantillæg, planvedtagelser og landzone. Søg og analyser PKN's praksis.
   </div>
   <div style="font-size:10.5px;font-weight:600;color:#b09080;text-transform:uppercase;letter-spacing:1px;">
-    Plan- og byggeloven · 5.000+ afgørelser
+    Planloven · 5.000+ afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
     st.page_link("pages/pkn.py", label="Åbn PKN →", use_container_width=True)
