@@ -405,55 +405,47 @@ if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang  
 df       = load_data(16)
 vec, mat = build_index(len(df))
 
-# ── Sidebar – kun logo ────────────────────────────────────────────────────────
+# ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(f"""
 <div class="h-brand-wrap">
   <div class="h-logo-box">{logo(152)}</div>
 </div>""", unsafe_allow_html=True)
 
-# ── Filtre i main content (mobil-venligt) ─────────────────────────────────────
-_lbl = '<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:.6rem 0 0.25rem;display:block;">{}</span>'
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Søgeord</span>', unsafe_allow_html=True)
+    søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
+    søge_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="søge_type")
 
-år_min, år_max = 2017, int(df["År"].max())
-_alle_kats     = sorted({k for kats in df["Kategori"] for k in kats})
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Kategori</span>', unsafe_allow_html=True)
+    _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
+    valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
+    _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Miljøvurderingsloven"})
+    isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if _isoler_relevant else False
 
-# Søgelinje altid synlig
-_sc1, _sc2 = st.columns([4, 1])
-with _sc1:
-    søg_input = st.text_input("", placeholder="Søg: f.eks. § 15 a, terrasse, lokalplan…", label_visibility="collapsed", key="søg_txt")
-with _sc2:
-    søge_type = st.radio("", ["Præcis", "Semantisk"], horizontal=False, label_visibility="collapsed", key="søge_type")
+    _mvu_valgt = "Miljøvurderingsloven" in (valgte_kats or [])
+    if _mvu_valgt:
+        st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Dokumenttype</span>', unsafe_allow_html=True)
+        dokumenttype_valg = st.multiselect("", ["Screeningsafgørelse", "Miljørapport"], label_visibility="collapsed", key="dt")
+    else:
+        dokumenttype_valg = []
 
-# Avancerede filtre i collapsible expander
-with st.expander("Filtre  ▾", expanded=False):
-    fa, fb = st.columns(2)
-    with fa:
-        st.markdown(_lbl.format("Kategori"), unsafe_allow_html=True)
-        valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
-        _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Miljøvurderingsloven"})
-        isoler_kat = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if _isoler_relevant else False
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Plantype</span>', unsafe_allow_html=True)
+    plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
+    isoler_pt     = st.checkbox("Isoler (kun rene sager)", key="iso_pt") if plantype_valg else False
 
-        _mvu_valgt = "Miljøvurderingsloven" in (valgte_kats or [])
-        if _mvu_valgt:
-            st.markdown(_lbl.format("Dokumenttype"), unsafe_allow_html=True)
-            dokumenttype_valg = st.multiselect("", ["Screeningsafgørelse", "Miljørapport"], label_visibility="collapsed", key="dt")
-        else:
-            dokumenttype_valg = []
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Sagsgruppe</span>', unsafe_allow_html=True)
+    sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
 
-        st.markdown(_lbl.format("Udfald"), unsafe_allow_html=True)
-        udfald_valg = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Årsinterval</span>', unsafe_allow_html=True)
+    år_min, år_max   = 2017, int(df["År"].max())
+    år_range         = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
 
-    with fb:
-        st.markdown(_lbl.format("Plantype"), unsafe_allow_html=True)
-        plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
-        isoler_pt = st.checkbox("Isoler (kun rene sager)", key="iso_pt") if plantype_valg else False
+    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Udfald</span>', unsafe_allow_html=True)
+    udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
 
-        st.markdown(_lbl.format("Sagsgruppe"), unsafe_allow_html=True)
-        sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
-
-        st.markdown(_lbl.format(f"Årsinterval ({år_min}–{år_max})"), unsafe_allow_html=True)
-        år_range = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
+    st.markdown("---")
+    st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; 2017–{år_max}</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='font-size:11px;color:#3d5878'>Opdateret {df['Dato'].max().strftime('%d.%m.%Y')}</span>", unsafe_allow_html=True)
 
 
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
@@ -527,12 +519,28 @@ def build_download_text(data: pd.DataFrame, søgeord: str = "") -> str:
     return "\n".join(lines)
 
 
-# ── Download-knap under filtrene ─────────────────────────────────────────────
-_n_dl = len(df_filter)
-if _n_dl > 0:
-    dl_bytes = build_download_text(df_filter, søgeord=søg_input).encode("utf-8")
-    _dl_label = f"⬇️ Download {_n_dl:,} afgørelser (.txt)" + (" ⚠️ stor fil" if _n_dl > 500 else "")
-    st.download_button(_dl_label, data=dl_bytes, file_name="pkn_afgørelser.txt", mime="text/plain", key="dl_btn")
+with st.sidebar:
+    n = len(df_filter)
+    st.markdown("---")
+    if n == 0:
+        st.caption("Ingen afgørelser matcher filtrene.")
+    elif n > 500:
+        st.caption(f"⚠️ {n:,} afgørelser valgt – filen kan blive stor.")
+        dl_bytes = build_download_text(df_filter, søgeord=søg_input).encode("utf-8")
+        st.download_button(
+            label=f"⬇️ Download alle {n:,} afgørelser (.txt)",
+            data=dl_bytes,
+            file_name="pkn_afgørelser.txt",
+            mime="text/plain",
+        )
+    else:
+        dl_bytes = build_download_text(df_filter, søgeord=søg_input).encode("utf-8")
+        st.download_button(
+            label=f"⬇️ Download {n:,} afgørelser (.txt)",
+            data=dl_bytes,
+            file_name="pkn_afgørelser.txt",
+            mime="text/plain",
+        )
 
 
 # ── Page header ───────────────────────────────────────────────────────────────
