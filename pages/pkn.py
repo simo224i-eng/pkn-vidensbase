@@ -556,7 +556,7 @@ st.markdown(f"""
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 1 – AFGØRELSER
 # ════════════════════════════════════════════════════════════════════════════
-tab_søg, tab_stat, tab_ai = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  "])
+tab_søg, tab_stat, tab_ai, tab_lov = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  ", "  Planloven  "])
 
 with tab_søg:
 
@@ -987,3 +987,412 @@ with tab_ai:
             st.session_state.chat_historik.append(
                 {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
             st.rerun()
+
+# ════════════════════════════════════════════════════════════════════════════
+# TAB 4 – PLANLOVEN
+# ════════════════════════════════════════════════════════════════════════════
+
+_PLANLOVEN_TEKST = """Kapitel 1
+Formål
+§ 1. Loven skal sikre en sammenhængende planlægning, der forener de samfundsmæssige interesser i arealanvendelsen, medvirker til at værne om landets natur og miljø samt klima og skaber gode rammer for vækst og udvikling i hele landet, så samfundsudviklingen kan ske på et bæredygtigt grundlag med respekt for menneskets livsvilkår, bevarelse af dyre- og planteliv og øget økonomisk velstand.
+Stk. 2. Loven tilsigter særlig,
+1) at der ud fra en planmæssig og samfundsøkonomisk helhedsvurdering sker en hensigtsmæssig udvikling i hele landet og i de enkelte kommuner og lokalsamfund,
+2) at der skabes og bevares værdifulde bebyggelser, bymiljøer og landskaber,
+3) at skabe gode rammer for erhvervsudvikling og vækst,
+4) at de åbne kyster fortsat skal udgøre en væsentlig naturværdi og landskabelig værdi,
+5) at biodiversiteten understøttes, og at udledning af drivhusgasser, forurening af luft, vand og jord samt støjulemper forebygges,
+6) at offentligheden i videst muligt omfang inddrages i planlægningsarbejdet, og
+7) at alsidighed i boligsammensætningen fremmes gennem mulighed for planlægning for almene boliger i byerne.
+Kapitel 2
+Landsplanlægning
+§ 2. Ministeren for byer og landdistrikter er ansvarlig for den sammenfattende fysiske landsplanlægning og for, at der foretages de undersøgelser, som er nødvendige herfor.
+§ 2 a. Ministeren for byer og landdistrikter offentliggør hvert fjerde år en oversigt over nationale interesser i kommuneplanlægningen, herunder de interesser, der er fastlagt i medfør af denne lov og lovgivningen i øvrigt. Offentliggørelse kan ske udelukkende digitalt.
+§ 3. Ministeren for byer og landdistrikter kan til varetagelse af landsplanmæssige interesser, herunder sikring af kvalitet i planlægningen, fastsætte regler for anvendelsen af lovens beføjelser og for indholdet af planlægningen efter loven.
+Stk. 2. Ministeren for byer og landdistrikter kan tillægge regler efter stk. 1 retsvirkning som kommuneplaner. Ministeren kan endvidere i særlige tilfælde bestemme, at bygge- og anlægsarbejder, der er forudsat i en regel efter stk. 1, kan iværksættes uden kommune- og lokalplan og uden tilladelse efter § 35, stk. 1.
+Stk. 3. Ministeren for byer og landdistrikter fastsætter med henblik på gennemførelse af De Europæiske Fællesskabers direktiver og beslutninger på naturbeskyttelsesområdet regler om, i hvilke tilfælde og på hvilke vilkår tilladelser efter §§ 5 u og 35 og dispensationer fra bestemmelser i en lokalplan, jf. §§ 5 u og 19, kan meddeles, samt regler om indholdet af planlægning efter loven.
+Stk. 4. Ministeren for byer og landdistrikter kan i særlige tilfælde pålægge kommunalbestyrelser at bringe lovens bestemmelser i anvendelse, herunder tilvejebringe en plan med et nærmere bestemt indhold.
+Stk. 5. Ministeren for byer og landdistrikter kan i særlige tilfælde beslutte at overtage kommunalbestyrelsers beføjelser efter loven i sager, der berører andre myndigheders lovbestemte opgaver eller har større betydning.
+§ 3 a. (Ophævet)
+§ 4. I forbindelse med forsøg, der tilsigter at fremme lovens formål, kan ministeren for byer og landdistrikter yde økonomisk støtte og fritage kommunalbestyrelser for at overholde lovens regler.
+Stk. 2. Når et forsøg, der indebærer en fravigelse fra lovens regler, er godkendt, bekendtgøres der i Lovtidende en meddelelse herom. I meddelelsen gives der oplysning om, hvor borgerne kan gøre sig bekendt med forsøgstilladelsen.
+§ 4 a. Ministeren for byer og landdistrikter kan efter ansøgning fra kommunalbestyrelser meddele mellem 0 og 15 tilladelser til planlægning og meddelelse af landzonetilladelser til innovative og miljømæssigt bæredygtige turismeprojekter uanset § 5 b, stk. 1, nr. 1, 3 og 4, og § 35, stk. 3.
+§ 5. Ministeren for byer og landdistrikter kan efter ansøgning fra kommunalbestyrelser meddele op til ti tilladelser til planlægning af og til meddelelse af landzonetilladelser til konkrete fysiske projekter uanset § 5 b, stk. 1, nr. 1 og 4, og § 35, stk. 3.
+Kapitel 2 a
+Planlægning i kystområderne
+§ 5 a. Kystnærhedszonen uden for udviklingsområder, jf. § 5 b, stk. 2, skal søges friholdt for bebyggelse og anlæg, som ikke er afhængige af kystnærhed.
+Stk. 2. Ministeren for byer og landdistrikter skal følge udviklingen og anvende beføjelserne i §§ 3, 29 og 59 til at sikre, at nationale planlægningsinteresser i kystområderne varetages efter denne lov.
+Stk. 3. Kystnærhedszonen, der omfatter landzonerne og sommerhusområderne i kystområderne, fremgår af kortbilaget til loven. I kystnærhedszonen gælder bestemmelserne i § 5 b, § 11 a, stk. 1, nr. 21, § 11 e, stk. 1, nr. 11, og stk. 2, § 11 f, § 16, stk. 4, § 29 og § 35, stk. 3.
+§ 5 b. For planlægningen i kystnærhedszonen gælder,
+1) at der kun må inddrages nye arealer i byzone og planlægges for anlæg i landzone, såfremt der er en særlig planlægningsmæssig eller funktionel begrundelse for kystnær lokalisering,
+2) at der bortset fra trafikhavneanlæg og andre overordnede infrastrukturanlæg kun i ganske særlige tilfælde kan planlægges for bebyggelse og anlæg på land, som forudsætter inddragelse af arealer på søterritoriet eller særlig kystbeskyttelse,
+3) at nye sommerhusområder ikke må udlægges, og at eksisterende sommerhusområder skal fastholdes til ferieformål,
+4) at ferie- og fritidsanlæg skal lokaliseres efter sammenhængende turistpolitiske overvejelser og kun i forbindelse med eksisterende bysamfund eller større ferie- og fritidsbebyggelser, og
+5) at offentlighedens adgang til kysten skal sikres og udbygges.
+§ 5 c. Kommuneplanlægningen skal under hensyn til lokale forhold indeholde en strategisk planlægning, der sammenhængende tager stilling til muligheder for udvikling af landsbyer, jf. § 5 d.
+§ 5 d. Kommuneplanlægningen for landsbyer skal
+1) understøtte en udvikling af levedygtige lokalsamfund i landsbyer,
+2) fremme en differentieret og målrettet udvikling af landsbyer og
+3) angive overordnede målsætninger og virkemidler for udviklingen af landsbyer.
+§ 5 e. Kommuneplanlægningen skal under hensyn til lokale forhold indeholde en helhedsorienteret, strategisk planlægning for bymidter i mindre og mellemstore byer.
+§ 5 f. Den strategiske planlægning for bymidter skal
+1) understøtte en udvikling af levende bymidter i kommunens mindre og mellemstore byer,
+2) udarbejdes i dialog med byens private og civile aktører,
+3) angive overordnede målsætninger og virkemidler for udviklingen af bymidterne og
+4) tage stilling til placering af offentlige funktioner og bevaring af kulturmiljøer og bygninger i bymidterne.
+§ 5 g. (Ophævet)
+Kapitel 2 c
+Planlægning i hovedstadsområdet
+§ 5 h. Hovedstadsområdet omfatter i denne lov kommunerne i Region Hovedstaden, bortset fra Bornholms Regionskommune, samt Greve, Køge, Lejre, Roskilde, Solrød og Stevns kommuner.
+§ 5 i. Kommuneplanlægningen i hovedstadsområdet skal udføres på grundlag af en vurdering af udviklingen i området som helhed og sikre, at hovedprincipperne i den overordnede fingerbystruktur videreføres.
+§ 5 j. Kommuneplanlægningen i hovedstadsområdet skal sikre,
+1) at byudvikling og byomdannelse i det indre storbyområde sker inden for eksisterende byzone og med hensyntagen til mulighederne for at styrke den kollektive trafikbetjening,
+2) at byudvikling og nye byfunktioner i det ydre storbyområde (fingerbyen) placeres under hensyntagen til den eksisterende og besluttede infrastruktur og til mulighederne for at styrke den kollektive trafik,
+3) at de grønne kiler ikke inddrages til byzone eller anvendes til bymæssige fritidsanlæg og
+4) at byudvikling i det øvrige hovedstadsområde er af lokal karakter og sker i tilknytning til kommunecentre eller som afrunding af andre bysamfund.
+Kapitel 2 d
+Planlægning til butiksformål
+§ 5 l. Planlægningen skal
+1) fremme et varieret butiksudbud i mindre og mellemstore byer samt i de enkelte bydele i de større byer,
+2) sikre, at arealer til butiksformål udlægges, hvor der er god tilgængelighed for alle trafikarter, og så transportafstandene i forbindelse med indkøb er begrænsede, og
+3) skabe gode rammer for velfungerende markeder med en effektiv butiksstruktur.
+§ 5 m. Arealer til butiksformål skal udlægges i den centrale del af en by (bymidten). I byer med 20.000 indbyggere og derover kan der udlægges arealer til butiksformål i den centrale del af en bydel (bydelscenter).
+§ 5 n. Ud over bymidter og bydelscentre kan der
+1) udlægges arealer til aflastningsområder i byer, hvor der er et tilstrækkeligt kundegrundlag,
+2) udlægges arealer til butiksformål i et lokalcenter eller placeres enkeltstående butikker, som alene tjener til lokalområdets daglige forsyning,
+3) udlægges arealer til butikker, der alene forhandler særlig pladskrævende varer, og
+4) udlægges arealer til mindre butikker til salg af egne produkter i tilknytning til en virksomheds produktionslokaler.
+§ 5 o. I tilknytning til tankstationer, togstationer, lufthavne, stadioner, fritliggende turistattraktioner og lign. kan der udlægges arealer til butikker til brug for de kunder, der i øvrigt benytter anlægget.
+§ 5 p. I byer med mere end 20.000 indbyggere fastsætter kommunalbestyrelsen det maksimale bruttoetageareal til butiksformål for det enkelte bydelscenter.
+Stk. 2. I et lokalcenter må bruttoetagearealet til butiksformål ikke overstige 3.000 m2.
+§ 5 q. For dagligvarebutikker i bymidter og bydelscentre må der ikke fastsættes butiksstørrelser, der overstiger 5.000 m2 bruttoetageareal.
+Stk. 2. For dagligvarebutikker i lokalcentre og for enkeltstående dagligvarebutikker til lokalområdets forsyning må der ikke fastsættes butiksstørrelser, der overstiger 1.200 m2 bruttoetageareal.
+Stk. 3. For dagligvarebutikker i aflastningsområder må der ikke fastsættes butiksstørrelser, der overstiger 3.900 m2 bruttoetageareal.
+§ 5 r. Nye butikker, der etableres på baggrund af lokalplaner offentliggjort før den 1. juli 2007, og hvor der i lokalplanen ikke er angivet butiksstørrelser, må for dagligvarebutikker ikke overstige de i § 5 q nævnte bruttoetagearealer.
+§ 5 s. Ministeren for byer og landdistrikter afgiver hvert fjerde år en redegørelse til et af Folketinget nedsat udvalg om udviklingen i kommune- og lokalplanlægningen for detailhandelsstrukturen.
+§ 5 t. Beregning af bruttoetagearealet til butiksformål sker efter bygningsreglementets bestemmelser om beregning af bebyggelsens etageareal.
+Kapitel 2 e
+Midlertidige opholdssteder til flygtninge
+§ 5 u. For arealer i byzone og landzone kan kommunalbestyrelsen meddele dispensation fra bestemmelser i en lokalplan til ændret anvendelse af eksisterende bebyggelse og til bygge- eller anlægsarbejder med henblik på etablering af midlertidige opholdssteder til nyankomne flygtninge, jf. integrationslovens § 12, stk. 1.
+Kapitel 4
+Kommuneplanlægning
+§ 11. For hver kommune skal der foreligge en kommuneplan. Kommuneplanen skal omfatte en periode på 12 år.
+Stk. 2. Kommuneplanen fastlægger på grundlag af en samlet vurdering af udviklingen i kommunen
+1) en hovedstruktur, som angiver de overordnede mål for udviklingen og arealanvendelsen i kommunen,
+2) retningslinjer for arealanvendelsen m.v., jf. § 11 a, stk. 1, og
+3) rammer for lokalplanernes indhold for de enkelte dele af kommunen, jf. § 11 b.
+§ 11 a. Kommuneplanen skal indeholde retningslinjer for
+1) udlægning af arealer til byzoner og sommerhusområder,
+2) beliggenheden af områder til forskellige byformål,
+3) den kommunale detailhandelsstruktur,
+4) beliggenheden af trafikanlæg,
+5) beliggenheden af tekniske anlæg,
+6) beliggenheden af områder til virksomheder med særlige beliggenhedskrav,
+7) sikring af, at støjbelastede arealer ikke udlægges til støjfølsom anvendelse,
+8) sikring af, at arealer, der er belastet af lugt, støv og anden luftforurening, ikke udlægges til boliger m.v.,
+9) beliggenheden af arealer til fritidsformål,
+10) varetagelsen af de jordbrugsmæssige interesser,
+11) beliggenheden af arealer til lokalisering af driftsbygninger og driftsanlæg på store husdyrbrug,
+12) beliggenheden af skovrejsningsområder og områder, hvor skovtilplantning er uønsket,
+13) lavbundsarealer, herunder beliggenheden af lavbundsarealer, der kan genoprettes som vådområder,
+14) varetagelse af naturbeskyttelsesinteresserne og for prioritering af kommunalbestyrelsens naturindsats inden for Grønt Danmarkskort,
+15) sikring af kulturhistoriske bevaringsværdier,
+16) sikring af landskabelige bevaringsværdier,
+17) sikring af geologiske bevaringsværdier,
+18) udpegning af områder, der kan blive udsat for oversvømmelse eller erosion,
+19) friholdelse af arealer for ny bebyggelse, når arealet er i væsentlig risiko for oversvømmelse,
+20) anvendelsen af vandløb, søer og kystvande,
+21) arealanvendelsen i kystnærhedszonen,
+22) realisering af regler eller beslutninger efter lovens §§ 3 og 5 j,
+23) udviklingen af landsbyer,
+24) beliggenheden af omdannelseslandsbyer,
+25) udviklingen af bymidter,
+26) beliggenheden af erhvervsområder, herunder erhvervshavne, som skal være forbeholdt produktionsvirksomheder,
+27) beliggenheden af konsekvensområder omkring erhvervsområder,
+28) udpegning af op til to transformationsområder hvert fjerde år inden for konsekvensområder, og
+29) udpegning af op til to lugtbelastede arealer hvert fjerde år inden for konsekvensområder.
+§ 11 b. Rammer for indholdet af lokalplaner fastsættes for de enkelte dele af kommunen.
+§ 11 c. Kommunalbestyrelsen skal tilvejebringe rammer for indholdet af lokalplaner, som sikrer, at der er udlagt bynære arealer til kolonihaver.
+§ 11 d. Et byomdannelsesområde skal afgrænses således, at det kun omfatter et område, hvor anvendelsen til miljøbelastende erhvervsformål, havneformål eller lignende aktiviteter i den langt overvejende del af området er ophørt eller under afvikling.
+§ 11 e. Kommuneplanen skal ledsages af en redegørelse for planens forudsætninger.
+§ 11 f. Kommunalbestyrelsen skal ved revision af kommuneplanen foretage de nødvendige ændringer af planen i overensstemmelse med bestemmelserne i § 5 a, stk. 1, og § 5 b.
+§ 12. Kommunalbestyrelsen skal virke for kommuneplanens gennemførelse, herunder ved udøvelse af beføjelser i medfør af lovgivningen.
+Stk. 2. Inden for byzoner kan kommunalbestyrelsen modsætte sig udstykning og bebyggelse, som er i strid med kommuneplanens rækkefølgebestemmelser.
+Stk. 3. Inden for byzoner og sommerhusområder kan kommunalbestyrelsen modsætte sig opførelse af bebyggelse eller ændret anvendelse af bebyggelse eller ubebyggede arealer, når bebyggelsen eller anvendelsen er i strid med bestemmelser i kommuneplanens rammedel.
+Kapitel 5
+Lokalplanlægning
+§ 13. Kommunalbestyrelsen kan tilvejebringe lokalplaner efter reglerne i kapitel 6. En lokalplan må ikke stride mod kommuneplanen.
+Stk. 2. En lokalplan skal tilvejebringes, før der gennemføres større udstykninger eller større bygge- eller anlægsarbejder, herunder nedrivninger af bebyggelse, og i øvrigt når det er nødvendigt for at sikre kommuneplanens virkeliggørelse.
+§ 14. Kommunalbestyrelsen kan nedlægge forbud mod, at der retligt eller faktisk etableres forhold, som kan hindres ved en lokalplan. Forbuddet kan højst nedlægges for et år.
+§ 15. En lokalplan skal indeholde oplysninger om planens formål og retsvirkninger.
+Stk. 2. I en lokalplan kan der optages bestemmelser om:
+1) overførsel til byzone eller sommerhusområde af arealer, som planen omfatter,
+2) områdets anvendelse,
+3) ejendommes størrelse og afgrænsning,
+4) vej- og stiforhold og andre forhold af færdselsmæssig betydning,
+5) beliggenhed af spor- og ledningsanlæg,
+6) bebyggelsers beliggenhed på grundene,
+7) bebyggelsers omfang og udformning,
+8) anvendelse af de enkelte bygninger,
+9) beliggenhed af bygninger til religiøse formål,
+10) parkeringsforhold,
+11) krav om, at op til 25 pct. af boligmassen skal være almene boliger,
+12) udformning, anvendelse og vedligeholdelse af ubebyggede arealer,
+13) bevaring af landskabstræk,
+14) tilvejebringelse af fællesanlæg,
+21) bevaring af eksisterende bebyggelse,
+25) sammenlægning af lejligheder i eksisterende boligbebyggelse,
+26) isolering af eksisterende boligbebyggelse mod støj, og
+32) installation af anlæg til opsamling af regnvand.
+§ 15 a. En lokalplan må kun udlægge støjbelastede arealer til støjfølsom anvendelse, hvis planen med bestemmelser om etablering af afskærmningsforanstaltninger m.v. kan sikre den fremtidige anvendelse mod støjgener.
+§ 15 b. En lokalplan må kun udlægge arealer, der er belastet af lugt, støv eller anden luftforurening fra produktionsvirksomheder, transport- og logistikvirksomheder og husdyrbrug til boliger, institutioner, kontorer, rekreative formål m.v., hvis lokalplanen med bestemmelser om bebyggelsens højde og placering kan sikre den fremtidige anvendelse mod en sådan forurening.
+§ 16. En lokalplan skal ledsages af en redegørelse for, hvorledes planen forholder sig til kommuneplanen og øvrig planlægning for området.
+§ 17. Når et forslag til lokalplan er offentliggjort, må ejendomme, der er omfattet af forslaget, ikke bebygges eller i øvrigt udnyttes på en måde, der skaber risiko for en foregribelse af den endelige plans indhold.
+§ 18. Når der er foretaget offentlig bekendtgørelse af en lokalplan, må der ikke retligt eller faktisk etableres forhold i strid med planens bestemmelser, medmindre dispensation meddeles efter reglerne i §§ 5 u, 19 eller 40.
+§ 19. Kommunalbestyrelsen kan dispensere fra bestemmelser i en lokalplan eller en plan m.v., der er opretholdt efter § 68, stk. 2, hvis dispensationen ikke er i strid med principperne i planen, eller tidsbegrænses til maksimalt 3 år, dog 10 år for studieboliger og byhaver.
+Stk. 2. Videregående afvigelser end omhandlet i stk. 1 kan kun foretages ved tilvejebringelse af en ny lokalplan.
+§ 20. Dispensationer efter § 19 kan først meddeles, når der er forløbet 2 uger, efter at kommunalbestyrelsen har givet skriftlig orientering om ansøgningen til ejere og brugere i det område, der er omfattet af planen, naboerne og berørte foreninger.
+§ 21. Kommunalbestyrelsen kan bemyndige en grundejerforening eller beboerforening til at meddele dispensationer som omhandlet i § 19, stk. 1.
+§ 21 a. Ved lavenergibebyggelse forstås bebyggelse, der på tidspunktet for ansøgningen om byggetilladelsen opfylder de energirammer for energiforbrug for lavenergibygninger, der er fastsat i bygningsreglementet.
+§ 21 b. På opfordring fra en grundejer kan kommunalbestyrelsen indgå en udbygningsaftale med grundejeren for områder, der i kommuneplanen er udlagt til byzone eller sommerhusområde.
+§ 21 c. På opfordring fra en grundejer kan kommunalbestyrelsen indgå aftale med grundejeren om, at omkostningerne til udarbejdelse af kommuneplantillæg og lokalplan afholdes af grundejeren.
+Kapitel 6
+Planers tilvejebringelse og ophævelse
+§ 22 a. Forud for ministeren for byer og landdistrikters fastsættelse af bindende regler eller retningslinjer efter § 3, stk. 1, eller § 5 j, stk. 2 og 4, skal et forslag offentliggøres og sendes til de berørte regionsråd og kommunalbestyrelser.
+§ 22 b. Kommune- og lokalplaner tilvejebringes og ændres efter reglerne i dette kapitel.
+§ 23 a. Kommunalbestyrelsen skal inden udgangen af den første halvdel af den kommunale valgperiode offentliggøre en strategi for kommuneplanlægningen.
+§ 23 b. Når der er foretaget offentlig bekendtgørelse efter § 23 a, stk. 7, kan kommunalbestyrelsen udarbejde sådanne forslag til kommuneplan eller ændringer hertil, der er truffet beslutning om i strategien.
+§ 23 c. Kommunalbestyrelsen kan tilvejebringe forslag til ændringer af kommuneplanen, der ikke er truffet beslutning om i en strategi.
+§ 23 d. Kommunalbestyrelsen skal ved forslag til revision af kommuneplanen forestå en oplysningsvirksomhed med henblik på at fremkalde en offentlig debat om planrevisionens målsætning og nærmere indhold.
+§ 24. Efter kommunalbestyrelsens vedtagelse af et planforslag offentliggøres dette. Kommunalbestyrelsen fastsætter en frist på mindst 8 uger for fremsættelse af indsigelser m.v. mod planforslaget.
+§ 25. Samtidig med offentliggørelsen efter § 24 sendes planforslaget til ministeren for byer og landdistrikter og øvrige statslige, regionale og kommunale myndigheder.
+§ 26. Samtidig med offentliggørelsen af et forslag til lokalplan skal kommunalbestyrelsen give skriftlig underretning herom til ejerne af de ejendomme, der er omfattet af forslaget.
+§ 27. Efter udløbet af fristen kan kommunalbestyrelsen vedtage forslaget endeligt. Hvis der rettidigt er fremsat indsigelser mod et lokalplanforslag, kan vedtagelsen tidligst ske 4 uger efter udløbet af indsigelsesfristen.
+§ 28. Et planforslag kan ikke vedtages endeligt, hvis en myndighed efter reglerne i §§ 29, 29 a, 29 b eller 29 c har modsat sig dette skriftligt over for kommunalbestyrelsen inden udløbet af fristen.
+§ 29. Ministeren for byer og landdistrikter skal fremsætte indsigelse over for et forslag til kommuneplan og ændringer til en kommuneplan, der ikke er i overensstemmelse med nationale interesser.
+§ 29 a. Regionsrådet kan gøre indsigelse over for forslag til kommuneplaner, hvis planforslaget er i strid med den regionale råstofplan.
+§ 29 b. En kommunalbestyrelse kan fremsætte indsigelse mod en nabokommunes planforslag, hvis forslaget har væsentlig betydning for kommunens udvikling.
+§ 29 c. Den berørte nationalparkfond kan fremsætte indsigelse over for et planforslag, hvis forslaget har væsentlig betydning for nationalparkens udvikling.
+§ 30. Kommunalbestyrelsen foretager offentlig bekendtgørelse om den endelige vedtagelse af planen.
+§ 31. Samtidig med offentliggørelsen af en lokalplan sender kommunalbestyrelsen et eksemplar af den offentliggjorte bekendtgørelse til ejere af ejendomme, der er omfattet af planen.
+§ 32. Et forslag til lokalplan bortfalder, hvis det ikke er vedtaget inden 3 år efter offentliggørelsen.
+§ 33. Kommunalbestyrelsen kan beslutte at ophæve byplanvedtægter og lokalplaner.
+Kapitel 7
+Zoneinddelingen og landzoneadministrationen
+§ 34. Hele landet er opdelt i byzoner, sommerhusområder og landzoner.
+§ 35. I landzoner må der ikke uden tilladelse fra kommunalbestyrelsen foretages udstykning, opføres ny bebyggelse eller ske ændring i anvendelsen af bestående bebyggelse og ubebyggede arealer.
+Stk. 2. Tilladelse efter stk. 1 til udstykning, bebyggelse eller ændret anvendelse, som er omfattet af reglen om lokalplanpligt i § 13, stk. 2, kan først meddeles, når de fornødne bestemmelser i kommuneplanen er endeligt vedtaget og den fornødne lokalplan er offentligt bekendtgjort.
+Stk. 3. For arealer i kystnærhedszonen uden for udviklingsområder må tilladelse efter stk. 1 kun meddeles, hvis det ansøgte har helt underordnet betydning i forhold til de nationale planlægningsinteresser i kystområderne.
+Stk. 4. Tilladelser efter stk. 1 kan først meddeles, når der er forløbet 2 uger efter, at kommunalbestyrelsen har givet skriftlig orientering om ansøgningen til naboerne til den omhandlede ejendom.
+§ 35 a. Kommunalbestyrelsen kan i særlige tilfælde meddele tilladelse efter § 35 til udvidelse eller ændring af eksisterende vognmandsvirksomheder, der før den 15. juni 2017 har ligget på stedet i en længere årrække.
+§ 36. Tilladelse efter § 35, stk. 1, kræves ikke til:
+1) Udstykning efter § 10, stk. 1 og 3, i lov om landbrugsejendomme, til samdrift med en bestående landbrugsejendom.
+2) Udstykning af en skovejendom efter § 6, stk. 1, nr. 6 og 7, i lov om landbrugsejendomme.
+3) Byggeri, der er erhvervsmæssigt nødvendigt for driften af den pågældende landbrugsejendom, landbrugsbedrift eller skovbrugsejendom eller for udøvelse af fiskerierhvervet.
+4) Mindre byggeri, der er erhvervsmæssigt nødvendigt for driften af eksisterende dambrug på en landbrugsejendom.
+5) Ibrugtagen af bebyggelse eller arealer til landbrug eller skovbrug eller til brug for udøvelse af fiskerierhvervet.
+6) Udstykning, byggeri eller ændret anvendelse i det omfang, dette er påbudt i en afgørelse eller udtrykkeligt er tilladt i en lokalplan.
+7) Indvinding af råstoffer i jorden.
+8) Opførelse af garager, carporte, udhuse, drivhuse og lignende bygninger på højst 50 m2, når disse opføres i tilknytning til enfamiliehuse eller sommerhuse.
+9) Byggeri, der i bygningsreglement er fritaget for krav om byggetilladelse, og som etableres til brug for offentlige trafik-, forsynings- eller varslingsanlæg.
+10) Til- og ombygning af helårshus, hvorved husets samlede bruttoetageareal ikke overstiger 500 m2.
+11) Helårsboligs overgang til anvendelse som fritidsbolig.
+14) Opførelse eller indretning i eksisterende bebyggelse af en bolig på en landbrugsejendom, hvis areal overstiger 30 ha, når den nye bolig skal benyttes i forbindelse med et generationsskifte eller til en medhjælper.
+18) En pensionists personlige ret til at benytte en fritidsbolig til helårsbeboelse, når pensionisten har ejet ejendommen i 1 år.
+§ 37. Bygninger, der ikke længere er nødvendige for driften af en landbrugsejendom, kan uden tilladelse efter § 35, stk. 1, tages i brug til håndværks- og industrivirksomhed, mindre butikker, liberale erhverv, forenings- og fritidsformål og en bolig samt lager- og kontorformål m.v.
+§ 38. Anvendelse af bygninger til den virksomhed, der er nævnt i § 37, må kun ske efter forudgående anmeldelse til kommunalbestyrelsen.
+Kapitel 8
+Sommerhusområder
+§ 38 a. En ejendom i et sommerhusområde må ikke benyttes til anden anvendelse end boligformål.
+§ 39. I sommerhusområder må der ikke uden kommunalbestyrelsens tilladelse opføres eller indrettes mere end én bolig på en selvstændigt matrikuleret ejendom.
+§ 40. En bolig i et sommerhusområde må bortset fra kortvarige ferieophold m.v. ikke anvendes til overnatning i perioden fra den 1. november til udgangen af februar.
+§ 41. En pensionist, der ejer en bolig i et sommerhusområde, har en personlig ret til at benytte boligen til helårsbeboelse, når pensionisten har ejet ejendommen i 1 år.
+Kapitel 9
+Servitutter
+§ 42. En ejer af fast ejendom kan kun med forudgående samtykke fra kommunalbestyrelsen gyldigt pålægge ejendommen servitutbestemmelser om forhold, hvorom der kan optages bestemmelser i en lokalplan.
+§ 43. Kommunalbestyrelsen kan ved påbud eller forbud sikre overholdelsen af servitutbestemmelser om forhold, hvorom der kan optages bestemmelser i en lokalplan.
+Kapitel 10
+Tilbageførsel
+§ 45. Kommunalbestyrelsen kan beslutte at tilbageføre arealer fra byzone eller sommerhusområde til landzone i overensstemmelse med kommuneplanen.
+§ 46. Ved tilbageførsel af privat ejede arealer til landzone efter § 45 kan der ydes erstatning for udgifter, ejeren har afholdt med henblik på ejendommens udnyttelse i byzone.
+Kapitel 11
+Ekspropriation, overtagelse m.v.
+§ 47. Kommunalbestyrelsen kan ekspropriere fast ejendom, der tilhører private, eller private rettigheder over fast ejendom, når ekspropriationen vil være af væsentlig betydning for virkeliggørelsen af en lokalplan eller en byplanvedtægt og for varetagelsen af almene samfundsinteresser.
+§ 47 a. En ejer af en fast ejendom, der benyttes til landbrug, gartneri, planteskole eller frugtplantage, kan, hvis ejendommen helt eller delvis overføres fra landzone til byzone eller sommerhusområde, inden 4 år efter overførslen forlange ejendommen overtaget af kommunen.
+§ 48. Når en lokalplan eller en byplanvedtægt har forbeholdt en ejendom til et offentligt formål, kan ejeren forlange ejendommen overtaget af kommunen mod erstatning.
+§ 49. Når det i en lokalplan eller en byplanvedtægt er bestemt, at en bebyggelse ikke må nedrives uden tilladelse fra kommunalbestyrelsen, og tilladelsen nægtes, kan ejeren forlange ejendommen overtaget af kommunen mod erstatning.
+§ 50. Taksationsmyndighederne efter lov om offentlige veje fastsætter erstatning for ekspropriation.
+Kapitel 12
+Tilsyn
+§ 51. Kommunalbestyrelsen påser overholdelsen af denne lov og de regler, der er fastsat med hjemmel i loven, samt af bestemmelserne i lokalplaner.
+Stk. 3. Kommunalbestyrelsen skal foranledige et ulovligt forhold lovliggjort, medmindre forholdet har underordnet betydning.
+§ 51 a. Kommunalbestyrelsen skal hvert år pr. 1. november påbyde enhver, som er registreret i CPR med bopæl i en bolig i et sommerhusområde, som den pågældende ikke lovligt kan anvende til helårsbeboelse, inden 14 dage at fraflytte boligen.
+Kapitel 14
+Klage og søgsmål
+§ 58. Til Planklagenævnet kan påklages:
+1) Kommunalbestyrelsens afgørelser efter § 35, stk. 1.
+2) Kommunalbestyrelsens afgørelser efter § 47, stk. 1.
+3) Kommunalbestyrelsens afgørelser om andre forhold, der er omfattet af denne lov og regler udstedt i medfør af loven, for så vidt angår retlige spørgsmål.
+§ 59. Klageberettiget efter § 58 er ministeren for byer og landdistrikter og i øvrigt enhver med retlig interesse i sagens udfald.
+Stk. 2. Klageberettiget efter § 58, stk. 1, nr. 1 og 3, er endvidere landsdækkende foreninger og organisationer, der som hovedformål har beskyttelsen af natur og miljø eller varetagelsen af væsentlige brugerinteresser inden for arealanvendelsen.
+§ 60. Klage over afgørelser, der er nævnt i § 58, stk. 1, og § 58 a, skal være indgivet skriftligt, inden 4 uger efter at afgørelsen er meddelt.
+§ 60 a. En tilladelse efter § 35, stk. 1, må ikke udnyttes før klagefristens udløb.
+Stk. 2. Rettidig klage efter § 58, stk. 1, nr. 1 og 2, har opsættende virkning, medmindre Planklagenævnet bestemmer andet.
+§ 61. Planklagenævnet kan i forbindelse med afgørelse af en klagesag se bort fra reglerne om tilladelse efter § 35, stk. 1, lokalplaner og dispensationer, når klagen vedrører en foranstaltning, der er udført.
+§ 62. Søgsmål til prøvelse af afgørelser om forhold, der er omfattet af denne lov, skal være anlagt inden 6 måneder efter, at afgørelsen er meddelt.
+Kapitel 15
+Lovliggørelse og straf
+§ 63. Det påhviler den til enhver tid værende ejer af en ejendom at berigtige et ulovligt forhold.
+§ 64. Medmindre højere straf er forskyldt efter den øvrige lovgivning, straffes med bøde den, der overtræder bestemmelser i en lokalplan, overtræder § 35, stk. 1, § 39 og § 40, stk. 1, tilsidesætter vilkår for en tilladelse eller dispensation, undlader at efterkomme et påbud eller forbud, eller afgiver urigtige eller vildledende oplysninger."""
+
+
+@st.cache_data(show_spinner=False)
+def _parse_planloven():
+    """Parser lovteksten til en liste af paragraffer med metadata."""
+    paragraphs = []
+    current_chapter = ""
+    current_chapter_title = ""
+
+    lines = _PLANLOVEN_TEKST.strip().split("\n")
+    i = 0
+    current_para = None
+
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line:
+            i += 1
+            continue
+
+        # Kapitel-header
+        chap_match = re.match(r"^(Kapitel \d+\w*)\s*$", line)
+        if chap_match:
+            current_chapter = chap_match.group(1)
+            # Næste linje er kapiteltitel
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines) and not re.match(r"^§", lines[j].strip()):
+                current_chapter_title = lines[j].strip()
+                i = j + 1
+            else:
+                current_chapter_title = ""
+                i += 1
+            continue
+
+        # Ny paragraf
+        para_match = re.match(r"^(§\s*[\d]+\s*\w*)\.\s*(.*)", line)
+        if para_match:
+            if current_para:
+                paragraphs.append(current_para)
+            para_num = re.sub(r"\s+", " ", para_match.group(1)).strip()
+            para_text = para_match.group(2)
+            current_para = {
+                "para": para_num,
+                "chapter": current_chapter,
+                "chapter_title": current_chapter_title,
+                "text": para_text,
+            }
+            i += 1
+            continue
+
+        # Tilføj til nuværende paragraf
+        if current_para:
+            current_para["text"] += "\n" + line
+        i += 1
+
+    if current_para:
+        paragraphs.append(current_para)
+
+    return paragraphs
+
+
+def _søg_planloven(query: str, paragraphs: list) -> list:
+    """Søg i paragraffer — understøtter § X og fritekst."""
+    q = query.strip()
+    if not q:
+        return paragraphs
+
+    # Direkte §-søgning, fx "§ 35" eller "35"
+    para_q = re.match(r"^§?\s*(\d+\s*\w*)\s*$", q)
+    if para_q:
+        nr = "§ " + para_q.group(1).strip()
+        return [p for p in paragraphs if p["para"].lower() == nr.lower()]
+
+    # Fritekst
+    ql = q.lower()
+    results = []
+    for p in paragraphs:
+        haystack = (p["para"] + " " + p["chapter"] + " " + p["chapter_title"] + " " + p["text"]).lower()
+        if ql in haystack:
+            results.append(p)
+    return results
+
+
+with tab_lov:
+    st.markdown(
+        '<div class="h-page-header">'
+        '<h1 class="h-page-title" style="font-size:1.1rem;">PLANLOVEN</h1>'
+        '<div class="h-gold-line"></div>'
+        '<p class="h-page-meta">Bekendtgørelse nr. 223 af 1. marts 2024</p>'
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+    _paragraphs = _parse_planloven()
+
+    # ── Søgefelt ──────────────────────────────────────────────────────────────
+    col_s, col_clr = st.columns([5, 1])
+    with col_s:
+        lov_query = st.text_input(
+            "",
+            placeholder="Søg på § nummer (fx 35) eller fritekst (fx landzone, dispensation)…",
+            label_visibility="collapsed",
+            key="lov_søg",
+        )
+    with col_clr:
+        if st.button("Ryd", key="lov_ryd", use_container_width=True):
+            st.session_state["lov_søg"] = ""
+            st.rerun()
+
+    hits = _søg_planloven(lov_query, _paragraphs)
+
+    # ── Resultatinfo ──────────────────────────────────────────────────────────
+    if lov_query:
+        st.markdown(
+            f'<p style="font-size:12px;color:#94a3b8;margin-bottom:.5rem;">'
+            f'{len(hits)} resultat{"er" if len(hits) != 1 else ""} for <em>"{lov_query}"</em></p>',
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            f'<p style="font-size:12px;color:#94a3b8;margin-bottom:.5rem;">'
+            f'Planloven indeholder {len(_paragraphs)} paragraffer — søg ovenfor eller gennemse herunder.</p>',
+            unsafe_allow_html=True,
+        )
+
+    if not hits:
+        st.info("Ingen paragraffer matcher søgningen.")
+    else:
+        for p in hits:
+            chap_label = f"{p['chapter']}" + (f" · {p['chapter_title']}" if p["chapter_title"] else "")
+            with st.expander(f"**{p['para']}**  —  {p['text'][:80].rstrip()}{'…' if len(p['text']) > 80 else ''}"):
+                st.markdown(
+                    f'<div style="font-size:10.5px;color:#94a3b8;text-transform:uppercase;'
+                    f'letter-spacing:1px;margin-bottom:.6rem;">{chap_label}</div>',
+                    unsafe_allow_html=True,
+                )
+                # Formater teksten: Stk. X highlightes
+                tekst = p["text"]
+                tekst_html = re.sub(
+                    r"(Stk\.\s*\d+\.)",
+                    r'<span style="font-weight:700;color:#8C1C2E;">\1</span>',
+                    tekst,
+                )
+                # Nummererede punkter
+                tekst_html = re.sub(r"(\d+\))", r'<span style="font-weight:600;">\1</span>', tekst_html)
+                tekst_html = tekst_html.replace("\n", "<br>")
+                st.markdown(
+                    f'<div style="font-size:14px;line-height:1.85;color:#1e293b;'
+                    f'padding:10px 14px;background:#fffcf8;border-radius:6px;'
+                    f'border:1px solid #ece6dc;">{p["para"]}. {tekst_html}</div>',
+                    unsafe_allow_html=True,
+                )
