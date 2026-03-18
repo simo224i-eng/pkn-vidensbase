@@ -2,6 +2,7 @@ import streamlit as st
 
 if not st.session_state.get("_autentificeret_v2"):
     st.switch_page("app.py")
+    st.stop()
 
 import pandas as pd
 import requests
