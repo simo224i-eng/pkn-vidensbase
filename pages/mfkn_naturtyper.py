@@ -143,6 +143,7 @@ def _læs_nt_csv(sti: str) -> list:
     return rows
 
 
+@st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None)
 def load_nt_data(version: int = 4):
     _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     _tmp  = "/tmp/pkn_data"

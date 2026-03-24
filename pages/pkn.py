@@ -185,6 +185,7 @@ def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
     return rows
 
 
+@st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None)
 def load_data(version: int = 22):  # bump version to bust cache
     import os, zipfile, glob as _glob
     csv.field_size_limit(10_000_000)

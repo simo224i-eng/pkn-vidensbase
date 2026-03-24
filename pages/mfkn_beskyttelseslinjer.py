@@ -110,6 +110,7 @@ def _læs_mfkn_csv(sti: str) -> list:
     return rows
 
 
+@st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None)
 def load_mfkn_data(version: int = 5):
     _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     _tmp  = "/tmp/pkn_data"
