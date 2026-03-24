@@ -280,58 +280,58 @@ if generer:
 if st.session_state.udkast_genereret and st.session_state.udkast_resultat:
     st.markdown("---")
 
-    tab_udkast, tab_præcedens = st.tabs(["  Afgørelsesudkast  ", "  Anvendte præcedensafgørelser  "])
+    udkast_tekst = st.session_state.udkast_resultat
 
-    with tab_udkast:
-        udkast_tekst = st.session_state.udkast_resultat
+    # Download-knap
+    st.download_button(
+        label="⬇ Download udkast (.txt)",
+        data=udkast_tekst.encode("utf-8"),
+        file_name="afgørelsesudkast.txt",
+        mime="text/plain",
+    )
 
-        # Download-knap
-        st.download_button(
-            label="⬇ Download udkast (.txt)",
-            data=udkast_tekst.encode("utf-8"),
-            file_name="afgørelsesudkast.txt",
-            mime="text/plain",
-        )
+    # Vis udkastet formateret
+    # Konverter markdown-lignende formatering til HTML
+    udkast_html = udkast_tekst
+    # Afsnitsoverskrifter
+    udkast_html = re.sub(
+        r'\*\*(Afsnit \d+[\.\d]*[^*]*|[^*]{3,60}:)\*\*',
+        lambda m: (
+            f'<div style="font-size:11.5px;font-weight:700;color:#2d6a4f;'
+            f'text-transform:uppercase;letter-spacing:1.8px;'
+            f'margin:2em 0 0.6em;padding:8px 14px;'
+            f'background:#f0fdf4;border-left:3px solid #2d6a4f;'
+            f'border-radius:0 5px 5px 0;">'
+            f'{m.group(1).rstrip(":")}</div>'
+        ),
+        udkast_html,
+    )
+    # [PLACEHOLDER]-markering
+    udkast_html = re.sub(
+        r'\[PLACEHOLDER:?\s*([^\]]*)\]',
+        r'<span style="background:#fef3c7;color:#92400e;padding:1px 6px;'
+        r'border-radius:3px;font-size:12.5px;font-weight:600;">'
+        r'[PLACEHOLDER: \1]</span>',
+        udkast_html,
+    )
+    # Linjeskift til afsnit
+    paragraphs = [p.strip() for p in udkast_html.split("\n") if p.strip()]
+    udkast_html = "".join(
+        p if p.startswith("<div") else
+        f'<p style="margin:0 0 1em;font-size:15px;line-height:1.85;color:#1e293b;">{p}</p>'
+        for p in paragraphs
+    )
 
-        # Vis udkastet formateret
-        # Konverter markdown-lignende formatering til HTML
-        udkast_html = udkast_tekst
-        # Afsnitsoverskrifter
-        udkast_html = re.sub(
-            r'\*\*(Afsnit \d+[\.\d]*[^*]*|[^*]{3,60}:)\*\*',
-            lambda m: (
-                f'<div style="font-size:11.5px;font-weight:700;color:#2d6a4f;'
-                f'text-transform:uppercase;letter-spacing:1.8px;'
-                f'margin:2em 0 0.6em;padding:8px 14px;'
-                f'background:#f0fdf4;border-left:3px solid #2d6a4f;'
-                f'border-radius:0 5px 5px 0;">'
-                f'{m.group(1).rstrip(":")}</div>'
-            ),
-            udkast_html,
-        )
-        # [PLACEHOLDER]-markering
-        udkast_html = re.sub(
-            r'\[PLACEHOLDER:?\s*([^\]]*)\]',
-            r'<span style="background:#fef3c7;color:#92400e;padding:1px 6px;'
-            r'border-radius:3px;font-size:12.5px;font-weight:600;">'
-            r'[PLACEHOLDER: \1]</span>',
-            udkast_html,
-        )
-        # Linjeskift til afsnit
-        paragraphs = [p.strip() for p in udkast_html.split("\n") if p.strip()]
-        udkast_html = "".join(
-            p if p.startswith("<div") else
-            f'<p style="margin:0 0 1em;font-size:15px;line-height:1.85;color:#1e293b;">{p}</p>'
-            for p in paragraphs
-        )
+    st.markdown(
+        f'<div style="font-family:\'Inter\',system-ui,sans-serif;max-width:80ch;'
+        f'padding:2rem;background:#fffcf8;border:1px solid #ece6dc;'
+        f'border-radius:10px;margin-top:1rem;">'
+        f'{udkast_html}</div>',
+        unsafe_allow_html=True,
+    )
 
-        st.markdown(
-            f'<div style="font-family:\'Inter\',system-ui,sans-serif;max-width:80ch;'
-            f'padding:2rem;background:#fffcf8;border:1px solid #ece6dc;'
-            f'border-radius:10px;margin-top:1rem;">'
-            f'{udkast_html}</div>',
-            unsafe_allow_html=True,
-        )
+    st.markdown("---")
+    tab_præcedens, = st.tabs(["  Anvendte præcedensafgørelser  "])
 
     with tab_præcedens:
         præcedens = st.session_state.udkast_præcedens or []
