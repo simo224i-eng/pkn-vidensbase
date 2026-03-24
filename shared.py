@@ -455,14 +455,14 @@ def _llm(prompt: str) -> str:
             "Content-Type": "application/json",
         },
         json={
-            "model": "claude-sonnet-4-6",
+            "model": "claude-haiku-4-5-20251001",
             "max_tokens": 2000,
-            "temperature": 0.3,
             "messages": [{"role": "user", "content": prompt}],
         },
         timeout=60,
     )
-    r.raise_for_status()
+    if not r.ok:
+        raise RuntimeError(f"{r.status_code} {r.reason}: {r.text}")
     return r.json()["content"][0]["text"]
 
 
