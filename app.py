@@ -34,7 +34,6 @@ pg = st.navigation([
     st.Page("pages/pkn.py",                      title="Planklagenævnet",    icon=":material/gavel:"),
     st.Page("pages/mfkn_beskyttelseslinjer.py",  title="Beskyttelseslinjer", icon=":material/eco:"),
     st.Page("pages/mfkn_naturtyper.py",          title="Naturtyper",         icon=":material/park:"),
-    st.Page("pages/udkast.py",                   title="Udvikler",           icon=":material/edit_document:"),
 ])
 pg.run()
 
