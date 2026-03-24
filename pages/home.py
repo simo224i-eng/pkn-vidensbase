@@ -3,6 +3,7 @@ from shared import logo, inject_css
 
 if not st.session_state.get("_autentificeret_v2"):
     st.switch_page("app.py")
+    st.stop()
 
 inject_css()
 

@@ -2,6 +2,7 @@ import streamlit as st
 
 if not st.session_state.get("_autentificeret_v2"):
     st.switch_page("app.py")
+    st.stop()
 
 import pandas as pd
 import re
@@ -142,6 +143,7 @@ def _læs_nt_csv(sti: str) -> list:
     return rows
 
 
+@st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None)
 def load_nt_data(version: int = 4):
     _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     _tmp  = "/tmp/pkn_data"

@@ -443,26 +443,36 @@ def render_detail_header(
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
-def _llm(prompt: str) -> str:
+def _llm(prompt, max_tokens: int = 2000) -> str:
+    """Send en prompt til Claude.
+    prompt kan være en str eller en liste af content-blokke (til prompt caching).
+    """
     key = st.secrets.get("ANTHROPIC_API_KEY", "")
     if not key:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
+
+    use_cache = isinstance(prompt, list)
+    headers = {
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+        "Content-Type": "application/json",
+    }
+    if use_cache:
+        headers["anthropic-beta"] = "prompt-caching-2024-07-31"
+
+    content = prompt if use_cache else prompt
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
-        headers={
-            "x-api-key": key,
-            "anthropic-version": "2023-06-01",
-            "Content-Type": "application/json",
-        },
+        headers=headers,
         json={
-            "model": "claude-sonnet-4-5",
-            "max_tokens": 2000,
-            "temperature": 0.3,
-            "messages": [{"role": "user", "content": prompt}],
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": max_tokens,
+            "messages": [{"role": "user", "content": content}],
         },
-        timeout=60,
+        timeout=90,
     )
-    r.raise_for_status()
+    if not r.ok:
+        raise RuntimeError(f"{r.status_code} {r.reason}: {r.text}")
     return r.json()["content"][0]["text"]
 
 

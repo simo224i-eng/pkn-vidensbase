@@ -2,11 +2,11 @@ import streamlit as st
 
 if not st.session_state.get("_autentificeret_v2"):
     st.switch_page("app.py")
+    st.stop()
 
 import pandas as pd
-import requests
 import re
-from shared import logo, strip_html, extract_kommune
+from shared import logo, strip_html, extract_kommune, _llm
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -73,75 +73,52 @@ def _generer_udkast(klage: str, afgørelse: str, bemærkninger: str,
     if vejledning.strip():
         vejledning_blok = f"\nSKRIVEVEJLEDNING OG SKABELON FRA MFKN:\n{vejledning}\n"
 
-    prompt = f"""Du er juridisk sagsbehandler i Miljø- og Fødevareklagenævnet (MFKN).
-Din opgave er at skrive et fuldstændigt afgørelsesudkast i en sag om strandbeskyttelseslinjen (naturbeskyttelseslovens § 15).
-
-AFGØRELSENS FASTE STRUKTUR (følg denne nøje):
-
-**Indledende sætning:**
-"Miljø- og Fødevareklagenævnet har truffet afgørelse efter naturbeskyttelseslovens § 15, stk. 1, jf. § 65 b, stk. 1, jf. § 78, stk. 4."
-
-**Dispositiv (resultat):**
-Angiv tydeligt om nævnet stadfæster, ophæver eller ændrer Kystdirektoratets afgørelse – og hvad afgørelsen konkret går ud på.
-
-**Standardtekst om gebyr og endelig afgørelse:**
-"Det indbetalte klagegebyr tilbagebetales [ikke / ikke / ja afhængig af udfald]."
-"Miljø- og Fødevareklagenævnets afgørelse er endelig og kan ikke indbringes for anden administrativ myndighed, jf. § 17, stk. 1, i lov om Miljø- og Fødevareklagenævnet og gebyrbekendtgørelsens § 2, stk. 6. Eventuel retssag til prøvelse af afgørelsen skal være anlagt inden 6 måneder, jf. naturbeskyttelseslovens § 88, stk. 1."
-
-**Afsnit 1. Klagen til Miljø- og Fødevareklagenævnet**
-Hvem klagede, hvornår, og hvad er klagepunkterne.
-
-**Afsnit 2. Sagens oplysninger**
-2.1 Ejendommen og området (beliggenhed, zonestatus, karakteristik af ejendommen og omgivelser, afstand til kyst, evt. Natura 2000)
-2.2 Den påklagede afgørelse (hvad Kystdirektoratet har afgjort og begrundelsen herfor)
-2.3 Klagers bemærkninger (hvis der er supplerende bemærkninger)
-
-**Afsnit 3. Nævnets bemærkninger og afgørelse**
-- Redegørelse for retsgrundlaget (§ 15 og § 65 b – brug de standardformuleringer MFKN anvender)
-- Nævnets konkrete vurdering af sagen
-- Konklusion
-
-REGLER FOR UDKASTET:
-- Brug [PLACEHOLDER: beskrivelse] for oplysninger du mangler (fx [PLACEHOLDER: matrikelnummer], [PLACEHOLDER: præcis afstand til kyst])
-- Skriv præcist og juridisk korrekt dansk – følg MFKN's sproglige stil fra præcedensafgørelserne
-- Brug tredje person om klager ("klager har anført…")
-- Brug de standardformuleringer om retsgrundlaget som fremgår af præcedensafgørelserne
-{vejledning_blok}
-RELEVANTE PRÆCEDENSAFGØRELSER (brug disse som stilistisk og juridisk vejledning):
-{præcedens_blok}
-SAGSAKTER:
-
-**Klagen:**
-{klage}
-
-**Kystdirektoratets afgørelse:**
-{afgørelse}
-
-**Bemærkninger ved oversendelse:**
-{bemærkninger}
-
-**Øvrige bilag/bemærkninger:**
-{øvrige if øvrige.strip() else "(ingen)"}
-
-Skriv nu det fulde afgørelsesudkast:"""
-
-    r = requests.post(
-        "https://api.anthropic.com/v1/messages",
-        headers={
-            "x-api-key": ANTHROPIC_API_KEY,
-            "anthropic-version": "2023-06-01",
-            "Content-Type": "application/json",
+    # Præcedensafgørelserne caches – de er store og statiske pr. generering
+    blocks = [
+        {
+            "type": "text",
+            "text": (
+                "Du er juridisk sagsbehandler i Miljø- og Fødevareklagenævnet (MFKN).\n"
+                "Din opgave er at skrive et fuldstændigt afgørelsesudkast i en sag om strandbeskyttelseslinjen (naturbeskyttelseslovens § 15).\n\n"
+                "AFGØRELSENS FASTE STRUKTUR (følg denne nøje):\n\n"
+                '**Indledende sætning:**\n"Miljø- og Fødevareklagenævnet har truffet afgørelse efter naturbeskyttelseslovens § 15, stk. 1, jf. § 65 b, stk. 1, jf. § 78, stk. 4."\n\n'
+                "**Dispositiv (resultat):**\nAngiv tydeligt om nævnet stadfæster, ophæver eller ændrer Kystdirektoratets afgørelse – og hvad afgørelsen konkret går ud på.\n\n"
+                '**Standardtekst om gebyr og endelig afgørelse:**\n"Det indbetalte klagegebyr tilbagebetales [ikke / ikke / ja afhængig af udfald]."\n'
+                '"Miljø- og Fødevareklagenævnets afgørelse er endelig og kan ikke indbringes for anden administrativ myndighed, jf. § 17, stk. 1, i lov om Miljø- og Fødevareklagenævnet og gebyrbekendtgørelsens § 2, stk. 6. Eventuel retssag til prøvelse af afgørelsen skal være anlagt inden 6 måneder, jf. naturbeskyttelseslovens § 88, stk. 1."\n\n'
+                "**Afsnit 1. Klagen til Miljø- og Fødevareklagenævnet**\nHvem klagede, hvornår, og hvad er klagepunkterne.\n\n"
+                "**Afsnit 2. Sagens oplysninger**\n"
+                "2.1 Ejendommen og området (beliggenhed, zonestatus, karakteristik af ejendommen og omgivelser, afstand til kyst, evt. Natura 2000)\n"
+                "2.2 Den påklagede afgørelse (hvad Kystdirektoratet har afgjort og begrundelsen herfor)\n"
+                "2.3 Klagers bemærkninger (hvis der er supplerende bemærkninger)\n\n"
+                "**Afsnit 3. Nævnets bemærkninger og afgørelse**\n"
+                "- Redegørelse for retsgrundlaget (§ 15 og § 65 b – brug de standardformuleringer MFKN anvender)\n"
+                "- Nævnets konkrete vurdering af sagen\n- Konklusion\n\n"
+                "REGLER FOR UDKASTET:\n"
+                "- Brug [PLACEHOLDER: beskrivelse] for oplysninger du mangler (fx [PLACEHOLDER: matrikelnummer], [PLACEHOLDER: præcis afstand til kyst])\n"
+                "- Skriv præcist og juridisk korrekt dansk – følg MFKN's sproglige stil fra præcedensafgørelserne\n"
+                "- Brug tredje person om klager (\"klager har anført…\")\n"
+                "- Brug de standardformuleringer om retsgrundlaget som fremgår af præcedensafgørelserne\n"
+                f"{vejledning_blok}\n"
+                "RELEVANTE PRÆCEDENSAFGØRELSER (brug disse som stilistisk og juridisk vejledning):"
+            ),
         },
-        json={
-            "model": "claude-sonnet-4-5",
-            "max_tokens": 4000,
-            "temperature": 0.2,
-            "messages": [{"role": "user", "content": prompt}],
+        {
+            "type": "text",
+            "text": præcedens_blok,
+            "cache_control": {"type": "ephemeral"},
         },
-        timeout=120,
-    )
-    r.raise_for_status()
-    return r.json()["content"][0]["text"]
+        {
+            "type": "text",
+            "text": (
+                f"SAGSAKTER:\n\n**Klagen:**\n{klage}\n\n"
+                f"**Kystdirektoratets afgørelse:**\n{afgørelse}\n\n"
+                f"**Bemærkninger ved oversendelse:**\n{bemærkninger}\n\n"
+                f"**Øvrige bilag/bemærkninger:**\n{øvrige if øvrige.strip() else '(ingen)'}\n\n"
+                "Skriv nu det fulde afgørelsesudkast:"
+            ),
+        },
+    ]
+    return _llm(blocks, max_tokens=4000)
 
 
 # ── Indlæs data og indeks (genbrug fra mfkn_beskyttelseslinjer) ───────────────
@@ -279,58 +256,58 @@ if generer:
 if st.session_state.udkast_genereret and st.session_state.udkast_resultat:
     st.markdown("---")
 
-    tab_udkast, tab_præcedens = st.tabs(["  Afgørelsesudkast  ", "  Anvendte præcedensafgørelser  "])
+    udkast_tekst = st.session_state.udkast_resultat
 
-    with tab_udkast:
-        udkast_tekst = st.session_state.udkast_resultat
+    # Download-knap
+    st.download_button(
+        label="⬇ Download udkast (.txt)",
+        data=udkast_tekst.encode("utf-8"),
+        file_name="afgørelsesudkast.txt",
+        mime="text/plain",
+    )
 
-        # Download-knap
-        st.download_button(
-            label="⬇ Download udkast (.txt)",
-            data=udkast_tekst.encode("utf-8"),
-            file_name="afgørelsesudkast.txt",
-            mime="text/plain",
-        )
+    # Vis udkastet formateret
+    # Konverter markdown-lignende formatering til HTML
+    udkast_html = udkast_tekst
+    # Afsnitsoverskrifter
+    udkast_html = re.sub(
+        r'\*\*(Afsnit \d+[\.\d]*[^*]*|[^*]{3,60}:)\*\*',
+        lambda m: (
+            f'<div style="font-size:11.5px;font-weight:700;color:#2d6a4f;'
+            f'text-transform:uppercase;letter-spacing:1.8px;'
+            f'margin:2em 0 0.6em;padding:8px 14px;'
+            f'background:#f0fdf4;border-left:3px solid #2d6a4f;'
+            f'border-radius:0 5px 5px 0;">'
+            f'{m.group(1).rstrip(":")}</div>'
+        ),
+        udkast_html,
+    )
+    # [PLACEHOLDER]-markering
+    udkast_html = re.sub(
+        r'\[PLACEHOLDER:?\s*([^\]]*)\]',
+        r'<span style="background:#fef3c7;color:#92400e;padding:1px 6px;'
+        r'border-radius:3px;font-size:12.5px;font-weight:600;">'
+        r'[PLACEHOLDER: \1]</span>',
+        udkast_html,
+    )
+    # Linjeskift til afsnit
+    paragraphs = [p.strip() for p in udkast_html.split("\n") if p.strip()]
+    udkast_html = "".join(
+        p if p.startswith("<div") else
+        f'<p style="margin:0 0 1em;font-size:15px;line-height:1.85;color:#1e293b;">{p}</p>'
+        for p in paragraphs
+    )
 
-        # Vis udkastet formateret
-        # Konverter markdown-lignende formatering til HTML
-        udkast_html = udkast_tekst
-        # Afsnitsoverskrifter
-        udkast_html = re.sub(
-            r'\*\*(Afsnit \d+[\.\d]*[^*]*|[^*]{3,60}:)\*\*',
-            lambda m: (
-                f'<div style="font-size:11.5px;font-weight:700;color:#2d6a4f;'
-                f'text-transform:uppercase;letter-spacing:1.8px;'
-                f'margin:2em 0 0.6em;padding:8px 14px;'
-                f'background:#f0fdf4;border-left:3px solid #2d6a4f;'
-                f'border-radius:0 5px 5px 0;">'
-                f'{m.group(1).rstrip(":")}</div>'
-            ),
-            udkast_html,
-        )
-        # [PLACEHOLDER]-markering
-        udkast_html = re.sub(
-            r'\[PLACEHOLDER:?\s*([^\]]*)\]',
-            r'<span style="background:#fef3c7;color:#92400e;padding:1px 6px;'
-            r'border-radius:3px;font-size:12.5px;font-weight:600;">'
-            r'[PLACEHOLDER: \1]</span>',
-            udkast_html,
-        )
-        # Linjeskift til afsnit
-        paragraphs = [p.strip() for p in udkast_html.split("\n") if p.strip()]
-        udkast_html = "".join(
-            p if p.startswith("<div") else
-            f'<p style="margin:0 0 1em;font-size:15px;line-height:1.85;color:#1e293b;">{p}</p>'
-            for p in paragraphs
-        )
+    st.markdown(
+        f'<div style="font-family:\'Inter\',system-ui,sans-serif;max-width:80ch;'
+        f'padding:2rem;background:#fffcf8;border:1px solid #ece6dc;'
+        f'border-radius:10px;margin-top:1rem;">'
+        f'{udkast_html}</div>',
+        unsafe_allow_html=True,
+    )
 
-        st.markdown(
-            f'<div style="font-family:\'Inter\',system-ui,sans-serif;max-width:80ch;'
-            f'padding:2rem;background:#fffcf8;border:1px solid #ece6dc;'
-            f'border-radius:10px;margin-top:1rem;">'
-            f'{udkast_html}</div>',
-            unsafe_allow_html=True,
-        )
+    st.markdown("---")
+    tab_præcedens, = st.tabs(["  Anvendte præcedensafgørelser  "])
 
     with tab_præcedens:
         præcedens = st.session_state.udkast_præcedens or []
