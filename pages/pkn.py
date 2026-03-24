@@ -319,7 +319,7 @@ def _saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
 
 def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     if not ANTHROPIC_API_KEY:
-        return "Tilføj GEMINI_API_KEY i Streamlit secrets."
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
         f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst']}"
         for i, d in enumerate(docs)
@@ -334,24 +334,31 @@ def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
         f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
         for i, d in enumerate(docs)
     )
-    prompt = f"""Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.
-
-VIGTIGE REGLER:
-1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.
-2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference. Eks: [Kilde 3] eller [Kilde 1, 2].
-3. Svar på dansk med overskrifter og afsnit.
-4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.
-
-KILDEREGISTER (brug disse numre i dine referencer):
-{kilde_liste}
-{samtale_blok}
-SPØRGSMÅL: {spørgsmål}
-
-AFGØRELSER:
-{kontekst}
-
-SVAR:"""
-    return _llm(prompt)
+    # Afgørelserne caches – samme dokumenter ved opfølgningsspørgsmål genbruger cachen
+    blocks = [
+        {
+            "type": "text",
+            "text": (
+                f"Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.\n\n"
+                f"VIGTIGE REGLER:\n"
+                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.\n"
+                f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference. Eks: [Kilde 3] eller [Kilde 1, 2].\n"
+                f"3. Svar på dansk med overskrifter og afsnit.\n"
+                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n\n"
+                f"KILDEREGISTER (brug disse numre i dine referencer):\n{kilde_liste}"
+            ),
+        },
+        {
+            "type": "text",
+            "text": f"\nAFGØRELSER:\n{kontekst}\n",
+            "cache_control": {"type": "ephemeral"},
+        },
+        {
+            "type": "text",
+            "text": f"{samtale_blok}SPØRGSMÅL: {spørgsmål}\n\nSVAR:",
+        },
+    ]
+    return _llm(blocks)
 
 
 def gemini_resumé(titel: str, tekst: str) -> str:

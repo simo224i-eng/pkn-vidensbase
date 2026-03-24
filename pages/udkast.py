@@ -5,9 +5,8 @@ if not st.session_state.get("_autentificeret_v2"):
     st.stop()
 
 import pandas as pd
-import requests
 import re
-from shared import logo, strip_html, extract_kommune
+from shared import logo, strip_html, extract_kommune, _llm
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -74,75 +73,52 @@ def _generer_udkast(klage: str, afgørelse: str, bemærkninger: str,
     if vejledning.strip():
         vejledning_blok = f"\nSKRIVEVEJLEDNING OG SKABELON FRA MFKN:\n{vejledning}\n"
 
-    prompt = f"""Du er juridisk sagsbehandler i Miljø- og Fødevareklagenævnet (MFKN).
-Din opgave er at skrive et fuldstændigt afgørelsesudkast i en sag om strandbeskyttelseslinjen (naturbeskyttelseslovens § 15).
-
-AFGØRELSENS FASTE STRUKTUR (følg denne nøje):
-
-**Indledende sætning:**
-"Miljø- og Fødevareklagenævnet har truffet afgørelse efter naturbeskyttelseslovens § 15, stk. 1, jf. § 65 b, stk. 1, jf. § 78, stk. 4."
-
-**Dispositiv (resultat):**
-Angiv tydeligt om nævnet stadfæster, ophæver eller ændrer Kystdirektoratets afgørelse – og hvad afgørelsen konkret går ud på.
-
-**Standardtekst om gebyr og endelig afgørelse:**
-"Det indbetalte klagegebyr tilbagebetales [ikke / ikke / ja afhængig af udfald]."
-"Miljø- og Fødevareklagenævnets afgørelse er endelig og kan ikke indbringes for anden administrativ myndighed, jf. § 17, stk. 1, i lov om Miljø- og Fødevareklagenævnet og gebyrbekendtgørelsens § 2, stk. 6. Eventuel retssag til prøvelse af afgørelsen skal være anlagt inden 6 måneder, jf. naturbeskyttelseslovens § 88, stk. 1."
-
-**Afsnit 1. Klagen til Miljø- og Fødevareklagenævnet**
-Hvem klagede, hvornår, og hvad er klagepunkterne.
-
-**Afsnit 2. Sagens oplysninger**
-2.1 Ejendommen og området (beliggenhed, zonestatus, karakteristik af ejendommen og omgivelser, afstand til kyst, evt. Natura 2000)
-2.2 Den påklagede afgørelse (hvad Kystdirektoratet har afgjort og begrundelsen herfor)
-2.3 Klagers bemærkninger (hvis der er supplerende bemærkninger)
-
-**Afsnit 3. Nævnets bemærkninger og afgørelse**
-- Redegørelse for retsgrundlaget (§ 15 og § 65 b – brug de standardformuleringer MFKN anvender)
-- Nævnets konkrete vurdering af sagen
-- Konklusion
-
-REGLER FOR UDKASTET:
-- Brug [PLACEHOLDER: beskrivelse] for oplysninger du mangler (fx [PLACEHOLDER: matrikelnummer], [PLACEHOLDER: præcis afstand til kyst])
-- Skriv præcist og juridisk korrekt dansk – følg MFKN's sproglige stil fra præcedensafgørelserne
-- Brug tredje person om klager ("klager har anført…")
-- Brug de standardformuleringer om retsgrundlaget som fremgår af præcedensafgørelserne
-{vejledning_blok}
-RELEVANTE PRÆCEDENSAFGØRELSER (brug disse som stilistisk og juridisk vejledning):
-{præcedens_blok}
-SAGSAKTER:
-
-**Klagen:**
-{klage}
-
-**Kystdirektoratets afgørelse:**
-{afgørelse}
-
-**Bemærkninger ved oversendelse:**
-{bemærkninger}
-
-**Øvrige bilag/bemærkninger:**
-{øvrige if øvrige.strip() else "(ingen)"}
-
-Skriv nu det fulde afgørelsesudkast:"""
-
-    r = requests.post(
-        "https://api.anthropic.com/v1/messages",
-        headers={
-            "x-api-key": ANTHROPIC_API_KEY,
-            "anthropic-version": "2023-06-01",
-            "Content-Type": "application/json",
+    # Præcedensafgørelserne caches – de er store og statiske pr. generering
+    blocks = [
+        {
+            "type": "text",
+            "text": (
+                "Du er juridisk sagsbehandler i Miljø- og Fødevareklagenævnet (MFKN).\n"
+                "Din opgave er at skrive et fuldstændigt afgørelsesudkast i en sag om strandbeskyttelseslinjen (naturbeskyttelseslovens § 15).\n\n"
+                "AFGØRELSENS FASTE STRUKTUR (følg denne nøje):\n\n"
+                '**Indledende sætning:**\n"Miljø- og Fødevareklagenævnet har truffet afgørelse efter naturbeskyttelseslovens § 15, stk. 1, jf. § 65 b, stk. 1, jf. § 78, stk. 4."\n\n'
+                "**Dispositiv (resultat):**\nAngiv tydeligt om nævnet stadfæster, ophæver eller ændrer Kystdirektoratets afgørelse – og hvad afgørelsen konkret går ud på.\n\n"
+                '**Standardtekst om gebyr og endelig afgørelse:**\n"Det indbetalte klagegebyr tilbagebetales [ikke / ikke / ja afhængig af udfald]."\n'
+                '"Miljø- og Fødevareklagenævnets afgørelse er endelig og kan ikke indbringes for anden administrativ myndighed, jf. § 17, stk. 1, i lov om Miljø- og Fødevareklagenævnet og gebyrbekendtgørelsens § 2, stk. 6. Eventuel retssag til prøvelse af afgørelsen skal være anlagt inden 6 måneder, jf. naturbeskyttelseslovens § 88, stk. 1."\n\n'
+                "**Afsnit 1. Klagen til Miljø- og Fødevareklagenævnet**\nHvem klagede, hvornår, og hvad er klagepunkterne.\n\n"
+                "**Afsnit 2. Sagens oplysninger**\n"
+                "2.1 Ejendommen og området (beliggenhed, zonestatus, karakteristik af ejendommen og omgivelser, afstand til kyst, evt. Natura 2000)\n"
+                "2.2 Den påklagede afgørelse (hvad Kystdirektoratet har afgjort og begrundelsen herfor)\n"
+                "2.3 Klagers bemærkninger (hvis der er supplerende bemærkninger)\n\n"
+                "**Afsnit 3. Nævnets bemærkninger og afgørelse**\n"
+                "- Redegørelse for retsgrundlaget (§ 15 og § 65 b – brug de standardformuleringer MFKN anvender)\n"
+                "- Nævnets konkrete vurdering af sagen\n- Konklusion\n\n"
+                "REGLER FOR UDKASTET:\n"
+                "- Brug [PLACEHOLDER: beskrivelse] for oplysninger du mangler (fx [PLACEHOLDER: matrikelnummer], [PLACEHOLDER: præcis afstand til kyst])\n"
+                "- Skriv præcist og juridisk korrekt dansk – følg MFKN's sproglige stil fra præcedensafgørelserne\n"
+                "- Brug tredje person om klager (\"klager har anført…\")\n"
+                "- Brug de standardformuleringer om retsgrundlaget som fremgår af præcedensafgørelserne\n"
+                f"{vejledning_blok}\n"
+                "RELEVANTE PRÆCEDENSAFGØRELSER (brug disse som stilistisk og juridisk vejledning):"
+            ),
         },
-        json={
-            "model": "claude-haiku-4-5-20251001",
-            "max_tokens": 4000,
-            "messages": [{"role": "user", "content": prompt}],
+        {
+            "type": "text",
+            "text": præcedens_blok,
+            "cache_control": {"type": "ephemeral"},
         },
-        timeout=120,
-    )
-    if not r.ok:
-        raise RuntimeError(f"{r.status_code} {r.reason}: {r.text}")
-    return r.json()["content"][0]["text"]
+        {
+            "type": "text",
+            "text": (
+                f"SAGSAKTER:\n\n**Klagen:**\n{klage}\n\n"
+                f"**Kystdirektoratets afgørelse:**\n{afgørelse}\n\n"
+                f"**Bemærkninger ved oversendelse:**\n{bemærkninger}\n\n"
+                f"**Øvrige bilag/bemærkninger:**\n{øvrige if øvrige.strip() else '(ingen)'}\n\n"
+                "Skriv nu det fulde afgørelsesudkast:"
+            ),
+        },
+    ]
+    return _llm(blocks, max_tokens=4000)
 
 
 # ── Indlæs data og indeks (genbrug fra mfkn_beskyttelseslinjer) ───────────────
