@@ -191,11 +191,8 @@ with st.form("klagepunkt_form"):
     forventet_udfald = st.selectbox(
         "Forventet udfald",
         [
-            "Kan ikke gives medhold",
-            "Gives medhold",
-            "Hjemvisning",
-            "Delvis medhold",
-            "Ikke fastlagt endnu",
+            "Ikke medhold",
+            "Medhold",
         ],
         key="forventet_udfald",
         help="Hvad er det aftalte udfald for dette klagepunkt?",

@@ -132,25 +132,16 @@ def generer_vurdering_afsnit(
 
     # Udfaldsinstruktion
     udfald_map = {
-        "Kan ikke gives medhold": (
+        "Ikke medhold": (
             "Vurderingen skal konkludere at Planklagenævnet IKKE kan give medhold i klagepunktet. "
             "Afslut med: 'Planklagenævnet kan på den baggrund ikke give medhold i klagepunktet.'"
         ),
-        "Gives medhold": (
+        "Medhold": (
             "Vurderingen skal konkludere at Planklagenævnet giver medhold i klagepunktet. "
             "Afslut med: 'Planklagenævnet giver på den baggrund medhold i klagepunktet.'"
         ),
-        "Hjemvisning": (
-            "Vurderingen skal konkludere at sagen hjemvises til kommunen til fornyet behandling."
-        ),
-        "Delvis medhold": (
-            "Vurderingen skal konkludere at Planklagenævnet giver delvis medhold i klagepunktet."
-        ),
-        "Ikke fastlagt endnu": (
-            "Vurder selv ud fra sagens oplysninger og præcedensafgørelserne hvad det korrekte udfald er."
-        ),
     }
-    udfald_instruktion = udfald_map.get(forventet_udfald, udfald_map["Ikke fastlagt endnu"])
+    udfald_instruktion = udfald_map.get(forventet_udfald, udfald_map["Ikke medhold"])
 
     noter_blok = ""
     if interne_noter.strip():
