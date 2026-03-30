@@ -4,3 +4,5 @@ pkn_planloven_landzone.csv
 __pycache__/
 __MACOSX/
 *.pyc
+.streamlit/secrets.toml
+pkn_udkast/.streamlit/secrets.toml

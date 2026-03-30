@@ -23,11 +23,27 @@ def strip_html(text: str) -> str:
     return _html.unescape(re.sub(r"<[^>]+>", " ", str(text)))
 
 
+def _er_realitetsbehandlet_miljørapport(titel: str, tekst_ren: str) -> bool:
+    """Filtrer til kun realitetsbehandlede miljørapport-sager."""
+    t = titel.lower()
+    txt = tekst_ren.lower()
+    # Skal omhandle miljørapport (ikke screening)
+    is_miljørapport = "miljørapport" in t or ("miljøvurdering" in t and "screening" not in t)
+    # Skal have en faktisk vurdering
+    has_vurdering = "planklagenævnets vurdering" in txt
+    # Ikke afvisninger eller opsættende virkning
+    not_afvist = "afviser klagen" not in txt and "afvisning" not in t
+    not_opsættende = "opsættende virkning" not in t
+    return is_miljørapport and has_vurdering and not_afvist and not_opsættende
+
+
 @st.cache_data(show_spinner=False)
 def load_data() -> pd.DataFrame:
-    """Indlæs PKN miljøvurderingsafgørelser."""
+    """Indlæs kun realitetsbehandlede PKN miljørapport-afgørelser."""
     df = pd.read_csv(_DATA_PATH)
     df["Tekst_ren"] = df["Tekst"].apply(strip_html)
+    mask = df.apply(lambda r: _er_realitetsbehandlet_miljørapport(r["Titel"], r["Tekst_ren"]), axis=1)
+    df = df[mask].reset_index(drop=True)
     return df
 
 
