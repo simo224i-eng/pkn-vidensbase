@@ -205,8 +205,21 @@ def generer_vurdering_afsnit(
                 f"'KLAGEN'-AFSNITTET (allerede skrevet – brug dette som grundlag for vurderingen):\n{klage_udkast}\n\n"
                 f"{kommune_blok}"
                 f"{noter_blok}\n"
-                "Skriv nu 'Planklagenævnets vurdering'-afsnittet:"
+                "Skriv nu 'Planklagenævnets vurdering'-afsnittet.\n\n"
+                "Når du er færdig med selve vurderingsafsnittet, skriv derefter:\n"
+                "===NOTER===\n"
+                "Og tilføj en kort intern note (3-8 punkter) med:\n"
+                "- Hvilke præcedensafgørelser du primært har brugt og hvorfor\n"
+                "- Hvilke konkrete formuleringer du har lånt fra præcedensafgørelserne\n"
+                "- Kort ræsonnement for hvorfor du nåede det givne resultat\n"
+                "- Eventuelle usikkerheder eller ting sagsbehandleren bør dobbelttjekke"
             ),
         },
     ]
-    return _call_claude(api_key, model, blocks, max_tokens=3000)
+    raw = _call_claude(api_key, model, blocks, max_tokens=3500)
+
+    # Split vurdering og noter
+    if "===NOTER===" in raw:
+        vurdering, noter = raw.split("===NOTER===", 1)
+        return vurdering.strip(), noter.strip()
+    return raw.strip(), ""

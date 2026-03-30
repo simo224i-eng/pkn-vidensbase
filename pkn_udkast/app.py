@@ -283,7 +283,7 @@ if generer:
 
         # Generer Vurdering
         with st.spinner("Skriver 'Planklagenævnets vurdering'-afsnittet..."):
-            vurdering_udkast = generer_vurdering_afsnit(
+            vurdering_udkast, ai_noter = generer_vurdering_afsnit(
                 api_key=ANTHROPIC_API_KEY,
                 model=model_valg,
                 emne=emne,
@@ -302,6 +302,7 @@ if generer:
             "emne": emne,
             "klage": klage_udkast,
             "vurdering": vurdering_udkast,
+            "ai_noter": ai_noter,
         })
 
 
@@ -313,23 +314,24 @@ if st.session_state.resultater:
     for i, r in enumerate(reversed(st.session_state.resultater)):
         idx = len(st.session_state.resultater) - i
         with st.expander(f"Klagepunkt {idx}: {r['emne']}", expanded=(i == 0)):
-            tab_klage, tab_vurdering, tab_samlet = st.tabs([
-                "Klagen", "Planklagenævnets vurdering", "Samlet"
-            ])
+            tabs = ["Klagen", "Planklagenævnets vurdering", "Samlet"]
+            if r.get("ai_noter"):
+                tabs.append("AI-noter (intern)")
+            tab_objects = st.tabs(tabs)
 
-            with tab_klage:
+            with tab_objects[0]:
                 st.markdown(
                     f'<div class="udkast-box">{_format_udkast(r["klage"])}</div>',
                     unsafe_allow_html=True,
                 )
 
-            with tab_vurdering:
+            with tab_objects[1]:
                 st.markdown(
                     f'<div class="udkast-box">{_format_udkast(r["vurdering"])}</div>',
                     unsafe_allow_html=True,
                 )
 
-            with tab_samlet:
+            with tab_objects[2]:
                 samlet = f"**Klagen**\n\n{r['klage']}\n\n**Planklagenævnets vurdering**\n\n{r['vurdering']}"
                 st.download_button(
                     label="Download samlet (.txt)",
@@ -345,6 +347,15 @@ if st.session_state.resultater:
                     f'</div>',
                     unsafe_allow_html=True,
                 )
+
+            if r.get("ai_noter") and len(tab_objects) > 3:
+                with tab_objects[3]:
+                    st.markdown(
+                        f'<div style="background:#f8f5f0;border:1px solid #e0dbd4;'
+                        f'border-radius:8px;padding:1.5rem;font-size:14px;line-height:1.8;'
+                        f'color:#4a4a4a;">{_format_udkast(r["ai_noter"])}</div>',
+                        unsafe_allow_html=True,
+                    )
 
     # Vis præcedens
     if st.session_state.præcedens_cache:
