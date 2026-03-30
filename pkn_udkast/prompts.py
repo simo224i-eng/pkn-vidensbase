@@ -19,9 +19,15 @@ def _call_claude(api_key: str, model: str, blocks: list, max_tokens: int = 2500)
     headers = {
         "x-api-key": api_key,
         "anthropic-version": "2023-06-01",
-        "anthropic-beta": "prompt-caching-2024-07-31",
         "Content-Type": "application/json",
     }
+    # Prompt caching kræver beta-header
+    use_cache = any(
+        isinstance(b, dict) and "cache_control" in b for b in blocks
+    )
+    if use_cache:
+        headers["anthropic-beta"] = "prompt-caching-2024-07-31"
+
     r = requests.post(
         "https://api.anthropic.com/v1/messages",
         headers=headers,
@@ -33,7 +39,12 @@ def _call_claude(api_key: str, model: str, blocks: list, max_tokens: int = 2500)
         timeout=120,
     )
     if not r.ok:
-        raise RuntimeError(f"{r.status_code} {r.reason}: {r.text}")
+        # Vis brugbar fejlbesked
+        try:
+            err = r.json().get("error", {}).get("message", r.text)
+        except Exception:
+            err = r.text
+        raise RuntimeError(f"API-fejl ({r.status_code}): {err}")
     return r.json()["content"][0]["text"]
 
 
