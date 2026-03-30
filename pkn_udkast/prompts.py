@@ -117,6 +117,8 @@ def generer_vurdering_afsnit(
     sags_kontekst: str,
     plan_type: str,
     præcedens: list,
+    forventet_udfald: str = "Ikke fastlagt endnu",
+    interne_noter: str = "",
 ) -> str:
     """Generer 'Planklagenævnets vurdering'-afsnittet for et klagepunkt."""
 
@@ -127,6 +129,35 @@ def generer_vurdering_afsnit(
         kommune_blok += f"\nKOMMUNENS AFGØRELSE / MILJØRAPPORTENS KONKLUSIONER:\n{kommunens_afgørelse}\n"
     if kommunens_bemærkninger.strip():
         kommune_blok += f"\nKOMMUNENS BEMÆRKNINGER TIL KLAGEPUNKTET:\n{kommunens_bemærkninger}\n"
+
+    # Udfaldsinstruktion
+    udfald_map = {
+        "Kan ikke gives medhold": (
+            "Vurderingen skal konkludere at Planklagenævnet IKKE kan give medhold i klagepunktet. "
+            "Afslut med: 'Planklagenævnet kan på den baggrund ikke give medhold i klagepunktet.'"
+        ),
+        "Gives medhold": (
+            "Vurderingen skal konkludere at Planklagenævnet giver medhold i klagepunktet. "
+            "Afslut med: 'Planklagenævnet giver på den baggrund medhold i klagepunktet.'"
+        ),
+        "Hjemvisning": (
+            "Vurderingen skal konkludere at sagen hjemvises til kommunen til fornyet behandling."
+        ),
+        "Delvis medhold": (
+            "Vurderingen skal konkludere at Planklagenævnet giver delvis medhold i klagepunktet."
+        ),
+        "Ikke fastlagt endnu": (
+            "Vurder selv ud fra sagens oplysninger og præcedensafgørelserne hvad det korrekte udfald er."
+        ),
+    }
+    udfald_instruktion = udfald_map.get(forventet_udfald, udfald_map["Ikke fastlagt endnu"])
+
+    noter_blok = ""
+    if interne_noter.strip():
+        noter_blok = (
+            f"\nSAGSBEHANDLERENS NOTER (interne instruktioner til vurderingen – følg disse):\n"
+            f"{interne_noter}\n"
+        )
 
     blocks = [
         {
@@ -140,12 +171,13 @@ def generer_vurdering_afsnit(
                 "- Start typisk med at opsummere hvad klageren har anført (1-2 sætninger)\n"
                 "- Redegør derefter for det relevante retsgrundlag (brug standardformuleringer fra præcedensafgørelserne)\n"
                 "- Foretag den konkrete vurdering baseret på sagens oplysninger\n"
-                "- Afslut med en klar konklusion: 'Planklagenævnet kan [ikke] give medhold i klagepunktet'\n"
+                "- Afslut med en klar konklusion\n"
                 "- Brug PKN's sproglige stil og juridiske formuleringer som de fremgår af præcedensafgørelserne\n"
                 "- Henvis til konkrete lovbestemmelser (miljøvurderingsloven, planloven etc.)\n"
                 "- Brug [VERIFICER: beskrivelse] for faktuelle oplysninger du er usikker på\n"
                 "- Skriv KUN vurderingsafsnittet – ingen overskrift\n"
                 "- Vær juridisk præcis – brug de EKSAKTE standardformuleringer fra præcedensafgørelserne\n\n"
+                f"FORVENTET UDFALD: {udfald_instruktion}\n\n"
                 f"PLANTYPE: {plan_type}\n\n"
                 "PRÆCEDENSAFGØRELSER (brug disse som stilistisk og juridisk vejledning – "
                 "kopier de standardformuleringer om retsgrundlaget som nævnet typisk anvender):"
@@ -162,7 +194,8 @@ def generer_vurdering_afsnit(
                 f"SAGSKONTEKST:\n{sags_kontekst}\n\n"
                 f"KLAGEPUNKTETS EMNE: {emne}\n\n"
                 f"'KLAGEN'-AFSNITTET (allerede skrevet – brug dette som grundlag for vurderingen):\n{klage_udkast}\n\n"
-                f"{kommune_blok}\n"
+                f"{kommune_blok}"
+                f"{noter_blok}\n"
                 "Skriv nu 'Planklagenævnets vurdering'-afsnittet:"
             ),
         },

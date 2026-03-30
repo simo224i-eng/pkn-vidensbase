@@ -182,6 +182,38 @@ with st.form("klagepunkt_form"):
         key="kommune_bem_input",
     )
 
+    st.markdown(
+        '<p style="font-size:12px;font-weight:600;color:#1e3a5f;margin:0.8em 0 0.3em;'
+        'text-transform:uppercase;letter-spacing:1px;">Interne bemærkninger</p>',
+        unsafe_allow_html=True,
+    )
+
+    forventet_udfald = st.selectbox(
+        "Forventet udfald",
+        [
+            "Kan ikke gives medhold",
+            "Gives medhold",
+            "Hjemvisning",
+            "Delvis medhold",
+            "Ikke fastlagt endnu",
+        ],
+        key="forventet_udfald",
+        help="Hvad er det aftalte udfald for dette klagepunkt?",
+    )
+
+    interne_noter = st.text_area(
+        "Dine noter / instruktioner til vurderingen",
+        height=140,
+        placeholder=(
+            "Stikord eller noter til hvad vurderingen skal lægge vægt på, fx:\n"
+            "- Kommunen har tilstrækkeligt belyst grundvandsforhold\n"
+            "- Henvis til miljørapportens afsnit 14.3\n"
+            "- Lægge vægt på at planen ikke ændrer arealanvendelsen\n"
+            "- Screening var tilstrækkelig jf. bilag 3-kriterierne"
+        ),
+        key="interne_noter_input",
+    )
+
     col1, col2 = st.columns([3, 1])
     with col1:
         generer = st.form_submit_button(
@@ -242,6 +274,8 @@ if generer:
                 sags_kontekst=sags_kontekst,
                 plan_type=plan_type,
                 præcedens=præcedens,
+                forventet_udfald=forventet_udfald,
+                interne_noter=interne_noter,
             )
 
         # Gem resultat
