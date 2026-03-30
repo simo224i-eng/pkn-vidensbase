@@ -48,19 +48,72 @@ def _call_claude(api_key: str, model: str, blocks: list, max_tokens: int = 2500)
     return r.json()["content"][0]["text"]
 
 
+def _udtræk_klagen_vurdering(tekst_raw: str) -> str:
+    """Udtræk kun Klagen + Planklagenævnets vurdering sektionerne fra en afgørelse.
+
+    Returnerer de relevante sektioner i stedet for begyndelsen af teksten
+    (som typisk bare er 'Sagens oplysninger' og er ubrugelig som præcedens).
+    """
+    import re as _re
+    import html as _html
+
+    heading_pattern = r'<h[234][^>]*>(.*?)</h[234]>'
+    matches = list(_re.finditer(heading_pattern, tekst_raw, _re.IGNORECASE))
+
+    if not matches:
+        # Fallback: ingen headings fundet, returner ren tekst
+        return strip_html(tekst_raw)
+
+    relevante_sektioner = []
+    for i, m in enumerate(matches):
+        title = _html.unescape(_re.sub(r'<[^>]+>', '', m.group())).strip().lower()
+
+        # Udtræk sektioner der er Klagen eller Planklagenævnets vurdering
+        # "Klagen" men IKKE "Planklagenævnets" (som også indeholder "klagen")
+        is_klage = (
+            _re.search(r'\bklagen\b', title) is not None
+            and 'planklagenævnet' not in title
+            and 'kompetence' not in title
+        )
+        is_vurdering = 'planklagenævnets vurdering' in title
+
+        is_emne_sektion = False  # Kun Klagen + Vurdering - ikke generelle afsnit
+
+        if is_klage or is_vurdering or is_emne_sektion:
+            start = m.start()
+            end = matches[i + 1].start() if i + 1 < len(matches) else len(tekst_raw)
+            section = tekst_raw[start:end]
+            clean = _html.unescape(_re.sub(r'<[^>]+>', ' ', section))
+            clean = _re.sub(r'\s+', ' ', clean).strip()
+            if len(clean) > 30:
+                relevante_sektioner.append(clean)
+
+    if relevante_sektioner:
+        samlet = "\n\n".join(relevante_sektioner)
+        return samlet
+    else:
+        # Fallback: returner ren tekst
+        return strip_html(tekst_raw)
+
+
 def _byg_præcedens_blok(præcedens: list) -> str:
-    """Byg præcedenstekst fra relevante afgørelser."""
+    """Byg præcedenstekst fra relevante afgørelser.
+
+    Udtrækker kun Klagen + Planklagenævnets vurdering sektionerne
+    i stedet for begyndelsen af teksten.
+    """
     blok = ""
     for i, p in enumerate(præcedens):
         try:
             dato = pd.Timestamp(p["Dato"]).strftime("%d.%m.%Y")
         except Exception:
             dato = "–"
-        tekst = strip_html(p.get("Tekst", ""))
-        # Brug op til 4000 tegn per præcedens for at give tilstrækkelig kontekst
+        tekst_raw = p.get("Tekst", "")
+        relevante = _udtræk_klagen_vurdering(tekst_raw)
+        # Op til 6000 tegn per præcedens (nu er det rent Klagen+Vurdering, ikke filler)
         blok += (
             f"\n[Præcedens {i+1}] {dato} – {p['Titel']}\n"
-            f"{tekst[:4000]}\n"
+            f"{relevante[:6000]}\n"
             "---\n"
         )
     return blok
