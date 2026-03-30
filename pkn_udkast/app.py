@@ -16,6 +16,24 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Login ────────────────────────────────────────────────────────────────────
+if not st.session_state.get("_authenticated"):
+    st.markdown(
+        '<div style="max-width:400px;margin:4rem auto;text-align:center;">'
+        '<h2 style="color:#1a1a2e;">PKN Udkastgenerator</h2>'
+        '<p style="color:#64748b;font-size:14px;">Indtast adgangskode for at fortsætte</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    pwd = st.text_input("Adgangskode", type="password", key="login_pwd")
+    if pwd:
+        if pwd == st.secrets.get("APP_PASSWORD", "Ugv73uwz"):
+            st.session_state["_authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Forkert adgangskode.")
+    st.stop()
+
 from data import load_data, build_index, find_relevante_sager
 from prompts import generer_klage_afsnit, generer_vurdering_afsnit
 
