@@ -19,19 +19,39 @@ _DATA_PATH = os.environ.get(
 
 # ── Emnekategorier til emnespecifik matching ─────────────────────────────────
 EMNE_KATEGORIER = {
-    "Natura 2000": ["natura 2000", "habitatområde", "fuglebeskyttelsesområde", "habitatdirektivet"],
-    "Bilag IV-arter": ["bilag iv", "bilag iv-art", "flagermus", "vandsalamander", "springfrø", "markfirben", "økologisk funktionalitet"],
-    "Grundvand": ["grundvand", "drikkevandsinteresser", "osd", "indvindingsopland", "grundvandsredegørelse", "nitratfølsom"],
-    "Støj": ["støj", "støjniveau", "støjgrænse", "støjudbredelse", "støjvold", "db"],
-    "Trafik": ["trafik", "trafikbelastning", "trafikale", "vejkapacitet", "trafiksikkerhed"],
-    "§3-natur": ["§ 3", "beskyttet natur", "naturbeskyttelseslov", "beskyttede naturtyper"],
+    # Natur og arter
+    "Natura 2000": ["natura 2000", "habitatområde", "fuglebeskyttelsesområde", "habitatdirektivet", "konsekvensvurdering", "lokalitetens integritet"],
+    "Bilag IV-arter": ["bilag iv", "bilag iv-art", "flagermus", "vandsalamander", "springfrø", "markfirben", "odder", "økologisk funktionalitet"],
+    "§3-natur": ["§ 3", "beskyttet natur", "naturbeskyttelseslov", "beskyttede naturtyper", "biodiversitet"],
+    "Fugle og dyreliv": ["fugle", "dyreliv", "ynglefugle", "fuglebeskyttelse", "påvirkning af dyr"],
+    # Vand
+    "Grundvand": ["grundvand", "drikkevandsinteresser", "osd", "indvindingsopland", "grundvandsredegørelse", "nitratfølsom", "grundvandssænkning"],
+    "Overfladevand": ["overfladevand", "vandløb", "vandrammedirektivet", "recipientvand", "udledning af overfladevand"],
+    # Nabogener
+    "Støj": ["støj", "støjniveau", "støjgrænse", "støjudbredelse", "støjvold", "vindmøllestøj", "trafikstøj", "virksomhedsstøj", "støjbekendtgørelsen"],
+    "Skyggekast": ["skyggekast", "skyggegener", "skygge"],
+    "Indbliksgener": ["indblik", "indbliksgener", "indsigtsgener", "lysforhold"],
+    "Lugt": ["lugt", "lugtgener", "lugtemission"],
+    # Trafik og infrastruktur
+    "Trafik": ["trafik", "trafikbelastning", "trafikale", "vejkapacitet", "trafiksikkerhed", "parkeringsforhold", "adgangsvej"],
+    # Landskab og kulturarv
     "Landskab": ["landskab", "visuel", "landskabelig", "landskabspåvirkning"],
     "Kulturarv": ["kulturarv", "kulturhistorisk", "kulturmiljø", "arkæologisk", "bevaringsværdi"],
+    # Miljø og sundhed
     "Klima": ["klima", "co2", "klimatilpasning", "drivhusgas", "oversvømmelse"],
+    "Jordforurening": ["jordforurening", "forurenet jord", "forureningsundersøgelse", "jord- og grundvandsforurening"],
+    "Menneskers sundhed": ["menneskers sundhed", "sundhedsmæssig", "sundhedseffekt"],
+    "Materielle goder": ["materielle goder", "ejendomsværdi", "værdiforringelse"],
+    # Procesuelle emner
+    "Alternativer": ["alternativ", "alternative placeringer", "0-alternativ", "nulalternativ"],
+    "Afgrænsning af miljørapport": ["afgrænsning", "afgrænsningsfasen", "scoping", "omfanget af en miljøvurdering"],
     "Kumulative effekter": ["kumulativ", "kumulative", "samspilseffekt"],
-    "Overfladevand": ["overfladevand", "vandløb", "vandrammedirektivet", "recipientvand"],
-    "Ændringer ved endelig vedtagelse": ["ændringer ved den endelige vedtagelse", "§ 27, stk. 2", "fornyet høring"],
+    "Overvågning": ["overvågning", "overvågningsprogram"],
+    "Ændringer ved endelig vedtagelse": ["ændringer ved den endelige vedtagelse", "§ 27, stk. 2", "fornyet høring", "fornyet offentliggørelse"],
     "Screening vs. miljørapport": ["screeningsafgørelse", "screening", "obligatorisk miljøvurdering", "bilag 3"],
+    "Inhabilitet": ["inhabilitet", "inhabili", "forvaltningslovens § 3"],
+    "Høring og offentlighed": ["høring", "offentlig høring", "partshøring", "offentlighedsfasen", "inddragelse af offentligheden"],
+    "Rekreative interesser": ["rekreativ", "rekreative interesser", "friluftsliv"],
 }
 
 
