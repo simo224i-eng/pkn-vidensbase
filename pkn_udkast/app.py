@@ -122,9 +122,13 @@ with st.sidebar:
 
     model_valg = st.selectbox(
         "AI-model",
-        ["claude-sonnet-4-20250514", "claude-haiku-4-5-20251001"],
+        ["claude-sonnet-4-20250514", "claude-opus-4-20250514", "claude-haiku-4-5-20251001"],
         key="model_valg",
-        help="Sonnet: bedre kvalitet (~0,70 DKK/klagepunkt). Haiku: billigere (~0,07 DKK/klagepunkt).",
+        help=(
+            "Sonnet: god kvalitet, hurtig (~1 DKK/klagepunkt). "
+            "Opus: bedst til komplekse vurderinger (~8 DKK/klagepunkt). "
+            "Haiku: billigst (~0,10 DKK/klagepunkt)."
+        ),
     )
 
     st.markdown("---")
