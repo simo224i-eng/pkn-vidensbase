@@ -17,17 +17,18 @@ st.set_page_config(
 )
 
 # ── Login ────────────────────────────────────────────────────────────────────
+_KORREKT_KODE = "Ugv73uwz"
+try:
+    _KORREKT_KODE = st.secrets.get("APP_PASSWORD", _KORREKT_KODE)
+except Exception:
+    pass
+
 if not st.session_state.get("_authenticated"):
-    st.markdown(
-        '<div style="max-width:400px;margin:4rem auto;text-align:center;">'
-        '<h2 style="color:#1a1a2e;">PKN Udkastgenerator</h2>'
-        '<p style="color:#64748b;font-size:14px;">Indtast adgangskode for at fortsætte</p>'
-        '</div>',
-        unsafe_allow_html=True,
-    )
+    st.title("PKN Udkastgenerator")
+    st.caption("Indtast adgangskode for at fortsætte")
     pwd = st.text_input("Adgangskode", type="password", key="login_pwd")
     if pwd:
-        if pwd == st.secrets.get("APP_PASSWORD", "Ugv73uwz"):
+        if pwd == _KORREKT_KODE:
             st.session_state["_authenticated"] = True
             st.rerun()
         else:
@@ -92,7 +93,10 @@ body, [data-testid="stAppViewContainer"] { font-family: 'Inter', system-ui, sans
 }
 </style>
 """
-st.markdown(_CSS, unsafe_allow_html=True)
+try:
+    st.html(_CSS)
+except AttributeError:
+    st.markdown(_CSS, unsafe_allow_html=True)
 
 
 # ── Session state ────────────────────────────────────────────────────────────
