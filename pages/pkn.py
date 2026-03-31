@@ -321,9 +321,8 @@ def _saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
 def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    # Begræns hver afgørelse til max 8000 tegn for at undgå token-overskridelse
     kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:8000]}"
+        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst']}"
         for i, d in enumerate(docs)
     )
     historik_tekst = ""
