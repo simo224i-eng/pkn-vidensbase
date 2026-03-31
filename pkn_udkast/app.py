@@ -12,8 +12,8 @@ import streamlit as st
 st.set_page_config(
     page_title="PKN Udkast – Miljøvurdering",
     page_icon="",
-    layout="wide",
-    initial_sidebar_state="expanded",
+    layout="centered",
+    initial_sidebar_state="collapsed",
 )
 
 # ── Login ────────────────────────────────────────────────────────────────────
@@ -56,26 +56,14 @@ _CSS = """
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 header[data-testid="stHeader"] { display: none !important; }
-[data-testid="stMain"] .block-container { padding-top: 1.5rem !important; max-width: 900px; }
-
+[data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
 body, [data-testid="stAppViewContainer"] { font-family: 'Inter', system-ui, sans-serif; }
-
-/* Sidebar */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #1a2744 0%, #0f1b33 100%) !important;
-}
-[data-testid="stSidebar"] * { color: #94a3b8 !important; font-family: 'Inter', sans-serif !important; }
-[data-testid="stSidebar"] .stTextArea textarea,
-[data-testid="stSidebar"] .stTextInput input {
-    background: #1e293b !important; border: 1px solid #334155 !important;
-    color: #e2e8f0 !important; border-radius: 5px !important; font-size: 13px !important;
-}
-[data-testid="stSidebar"] hr { border-color: #1e293b !important; }
+[data-testid="stSidebar"] { display: none !important; }
 
 /* Resultat-boks */
 .udkast-box {
     font-family: 'Inter', system-ui, sans-serif;
-    max-width: 80ch; padding: 2rem;
+    padding: 2rem;
     background: #fffcf8; border: 1px solid #e0dbd4;
     border-radius: 10px; margin-top: 1rem;
 }
@@ -91,6 +79,12 @@ body, [data-testid="stAppViewContainer"] { font-family: 'Inter', system-ui, sans
     background: #fef3c7; color: #92400e; padding: 1px 6px;
     border-radius: 3px; font-size: 12.5px; font-weight: 600;
 }
+.section-label {
+    font-size: 11px; font-weight: 700; color: #1e3a5f;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin: 2rem 0 0.5rem; padding-bottom: 0.3rem;
+    border-bottom: 2px solid #eef3fa;
+}
 </style>
 """
 try:
@@ -101,65 +95,14 @@ except AttributeError:
 
 # ── Session state ────────────────────────────────────────────────────────────
 if "resultater" not in st.session_state:
-    st.session_state.resultater = []  # list of {"klagepunkt": str, "klage": str, "vurdering": str}
+    st.session_state.resultater = []
 if "præcedens_cache" not in st.session_state:
     st.session_state.præcedens_cache = []
 
 
-# ── Sidebar: Sagskontekst ───────────────────────────────────────────────────
-with st.sidebar:
-    st.markdown("### Sagskontekst")
-    st.caption(
-        "Udfyld nedenstående en gang pr. sag. "
-        "Denne information bruges som kontekst for alle klagepunkter."
-    )
-
-    plan_type = st.selectbox(
-        "Plantype",
-        ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Lokalplan + Kommuneplantillæg"],
-        key="plan_type",
-    )
-
-    sags_kontekst = st.text_area(
-        "Sagsbeskrivelse",
-        height=160,
-        placeholder=(
-            "Kort beskrivelse af sagen: Hvilken kommune, hvilken plan, "
-            "hvad muliggør planen, hvem klager, og hvad er det overordnede tema..."
-        ),
-        key="sags_kontekst",
-    )
-
-    kommunens_afgørelse = st.text_area(
-        "Kommunens afgørelse / miljørapportens konklusioner",
-        height=160,
-        placeholder=(
-            "Paste relevante dele af kommunens afgørelse eller "
-            "miljørapportens konklusioner her..."
-        ),
-        key="kommunens_afgørelse",
-    )
-
-    st.markdown("---")
-
-    model_valg = st.selectbox(
-        "AI-model",
-        ["claude-sonnet-4-6", "claude-opus-4-6", "claude-haiku-4-5-20251001"],
-        key="model_valg",
-        help=(
-            "Sonnet: god kvalitet, hurtig (~1 DKK/klagepunkt). "
-            "Opus: bedst til komplekse vurderinger (~8 DKK/klagepunkt). "
-            "Haiku: billigst (~0,10 DKK/klagepunkt)."
-        ),
-    )
-
-    st.markdown("---")
-    st.caption("Udkast er kun til intern brug og skal altid gennemgås kritisk.")
-
-
 # ── Page header ──────────────────────────────────────────────────────────────
 st.markdown("""
-<div style="margin-bottom: 2rem;">
+<div style="margin-bottom: 1.5rem;">
   <h1 style="font-size: 28px; font-weight: 700; color: #1a1a2e; margin: 0;">
     PKN Udkastgenerator
   </h1>
@@ -169,8 +112,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-# ── Hovedformular: Et klagepunkt ────────────────────────────────────────────
 st.markdown(
     '<div style="background:#eef3fa;border-left:3px solid #1e3a5f;border-radius:0 8px 8px 0;'
     'padding:14px 18px;margin-bottom:1.5rem;font-size:13.5px;color:#1a2744;line-height:1.65;">'
@@ -180,7 +121,55 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
+# ── Formular: Alt i ét flow ──────────────────────────────────────────────────
 with st.form("klagepunkt_form"):
+
+    # ── Sagskontekst ─────────────────────────────────────────────────────
+    st.markdown('<div class="section-label">Sagskontekst</div>', unsafe_allow_html=True)
+
+    col_plan, col_model = st.columns([2, 1])
+    with col_plan:
+        plan_type = st.selectbox(
+            "Plantype",
+            ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Lokalplan + Kommuneplantillæg"],
+            key="plan_type",
+        )
+    with col_model:
+        model_valg = st.selectbox(
+            "AI-model",
+            ["claude-sonnet-4-6", "claude-opus-4-6", "claude-haiku-4-5-20251001"],
+            key="model_valg",
+            help=(
+                "Sonnet: god kvalitet, hurtig (~1 DKK/klagepunkt). "
+                "Opus: bedst til komplekse vurderinger (~8 DKK/klagepunkt). "
+                "Haiku: billigst (~0,10 DKK/klagepunkt)."
+            ),
+        )
+
+    sags_kontekst = st.text_area(
+        "Sagsbeskrivelse",
+        height=120,
+        placeholder=(
+            "Kort beskrivelse af sagen: Hvilken kommune, hvilken plan, "
+            "hvad muliggør planen, hvem klager, og hvad er det overordnede tema..."
+        ),
+        key="sags_kontekst",
+    )
+
+    kommunens_afgørelse = st.text_area(
+        "Kommunens afgørelse / miljørapportens konklusioner",
+        height=120,
+        placeholder=(
+            "Paste relevante dele af kommunens afgørelse eller "
+            "miljørapportens konklusioner her..."
+        ),
+        key="kommunens_afgørelse",
+    )
+
+    # ── Klagepunktet ─────────────────────────────────────────────────────
+    st.markdown('<div class="section-label">Klagepunktet</div>', unsafe_allow_html=True)
+
     emne = st.text_input(
         "Klagepunktets emne",
         placeholder="F.eks. 'Påvirkning af Natura 2000-område' eller 'Manglende grundvandsredegørelse'",
@@ -188,10 +177,10 @@ with st.form("klagepunkt_form"):
     )
 
     klage_tekst = st.text_area(
-        "Klagers anbringender (rå tekst)",
-        height=220,
+        "Klagerens anbringender (rå tekst)",
+        height=200,
         placeholder=(
-            "Paste den relevante del af klagen her – hvad anfører klager? "
+            "Paste den relevante del af klagen her – hvad anfører klageren? "
             "Det behøver ikke være i PKN-stil, det konverterer systemet..."
         ),
         key="klage_input",
@@ -199,51 +188,45 @@ with st.form("klagepunkt_form"):
 
     kommunens_bemærkninger = st.text_area(
         "Kommunens bemærkninger til klagepunktet (valgfrit)",
-        height=120,
+        height=100,
         placeholder="Evt. kommunens svar/bemærkninger til dette specifikke klagepunkt...",
         key="kommune_bem_input",
     )
 
-    st.markdown(
-        '<p style="font-size:12px;font-weight:600;color:#1e3a5f;margin:0.8em 0 0.3em;'
-        'text-transform:uppercase;letter-spacing:1px;">Interne bemærkninger</p>',
-        unsafe_allow_html=True,
-    )
+    # ── Interne bemærkninger ─────────────────────────────────────────────
+    st.markdown('<div class="section-label">Interne bemærkninger</div>', unsafe_allow_html=True)
 
-    forventet_udfald = st.selectbox(
-        "Forventet udfald",
-        [
-            "Ikke medhold",
-            "Medhold",
-        ],
-        key="forventet_udfald",
-        help="Hvad er det aftalte udfald for dette klagepunkt?",
-    )
+    col_udfald, col_præcedens = st.columns([2, 1])
+    with col_udfald:
+        forventet_udfald = st.selectbox(
+            "Forventet udfald",
+            ["Ikke medhold", "Medhold"],
+            key="forventet_udfald",
+            help="Hvad er det aftalte udfald for dette klagepunkt?",
+        )
+    with col_præcedens:
+        antal_præcedens = st.number_input(
+            "Præcedenssager", min_value=1, max_value=10, value=5, key="antal_præcedens"
+        )
 
     interne_noter = st.text_area(
         "Dine noter / instruktioner til vurderingen",
-        height=140,
+        height=120,
         placeholder=(
             "Stikord eller noter til hvad vurderingen skal lægge vægt på, fx:\n"
             "- Kommunen har tilstrækkeligt belyst grundvandsforhold\n"
             "- Henvis til miljørapportens afsnit 14.3\n"
-            "- Lægge vægt på at planen ikke ændrer arealanvendelsen\n"
-            "- Screening var tilstrækkelig jf. bilag 3-kriterierne"
+            "- Lægge vægt på at planen ikke ændrer arealanvendelsen"
         ),
         key="interne_noter_input",
     )
 
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        generer = st.form_submit_button(
-            "Generer udkast for dette klagepunkt",
-            use_container_width=True,
-            type="primary",
-        )
-    with col2:
-        antal_præcedens = st.number_input(
-            "Præcedenssager", min_value=1, max_value=10, value=5, key="antal_præcedens"
-        )
+    # ── Submit ───────────────────────────────────────────────────────────
+    generer = st.form_submit_button(
+        "Generer udkast for dette klagepunkt",
+        use_container_width=True,
+        type="primary",
+    )
 
 
 # ── Generer ──────────────────────────────────────────────────────────────────
@@ -251,25 +234,22 @@ ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
 if generer:
     if not klage_tekst.strip():
-        st.warning("Indsæt klagers anbringender.")
+        st.warning("Indsæt klagerens anbringender.")
     elif not ANTHROPIC_API_KEY:
         st.error("Tilføj ANTHROPIC_API_KEY i Streamlit secrets.")
     elif not sags_kontekst.strip():
-        st.warning("Udfyld sagskontekst i sidepanelet.")
+        st.warning("Udfyld sagsbeskrivelsen.")
     else:
-        # Indlæs data
         with st.spinner("Indlæser PKN-afgørelser..."):
             df = load_data()
             vec, mat = build_index(df)
 
-        # Find præcedens
         with st.spinner("Finder relevante præcedensafgørelser..."):
             query = f"{emne} {klage_tekst[:1000]}"
             præcedens_df = find_relevante_sager(query, df, vec, mat, top_n=antal_præcedens)
             præcedens = præcedens_df.to_dict("records")
             st.session_state.præcedens_cache = præcedens
 
-        # Generer Klagen
         with st.spinner("Skriver 'Klagen'-afsnittet..."):
             klage_udkast = generer_klage_afsnit(
                 api_key=ANTHROPIC_API_KEY,
@@ -281,7 +261,6 @@ if generer:
                 præcedens=præcedens,
             )
 
-        # Generer Vurdering
         with st.spinner("Skriver 'Planklagenævnets vurdering'-afsnittet..."):
             vurdering_udkast, ai_noter = generer_vurdering_afsnit(
                 api_key=ANTHROPIC_API_KEY,
@@ -297,7 +276,6 @@ if generer:
                 interne_noter=interne_noter,
             )
 
-        # Gem resultat
         st.session_state.resultater.append({
             "emne": emne,
             "klage": klage_udkast,
@@ -309,55 +287,46 @@ if generer:
 # ── Vis resultater ───────────────────────────────────────────────────────────
 if st.session_state.resultater:
     st.markdown("---")
-    st.markdown("## Genererede afsnit")
 
     for i, r in enumerate(reversed(st.session_state.resultater)):
         idx = len(st.session_state.resultater) - i
         with st.expander(f"Klagepunkt {idx}: {r['emne']}", expanded=(i == 0)):
-            tabs = ["Klagen", "Planklagenævnets vurdering", "Samlet"]
+
+            # Klagen
+            st.markdown('<div class="udkast-section">Klagen</div>', unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="udkast-box">{_format_udkast(r["klage"])}</div>',
+                unsafe_allow_html=True,
+            )
+
+            # Vurdering
+            st.markdown('<div class="udkast-section">Planklagenævnets vurdering</div>', unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="udkast-box">{_format_udkast(r["vurdering"])}</div>',
+                unsafe_allow_html=True,
+            )
+
+            # AI-noter
             if r.get("ai_noter"):
-                tabs.append("AI-noter (intern)")
-            tab_objects = st.tabs(tabs)
-
-            with tab_objects[0]:
+                st.markdown('<div class="udkast-section">AI-noter (intern)</div>', unsafe_allow_html=True)
                 st.markdown(
-                    f'<div class="udkast-box">{_format_udkast(r["klage"])}</div>',
+                    f'<div style="background:#f8f5f0;border:1px solid #e0dbd4;'
+                    f'border-radius:8px;padding:1.5rem;font-size:14px;line-height:1.8;'
+                    f'color:#4a4a4a;">{_format_udkast(r["ai_noter"])}</div>',
                     unsafe_allow_html=True,
                 )
 
-            with tab_objects[1]:
-                st.markdown(
-                    f'<div class="udkast-box">{_format_udkast(r["vurdering"])}</div>',
-                    unsafe_allow_html=True,
-                )
+            # Download
+            samlet = f"Klagen\n\n{r['klage']}\n\nPlanklagenævnets vurdering\n\n{r['vurdering']}"
+            st.download_button(
+                label="Download samlet (.txt)",
+                data=samlet.encode("utf-8"),
+                file_name=f"klagepunkt_{idx}_{r['emne'][:30]}.txt",
+                mime="text/plain",
+                key=f"download_{idx}",
+            )
 
-            with tab_objects[2]:
-                samlet = f"**Klagen**\n\n{r['klage']}\n\n**Planklagenævnets vurdering**\n\n{r['vurdering']}"
-                st.download_button(
-                    label="Download samlet (.txt)",
-                    data=samlet.encode("utf-8"),
-                    file_name=f"klagepunkt_{idx}_{r['emne'][:30]}.txt",
-                    mime="text/plain",
-                    key=f"download_{idx}",
-                )
-                st.markdown(
-                    f'<div class="udkast-box">'
-                    f'<div class="udkast-section">Klagen</div>{_format_udkast(r["klage"])}'
-                    f'<div class="udkast-section">Planklagenævnets vurdering</div>{_format_udkast(r["vurdering"])}'
-                    f'</div>',
-                    unsafe_allow_html=True,
-                )
-
-            if r.get("ai_noter") and len(tab_objects) > 3:
-                with tab_objects[3]:
-                    st.markdown(
-                        f'<div style="background:#f8f5f0;border:1px solid #e0dbd4;'
-                        f'border-radius:8px;padding:1.5rem;font-size:14px;line-height:1.8;'
-                        f'color:#4a4a4a;">{_format_udkast(r["ai_noter"])}</div>',
-                        unsafe_allow_html=True,
-                    )
-
-    # Vis præcedens
+    # Præcedens
     if st.session_state.præcedens_cache:
         with st.expander("Anvendte præcedensafgørelser"):
             for j, p in enumerate(st.session_state.præcedens_cache):
@@ -368,10 +337,9 @@ if st.session_state.resultater:
                     unsafe_allow_html=True,
                 )
 
-    # Ryd-knap
     if st.button("Ryd alle resultater"):
         st.session_state.resultater = []
         st.session_state.præcedens_cache = []
         st.rerun()
 
-
+st.caption("Udkast er kun til intern brug og skal altid gennemgås kritisk.")
