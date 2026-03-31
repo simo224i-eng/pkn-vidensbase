@@ -465,7 +465,7 @@ def _llm(prompt, max_tokens: int = 2000) -> str:
         "https://api.anthropic.com/v1/messages",
         headers=headers,
         json={
-            "model": "claude-haiku-4-5-20251001",
+            "model": "claude-sonnet-4-6",
             "max_tokens": max_tokens,
             "messages": [{"role": "user", "content": content}],
         },
