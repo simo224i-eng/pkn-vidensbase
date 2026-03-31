@@ -272,7 +272,7 @@ def load_data(version: int = 22):  # bump version to bust cache
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int):
     from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data(17)
+    df2 = load_data()
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
@@ -318,12 +318,55 @@ def _saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
     return merged[:max_total]
 
 
-def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
+def _udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
+    """Udtræk Klagen + Vurdering/Afgørelse fra en afgørelse – springer 'Sagens oplysninger' over."""
+    # Heading-markers fra strip_html(preserve_headings=True)
+    sektioner = re.split(r'\n(#{2,3} .+)', tekst)
+
+    # Byg sektions-liste: [(heading, indhold), ...]
+    dele = []
+    for i, del_ in enumerate(sektioner):
+        if del_.startswith('## ') or del_.startswith('### '):
+            indhold = sektioner[i + 1] if i + 1 < len(sektioner) else ""
+            dele.append((del_.lstrip('#').strip().lower(), indhold.strip()))
+
+    # Prioriterede sektioner (vigtigst først)
+    prioritet = [
+        "klagen",
+        "planklagenævnets bemærkninger og afgørelse",
+        "nævnets bemærkninger og afgørelse",
+        "nævnets vurdering",
+        "retlig vurdering",
+        "begrundelse for afgørelsen",
+        "begrundelse",
+        "afgørelse",
+        "nævnets bemærkninger",
+        "afsluttende bemærkninger",
+        "konklusion",
+    ]
+
+    udtræk = []
+    brugt = 0
+    for prio in prioritet:
+        for heading, indhold in dele:
+            if prio in heading and indhold:
+                tekst_del = f"[{heading.upper()}]\n{indhold}"
+                if brugt + len(tekst_del) <= max_tegn:
+                    udtræk.append(tekst_del)
+                    brugt += len(tekst_del)
+
+    if udtræk:
+        return "\n\n".join(udtræk)
+    # Fallback: brug de sidste 8000 tegn (vurdering er typisk i slutningen)
+    return tekst[-max_tegn:]
+
+
+def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    # Begræns hver afgørelse til max 8000 tegn for at undgå token-overskridelse
+    # Udtræk kun relevante sektioner (Klagen + Vurdering) i stedet for rå tekst
     kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{d['Tekst'][:8000]}"
+        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{_udtræk_kerneafsnit(d['Tekst'])}"
         for i, d in enumerate(docs)
     )
     historik_tekst = ""
@@ -363,14 +406,15 @@ def gemini_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     return _llm(blocks)
 
 
-def gemini_resumé(titel: str, tekst: str) -> str:
+def claude_resumé(titel: str, tekst: str) -> str:
     if not ANTHROPIC_API_KEY:
         return "Ingen API-nøgle."
+    kerneafsnit = _udtræk_kerneafsnit(tekst, max_tegn=6000)
     prompt = f"""Lav et kort, struktureret resumé af denne PKN-afgørelse på dansk.
 Inkluder: Sagens kerne, Klagenævnets vurdering, Resultat. Max 200 ord.
 
 TITEL: {titel}
-TEKST: {tekst[:3000]}
+TEKST: {kerneafsnit}
 
 RESUMÉ:"""
     return _llm(prompt)
@@ -411,7 +455,7 @@ if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       =
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
-df       = load_data(16)
+df       = load_data()
 vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -622,7 +666,7 @@ with tab_søg:
             if st.button("Generer resumé →", key="gen_resume_btn"):
                 with st.spinner("Analyserer…"):
                     try:
-                        st.session_state._resumé = gemini_resumé(row["Titel"], row["Tekst"])
+                        st.session_state._resumé = claude_resumé(row["Titel"], row["Tekst"])
                     except Exception as e:
                         st.session_state._resumé = f"Fejl: {e}"
             if "_resumé" in st.session_state:
@@ -843,9 +887,9 @@ with tab_ai:
                     hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=12)
                     alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
                     try:
-                        svar = gemini_svar(f, alle_kilder, historik=st.session_state.chat_historik)
+                        svar = claude_svar(f, alle_kilder, historik=st.session_state.chat_historik)
                     except Exception as e:
-                        svar = f"Fejl ved Gemini API: {e}"
+                        svar = f"Fejl ved AI Assistent: {e}"
                 st.session_state.chat_historik.append(
                     {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
                 st.rerun()
@@ -990,9 +1034,9 @@ with tab_ai:
                 hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=ai_sub_idx, top_n=12)
                 alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
                 try:
-                    svar = gemini_svar(spørgsmål, alle_kilder, historik=st.session_state.chat_historik)
+                    svar = claude_svar(spørgsmål, alle_kilder, historik=st.session_state.chat_historik)
                 except Exception as e:
-                    svar = f"Fejl ved Gemini API: {e}"
+                    svar = f"Fejl ved AI Assistent: {e}"
             st.session_state.chat_historik.append(
                 {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
             st.rerun()
