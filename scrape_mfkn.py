@@ -51,10 +51,77 @@ def hent_kategorier(session: requests.Session, headers: dict) -> list[dict]:
             print(f"Serverfejl ({r.status_code}). Tjek din cookie.")
             return []
         data = r.json()
-        return data.get("categoryCounts", [])
+        kategorier = data.get("categoryCounts", [])
     except Exception as e:
         print(f"Fejl ved hentning af kategorier: {e}")
         return []
+
+    # Tjek om API'et allerede inkluderer id
+    if kategorier and "id" in kategorier[0]:
+        return kategorier
+
+    # Prøv at hente ID'er fra sitesettings
+    id_map = {}
+    try:
+        r2 = session.get(f"{BASE_URL}/api/sitesettings", headers=headers, timeout=15)
+        if r2.status_code == 200:
+            settings = r2.json() if r2.headers.get("content-type", "").startswith("application/json") else {}
+            # Søg rekursivt efter kategori-objekter med id + title/name
+            def find_cats(obj):
+                if isinstance(obj, dict):
+                    if ("id" in obj and isinstance(obj.get("id"), str)
+                            and len(obj["id"]) > 30):
+                        name = obj.get("title") or obj.get("name") or obj.get("category", "")
+                        if name:
+                            id_map[name] = obj["id"]
+                    for v in obj.values():
+                        find_cats(v)
+                elif isinstance(obj, list):
+                    for v in obj:
+                        find_cats(v)
+            find_cats(settings)
+    except Exception:
+        pass
+
+    # Prøv at hente ID'er fra publikationer
+    if not id_map:
+        try:
+            payload2 = {
+                "categories": [],
+                "query": "",
+                "sort": "Descending",
+                "types": [],
+                "skip": 0,
+                "size": 100,
+            }
+            r3 = session.post(API_URL, headers=headers, json=payload2, timeout=20)
+            if r3.status_code == 200:
+                pubs = r3.json().get("publications", [])
+                for pub in pubs:
+                    cats = pub.get("categories", [])
+                    if isinstance(cats, list):
+                        for c in cats:
+                            if isinstance(c, dict) and "id" in c:
+                                name = c.get("title") or c.get("name", "")
+                                if name:
+                                    id_map[name] = c["id"]
+                    # Prøv også enkelt kategori-felt
+                    cat = pub.get("category")
+                    if isinstance(cat, dict) and "id" in cat:
+                        name = cat.get("title") or cat.get("name", "")
+                        if name:
+                            id_map[name] = cat["id"]
+                print(f"Fandt {len(id_map)} kategori-ID'er fra publikationer")
+        except Exception:
+            pass
+
+    # Tilknyt ID'er til kategorier
+    for k in kategorier:
+        navn = k["category"]
+        if navn in id_map:
+            k["id"] = id_map[navn]
+
+    return kategorier
 
 
 def load_existing_csv(path: Path) -> set[str]:
