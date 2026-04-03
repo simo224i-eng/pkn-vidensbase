@@ -83,8 +83,34 @@ def fetch_full_text(url: str, session: requests.Session) -> str:
         return ""
 
 
+def hent_kategori_ids(session: requests.Session, headers: dict) -> dict[str, str]:
+    """Hent kategori-ID'er ved at scrape søgesiden."""
+    id_map = {}
+    try:
+        r = session.get(f"{BASE_URL}/soeg?s=&types=ruling", timeout=15,
+                        headers={"User-Agent": headers["User-Agent"],
+                                 "Cookie": headers.get("Cookie", "")})
+        r.raise_for_status()
+        # ID'erne er i URL-parametre og script-tags som JSON
+        # Prøv at finde dem i JSON-data embedded i siden
+        matches = re.findall(
+            r'"id"\s*:\s*"([0-9a-f-]{36})"\s*,\s*"(?:title|name|category)"\s*:\s*"([^"]+)"',
+            r.text)
+        for cat_id, cat_title in matches:
+            id_map[cat_title] = cat_id
+        # Alternativt: find dem fra URL-parametre i links
+        if not id_map:
+            url_matches = re.findall(
+                r'categories=([0-9a-f-]{36})[^"]*"[^>]*>([^<]+)<', r.text)
+            for cat_id, cat_title in url_matches:
+                id_map[cat_title.strip()] = cat_id
+    except Exception as e:
+        print(f"Advarsel: Kunne ikke hente kategori-ID'er fra siden: {e}")
+    return id_map
+
+
 def hent_kategorier(session: requests.Session, headers: dict) -> list[dict]:
-    """Hent alle tilgængelige kategorier fra MFKN API."""
+    """Hent alle tilgængelige kategorier fra MFKN API inkl. ID'er."""
     payload = {
         "query": "",
         "types": ["ruling"],
@@ -97,16 +123,38 @@ def hent_kategorier(session: requests.Session, headers: dict) -> list[dict]:
         r = session.post(API_URL, json=payload, headers=headers, timeout=15)
         r.raise_for_status()
         data = r.json()
-        return data.get("categoryCounts", [])
+        kategorier = data.get("categoryCounts", [])
     except Exception as e:
         print(f"Fejl ved hentning af kategorier: {e}")
         return []
+
+    # Tjek om API'et allerede inkluderer id-feltet
+    if kategorier and "id" in kategorier[0]:
+        return kategorier
+
+    # Ellers: hent ID'er fra søgesiden og tilknyt
+    id_map = hent_kategori_ids(session, headers)
+    for k in kategorier:
+        navn = k["category"]
+        if navn in id_map:
+            k["id"] = id_map[navn]
+        else:
+            # Prøv delvis match
+            match = next((v for n, v in id_map.items()
+                          if navn.lower() in n.lower() or n.lower() in navn.lower()), None)
+            if match:
+                k["id"] = match
+    return kategorier
 
 
 def search_kategori(session: requests.Session, kategori_obj: dict,
                     headers: dict) -> list[dict]:
     """Hent alle afgørelser for én kategori fra søge-API'et."""
     kategori_navn = kategori_obj["category"]
+    if "id" not in kategori_obj:
+        print(f"ADVARSEL: Ingen ID fundet for '{kategori_navn}' – springer over.")
+        print(f"  Tilgængelige nøgler: {list(kategori_obj.keys())}")
+        return []
     cat_filter = [{"id": kategori_obj["id"], "title": kategori_navn}]
     results = []
     skip = 0
