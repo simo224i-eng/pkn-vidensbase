@@ -84,28 +84,76 @@ def fetch_full_text(url: str, session: requests.Session) -> str:
 
 
 def hent_kategori_ids(session: requests.Session, headers: dict) -> dict[str, str]:
-    """Hent kategori-ID'er ved at scrape søgesiden."""
+    """Hent kategori-ID'er – prøver flere endpoints."""
+    req_headers = {"User-Agent": headers["User-Agent"],
+                   "Cookie": headers.get("Cookie", "")}
+
+    # 1. Prøv dedikeret categories-API
+    for endpoint in ["/api/categories", "/api/lawcategories",
+                     "/api/search/categories", "/api/facets"]:
+        try:
+            r = session.get(f"{BASE_URL}{endpoint}", timeout=10, headers=req_headers)
+            if r.status_code == 200:
+                data = r.json()
+                id_map = {}
+                items = data if isinstance(data, list) else data.get("items", data.get("categories", []))
+                for item in items:
+                    if isinstance(item, dict) and "id" in item:
+                        name = item.get("title") or item.get("name") or item.get("category", "")
+                        if name:
+                            id_map[name] = item["id"]
+                if id_map:
+                    return id_map
+        except Exception:
+            pass
+
+    # 2. Prøv søgesiden – kig efter __NEXT_DATA__ eller JSON-blobs med UUIDs
     id_map = {}
     try:
-        r = session.get(f"{BASE_URL}/soeg?s=&types=ruling", timeout=15,
-                        headers={"User-Agent": headers["User-Agent"],
-                                 "Cookie": headers.get("Cookie", "")})
+        r = session.get(f"{BASE_URL}/soeg", timeout=15, headers=req_headers)
         r.raise_for_status()
-        # ID'erne er i URL-parametre og script-tags som JSON
-        # Prøv at finde dem i JSON-data embedded i siden
-        matches = re.findall(
-            r'"id"\s*:\s*"([0-9a-f-]{36})"\s*,\s*"(?:title|name|category)"\s*:\s*"([^"]+)"',
-            r.text)
-        for cat_id, cat_title in matches:
-            id_map[cat_title] = cat_id
-        # Alternativt: find dem fra URL-parametre i links
+        html = r.text
+
+        # Next.js: __NEXT_DATA__
+        m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.+?)</script>', html, re.DOTALL)
+        if m:
+            try:
+                nd = json.loads(m.group(1))
+                # Søg rekursivt efter objekter med id (UUID) og title/category
+                def find_ids(obj, result):
+                    if isinstance(obj, dict):
+                        if ("id" in obj and isinstance(obj["id"], str) and
+                                re.match(r"[0-9a-f-]{36}", obj["id"])):
+                            name = obj.get("title") or obj.get("name") or obj.get("category", "")
+                            if name:
+                                result[name] = obj["id"]
+                        for v in obj.values():
+                            find_ids(v, result)
+                    elif isinstance(obj, list):
+                        for v in obj:
+                            find_ids(v, result)
+                find_ids(nd, id_map)
+            except Exception:
+                pass
+
+        # Generel UUID-søgning i JSON-blobs
         if not id_map:
-            url_matches = re.findall(
-                r'categories=([0-9a-f-]{36})[^"]*"[^>]*>([^<]+)<', r.text)
-            for cat_id, cat_title in url_matches:
+            for blob in re.findall(r'\{[^{}]{10,5000}\}', html):
+                for cat_id, cat_title in re.findall(
+                        r'"id"\s*:\s*"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"'
+                        r'.*?"(?:title|name|category)"\s*:\s*"([^"]{3,60})"', blob):
+                    id_map[cat_title] = cat_id
+
+        # URL-parametre i links: categories=UUID
+        if not id_map:
+            for cat_id, cat_title in re.findall(
+                    r'categories=([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})[^>]*?>([^<]{3,60})<',
+                    html):
                 id_map[cat_title.strip()] = cat_id
+
     except Exception as e:
-        print(f"Advarsel: Kunne ikke hente kategori-ID'er fra siden: {e}")
+        print(f"Advarsel: Kunne ikke hente kategori-ID'er: {e}")
+
     return id_map
 
 
@@ -311,6 +359,8 @@ def main():
                         help="Vis tilgængelige kategorier og afslut")
     parser.add_argument("--cookie", default="",
                         help="MY_SESSION=... cookie fra browser (påkrævet)")
+    parser.add_argument("--debug-ids", action="store_true",
+                        help="Dump side-HTML og API-svar for at finde kategori-ID'er")
     args = parser.parse_args()
 
     if not args.cookie and not args.list:
@@ -354,6 +404,25 @@ def main():
 
         if args.list:
             return
+
+    if args.debug_ids:
+        req_h = {"User-Agent": headers["User-Agent"], "Cookie": headers.get("Cookie", "")}
+        for endpoint in ["/api/categories", "/api/lawcategories",
+                         "/api/search/categories", "/api/facets", "/soeg"]:
+            try:
+                r = session.get(f"{BASE_URL}{endpoint}", timeout=15, headers=req_h)
+                print(f"\n--- GET {endpoint} → {r.status_code} ({len(r.text)} bytes) ---")
+                # Print alle UUID'er fundet i svaret
+                uuids = re.findall(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+                                   r.text)
+                print(f"  UUID'er fundet: {len(set(uuids))}")
+                if uuids:
+                    print(f"  Første 5: {list(set(uuids))[:5]}")
+                # Print første 500 tegn
+                print(f"  Første 500 tegn: {r.text[:500]}")
+            except Exception as e:
+                print(f"  Fejl: {e}")
+        return
 
     if args.alle:
         kategorier = hent_kategorier(session, headers)
