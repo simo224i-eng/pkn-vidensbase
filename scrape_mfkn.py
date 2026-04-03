@@ -90,6 +90,7 @@ def hent_kategorier(session: requests.Session, headers: dict) -> list[dict]:
         "types": ["ruling"],
         "skip": 0,
         "size": 1,
+        "sort": "Score",
         "categories": [],
     }
     try:
@@ -102,9 +103,11 @@ def hent_kategorier(session: requests.Session, headers: dict) -> list[dict]:
         return []
 
 
-def search_kategori(session: requests.Session, kategori_navn: str,
+def search_kategori(session: requests.Session, kategori_obj: dict,
                     headers: dict) -> list[dict]:
     """Hent alle afgørelser for én kategori fra søge-API'et."""
+    kategori_navn = kategori_obj["category"]
+    cat_filter = [{"id": kategori_obj["id"], "title": kategori_navn}]
     results = []
     skip = 0
 
@@ -114,7 +117,8 @@ def search_kategori(session: requests.Session, kategori_navn: str,
         "types": ["ruling"],
         "skip": 0,
         "size": 1,
-        "categories": [kategori_navn],
+        "sort": "Score",
+        "categories": cat_filter,
     }
     try:
         r = session.post(API_URL, json=payload, headers=headers, timeout=15)
@@ -133,7 +137,8 @@ def search_kategori(session: requests.Session, kategori_navn: str,
             "types": ["ruling"],
             "skip": skip,
             "size": PAGE_SIZE,
-            "categories": [kategori_navn],
+            "sort": "Score",
+            "categories": cat_filter,
         }
         try:
             r = session.post(API_URL, json=payload, headers=headers, timeout=15)
@@ -195,9 +200,10 @@ def append_to_csv(path: Path, rows: list[dict]) -> None:
         writer.writerows(rows)
 
 
-def scrape_kategori(session: requests.Session, kategori_navn: str,
+def scrape_kategori(session: requests.Session, kategori_obj: dict,
                     headers: dict) -> None:
     """Scrape én kategori: hent liste + fuld tekst, gem til CSV."""
+    kategori_navn = kategori_obj["category"]
     csv_path = Path(csv_filnavn(kategori_navn))
     print(f"\n{'='*60}")
     print(f"Kategori: {kategori_navn}")
@@ -205,7 +211,7 @@ def scrape_kategori(session: requests.Session, kategori_navn: str,
     print(f"{'='*60}")
 
     # 1. Hent alle afgørelser for kategorien
-    alle = search_kategori(session, kategori_navn, headers)
+    alle = search_kategori(session, kategori_obj, headers)
 
     # 2. Sammenlign med eksisterende CSV
     eksisterende = load_existing_csv(csv_path)
@@ -304,11 +310,18 @@ def main():
     if args.alle:
         kategorier = hent_kategorier(session, headers)
         for k in sorted(kategorier, key=lambda x: x["count"], reverse=True):
-            scrape_kategori(session, k["category"], headers)
+            scrape_kategori(session, k, headers)
         print("\n\nALLE KATEGORIER FÆRDIGE!")
         print("Husk at zippe CSV-filerne og uploade til repo'et.")
     elif args.kategori:
-        scrape_kategori(session, args.kategori, headers)
+        # Find kategori-objektet med id
+        kategorier = hent_kategorier(session, headers)
+        kat_obj = next((k for k in kategorier
+                        if k["category"].lower() == args.kategori.lower()), None)
+        if not kat_obj:
+            print(f"FEJL: Kategorien '{args.kategori}' blev ikke fundet.")
+            sys.exit(1)
+        scrape_kategori(session, kat_obj, headers)
         print("\nHusk at zippe CSV-filen og uploade til repo'et.")
     else:
         print("\nBrug --kategori 'Navn' eller --alle for at starte scraping.")
