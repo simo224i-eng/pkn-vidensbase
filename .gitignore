@@ -5,3 +5,4 @@ pkn_planloven_landzone.csv
 __pycache__/
 __MACOSX/
 *.pyc
+mfkn_*.csv
