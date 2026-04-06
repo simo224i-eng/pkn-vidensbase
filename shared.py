@@ -443,15 +443,14 @@ def render_detail_header(
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
-def _llm(prompt, max_tokens: int = 2000) -> str:
-    """Send en prompt til Claude.
-    prompt kan være en str eller en liste af content-blokke (til prompt caching).
-    """
+import time as _time
+import json as _json
+
+
+def _api_headers(use_cache: bool = False) -> dict:
     key = st.secrets.get("ANTHROPIC_API_KEY", "")
     if not key:
-        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
-
-    use_cache = isinstance(prompt, list)
+        return {}
     headers = {
         "x-api-key": key,
         "anthropic-version": "2023-06-01",
@@ -459,21 +458,117 @@ def _llm(prompt, max_tokens: int = 2000) -> str:
     }
     if use_cache:
         headers["anthropic-beta"] = "prompt-caching-2024-07-31"
+    return headers
 
-    content = prompt if use_cache else prompt
-    r = requests.post(
-        "https://api.anthropic.com/v1/messages",
-        headers=headers,
-        json={
-            "model": "claude-sonnet-4-6",
-            "max_tokens": max_tokens,
-            "messages": [{"role": "user", "content": content}],
-        },
-        timeout=90,
-    )
-    if not r.ok:
-        raise RuntimeError(f"{r.status_code} {r.reason}: {r.text}")
-    return r.json()["content"][0]["text"]
+
+def _api_body(prompt, max_tokens: int, stream: bool = False) -> dict:
+    body = {
+        "model": "claude-sonnet-4-6",
+        "max_tokens": max_tokens,
+        "messages": [{"role": "user", "content": prompt}],
+    }
+    if stream:
+        body["stream"] = True
+    return body
+
+
+def _llm(prompt, max_tokens: int = 2000) -> str:
+    """Send en prompt til Claude (blokerende, med retry).
+    prompt kan være en str eller en liste af content-blokke (til prompt caching).
+    """
+    key = st.secrets.get("ANTHROPIC_API_KEY", "")
+    if not key:
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
+
+    use_cache = isinstance(prompt, list)
+    headers = _api_headers(use_cache)
+    body = _api_body(prompt, max_tokens)
+
+    last_err = None
+    for attempt in range(3):
+        try:
+            r = requests.post(
+                "https://api.anthropic.com/v1/messages",
+                headers=headers,
+                json=body,
+                timeout=300,
+            )
+            if r.status_code == 529 or r.status_code >= 500:
+                # Overloaded / server error → retry
+                last_err = f"{r.status_code} {r.reason}: {r.text[:300]}"
+                _time.sleep(2 ** attempt)
+                continue
+            if not r.ok:
+                raise RuntimeError(f"{r.status_code} {r.reason}: {r.text[:500]}")
+            return r.json()["content"][0]["text"]
+        except requests.exceptions.Timeout:
+            last_err = "Timeout – serveren svarede ikke inden for 5 minutter."
+            _time.sleep(2 ** attempt)
+        except requests.exceptions.ConnectionError:
+            last_err = "Netværksfejl – kunne ikke nå API'et."
+            _time.sleep(2 ** attempt)
+    raise RuntimeError(last_err or "Ukendt fejl efter 3 forsøg.")
+
+
+def _llm_stream(prompt, max_tokens: int = 2000, placeholder=None):
+    """Stream svar fra Claude direkte ind i en Streamlit-placeholder.
+    Returnerer den samlede tekst. Hvis placeholder=None, falder tilbage til _llm().
+    prompt kan være en str eller en liste af content-blokke.
+    """
+    if placeholder is None:
+        return _llm(prompt, max_tokens)
+
+    key = st.secrets.get("ANTHROPIC_API_KEY", "")
+    if not key:
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
+
+    use_cache = isinstance(prompt, list)
+    headers = _api_headers(use_cache)
+    body = _api_body(prompt, max_tokens, stream=True)
+
+    last_err = None
+    for attempt in range(3):
+        try:
+            r = requests.post(
+                "https://api.anthropic.com/v1/messages",
+                headers=headers,
+                json=body,
+                timeout=300,
+                stream=True,
+            )
+            if r.status_code == 529 or r.status_code >= 500:
+                last_err = f"{r.status_code} {r.reason}"
+                _time.sleep(2 ** attempt)
+                continue
+            if not r.ok:
+                raise RuntimeError(f"{r.status_code} {r.reason}: {r.text[:500]}")
+
+            full_text = ""
+            for line in r.iter_lines(decode_unicode=True):
+                if not line or not line.startswith("data: "):
+                    continue
+                data_str = line[6:]
+                if data_str.strip() == "[DONE]":
+                    break
+                try:
+                    evt = _json.loads(data_str)
+                except _json.JSONDecodeError:
+                    continue
+                if evt.get("type") == "content_block_delta":
+                    delta = evt.get("delta", {})
+                    chunk = delta.get("text", "")
+                    if chunk:
+                        full_text += chunk
+                        placeholder.markdown(full_text + "▌")
+            placeholder.markdown(full_text)
+            return full_text
+        except requests.exceptions.Timeout:
+            last_err = "Timeout – serveren svarede ikke inden for 5 minutter."
+            _time.sleep(2 ** attempt)
+        except requests.exceptions.ConnectionError:
+            last_err = "Netværksfejl – kunne ikke nå API'et."
+            _time.sleep(2 ** attempt)
+    raise RuntimeError(last_err or "Ukendt fejl efter 3 forsøg.")
 
 
 # ── Delte hjælpefunktioner ────────────────────────────────────────────────────
