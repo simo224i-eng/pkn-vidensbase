@@ -1,0 +1,702 @@
+import streamlit as st
+
+if not st.session_state.get("_autentificeret_v2"):
+    st.switch_page("app.py")
+    st.stop()
+
+import pandas as pd
+import re
+import csv
+import zipfile
+import os
+import glob as _glob
+import numpy as np
+import plotly.express as px
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from shared import logo, _llm, _llm_stream, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header
+
+ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_TMP  = "/tmp/pkn_data"
+os.makedirs(_TMP, exist_ok=True)
+
+# ── Kategori-register ────────────────────────────────────────────────────────
+_KATEGORI_REGISTER = {
+    "mfkn_nbl_beskyttelseslinier":    {"navn": "Beskyttelseslinjer",       "farve": "#2d6a4f"},
+    "mfkn_beskyttede_naturtyper":     {"navn": "Beskyttede naturtyper",    "farve": "#0e7490"},
+    "mfkn_miljoebeskyttelsesloven":   {"navn": "Miljoebeskyttelsesloven",  "farve": "#166534"},
+    "mfkn_husdyrbrugloven":           {"navn": "Husdyrbrugloven",          "farve": "#92400e"},
+    "mfkn_foedevarer":                {"navn": "Foedevarer",               "farve": "#7c3aed"},
+    "mfkn_vandforsyningsloven":       {"navn": "Vandforsyningsloven",      "farve": "#1e40af"},
+    "mfkn_vandloebsloven":            {"navn": "Vandloebsloven",           "farve": "#0369a1"},
+    "mfkn_landbrugsstoette":          {"navn": "Landbrugsstoette",         "farve": "#854d0e"},
+    "mfkn_projektstoette":            {"navn": "Projektstoette",           "farve": "#6b21a8"},
+    "mfkn_miljoevurdering_af_konkrete_projekter": {"navn": "Miljoevurdering (projekter)", "farve": "#065f46"},
+}
+
+def _find_kategorier():
+    """Scan repo root for mfkn_*.csv and mfkn_*.csv.zip files."""
+    filer = _glob.glob(os.path.join(_ROOT, "mfkn_*.csv")) + _glob.glob(os.path.join(_ROOT, "mfkn_*.csv.zip"))
+    kats = {}
+    for f in sorted(set(filer)):
+        stem = os.path.basename(f).replace(".csv.zip", "").replace(".csv", "")
+        if stem in kats:
+            continue
+        reg = _KATEGORI_REGISTER.get(stem, {})
+        navn = reg.get("navn", stem.replace("mfkn_", "").replace("_", " ").title())
+        farve = reg.get("farve", "#2d6a4f")
+        kats[stem] = {"navn": navn, "farve": farve, "stem": stem}
+    return kats
+
+
+# ── Hjelpefunktioner ─────────────────────────────────────────────────────────
+def detect_udfald(titel):
+    t = titel.lower()
+    if any(k in t for k in ("hjemvisning","hjemvises","hjemvist")): return "Hjemvist"
+    if any(k in t for k in ("ophaevelse","ophævet")): return "Ophævet"
+    if "aendring" in t or "ændring" in t: return "Ændring"
+    if any(k in t for k in ("afvisning","afvises","afvist")): return "Afvist"
+    if any(k in t for k in ("stadfaestelse","stadfæstes","stadfæstelse")): return "Stadfæstelse"
+    if "afslag" in t: return "Afslag"
+    return "Ukendt"
+
+def detect_sagstype(titel):
+    t = titel.lower()
+    if "genoptagelse" in t: return "Genoptagelse"
+    if "opsaettende virkning" in t or "opsættende virkning" in t: return "Opsættende virkning"
+    if any(k in t for k in ("afvisning","afvises")): return "Afvisning"
+    if "registrering" in t: return "Registrering"
+    if "dispensation" in t: return "Dispensation"
+    if "lovliggoerelse" in t or "lovliggørelse" in t: return "Lovliggørelse"
+    if "tilladelse" in t: return "Tilladelse"
+    if "paabud" in t or "påbud" in t: return "Påbud"
+    if "forbud" in t: return "Forbud"
+    return "Realitetsbehandling"
+
+def _underkat_beskyttelseslinje(titel, tekst=""):
+    t = (titel + " " + tekst[:400]).lower()
+    if "strandbeskyttelseslinje" in t or "havstokken" in t: return "Strandbeskyttelseslinje"
+    if "fortidsmindebeskyttelseslinje" in t: return "Fortidsmindebeskyttelseslinje"
+    if "aabeskyttelseslinje" in t or "åbeskyttelseslinje" in t: return "Åbeskyttelseslinje"
+    if "soebeskyttelseslinje" in t or "søbeskyttelseslinje" in t: return "Søbeskyttelseslinje"
+    if "skovbyggelinje" in t: return "Skovbyggelinje"
+    if "klitfredning" in t: return "Klitfredning"
+    if "kirkebeskyttelseslinje" in t: return "Kirkebeskyttelseslinje"
+    return "Andet"
+
+def _underkat_naturtype(titel):
+    t = titel.lower()
+    if "strandeng" in t: return "Strandeng"
+    if "eng" in t: return "Eng"
+    if "hede" in t: return "Hede"
+    if "mose" in t: return "Mose"
+    if "overdrev" in t: return "Overdrev"
+    if "vandloeb" in t or "vandløb" in t: return "Vandløb"
+    if "skov" in t: return "Skov"
+    if "soe" in t or "sø" in t or "søen" in t: return "Sø"
+    if "klit" in t: return "Klitter"
+    return "Andet"
+
+
+# ── Data-loading ─────────────────────────────────────────────────────────────
+@st.cache_data(show_spinner="Indlaeser afgoerelser...", ttl=None)
+def _laes_csv(sti):
+    csv.field_size_limit(10_000_000)
+    rows = []
+    with open(sti, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            tekst = strip_html(row.get("Tekst",""), preserve_headings=True)
+            excerpt = re.sub(r'^#{2,3} ', '', tekst, flags=re.M).replace('\n', ' ')
+            excerpt = re.sub(r'\s+', ' ', excerpt).strip()[:280]
+            rows.append({
+                "Dato": row.get("Dato",""),
+                "Titel": row.get("Titel",""),
+                "Link": row.get("Link",""),
+                "Tekst": tekst,
+                "Excerpt": excerpt,
+                "Retsomraade": row.get("Retsomraade", row.get("Retsområde","")),
+            })
+    return rows
+
+@st.cache_data(show_spinner="Indlaeser afgoerelser...", ttl=None)
+def load_kategori(stem, version=1):
+    csv_navn = stem + ".csv"
+    csv_sti = os.path.join(_ROOT, csv_navn)
+    if not os.path.exists(csv_sti):
+        zip_sti = csv_sti + ".zip"
+        dest = os.path.join(_TMP, csv_navn)
+        if os.path.exists(zip_sti) and not os.path.exists(dest):
+            with zipfile.ZipFile(zip_sti) as z:
+                for member in z.namelist():
+                    if member.endswith(".csv"):
+                        with z.open(member) as src, open(dest, "wb") as dst:
+                            dst.write(src.read())
+                        break
+        csv_sti = dest
+    if not os.path.exists(csv_sti):
+        return pd.DataFrame()
+    rows = _laes_csv(csv_sti)
+    df = pd.DataFrame(rows)
+    if df.empty:
+        return df
+    df["Dato"] = pd.to_datetime(df["Dato"], errors="coerce")
+    df["Aar"] = df["Dato"].dt.year.astype("Int64")
+    df["Udfald"] = df["Titel"].apply(detect_udfald)
+    df["Sagstype"] = df["Titel"].apply(detect_sagstype)
+    df["Kommune"] = df["Titel"].apply(extract_kommune)
+    # Underkategori
+    if stem == "mfkn_nbl_beskyttelseslinier":
+        df["Underkategori"] = df.apply(lambda r: _underkat_beskyttelseslinje(r["Titel"], r["Tekst"]), axis=1)
+    elif stem == "mfkn_beskyttede_naturtyper":
+        df["Underkategori"] = df["Titel"].apply(_underkat_naturtype)
+    else:
+        df["Underkategori"] = df["Retsomraade"].str.strip()
+    return df
+
+@st.cache_resource(show_spinner="Bygger soegeindeks...")
+def build_index(stem, n_rows):
+    df2 = load_kategori(stem, 1)
+    texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
+    vec = TfidfVectorizer(max_features=40_000, ngram_range=(1,2), min_df=2, sublinear_tf=True)
+    mat = vec.fit_transform(texts)
+    return vec, mat
+
+def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30):
+    qv = vec.transform([query])
+    if sub_idx is not None and len(sub_idx) > 0:
+        scores_sub = cosine_similarity(qv, mat[sub_idx]).flatten()
+        top_local = scores_sub.argsort()[-top_n:][::-1]
+        top_global = [sub_idx[i] for i in top_local if scores_sub[i] > 0.01]
+        result = df.loc[top_global].copy()
+        result["_score"] = [scores_sub[i] for i in top_local if scores_sub[i] > 0.01]
+    else:
+        scores = cosine_similarity(qv, mat).flatten()
+        top = scores.argsort()[-top_n:][::-1]
+        result = df.iloc[top].copy()
+        result["_score"] = scores[top]
+        result = result[result["_score"] > 0.01]
+    return result.reset_index(drop=True)
+
+
+# ── AI-funktioner ────────────────────────────────────────────────────────────
+def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
+    if not ANTHROPIC_API_KEY:
+        return "Tilfoej ANTHROPIC_API_KEY i Streamlit secrets."
+    kontekst = "\n\n".join(
+        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} - {d['Titel']}\n{d['Tekst']}"
+        for i, d in enumerate(docs)
+    )
+    historik_tekst = ""
+    if historik:
+        for msg in historik[:-1]:
+            rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
+            historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
+    samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
+    prompt = f"""Du er en juridisk assistent specialiseret i dansk forvaltningsret og MFKN's praksis for {kat_navn}.
+Besvar foelgende spoergsmaal KUN baseret paa de vedlagte MFKN-afgoerelser.
+Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn.
+Svar paa dansk, praecist og struktureret med overskrifter og afsnit.
+Hvis du er usikker, skriv det eksplicit. Gaet aldrig.
+Hvis spoergsmaalet er et opfoelgningsspoergsmaal, brug den tidligere samtale som kontekst.
+{samtale_blok}
+SPOERGSMAAL: {spoergsmaal}
+
+AFGOERELSER:
+{kontekst}
+
+SVAR:"""
+    return _llm(prompt)
+
+def mfkn_resume(titel, tekst, kat_navn=""):
+    if not ANTHROPIC_API_KEY:
+        return "Ingen API-noegle."
+    prompt = f"""Lav et kort, struktureret resume af denne MFKN-afgoerelse ({kat_navn}) paa dansk.
+Inkluder: Sagens kerne, Naevnets vurdering, Resultat. Max 200 ord.
+
+TITEL: {titel}
+TEKST: {tekst[:3000]}
+
+RESUME:"""
+    return _llm(prompt)
+
+def erstat_kilde_refs(tekst, kilder):
+    def repl(m):
+        nums = [int(x) for x in re.findall(r'\d+', m.group(1))]
+        refs = []
+        for n in nums:
+            if 1 <= n <= len(kilder):
+                k = kilder[n - 1]
+                kom = extract_kommune(k.get("Titel", "")) or "Kilde"
+                try:
+                    aar = str(pd.Timestamp(k["Dato"]).year)
+                except Exception:
+                    aar = "-"
+                refs.append(f"*{kom} {aar}*")
+        return "[" + ", ".join(refs) + "]" if refs else m.group(0)
+    return re.sub(r"\[Kilde\s+([\d,\s]+)\]", repl, tekst)
+
+
+# ── Badge-styles ─────────────────────────────────────────────────────────────
+_BADGE_STYLE = {
+    "Stadfaestelse": "background:#fef2f2;color:#991b1b;border:1px solid #fecaca",
+    "Stadfæstelse": "background:#fef2f2;color:#991b1b;border:1px solid #fecaca",
+    "Afslag":       "background:#fef2f2;color:#991b1b;border:1px solid #fecaca",
+    "Ophævet":      "background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe",
+    "Hjemvist":     "background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe",
+    "Ændring":      "background:#f0fdf4;color:#166534;border:1px solid #bbf7d0",
+    "Afvist":       "background:#fffbeb;color:#92400e;border:1px solid #fde68a",
+}
+_BADGE_DEFAULT = "background:#f8fafc;color:#64748b;border:1px solid #e2e8f0"
+
+_CHIP_STYLES = {
+    "Stadfæstelse": "background:#fef2f2;color:#991b1b;border-color:#fecaca",
+    "Afslag":       "background:#fef2f2;color:#991b1b;border-color:#fecaca",
+    "Ophævet":      "background:#f5f3ff;color:#5b21b6;border-color:#ddd6fe",
+    "Hjemvist":     "background:#f5f3ff;color:#5b21b6;border-color:#ddd6fe",
+    "Ændring":      "background:#f0fdf4;color:#166534;border-color:#bbf7d0",
+    "Afvist":       "background:#fffbeb;color:#92400e;border-color:#fde68a",
+}
+
+BADGE_CLS = {
+    "Stadfæstelse": "badge-ikke-medhold",
+    "Afslag":       "badge-ikke-medhold",
+    "Ophævet":      "badge-ophaevet",
+    "Hjemvist":     "badge-ophaevet",
+    "Ændring":      "badge-medhold",
+    "Afvist":       "badge-afvist",
+    "Ukendt":       "badge-ukendt",
+}
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE START
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── Find tilgaengelige kategorier ────────────────────────────────────────────
+alle_kats = _find_kategorier()
+if not alle_kats:
+    st.warning("Ingen MFKN CSV-filer fundet. Upload mfkn_*.csv eller mfkn_*.csv.zip filer til repo-roden.")
+    st.stop()
+
+kat_navne = {v["navn"]: k for k, v in alle_kats.items()}
+kat_liste = sorted(kat_navne.keys())
+
+# ── Kategori-vaelger ─────────────────────────────────────────────────────────
+if "mfkn_valgt_kat" not in st.session_state or st.session_state.mfkn_valgt_kat not in kat_liste:
+    st.session_state.mfkn_valgt_kat = kat_liste[0]
+
+valgt_navn = st.selectbox(
+    "Vaelg retsomraade",
+    kat_liste,
+    index=kat_liste.index(st.session_state.mfkn_valgt_kat),
+    key="_mfkn_kat_select",
+    label_visibility="collapsed",
+)
+
+# Reset state on category change
+if valgt_navn != st.session_state.get("mfkn_valgt_kat"):
+    st.session_state.mfkn_valgt_kat = valgt_navn
+    st.session_state.mfkn_valgt = None
+    st.session_state.mfkn_chat = []
+    if "mfkn_resume_txt" in st.session_state:
+        del st.session_state["mfkn_resume_txt"]
+    st.session_state["mfkn_vis_antal"] = 25
+    st.rerun()
+
+valgt_stem = kat_navne[valgt_navn]
+valgt_info = alle_kats[valgt_stem]
+accent = valgt_info["farve"]
+
+# ── CSS accent ───────────────────────────────────────────────────────────────
+_CSS = f"""<style>
+[data-testid="stSidebar"] .stSlider [role="slider"] {{ background: {accent} !important; }}
+[data-testid="collapsedControl"]::after {{ color: {accent} !important; }}
+.pkn-card:hover {{ border-color: {accent} !important; }}
+[data-testid="stTabs"] [role="tab"][aria-selected="true"] {{ border-bottom-color: {accent} !important; }}
+.detail-ai-title {{ color: {accent} !important; }}
+[data-testid="stBaseButton-secondary"]:hover {{ border-color: {accent} !important; }}
+</style>"""
+try:
+    st.html(_CSS)
+except AttributeError:
+    st.markdown(_CSS, unsafe_allow_html=True)
+
+# ── Session state ────────────────────────────────────────────────────────────
+for key in ["mfkn_valgt", "mfkn_chat"]:
+    if key not in st.session_state:
+        st.session_state[key] = [] if key == "mfkn_chat" else None
+
+# ── Indlaes data ─────────────────────────────────────────────────────────────
+df = load_kategori(valgt_stem, 1)
+if df.empty:
+    st.error(f"Ingen data fundet for {valgt_navn}.")
+    st.stop()
+vec, mat = build_index(valgt_stem, len(df))
+
+# ── Sidebar ──────────────────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(152)}</div></div>', unsafe_allow_html=True)
+
+    st.markdown('<span class="h-filter-label">Soegeord</span>', unsafe_allow_html=True)
+    soeg_input = st.text_input("", placeholder="f.eks. dispensation terrasse...", label_visibility="collapsed", key="mfkn_soeg")
+    soege_type = st.radio("", ["Praecis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="mfkn_soegetype")
+
+    # Underkategori filter (kun hvis der er mere end 1)
+    _alle_underkat = sorted(df["Underkategori"].dropna().unique())
+    if len(_alle_underkat) > 1:
+        st.markdown('<span class="h-filter-label">Underkategori</span>', unsafe_allow_html=True)
+        valgte_underkat = st.multiselect("", _alle_underkat, label_visibility="collapsed", key="mfkn_underkat")
+    else:
+        valgte_underkat = []
+
+    st.markdown('<span class="h-filter-label">Sagstype</span>', unsafe_allow_html=True)
+    _alle_sagstyper = sorted(df["Sagstype"].unique())
+    sagstype_valg = st.multiselect("", _alle_sagstyper, label_visibility="collapsed", key="mfkn_sg")
+
+    st.markdown('<span class="h-filter-label">Aarsinterval</span>', unsafe_allow_html=True)
+    aar_min, aar_max = int(df["Aar"].min()), int(df["Aar"].max())
+    _default_start = max(2017, aar_min)
+    aar_range = st.slider("", aar_min, aar_max, (_default_start, aar_max), label_visibility="collapsed", key="mfkn_yr")
+
+    st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
+    udfald_valg = st.multiselect("", sorted(df["Udfald"].unique()), label_visibility="collapsed", key="mfkn_ud")
+
+    st.markdown("---")
+    st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgoerelser &nbsp;·&nbsp; {aar_min}-{aar_max}</span>", unsafe_allow_html=True)
+
+# ── Filtrering ───────────────────────────────────────────────────────────────
+mask = (df["Aar"] >= aar_range[0]) & (df["Aar"] <= aar_range[1])
+if valgte_underkat:  mask &= df["Underkategori"].isin(valgte_underkat)
+if sagstype_valg:    mask &= df["Sagstype"].isin(sagstype_valg)
+if udfald_valg:      mask &= df["Udfald"].isin(udfald_valg)
+df_filter = df[mask].reset_index(drop=True)
+sub_idx = df[mask].index.tolist()
+
+_filter_sig = (valgt_stem, len(df_filter), soeg_input.strip(), soege_type)
+if st.session_state.get("mfkn_filter_sig") != _filter_sig:
+    st.session_state["mfkn_vis_antal"] = 25
+    st.session_state["mfkn_filter_sig"] = _filter_sig
+_vis_antal = st.session_state.get("mfkn_vis_antal", 25)
+
+if soeg_input.strip() and soege_type == "Semantisk":
+    df_vis = tfidf_soeg(soeg_input.strip(), df, vec, mat, sub_idx=sub_idx)
+    ai_sub_idx = sub_idx
+elif soeg_input.strip():
+    _text_mask = (
+        df_filter["Titel"].str.contains(soeg_input.strip(), case=False, na=False, regex=False) |
+        df_filter["Tekst"].str.contains(soeg_input.strip(), case=False, na=False, regex=False)
+    )
+    df_vis = df_filter[_text_mask].sort_values("Dato", ascending=False).reset_index(drop=True)
+    ai_sub_idx = [sub_idx[i] for i in df_filter.index[_text_mask].tolist()] if _text_mask.any() else sub_idx
+else:
+    df_vis = df_filter.sort_values("Dato", ascending=False)
+    ai_sub_idx = sub_idx
+
+# Download
+with st.sidebar:
+    n = len(df_filter)
+    st.markdown("---")
+    if n > 0:
+        def _dl_tekst(data):
+            lines = [f"MFKN {valgt_navn.upper()} - EKSPORT", f"Antal: {len(data)}", "=" * 72, ""]
+            for _, row in data.iterrows():
+                dato = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "-"
+                lines += [
+                    f"AFGOERELSE:  {row['Titel']}", f"DATO:       {dato}",
+                    f"SAGSTYPE:   {row['Sagstype']}  |  UDFALD: {row['Udfald']}  |  KOMMUNE: {row['Kommune'] or '-'}",
+                    f"KILDE:      {row['Link']}", "-" * 72, row["Tekst"].strip(), "", "=" * 72, "",
+                ]
+            return "\n".join(lines)
+        st.download_button(
+            label=f"Download {n:,} afgoerelser (.txt)",
+            data=_dl_tekst(df_filter).encode("utf-8"),
+            file_name=f"mfkn_{valgt_stem}.txt", mime="text/plain",
+        )
+
+# ── Page header ──────────────────────────────────────────────────────────────
+st.markdown(f"""
+<div class="h-page-header">
+  <h1 class="h-page-title">HARALD</h1>
+  <div class="h-gold-line"></div>
+  <p class="h-page-meta">MFKN · {valgt_navn} &nbsp;·&nbsp; {len(df):,} afgoerelser &nbsp;·&nbsp; {aar_min}-{aar_max}</p>
+</div>
+""", unsafe_allow_html=True)
+
+# ── Tabs ─────────────────────────────────────────────────────────────────────
+tab_soeg, tab_stat, tab_ai = st.tabs(["  Afgoerelser  ", "  Statistik  ", "  AI Assistent  "])
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 1 - AFGOERELSER
+# ══════════════════════════════════════════════════════════════════════════════
+with tab_soeg:
+
+    if st.session_state.mfkn_valgt is not None:
+        row = st.session_state.mfkn_valgt
+
+        if st.button("<- Alle afgoerelser"):
+            st.session_state.mfkn_valgt = None
+            st.rerun()
+
+        udfald = row.get("Udfald", "Ukendt")
+        chip_s = _CHIP_STYLES.get(udfald, "background:#f8fafc;color:#64748b;border-color:#e2e8f0")
+        dato_str = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y") if pd.notna(pd.Timestamp(row["Dato"])) else "-"
+        sagstype = row.get("Sagstype") or "-"
+        kommune = row.get("Kommune") or "-"
+        underkat = row.get("Underkategori") or "-"
+
+        st.markdown(
+            render_detail_header(
+                titel=row["Titel"], udfald=udfald, chip_style=chip_s, dato_str=dato_str,
+                meta_extra=[("Underkategori", underkat), ("Sagstype", sagstype), ("Kommune", kommune)],
+                link=row["Link"], link_label="Aabn original paa MFKN's hjemmeside", accent=accent,
+            ), unsafe_allow_html=True,
+        )
+
+        col_tekst, col_ai = st.columns([3, 2], gap="large")
+        with col_tekst:
+            st.markdown(format_afgørelse_tekst(row["Tekst"]), unsafe_allow_html=True)
+        with col_ai:
+            st.markdown('<div class="detail-ai-panel"><div class="detail-ai-title">AI-Resume</div>', unsafe_allow_html=True)
+            if st.button("Generer resume ->", key="mfkn_gen_res"):
+                with st.spinner("Analyserer..."):
+                    try:
+                        st.session_state.mfkn_resume_txt = mfkn_resume(row["Titel"], row["Tekst"], valgt_navn)
+                    except Exception as e:
+                        st.session_state.mfkn_resume_txt = f"Fejl: {e}"
+            if "mfkn_resume_txt" in st.session_state:
+                st.markdown(f'<div class="detail-ai-resume">{st.session_state.mfkn_resume_txt}</div>', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+
+    else:
+        total_filtreret = len(df_filter)
+        hits = len(df_vis)
+        if soeg_input:
+            label = f"**{hits}** resultater for \"{soeg_input}\" (ud af {total_filtreret:,} filtrerede)"
+        else:
+            label = f"Viser {min(_vis_antal, hits)} af **{total_filtreret:,}** afgoerelser (nyeste foerst)"
+        st.markdown(label)
+
+        if hits == 0:
+            st.warning("Ingen resultater - proev andre soegeord eller filtre.")
+        else:
+            for _, row in df_vis.head(_vis_antal).iterrows():
+                badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
+                dato_str = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "-"
+                underkat_tag = row.get("Underkategori", "")
+                sagstype_tag = row.get("Sagstype", "")
+                st.markdown(f"""
+<div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <span style="font-size:11px;color:#94a3b8;font-weight:500;">{dato_str}</span>
+    <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;{badge_style}">{row['Udfald']}</span>
+  </div>
+  <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{row['Titel']}</div>
+  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+    <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{underkat_tag}</span>
+    <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{sagstype_tag}</span>
+  </div>
+  <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{row['Excerpt']}...</div>
+  <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
+    <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Aabn afgoerelse paa portalen</a>
+  </div>
+</div>""", unsafe_allow_html=True)
+                btn_key = f"mfkn_btn_{hash(row['Link'])}"
+                if st.button("Laes afgoerelse ->", key=btn_key):
+                    st.session_state.mfkn_valgt = row.to_dict()
+                    if "mfkn_resume_txt" in st.session_state:
+                        del st.session_state["mfkn_resume_txt"]
+                    st.rerun()
+
+            if _vis_antal < hits:
+                tilbage = hits - _vis_antal
+                if st.button(f"Vis 25 mere ({tilbage} tilbage)", use_container_width=True):
+                    st.session_state["mfkn_vis_antal"] = _vis_antal + 25
+                    st.rerun()
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 2 - STATISTIK
+# ══════════════════════════════════════════════════════════════════════════════
+with tab_stat:
+    d = df_filter
+
+    k1, k2, k3, k4 = st.columns(4)
+    with k1:
+        st.markdown(f'<div class="stat-card"><div class="stat-number">{len(d):,}</div>'
+                    f'<div class="stat-label">Afgoerelser</div></div>', unsafe_allow_html=True)
+    with k2:
+        pct = (d["Udfald"] == "Ophævet").mean() * 100 if len(d) > 0 else 0
+        st.markdown(f'<div class="stat-card"><div class="stat-number">{pct:.0f}%</div>'
+                    f'<div class="stat-label">Ophævet-rate</div></div>', unsafe_allow_html=True)
+    with k3:
+        st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Kommune"].nunique()}</div>'
+                    f'<div class="stat-label">Kommuner</div></div>', unsafe_allow_html=True)
+    with k4:
+        st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Underkategori"].nunique()}</div>'
+                    f'<div class="stat-label">Underkategorier</div></div>', unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    col_l, col_r = st.columns(2)
+
+    with col_l:
+        st.markdown("#### Afgoerelser per aar")
+        if not d.empty:
+            aar_df = d.groupby("Aar").size().reset_index(name="Antal")
+            fig = px.bar(aar_df, x="Aar", y="Antal", color_discrete_sequence=[accent])
+            fig.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10, b=10, l=10, r=10))
+            st.plotly_chart(fig, use_container_width=True)
+
+    with col_r:
+        st.markdown("#### Fordeling paa underkategori")
+        if not d.empty:
+            kat_df = d.groupby("Underkategori").size().reset_index(name="Antal")
+            fig2 = px.pie(kat_df, values="Antal", names="Underkategori",
+                          color_discrete_sequence=px.colors.sequential.Greens_r, hole=0.4)
+            fig2.update_layout(margin=dict(t=10, b=10, l=10, r=10))
+            st.plotly_chart(fig2, use_container_width=True)
+
+    col_ll, col_rr = st.columns(2)
+
+    with col_ll:
+        st.markdown("#### Udfald over tid")
+        if not d.empty:
+            udfald_aar = d.groupby(["Aar", "Udfald"]).size().reset_index(name="Antal")
+            farver = {
+                "Stadfæstelse": "#ef4444", "Afslag": "#f97316",
+                "Ophævet": "#8b5cf6", "Ændring": "#10b981",
+                "Afvist": "#f59e0b", "Hjemvist": "#6366f1", "Ukendt": "#94a3b8",
+            }
+            fig3 = px.bar(udfald_aar, x="Aar", y="Antal", color="Udfald",
+                          color_discrete_map=farver, barmode="stack")
+            fig3.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10, b=10, l=10, r=10))
+            st.plotly_chart(fig3, use_container_width=True)
+
+    with col_rr:
+        st.markdown("#### Top 15 kommuner")
+        if not d.empty:
+            kom_df = (d.dropna(subset=["Kommune"]).groupby("Kommune").size()
+                       .reset_index(name="Sager").sort_values("Sager", ascending=True).tail(15))
+            fig4 = px.bar(kom_df, x="Sager", y="Kommune", orientation="h",
+                          color_discrete_sequence=[accent])
+            fig4.update_layout(plot_bgcolor="white", paper_bgcolor="white", margin=dict(t=10, b=10, l=10, r=10))
+            st.plotly_chart(fig4, use_container_width=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 3 - AI ASSISTENT
+# ══════════════════════════════════════════════════════════════════════════════
+with tab_ai:
+    st.markdown("### Spoerg til MFKN-praksis")
+
+    n_ai = len(ai_sub_idx)
+    filter_tekst = f"alle **{len(df):,}** afgoerelser" if n_ai == len(df) else f"**{n_ai:,}** afgoerelser (filtreret)"
+    st.markdown(f"AI'en soeger i {filter_tekst} og svarer med kildehenvisninger.")
+
+    if not ANTHROPIC_API_KEY:
+        st.error("Tilfoej `ANTHROPIC_API_KEY` i Streamlit secrets.")
+    else:
+        forslag = [
+            f"Hvad er MFKN's praksis for {valgt_navn.lower()}?",
+            f"Hvornaar ophaever MFKN kommunens afgoerelse?",
+            f"Hvilke hensyn vaegtes i {valgt_navn.lower()}-sager?",
+            f"Hvornaar gives der dispensation?",
+        ]
+        cols = st.columns(4)
+        for i, f in enumerate(forslag):
+            if cols[i].button(f, use_container_width=True, key=f"mfkn_fs_{i}"):
+                st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": f})
+                with st.spinner("Soeger og genererer svar..."):
+                    hits_ai = tfidf_soeg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+                    try:
+                        svar = mfkn_svar(f, hits_ai.to_dict("records"), historik=st.session_state.mfkn_chat, kat_navn=valgt_navn)
+                    except Exception as e:
+                        svar = f"Fejl: {e}"
+                st.session_state.mfkn_chat.append(
+                    {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
+                st.rerun()
+
+        for msg_idx, msg in enumerate(st.session_state.mfkn_chat):
+            if msg["rolle"] == "bruger":
+                st.markdown(f'<div class="chat-user">{msg["tekst"]}</div>', unsafe_allow_html=True)
+            else:
+                kilder = msg.get("kilder", [])
+                vist_tekst = erstat_kilde_refs(msg["tekst"], kilder) if kilder else msg["tekst"]
+
+                col_svar, col_kld = st.columns([3, 2])
+                with col_svar:
+                    st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
+                with col_kld:
+                    if kilder:
+                        st.markdown(
+                            '<div style="font-size:11px;font-weight:700;color:#475569;'
+                            'text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">'
+                            'Kilder</div>', unsafe_allow_html=True
+                        )
+                        for i, k in enumerate(kilder[:8]):
+                            try:
+                                dato_str = pd.Timestamp(k["Dato"]).strftime("%d.%m.%Y")
+                                aar_str = str(pd.Timestamp(k["Dato"]).year)
+                            except Exception:
+                                dato_str = "-"
+                                aar_str = "-"
+                            kommune = extract_kommune(k.get("Titel", "")) or "Ukendt"
+                            udfald = k.get("Udfald", "")
+                            badge_cls = BADGE_CLS.get(udfald, "badge-ukendt")
+                            badge_html = f'<span class="pkn-badge {badge_cls}">{udfald}</span>' if udfald else ""
+
+                            with st.expander(f"[{i+1}] {kommune} - {aar_str}"):
+                                if st.button(f"Aabn afgorelsen", key=f"mfkn_kilde_{msg_idx}_{i}",
+                                             use_container_width=True, type="primary"):
+                                    st.session_state.mfkn_valgt = k
+                                    if "mfkn_resume_txt" in st.session_state:
+                                        del st.session_state["mfkn_resume_txt"]
+                                    st.rerun()
+                                st.markdown(
+                                    f'<div style="font-size:13px;font-weight:600;color:#1e3a5f;'
+                                    f'margin:8px 0 4px;line-height:1.4">{k["Titel"]}</div>',
+                                    unsafe_allow_html=True
+                                )
+                                st.markdown(
+                                    f'<div style="font-size:11px;color:#64748b;margin-bottom:10px">'
+                                    f'{dato_str} &nbsp;·&nbsp; {k.get("Sagstype","")}'
+                                    f'&nbsp;&nbsp;{badge_html}</div>',
+                                    unsafe_allow_html=True
+                                )
+                                tekst_fmt = re.sub(r'\. ([A-Z])', r'.</p><p>\1', k.get("Tekst","")[:1500])
+                                st.markdown(
+                                    f'<div style="font-size:13px;line-height:1.7;color:#1e293b;'
+                                    f'max-height:420px;overflow-y:auto;padding:12px 14px;'
+                                    f'background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;'
+                                    f'margin-bottom:8px"><p>{tekst_fmt}</p></div>',
+                                    unsafe_allow_html=True
+                                )
+                                st.markdown(
+                                    f'<a href="{k["Link"]}" target="_blank" '
+                                    f'style="font-size:12px;color:#2563eb;text-decoration:none">'
+                                    f'Aabn original afgoerelse paa MFKN hjemmeside</a>',
+                                    unsafe_allow_html=True
+                                )
+
+        with st.form("mfkn_chat_form", clear_on_submit=True):
+            spoergsmaal = st.text_area("Dit spoergsmaal", height=80,
+                                       placeholder="Hvad er MFKN's praksis for...?")
+            c1, c2 = st.columns([3, 1])
+            send = c1.form_submit_button("Send", use_container_width=True, type="primary")
+            ryd = c2.form_submit_button("Ryd chat", use_container_width=True)
+
+        if ryd:
+            st.session_state.mfkn_chat = []
+            st.rerun()
+
+        if send and spoergsmaal.strip():
+            st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": spoergsmaal})
+            with st.spinner("Soeger og genererer svar..."):
+                hits_ai = tfidf_soeg(spoergsmaal, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+                try:
+                    svar = mfkn_svar(spoergsmaal, hits_ai.to_dict("records"),
+                                     historik=st.session_state.mfkn_chat, kat_navn=valgt_navn)
+                except Exception as e:
+                    svar = f"Fejl ved API: {e}"
+            st.session_state.mfkn_chat.append(
+                {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
+            st.rerun()
