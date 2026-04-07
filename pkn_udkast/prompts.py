@@ -268,7 +268,23 @@ def generer_vurdering_afsnit(
                 f"{kommune_blok}"
                 f"{noter_blok}\n"
                 "Skriv nu 'Planklagenævnets vurdering'-afsnittet.\n\n"
+                "KILDEHENVISNINGER (VIGTIGT):\n"
+                "Når du refererer til faktuelle oplysninger fra sagskonteksten, kommunens afgørelse, "
+                "kommunens bemærkninger eller klagerens anbringender, skal du indsætte en reference "
+                "i formatet [REF:N] lige efter den faktuelle påstand. N er et løbenummer (1, 2, 3...).\n"
+                "Eksempel: 'Nævnet lægger vægt på, at miljørapporten vurderer støjpåvirkningen "
+                "til under 39 dB(A) ved nærmeste bolig.[REF:1]'\n"
+                "Indsæt KUN referencer ved konkrete faktuelle påstande (tal, steder, konklusioner, "
+                "specifikke vurderinger) – IKKE ved generelle juridiske formuleringer.\n\n"
                 "Når du er færdig med selve vurderingsafsnittet, skriv derefter:\n"
+                "===REFERENCER===\n"
+                "Og list hver reference med format:\n"
+                "[REF:1] KILDE: citat fra kildeteksten\n"
+                "[REF:2] KILDE: citat fra kildeteksten\n"
+                "Hvor KILDE er en af: Sagskontekst, Kommunens afgørelse, Kommunens bemærkninger, "
+                "Klagerens anbringender. Citatet skal være den relevante passage fra brugerens input "
+                "(ordret eller let forkortet).\n\n"
+                "Skriv derefter:\n"
                 "===NOTER===\n"
                 "Og tilføj en kort intern note (3-8 punkter) med:\n"
                 "- Hvilke præcedensafgørelser du primært har brugt og hvorfor\n"
@@ -278,13 +294,23 @@ def generer_vurdering_afsnit(
             ),
         },
     ]
-    raw = _call_claude(api_key, model, blocks, max_tokens=3500)
+    raw = _call_claude(api_key, model, blocks, max_tokens=4500)
 
-    # Split vurdering og noter
-    if "===NOTER===" in raw:
-        vurdering, noter = raw.split("===NOTER===", 1)
-        return vurdering.strip(), noter.strip()
-    return raw.strip(), ""
+    # Split vurdering, referencer og noter
+    vurdering = raw
+    referencer = ""
+    noter = ""
+
+    if "===REFERENCER===" in vurdering:
+        vurdering, rest = vurdering.split("===REFERENCER===", 1)
+        if "===NOTER===" in rest:
+            referencer, noter = rest.split("===NOTER===", 1)
+        else:
+            referencer = rest
+    elif "===NOTER===" in vurdering:
+        vurdering, noter = vurdering.split("===NOTER===", 1)
+
+    return vurdering.strip(), noter.strip(), referencer.strip()
 
 
 def forbedre_vurdering(

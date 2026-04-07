@@ -39,17 +39,62 @@ from data import load_data, build_index, find_relevante_sager
 from prompts import generer_klage_afsnit, generer_vurdering_afsnit, forbedre_vurdering
 
 
-def _format_udkast(tekst: str) -> str:
-    """Konverter plain text udkast til pæn HTML."""
+def _parse_referencer(ref_tekst: str) -> dict:
+    """Parse ===REFERENCER=== blokken til {nummer: {kilde, citat}}."""
+    refs = {}
+    if not ref_tekst:
+        return refs
+    for m in re.finditer(r'\[REF:(\d+)\]\s*([^:\n]+):\s*(.+?)(?=\[REF:|\Z)', ref_tekst, re.DOTALL):
+        num = int(m.group(1))
+        kilde = m.group(2).strip()
+        citat = m.group(3).strip().strip('"').strip("'").strip()
+        refs[num] = {"kilde": kilde, "citat": citat}
+    return refs
+
+
+def _format_udkast(tekst: str, referencer: dict | None = None) -> str:
+    """Konverter plain text udkast til pæn HTML med fodnoter."""
     html_out = tekst
     html_out = re.sub(
         r'\[VERIFICER:?\s*([^\]]*)\]',
         r'<span class="verificer">[VERIFICER: \1]</span>',
         html_out,
     )
+    # Erstat [REF:N] med hover-tooltip superscript
+    def _ref_repl(m):
+        num = int(m.group(1))
+        if referencer and num in referencer:
+            r = referencer[num]
+            kilde_html = r["kilde"].replace('"', '&quot;').replace("'", "&#39;")
+            citat_html = r["citat"][:200].replace('"', '&quot;').replace("'", "&#39;")
+            return (
+                f'<span class="ref-mark">{num}'
+                f'<span class="ref-tooltip">'
+                f'<span class="ref-src">{kilde_html}</span>'
+                f'{citat_html}</span></span>'
+            )
+        return f'<span class="ref-mark">{num}</span>'
+
+    html_out = re.sub(r'\[REF:(\d+)\]', _ref_repl, html_out)
     paragraphs = [p.strip() for p in html_out.split("\n") if p.strip()]
     html_out = "".join(f"<p>{p}</p>" for p in paragraphs)
     return html_out
+
+
+def _format_fodnoter(referencer: dict) -> str:
+    """Byg HTML for fodnoteliste under vurderingen."""
+    if not referencer:
+        return ""
+    lines = []
+    for num in sorted(referencer.keys()):
+        r = referencer[num]
+        lines.append(
+            f'<div style="margin-bottom:6px;">'
+            f'<span class="fn-num">[{num}]</span> '
+            f'<span class="fn-src">{r["kilde"]}</span>: '
+            f'<em>{r["citat"][:300]}</em></div>'
+        )
+    return '<div class="fodnoter-box">' + "".join(lines) + '</div>'
 
 # ── CSS ──────────────────────────────────────────────────────────────────────
 _CSS = """
@@ -84,6 +129,45 @@ body, [data-testid="stAppViewContainer"] { font-family: 'Inter', system-ui, sans
     text-transform: uppercase; letter-spacing: 1.5px;
     margin: 2rem 0 0.5rem; padding-bottom: 0.3rem;
     border-bottom: 2px solid #eef3fa;
+}
+/* Fodnoter */
+.ref-mark {
+    display: inline-block; position: relative;
+    font-size: 11px; font-weight: 700; color: #1e3a5f;
+    background: #eef3fa; border-radius: 3px;
+    padding: 0 4px; margin: 0 1px; cursor: help;
+    vertical-align: super; line-height: 1;
+}
+.ref-mark .ref-tooltip {
+    visibility: hidden; opacity: 0;
+    position: absolute; bottom: 125%; left: 50%;
+    transform: translateX(-50%);
+    background: #1a2744; color: #f0f4f8;
+    font-size: 12.5px; font-weight: 400;
+    padding: 10px 14px; border-radius: 8px;
+    width: 340px; max-width: 90vw;
+    line-height: 1.6; z-index: 100;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transition: opacity 0.15s;
+    text-transform: none; letter-spacing: 0;
+}
+.ref-mark:hover .ref-tooltip { visibility: visible; opacity: 1; }
+.ref-mark .ref-tooltip .ref-src {
+    font-weight: 600; color: #93c5fd; display: block;
+    margin-bottom: 3px; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.fodnoter-box {
+    background: #f8fafc; border: 1px solid #e2e8f0;
+    border-radius: 8px; padding: 1rem 1.2rem;
+    margin-top: 1rem; font-size: 13px; line-height: 1.7; color: #475569;
+}
+.fodnoter-box .fn-num {
+    font-weight: 700; color: #1e3a5f; margin-right: 4px;
+}
+.fodnoter-box .fn-src {
+    font-weight: 600; color: #64748b; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.3px;
 }
 </style>
 """
@@ -262,7 +346,7 @@ if generer:
             )
 
         with st.spinner("Skriver 'Planklagenævnets vurdering'-afsnittet..."):
-            vurdering_udkast, ai_noter = generer_vurdering_afsnit(
+            vurdering_udkast, ai_noter, ref_tekst = generer_vurdering_afsnit(
                 api_key=ANTHROPIC_API_KEY,
                 model=model_valg,
                 emne=emne,
@@ -281,6 +365,7 @@ if generer:
             "klage": klage_udkast,
             "vurdering": vurdering_udkast,
             "ai_noter": ai_noter,
+            "referencer": _parse_referencer(ref_tekst),
         })
 
 
@@ -301,11 +386,23 @@ if st.session_state.resultater:
             )
 
             # Vurdering
+            refs = r.get("referencer", {})
             st.markdown('<div class="udkast-section">Planklagenævnets vurdering</div>', unsafe_allow_html=True)
             st.markdown(
-                f'<div class="udkast-box">{_format_udkast(r["vurdering"])}</div>',
+                f'<div class="udkast-box">{_format_udkast(r["vurdering"], referencer=refs)}</div>',
                 unsafe_allow_html=True,
             )
+
+            # Fodnoter under vurderingen
+            if refs:
+                st.markdown(
+                    '<div style="font-size:11px;font-weight:600;color:#64748b;margin-top:0.8rem;'
+                    'text-transform:uppercase;letter-spacing:1px;">Kildehenvisninger '
+                    '<span style="font-weight:400;text-transform:none;letter-spacing:0;">'
+                    '(hold musen over tallene i teksten for hurtig visning)</span></div>',
+                    unsafe_allow_html=True,
+                )
+                st.markdown(_format_fodnoter(refs), unsafe_allow_html=True)
 
             # AI-noter
             if r.get("ai_noter"):
