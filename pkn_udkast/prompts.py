@@ -285,3 +285,41 @@ def generer_vurdering_afsnit(
         vurdering, noter = raw.split("===NOTER===", 1)
         return vurdering.strip(), noter.strip()
     return raw.strip(), ""
+
+
+def forbedre_vurdering(
+    api_key: str,
+    model: str,
+    nuværende_vurdering: str,
+    feedback: str,
+    emne: str,
+    klage_udkast: str,
+    sags_kontekst: str,
+    plan_type: str,
+) -> str:
+    """Forbedre vurderingen baseret på brugerens feedback."""
+
+    blocks = [
+        {
+            "type": "text",
+            "text": (
+                "Du er juridisk sagsbehandler i Planklagenævnet (PKN).\n\n"
+                "Du har allerede skrevet et udkast til 'Planklagenævnets vurdering' "
+                "for et klagepunkt. Sagsbehandleren har nu givet feedback, og du skal "
+                "revidere vurderingen i overensstemmelse med feedbacken.\n\n"
+                "REGLER:\n"
+                "- Bevar den overordnede PKN-stil og sprogtone\n"
+                "- Følg sagsbehandlerens feedback præcist\n"
+                "- Output KUN den reviderede vurderingstekst – ingen forklaring, ingen overskrift\n"
+                "- Brug [VERIFICER: beskrivelse] for faktuelle oplysninger du er usikker på\n\n"
+                f"PLANTYPE: {plan_type}\n"
+                f"SAGSKONTEKST:\n{sags_kontekst}\n\n"
+                f"KLAGEPUNKTETS EMNE: {emne}\n\n"
+                f"'KLAGEN'-AFSNITTET:\n{klage_udkast}\n\n"
+                f"NUVÆRENDE VURDERING:\n{nuværende_vurdering}\n\n"
+                f"SAGSBEHANDLERENS FEEDBACK:\n{feedback}\n\n"
+                "Skriv nu den reviderede vurdering:"
+            ),
+        },
+    ]
+    return _call_claude(api_key, model, blocks, max_tokens=3500)

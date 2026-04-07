@@ -36,7 +36,7 @@ if not st.session_state.get("_authenticated"):
     st.stop()
 
 from data import load_data, build_index, find_relevante_sager
-from prompts import generer_klage_afsnit, generer_vurdering_afsnit
+from prompts import generer_klage_afsnit, generer_vurdering_afsnit, forbedre_vurdering
 
 
 def _format_udkast(tekst: str) -> str:
@@ -290,6 +290,7 @@ if st.session_state.resultater:
 
     for i, r in enumerate(reversed(st.session_state.resultater)):
         idx = len(st.session_state.resultater) - i
+        real_idx = len(st.session_state.resultater) - 1 - i  # index i listen
         with st.expander(f"Klagepunkt {idx}: {r['emne']}", expanded=(i == 0)):
 
             # Klagen
@@ -315,6 +316,52 @@ if st.session_state.resultater:
                     f'color:#4a4a4a;">{_format_udkast(r["ai_noter"])}</div>',
                     unsafe_allow_html=True,
                 )
+
+            # ── Feedback / opfølgning ───────────────────────────────────
+            st.markdown(
+                '<div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #e0dbd4;">'
+                '<span style="font-size:12px;font-weight:600;color:#64748b;">Forfin vurderingen</span>'
+                '</div>',
+                unsafe_allow_html=True,
+            )
+            feedback = st.text_input(
+                "Feedback til vurderingen",
+                placeholder="F.eks. 'Gør det kortere', 'Skriv mere om grundvand', 'Fjern afsnittet om støj'...",
+                key=f"feedback_{idx}",
+                label_visibility="collapsed",
+            )
+            if st.button("Opdater vurdering", key=f"opdater_{idx}", type="secondary"):
+                if feedback.strip() and ANTHROPIC_API_KEY:
+                    with st.spinner("Reviderer vurderingen..."):
+                        ny_vurdering = forbedre_vurdering(
+                            api_key=ANTHROPIC_API_KEY,
+                            model=st.session_state.get("model_valg", "claude-opus-4-6"),
+                            nuværende_vurdering=r["vurdering"],
+                            feedback=feedback,
+                            emne=r["emne"],
+                            klage_udkast=r["klage"],
+                            sags_kontekst=st.session_state.get("sags_kontekst", ""),
+                            plan_type=st.session_state.get("plan_type", "Lokalplan"),
+                        )
+                        # Gem historik
+                        if "historik" not in st.session_state.resultater[real_idx]:
+                            st.session_state.resultater[real_idx]["historik"] = []
+                        st.session_state.resultater[real_idx]["historik"].append(r["vurdering"])
+                        st.session_state.resultater[real_idx]["vurdering"] = ny_vurdering
+                        st.rerun()
+                elif not feedback.strip():
+                    st.warning("Skriv din feedback først.")
+
+            # Vis historik-knap hvis der er tidligere versioner
+            if r.get("historik"):
+                with st.expander(f"Tidligere versioner ({len(r['historik'])})"):
+                    for v_idx, tidl in enumerate(reversed(r["historik"])):
+                        v_num = len(r["historik"]) - v_idx
+                        st.markdown(f"**Version {v_num}:**")
+                        st.markdown(
+                            f'<div class="udkast-box" style="opacity:0.7;">{_format_udkast(tidl)}</div>',
+                            unsafe_allow_html=True,
+                        )
 
             # Download
             samlet = f"Klagen\n\n{r['klage']}\n\nPlanklagenævnets vurdering\n\n{r['vurdering']}"
