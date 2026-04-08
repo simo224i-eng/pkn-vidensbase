@@ -24,15 +24,36 @@ os.makedirs(_TMP, exist_ok=True)
 # ── Kategori-register ────────────────────────────────────────────────────────
 _KATEGORI_REGISTER = {
     "mfkn_nbl_beskyttelseslinier":    {"navn": "Beskyttelseslinjer",       "farve": "#2d6a4f"},
-    "mfkn_beskyttede_naturtyper":     {"navn": "Beskyttede naturtyper",    "farve": "#0e7490"},
-    "mfkn_miljoebeskyttelsesloven":   {"navn": "Miljoebeskyttelsesloven",  "farve": "#166534"},
+    "mfkn_nbl_beskyttede_naturtyper": {"navn": "Beskyttede naturtyper",    "farve": "#0e7490"},
+    "mfkn_nbl_fredningsomraadet":     {"navn": "Fredningsområdet",         "farve": "#14532d"},
+    "mfkn_nbl_oevrige":               {"navn": "NBL øvrige",               "farve": "#365314"},
+    "mfkn_miljoebeskyttelsesloven":   {"navn": "Miljøbeskyttelsesloven",   "farve": "#166534"},
     "mfkn_husdyrbrugloven":           {"navn": "Husdyrbrugloven",          "farve": "#92400e"},
-    "mfkn_foedevarer":                {"navn": "Foedevarer",               "farve": "#7c3aed"},
+    "mfkn_foedevarer":                {"navn": "Fødevarer",                "farve": "#7c3aed"},
     "mfkn_vandforsyningsloven":       {"navn": "Vandforsyningsloven",      "farve": "#1e40af"},
-    "mfkn_vandloebsloven":            {"navn": "Vandloebsloven",           "farve": "#0369a1"},
-    "mfkn_landbrugsstoette":          {"navn": "Landbrugsstoette",         "farve": "#854d0e"},
-    "mfkn_projektstoette":            {"navn": "Projektstoette",           "farve": "#6b21a8"},
-    "mfkn_miljoevurdering_af_konkrete_projekter": {"navn": "Miljoevurdering (projekter)", "farve": "#065f46"},
+    "mfkn_vandloebsloven":            {"navn": "Vandløbsloven",            "farve": "#0369a1"},
+    "mfkn_landbrugsstoette":          {"navn": "Landbrugsstøtte",          "farve": "#854d0e"},
+    "mfkn_projektstoette":            {"navn": "Projektstøtte",            "farve": "#6b21a8"},
+    "mfkn_miljoevurdering_af_konkrete_projekter": {"navn": "Miljøvurdering (projekter)", "farve": "#065f46"},
+    "mfkn_miljoevurdering_af_planer_og_programmer": {"navn": "Miljøvurdering (planer)", "farve": "#047857"},
+    "mfkn_miljoemaalsloven_og_vandplanlaegningsloven": {"navn": "Miljømålsloven",       "farve": "#0c4a6e"},
+    "mfkn_dyresundhed_og_velfaerd":   {"navn": "Dyresundhed og -velfærd",  "farve": "#9f1239"},
+    "mfkn_jordforureningsloven":      {"navn": "Jordforureningsloven",     "farve": "#78350f"},
+    "mfkn_kystbeskyttelsesloven":     {"navn": "Kystbeskyttelsesloven",    "farve": "#155e75"},
+    "mfkn_skovloven":                 {"navn": "Skovloven",                "farve": "#3f6212"},
+    "mfkn_raastofloven":              {"navn": "Råstofloven",              "farve": "#713f12"},
+    "mfkn_fredning_mv":               {"navn": "Fredning mv.",             "farve": "#1e3a5f"},
+    "mfkn_landbrugsloven":            {"navn": "Landbrugsloven",           "farve": "#a16207"},
+    "mfkn_havmiljoeloven":            {"navn": "Havmiljøloven",            "farve": "#0e7490"},
+    "mfkn_museumsloven":              {"navn": "Museumsloven",             "farve": "#7e22ce"},
+    "mfkn_fiskeri":                   {"navn": "Fiskeri",                  "farve": "#1d4ed8"},
+    "mfkn_foder":                     {"navn": "Foder",                    "farve": "#b45309"},
+    "mfkn_planter":                   {"navn": "Planter",                  "farve": "#4d7c0f"},
+    "mfkn_dyrlaegelov":               {"navn": "Dyrlægeloven",             "farve": "#be123c"},
+    "mfkn_oekologi":                  {"navn": "Økologi",                  "farve": "#15803d"},
+    "mfkn_aktindsigt":                {"navn": "Aktindsigt",               "farve": "#475569"},
+    "mfkn_krydsoverensstemmelse_og_konditionalitet": {"navn": "Krydsoverensstemmelse", "farve": "#64748b"},
+    "mfkn_oevrige_lovomraader":       {"navn": "Øvrige lovområder",        "farve": "#6b7280"},
 }
 
 def _find_kategorier():
@@ -149,7 +170,7 @@ def load_kategori(stem, version=1):
     # Underkategori
     if stem == "mfkn_nbl_beskyttelseslinier":
         df["Underkategori"] = df.apply(lambda r: _underkat_beskyttelseslinje(r["Titel"], r["Tekst"]), axis=1)
-    elif stem == "mfkn_beskyttede_naturtyper":
+    elif stem in ("mfkn_beskyttede_naturtyper", "mfkn_nbl_beskyttede_naturtyper"):
         df["Underkategori"] = df["Titel"].apply(_underkat_naturtype)
     else:
         df["Underkategori"] = df["Retsomraade"].str.strip()
