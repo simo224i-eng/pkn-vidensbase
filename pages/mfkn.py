@@ -23,38 +23,48 @@ os.makedirs(_TMP, exist_ok=True)
 
 # ── Kategori-register ────────────────────────────────────────────────────────
 _KATEGORI_REGISTER = {
-    "mfkn_nbl_beskyttelseslinier":    {"navn": "Beskyttelseslinjer",       "farve": "#2d6a4f"},
-    "mfkn_nbl_beskyttede_naturtyper": {"navn": "Beskyttede naturtyper",    "farve": "#0e7490"},
-    "mfkn_nbl_fredningsomraadet":     {"navn": "Fredningsområdet",         "farve": "#14532d"},
-    "mfkn_nbl_oevrige":               {"navn": "NBL øvrige",               "farve": "#365314"},
-    "mfkn_miljoebeskyttelsesloven":   {"navn": "Miljøbeskyttelsesloven",   "farve": "#166534"},
-    "mfkn_husdyrbrugloven":           {"navn": "Husdyrbrugloven",          "farve": "#92400e"},
-    "mfkn_foedevarer":                {"navn": "Fødevarer",                "farve": "#7c3aed"},
-    "mfkn_vandforsyningsloven":       {"navn": "Vandforsyningsloven",      "farve": "#1e40af"},
-    "mfkn_vandloebsloven":            {"navn": "Vandløbsloven",            "farve": "#0369a1"},
-    "mfkn_landbrugsstoette":          {"navn": "Landbrugsstøtte",          "farve": "#854d0e"},
-    "mfkn_projektstoette":            {"navn": "Projektstøtte",            "farve": "#6b21a8"},
-    "mfkn_miljoevurdering_af_konkrete_projekter": {"navn": "Miljøvurdering (projekter)", "farve": "#065f46"},
-    "mfkn_miljoevurdering_af_planer_og_programmer": {"navn": "Miljøvurdering (planer)", "farve": "#047857"},
-    "mfkn_miljoemaalsloven_og_vandplanlaegningsloven": {"navn": "Miljømålsloven",       "farve": "#0c4a6e"},
-    "mfkn_dyresundhed_og_velfaerd":   {"navn": "Dyresundhed og -velfærd",  "farve": "#9f1239"},
-    "mfkn_jordforureningsloven":      {"navn": "Jordforureningsloven",     "farve": "#78350f"},
-    "mfkn_kystbeskyttelsesloven":     {"navn": "Kystbeskyttelsesloven",    "farve": "#155e75"},
-    "mfkn_skovloven":                 {"navn": "Skovloven",                "farve": "#3f6212"},
-    "mfkn_raastofloven":              {"navn": "Råstofloven",              "farve": "#713f12"},
-    "mfkn_fredning_mv":               {"navn": "Fredning mv.",             "farve": "#1e3a5f"},
-    "mfkn_landbrugsloven":            {"navn": "Landbrugsloven",           "farve": "#a16207"},
-    "mfkn_havmiljoeloven":            {"navn": "Havmiljøloven",            "farve": "#0e7490"},
-    "mfkn_museumsloven":              {"navn": "Museumsloven",             "farve": "#7e22ce"},
-    "mfkn_fiskeri":                   {"navn": "Fiskeri",                  "farve": "#1d4ed8"},
-    "mfkn_foder":                     {"navn": "Foder",                    "farve": "#b45309"},
-    "mfkn_planter":                   {"navn": "Planter",                  "farve": "#4d7c0f"},
-    "mfkn_dyrlaegelov":               {"navn": "Dyrlægeloven",             "farve": "#be123c"},
-    "mfkn_oekologi":                  {"navn": "Økologi",                  "farve": "#15803d"},
-    "mfkn_aktindsigt":                {"navn": "Aktindsigt",               "farve": "#475569"},
-    "mfkn_krydsoverensstemmelse_og_konditionalitet": {"navn": "Krydsoverensstemmelse", "farve": "#64748b"},
-    "mfkn_oevrige_lovomraader":       {"navn": "Øvrige lovområder",        "farve": "#6b7280"},
+    # ── Naturbeskyttelse ──
+    "mfkn_nbl_beskyttelseslinier":    {"navn": "Beskyttelseslinjer",       "farve": "#2d6a4f", "gruppe": "Naturbeskyttelse"},
+    "mfkn_nbl_beskyttede_naturtyper": {"navn": "Beskyttede naturtyper",    "farve": "#0e7490", "gruppe": "Naturbeskyttelse"},
+    "mfkn_nbl_fredningsomraadet":     {"navn": "Fredningsområdet",         "farve": "#14532d", "gruppe": "Naturbeskyttelse"},
+    "mfkn_nbl_oevrige":               {"navn": "NBL øvrige",               "farve": "#365314", "gruppe": "Naturbeskyttelse"},
+    "mfkn_fredning_mv":               {"navn": "Fredning mv.",             "farve": "#1e3a5f", "gruppe": "Naturbeskyttelse"},
+    "mfkn_skovloven":                 {"navn": "Skovloven",                "farve": "#3f6212", "gruppe": "Naturbeskyttelse"},
+    "mfkn_museumsloven":              {"navn": "Museumsloven",             "farve": "#7e22ce", "gruppe": "Naturbeskyttelse"},
+    # ── Miljø & Klima ──
+    "mfkn_miljoebeskyttelsesloven":   {"navn": "Miljøbeskyttelsesloven",   "farve": "#166534", "gruppe": "Miljø & Klima"},
+    "mfkn_jordforureningsloven":      {"navn": "Jordforureningsloven",     "farve": "#78350f", "gruppe": "Miljø & Klima"},
+    "mfkn_miljoevurdering_af_konkrete_projekter": {"navn": "Miljøvurdering (projekter)", "farve": "#065f46", "gruppe": "Miljø & Klima"},
+    "mfkn_miljoevurdering_af_planer_og_programmer": {"navn": "Miljøvurdering (planer)", "farve": "#047857", "gruppe": "Miljø & Klima"},
+    "mfkn_miljoemaalsloven_og_vandplanlaegningsloven": {"navn": "Miljømålsloven",       "farve": "#0c4a6e", "gruppe": "Miljø & Klima"},
+    "mfkn_havmiljoeloven":            {"navn": "Havmiljøloven",            "farve": "#0e7490", "gruppe": "Miljø & Klima"},
+    "mfkn_raastofloven":              {"navn": "Råstofloven",              "farve": "#713f12", "gruppe": "Miljø & Klima"},
+    # ── Vand & Kyst ──
+    "mfkn_vandforsyningsloven":       {"navn": "Vandforsyningsloven",      "farve": "#1e40af", "gruppe": "Vand & Kyst"},
+    "mfkn_vandloebsloven":            {"navn": "Vandløbsloven",            "farve": "#0369a1", "gruppe": "Vand & Kyst"},
+    "mfkn_kystbeskyttelsesloven":     {"navn": "Kystbeskyttelsesloven",    "farve": "#155e75", "gruppe": "Vand & Kyst"},
+    # ── Landbrug & Fødevarer ──
+    "mfkn_husdyrbrugloven":           {"navn": "Husdyrbrugloven",          "farve": "#92400e", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_foedevarer":                {"navn": "Fødevarer",                "farve": "#7c3aed", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_landbrugsloven":            {"navn": "Landbrugsloven",           "farve": "#a16207", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_landbrugsstoette":          {"navn": "Landbrugsstøtte",          "farve": "#854d0e", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_foder":                     {"navn": "Foder",                    "farve": "#b45309", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_planter":                   {"navn": "Planter",                  "farve": "#4d7c0f", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_oekologi":                  {"navn": "Økologi",                  "farve": "#15803d", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_fiskeri":                   {"navn": "Fiskeri",                  "farve": "#1d4ed8", "gruppe": "Landbrug & Fødevarer"},
+    "mfkn_krydsoverensstemmelse_og_konditionalitet": {"navn": "Krydsoverensstemmelse", "farve": "#64748b", "gruppe": "Landbrug & Fødevarer"},
+    # ── Dyr & Dyrlæge ──
+    "mfkn_dyresundhed_og_velfaerd":   {"navn": "Dyresundhed og -velfærd",  "farve": "#9f1239", "gruppe": "Dyr & Dyrlæge"},
+    "mfkn_dyrlaegelov":               {"navn": "Dyrlægeloven",             "farve": "#be123c", "gruppe": "Dyr & Dyrlæge"},
+    # ── Støtte & Tilskud ──
+    "mfkn_projektstoette":            {"navn": "Projektstøtte",            "farve": "#6b21a8", "gruppe": "Støtte & Tilskud"},
+    # ── Øvrige ──
+    "mfkn_aktindsigt":                {"navn": "Aktindsigt",               "farve": "#475569", "gruppe": "Øvrige"},
+    "mfkn_oevrige_lovomraader":       {"navn": "Øvrige lovområder",        "farve": "#6b7280", "gruppe": "Øvrige"},
 }
+
+# Grupperede labels til selectbox (med antal afgørelser)
+_GRUPPE_ORDEN = ["Naturbeskyttelse", "Miljø & Klima", "Vand & Kyst", "Landbrug & Fødevarer", "Dyr & Dyrlæge", "Støtte & Tilskud", "Øvrige"]
 
 def _find_kategorier():
     """Scan repo root for mfkn_*.csv and mfkn_*.csv.zip files."""
@@ -67,8 +77,32 @@ def _find_kategorier():
         reg = _KATEGORI_REGISTER.get(stem, {})
         navn = reg.get("navn", stem.replace("mfkn_", "").replace("_", " ").title())
         farve = reg.get("farve", "#2d6a4f")
-        kats[stem] = {"navn": navn, "farve": farve, "stem": stem}
+        gruppe = reg.get("gruppe", "Øvrige")
+        kats[stem] = {"navn": navn, "farve": farve, "stem": stem, "gruppe": gruppe}
     return kats
+
+
+def _byg_grupperet_liste(alle_kats):
+    """Byg en sorteret liste af kategori-navne, grupperet efter tema."""
+    grupper = {}
+    for stem, info in alle_kats.items():
+        g = info.get("gruppe", "Øvrige")
+        grupper.setdefault(g, []).append(info["navn"])
+    # Sorter inden for hver gruppe
+    for g in grupper:
+        grupper[g].sort()
+    # Byg flad liste i gruppe-orden
+    resultat = []
+    for g in _GRUPPE_ORDEN:
+        if g in grupper:
+            for navn in grupper[g]:
+                resultat.append(f"{navn}")
+    # Kategorier uden gruppe
+    for g, navne in grupper.items():
+        if g not in _GRUPPE_ORDEN:
+            for navn in sorted(navne):
+                resultat.append(f"{navn}")
+    return resultat
 
 
 # ── Hjelpefunktioner ─────────────────────────────────────────────────────────
@@ -302,7 +336,7 @@ if not alle_kats:
     st.stop()
 
 kat_navne = {v["navn"]: k for k, v in alle_kats.items()}
-kat_liste = sorted(kat_navne.keys())
+kat_liste = _byg_grupperet_liste(alle_kats)
 
 # ── Kategori-vaelger (placeres i sidebar nedenfor) ──────────────────────────
 if "mfkn_valgt_kat" not in st.session_state or st.session_state.mfkn_valgt_kat not in kat_liste:
@@ -345,11 +379,41 @@ vec, mat = build_index(valgt_stem, len(df))
 with st.sidebar:
     st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(152)}</div></div>', unsafe_allow_html=True)
 
+    # ── To-trins kategori-vaelger ──
+    # Byg gruppe → kategorier mapping (kun tilgaengelige)
+    _grupper = {}
+    for stem, info in alle_kats.items():
+        g = info.get("gruppe", "Øvrige")
+        _grupper.setdefault(g, []).append(info["navn"])
+    for g in _grupper:
+        _grupper[g].sort()
+    _tilg_grupper = [g for g in _GRUPPE_ORDEN if g in _grupper]
+
+    # Find aktuel gruppe ud fra valgt kategori
+    _aktuel_gruppe = "Øvrige"
+    for stem, info in alle_kats.items():
+        if info["navn"] == st.session_state.mfkn_valgt_kat:
+            _aktuel_gruppe = info.get("gruppe", "Øvrige")
+            break
+
+    st.markdown('<span class="h-filter-label">Tema</span>', unsafe_allow_html=True)
+    valgt_gruppe = st.selectbox(
+        "Tema",
+        _tilg_grupper,
+        index=_tilg_grupper.index(_aktuel_gruppe) if _aktuel_gruppe in _tilg_grupper else 0,
+        key="_mfkn_gruppe_select",
+        label_visibility="collapsed",
+    )
+
+    _kats_i_gruppe = _grupper.get(valgt_gruppe, kat_liste[:1])
     st.markdown('<span class="h-filter-label">Retsomraade</span>', unsafe_allow_html=True)
+    _default_idx = 0
+    if st.session_state.mfkn_valgt_kat in _kats_i_gruppe:
+        _default_idx = _kats_i_gruppe.index(st.session_state.mfkn_valgt_kat)
     valgt_navn = st.selectbox(
         "Retsomraade",
-        kat_liste,
-        index=kat_liste.index(st.session_state.mfkn_valgt_kat),
+        _kats_i_gruppe,
+        index=_default_idx,
         key="_mfkn_kat_select",
         label_visibility="collapsed",
     )
