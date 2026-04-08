@@ -52,7 +52,7 @@ _CS = ("background:#fffcf8;border-radius:14px;padding:2.2rem 2.4rem 2rem;"
        "border:1px solid #ddd4c8;border-top:4px solid {color};"
        "box-shadow:0 2px 14px rgba(60,20,20,.07);height:100%;")
 
-col1, col2, col3 = st.columns(3, gap="large")
+col1, col2 = st.columns(2, gap="large")
 
 with col1:
     st.markdown(f"""
@@ -81,35 +81,16 @@ with col2:
               color:#1a0a0e;letter-spacing:4px;margin-bottom:.25rem;">MFKN</div>
   <div style="font-size:10.5px;color:#a08070;text-transform:uppercase;letter-spacing:1.5px;
               margin-bottom:1.1rem;padding-bottom:1.1rem;border-bottom:1px solid #ece6dc;">
-    Beskyttelseslinjer
+    Miljø- og Fødevareklagenævnet · alle retsområder
   </div>
   <div style="font-size:13px;color:#4a3028;line-height:1.75;margin-bottom:1.3rem;">
-    Afgørelser om strandbeskyttelseslinjen, sø-, å- og fortidsmindebeskyttelseslinjer og skovbyggelinjen.
+    Afgørelser om beskyttelseslinjer, beskyttede naturtyper, miljøbeskyttelse, husdyrbrug, vandforsyning og meget mere. Vælg retsområde og søg i 23.000+ afgørelser.
   </div>
   <div style="font-size:10.5px;font-weight:600;color:#b09080;text-transform:uppercase;letter-spacing:1px;">
-    Naturbeskyttelsesloven · 2.000+ afgørelser
+    Alle retsområder · 23.000+ afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/mfkn_beskyttelseslinjer.py", label="Åbn Beskyttelseslinjer →", use_container_width=True)
-
-with col3:
-    st.markdown(f"""
-<div style="{_CS.format(color='#0e7490')}">
-  <div style="font-size:1.9rem;margin-bottom:1rem;">🌾</div>
-  <div style="font-family:'Cinzel',Georgia,serif;font-size:.9rem;font-weight:700;
-              color:#1a0a0e;letter-spacing:4px;margin-bottom:.25rem;">MFKN</div>
-  <div style="font-size:10.5px;color:#a08070;text-transform:uppercase;letter-spacing:1.5px;
-              margin-bottom:1.1rem;padding-bottom:1.1rem;border-bottom:1px solid #ece6dc;">
-    Beskyttede Naturtyper
-  </div>
-  <div style="font-size:13px;color:#4a3028;line-height:1.75;margin-bottom:1.3rem;">
-    Afgørelser om beskyttede naturtyper – eng, mose, hede, overdrev, sø og vandløb efter NBL § 3.
-  </div>
-  <div style="font-size:10.5px;font-weight:600;color:#b09080;text-transform:uppercase;letter-spacing:1px;">
-    NBL § 3 · 1.410+ afgørelser
-  </div>
-</div>""", unsafe_allow_html=True)
-    st.page_link("pages/mfkn_naturtyper.py", label="Åbn Naturtyper →", use_container_width=True)
+    st.page_link("pages/mfkn.py", label="Åbn MFKN →", use_container_width=True)
 
 st.markdown("""
 <div style="text-align:center;padding-top:2.5rem;border-top:1px solid #ece6dc;
