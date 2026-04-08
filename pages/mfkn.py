@@ -283,27 +283,12 @@ if not alle_kats:
 kat_navne = {v["navn"]: k for k, v in alle_kats.items()}
 kat_liste = sorted(kat_navne.keys())
 
-# ── Kategori-vaelger ─────────────────────────────────────────────────────────
+# ── Kategori-vaelger (placeres i sidebar nedenfor) ──────────────────────────
 if "mfkn_valgt_kat" not in st.session_state or st.session_state.mfkn_valgt_kat not in kat_liste:
     st.session_state.mfkn_valgt_kat = kat_liste[0]
 
-valgt_navn = st.selectbox(
-    "Vaelg retsomraade",
-    kat_liste,
-    index=kat_liste.index(st.session_state.mfkn_valgt_kat),
-    key="_mfkn_kat_select",
-    label_visibility="collapsed",
-)
-
-# Reset state on category change
-if valgt_navn != st.session_state.get("mfkn_valgt_kat"):
-    st.session_state.mfkn_valgt_kat = valgt_navn
-    st.session_state.mfkn_valgt = None
-    st.session_state.mfkn_chat = []
-    if "mfkn_resume_txt" in st.session_state:
-        del st.session_state["mfkn_resume_txt"]
-    st.session_state["mfkn_vis_antal"] = 25
-    st.rerun()
+# Variablen saettes efter sidebar er bygget — se nedenfor
+valgt_navn = st.session_state.mfkn_valgt_kat
 
 valgt_stem = kat_navne[valgt_navn]
 valgt_info = alle_kats[valgt_stem]
@@ -338,6 +323,26 @@ vec, mat = build_index(valgt_stem, len(df))
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(152)}</div></div>', unsafe_allow_html=True)
+
+    st.markdown('<span class="h-filter-label">Retsomraade</span>', unsafe_allow_html=True)
+    valgt_navn = st.selectbox(
+        "Retsomraade",
+        kat_liste,
+        index=kat_liste.index(st.session_state.mfkn_valgt_kat),
+        key="_mfkn_kat_select",
+        label_visibility="collapsed",
+    )
+    # Reset state on category change
+    if valgt_navn != st.session_state.get("mfkn_valgt_kat"):
+        st.session_state.mfkn_valgt_kat = valgt_navn
+        st.session_state.mfkn_valgt = None
+        st.session_state.mfkn_chat = []
+        if "mfkn_resume_txt" in st.session_state:
+            del st.session_state["mfkn_resume_txt"]
+        st.session_state["mfkn_vis_antal"] = 25
+        st.rerun()
+
+    st.markdown("---")
 
     st.markdown('<span class="h-filter-label">Soegeord</span>', unsafe_allow_html=True)
     soeg_input = st.text_input("", placeholder="f.eks. dispensation terrasse...", label_visibility="collapsed", key="mfkn_soeg")
