@@ -1,11 +1,39 @@
 import streamlit as st
-from shared import logo, inject_css
+import os, csv, zipfile, glob as _glob
+from shared import logo, inject_css, sidebar_log_ud
 
 if not st.session_state.get("_autentificeret_v2"):
     st.switch_page("app.py")
     st.stop()
 
 inject_css()
+
+# ── Tæl afgørelser dynamisk ──────────────────────────────────────────────────
+@st.cache_data(ttl=3600, show_spinner=False)
+def _tæl_afgørelser():
+    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _tmp = "/tmp/pkn_data"
+    os.makedirs(_tmp, exist_ok=True)
+    csv.field_size_limit(10_000_000)
+
+    def _tæl_zip(pattern):
+        total = 0
+        for f in _glob.glob(os.path.join(_root, pattern)):
+            try:
+                with zipfile.ZipFile(f) as z:
+                    inner = [n for n in z.namelist() if n.endswith('.csv')][0]
+                    with z.open(inner) as csvf:
+                        total += sum(1 for _ in csv.DictReader(__import__('io').TextIOWrapper(csvf, encoding='utf-8')))
+            except Exception:
+                pass
+        return total
+
+    pkn = _tæl_zip("pkn_*.csv.zip")
+    mfkn = _tæl_zip("mfkn_*.csv.zip")
+    n_mfkn_kat = len(_glob.glob(os.path.join(_root, "mfkn_*.csv.zip")))
+    return pkn, mfkn, n_mfkn_kat
+
+_pkn_antal, _mfkn_antal, _mfkn_kat = _tæl_afgørelser()
 
 st.markdown("""
 <style>
@@ -68,7 +96,7 @@ with col1:
     Afgørelser om lokalplaner, kommuneplantillæg, planvedtagelser og landzone. Søg og analyser PKN's praksis.
   </div>
   <div style="font-size:10.5px;font-weight:600;color:#b09080;text-transform:uppercase;letter-spacing:1px;">
-    Planloven · 5.000+ afgørelser
+    Planloven · {_pkn_antal:,} afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
     st.page_link("pages/pkn.py", label="Åbn PKN →", use_container_width=True)
@@ -84,13 +112,15 @@ with col2:
     Miljø- og Fødevareklagenævnet · alle retsområder
   </div>
   <div style="font-size:13px;color:#4a3028;line-height:1.75;margin-bottom:1.3rem;">
-    Afgørelser om beskyttelseslinjer, beskyttede naturtyper, miljøbeskyttelse, husdyrbrug, vandforsyning og meget mere. Vælg retsområde og søg i 23.000+ afgørelser.
+    Afgørelser om beskyttelseslinjer, beskyttede naturtyper, miljøbeskyttelse, husdyrbrug, vandforsyning og meget mere. Vælg retsområde og søg i {_mfkn_antal:,} afgørelser.
   </div>
   <div style="font-size:10.5px;font-weight:600;color:#b09080;text-transform:uppercase;letter-spacing:1px;">
-    Alle retsområder · 23.000+ afgørelser
+    {_mfkn_kat} retsområder · {_mfkn_antal:,} afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
     st.page_link("pages/mfkn.py", label="Åbn MFKN →", use_container_width=True)
+
+sidebar_log_ud()
 
 st.markdown("""
 <div style="text-align:center;padding-top:2.5rem;border-top:1px solid #ece6dc;

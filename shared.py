@@ -393,6 +393,16 @@ def inject_css() -> None:
         st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
 
+def sidebar_log_ud() -> None:
+    """Vis log ud-knap nederst i sidebaren."""
+    with st.sidebar:
+        st.markdown("---")
+        if st.button("Log ud", use_container_width=True, key="_log_ud_btn"):
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
+
+
 def logo(w: int) -> str:
     svg = _LOGO_SVG.replace("{w}", str(w))
     b64 = _b64.b64encode(svg.encode()).decode()
@@ -798,6 +808,48 @@ def format_afgørelse_tekst(tekst: str) -> str:
         f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:15px;'
         f'line-height:1.9;color:#1e293b;max-width:72ch;">{out}</div>'
     )
+
+
+def udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
+    """Udtræk de vigtigste sektioner fra en afgørelse (klagen + vurdering/afgørelse).
+    Springer 'Sagens oplysninger' og andre faktuelle sektioner over."""
+    sektioner = re.split(r'\n(#{2,3} .+)', tekst)
+
+    dele = []
+    for i, del_ in enumerate(sektioner):
+        if del_.startswith('## ') or del_.startswith('### '):
+            indhold = sektioner[i + 1] if i + 1 < len(sektioner) else ""
+            dele.append((del_.lstrip('#').strip().lower(), indhold.strip()))
+
+    prioritet = [
+        "klagen",
+        "klagen vedrører",
+        "planklagenævnets bemærkninger og afgørelse",
+        "miljø- og fødevareklagenævnets afgørelse",
+        "nævnets bemærkninger og afgørelse",
+        "nævnets vurdering",
+        "retlig vurdering",
+        "begrundelse for afgørelsen",
+        "begrundelse",
+        "afgørelse",
+        "nævnets bemærkninger",
+        "afsluttende bemærkninger",
+        "konklusion",
+    ]
+
+    udtræk = []
+    brugt = 0
+    for prio in prioritet:
+        for heading, indhold in dele:
+            if prio in heading and indhold:
+                tekst_del = f"[{heading.upper()}]\n{indhold}"
+                if brugt + len(tekst_del) <= max_tegn:
+                    udtræk.append(tekst_del)
+                    brugt += len(tekst_del)
+
+    if udtræk:
+        return "\n\n".join(udtræk)
+    return tekst[-max_tegn:]
 
 
 def extract_kommune(titel: str) -> str:

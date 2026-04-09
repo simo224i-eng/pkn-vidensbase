@@ -22,7 +22,10 @@ if not st.session_state.get("_autentificeret_v2"):
     with col:
         pw = st.text_input("Adgangskode", type="password", placeholder="Indtast adgangskode…")
         if st.button("Log ind →", use_container_width=True):
-            if pw == "Ugv73uwz":
+            korrekt = st.secrets.get("APP_PASSWORD", "")
+            if not korrekt:
+                st.error("Adgangskode ikke konfigureret. Tilføj APP_PASSWORD i Streamlit secrets.")
+            elif pw == korrekt:
                 st.session_state["_autentificeret_v2"] = True
                 st.rerun()
             else:

@@ -13,7 +13,7 @@ import plotly.graph_objects as go
 import requests
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as cos_sim
-from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header
+from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header, udtræk_kerneafsnit, sidebar_log_ud
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -318,47 +318,7 @@ def _saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
     return merged[:max_total]
 
 
-def _udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
-    """Udtræk Klagen + Vurdering/Afgørelse fra en afgørelse – springer 'Sagens oplysninger' over."""
-    # Heading-markers fra strip_html(preserve_headings=True)
-    sektioner = re.split(r'\n(#{2,3} .+)', tekst)
-
-    # Byg sektions-liste: [(heading, indhold), ...]
-    dele = []
-    for i, del_ in enumerate(sektioner):
-        if del_.startswith('## ') or del_.startswith('### '):
-            indhold = sektioner[i + 1] if i + 1 < len(sektioner) else ""
-            dele.append((del_.lstrip('#').strip().lower(), indhold.strip()))
-
-    # Prioriterede sektioner (vigtigst først)
-    prioritet = [
-        "klagen",
-        "planklagenævnets bemærkninger og afgørelse",
-        "nævnets bemærkninger og afgørelse",
-        "nævnets vurdering",
-        "retlig vurdering",
-        "begrundelse for afgørelsen",
-        "begrundelse",
-        "afgørelse",
-        "nævnets bemærkninger",
-        "afsluttende bemærkninger",
-        "konklusion",
-    ]
-
-    udtræk = []
-    brugt = 0
-    for prio in prioritet:
-        for heading, indhold in dele:
-            if prio in heading and indhold:
-                tekst_del = f"[{heading.upper()}]\n{indhold}"
-                if brugt + len(tekst_del) <= max_tegn:
-                    udtræk.append(tekst_del)
-                    brugt += len(tekst_del)
-
-    if udtræk:
-        return "\n\n".join(udtræk)
-    # Fallback: brug de sidste 8000 tegn (vurdering er typisk i slutningen)
-    return tekst[-max_tegn:]
+_udtræk_kerneafsnit = udtræk_kerneafsnit  # alias til shared.py
 
 
 def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
@@ -594,6 +554,7 @@ with st.sidebar:
             file_name="pkn_afgørelser.txt",
             mime="text/plain",
         )
+    sidebar_log_ud()
 
 
 # ── Page header ───────────────────────────────────────────────────────────────

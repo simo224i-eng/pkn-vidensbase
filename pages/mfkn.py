@@ -14,7 +14,7 @@ import numpy as np
 import plotly.express as px
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from shared import logo, _llm, _llm_stream, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header
+from shared import logo, _llm, _llm_stream, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header, udtræk_kerneafsnit, sidebar_log_ud
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -245,7 +245,11 @@ def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} - {d['Titel']}\n{d['Tekst']}"
+        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{udtræk_kerneafsnit(d['Tekst'])}"
+        for i, d in enumerate(docs)
+    )
+    kilde_liste = "\n".join(
+        f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
         for i, d in enumerate(docs)
     )
     historik_tekst = ""
@@ -254,20 +258,75 @@ def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
             rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
             historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
-    prompt = f"""Du er en juridisk assistent specialiseret i dansk forvaltningsret og MFKN's praksis for {kat_navn}.
-Besvar følgende spørgsmål KUN baseret på de vedlagte MFKN-afgørelser.
-Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn.
-Svar på dansk, præcist og struktureret med overskrifter og afsnit.
-Hvis du er usikker, skriv det eksplicit. Gæt aldrig.
-Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst.
-{samtale_blok}
-SPØRGSMÅL: {spoergsmaal}
+    blocks = [
+        {
+            "type": "text",
+            "text": (
+                f"Du er en juridisk assistent specialiseret i dansk forvaltningsret og MFKN's praksis for {kat_navn}.\n\n"
+                f"VIGTIGE REGLER:\n"
+                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.\n"
+                f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference.\n"
+                f"3. Svar på dansk, præcist og struktureret med overskrifter og afsnit.\n"
+                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
+                f"5. Hvis du er usikker, skriv det eksplicit. Gæt aldrig.\n\n"
+                f"KILDEREGISTER:\n{kilde_liste}"
+            ),
+        },
+        {
+            "type": "text",
+            "text": f"\nAFGØRELSER:\n{kontekst}\n",
+            "cache_control": {"type": "ephemeral"},
+        },
+        {
+            "type": "text",
+            "text": f"{samtale_blok}SPØRGSMÅL: {spoergsmaal}\n\nSVAR:",
+        },
+    ]
+    return _llm(blocks)
 
-AFGØRELSER:
-{kontekst}
-
-SVAR:"""
-    return _llm(prompt)
+def mfkn_svar_stream(spoergsmaal, docs, historik=None, kat_navn="", placeholder=None):
+    """Streaming-version af mfkn_svar – viser svaret ord-for-ord."""
+    if not ANTHROPIC_API_KEY:
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
+    kontekst = "\n\n".join(
+        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{udtræk_kerneafsnit(d['Tekst'])}"
+        for i, d in enumerate(docs)
+    )
+    kilde_liste = "\n".join(
+        f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
+        for i, d in enumerate(docs)
+    )
+    historik_tekst = ""
+    if historik:
+        for msg in historik[:-1]:
+            rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
+            historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
+    samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
+    blocks = [
+        {
+            "type": "text",
+            "text": (
+                f"Du er en juridisk assistent specialiseret i dansk forvaltningsret og MFKN's praksis for {kat_navn}.\n\n"
+                f"VIGTIGE REGLER:\n"
+                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.\n"
+                f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference.\n"
+                f"3. Svar på dansk, præcist og struktureret med overskrifter og afsnit.\n"
+                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
+                f"5. Hvis du er usikker, skriv det eksplicit. Gæt aldrig.\n\n"
+                f"KILDEREGISTER:\n{kilde_liste}"
+            ),
+        },
+        {
+            "type": "text",
+            "text": f"\nAFGØRELSER:\n{kontekst}\n",
+            "cache_control": {"type": "ephemeral"},
+        },
+        {
+            "type": "text",
+            "text": f"{samtale_blok}SPØRGSMÅL: {spoergsmaal}\n\nSVAR:",
+        },
+    ]
+    return _llm_stream(blocks, placeholder=placeholder)
 
 def mfkn_resume(titel, tekst, kat_navn=""):
     if not ANTHROPIC_API_KEY:
@@ -276,7 +335,7 @@ def mfkn_resume(titel, tekst, kat_navn=""):
 Inkluder: Sagens kerne, Nævnets vurdering, Resultat. Max 200 ord.
 
 TITEL: {titel}
-TEKST: {tekst[:3000]}
+TEKST: {udtræk_kerneafsnit(tekst, max_tegn=6000)}
 
 RESUME:"""
     return _llm(prompt)
@@ -509,6 +568,7 @@ with st.sidebar:
             data=_dl_tekst(df_filter).encode("utf-8"),
             file_name=f"mfkn_{valgt_stem}.txt", mime="text/plain",
         )
+    sidebar_log_ud()
 
 # ── Page header ──────────────────────────────────────────────────────────────
 st.markdown(f"""
@@ -700,12 +760,16 @@ with tab_ai:
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"mfkn_fs_{i}"):
                 st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": f})
-                with st.spinner("Søger og genererer svar…"):
-                    hits_ai = tfidf_soeg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
-                    try:
-                        svar = mfkn_svar(f, hits_ai.to_dict("records"), historik=st.session_state.mfkn_chat, kat_navn=valgt_navn)
-                    except Exception as e:
-                        svar = f"Fejl: {e}"
+                st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
+                hits_ai = tfidf_soeg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+                svar_placeholder = st.empty()
+                try:
+                    svar = mfkn_svar_stream(f, hits_ai.to_dict("records"),
+                                            historik=st.session_state.mfkn_chat,
+                                            kat_navn=valgt_navn, placeholder=svar_placeholder)
+                except Exception as e:
+                    svar = f"Fejl: {e}"
+                    svar_placeholder.error(svar)
                 st.session_state.mfkn_chat.append(
                     {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
                 st.rerun()
@@ -785,13 +849,16 @@ with tab_ai:
 
         if send and spoergsmaal.strip():
             st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": spoergsmaal})
-            with st.spinner("Søger og genererer svar…"):
-                hits_ai = tfidf_soeg(spoergsmaal, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
-                try:
-                    svar = mfkn_svar(spoergsmaal, hits_ai.to_dict("records"),
-                                     historik=st.session_state.mfkn_chat, kat_navn=valgt_navn)
-                except Exception as e:
-                    svar = f"Fejl ved API: {e}"
+            st.markdown(f'<div class="chat-user">{spoergsmaal}</div>', unsafe_allow_html=True)
+            hits_ai = tfidf_soeg(spoergsmaal, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
+            svar_placeholder = st.empty()
+            try:
+                svar = mfkn_svar_stream(spoergsmaal, hits_ai.to_dict("records"),
+                                        historik=st.session_state.mfkn_chat,
+                                        kat_navn=valgt_navn, placeholder=svar_placeholder)
+            except Exception as e:
+                svar = f"Fejl ved API: {e}"
+                svar_placeholder.error(svar)
             st.session_state.mfkn_chat.append(
                 {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
             st.rerun()
