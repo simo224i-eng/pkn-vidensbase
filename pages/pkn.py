@@ -428,6 +428,9 @@ with st.sidebar:
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Søgeord</span>', unsafe_allow_html=True)
     søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
     søge_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="søge_type")
+    st.markdown('<span style="font-size:10px;color:#64748b;line-height:1.4;display:block;margin-top:-8px;">'
+                'Præcis = nøjagtig tekstmatch &nbsp;·&nbsp; Semantisk = AI-baseret søgning efter betydning</span>',
+                unsafe_allow_html=True)
 
     st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
@@ -459,6 +462,16 @@ with st.sidebar:
     st.markdown("---")
     st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; 2017–{år_max}</span>", unsafe_allow_html=True)
     st.markdown(f"<span style='font-size:11px;color:#3d5878'>Opdateret {df['Dato'].max().strftime('%d.%m.%Y')}</span>", unsafe_allow_html=True)
+
+    # Nulstil filtre
+    _har_filtre = bool(valgte_kats or dokumenttype_valg or plantype_valg or sagsgruppe_valg
+                       or udfald_valg or søg_input.strip() or år_range != (år_min, år_max))
+    if _har_filtre:
+        if st.button("Nulstil filtre", use_container_width=True, key="_pkn_reset"):
+            for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type"]:
+                if k in st.session_state:
+                    del st.session_state[k]
+            st.rerun()
 
 
 mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
@@ -831,13 +844,30 @@ with tab_ai:
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:
-        # Forslagsknapper
-        forslag = [
-            "Hvad lægger PKN vægt på ved vurdering af terrasse?",
-            "Hvornår gives der medhold i landzonesager?",
-            "Hvilken praksis er der for strandbeskyttelseslinjen?",
-            "Hvad kræves for dispensation fra lokalplan?",
-        ]
+        # Kontekstuelle forslagsknapper baseret på aktive filtre
+        if valgte_kats and len(valgte_kats) == 1:
+            _kat_ctx = valgte_kats[0].lower()
+            forslag = [
+                f"Hvad er PKN's praksis for {_kat_ctx}?",
+                f"Hvornår giver PKN medhold i {_kat_ctx}-sager?",
+                f"Hvilke hensyn vægtes ved {_kat_ctx}?",
+                f"Hvornår afviser PKN klager over {_kat_ctx}?",
+            ]
+        elif søg_input.strip():
+            _q = søg_input.strip()
+            forslag = [
+                f"Hvad er PKN's praksis vedrørende {_q}?",
+                f"Hvornår giver PKN medhold i sager om {_q}?",
+                f"Hvilke argumenter er afgørende for {_q}?",
+                f"Er der en klar tendens i PKN's afgørelser om {_q}?",
+            ]
+        else:
+            forslag = [
+                "Hvad lægger PKN vægt på ved vurdering af terrasse?",
+                "Hvornår gives der medhold i landzonesager?",
+                "Hvilken praksis er der for strandbeskyttelseslinjen?",
+                "Hvad kræves for dispensation fra lokalplan?",
+            ]
         # Anchor element so CSS sibling selector kan styre knappernes udseende
         st.markdown('<div id="ai-forslag-anchor"></div>', unsafe_allow_html=True)
         cols = st.columns(4)

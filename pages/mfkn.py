@@ -496,6 +496,9 @@ with st.sidebar:
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
     soeg_input = st.text_input("", placeholder="f.eks. dispensation terrasse...", label_visibility="collapsed", key="mfkn_soeg")
     soege_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="mfkn_soegetype")
+    st.markdown('<span style="font-size:10px;color:#64748b;line-height:1.4;display:block;margin-top:-8px;">'
+                'Præcis = nøjagtig tekstmatch &nbsp;·&nbsp; Semantisk = AI-baseret søgning efter betydning</span>',
+                unsafe_allow_html=True)
 
     # Underkategori filter (kun hvis der er mere end 1)
     _alle_underkat = sorted(df["Underkategori"].dropna().unique())
@@ -519,6 +522,16 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; {aar_min}-{aar_max}</span>", unsafe_allow_html=True)
+
+    # Nulstil filtre
+    _har_filtre = bool(valgte_underkat or sagstype_valg or udfald_valg or soeg_input.strip()
+                       or aar_range != (_default_start, aar_max))
+    if _har_filtre:
+        if st.button("Nulstil filtre", use_container_width=True, key="_mfkn_reset"):
+            for k in ["mfkn_underkat", "mfkn_sg", "mfkn_ud", "mfkn_soeg", "mfkn_yr"]:
+                if k in st.session_state:
+                    del st.session_state[k]
+            st.rerun()
 
 # ── Filtrering ───────────────────────────────────────────────────────────────
 mask = (df["Aar"] >= aar_range[0]) & (df["Aar"] <= aar_range[1])
@@ -750,12 +763,31 @@ with tab_ai:
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:
-        forslag = [
-            f"Hvad er MFKN's praksis for {valgt_navn.lower()}?",
-            f"Hvornår ophæver MFKN kommunens afgørelse?",
-            f"Hvilke hensyn vægtes i {valgt_navn.lower()}-sager?",
-            f"Hvornår gives der dispensation?",
-        ]
+        # Kontekstuelle forslag baseret på aktive filtre
+        _kat_lav = valgt_navn.lower()
+        if sagstype_valg and len(sagstype_valg) == 1:
+            _sg_ctx = sagstype_valg[0].lower()
+            forslag = [
+                f"Hvad er MFKN's praksis for {_sg_ctx} i {_kat_lav}-sager?",
+                f"Hvornår giver MFKN medhold i {_sg_ctx}-sager?",
+                f"Hvilke hensyn vægtes ved {_sg_ctx} ({_kat_lav})?",
+                f"Hvornår afviser MFKN klager over {_sg_ctx}?",
+            ]
+        elif udfald_valg and len(udfald_valg) == 1:
+            _ud_ctx = udfald_valg[0].lower()
+            forslag = [
+                f"Hvornår ender {_kat_lav}-sager med {_ud_ctx}?",
+                f"Hvilke argumenter fører til {_ud_ctx} i {_kat_lav}?",
+                f"Hvad er MFKN's praksis for {_kat_lav}?",
+                f"Hvilke hensyn vægtes i {_kat_lav}-sager?",
+            ]
+        else:
+            forslag = [
+                f"Hvad er MFKN's praksis for {_kat_lav}?",
+                f"Hvornår ophæver MFKN kommunens afgørelse?",
+                f"Hvilke hensyn vægtes i {_kat_lav}-sager?",
+                f"Hvornår gives der dispensation?",
+            ]
         cols = st.columns(4)
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"mfkn_fs_{i}"):

@@ -1,5 +1,5 @@
 import streamlit as st
-import os, csv, zipfile, glob as _glob
+import os, csv, zipfile, glob as _glob, datetime
 from shared import logo, inject_css, sidebar_log_ud
 
 if not st.session_state.get("_autentificeret_v2"):
@@ -31,9 +31,17 @@ def _tæl_afgørelser():
     pkn = _tæl_zip("pkn_*.csv.zip")
     mfkn = _tæl_zip("mfkn_*.csv.zip")
     n_mfkn_kat = len(_glob.glob(os.path.join(_root, "mfkn_*.csv.zip")))
-    return pkn, mfkn, n_mfkn_kat
 
-_pkn_antal, _mfkn_antal, _mfkn_kat = _tæl_afgørelser()
+    # Seneste ændringsdato for zip-filerne
+    alle_zips = _glob.glob(os.path.join(_root, "pkn_*.csv.zip")) + _glob.glob(os.path.join(_root, "mfkn_*.csv.zip"))
+    if alle_zips:
+        seneste = max(os.path.getmtime(f) for f in alle_zips)
+        dato_str = datetime.datetime.fromtimestamp(seneste).strftime("%d.%m.%Y")
+    else:
+        dato_str = "-"
+    return pkn, mfkn, n_mfkn_kat, dato_str
+
+_pkn_antal, _mfkn_antal, _mfkn_kat, _senest_opdateret = _tæl_afgørelser()
 
 st.markdown("""
 <style>
@@ -122,11 +130,29 @@ with col2:
 
 sidebar_log_ud()
 
-st.markdown("""
+# ── Udfaldsterminologi-legende ──────────────────────────────────────────────
+st.markdown(f"""
+<div style="margin-top:2.5rem;padding:1.6rem 2rem;background:#f8f6f3;border-radius:10px;border:1px solid #ece6dc;">
+  <div style="font-family:'Cinzel',Georgia,serif;font-size:10px;font-weight:700;color:#7a6050;
+              text-transform:uppercase;letter-spacing:2px;margin-bottom:0.8rem;">Udfaldsterminologi</div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px 24px;font-size:12px;color:#4a3028;line-height:1.7;">
+    <span><strong style="color:#166534;">Medhold/Ophævet/Hjemvist</strong> – klager får helt eller delvist ret</span>
+    <span><strong style="color:#991b1b;">Stadfæstelse/Ikke medhold</strong> – afgørelsen fastholdes</span>
+    <span><strong style="color:#92400e;">Afvist</strong> – klagen behandles ikke (frist, kompetence mv.)</span>
+    <span><strong style="color:#5b21b6;">Ændring</strong> – nævnet ændrer afgørelsens indhold</span>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
 <div style="text-align:center;padding-top:2.5rem;border-top:1px solid #ece6dc;
             margin-top:2rem;margin-bottom:1rem;">
   <span style="font-size:10.5px;color:#c8bdb0;letter-spacing:1.2px;text-transform:uppercase;">
     Harald · Juridisk Vidensbase
+  </span>
+  <br>
+  <span style="font-size:10px;color:#b0a898;letter-spacing:0.5px;">
+    Data senest opdateret {_senest_opdateret}
   </span>
 </div>
 """, unsafe_allow_html=True)

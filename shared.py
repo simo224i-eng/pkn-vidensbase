@@ -24,7 +24,7 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] { background: linear-gradient(180deg, #141d2e 0%, #0f172a 55%, #0a1120 100%) !important; border-right: none; }
-[data-testid="stSidebar"] * { color: #94a3b8 !important; font-family: 'Inter', sans-serif !important; }
+[data-testid="stSidebar"] * { color: #b0bec5 !important; font-family: 'Inter', sans-serif !important; }
 [data-testid="stSidebar"] .stTextInput input {
     background: #1e293b !important; border: 1px solid #334155 !important;
     color: #e2e8f0 !important; border-radius: 5px !important; font-size: 13px !important;
@@ -35,7 +35,7 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stSidebar"] hr { border-color: #1e293b !important; }
 [data-testid="stSidebar"] .stSlider [role="slider"] { background: #c49a3c !important; }
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #c49a3c !important; }
-[data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #64748b !important; }
+[data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #90a4ae !important; }
 
 /* ── Sidebar collapse-knap ── */
 /* Expand-knap (vises når sidebar er lukket) */
@@ -85,7 +85,7 @@ header[data-testid="stHeader"] { display: none !important; }
     padding: 0 1rem 0.5rem;
 }
 [data-testid="stSidebarNavLink"] {
-    color: #64748b !important;
+    color: #8899aa !important;
     font-size: 12px !important;
     font-weight: 500 !important;
     padding: 7px 1rem !important;
@@ -125,6 +125,14 @@ header[data-testid="stHeader"] { display: none !important; }
     color: #e2e8f0 !important;
 }
 
+/* ── Nulstil filtre-knap i sidebar ── */
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"][class*="reset"],
+[data-testid="stSidebar"] div:has(> [data-testid="stBaseButton-secondary"]) button {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
+}
+
 /* ── Skjul keyboard-hint på tabs ── */
 [data-testid="stTabs"] [role="tab"] span[data-testid],
 [data-testid="stTabs"] [role="tab"] kbd { display: none !important; }
@@ -136,7 +144,7 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Sidebar section labels ── */
 .h-filter-label { font-family: 'Cinzel', Georgia, serif !important; font-size: 10px !important;
-                  font-weight: 700 !important; color: #c49a3c !important;
+                  font-weight: 700 !important; color: #d4af5a !important;
                   text-transform: uppercase; letter-spacing: 2px; margin: 1.4rem 0 0.35rem; display: block; }
 
 /* ── Page header ── */
@@ -168,7 +176,7 @@ header[data-testid="stHeader"] { display: none !important; }
 .pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #1a0a0e; margin: 0 0 8px; line-height: 1.5; }
 .pkn-card-tags    { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
 .pkn-tag          { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 500; color: #7a2e1e; background: #fdf0e8; border: 1px solid #d4a090; }
-.pkn-card-excerpt { font-size: 12.5px; color: #6b5040; line-height: 1.6; }
+.pkn-card-excerpt { font-size: 12.5px; color: #5a4030; line-height: 1.6; }
 .pkn-card-footer  { margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0e8e0; }
 .pkn-card-link    { font-size: 11px; color: #a08070; text-decoration: none; font-weight: 500; transition: color .12s; }
 .pkn-card-link:hover { color: #8C1C2E; }
@@ -184,7 +192,7 @@ header[data-testid="stHeader"] { display: none !important; }
 /* ── Stat cards ── */
 .stat-card   { background: #fffcf8; border-radius: 8px; padding: 22px 18px; text-align: center; border: 1px solid #ece6dc; border-top: 3px solid #8C1C2E; box-shadow: 0 1px 4px rgba(60,20,20,.05); }
 .stat-number { font-family: 'Cinzel', Georgia, serif; font-size: 28px; font-weight: 700; color: #1a0a0e; }
-.stat-label  { font-size: 10px; color: #a08070; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+.stat-label  { font-size: 10px; color: #7a6050; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
 
 /* ── AI Assistent intro ── */
 .ai-hero {
@@ -331,6 +339,27 @@ div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="elemen
 }
 div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] { margin-bottom: 14px !important; }
 
+/* ── Mobil breakpoints ── */
+@media (max-width: 768px) {
+    .h-page-header { flex-direction: column; gap: 8px; }
+    .h-page-title { font-size: 1.4rem !important; letter-spacing: 4px !important; }
+    .h-page-meta { padding-left: 0 !important; border-left: none !important; font-size: 11px !important; }
+    .pkn-card { padding: 14px 16px 14px 14px !important; }
+    .pkn-card-title { font-size: 12.5px !important; }
+    .stat-card { padding: 14px 10px !important; }
+    .stat-number { font-size: 20px !important; }
+    .stat-label { font-size: 9px !important; }
+    .detail-title { font-size: 1.15rem !important; }
+    .detail-meta-strip { flex-direction: column; width: 100% !important; }
+    .detail-meta-cell { border-right: none !important; border-bottom: 1px solid #ece6dc; padding: 8px 14px !important; }
+    .detail-meta-cell:last-child { border-bottom: none; }
+    .detail-reader { font-size: 14px !important; line-height: 1.7 !important; max-width: 100% !important; }
+    .ai-hero { flex-direction: column; gap: 10px; padding: 14px 16px !important; }
+    .chat-user { max-width: 95% !important; font-size: 13px !important; }
+    .chat-assistant { max-width: 100% !important; font-size: 13px !important; }
+    [data-testid="stTabs"] [role="tab"] { font-size: 11px !important; padding: 6px 10px !important; }
+}
+
 /* ── Detail reader forbedringer ── */
 .detail-reader { font-size: 15.5px; line-height: 1.9; color: #1e2d3d; font-family: 'Inter', system-ui, sans-serif; max-width: 76ch; }
 .detail-reader p { margin: 0 0 1.1em; }
@@ -448,6 +477,12 @@ def render_detail_header(
         f'font-size:12px;font-weight:500;color:#6b5040;text-decoration:none;border:1px solid #ece6dc;'
         f'border-radius:6px;padding:7px 14px;background:#fffcf8;margin-top:0.6rem;">'
         f'{link_label} &nbsp;↗</a>'
+        f'&nbsp;&nbsp;'
+        f'<button onclick="navigator.clipboard.writeText(\'{titel.replace(chr(39), chr(8217))} – {dato_str} – {link}\').'
+        f'then(function(){{this.textContent=\'Kopieret!\';var b=this;setTimeout(function(){{b.textContent=\'Kopiér reference\'}},2000)}}.bind(this))"'
+        f' style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;'
+        f'color:#6b5040;text-decoration:none;border:1px solid #ece6dc;border-radius:6px;padding:7px 14px;'
+        f'background:#fffcf8;margin-top:0.6rem;cursor:pointer;font-family:inherit;">Kopiér reference</button>'
         f'</div>'
     )
 
