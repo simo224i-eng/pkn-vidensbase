@@ -109,9 +109,10 @@ def _byg_grupperet_liste(alle_kats):
 def detect_udfald(titel):
     t = titel.lower()
     if any(k in t for k in ("hjemvisning","hjemvises","hjemvist")): return "Hjemvist"
-    if any(k in t for k in ("ophaevelse","ophævet")): return "Ophævet"
-    if "aendring" in t or "ændring" in t: return "Ændring"
-    if any(k in t for k in ("afvisning","afvises","afvist")): return "Afvist"
+    if any(k in t for k in ("ophaevelse","ophævelse","ophævet","ophæves")): return "Ophævet"
+    if "aendring" in t or "ændring" in t or "ændres" in t: return "Ændring"
+    if "ikke medhold" in t: return "Stadfæstelse"
+    if any(k in t for k in ("afvisning","afvises","afvist","klagefristen overskredet")): return "Afvist"
     if any(k in t for k in ("stadfaestelse","stadfæstes","stadfæstelse")): return "Stadfæstelse"
     if "afslag" in t: return "Afslag"
     return "Ukendt"
@@ -159,7 +160,7 @@ def _underkat_naturtype(titel):
 
 
 # ── Data-loading ─────────────────────────────────────────────────────────────
-@st.cache_data(show_spinner="Indlaeser afgoerelser...", ttl=None)
+@st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None)
 def _laes_csv(sti):
     csv.field_size_limit(10_000_000)
     rows = []
@@ -179,7 +180,7 @@ def _laes_csv(sti):
             })
     return rows
 
-@st.cache_data(show_spinner="Indlaeser afgoerelser...", ttl=None)
+@st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None)
 def load_kategori(stem, version=1):
     csv_navn = stem + ".csv"
     csv_sti = os.path.join(_ROOT, csv_navn)
@@ -214,7 +215,7 @@ def load_kategori(stem, version=1):
         df["Underkategori"] = df["Retsomraade"].str.strip()
     return df
 
-@st.cache_resource(show_spinner="Bygger soegeindeks...")
+@st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(stem, n_rows):
     df2 = load_kategori(stem, 1)
     texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
@@ -242,7 +243,7 @@ def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30):
 # ── AI-funktioner ────────────────────────────────────────────────────────────
 def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
     if not ANTHROPIC_API_KEY:
-        return "Tilfoej ANTHROPIC_API_KEY i Streamlit secrets."
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
     kontekst = "\n\n".join(
         f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} - {d['Titel']}\n{d['Tekst']}"
         for i, d in enumerate(docs)
@@ -254,15 +255,15 @@ def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
             historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
     prompt = f"""Du er en juridisk assistent specialiseret i dansk forvaltningsret og MFKN's praksis for {kat_navn}.
-Besvar foelgende spoergsmaal KUN baseret paa de vedlagte MFKN-afgoerelser.
+Besvar følgende spørgsmål KUN baseret på de vedlagte MFKN-afgørelser.
 Brug ALTID referencerne i formatet [Kilde X] efter hvert udsagn.
-Svar paa dansk, praecist og struktureret med overskrifter og afsnit.
-Hvis du er usikker, skriv det eksplicit. Gaet aldrig.
-Hvis spoergsmaalet er et opfoelgningsspoergsmaal, brug den tidligere samtale som kontekst.
+Svar på dansk, præcist og struktureret med overskrifter og afsnit.
+Hvis du er usikker, skriv det eksplicit. Gæt aldrig.
+Hvis spørgsmålet er et opfølgningsspørgsmål, brug den tidligere samtale som kontekst.
 {samtale_blok}
-SPOERGSMAAL: {spoergsmaal}
+SPØRGSMÅL: {spoergsmaal}
 
-AFGOERELSER:
+AFGØRELSER:
 {kontekst}
 
 SVAR:"""
@@ -270,9 +271,9 @@ SVAR:"""
 
 def mfkn_resume(titel, tekst, kat_navn=""):
     if not ANTHROPIC_API_KEY:
-        return "Ingen API-noegle."
-    prompt = f"""Lav et kort, struktureret resume af denne MFKN-afgoerelse ({kat_navn}) paa dansk.
-Inkluder: Sagens kerne, Naevnets vurdering, Resultat. Max 200 ord.
+        return "Ingen API-nøgle."
+    prompt = f"""Lav et kort, struktureret resumé af denne MFKN-afgørelse ({kat_navn}) på dansk.
+Inkluder: Sagens kerne, Nævnets vurdering, Resultat. Max 200 ord.
 
 TITEL: {titel}
 TEKST: {tekst[:3000]}
@@ -410,7 +411,7 @@ with st.sidebar:
     )
 
     _kats_i_gruppe = _grupper.get(valgt_gruppe, kat_liste[:1])
-    st.markdown('<span class="h-filter-label">Retsomraade</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Retsområde</span>', unsafe_allow_html=True)
     _default_idx = 0
     if st.session_state.mfkn_valgt_kat in _kats_i_gruppe:
         _default_idx = _kats_i_gruppe.index(st.session_state.mfkn_valgt_kat)
@@ -433,9 +434,9 @@ with st.sidebar:
 
     st.markdown("---")
 
-    st.markdown('<span class="h-filter-label">Soegeord</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
     soeg_input = st.text_input("", placeholder="f.eks. dispensation terrasse...", label_visibility="collapsed", key="mfkn_soeg")
-    soege_type = st.radio("", ["Praecis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="mfkn_soegetype")
+    soege_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="mfkn_soegetype")
 
     # Underkategori filter (kun hvis der er mere end 1)
     _alle_underkat = sorted(df["Underkategori"].dropna().unique())
@@ -449,7 +450,7 @@ with st.sidebar:
     _alle_sagstyper = sorted(df["Sagstype"].unique())
     sagstype_valg = st.multiselect("", _alle_sagstyper, label_visibility="collapsed", key="mfkn_sg")
 
-    st.markdown('<span class="h-filter-label">Aarsinterval</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
     aar_min, aar_max = int(df["Aar"].min()), int(df["Aar"].max())
     _default_start = max(2017, aar_min)
     aar_range = st.slider("", aar_min, aar_max, (_default_start, aar_max), label_visibility="collapsed", key="mfkn_yr")
@@ -458,7 +459,7 @@ with st.sidebar:
     udfald_valg = st.multiselect("", sorted(df["Udfald"].unique()), label_visibility="collapsed", key="mfkn_ud")
 
     st.markdown("---")
-    st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgoerelser &nbsp;·&nbsp; {aar_min}-{aar_max}</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; {aar_min}-{aar_max}</span>", unsafe_allow_html=True)
 
 # ── Filtrering ───────────────────────────────────────────────────────────────
 mask = (df["Aar"] >= aar_range[0]) & (df["Aar"] <= aar_range[1])
@@ -498,13 +499,13 @@ with st.sidebar:
             for _, row in data.iterrows():
                 dato = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "-"
                 lines += [
-                    f"AFGOERELSE:  {row['Titel']}", f"DATO:       {dato}",
+                    f"AFGØRELSE:  {row['Titel']}", f"DATO:       {dato}",
                     f"SAGSTYPE:   {row['Sagstype']}  |  UDFALD: {row['Udfald']}  |  KOMMUNE: {row['Kommune'] or '-'}",
                     f"KILDE:      {row['Link']}", "-" * 72, row["Tekst"].strip(), "", "=" * 72, "",
                 ]
             return "\n".join(lines)
         st.download_button(
-            label=f"Download {n:,} afgoerelser (.txt)",
+            label=f"Download {n:,} afgørelser (.txt)",
             data=_dl_tekst(df_filter).encode("utf-8"),
             file_name=f"mfkn_{valgt_stem}.txt", mime="text/plain",
         )
@@ -514,12 +515,12 @@ st.markdown(f"""
 <div class="h-page-header">
   <h1 class="h-page-title">HARALD</h1>
   <div class="h-gold-line"></div>
-  <p class="h-page-meta">MFKN · {valgt_navn} &nbsp;·&nbsp; {len(df):,} afgoerelser &nbsp;·&nbsp; {aar_min}-{aar_max}</p>
+  <p class="h-page-meta">MFKN · {valgt_navn} &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {aar_min}-{aar_max}</p>
 </div>
 """, unsafe_allow_html=True)
 
 # ── Tabs ─────────────────────────────────────────────────────────────────────
-tab_soeg, tab_stat, tab_ai = st.tabs(["  Afgoerelser  ", "  Statistik  ", "  AI Assistent  "])
+tab_soeg, tab_stat, tab_ai = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  "])
 
 # ══════════════════════════════════════════════════════════════════════════════
 # TAB 1 - AFGOERELSER
@@ -529,7 +530,7 @@ with tab_soeg:
     if st.session_state.mfkn_valgt is not None:
         row = st.session_state.mfkn_valgt
 
-        if st.button("<- Alle afgoerelser"):
+        if st.button("← Alle afgørelser"):
             st.session_state.mfkn_valgt = None
             st.rerun()
 
@@ -544,7 +545,7 @@ with tab_soeg:
             render_detail_header(
                 titel=row["Titel"], udfald=udfald, chip_style=chip_s, dato_str=dato_str,
                 meta_extra=[("Underkategori", underkat), ("Sagstype", sagstype), ("Kommune", kommune)],
-                link=row["Link"], link_label="Aabn original paa MFKN's hjemmeside", accent=accent,
+                link=row["Link"], link_label="Åbn original på MFKN's hjemmeside", accent=accent,
             ), unsafe_allow_html=True,
         )
 
@@ -569,11 +570,11 @@ with tab_soeg:
         if soeg_input:
             label = f"**{hits}** resultater for \"{soeg_input}\" (ud af {total_filtreret:,} filtrerede)"
         else:
-            label = f"Viser {min(_vis_antal, hits)} af **{total_filtreret:,}** afgoerelser (nyeste foerst)"
+            label = f"Viser {min(_vis_antal, hits)} af **{total_filtreret:,}** afgørelser (nyeste først)"
         st.markdown(label)
 
         if hits == 0:
-            st.warning("Ingen resultater - proev andre soegeord eller filtre.")
+            st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
         else:
             for _, row in df_vis.head(_vis_antal).iterrows():
                 badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
@@ -593,11 +594,11 @@ with tab_soeg:
   </div>
   <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{row['Excerpt']}...</div>
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
-    <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Aabn afgoerelse paa portalen</a>
+    <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen</a>
   </div>
 </div>""", unsafe_allow_html=True)
                 btn_key = f"mfkn_btn_{hash(row['Link'])}"
-                if st.button("Laes afgoerelse ->", key=btn_key):
+                if st.button("Læs afgørelse →", key=btn_key):
                     st.session_state.mfkn_valgt = row.to_dict()
                     if "mfkn_resume_txt" in st.session_state:
                         del st.session_state["mfkn_resume_txt"]
@@ -618,11 +619,11 @@ with tab_stat:
     k1, k2, k3, k4 = st.columns(4)
     with k1:
         st.markdown(f'<div class="stat-card"><div class="stat-number">{len(d):,}</div>'
-                    f'<div class="stat-label">Afgoerelser</div></div>', unsafe_allow_html=True)
+                    f'<div class="stat-label">Afgørelser</div></div>', unsafe_allow_html=True)
     with k2:
-        pct = (d["Udfald"] == "Ophævet").mean() * 100 if len(d) > 0 else 0
+        pct = d["Udfald"].isin(["Ophævet","Hjemvist","Ændring"]).mean() * 100 if len(d) > 0 else 0
         st.markdown(f'<div class="stat-card"><div class="stat-number">{pct:.0f}%</div>'
-                    f'<div class="stat-label">Ophævet-rate</div></div>', unsafe_allow_html=True)
+                    f'<div class="stat-label">Medhold-rate</div></div>', unsafe_allow_html=True)
     with k3:
         st.markdown(f'<div class="stat-card"><div class="stat-number">{d["Kommune"].nunique()}</div>'
                     f'<div class="stat-label">Kommuner</div></div>', unsafe_allow_html=True)
@@ -634,7 +635,7 @@ with tab_stat:
     col_l, col_r = st.columns(2)
 
     with col_l:
-        st.markdown("#### Afgoerelser per aar")
+        st.markdown("#### Afgørelser per år")
         if not d.empty:
             aar_df = d.groupby("Aar").size().reset_index(name="Antal")
             fig = px.bar(aar_df, x="Aar", y="Antal", color_discrete_sequence=[accent])
@@ -642,7 +643,7 @@ with tab_stat:
             st.plotly_chart(fig, use_container_width=True)
 
     with col_r:
-        st.markdown("#### Fordeling paa underkategori")
+        st.markdown("#### Fordeling på underkategori")
         if not d.empty:
             kat_df = d.groupby("Underkategori").size().reset_index(name="Antal")
             fig2 = px.pie(kat_df, values="Antal", names="Underkategori",
@@ -680,26 +681,26 @@ with tab_stat:
 # TAB 3 - AI ASSISTENT
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_ai:
-    st.markdown("### Spoerg til MFKN-praksis")
+    st.markdown("### Spørg til MFKN-praksis")
 
     n_ai = len(ai_sub_idx)
-    filter_tekst = f"alle **{len(df):,}** afgoerelser" if n_ai == len(df) else f"**{n_ai:,}** afgoerelser (filtreret)"
-    st.markdown(f"AI'en soeger i {filter_tekst} og svarer med kildehenvisninger.")
+    filter_tekst = f"alle **{len(df):,}** afgørelser" if n_ai == len(df) else f"**{n_ai:,}** afgørelser (filtreret)"
+    st.markdown(f"AI'en søger i {filter_tekst} og svarer med kildehenvisninger.")
 
     if not ANTHROPIC_API_KEY:
-        st.error("Tilfoej `ANTHROPIC_API_KEY` i Streamlit secrets.")
+        st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:
         forslag = [
             f"Hvad er MFKN's praksis for {valgt_navn.lower()}?",
-            f"Hvornaar ophaever MFKN kommunens afgoerelse?",
-            f"Hvilke hensyn vaegtes i {valgt_navn.lower()}-sager?",
-            f"Hvornaar gives der dispensation?",
+            f"Hvornår ophæver MFKN kommunens afgørelse?",
+            f"Hvilke hensyn vægtes i {valgt_navn.lower()}-sager?",
+            f"Hvornår gives der dispensation?",
         ]
         cols = st.columns(4)
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"mfkn_fs_{i}"):
                 st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": f})
-                with st.spinner("Soeger og genererer svar..."):
+                with st.spinner("Søger og genererer svar…"):
                     hits_ai = tfidf_soeg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
                     try:
                         svar = mfkn_svar(f, hits_ai.to_dict("records"), historik=st.session_state.mfkn_chat, kat_navn=valgt_navn)
@@ -739,7 +740,7 @@ with tab_ai:
                             badge_html = f'<span class="pkn-badge {badge_cls}">{udfald}</span>' if udfald else ""
 
                             with st.expander(f"[{i+1}] {kommune} - {aar_str}"):
-                                if st.button(f"Aabn afgorelsen", key=f"mfkn_kilde_{msg_idx}_{i}",
+                                if st.button(f"Åbn afgørelsen", key=f"mfkn_kilde_{msg_idx}_{i}",
                                              use_container_width=True, type="primary"):
                                     st.session_state.mfkn_valgt = k
                                     if "mfkn_resume_txt" in st.session_state:
@@ -767,13 +768,13 @@ with tab_ai:
                                 st.markdown(
                                     f'<a href="{k["Link"]}" target="_blank" '
                                     f'style="font-size:12px;color:#2563eb;text-decoration:none">'
-                                    f'Aabn original afgoerelse paa MFKN hjemmeside</a>',
+                                    f'Åbn original afgørelse på MFKN hjemmeside</a>',
                                     unsafe_allow_html=True
                                 )
 
         with st.form("mfkn_chat_form", clear_on_submit=True):
-            spoergsmaal = st.text_area("Dit spoergsmaal", height=80,
-                                       placeholder="Hvad er MFKN's praksis for...?")
+            spoergsmaal = st.text_area("Dit spørgsmål", height=80,
+                                       placeholder="Hvad er MFKN's praksis for…?")
             c1, c2 = st.columns([3, 1])
             send = c1.form_submit_button("Send", use_container_width=True, type="primary")
             ryd = c2.form_submit_button("Ryd chat", use_container_width=True)
@@ -784,7 +785,7 @@ with tab_ai:
 
         if send and spoergsmaal.strip():
             st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": spoergsmaal})
-            with st.spinner("Soeger og genererer svar..."):
+            with st.spinner("Søger og genererer svar…"):
                 hits_ai = tfidf_soeg(spoergsmaal, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
                 try:
                     svar = mfkn_svar(spoergsmaal, hits_ai.to_dict("records"),
