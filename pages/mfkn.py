@@ -124,9 +124,13 @@ def detect_sagstype(titel):
     if "registrering" in t: return "Registrering"
     if "dispensation" in t: return "Dispensation"
     if "lovliggoerelse" in t or "lovliggørelse" in t: return "Lovliggørelse"
+    if "godkendelse" in t: return "Godkendelse"
     if "tilladelse" in t: return "Tilladelse"
+    if "anmeldelse" in t: return "Anmeldelse"
+    if "vedtagelse" in t: return "Vedtagelse"
     if "paabud" in t or "påbud" in t: return "Påbud"
     if "forbud" in t: return "Forbud"
+    if "aktindsigt" in t: return "Aktindsigt"
     return "Realitetsbehandling"
 
 def _underkat_beskyttelseslinje(titel, tekst=""):
