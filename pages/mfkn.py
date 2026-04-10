@@ -14,7 +14,12 @@ import numpy as np
 import plotly.express as px
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from shared import logo, _llm, _llm_stream, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header, udtræk_kerneafsnit, sidebar_log_ud
+from shared import (
+    logo, _llm, _llm_stream, strip_html, extract_kommune, BADGE,
+    format_afgørelse_tekst, render_detail_header,
+    udtræk_kerneafsnit, sidebar_log_ud,
+    byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank, saml_kilder,
+)
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -216,28 +221,63 @@ def load_kategori(stem, version=1):
     return df
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
-def build_index(stem, n_rows):
+def build_index(stem, n_rows, version: int = 2):
+    """TF-IDF over titel×3 + kerneafsnit (sektions-level).
+    version buster cache når indekserings-logikken ændres."""
     df2 = load_kategori(stem, 1)
-    texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
+    texts = [byg_indeks_tekst(t, tx) for t, tx in zip(df2["Titel"].astype(str), df2["Tekst"].astype(str))]
     vec = TfidfVectorizer(max_features=40_000, ngram_range=(1,2), min_df=2, sublinear_tf=True)
     mat = vec.fit_transform(texts)
     return vec, mat
 
-def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30):
-    qv = vec.transform([query])
+def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander: bool = False):
+    """TF-IDF med valgfri query expansion og tids-decay boost (nyere sager prioriteres let)."""
+    effektiv_query = udvid_query(query) if ekspander else query
+    qv = vec.transform([effektiv_query])
+
+    def _boost(global_idx, base):
+        try:
+            aar = int(df.at[global_idx, "Aar"])
+            decay = 1.0 + max(0, min(0.15, (aar - 2017) * 0.02))
+            return float(base) * decay
+        except Exception:
+            return float(base)
+
     if sub_idx is not None and len(sub_idx) > 0:
         scores_sub = cosine_similarity(qv, mat[sub_idx]).flatten()
-        top_local = scores_sub.argsort()[-top_n:][::-1]
-        top_global = [sub_idx[i] for i in top_local if scores_sub[i] > 0.01]
+        top_local = scores_sub.argsort()[-top_n * 2:][::-1]
+        kandidater = [(sub_idx[i], scores_sub[i]) for i in top_local if scores_sub[i] > 0.01]
+        kandidater = [(g, _boost(g, s)) for g, s in kandidater]
+        kandidater.sort(key=lambda x: x[1], reverse=True)
+        kandidater = kandidater[:top_n]
+        if not kandidater:
+            return df.iloc[0:0].copy()
+        top_global = [g for g, _ in kandidater]
         result = df.loc[top_global].copy()
-        result["_score"] = [scores_sub[i] for i in top_local if scores_sub[i] > 0.01]
+        result["_score"] = [s for _, s in kandidater]
     else:
         scores = cosine_similarity(qv, mat).flatten()
-        top = scores.argsort()[-top_n:][::-1]
-        result = df.iloc[top].copy()
-        result["_score"] = scores[top]
-        result = result[result["_score"] > 0.01]
+        top = scores.argsort()[-top_n * 2:][::-1]
+        kandidater = [(int(i), scores[i]) for i in top if scores[i] > 0.01]
+        kandidater = [(g, _boost(g, s)) for g, s in kandidater]
+        kandidater.sort(key=lambda x: x[1], reverse=True)
+        kandidater = kandidater[:top_n]
+        if not kandidater:
+            return df.iloc[0:0].copy()
+        top_idx = [g for g, _ in kandidater]
+        result = df.iloc[top_idx].copy()
+        result["_score"] = [s for _, s in kandidater]
     return result.reset_index(drop=True)
+
+
+def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik, top_retrieve: int = 30, top_final: int = 8):
+    """RAG-pipeline: rewrite → expand → TF-IDF → rerank → merge med historik."""
+    standalone = omformuler_opfoelgning(spoergsmaal, historik or [])
+    hits = tfidf_soeg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
+    kandidater = hits.to_dict("records") if len(hits) > 0 else []
+    rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
+    alle_kilder = saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
+    return standalone, alle_kilder
 
 
 # ── AI-funktioner ────────────────────────────────────────────────────────────
@@ -268,7 +308,8 @@ def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
                 f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference.\n"
                 f"3. Svar på dansk, præcist og struktureret med overskrifter og afsnit.\n"
                 f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
-                f"5. Hvis du er usikker, skriv det eksplicit. Gæt aldrig.\n\n"
+                f"5. Understøt centrale påstande med et kort ordret citat fra kilden i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3].\n"
+                f"6. Hvis kilderne ikke entydigt besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n\n"
                 f"KILDEREGISTER:\n{kilde_liste}"
             ),
         },
@@ -312,7 +353,8 @@ def mfkn_svar_stream(spoergsmaal, docs, historik=None, kat_navn="", placeholder=
                 f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference.\n"
                 f"3. Svar på dansk, præcist og struktureret med overskrifter og afsnit.\n"
                 f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
-                f"5. Hvis du er usikker, skriv det eksplicit. Gæt aldrig.\n\n"
+                f"5. Understøt centrale påstande med et kort ordret citat fra kilden i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3].\n"
+                f"6. Hvis kilderne ikke entydigt besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n\n"
                 f"KILDEREGISTER:\n{kilde_liste}"
             ),
         },
@@ -793,17 +835,21 @@ with tab_ai:
             if cols[i].button(f, use_container_width=True, key=f"mfkn_fs_{i}"):
                 st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": f})
                 st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
-                hits_ai = tfidf_soeg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
                 svar_placeholder = st.empty()
                 try:
-                    svar = mfkn_svar_stream(f, hits_ai.to_dict("records"),
+                    _, alle_kilder = smart_retrieval_mfkn(
+                        f, df, vec, mat, ai_sub_idx,
+                        st.session_state.mfkn_chat, top_retrieve=30, top_final=8,
+                    )
+                    svar = mfkn_svar_stream(f, alle_kilder,
                                             historik=st.session_state.mfkn_chat,
                                             kat_navn=valgt_navn, placeholder=svar_placeholder)
                 except Exception as e:
+                    alle_kilder = []
                     svar = f"Fejl: {e}"
                     svar_placeholder.error(svar)
                 st.session_state.mfkn_chat.append(
-                    {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
+                    {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
                 st.rerun()
 
         for msg_idx, msg in enumerate(st.session_state.mfkn_chat):
@@ -882,15 +928,19 @@ with tab_ai:
         if send and spoergsmaal.strip():
             st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": spoergsmaal})
             st.markdown(f'<div class="chat-user">{spoergsmaal}</div>', unsafe_allow_html=True)
-            hits_ai = tfidf_soeg(spoergsmaal, df, vec, mat, sub_idx=ai_sub_idx, top_n=8)
             svar_placeholder = st.empty()
             try:
-                svar = mfkn_svar_stream(spoergsmaal, hits_ai.to_dict("records"),
+                _, alle_kilder = smart_retrieval_mfkn(
+                    spoergsmaal, df, vec, mat, ai_sub_idx,
+                    st.session_state.mfkn_chat, top_retrieve=30, top_final=8,
+                )
+                svar = mfkn_svar_stream(spoergsmaal, alle_kilder,
                                         historik=st.session_state.mfkn_chat,
                                         kat_navn=valgt_navn, placeholder=svar_placeholder)
             except Exception as e:
+                alle_kilder = []
                 svar = f"Fejl ved API: {e}"
                 svar_placeholder.error(svar)
             st.session_state.mfkn_chat.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": hits_ai.to_dict("records")})
+                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
             st.rerun()

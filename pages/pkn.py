@@ -13,7 +13,12 @@ import plotly.graph_objects as go
 import requests
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as cos_sim
-from shared import logo, _llm, strip_html, extract_kommune, BADGE, format_afgørelse_tekst, render_detail_header, udtræk_kerneafsnit, sidebar_log_ud
+from shared import (
+    logo, _llm, strip_html, extract_kommune, BADGE,
+    format_afgørelse_tekst, render_detail_header,
+    udtræk_kerneafsnit, sidebar_log_ud,
+    byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
+)
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -270,31 +275,58 @@ def load_data(version: int = 22):  # bump version to bust cache
 
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
-def build_index(n_rows: int):
+def build_index(n_rows: int, version: int = 2):
+    """TF-IDF over titel×3 + kerneafsnit (sektions-level indeksering).
+    version-param bruges til at buste cache når indekserings-logikken ændres."""
     from sklearn.feature_extraction.text import TfidfVectorizer
     df2 = load_data()
-    texts = (df2["Titel"] + " " + df2["Tekst"]).tolist()
+    texts = [byg_indeks_tekst(t, tx) for t, tx in zip(df2["Titel"].astype(str), df2["Tekst"].astype(str))]
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True)
     mat = vec.fit_transform(texts)
     return vec, mat
 
 
-def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30):
+def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30, ekspander: bool = False):
+    """TF-IDF søgning med valgfri query expansion og tids-decay boost.
+    tids-decay: nyere afgørelser får et lille boost (op til +15% for 2024+)."""
     from sklearn.metrics.pairwise import cosine_similarity
-    qv = vec.transform([query])
+    effektiv_query = udvid_query(query) if ekspander else query
+    qv = vec.transform([effektiv_query])
+
+    def _boost(global_idx, base):
+        try:
+            aar = int(df.at[global_idx, "År"])
+            # Lineær decay fra 2017 (1.00) til 2024+ (1.15)
+            decay = 1.0 + max(0, min(0.15, (aar - 2017) * 0.02))
+            return float(base) * decay
+        except Exception:
+            return float(base)
+
     if sub_idx is not None:
         scores_sub = cosine_similarity(qv, mat[sub_idx]).flatten()
-        top_local  = scores_sub.argsort()[-top_n:][::-1]
-        top_global = [sub_idx[i] for i in top_local if scores_sub[i] > 0.01]
+        top_local  = scores_sub.argsort()[-top_n * 2:][::-1]
+        kandidater = [(sub_idx[i], scores_sub[i]) for i in top_local if scores_sub[i] > 0.01]
+        kandidater = [(g, _boost(g, s)) for g, s in kandidater]
+        kandidater.sort(key=lambda x: x[1], reverse=True)
+        kandidater = kandidater[:top_n]
+        if not kandidater:
+            return df.iloc[0:0].copy()
+        top_global = [g for g, _ in kandidater]
         result     = df.loc[top_global].copy()
-        result["_score"] = [scores_sub[i] for i in top_local if scores_sub[i] > 0.01]
+        result["_score"] = [s for _, s in kandidater]
     else:
         scores = cosine_similarity(qv, mat).flatten()
-        top    = scores.argsort()[-top_n:][::-1]
-        result = df.iloc[top].copy()
-        result["_score"] = scores[top]
-        result = result[result["_score"] > 0.01]
+        top    = scores.argsort()[-top_n * 2:][::-1]
+        kandidater = [(int(i), scores[i]) for i in top if scores[i] > 0.01]
+        kandidater = [(g, _boost(g, s)) for g, s in kandidater]
+        kandidater.sort(key=lambda x: x[1], reverse=True)
+        kandidater = kandidater[:top_n]
+        if not kandidater:
+            return df.iloc[0:0].copy()
+        top_idx = [g for g, _ in kandidater]
+        result = df.iloc[top_idx].copy()
+        result["_score"] = [s for _, s in kandidater]
     return result.reset_index(drop=True)
 
 
@@ -319,6 +351,21 @@ def _saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
 
 
 _udtræk_kerneafsnit = udtræk_kerneafsnit  # alias til shared.py
+
+
+def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik, top_retrieve: int = 30, top_final: int = 8) -> tuple:
+    """Forbedret RAG-pipeline: rewrite → expand → TF-IDF → rerank → merge med historik.
+    Returnerer (standalone_query, alle_kilder)."""
+    # 1. Omskriv opfølgningsspørgsmål til standalone query
+    standalone = omformuler_opfoelgning(spørgsmål, historik or [])
+    # 2. Hent bredt med query expansion
+    hits = tfidf_søg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
+    kandidater = hits.to_dict("records") if len(hits) > 0 else []
+    # 3. LLM-rerank til top_final
+    rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
+    # 4. Smelt sammen med tidligere kilder for kontinuitet
+    alle_kilder = _saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
+    return standalone, alle_kilder
 
 
 def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
@@ -349,7 +396,9 @@ def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
                 f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.\n"
                 f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference. Eks: [Kilde 3] eller [Kilde 1, 2].\n"
                 f"3. Svar på dansk med overskrifter og afsnit.\n"
-                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n\n"
+                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
+                f"5. Understøt centrale påstande med et kort ordret citat fra kilden i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3].\n"
+                f"6. Hvis kilderne ikke entydigt besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n\n"
                 f"KILDEREGISTER (brug disse numre i dine referencer):\n{kilde_liste}"
             ),
         },
@@ -874,12 +923,15 @@ with tab_ai:
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
-                with st.spinner("Søger og genererer svar…"):
-                    hits_ai = tfidf_søg(f, df, vec, mat, sub_idx=ai_sub_idx, top_n=12)
-                    alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
+                with st.spinner("Analyserer, søger og genererer svar…"):
                     try:
+                        _, alle_kilder = smart_retrieval(
+                            f, df, vec, mat, ai_sub_idx,
+                            st.session_state.chat_historik, top_retrieve=30, top_final=8,
+                        )
                         svar = claude_svar(f, alle_kilder, historik=st.session_state.chat_historik)
                     except Exception as e:
+                        alle_kilder = []
                         svar = f"Fejl ved AI Assistent: {e}"
                 st.session_state.chat_historik.append(
                     {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
@@ -1021,12 +1073,15 @@ with tab_ai:
 
         if send and spørgsmål.strip():
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            with st.spinner("Søger og genererer svar…"):
-                hits_ai = tfidf_søg(spørgsmål, df, vec, mat, sub_idx=ai_sub_idx, top_n=12)
-                alle_kilder = _saml_kilder(st.session_state.chat_historik, hits_ai)
+            with st.spinner("Analyserer, søger og genererer svar…"):
                 try:
+                    _, alle_kilder = smart_retrieval(
+                        spørgsmål, df, vec, mat, ai_sub_idx,
+                        st.session_state.chat_historik, top_retrieve=30, top_final=8,
+                    )
                     svar = claude_svar(spørgsmål, alle_kilder, historik=st.session_state.chat_historik)
                 except Exception as e:
+                    alle_kilder = []
                     svar = f"Fejl ved AI Assistent: {e}"
             st.session_state.chat_historik.append(
                 {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})

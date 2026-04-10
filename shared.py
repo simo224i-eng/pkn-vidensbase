@@ -506,9 +506,9 @@ def _api_headers(use_cache: bool = False) -> dict:
     return headers
 
 
-def _api_body(prompt, max_tokens: int, stream: bool = False) -> dict:
+def _api_body(prompt, max_tokens: int, stream: bool = False, model: str = "claude-sonnet-4-6") -> dict:
     body = {
-        "model": "claude-sonnet-4-6",
+        "model": model,
         "max_tokens": max_tokens,
         "messages": [{"role": "user", "content": prompt}],
     }
@@ -517,7 +517,7 @@ def _api_body(prompt, max_tokens: int, stream: bool = False) -> dict:
     return body
 
 
-def _llm(prompt, max_tokens: int = 2000) -> str:
+def _llm(prompt, max_tokens: int = 2000, model: str = "claude-sonnet-4-6") -> str:
     """Send en prompt til Claude (blokerende, med retry).
     prompt kan være en str eller en liste af content-blokke (til prompt caching).
     """
@@ -527,7 +527,7 @@ def _llm(prompt, max_tokens: int = 2000) -> str:
 
     use_cache = isinstance(prompt, list)
     headers = _api_headers(use_cache)
-    body = _api_body(prompt, max_tokens)
+    body = _api_body(prompt, max_tokens, model=model)
 
     last_err = None
     for attempt in range(3):
@@ -885,6 +885,152 @@ def udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
     if udtræk:
         return "\n\n".join(udtræk)
     return tekst[-max_tegn:]
+
+
+def byg_indeks_tekst(titel: str, tekst: str, max_tegn: int = 6000) -> str:
+    """Byg søgetekst til TF-IDF-indekset:
+    titel gentages 3x (boost), efterfulgt af kerneafsnit.
+    Dette fokuserer scoring på det juridisk relevante – ikke 'sagens oplysninger'."""
+    t = titel or ""
+    kerne = udtræk_kerneafsnit(tekst or "", max_tegn=max_tegn)
+    return f"{t} {t} {t} {kerne}"
+
+
+def rrf_merge(rangeringer: list, k: int = 60) -> dict:
+    """Reciprocal Rank Fusion: kombinér flere rangeringer til én score.
+    rangeringer = liste af lister, hvor hver indre liste er et globalt indeks sorteret bedst-først."""
+    score = {}
+    for rangering in rangeringer:
+        for rank, idx in enumerate(rangering):
+            score[idx] = score.get(idx, 0.0) + 1.0 / (k + rank + 1)
+    return score
+
+
+def _llm_haiku(prompt: str, max_tokens: int = 400) -> str:
+    """Billig/hurtig Claude Haiku-kald til query expansion, rewriting og reranking.
+    Returnerer tom streng ved fejl – kalderen falder tilbage til original adfærd."""
+    try:
+        return _llm(prompt, max_tokens=max_tokens, model="claude-haiku-4-5-20251001")
+    except Exception:
+        return ""
+
+
+def udvid_query(query: str) -> str:
+    """Query expansion: Haiku tilføjer danske juridiske synonymer og relaterede termer.
+    Returnerer den originale query + expansions (samlet streng til TF-IDF-søgning)."""
+    if not query or len(query) < 3:
+        return query
+    prompt = (
+        "Du er ekspert i dansk juridisk terminologi (planloven, miljølovgivning, forvaltningsret).\n"
+        "Brugerens søgning: \"" + query + "\"\n\n"
+        "Returnér 5-10 juridiske synonymer, relaterede termer og alternative formuleringer "
+        "som ville optræde i danske nævnsafgørelser. Kun termer – komma-separeret, ingen forklaring.\n\n"
+        "Termer:"
+    )
+    udvidet = _llm_haiku(prompt, max_tokens=150)
+    if not udvidet or "apinøgle" in udvidet.lower():
+        return query
+    return f"{query} {udvidet}"
+
+
+def omformuler_opfoelgning(spoergsmaal: str, historik: list) -> str:
+    """Omskriv et opfølgningsspørgsmål til et standalone-spørgsmål baseret på chat-historik.
+    Hvis spørgsmålet allerede er standalone eller der ikke er historik, returneres uændret."""
+    if not historik or len(historik) < 2 or not spoergsmaal:
+        return spoergsmaal
+    # Byg kort kontekst fra de sidste 4 beskeder
+    kort_hist = []
+    for msg in historik[-4:]:
+        rolle = "Bruger" if msg.get("rolle") == "bruger" else "Assistent"
+        t = (msg.get("tekst") or "")[:300]
+        kort_hist.append(f"{rolle}: {t}")
+    hist_str = "\n".join(kort_hist)
+    prompt = (
+        "Omskriv det sidste brugerspørgsmål til et selvstændigt spørgsmål baseret på samtalekonteksten. "
+        "Hvis spørgsmålet allerede er selvstændigt, returnér det uændret. "
+        "Returnér KUN det omskrevne spørgsmål – ingen forklaring.\n\n"
+        f"SAMTALE:\n{hist_str}\n\n"
+        f"SIDSTE SPØRGSMÅL: {spoergsmaal}\n\n"
+        "OMSKREVET SPØRGSMÅL:"
+    )
+    omskrevet = _llm_haiku(prompt, max_tokens=200)
+    omskrevet = (omskrevet or "").strip().strip('"').strip("'")
+    if not omskrevet or len(omskrevet) < 5 or "apinøgle" in omskrevet.lower():
+        return spoergsmaal
+    return omskrevet
+
+
+def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
+    """LLM-re-ranker: Haiku scorer hver kandidat 0-10 for relevans og returnerer top_n.
+    kandidater = liste af dicts med mindst 'Titel', 'Dato', 'Tekst'.
+    Falder tilbage til top_n første kandidater ved fejl."""
+    if not kandidater or len(kandidater) <= top_n:
+        return kandidater[:top_n]
+    # Byg kort oversigt – titel + første kerneafsnit-linjer
+    linjer = []
+    for i, k in enumerate(kandidater):
+        try:
+            dato = pd.Timestamp(k.get("Dato")).strftime("%d.%m.%Y")
+        except Exception:
+            dato = "-"
+        titel = (k.get("Titel") or "")[:120]
+        kerne = udtræk_kerneafsnit(k.get("Tekst") or "", max_tegn=500).replace("\n", " ")[:400]
+        linjer.append(f"[{i}] {dato} – {titel}\n    {kerne}")
+    oversigt = "\n\n".join(linjer)
+    prompt = (
+        f"Du vurderer relevansen af juridiske afgørelser for dette spørgsmål:\n"
+        f"SPØRGSMÅL: {query}\n\n"
+        f"KANDIDATER ({len(kandidater)} stk):\n{oversigt}\n\n"
+        f"Vurder hver kandidat 0-10 for direkte relevans for spørgsmålet. "
+        f"Returnér KUN de {top_n} mest relevante indekser (0-baserede), komma-separeret, bedste først. "
+        f"Ingen forklaring – kun tal.\n\n"
+        f"TOP {top_n}:"
+    )
+    svar = _llm_haiku(prompt, max_tokens=100)
+    if not svar or "apinøgle" in svar.lower():
+        return kandidater[:top_n]
+    # Parse indekser
+    import re as _re
+    tal = [int(x) for x in _re.findall(r'\d+', svar) if int(x) < len(kandidater)]
+    # Dedupliker bevarende rækkefølge
+    seen = set()
+    valgte = []
+    for t in tal:
+        if t not in seen:
+            seen.add(t)
+            valgte.append(t)
+        if len(valgte) >= top_n:
+            break
+    if not valgte:
+        return kandidater[:top_n]
+    # Fyld op hvis LLM'en returnerede færre end top_n
+    for i in range(len(kandidater)):
+        if len(valgte) >= top_n:
+            break
+        if i not in seen:
+            valgte.append(i)
+    return [kandidater[i] for i in valgte[:top_n]]
+
+
+def saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
+    """Merge nye søgeresultater med alle tidligere viste kilder (dedupliceret på Link).
+    Sikrer AI'en har kildekontinuitet på tværs af samtalens ture."""
+    seen = set()
+    merged = []
+    iterable = nye_hits.to_dict("records") if hasattr(nye_hits, "to_dict") else (nye_hits or [])
+    for rec in iterable:
+        lnk = rec.get("Link", "")
+        if lnk and lnk not in seen:
+            seen.add(lnk)
+            merged.append(rec)
+    for msg in reversed(historik or []):
+        if msg.get("rolle") == "assistent":
+            for k in msg.get("kilder", []) or []:
+                lnk = k.get("Link", "")
+                if lnk and lnk not in seen and len(merged) < max_total:
+                    seen.add(lnk)
+                    merged.append(k)
+    return merged[:max_total]
 
 
 def extract_kommune(titel: str) -> str:
