@@ -483,7 +483,7 @@ vec, mat = build_index(valgt_stem, len(df))
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(152)}</div></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(150, dark=True)}</div></div>', unsafe_allow_html=True)
 
     # ── To-trins kategori-vaelger ──
     # Byg gruppe → kategorier mapping (kun tilgaengelige)
@@ -628,9 +628,8 @@ with st.sidebar:
 # ── Page header ──────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div class="h-page-header">
-  <h1 class="h-page-title">HARALD</h1>
-  <div class="h-gold-line"></div>
-  <p class="h-page-meta">MFKN · {valgt_navn} &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {aar_min}-{aar_max}</p>
+  <h1 class="h-page-title">Miljø- og Fødevareklagenævnet</h1>
+  <p class="h-page-meta">{valgt_navn} &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {aar_min}–{aar_max}</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -796,11 +795,20 @@ with tab_stat:
 # TAB 3 - AI ASSISTENT
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_ai:
-    st.markdown("### Spørg til MFKN-praksis")
-
     n_ai = len(ai_sub_idx)
-    filter_tekst = f"alle **{len(df):,}** afgørelser" if n_ai == len(df) else f"**{n_ai:,}** afgørelser (filtreret)"
-    st.markdown(f"AI'en søger i {filter_tekst} og svarer med kildehenvisninger.")
+    filter_tekst = f"alle <strong>{len(df):,}</strong> afgørelser" if n_ai == len(df) else f"<strong>{n_ai:,}</strong> afgørelser (filtreret)"
+    st.markdown(f"""
+<div class="ai-hero">
+  <span class="material-symbols-rounded ai-hero-icon">smart_toy</span>
+  <div>
+    <div class="ai-hero-title">Spørg til MFKN-praksis</div>
+    <div class="ai-hero-sub">
+      Søger i {filter_tekst} og svarer med kildehenvisninger.
+      Opfølgningsspørgsmål husker kontekst.
+    </div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")

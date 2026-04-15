@@ -469,19 +469,19 @@ vec, mat = build_index(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown(f"""
-<div class="h-brand-wrap">
-  <div class="h-logo-box">{logo(152)}</div>
-</div>""", unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(150, dark=True)}</div></div>',
+        unsafe_allow_html=True,
+    )
 
-    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Søgeord</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
     søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
     søge_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="søge_type")
-    st.markdown('<span style="font-size:10px;color:#64748b;line-height:1.4;display:block;margin-top:-8px;">'
+    st.markdown('<span style="font-size:10.5px;color:#64748b;line-height:1.4;display:block;margin-top:-6px;">'
                 'Præcis = nøjagtig tekstmatch &nbsp;·&nbsp; Semantisk = AI-baseret søgning efter betydning</span>',
                 unsafe_allow_html=True)
 
-    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Kategori</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
     _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Miljøvurderingsloven"})
@@ -489,28 +489,28 @@ with st.sidebar:
 
     _mvu_valgt = "Miljøvurderingsloven" in (valgte_kats or [])
     if _mvu_valgt:
-        st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Dokumenttype</span>', unsafe_allow_html=True)
+        st.markdown('<span class="h-filter-label">Dokumenttype</span>', unsafe_allow_html=True)
         dokumenttype_valg = st.multiselect("", ["Screeningsafgørelse", "Miljørapport"], label_visibility="collapsed", key="dt")
     else:
         dokumenttype_valg = []
 
-    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Plantype</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Plantype</span>', unsafe_allow_html=True)
     plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
     isoler_pt     = st.checkbox("Isoler (kun rene sager)", key="iso_pt") if plantype_valg else False
 
-    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Sagsgruppe</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
     sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
 
-    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Årsinterval</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
     år_min, år_max   = 2017, int(df["År"].max())
     år_range         = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
 
-    st.markdown('<span style="font-family:\'Cinzel\',Georgia,serif;font-size:10px;font-weight:700;color:#c49a3c;text-transform:uppercase;letter-spacing:2px;margin:1.4rem 0 0.35rem;display:block;">Udfald</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
     udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
 
     st.markdown("---")
-    st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; 2017–{år_max}</span>", unsafe_allow_html=True)
-    st.markdown(f"<span style='font-size:11px;color:#3d5878'>Opdateret {df['Dato'].max().strftime('%d.%m.%Y')}</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='font-size:12px;color:#cbd5e1;font-weight:500;'>**{len(df):,}** afgørelser &nbsp;·&nbsp; 2017–{år_max}</span>", unsafe_allow_html=True)
+    st.markdown(f"<span style='font-size:11px;color:#94a3b8;'>Opdateret {df['Dato'].max().strftime('%d.%m.%Y')}</span>", unsafe_allow_html=True)
 
     # Nulstil filtre
     _har_filtre = bool(valgte_kats or dokumenttype_valg or plantype_valg or sagsgruppe_valg
@@ -621,11 +621,11 @@ with st.sidebar:
 
 # ── Page header ───────────────────────────────────────────────────────────────
 st.markdown(f"""
-<div style="margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:1px solid #e8e0d4;display:flex;align-items:center;gap:0;flex-wrap:wrap;">
-  <h1 style="font-family:'Cinzel',Georgia,serif;font-size:2rem;font-weight:900;color:#1a0a0e;letter-spacing:6px;margin:0;line-height:1;flex-shrink:0;">HARALD</h1>
-  <span style="font-size:12px;color:#b09070;margin-left:22px;padding-left:22px;border-left:1px solid #d4c8b8;line-height:1.6;">
-    Planklagenævnets afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}
-  </span>
+<div class="h-page-header">
+  <h1 class="h-page-title">Planklagenævnet</h1>
+  <p class="h-page-meta">
+    Afgørelsesdatabase &nbsp;·&nbsp; {len(df):,} afgørelser &nbsp;·&nbsp; {int(df['År'].min())}–{int(df['År'].max())}
+  </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -796,7 +796,7 @@ with tab_stat:
         with col_l:
             st.markdown("#### Afgørelser per år")
             år_df = d.groupby("År").size().reset_index(name="Antal")
-            fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#c49a3c"])
+            fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#8C1C2E"])
             fig.update_layout(**_CHART_LAYOUT)
             fig.update_traces(marker_line_width=0)
             st.plotly_chart(fig, use_container_width=True)
@@ -832,7 +832,7 @@ with tab_stat:
                       .sort_values("Antal", ascending=True)
                       .tail(15))
             fig4 = px.bar(sg_df, x="Antal", y="Sagsgruppe", orientation="h",
-                          color_discrete_sequence=["#c49a3c"])
+                          color_discrete_sequence=["#8C1C2E"])
             fig4.update_layout(**_CHART_LAYOUT)
             fig4.update_traces(marker_line_width=0)
             st.plotly_chart(fig4, use_container_width=True)
@@ -877,12 +877,12 @@ with tab_ai:
     filtreret_label = " (filtreret)" if filtreret else ""
 
     st.markdown(f"""
-<div style="display:flex;align-items:center;gap:16px;background:linear-gradient(to right,#fdf8f2,#fff);border-left:3px solid #c49a3c;border-radius:0 10px 10px 0;padding:16px 22px;margin-bottom:18px;">
-  <span style="font-size:24px;flex-shrink:0;opacity:0.7;line-height:1;">⚖</span>
+<div class="ai-hero">
+  <span class="material-symbols-rounded ai-hero-icon">smart_toy</span>
   <div>
-    <div style="font-family:'Cinzel',Georgia,serif;font-size:13px;font-weight:700;color:#1a0a0e;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:4px;">Spørg til PKN-praksis</div>
-    <div style="font-size:12.5px;color:#7a6050;line-height:1.6;">
-      Søger i <strong style="color:#1a0a0e;">{antal_tekst} afgørelser{filtreret_label}</strong>
+    <div class="ai-hero-title">Spørg til PKN-praksis</div>
+    <div class="ai-hero-sub">
+      Søger i <strong>{antal_tekst} afgørelser{filtreret_label}</strong>
       og svarer med kildehenvisninger.
       Opfølgningsspørgsmål husker kontekst.
     </div>
@@ -957,8 +957,8 @@ with tab_ai:
                 # Label: Harald
                 st.markdown(
                     '<div style="display:flex;align-items:center;gap:6px;margin:1rem 0 0.2rem;">'
-                    '<span style="font-size:10px;font-weight:700;color:#c49a3c;'
-                    'text-transform:uppercase;letter-spacing:1.2px;">⚖ Harald</span></div>',
+                    '<span style="font-size:10px;font-weight:600;color:#8C1C2E;'
+                    'text-transform:uppercase;letter-spacing:0.6px;">Harald</span></div>',
                     unsafe_allow_html=True,
                 )
                 # Erstat [Kilde X] i AI-teksten med blå navne-chips
@@ -1490,8 +1490,8 @@ with tab_lov:
                 tekst_html = re.sub(r"(\d+\))", r'<span style="font-weight:600;">\1</span>', tekst_html)
                 tekst_html = tekst_html.replace("\n", "<br>")
                 st.markdown(
-                    f'<div style="font-size:14px;line-height:1.85;color:#1e293b;'
-                    f'padding:10px 14px;background:#fffcf8;border-radius:6px;'
-                    f'border:1px solid #ece6dc;">{p["para"]}. {tekst_html}</div>',
+                    f'<div style="font-size:14px;line-height:1.8;color:#1e293b;'
+                    f'padding:10px 14px;background:#f8fafc;border-radius:6px;'
+                    f'border:1px solid #e2e8f0;">{p["para"]}. {tekst_html}</div>',
                     unsafe_allow_html=True,
                 )

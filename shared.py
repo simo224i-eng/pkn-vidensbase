@@ -8,11 +8,19 @@ import requests
 import streamlit as st
 
 # ── Styling ───────────────────────────────────────────────────────────────────
+# Design tokens (Harald v2 — legal tech refresh):
+#   Background:  #ffffff (main)  #f8fafc (panel)
+#   Sidebar:     #0f172a (flat)
+#   Text:        #0f172a primær   #475569 sek.   #94a3b8 tert.
+#   Border:      #e2e8f0 hairline   #cbd5e1 emphasis
+#   Accent:      #8C1C2E (burgundy)   #fef2f2 (accent bg)
+#   Typografi:   Inter 400/500/600/700/800 — ingen Cinzel
+#   Radius:      6px cards, 4px chips, 6px buttons
 _CSS_HTML = """
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 <style>
-/* ── Skjul Streamlit header (keyboard_double_ fix) ── */
+/* ── Skjul Streamlit header ── */
 header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
 
@@ -20,42 +28,42 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stAppViewContainer"],
 [data-testid="stApp"],
 [data-testid="stMain"],
-.main, body { font-family: 'Inter', system-ui, sans-serif; }
+.main, body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #0f172a;
+}
 
-/* ── Sidebar ── */
-[data-testid="stSidebar"] { background: linear-gradient(180deg, #141d2e 0%, #0f172a 55%, #0a1120 100%) !important; border-right: none; }
-[data-testid="stSidebar"] * { color: #b0bec5 !important; font-family: 'Inter', sans-serif !important; }
+/* ── Sidebar (flad mørk) ── */
+[data-testid="stSidebar"] { background: #0f172a !important; border-right: 1px solid #1e293b; }
+[data-testid="stSidebar"] * { color: #cbd5e1 !important; font-family: 'Inter', sans-serif !important; }
 [data-testid="stSidebar"] .stTextInput input {
     background: #1e293b !important; border: 1px solid #334155 !important;
-    color: #e2e8f0 !important; border-radius: 5px !important; font-size: 13px !important;
+    color: #f1f5f9 !important; border-radius: 6px !important; font-size: 13px !important;
 }
+[data-testid="stSidebar"] .stTextInput input::placeholder { color: #64748b !important; }
 [data-testid="stSidebar"] [data-baseweb="select"] > div {
-    background: #1e293b !important; border-color: #334155 !important; border-radius: 5px !important;
+    background: #1e293b !important; border-color: #334155 !important; border-radius: 6px !important;
 }
 [data-testid="stSidebar"] hr { border-color: #1e293b !important; }
-[data-testid="stSidebar"] .stSlider [role="slider"] { background: #c49a3c !important; }
-[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #c49a3c !important; }
-[data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #90a4ae !important; }
+[data-testid="stSidebar"] .stSlider [role="slider"] { background: #8C1C2E !important; }
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #cbd5e1 !important; }
+[data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #94a3b8 !important; }
 
 /* ── Sidebar collapse-knap ── */
-/* Expand-knap (vises når sidebar er lukket) */
 [data-testid="collapsedControl"] {
     background: #1e293b !important; border-radius: 0 6px 6px 0 !important;
 }
-/* Skjul al tekst og SVG – dæk begge strukturer (<button> eller <div><button>) */
 [data-testid="collapsedControl"],
 [data-testid="collapsedControl"] button,
 [data-testid="collapsedControl"] button * {
     font-size: 0 !important; color: transparent !important;
 }
 [data-testid="collapsedControl"] svg { display: none !important; }
-/* Vis "›" via ::after på selve elementet (virker uanset struktur) */
 [data-testid="collapsedControl"]::after {
-    content: "›"; font-size: 22px !important; color: #c49a3c !important;
+    content: "›"; font-size: 22px !important; color: #cbd5e1 !important;
     font-weight: 300; display: flex !important; align-items: center;
     justify-content: center; height: 100%; pointer-events: none;
 }
-/* Collapse-knap (inden i sidebar) */
 [data-testid="stSidebarCollapseButton"] button,
 [data-testid="stSidebarCollapseButton"] button * {
     font-size: 0 !important; color: transparent !important;
@@ -71,38 +79,38 @@ header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Sidebar navigation (multipage) ── */
 [data-testid="stSidebarNav"] {
-    padding: 1.2rem 0 0 !important;
+    padding: 1.2rem 0 0.4rem !important;
     margin-bottom: 0 !important;
     border-bottom: 1px solid #1e293b;
 }
 [data-testid="stSidebarNav"]::before {
-    content: "NÆVN";
+    content: "NAVIGATION";
     display: block;
     font-size: 9px;
     font-weight: 600;
-    color: #475569;
-    letter-spacing: 1.5px;
+    color: #64748b;
+    letter-spacing: 1.2px;
     padding: 0 1rem 0.5rem;
 }
 [data-testid="stSidebarNavLink"] {
-    color: #8899aa !important;
-    font-size: 12px !important;
+    color: #94a3b8 !important;
+    font-size: 12.5px !important;
     font-weight: 500 !important;
-    padding: 7px 1rem !important;
+    padding: 8px 1rem !important;
     border-radius: 0 !important;
     border-left: 2px solid transparent !important;
     transition: all .12s !important;
     background: transparent !important;
 }
 [data-testid="stSidebarNavLink"]:hover {
-    color: #cbd5e1 !important;
-    background: rgba(255,255,255,.04) !important;
+    color: #e2e8f0 !important;
+    background: rgba(255,255,255,.03) !important;
     border-left-color: #334155 !important;
 }
 [data-testid="stSidebarNavLink"][aria-current="page"] {
-    color: #e8c86a !important;
-    background: rgba(196,154,60,.12) !important;
-    border-left-color: #c49a3c !important;
+    color: #f1f5f9 !important;
+    background: rgba(140,28,46,.12) !important;
+    border-left-color: #8C1C2E !important;
     font-weight: 600 !important;
 }
 [data-testid="stSidebarNavSeparator"] { display: none !important; }
@@ -111,7 +119,7 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stSidebar"] [data-testid="stDownloadButton"] button {
     background: #1e293b !important;
     border: 1px solid #334155 !important;
-    color: #94a3b8 !important;
+    color: #cbd5e1 !important;
     border-radius: 6px !important;
     font-size: 11px !important;
     font-weight: 500 !important;
@@ -121,8 +129,8 @@ header[data-testid="stHeader"] { display: none !important; }
     transition: border-color .12s, color .12s !important;
 }
 [data-testid="stSidebar"] [data-testid="stDownloadButton"] button:hover {
-    border-color: #c49a3c !important;
-    color: #e2e8f0 !important;
+    border-color: #8C1C2E !important;
+    color: #f1f5f9 !important;
 }
 
 /* ── Nulstil filtre-knap i sidebar ── */
@@ -138,47 +146,55 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stTabs"] [role="tab"] kbd { display: none !important; }
 
 /* ── Sidebar branding ── */
-.h-brand-wrap { text-align: center; padding: 1.4rem 0 1.2rem; border-bottom: 1px solid #1e293b; margin-bottom: 1.6rem; }
-.h-logo-box { display: inline-block; padding: 6px 10px; margin-bottom: 0; filter: drop-shadow(0 3px 12px rgba(196,154,60,0.22)); }
+.h-brand-wrap { text-align: center; padding: 1.6rem 0 1.3rem; border-bottom: 1px solid #1e293b; margin-bottom: 1.4rem; }
+.h-logo-box { display: inline-block; padding: 4px 8px; }
 .h-sub { display: none; }
 
 /* ── Sidebar section labels ── */
-.h-filter-label { font-family: 'Cinzel', Georgia, serif !important; font-size: 10px !important;
-                  font-weight: 700 !important; color: #d4af5a !important;
-                  text-transform: uppercase; letter-spacing: 2px; margin: 1.4rem 0 0.35rem; display: block; }
+.h-filter-label {
+    font-family: 'Inter', system-ui, sans-serif !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 1.2rem 0 0.35rem;
+    display: block;
+}
 
 /* ── Page header ── */
 .h-page-header {
-    margin-bottom: 2rem; padding-bottom: 1.4rem;
-    border-bottom: 1px solid #e8e0d4;
-    display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap;
+    margin-bottom: 2rem; padding-bottom: 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
 }
 .h-page-title {
-    font-family: 'Cinzel', Georgia, serif; font-size: 2rem; font-weight: 900;
-    color: #1a0a0e; letter-spacing: 6px; margin: 0; line-height: 1;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1.45rem; font-weight: 700;
+    color: #0f172a; letter-spacing: -0.3px; margin: 0; line-height: 1.2;
 }
 .h-page-meta {
-    font-size: 12px; color: #b09070; margin: 0; letter-spacing: 0.2px;
-    padding-left: 20px; border-left: 1px solid #d4c8b8;
+    font-size: 12.5px; color: #64748b; margin: 0;
+    padding-left: 16px; border-left: 1px solid #e2e8f0;
+    font-weight: 400;
 }
 .h-gold-line { display: none; }
 
 /* ── Cards ── */
 .pkn-card {
-    background: #fffcf8; border-radius: 8px; padding: 18px 22px 18px 19px; margin-bottom: 4px;
-    border: 1px solid #ece6dc; border-left: 3px solid transparent;
-    box-shadow: 0 1px 4px rgba(60,20,20,.05);
-    transition: border-color .15s, border-left-color .15s, box-shadow .15s;
+    background: #ffffff; border-radius: 6px; padding: 16px 20px; margin-bottom: 4px;
+    border: 1px solid #e2e8f0; border-left: 3px solid transparent;
+    transition: border-color .12s, border-left-color .12s, box-shadow .12s;
 }
-.pkn-card:hover { border-color: #d4a090; border-left-color: #8C1C2E; box-shadow: 0 6px 24px rgba(140,28,46,.11); }
+.pkn-card:hover { border-color: #cbd5e1; border-left-color: #8C1C2E; box-shadow: 0 1px 3px rgba(15,23,42,.06); }
 .pkn-card-toprow  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.pkn-card-dato    { font-size: 11px; color: #a08070; font-weight: 500; letter-spacing: .2px; }
-.pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #1a0a0e; margin: 0 0 8px; line-height: 1.5; }
+.pkn-card-dato    { font-size: 11px; color: #94a3b8; font-weight: 500; letter-spacing: .1px; }
+.pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #0f172a; margin: 0 0 8px; line-height: 1.5; }
 .pkn-card-tags    { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
-.pkn-tag          { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 500; color: #7a2e1e; background: #fdf0e8; border: 1px solid #d4a090; }
-.pkn-card-excerpt { font-size: 12.5px; color: #5a4030; line-height: 1.6; }
-.pkn-card-footer  { margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0e8e0; }
-.pkn-card-link    { font-size: 11px; color: #a08070; text-decoration: none; font-weight: 500; transition: color .12s; }
+.pkn-tag          { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 500; color: #475569; background: #f1f5f9; border: 1px solid #e2e8f0; }
+.pkn-card-excerpt { font-size: 12.5px; color: #475569; line-height: 1.6; }
+.pkn-card-footer  { margin-top: 10px; padding-top: 10px; border-top: 1px solid #f1f5f9; }
+.pkn-card-link    { font-size: 11px; color: #94a3b8; text-decoration: none; font-weight: 500; transition: color .12s; }
 .pkn-card-link:hover { color: #8C1C2E; }
 
 /* ── Badges ── */
@@ -190,68 +206,68 @@ header[data-testid="stHeader"] { display: none !important; }
 .badge-ukendt       { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
 
 /* ── Stat cards ── */
-.stat-card   { background: #fffcf8; border-radius: 8px; padding: 22px 18px; text-align: center; border: 1px solid #ece6dc; border-top: 3px solid #8C1C2E; box-shadow: 0 1px 4px rgba(60,20,20,.05); }
-.stat-number { font-family: 'Cinzel', Georgia, serif; font-size: 28px; font-weight: 700; color: #1a0a0e; }
-.stat-label  { font-size: 10px; color: #7a6050; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+.stat-card   { background: #ffffff; border-radius: 6px; padding: 20px 18px; text-align: center; border: 1px solid #e2e8f0; }
+.stat-number { font-family: 'Inter', system-ui, sans-serif; font-size: 26px; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; }
+.stat-label  { font-size: 10.5px; color: #64748b; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 500; }
 
 /* ── AI Assistent intro ── */
 .ai-hero {
-    display: flex; align-items: center; gap: 18px;
-    background: linear-gradient(to right, #fdf8f2, #fff);
-    border-left: 3px solid #c49a3c; border-radius: 0 10px 10px 0;
-    padding: 18px 24px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0; border-left: 3px solid #8C1C2E; border-radius: 6px;
+    padding: 16px 20px; margin-bottom: 20px;
 }
 .ai-hero-icon {
-    font-size: 26px; flex-shrink: 0; opacity: 0.75; line-height: 1;
+    font-size: 22px; flex-shrink: 0; color: #8C1C2E; line-height: 1;
 }
+.ai-hero-icon .material-symbols-rounded { font-size: 22px; color: #8C1C2E; }
 .ai-hero-title {
-    font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;
-    color: #1a0a0e; letter-spacing: 2.5px; text-transform: uppercase;
-    margin: 0 0 5px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13.5px; font-weight: 700;
+    color: #0f172a; letter-spacing: -0.1px;
+    margin: 0 0 3px;
 }
 .ai-hero-sub {
-    font-size: 12.5px; color: #7a6050; line-height: 1.65; margin: 0;
+    font-size: 12.5px; color: #475569; line-height: 1.6; margin: 0;
 }
-.ai-hero-sub strong { color: #1a0a0e; font-weight: 600; }
+.ai-hero-sub strong { color: #0f172a; font-weight: 600; }
 .ai-hero-badge { display: none; }
 
-/* Forslagsknapper – aktiveres via #ai-forslag-anchor ~ ... */
+/* Forslagsknapper */
 #ai-forslag-anchor ~ div button,
 #ai-forslag-anchor ~ div ~ div button,
 #ai-forslag-anchor ~ div ~ div ~ div button,
 #ai-forslag-anchor ~ div ~ div ~ div ~ div button {
-    background: rgba(15,23,42,.05) !important;
-    border: 1px solid #dde3ed !important;
-    color: #334155 !important; border-radius: 10px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #334155 !important; border-radius: 6px !important;
     font-size: 12.5px !important; line-height: 1.45 !important;
     padding: 10px 14px !important; min-height: 60px !important;
-    text-align: left !important; transition: all .15s ease !important;
+    text-align: left !important; transition: all .12s ease !important;
     white-space: normal !important;
 }
 #ai-forslag-anchor ~ div button:hover,
 #ai-forslag-anchor ~ div ~ div button:hover,
 #ai-forslag-anchor ~ div ~ div ~ div button:hover,
 #ai-forslag-anchor ~ div ~ div ~ div ~ div button:hover {
-    background: #fef9ef !important;
-    border-color: #c49a3c !important;
+    background: #f8fafc !important;
+    border-color: #8C1C2E !important;
     color: #0f172a !important;
 }
 
 /* ── Chat ── */
 .chat-user {
-    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
-    color: #f1f5f9; border-radius: 16px 16px 4px 16px;
+    background: #0f172a;
+    color: #f1f5f9; border-radius: 8px 8px 2px 8px;
     padding: 12px 16px; margin: 4px 0 4px auto; max-width: 78%;
-    font-size: 14px; line-height: 1.65; box-shadow: 0 2px 8px rgba(15,23,42,.18);
+    font-size: 14px; line-height: 1.6;
 }
 .chat-assistant {
-    background: #fff; color: #0f172a;
-    border-radius: 4px 16px 16px 16px;
+    background: #ffffff; color: #0f172a;
+    border-radius: 2px 8px 8px 8px;
     padding: 14px 18px; margin: 4px 0; max-width: 92%;
     border: 1px solid #e2e8f0; font-size: 14px; line-height: 1.7;
-    box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
-/* Begræns heading-størrelser inde i chat — forhindrer Streamlit's globale h1/h2 CSS */
 .chat-assistant h1 { font-size: 15px !important; font-weight: 700 !important; margin: 0.9em 0 0.4em !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; }
 .chat-assistant h2 { font-size: 14px !important; font-weight: 700 !important; margin: 0.7em 0 0.3em !important; }
 .chat-assistant h3 { font-size: 13.5px !important; font-weight: 600 !important; margin: 0.6em 0 0.25em !important; }
@@ -261,109 +277,110 @@ header[data-testid="stHeader"] { display: none !important; }
 .source-chip    { display: inline-block; padding: 3px 9px; border-radius: 4px; background: #f8fafc; color: #475569; font-size: 11px; margin: 3px; text-decoration: none; border: 1px solid #e2e8f0; }
 
 /* ── Tabs ── */
-[data-testid="stTabs"] [role="tab"] { font-size: 13px; font-weight: 500; color: #a08070; padding: 8px 18px; }
-[data-testid="stTabs"] [role="tab"][aria-selected="true"] { color: #1a0a0e !important; border-bottom-color: #8C1C2E !important; font-weight: 600; }
+[data-testid="stTabs"] [role="tab"] { font-size: 13px; font-weight: 500; color: #64748b; padding: 8px 18px; }
+[data-testid="stTabs"] [role="tab"][aria-selected="true"] { color: #0f172a !important; border-bottom-color: #8C1C2E !important; font-weight: 600; }
 
 /* ── Buttons ── */
-[data-testid="stBaseButton-secondary"] { border-color: #ece6dc !important; color: #6b5040 !important; font-size: 12px !important; border-radius: 5px !important; background: #fffcf8 !important; }
-[data-testid="stBaseButton-secondary"]:hover { border-color: #8C1C2E !important; color: #1a0a0e !important; }
+[data-testid="stBaseButton-secondary"] { border-color: #e2e8f0 !important; color: #334155 !important; font-size: 12.5px !important; border-radius: 6px !important; background: #ffffff !important; font-weight: 500 !important; }
+[data-testid="stBaseButton-secondary"]:hover { border-color: #8C1C2E !important; color: #0f172a !important; background: #f8fafc !important; }
+[data-testid="stBaseButton-primary"] { background: #8C1C2E !important; border-color: #8C1C2E !important; color: #ffffff !important; border-radius: 6px !important; font-weight: 600 !important; }
+[data-testid="stBaseButton-primary"]:hover { background: #6d1523 !important; border-color: #6d1523 !important; }
 
 /* ── Detail view ── */
 .detail-back-row { margin-bottom: 2rem; }
-.detail-hero { padding: 2.4rem 0 2rem; border-bottom: 1px solid #ece6dc; margin-bottom: 2.4rem; }
+.detail-hero { padding: 2rem 0 1.8rem; border-bottom: 1px solid #e2e8f0; margin-bottom: 2rem; }
 .detail-udfald-row { margin-bottom: 1rem; }
-.detail-udfald-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid; }
-.detail-title { font-family: 'Inter', system-ui, sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; color: #1a0a0e; line-height: 1.25; letter-spacing: -0.5px; margin: 0 0 1.6rem; }
-.detail-gold-line { height: 2px; width: 36px; background: #8C1C2E; border-radius: 2px; margin-bottom: 1.4rem; }
-.detail-meta-strip { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid #ece6dc; border-radius: 8px; overflow: hidden; margin-bottom: 1.4rem; width: fit-content; background: #fffcf8; }
-.detail-meta-cell { padding: 10px 20px; border-right: 1px solid #ece6dc; }
+.detail-udfald-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid; }
+.detail-title { font-family: 'Inter', system-ui, sans-serif; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 700; color: #0f172a; line-height: 1.3; letter-spacing: -0.4px; margin: 0 0 1.4rem; }
+.detail-gold-line { height: 2px; width: 32px; background: #8C1C2E; border-radius: 2px; margin-bottom: 1.2rem; }
+.detail-meta-strip { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; margin-bottom: 1.2rem; width: fit-content; background: #ffffff; }
+.detail-meta-cell { padding: 10px 18px; border-right: 1px solid #e2e8f0; }
 .detail-meta-cell:last-child { border-right: none; }
-.detail-meta-lbl { font-size: 9.5px; font-weight: 600; color: #a08070; text-transform: uppercase; letter-spacing: 1.3px; display: block; margin-bottom: 3px; }
-.detail-meta-val { font-size: 13.5px; font-weight: 600; color: #1a0a0e; white-space: nowrap; }
-.detail-source-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #6b5040; text-decoration: none; border: 1px solid #ece6dc; border-radius: 6px; padding: 6px 14px; transition: all .12s; font-weight: 500; background: #fffcf8; }
-.detail-source-link:hover { border-color: #8C1C2E; color: #1a0a0e; }
-.detail-reader { font-size: 16px; line-height: 2; color: #2a1010; font-family: 'Inter', system-ui, sans-serif; font-weight: 400; max-width: 72ch; }
-.detail-reader p { margin: 0 0 1.35em; }
+.detail-meta-lbl { font-size: 9.5px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 3px; }
+.detail-meta-val { font-size: 13px; font-weight: 600; color: #0f172a; white-space: nowrap; }
+.detail-source-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #475569; text-decoration: none; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 14px; transition: all .12s; font-weight: 500; background: #ffffff; }
+.detail-source-link:hover { border-color: #8C1C2E; color: #0f172a; }
+.detail-reader { font-size: 15.5px; line-height: 1.85; color: #1e293b; font-family: 'Inter', system-ui, sans-serif; font-weight: 400; max-width: 72ch; }
+.detail-reader p { margin: 0 0 1.2em; }
 .detail-reader p:last-child { margin-bottom: 0; }
 .detail-section-heading {
-    display: block; font-size: 10.5px; font-weight: 700; color: #6b5040;
-    text-transform: uppercase; letter-spacing: 1.6px;
-    margin: 2.2em 0 0.7em; padding: 0 0 6px 10px;
-    border-left: 2px solid #8C1C2E; border-bottom: 1px solid #f0e8e0;
+    display: block; font-size: 10.5px; font-weight: 700; color: #475569;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin: 2em 0 0.6em; padding: 0 0 5px 10px;
+    border-left: 2px solid #8C1C2E; border-bottom: 1px solid #e2e8f0;
 }
-.detail-ai-panel { background: #0f172a; border-radius: 12px; padding: 24px; position: sticky; top: 1rem; }
-.detail-ai-title { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #c49a3c; margin-bottom: 16px; }
-.detail-ai-resume { font-size: 13px; line-height: 1.75; color: #cbd5e1; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 14px 16px; margin-top: 12px; }
+.detail-ai-panel { background: #0f172a; border-radius: 8px; padding: 24px; position: sticky; top: 1rem; }
+.detail-ai-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #94a3b8; margin-bottom: 14px; }
+.detail-ai-resume { font-size: 13px; line-height: 1.7; color: #cbd5e1; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 6px; padding: 14px 16px; margin-top: 12px; }
 
 /* ── Skjul browser-tooltip på collapse-knap ── */
 [data-testid="stSidebarCollapseButton"] button::before { content: none !important; }
 
 /* ── Home page cards ── */
 .nævn-card {
-    background: #fffcf8; border-radius: 14px; padding: 2.4rem 2.6rem 2rem;
-    border: 1px solid #ece6dc; border-top: 4px solid #c8b8a8;
-    box-shadow: 0 2px 12px rgba(60,20,20,.06);
-    transition: border-top-color .18s, box-shadow .18s, transform .18s;
+    background: #ffffff; border-radius: 8px; padding: 2rem 2.2rem 1.8rem;
+    border: 1px solid #e2e8f0;
+    transition: border-color .15s, box-shadow .15s, transform .15s;
     display: flex; flex-direction: column; height: 100%;
 }
-.nævn-card:hover { border-top-color: #8C1C2E; box-shadow: 0 12px 40px rgba(140,28,46,.14); transform: translateY(-4px); }
-.nævn-card.mfkn:hover { border-top-color: #2d6a4f; box-shadow: 0 12px 40px rgba(45,106,79,.13); }
-.nævn-card-icon { font-size: 2rem; margin-bottom: 1.2rem; }
-.nævn-card-title { font-family: 'Cinzel', Georgia, serif; font-size: 1rem; font-weight: 700; color: #1a0a0e; letter-spacing: 4px; margin-bottom: 0.3rem; }
-.nævn-card-sub { font-size: 11px; color: #a08070; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid #ece6dc; }
-.nævn-card-desc { font-size: 13.5px; color: #4a3028; line-height: 1.7; margin-bottom: 1.4rem; flex: 1; }
-.nævn-card-count { font-size: 11px; font-weight: 600; color: #b09080; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.6rem; }
-.nævn-card-cta {
-    display: block; text-align: center; padding: 0.75rem 1rem;
-    background: transparent; border: 1.5px solid #8C1C2E; border-radius: 8px;
-    color: #8C1C2E; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
-    transition: background .15s, color .15s;
+.nævn-card:hover { border-color: #8C1C2E; box-shadow: 0 4px 16px rgba(15,23,42,.06); transform: translateY(-2px); }
+.nævn-card.mfkn:hover { border-color: #8C1C2E; }
+.nævn-card-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 8px;
+    background: #fef2f2; color: #8C1C2E; margin-bottom: 1.2rem;
 }
-.nævn-card:hover .nævn-card-cta { background: #8C1C2E; color: #fff; }
-.nævn-card-cta.mfkn { border-color: #2d6a4f; color: #2d6a4f; }
-.nævn-card.mfkn:hover .nævn-card-cta.mfkn { background: #2d6a4f; color: #fff; }
+.nævn-card-icon .material-symbols-rounded { font-size: 22px; }
+.nævn-card-title { font-family: 'Inter', system-ui, sans-serif; font-size: 1.05rem; font-weight: 700; color: #0f172a; letter-spacing: -0.3px; margin-bottom: 0.25rem; }
+.nævn-card-sub { font-size: 11.5px; color: #64748b; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f1f5f9; font-weight: 500; }
+.nævn-card-desc { font-size: 13.5px; color: #475569; line-height: 1.65; margin-bottom: 1.2rem; flex: 1; }
+.nævn-card-count { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 1.4rem; }
+.nævn-card-cta {
+    display: block; text-align: center; padding: 0.7rem 1rem;
+    background: #ffffff; border: 1px solid #8C1C2E; border-radius: 6px;
+    color: #8C1C2E; font-size: 13px; font-weight: 600; letter-spacing: 0.1px;
+    transition: background .12s, color .12s;
+}
+.nævn-card:hover .nævn-card-cta { background: #8C1C2E; color: #ffffff; }
 
 /* ── Card v2: knap smelter visuelt sammen med kortet ── */
-.pkn-card-v2 { border-radius: 8px 8px 0 0; border-bottom: none !important; margin-bottom: 0; }
+.pkn-card-v2 { border-radius: 6px 6px 0 0; border-bottom: none !important; margin-bottom: 0; }
 div[data-testid="element-container"]:has(.pkn-card-v2) { margin-bottom: 0 !important; }
 div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] [data-testid="stBaseButton-secondary"] {
-    border-top: 1px solid #f0ece6 !important;
+    border-top: 1px solid #f1f5f9 !important;
     border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;
-    border-bottom-left-radius: 8px !important; border-bottom-right-radius: 8px !important;
-    background: #f7f4f0 !important; color: #3a1a10 !important;
+    border-bottom-left-radius: 6px !important; border-bottom-right-radius: 6px !important;
+    background: #f8fafc !important; color: #334155 !important;
     font-size: 12.5px !important; font-weight: 600 !important;
-    padding: 10px 22px !important; letter-spacing: 0.4px !important;
+    padding: 10px 22px !important; letter-spacing: 0.2px !important;
 }
 div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] [data-testid="stBaseButton-secondary"]:hover {
-    background: #ede8e0 !important; color: #1a0a0e !important;
+    background: #f1f5f9 !important; color: #0f172a !important;
 }
-div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] { margin-bottom: 14px !important; }
+div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] { margin-bottom: 12px !important; }
 
 /* ── Mobil breakpoints ── */
 @media (max-width: 768px) {
     .h-page-header { flex-direction: column; gap: 8px; }
-    .h-page-title { font-size: 1.4rem !important; letter-spacing: 4px !important; }
-    .h-page-meta { padding-left: 0 !important; border-left: none !important; font-size: 11px !important; }
-    .pkn-card { padding: 14px 16px 14px 14px !important; }
+    .h-page-title { font-size: 1.2rem !important; letter-spacing: -0.2px !important; }
+    .h-page-meta { padding-left: 0 !important; border-left: none !important; font-size: 11.5px !important; }
+    .pkn-card { padding: 14px 16px !important; }
     .pkn-card-title { font-size: 12.5px !important; }
     .stat-card { padding: 14px 10px !important; }
     .stat-number { font-size: 20px !important; }
-    .stat-label { font-size: 9px !important; }
+    .stat-label { font-size: 9.5px !important; }
     .detail-title { font-size: 1.15rem !important; }
     .detail-meta-strip { flex-direction: column; width: 100% !important; }
-    .detail-meta-cell { border-right: none !important; border-bottom: 1px solid #ece6dc; padding: 8px 14px !important; }
+    .detail-meta-cell { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding: 8px 14px !important; }
     .detail-meta-cell:last-child { border-bottom: none; }
-    .detail-reader { font-size: 14px !important; line-height: 1.7 !important; max-width: 100% !important; }
+    .detail-reader { font-size: 14px !important; line-height: 1.75 !important; max-width: 100% !important; }
     .ai-hero { flex-direction: column; gap: 10px; padding: 14px 16px !important; }
     .chat-user { max-width: 95% !important; font-size: 13px !important; }
     .chat-assistant { max-width: 100% !important; font-size: 13px !important; }
     [data-testid="stTabs"] [role="tab"] { font-size: 11px !important; padding: 6px 10px !important; }
+    .nævn-card { padding: 1.4rem 1.4rem 1.2rem !important; }
 }
 
-/* ── Detail reader forbedringer ── */
-.detail-reader { font-size: 15.5px; line-height: 1.9; color: #1e2d3d; font-family: 'Inter', system-ui, sans-serif; max-width: 76ch; }
-.detail-reader p { margin: 0 0 1.1em; }
-.detail-reader p:last-child { margin-bottom: 0; }
 sup.detail-ref { font-size: 9px; font-weight: 700; color: #8C1C2E; vertical-align: super; letter-spacing: 0; }
 </style>
 <script>
@@ -387,31 +404,10 @@ sup.detail-ref { font-size: 9px; font-weight: 700; color: #8C1C2E; vertical-alig
 </script>
 """
 
-# ── Logo SVG ──────────────────────────────────────────────────────────────────
-_LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 248" width="{w}" style="display:block;margin:0 auto">
-  <defs>
-    <linearGradient id="lgG" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e8c86a"/>
-      <stop offset="100%" stop-color="#b8882e"/>
-    </linearGradient>
-    <linearGradient id="shFill" x1="0" y1="0" x2="0.6" y2="1">
-      <stop offset="0%" stop-color="#192340"/>
-      <stop offset="100%" stop-color="#0d1628"/>
-    </linearGradient>
-  </defs>
-  <path d="M36,14 L164,14 C174,14 176,24 176,50 L176,108 C176,152 100,194 100,194 C100,194 24,152 24,108 L24,50 C24,24 26,14 36,14 Z" fill="url(#shFill)" stroke="url(#lgG)" stroke-width="3"/>
-  <path d="M44,24 L156,24 C163,24 165,32 165,54 L165,106 C165,144 100,182 100,182 C100,182 35,144 35,106 L35,54 C35,32 37,24 44,24 Z" fill="none" stroke="#c49a3c" stroke-width="0.9" opacity="0.35"/>
-  <circle cx="100" cy="55" r="4.5" fill="#c49a3c"/>
-  <rect x="98" y="55" width="4" height="70" rx="2" fill="url(#lgG)"/>
-  <rect x="78" y="121" width="44" height="5" rx="2.5" fill="url(#lgG)"/>
-  <rect x="42" y="68" width="116" height="4.5" rx="2.25" fill="url(#lgG)"/>
-  <line x1="57" y1="72.5" x2="46" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="57" y1="72.5" x2="71" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M40,97 Q58,119 76,97" stroke="url(#lgG)" stroke-width="3" fill="rgba(196,154,60,0.13)" stroke-linecap="round"/>
-  <line x1="143" y1="72.5" x2="129" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="143" y1="72.5" x2="154" y2="97" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M124,97 Q142,119 160,97" stroke="url(#lgG)" stroke-width="3" fill="rgba(196,154,60,0.13)" stroke-linecap="round"/>
-  <text x="100" y="224" text-anchor="middle" font-family="Cinzel,Georgia,serif" font-size="22" font-weight="700" fill="url(#lgG)" letter-spacing="6">Harald</text>
+# ── Logo SVG (wordmark) ───────────────────────────────────────────────────────
+_LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" width="{w}" style="display:block;margin:0 auto">
+  <text x="110" y="36" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="26" font-weight="800" fill="{fill}" letter-spacing="3.5">HARALD</text>
+  <rect x="98" y="46" width="24" height="2" fill="#8C1C2E"/>
 </svg>"""
 
 
@@ -432,8 +428,10 @@ def sidebar_log_ud() -> None:
             st.rerun()
 
 
-def logo(w: int) -> str:
-    svg = _LOGO_SVG.replace("{w}", str(w))
+def logo(w: int, dark: bool = False) -> str:
+    """Harald wordmark. dark=True giver lys tekst til mørk sidebar."""
+    fill = "#f1f5f9" if dark else "#0f172a"
+    svg = _LOGO_SVG.replace("{w}", str(w)).replace("{fill}", fill)
     b64 = _b64.b64encode(svg.encode()).decode()
     return f'<img src="data:image/svg+xml;base64,{b64}" width="{w}" style="display:block;margin:0 auto"/>'
 
@@ -446,43 +444,43 @@ def render_detail_header(
     meta_extra: list,          # liste af (label, value) tupler
     link: str,
     link_label: str = "Åbn original på nævnets hjemmeside",
-    accent: str = "#c49a3c",
+    accent: str = "#8C1C2E",
 ) -> str:
     """Returnér detail-header HTML med udelukkende inline styles.
     Bruges i stedet for CSS-klasser der kan blive strippet af Streamlit."""
     all_meta = [("Dato", dato_str)] + list(meta_extra)
     meta_cells = ""
     for i, (lbl, val) in enumerate(all_meta):
-        border = "border-right:1px solid #ece6dc;" if i < len(all_meta) - 1 else ""
+        border = "border-right:1px solid #e2e8f0;" if i < len(all_meta) - 1 else ""
         meta_cells += (
-            f'<div style="padding:9px 20px;{border}">'
-            f'<div style="font-size:9px;font-weight:700;color:#a08070;text-transform:uppercase;'
-            f'letter-spacing:1.4px;margin-bottom:3px;">{lbl}</div>'
-            f'<div style="font-size:13px;font-weight:600;color:#1a0a0e;white-space:nowrap;">{val}</div>'
+            f'<div style="padding:9px 18px;{border}">'
+            f'<div style="font-size:9.5px;font-weight:600;color:#94a3b8;text-transform:uppercase;'
+            f'letter-spacing:0.8px;margin-bottom:3px;">{lbl}</div>'
+            f'<div style="font-size:13px;font-weight:600;color:#0f172a;white-space:nowrap;">{val}</div>'
             f'</div>'
         )
     return (
-        f'<div style="padding:1.8rem 0 1.6rem;border-bottom:1px solid #ece6dc;margin-bottom:2rem;">'
-        f'<div style="margin-bottom:0.85rem;">'
-        f'<span style="{chip_style};font-size:10px;font-weight:700;letter-spacing:1.3px;'
+        f'<div style="padding:1.6rem 0 1.4rem;border-bottom:1px solid #e2e8f0;margin-bottom:2rem;">'
+        f'<div style="margin-bottom:0.8rem;">'
+        f'<span style="{chip_style};font-size:10px;font-weight:700;letter-spacing:0.8px;'
         f'text-transform:uppercase;padding:4px 11px;border-radius:20px;border:1px solid;">'
         f'{udfald}</span></div>'
-        f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:clamp(1.25rem,2vw,1.7rem);'
-        f'font-weight:800;color:#1a0a0e;line-height:1.3;letter-spacing:-0.3px;margin:0 0 1.1rem;max-width:80ch;">'
+        f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:clamp(1.2rem,2vw,1.55rem);'
+        f'font-weight:700;color:#0f172a;line-height:1.3;letter-spacing:-0.3px;margin:0 0 1rem;max-width:80ch;">'
         f'{titel}</div>'
-        f'<div style="height:2px;width:28px;background:{accent};border-radius:2px;margin-bottom:1.1rem;"></div>'
-        f'<div style="display:inline-flex;flex-wrap:wrap;border:1px solid #ece6dc;border-radius:8px;'
-        f'overflow:hidden;background:#fffcf8;margin-bottom:1rem;">{meta_cells}</div><br>'
+        f'<div style="height:2px;width:28px;background:{accent};border-radius:2px;margin-bottom:1rem;"></div>'
+        f'<div style="display:inline-flex;flex-wrap:wrap;border:1px solid #e2e8f0;border-radius:6px;'
+        f'overflow:hidden;background:#ffffff;margin-bottom:1rem;">{meta_cells}</div><br>'
         f'<a href="{link}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;'
-        f'font-size:12px;font-weight:500;color:#6b5040;text-decoration:none;border:1px solid #ece6dc;'
-        f'border-radius:6px;padding:7px 14px;background:#fffcf8;margin-top:0.6rem;">'
+        f'font-size:12px;font-weight:500;color:#475569;text-decoration:none;border:1px solid #e2e8f0;'
+        f'border-radius:6px;padding:7px 14px;background:#ffffff;margin-top:0.5rem;">'
         f'{link_label} &nbsp;↗</a>'
         f'&nbsp;&nbsp;'
         f'<button onclick="navigator.clipboard.writeText(\'{titel.replace(chr(39), chr(8217))} – {dato_str} – {link}\').'
         f'then(function(){{this.textContent=\'Kopieret!\';var b=this;setTimeout(function(){{b.textContent=\'Kopiér reference\'}},2000)}}.bind(this))"'
         f' style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;'
-        f'color:#6b5040;text-decoration:none;border:1px solid #ece6dc;border-radius:6px;padding:7px 14px;'
-        f'background:#fffcf8;margin-top:0.6rem;cursor:pointer;font-family:inherit;">Kopiér reference</button>'
+        f'color:#475569;text-decoration:none;border:1px solid #e2e8f0;border-radius:6px;padding:7px 14px;'
+        f'background:#ffffff;margin-top:0.5rem;cursor:pointer;font-family:inherit;">Kopiér reference</button>'
         f'</div>'
     )
 
@@ -686,32 +684,32 @@ _HEADING_WORDS = [
 _HEADING_WORDS.sort(key=len, reverse=True)
 
 _H_OPEN  = ('<div style="display:block;font-size:11.5px;font-weight:700;'
-            'color:#5a3a20;text-transform:uppercase;letter-spacing:2px;'
-            'margin:2.4em 0 0.8em;padding:10px 14px;'
-            'background:#fdf8f2;border-left:3px solid #c49a3c;'
-            'border-radius:0 5px 5px 0;">')
+            'color:#475569;text-transform:uppercase;letter-spacing:0.8px;'
+            'margin:2.2em 0 0.7em;padding:8px 14px;'
+            'background:#f8fafc;border-left:3px solid #8C1C2E;'
+            'border-radius:0 4px 4px 0;">')
 _H_CLOSE = '</div>'
 # Matcher sætningsafslutning + valgfrit afsnitstal (fx "1." "2)") + overskriftsord
 _HEADING_PRE = r'([.!?])\s+(?:\d+[.)]\s+)?'
 
 
 _H2_STYLE = (
-    'display:block;font-size:13px;font-weight:700;color:#3a1a10;'
-    'text-transform:uppercase;letter-spacing:2px;'
-    'margin:2.2em 0 0.6em;padding:10px 16px;'
-    'background:#fdf8f2;border-left:3px solid #c49a3c;border-radius:0 5px 5px 0;'
+    'display:block;font-size:12.5px;font-weight:700;color:#0f172a;'
+    'text-transform:uppercase;letter-spacing:0.8px;'
+    'margin:2em 0 0.6em;padding:9px 14px;'
+    'background:#f8fafc;border-left:3px solid #8C1C2E;border-radius:0 4px 4px 0;'
 )
 _H3_STYLE = (
-    'display:block;font-size:11px;font-weight:700;color:#5a3a20;'
-    'text-transform:uppercase;letter-spacing:1.8px;'
-    'margin:1.6em 0 0.5em;padding:6px 14px;'
-    'background:#fdf6ee;border-left:2px solid #d4a070;border-radius:0 4px 4px 0;'
+    'display:block;font-size:11px;font-weight:700;color:#475569;'
+    'text-transform:uppercase;letter-spacing:0.8px;'
+    'margin:1.5em 0 0.5em;padding:6px 12px;'
+    'background:#f8fafc;border-left:2px solid #cbd5e1;border-radius:0 3px 3px 0;'
 )
 _H4_STYLE = (
-    'display:block;font-size:10.5px;font-weight:700;color:#7a4820;'
-    'text-transform:uppercase;letter-spacing:1.4px;'
-    'margin:1.1em 0 0.3em;padding:3px 12px;'
-    'border-left:2px dotted #c4a870;'
+    'display:block;font-size:10.5px;font-weight:700;color:#64748b;'
+    'text-transform:uppercase;letter-spacing:0.6px;'
+    'margin:1.1em 0 0.3em;padding:3px 10px;'
+    'border-left:2px dotted #cbd5e1;'
 )
 
 
@@ -721,7 +719,7 @@ def format_afgørelse_tekst(tekst: str) -> str:
     Input kan være multiline tekst med ## / ### markorer fra strip_html(preserve_headings=True)
     eller plain tekst der stadig behandles med regex-fallback.
     """
-    _P = 'style="margin:0 0 1.2em;font-size:15px;line-height:1.9;color:#1e293b;font-family:\'Inter\',system-ui,sans-serif;"'
+    _P = 'style="margin:0 0 1.1em;font-size:15px;line-height:1.8;color:#1e293b;font-family:\'Inter\',system-ui,sans-serif;"'
 
     # Check om inputtet indeholder heading-markers (fra preserve_headings=True)
     has_markers = '\n## ' in tekst or '\n### ' in tekst or tekst.startswith('## ') or tekst.startswith('### ')
@@ -841,7 +839,7 @@ def format_afgørelse_tekst(tekst: str) -> str:
 
     return (
         f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:15px;'
-        f'line-height:1.9;color:#1e293b;max-width:72ch;">{out}</div>'
+        f'line-height:1.8;color:#1e293b;max-width:72ch;">{out}</div>'
     )
 
 

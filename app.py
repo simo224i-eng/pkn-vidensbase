@@ -2,20 +2,20 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Harald – Juridisk Vidensbase",
-    page_icon="⚖️",
+    page_icon=":material/balance:",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-from shared import inject_css
+from shared import inject_css, logo
 inject_css()
 
 # ── Global adgangskodegate ────────────────────────────────────────────────────
 if not st.session_state.get("_autentificeret_v2"):
     st.markdown(
-        "<h2 style='font-family:Cinzel,Georgia,serif;letter-spacing:4px;"
-        "text-align:center;margin-top:4rem;color:#1a0a0e;'>HARALD</h2>"
-        "<p style='text-align:center;color:#94a3b8;margin-bottom:2rem;'>Juridisk Vidensbase</p>",
+        f"<div style='text-align:center;margin-top:5rem;margin-bottom:0.6rem;'>{logo(160)}</div>"
+        "<p style='text-align:center;color:#64748b;font-size:12px;letter-spacing:0.4px;"
+        "margin-bottom:2.5rem;'>Juridisk vidensbase</p>",
         unsafe_allow_html=True,
     )
     col = st.columns([1, 2, 1])[1]
