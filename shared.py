@@ -989,6 +989,194 @@ def _llm_haiku(prompt: str, max_tokens: int = 400) -> str:
         return ""
 
 
+# ── Embeddings (Voyage AI primær, OpenAI fallback) ───────────────────────────
+def _embedding_provider() -> tuple:
+    """Returnerer (provider_navn, api_key, model, dim) baseret på tilgængelige secrets.
+    Preferer Voyage (bedst til dansk), falder tilbage til OpenAI."""
+    voyage_key = st.secrets.get("VOYAGE_API_KEY", "")
+    if voyage_key:
+        return ("voyage", voyage_key, "voyage-multilingual-2", 1024)
+    openai_key = st.secrets.get("OPENAI_API_KEY", "")
+    if openai_key:
+        return ("openai", openai_key, "text-embedding-3-small", 1536)
+    return (None, None, None, 0)
+
+
+def embeddings_tilgængelige() -> bool:
+    return _embedding_provider()[0] is not None
+
+
+def _embed_batch(texts: list, input_type: str = "document") -> "np.ndarray | None":
+    """Embed en batch af tekster. input_type = 'document' | 'query' (kun Voyage bruger dette).
+    Returnerer numpy array shape (N, dim) eller None ved fejl."""
+    provider, key, model, dim = _embedding_provider()
+    if not provider or not texts:
+        return None
+    try:
+        if provider == "voyage":
+            r = requests.post(
+                "https://api.voyageai.com/v1/embeddings",
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                json={"input": texts, "model": model, "input_type": input_type, "truncation": True},
+                timeout=120,
+            )
+            if not r.ok:
+                return None
+            data = r.json().get("data", [])
+            return np.array([d["embedding"] for d in data], dtype=np.float32)
+        else:  # openai
+            r = requests.post(
+                "https://api.openai.com/v1/embeddings",
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                json={"input": texts, "model": model},
+                timeout=120,
+            )
+            if not r.ok:
+                return None
+            data = r.json().get("data", [])
+            return np.array([d["embedding"] for d in data], dtype=np.float32)
+    except Exception:
+        return None
+
+
+def _embed_query(query: str) -> "np.ndarray | None":
+    """Embed en enkelt forespørgsel. Returnerer 1D array (dim,) eller None."""
+    if not query:
+        return None
+    arr = _embed_batch([query], input_type="query")
+    if arr is None or len(arr) == 0:
+        return None
+    # Normalisér til unit vector for hurtig cosine via dot product
+    v = arr[0]
+    n = float(np.linalg.norm(v))
+    return v / n if n > 0 else v
+
+
+def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 96) -> "np.ndarray | None":
+    """Byg et persistent embedding-indeks over df. Cache'r resultatet som .npy på disk.
+    - cache_key: unik nøgle pr. datasæt (fx 'pkn', 'mfkn_husdyrbrug')
+    - tekst_bygger: callable(titel, tekst) -> str; default er byg_indeks_tekst
+    Returnerer (N, dim) array eller None hvis embeddings ikke er konfigureret.
+
+    Inkluderer antal rækker + provider/model i cache-nøglen, så cachen bustes automatisk
+    når datasættet vokser eller embedding-model skiftes."""
+    provider, _key, model, dim = _embedding_provider()
+    if not provider or df is None or len(df) == 0:
+        return None
+    if tekst_bygger is None:
+        tekst_bygger = lambda t, x: byg_indeks_tekst(t, x, max_tegn=4000)
+
+    import os as _os
+    cache_dir = "/tmp/pkn_data/embeds"
+    _os.makedirs(cache_dir, exist_ok=True)
+    cache_path = _os.path.join(cache_dir, f"{cache_key}__{provider}__{model}__{len(df)}.npy")
+
+    if _os.path.exists(cache_path):
+        try:
+            arr = np.load(cache_path)
+            if arr.shape == (len(df), dim):
+                return arr
+        except Exception:
+            pass
+
+    # Byg fra bunden
+    texts = [tekst_bygger(str(t), str(x))[:8000]
+             for t, x in zip(df["Titel"].fillna(""), df["Tekst"].fillna(""))]
+
+    out = np.zeros((len(texts), dim), dtype=np.float32)
+    progress = None
+    try:
+        progress = st.progress(0.0, text=f"Bygger semantisk indeks ({cache_key})…")
+    except Exception:
+        pass
+
+    n_batches = (len(texts) + batch_size - 1) // batch_size
+    for b in range(n_batches):
+        start = b * batch_size
+        end = min(start + batch_size, len(texts))
+        batch = texts[start:end]
+        arr = _embed_batch(batch, input_type="document")
+        if arr is None:
+            # Fejl under embedding — drop cache og returnér None
+            if progress is not None:
+                try: progress.empty()
+                except Exception: pass
+            return None
+        out[start:end] = arr
+        if progress is not None:
+            try: progress.progress((b + 1) / n_batches, text=f"Bygger semantisk indeks ({cache_key})… {end}/{len(texts)}")
+            except Exception: pass
+
+    # Normalisér rækker for hurtig cosine via dot product
+    norms = np.linalg.norm(out, axis=1, keepdims=True)
+    norms[norms == 0] = 1.0
+    out = out / norms
+
+    try:
+        np.save(cache_path, out)
+    except Exception:
+        pass
+    if progress is not None:
+        try: progress.empty()
+        except Exception: pass
+    return out
+
+
+def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30):
+    """Semantisk søgning: cosine similarity mellem query og pre-computed doc embeddings.
+    Returnerer liste af (global_idx, score) sorteret bedst-først.
+    Ignorerer hvis embeds er None."""
+    if embeds is None or df is None or len(df) == 0:
+        return []
+    qv = _embed_query(query)
+    if qv is None:
+        return []
+    if sub_idx is not None and len(sub_idx) > 0:
+        sub_mat = embeds[sub_idx]
+        scores = sub_mat @ qv  # normaliserede vektorer → cosine = dot
+        order = np.argsort(-scores)[:top_n]
+        return [(int(sub_idx[i]), float(scores[i])) for i in order if scores[i] > 0.15]
+    scores = embeds @ qv
+    order = np.argsort(-scores)[:top_n]
+    return [(int(i), float(scores[i])) for i in order if scores[i] > 0.15]
+
+
+def hybrid_retrieval(query: str, df, vec, mat, embeds, sub_idx=None,
+                     top_retrieve: int = 40, top_final: int = 20) -> list:
+    """Hybrid TF-IDF + embeddings via Reciprocal Rank Fusion.
+    Returnerer liste af globale indekser (bedst-først), op til top_final.
+
+    Falder tilbage til ren TF-IDF hvis embeds er None.
+    Dette er retrieval-fasen; LLM-rerank kører bagefter på top_final."""
+    from sklearn.metrics.pairwise import cosine_similarity as _cos
+    # 1. TF-IDF ranking
+    qv = vec.transform([query])
+    if sub_idx is not None and len(sub_idx) > 0:
+        tfidf_scores = _cos(qv, mat[sub_idx]).flatten()
+        tfidf_order_local = np.argsort(-tfidf_scores)[:top_retrieve]
+        tfidf_ranking = [int(sub_idx[i]) for i in tfidf_order_local if tfidf_scores[i] > 0.01]
+    else:
+        tfidf_scores = _cos(qv, mat).flatten()
+        tfidf_order = np.argsort(-tfidf_scores)[:top_retrieve]
+        tfidf_ranking = [int(i) for i in tfidf_order if tfidf_scores[i] > 0.01]
+
+    rangeringer = [tfidf_ranking]
+
+    # 2. Embedding ranking (hvis tilgængelig)
+    if embeds is not None:
+        emb_hits = embedding_soeg(query, df, embeds, sub_idx=sub_idx, top_n=top_retrieve)
+        emb_ranking = [g for g, _ in emb_hits]
+        if emb_ranking:
+            rangeringer.append(emb_ranking)
+
+    # 3. RRF-fusion (bruger helper længere oppe i filen)
+    fused = rrf_merge(rangeringer, k=60)
+    if not fused:
+        return tfidf_ranking[:top_final]
+    sorted_idx = sorted(fused.items(), key=lambda x: -x[1])
+    return [idx for idx, _ in sorted_idx[:top_final]]
+
+
 def udvid_query(query: str) -> str:
     """Query expansion: Haiku tilføjer danske juridiske synonymer og relaterede termer.
     Returnerer den originale query + expansions (samlet streng til TF-IDF-søgning)."""
@@ -1084,6 +1272,58 @@ def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
         if i not in seen:
             valgte.append(i)
     return [kandidater[i] for i in valgte[:top_n]]
+
+
+def _normaliser_citat(s: str) -> str:
+    """Normaliser tekst til fuzzy citat-matching: lowercase, collapse whitespace,
+    strip interpunktion i kanterne. Bevarer internal punctuation til substring-match."""
+    if not s:
+        return ""
+    s = s.lower()
+    s = re.sub(r"\s+", " ", s).strip()
+    s = s.strip(".,;:!? \"'»«–—-")
+    return s
+
+
+def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
+    """Find citater i "..." i svaret og verificér at de findes i kildedokumenterne.
+    Returnerer liste af suspekte citater (ikke fundet i nogen kilde).
+    Kun citater på mindst min_laengde tegn valideres (korte strenge er ofte almindelige frasemer)."""
+    if not svar or not docs:
+        return []
+    # Normalisér alle kildetekster én gang
+    kilde_tekster = []
+    for d in docs:
+        tx = d.get("Tekst") or ""
+        kilde_tekster.append(_normaliser_citat(tx))
+    samlet_korpus = " ||| ".join(kilde_tekster)
+
+    # Find alle "..." citater (inkl. danske citationstegn » « og " ")
+    moenstre = [
+        r'"([^"]{%d,})"' % min_laengde,
+        r'»([^«]{%d,})«' % min_laengde,
+        r'"([^"]{%d,})"' % min_laengde,
+    ]
+    suspekte = []
+    sete = set()
+    for mnstr in moenstre:
+        for m in re.finditer(mnstr, svar):
+            citat = m.group(1).strip()
+            if len(citat) < min_laengde or citat in sete:
+                continue
+            sete.add(citat)
+            norm = _normaliser_citat(citat)
+            if not norm:
+                continue
+            # Fuzzy: substring-match på normaliseret kilde
+            if norm in samlet_korpus:
+                continue
+            # Fallback: check om første 60% af citatet findes (håndterer mindre afvigelser)
+            head = norm[: max(30, int(len(norm) * 0.6))]
+            if head in samlet_korpus:
+                continue
+            suspekte.append(citat)
+    return suspekte
 
 
 def saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:

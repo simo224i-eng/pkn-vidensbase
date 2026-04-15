@@ -18,7 +18,28 @@ from shared import (
     format_afgørelse_tekst, render_detail_header,
     udtræk_kerneafsnit, sidebar_log_ud,
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
+    byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
+    valider_citationer,
 )
+
+
+def _tilfoej_citat_advarsel(svar: str, alle_kilder: list) -> str:
+    """Verificér citater i AI-svar og tilføj en kort advarsel ved hallucineret tekst."""
+    try:
+        suspekte = valider_citationer(svar, alle_kilder)
+    except Exception:
+        return svar
+    if not suspekte:
+        return svar
+    punkter = "".join(f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>" for c in suspekte[:3])
+    advarsel = (
+        "<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
+        "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
+        "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne ikke genfindes "
+        f"ordret i kilderne og bør dobbelttjekkes:<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul>"
+        "</div>"
+    )
+    return svar + "\n\n" + advarsel
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 
@@ -287,6 +308,16 @@ def build_index(n_rows: int, version: int = 2):
     return vec, mat
 
 
+@st.cache_resource(show_spinner=False)
+def build_embeddings(n_rows: int, version: int = 1):
+    """Persistent semantisk indeks (Voyage/OpenAI embeddings) med disk-cache.
+    Returnerer None hvis ingen embedding-API-nøgle er konfigureret."""
+    if not embeddings_tilgængelige():
+        return None
+    df2 = load_data()
+    return byg_embeddings_indeks(df2, cache_key="pkn")
+
+
 def tfidf_søg(query: str, df, vec, mat, sub_idx=None, top_n: int = 30, ekspander: bool = False):
     """TF-IDF søgning med valgfri query expansion og tids-decay boost.
     tids-decay: nyere afgørelser får et lille boost (op til +15% for 2024+)."""
@@ -353,13 +384,36 @@ def _saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
 _udtræk_kerneafsnit = udtræk_kerneafsnit  # alias til shared.py
 
 
-def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik, top_retrieve: int = 30, top_final: int = 8) -> tuple:
-    """Forbedret RAG-pipeline: rewrite → expand → TF-IDF → rerank → merge med historik.
-    Returnerer (standalone_query, alle_kilder)."""
+def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik,
+                    top_retrieve: int = 40, top_final: int = 8, embeds=None) -> tuple:
+    """Forbedret RAG-pipeline med hybrid search:
+    rewrite → expand → (TF-IDF ∪ embeddings via RRF) → LLM rerank → merge med historik.
+    Returnerer (standalone_query, alle_kilder).
+
+    Hvis embeds er None, falder den tilbage til ren TF-IDF — ingen funktionel regression."""
     # 1. Omskriv opfølgningsspørgsmål til standalone query
     standalone = omformuler_opfoelgning(spørgsmål, historik or [])
-    # 2. Hent bredt med query expansion
-    hits = tfidf_søg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
+    # 2. Hybrid retrieval: TF-IDF + embeddings (hvis tilgængelige) fusioneret via RRF
+    if embeds is not None:
+        # Hybrid sti: brug den udvidede query til TF-IDF-delen, men rå standalone til embeddings
+        udvidet = udvid_query(standalone)
+        tfidf_query = udvidet if udvidet else standalone
+        fused_idx = hybrid_retrieval(
+            tfidf_query, df, vec, mat, embeds,
+            sub_idx=ai_sub_idx, top_retrieve=top_retrieve, top_final=top_retrieve,
+        )
+        # For embedding-del: kald hybrid_retrieval igen men med ren standalone så semantikken er clean
+        # (hybrid_retrieval kalder embedding_soeg internt med den givne query — vi bruger tfidf_query
+        #  som ensartet input for begge rangeringer her for enkelhed)
+        if fused_idx:
+            hits = df.iloc[fused_idx].copy()
+            hits["_score"] = [1.0] * len(hits)  # pladsholder – rækkefølgen bærer signalet
+            hits = hits.reset_index(drop=True)
+        else:
+            hits = df.iloc[0:0].copy()
+    else:
+        hits = tfidf_søg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
+
     kandidater = hits.to_dict("records") if len(hits) > 0 else []
     # 3. LLM-rerank til top_final
     rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
@@ -466,6 +520,7 @@ if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang  
 # ── Indlæs data ───────────────────────────────────────────────────────────────
 df       = load_data()
 vec, mat = build_index(len(df))
+embeds   = build_embeddings(len(df))  # None hvis ingen embedding-nøgle
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -927,9 +982,11 @@ with tab_ai:
                     try:
                         _, alle_kilder = smart_retrieval(
                             f, df, vec, mat, ai_sub_idx,
-                            st.session_state.chat_historik, top_retrieve=30, top_final=8,
+                            st.session_state.chat_historik, top_retrieve=40, top_final=8,
+                            embeds=embeds,
                         )
                         svar = claude_svar(f, alle_kilder, historik=st.session_state.chat_historik)
+                        svar = _tilfoej_citat_advarsel(svar, alle_kilder)
                     except Exception as e:
                         alle_kilder = []
                         svar = f"Fejl ved AI Assistent: {e}"
@@ -1077,9 +1134,11 @@ with tab_ai:
                 try:
                     _, alle_kilder = smart_retrieval(
                         spørgsmål, df, vec, mat, ai_sub_idx,
-                        st.session_state.chat_historik, top_retrieve=30, top_final=8,
+                        st.session_state.chat_historik, top_retrieve=40, top_final=8,
+                        embeds=embeds,
                     )
                     svar = claude_svar(spørgsmål, alle_kilder, historik=st.session_state.chat_historik)
+                    svar = _tilfoej_citat_advarsel(svar, alle_kilder)
                 except Exception as e:
                     alle_kilder = []
                     svar = f"Fejl ved AI Assistent: {e}"
