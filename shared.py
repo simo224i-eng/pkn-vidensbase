@@ -37,8 +37,28 @@ _CSS_HTML = """
     -webkit-font-smoothing: antialiased;
 }
 
-/* ── Skjul Streamlit header ── */
-header[data-testid="stHeader"] { display: none !important; }
+/* ── Skjul Streamlit header (kun desktop — mobil skal bruge headerens hamburger) ── */
+@media (min-width: 769px) {
+    header[data-testid="stHeader"] { display: none !important; }
+}
+@media (max-width: 768px) {
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        height: 3rem !important;
+        z-index: 999 !important;
+    }
+    header[data-testid="stHeader"] button {
+        background: #0f172a !important;
+        color: #f1f5f9 !important;
+        border-radius: 0 6px 6px 0 !important;
+        border: 1px solid #334155 !important;
+        border-left: none !important;
+    }
+    header[data-testid="stHeader"] button svg {
+        fill: #f1f5f9 !important;
+        color: #f1f5f9 !important;
+    }
+}
 [data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
 
 /* ── Base ── */
@@ -67,7 +87,8 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #94a3b8 !important; }
 
 /* ── Sidebar collapse-knap (synlig på alle skærme) ── */
-[data-testid="collapsedControl"] {
+[data-testid="collapsedControl"],
+[data-testid="stSidebarCollapsedControl"] {
     background: #0f172a !important;
     border: 1px solid #334155 !important;
     border-left: none !important;
