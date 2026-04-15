@@ -19,7 +19,27 @@ from shared import (
     format_afgørelse_tekst, render_detail_header,
     udtræk_kerneafsnit, sidebar_log_ud,
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank, saml_kilder,
+    byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
+    valider_citationer,
 )
+
+
+def _tilfoej_citat_advarsel(svar: str, alle_kilder: list) -> str:
+    """Verificér citater i AI-svar og tilføj en kort advarsel ved hallucineret tekst."""
+    try:
+        suspekte = valider_citationer(svar, alle_kilder)
+    except Exception:
+        return svar
+    if not suspekte:
+        return svar
+    punkter = "".join(f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>" for c in suspekte[:3])
+    return svar + (
+        "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
+        "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
+        "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne ikke genfindes "
+        f"ordret i kilderne og bør dobbelttjekkes:<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul>"
+        "</div>"
+    )
 
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -230,6 +250,15 @@ def build_index(stem, n_rows, version: int = 2):
     mat = vec.fit_transform(texts)
     return vec, mat
 
+
+@st.cache_resource(show_spinner=False)
+def build_embeddings_mfkn(stem, n_rows, version: int = 1):
+    """Persistent semantisk indeks pr. MFKN-kategori. None hvis ingen embedding-nøgle."""
+    if not embeddings_tilgængelige():
+        return None
+    df2 = load_kategori(stem, 1)
+    return byg_embeddings_indeks(df2, cache_key=f"mfkn_{stem}")
+
 def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander: bool = False):
     """TF-IDF med valgfri query expansion og tids-decay boost (nyere sager prioriteres let)."""
     effektiv_query = udvid_query(query) if ekspander else query
@@ -270,10 +299,27 @@ def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander: bool = Fa
     return result.reset_index(drop=True)
 
 
-def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik, top_retrieve: int = 30, top_final: int = 8):
-    """RAG-pipeline: rewrite → expand → TF-IDF → rerank → merge med historik."""
+def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik,
+                          top_retrieve: int = 40, top_final: int = 8, embeds=None):
+    """RAG-pipeline med hybrid search:
+    rewrite → expand → (TF-IDF ∪ embeddings via RRF) → LLM rerank → merge med historik.
+    Falder tilbage til ren TF-IDF hvis embeds er None."""
     standalone = omformuler_opfoelgning(spoergsmaal, historik or [])
-    hits = tfidf_soeg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
+    if embeds is not None:
+        udvidet = udvid_query(standalone)
+        tfidf_query = udvidet if udvidet else standalone
+        fused_idx = hybrid_retrieval(
+            tfidf_query, df, vec, mat, embeds,
+            sub_idx=ai_sub_idx, top_retrieve=top_retrieve, top_final=top_retrieve,
+        )
+        if fused_idx:
+            hits = df.iloc[fused_idx].copy()
+            hits["_score"] = [1.0] * len(hits)
+            hits = hits.reset_index(drop=True)
+        else:
+            hits = df.iloc[0:0].copy()
+    else:
+        hits = tfidf_soeg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
     kandidater = hits.to_dict("records") if len(hits) > 0 else []
     rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
     alle_kilder = saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
@@ -480,6 +526,7 @@ if df.empty:
     st.error(f"Ingen data fundet for {valgt_navn}.")
     st.stop()
 vec, mat = build_index(valgt_stem, len(df))
+embeds = build_embeddings_mfkn(valgt_stem, len(df))  # None uden embedding-nøgle
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -847,11 +894,17 @@ with tab_ai:
                 try:
                     _, alle_kilder = smart_retrieval_mfkn(
                         f, df, vec, mat, ai_sub_idx,
-                        st.session_state.mfkn_chat, top_retrieve=30, top_final=8,
+                        st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
+                        embeds=embeds,
                     )
                     svar = mfkn_svar_stream(f, alle_kilder,
                                             historik=st.session_state.mfkn_chat,
                                             kat_navn=valgt_navn, placeholder=svar_placeholder)
+                    svar = _tilfoej_citat_advarsel(svar, alle_kilder)
+                    try:
+                        svar_placeholder.markdown(svar, unsafe_allow_html=True)
+                    except Exception:
+                        pass
                 except Exception as e:
                     alle_kilder = []
                     svar = f"Fejl: {e}"
@@ -940,11 +993,17 @@ with tab_ai:
             try:
                 _, alle_kilder = smart_retrieval_mfkn(
                     spoergsmaal, df, vec, mat, ai_sub_idx,
-                    st.session_state.mfkn_chat, top_retrieve=30, top_final=8,
+                    st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
+                    embeds=embeds,
                 )
                 svar = mfkn_svar_stream(spoergsmaal, alle_kilder,
                                         historik=st.session_state.mfkn_chat,
                                         kat_navn=valgt_navn, placeholder=svar_placeholder)
+                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
+                try:
+                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
+                except Exception:
+                    pass
             except Exception as e:
                 alle_kilder = []
                 svar = f"Fejl ved API: {e}"
