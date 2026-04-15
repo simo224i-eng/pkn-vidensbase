@@ -37,27 +37,26 @@ _CSS_HTML = """
     -webkit-font-smoothing: antialiased;
 }
 
-/* ── Skjul Streamlit header (kun desktop — mobil skal bruge headerens hamburger) ── */
-@media (min-width: 769px) {
-    header[data-testid="stHeader"] { display: none !important; }
+/* ── Streamlit header: vises (indeholder mobil hamburger), men gøres transparent ── */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    height: 2.75rem !important;
+    z-index: 999 !important;
 }
-@media (max-width: 768px) {
-    header[data-testid="stHeader"] {
-        background: transparent !important;
-        height: 3rem !important;
-        z-index: 999 !important;
-    }
-    header[data-testid="stHeader"] button {
-        background: #0f172a !important;
-        color: #f1f5f9 !important;
-        border-radius: 0 6px 6px 0 !important;
-        border: 1px solid #334155 !important;
-        border-left: none !important;
-    }
-    header[data-testid="stHeader"] button svg {
-        fill: #f1f5f9 !important;
-        color: #f1f5f9 !important;
-    }
+/* Skjul Streamlit-logo/brand inde i headeren, behold knapper */
+header[data-testid="stHeader"] [data-testid="stDecoration"] { display: none !important; }
+/* Style hamburger/sidebar-toggle inde i headeren */
+header[data-testid="stHeader"] button[kind="header"],
+header[data-testid="stHeader"] button[data-testid="baseButton-header"],
+header[data-testid="stHeader"] button {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-radius: 6px !important;
+    border: 1px solid #334155 !important;
+}
+header[data-testid="stHeader"] button svg {
+    fill: #f1f5f9 !important;
+    color: #f1f5f9 !important;
 }
 [data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
 
