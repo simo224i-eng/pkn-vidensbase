@@ -18,7 +18,7 @@ import streamlit as st
 #   Radius:      6px cards, 4px chips, 6px buttons
 _CSS_HTML = """
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <style>
 /* ── Material Symbols (ligature-baseret ikon-font) ── */
 .material-symbols-rounded {
@@ -71,7 +71,16 @@ header[data-testid="stHeader"] button svg {
 
 /* ── Sidebar (flad mørk) ── */
 [data-testid="stSidebar"] { background: #0f172a !important; border-right: 1px solid #1e293b; }
-[data-testid="stSidebar"] * { color: #cbd5e1 !important; font-family: 'Inter', sans-serif !important; }
+[data-testid="stSidebar"] *:not(.material-symbols-rounded):not(.material-symbols-rounded *) {
+    color: #cbd5e1 !important;
+    font-family: 'Inter', sans-serif !important;
+}
+[data-testid="stSidebar"] .material-symbols-rounded,
+[data-testid="stSidebar"] [class*="material-symbols"] {
+    font-family: 'Material Symbols Rounded' !important;
+    font-feature-settings: 'liga' !important;
+    -webkit-font-feature-settings: 'liga' !important;
+}
 [data-testid="stSidebar"] .stTextInput input {
     background: #1e293b !important; border: 1px solid #334155 !important;
     color: #f1f5f9 !important; border-radius: 6px !important; font-size: 13px !important;
