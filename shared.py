@@ -18,8 +18,25 @@ import streamlit as st
 #   Radius:      6px cards, 4px chips, 6px buttons
 _CSS_HTML = """
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
 <style>
+/* ── Material Symbols (ligature-baseret ikon-font) ── */
+.material-symbols-rounded {
+    font-family: 'Material Symbols Rounded' !important;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
 /* ── Skjul Streamlit header ── */
 header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stMain"] .block-container { padding-top: 1.5rem !important; }
@@ -49,20 +66,33 @@ header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #cbd5e1 !important; }
 [data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #94a3b8 !important; }
 
-/* ── Sidebar collapse-knap ── */
+/* ── Sidebar collapse-knap (synlig på alle skærme) ── */
 [data-testid="collapsedControl"] {
-    background: #1e293b !important; border-radius: 0 6px 6px 0 !important;
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    border-left: none !important;
+    border-radius: 0 6px 6px 0 !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
-[data-testid="collapsedControl"],
 [data-testid="collapsedControl"] button,
 [data-testid="collapsedControl"] button * {
     font-size: 0 !important; color: transparent !important;
+    width: 100% !important; height: 100% !important;
 }
 [data-testid="collapsedControl"] svg { display: none !important; }
 [data-testid="collapsedControl"]::after {
-    content: "›"; font-size: 22px !important; color: #cbd5e1 !important;
-    font-weight: 300; display: flex !important; align-items: center;
-    justify-content: center; height: 100%; pointer-events: none;
+    content: "›"; font-size: 24px !important; color: #f1f5f9 !important;
+    font-weight: 400; display: flex !important; align-items: center;
+    justify-content: center;
+    position: absolute; inset: 0;
+    pointer-events: none;
 }
 [data-testid="stSidebarCollapseButton"] button,
 [data-testid="stSidebarCollapseButton"] button * {
@@ -379,6 +409,23 @@ div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="elemen
     .chat-assistant { max-width: 100% !important; font-size: 13px !important; }
     [data-testid="stTabs"] [role="tab"] { font-size: 11px !important; padding: 6px 10px !important; }
     .nævn-card { padding: 1.4rem 1.4rem 1.2rem !important; }
+    /* Sidebar-toggle eksplicit synlig på mobil */
+    [data-testid="collapsedControl"] {
+        position: fixed !important;
+        top: 12px !important;
+        left: 0 !important;
+        width: 42px !important;
+        height: 42px !important;
+        background: #0f172a !important;
+        border: 1px solid #334155 !important;
+        border-left: none !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,.18) !important;
+        z-index: 9999 !important;
+    }
+    [data-testid="collapsedControl"]::after {
+        font-size: 26px !important;
+        color: #f1f5f9 !important;
+    }
 }
 
 sup.detail-ref { font-size: 9px; font-weight: 700; color: #8C1C2E; vertical-align: super; letter-spacing: 0; }
