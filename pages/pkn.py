@@ -20,6 +20,7 @@ from shared import (
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
+    klassificer_query, highlight_query,
 )
 
 
@@ -387,28 +388,29 @@ _udtræk_kerneafsnit = udtræk_kerneafsnit  # alias til shared.py
 
 def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik,
                     top_retrieve: int = 40, top_final: int = 8, embeds=None) -> tuple:
-    """Forbedret RAG-pipeline med hybrid search:
-    rewrite → expand → (TF-IDF ∪ embeddings via RRF) → LLM rerank → merge med historik.
+    """Forbedret RAG-pipeline med hybrid search + adaptiv retrieval:
+    classify → rewrite → expand → (TF-IDF ∪ HyDE-embeddings via RRF) → Voyage rerank → merge.
     Returnerer (standalone_query, alle_kilder).
 
     Hvis embeds er None, falder den tilbage til ren TF-IDF — ingen funktionel regression."""
+    # 0. Klassificér query-type og tilpas retrieval-parametre
+    qtype = klassificer_query(spørgsmål)
+    top_retrieve = qtype["top_retrieve"]
+    top_final = qtype["top_final"]
+
     # 1. Omskriv opfølgningsspørgsmål til standalone query
     standalone = omformuler_opfoelgning(spørgsmål, historik or [])
-    # 2. Hybrid retrieval: TF-IDF + embeddings (hvis tilgængelige) fusioneret via RRF
+    # 2. Hybrid retrieval: TF-IDF + HyDE-embeddings fusioneret via RRF
     if embeds is not None:
-        # Hybrid sti: brug den udvidede query til TF-IDF-delen, men rå standalone til embeddings
         udvidet = udvid_query(standalone)
         tfidf_query = udvidet if udvidet else standalone
         fused_idx = hybrid_retrieval(
             tfidf_query, df, vec, mat, embeds,
             sub_idx=ai_sub_idx, top_retrieve=top_retrieve, top_final=top_retrieve,
         )
-        # For embedding-del: kald hybrid_retrieval igen men med ren standalone så semantikken er clean
-        # (hybrid_retrieval kalder embedding_soeg internt med den givne query — vi bruger tfidf_query
-        #  som ensartet input for begge rangeringer her for enkelhed)
         if fused_idx:
             hits = df.iloc[fused_idx].copy()
-            hits["_score"] = [1.0] * len(hits)  # pladsholder – rækkefølgen bærer signalet
+            hits["_score"] = [1.0] * len(hits)
             hits = hits.reset_index(drop=True)
         else:
             hits = df.iloc[0:0].copy()
@@ -416,7 +418,7 @@ def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik,
         hits = tfidf_søg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
 
     kandidater = hits.to_dict("records") if len(hits) > 0 else []
-    # 3. LLM-rerank til top_final
+    # 3. Voyage rerank (fallback til Haiku LLM-rerank)
     rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
     # 4. Smelt sammen med tidligere kilder for kontinuitet
     alle_kilder = _saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
@@ -780,22 +782,25 @@ with tab_søg:
                 "Hjemvist":     "background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe",
             }
             _BADGE_DEFAULT = "background:#f8fafc;color:#64748b;border:1px solid #e2e8f0"
+            _hl_q = søg_input.strip() if søg_input.strip() else ""
             for _, row in df_vis.head(_vis_antal).iterrows():
                 badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
                 dato_str    = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 kat_str     = " / ".join(row["Kategori"]) if isinstance(row["Kategori"], list) else row["Kategori"]
+                _hl_titel   = highlight_query(row["Titel"], _hl_q) if _hl_q else row["Titel"]
+                _hl_excerpt = highlight_query(row["Excerpt"], _hl_q, max_len=300) if _hl_q else (row["Excerpt"] + "…")
                 st.markdown(f"""
 <div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
     <span style="font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:.2px;">{dato_str}</span>
     <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.1px;{badge_style}">{row['Udfald']}</span>
   </div>
-  <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{row['Titel']}</div>
+  <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{_hl_titel}</div>
   <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
     <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{kat_str}</span>
     <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{row['Sagsgruppe']}</span>
   </div>
-  <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{row['Excerpt']}…</div>
+  <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{_hl_excerpt}</div>
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
   </div>

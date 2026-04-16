@@ -1087,6 +1087,37 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
     return "\n\n".join(dele)
 
 
+def klassificer_query(query: str) -> dict:
+    """Klassificér query-type med Haiku for at tilpasse retrieval-parametre.
+    Returnerer dict med 'type' (faktuel/sammenligning/procedure/åben) og
+    'top_k' (antal dokumenter at hente).
+
+    - faktuel: specifik juridisk kendsgerning → færre, præcise hits
+    - sammenligning: 'hvornår gives medhold vs afvist' → flere hits for bredde
+    - procedure: processuelt spørgsmål → moderat
+    - åben: bredt eksplorativt → mange hits"""
+    default = {"type": "åben", "top_retrieve": 40, "top_final": 8}
+    if not query or len(query) < 5:
+        return default
+    prompt = (
+        "Klassificér dette juridiske spørgsmål i én af fire kategorier:\n"
+        "- FAKTUEL: spørger til en specifik regel, afgørelse eller kendsgerning\n"
+        "- SAMMENLIGNING: sammenligner praksis, vil se mønstre/tendenser på tværs\n"
+        "- PROCEDURE: handler om proces, frister, kompetence, klagevej\n"
+        "- ÅBEN: bredt, eksplorativt eller uklart spørgsmål\n\n"
+        f"Spørgsmål: \"{query}\"\n\n"
+        "Svar med KUN ét ord (FAKTUEL/SAMMENLIGNING/PROCEDURE/ÅBEN):"
+    )
+    svar = _llm_haiku(prompt, max_tokens=10).strip().upper()
+    if "FAKTUEL" in svar:
+        return {"type": "faktuel", "top_retrieve": 25, "top_final": 6}
+    elif "SAMMENLIGNING" in svar:
+        return {"type": "sammenligning", "top_retrieve": 60, "top_final": 12}
+    elif "PROCEDURE" in svar:
+        return {"type": "procedure", "top_retrieve": 30, "top_final": 8}
+    return default
+
+
 def rrf_merge(rangeringer: list, k: int = 60) -> dict:
     """Reciprocal Rank Fusion: kombinér flere rangeringer til én score.
     rangeringer = liste af lister, hvor hver indre liste er et globalt indeks sorteret bedst-først."""
@@ -1169,6 +1200,35 @@ def _embed_query(query: str) -> "np.ndarray | None":
     return v / n if n > 0 else v
 
 
+def _hyde_embed(query: str) -> "np.ndarray | None":
+    """HyDE (Hypothetical Document Embeddings): generer et hypotetisk svar
+    med Haiku og embed det i stedet for det rå spørgsmål.
+    Dette forbedrer retrieval fordi det hypotetiske svar bruger samme
+    terminologi og stil som de rigtige afgørelser.
+    Returnerer normaliseret embedding eller None."""
+    if not query or not embeddings_tilgængelige():
+        return None
+    # Generer hypotetisk afgørelsesafsnit
+    hyde_prompt = (
+        "Du er Planklagenævnet/Miljø- og Fødevareklagenævnet. "
+        "Skriv et kort uddrag (100-150 ord) af en hypotetisk nævnsafgørelse "
+        "der besvarer dette spørgsmål. Brug nævnets typiske sprog og juridiske termer. "
+        "Skriv KUN uddraget – ingen indledning.\n\n"
+        f"Spørgsmål: {query}\n\nUddrag:"
+    )
+    hyp = _llm_haiku(hyde_prompt, max_tokens=250)
+    if not hyp or len(hyp) < 30:
+        return _embed_query(query)  # fallback til rå query
+    # Embed det hypotetiske svar + den originale query (begge signaler)
+    combined = f"{query}\n\n{hyp}"
+    arr = _embed_batch([combined], input_type="query")
+    if arr is None or len(arr) == 0:
+        return _embed_query(query)
+    v = arr[0]
+    n = float(np.linalg.norm(v))
+    return v / n if n > 0 else v
+
+
 def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 96) -> "np.ndarray | None":
     """Byg et persistent embedding-indeks over df. Cache'r resultatet som .npy på disk.
     - cache_key: unik nøgle pr. datasæt (fx 'pkn', 'mfkn_husdyrbrug')
@@ -1239,13 +1299,16 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     return out
 
 
-def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30):
-    """Semantisk søgning: cosine similarity mellem query og pre-computed doc embeddings.
-    Returnerer liste af (global_idx, score) sorteret bedst-først.
-    Ignorerer hvis embeds er None."""
+def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30, use_hyde: bool = True):
+    """Semantisk søgning med HyDE: genererer hypotetisk svar, embedder det,
+    og matcher mod pre-computed doc embeddings via cosine similarity.
+    Falder tilbage til rå query-embedding hvis HyDE fejler.
+    Returnerer liste af (global_idx, score) sorteret bedst-først."""
     if embeds is None or df is None or len(df) == 0:
         return []
-    qv = _embed_query(query)
+    qv = _hyde_embed(query) if use_hyde else _embed_query(query)
+    if qv is None:
+        qv = _embed_query(query)
     if qv is None:
         return []
     if sub_idx is not None and len(sub_idx) > 0:
@@ -1344,13 +1407,52 @@ def omformuler_opfoelgning(spoergsmaal: str, historik: list) -> str:
     return omskrevet
 
 
+def _voyage_rerank(query: str, documents: list, top_n: int = 8) -> "list | None":
+    """Voyage Rerank 2: dedikeret neural reranker. Returnerer liste af (orig_index, score)
+    eller None ved fejl / manglende nøgle. Bruger samme VOYAGE_API_KEY som embeddings."""
+    key = st.secrets.get("VOYAGE_API_KEY", "")
+    if not key or not documents:
+        return None
+    try:
+        r = requests.post(
+            "https://api.voyageai.com/v1/rerank",
+            headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+            json={
+                "query": query,
+                "documents": documents,
+                "model": "rerank-2",
+                "top_k": top_n,
+            },
+            timeout=60,
+        )
+        if not r.ok:
+            return None
+        data = r.json().get("data", [])
+        return [(d["index"], d["relevance_score"]) for d in data]
+    except Exception:
+        return None
+
+
 def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
-    """LLM-re-ranker: Haiku scorer hver kandidat 0-10 for relevans og returnerer top_n.
+    """Reranker: bruger Voyage Rerank 2 (neural) hvis tilgængelig,
+    ellers falder tilbage til Haiku LLM-scoring.
     kandidater = liste af dicts med mindst 'Titel', 'Dato', 'Tekst'.
-    Falder tilbage til top_n første kandidater ved fejl."""
+    Returnerer top_n sorteret bedst-først."""
     if not kandidater or len(kandidater) <= top_n:
         return kandidater[:top_n]
-    # Byg kort oversigt – titel + første kerneafsnit-linjer
+
+    # 1. Forsøg Voyage Rerank (hurtigere, billigere, bedre end LLM-scoring)
+    docs_for_rerank = []
+    for k in kandidater:
+        titel = (k.get("Titel") or "")[:150]
+        kerne = udtræk_kerneafsnit(k.get("Tekst") or "", max_tegn=800).replace("\n", " ")[:700]
+        docs_for_rerank.append(f"{titel}\n{kerne}")
+
+    voyage_result = _voyage_rerank(query, docs_for_rerank, top_n=top_n)
+    if voyage_result:
+        return [kandidater[idx] for idx, _ in voyage_result]
+
+    # 2. Fallback: Haiku LLM-rerank
     linjer = []
     for i, k in enumerate(kandidater):
         try:
@@ -1373,10 +1475,8 @@ def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
     svar = _llm_haiku(prompt, max_tokens=100)
     if not svar or "apinøgle" in svar.lower():
         return kandidater[:top_n]
-    # Parse indekser
     import re as _re
     tal = [int(x) for x in _re.findall(r'\d+', svar) if int(x) < len(kandidater)]
-    # Dedupliker bevarende rækkefølge
     seen = set()
     valgte = []
     for t in tal:
@@ -1387,7 +1487,6 @@ def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
             break
     if not valgte:
         return kandidater[:top_n]
-    # Fyld op hvis LLM'en returnerede færre end top_n
     for i in range(len(kandidater)):
         if len(valgte) >= top_n:
             break
@@ -1467,6 +1566,34 @@ def saml_kilder(historik: list, nye_hits, max_total: int = 12) -> list:
                     seen.add(lnk)
                     merged.append(k)
     return merged[:max_total]
+
+
+def highlight_query(text: str, query: str, max_len: int = 0) -> str:
+    """Marker søgetermer i teksten med <mark> tags.
+    Splitter query i ord og highlighter hvert match (case-insensitive).
+    Fjerner trivielle ord (under 3 tegn) og HTML-escaper teksten først."""
+    if not text or not query:
+        return text[:max_len] + "…" if max_len and len(text) > max_len else text
+    import html as _html
+    safe = _html.escape(text)
+    if max_len and len(safe) > max_len:
+        safe = safe[:max_len] + "…"
+    # Split query i substantielle ord
+    termer = [t for t in re.split(r'\s+', query.strip()) if len(t) >= 3]
+    if not termer:
+        return safe
+    # Sortér længste først så vi undgår delvis overlap
+    termer.sort(key=len, reverse=True)
+    for t in termer[:8]:  # max 8 termer for performance
+        escaped_term = re.escape(t)
+        safe = re.sub(
+            rf"({escaped_term})",
+            r'<mark style="background:#fef9c3;padding:0 1px;border-radius:2px;">\1</mark>',
+            safe,
+            flags=re.IGNORECASE,
+            count=10,  # max 10 matches per term
+        )
+    return safe
 
 
 def extract_kommune(titel: str) -> str:
