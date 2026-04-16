@@ -525,7 +525,11 @@ if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang  
 # ── Indlæs data ───────────────────────────────────────────────────────────────
 df       = load_data()
 vec, mat = build_index(len(df))
-embeds   = build_embeddings(len(df))  # None hvis ingen embedding-nøgle
+embeds   = build_embeddings(len(df))
+# Bust cache hvis nøgle blev tilføjet efter første kørsel
+if embeds is None and embeddings_tilgængelige():
+    build_embeddings.clear()
+    embeds = build_embeddings(len(df))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
