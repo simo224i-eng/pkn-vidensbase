@@ -494,6 +494,23 @@ def inject_css() -> None:
         st.markdown(_CSS_HTML, unsafe_allow_html=True)
 
 
+def copy_button(text: str, label: str = "Kopiér", key: str = "copy") -> None:
+    """Renders a small copy-to-clipboard button using JS. text is what gets copied."""
+    safe = text.replace("`", "\\`").replace("$", "\\$").replace("\\", "\\\\")
+    st.components.v1.html(f"""
+<button onclick="navigator.clipboard.writeText(`{safe}`).then(()=>{{
+    this.innerText='✓ Kopieret';
+    this.style.color='#166534';
+    setTimeout(()=>{{this.innerText='{label}';this.style.color='';}} ,1800);
+}})"
+style="background:none;border:1px solid #e2e8f0;border-radius:4px;padding:3px 10px;
+font-size:11px;color:#64748b;cursor:pointer;font-family:Inter,system-ui,sans-serif;
+transition:all .15s;">
+{label}
+</button>
+""", height=32)
+
+
 def sidebar_log_ud() -> None:
     """Vis log ud-knap nederst i sidebaren."""
     with st.sidebar:

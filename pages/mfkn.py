@@ -21,7 +21,7 @@ from shared import (
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank, saml_kilder,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
-    klassificer_query, highlight_query,
+    klassificer_query, highlight_query, copy_button,
 )
 
 
@@ -561,6 +561,9 @@ if embeds is None and embeddings_tilgængelige():
     build_embeddings_mfkn.clear()
     embeds = build_embeddings_mfkn(valgt_stem, len(df))
 
+_voyage_key_sat = bool(st.secrets.get("VOYAGE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", ""))
+_embeds_ok = embeds is not None
+
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(150, dark=True)}</div></div>', unsafe_allow_html=True)
@@ -895,6 +898,12 @@ with tab_ai:
 </div>
 """, unsafe_allow_html=True)
 
+    if _voyage_key_sat and not _embeds_ok:
+        st.warning(
+            "**Semantisk søgning ikke aktiv.** Embedding-nøgle fundet, men indekset kunne ikke bygges. "
+            "Tjek at nøglen hedder nøjagtigt `VOYAGE_API_KEY` (store bogstaver, ingen mellemrum) i Streamlit secrets.",
+            icon="⚠️",
+        )
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:
@@ -961,22 +970,27 @@ with tab_ai:
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
-                    # Feedback-knapper
+                    # Feedback + copy knapper
                     fb_key = f"mfkn_fb_{msg_idx}"
                     fb_state = st.session_state.get(fb_key)
-                    fb1, fb2, _ = st.columns([1, 1, 6])
+                    fb1, fb2, fb3 = st.columns([1, 1, 2])
                     with fb1:
-                        if st.button("👍" if fb_state != "up" else "✅ Tak",
-                                     key=f"{fb_key}_up", disabled=fb_state is not None):
+                        if st.button("👍" if fb_state != "up" else "✅",
+                                     key=f"{fb_key}_up", disabled=fb_state is not None,
+                                     help="Godt svar"):
                             st.session_state[fb_key] = "up"
                             _log_feedback("mfkn", msg.get("tekst", "")[:200], "up")
                             st.rerun()
                     with fb2:
-                        if st.button("👎" if fb_state != "down" else "❌ Noteret",
-                                     key=f"{fb_key}_down", disabled=fb_state is not None):
+                        if st.button("👎" if fb_state != "down" else "❌",
+                                     key=f"{fb_key}_down", disabled=fb_state is not None,
+                                     help="Dårligt svar"):
                             st.session_state[fb_key] = "down"
                             _log_feedback("mfkn", msg.get("tekst", "")[:200], "down")
                             st.rerun()
+                    with fb3:
+                        _ren_tekst = strip_html(msg.get("tekst", ""))
+                        copy_button(_ren_tekst, label="Kopiér svar", key=f"mfkn_cp_{msg_idx}")
                 with col_kld:
                     if kilder:
                         st.markdown(
