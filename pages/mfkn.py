@@ -42,6 +42,21 @@ def _tilfoej_citat_advarsel(svar: str, alle_kilder: list) -> str:
         "</div>"
     )
 
+def _log_feedback(modul: str, svar_tekst: str, rating: str):
+    """Log bruger-feedback (thumbs up/down) til CSV for kvalitetsopfølgning."""
+    import datetime
+    log_dir = "/tmp/pkn_data"
+    os.makedirs(log_dir, exist_ok=True)
+    log_path = os.path.join(log_dir, "feedback.csv")
+    exists = os.path.exists(log_path)
+    with open(log_path, "a", encoding="utf-8") as f:
+        if not exists:
+            f.write("tidspunkt,modul,rating,svar_uddrag\n")
+        ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        safe = svar_tekst.replace('"', "'").replace("\n", " ")
+        f.write(f'{ts},{modul},{rating},"{safe}"\n')
+
+
 ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _TMP  = "/tmp/pkn_data"
@@ -303,15 +318,19 @@ def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander: bool = Fa
 
 def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik,
                           top_retrieve: int = 40, top_final: int = 8, embeds=None):
-    """RAG-pipeline med hybrid search + adaptiv retrieval:
-    classify → rewrite → expand → (TF-IDF ∪ HyDE-embeddings via RRF) → Voyage rerank → merge.
+    """RAG-pipeline med hybrid search + adaptiv retrieval.
+    Haiku-kald paralleliseres for lavere latency.
     Falder tilbage til ren TF-IDF hvis embeds er None."""
-    # Adaptiv retrieval baseret på query-type
-    qtype = klassificer_query(spoergsmaal)
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        fut_classify = pool.submit(klassificer_query, spoergsmaal)
+        fut_rewrite = pool.submit(omformuler_opfoelgning, spoergsmaal, historik or [])
+        qtype = fut_classify.result()
+        standalone = fut_rewrite.result()
+
     top_retrieve = qtype["top_retrieve"]
     top_final = qtype["top_final"]
-
-    standalone = omformuler_opfoelgning(spoergsmaal, historik or [])
     if embeds is not None:
         udvidet = udvid_query(standalone)
         tfidf_query = udvidet if udvidet else standalone
@@ -942,6 +961,22 @@ with tab_ai:
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
+                    # Feedback-knapper
+                    fb_key = f"mfkn_fb_{msg_idx}"
+                    fb_state = st.session_state.get(fb_key)
+                    fb1, fb2, _ = st.columns([1, 1, 6])
+                    with fb1:
+                        if st.button("👍" if fb_state != "up" else "✅ Tak",
+                                     key=f"{fb_key}_up", disabled=fb_state is not None):
+                            st.session_state[fb_key] = "up"
+                            _log_feedback("mfkn", msg.get("tekst", "")[:200], "up")
+                            st.rerun()
+                    with fb2:
+                        if st.button("👎" if fb_state != "down" else "❌ Noteret",
+                                     key=f"{fb_key}_down", disabled=fb_state is not None):
+                            st.session_state[fb_key] = "down"
+                            _log_feedback("mfkn", msg.get("tekst", "")[:200], "down")
+                            st.rerun()
                 with col_kld:
                     if kilder:
                         st.markdown(
