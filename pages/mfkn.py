@@ -912,12 +912,28 @@ with tab_ai:
 </div>
 """, unsafe_allow_html=True)
 
-    if _voyage_key_sat and not _embeds_ok:
-        st.warning(
-            "**Semantisk søgning ikke aktiv.** Embedding-nøgle fundet, men indekset kunne ikke bygges. "
-            "Tjek at nøglen hedder nøjagtigt `VOYAGE_API_KEY` (store bogstaver, ingen mellemrum) i Streamlit secrets.",
-            icon="⚠️",
-        )
+    if not _embeds_ok:
+        try:
+            _secret_keys = sorted([k for k in st.secrets.keys()])
+        except Exception:
+            _secret_keys = []
+        _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
+        if _voyage_key_sat:
+            st.warning(
+                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges. "
+                "Sandsynligvis er API-nøglen ugyldig eller udløbet. "
+                f"Fundne secrets: {_key_liste}",
+                icon="⚠️",
+            )
+        else:
+            st.info(
+                "**TF-IDF-søgning er aktiv** (ordbaseret). "
+                "For hybrid semantisk søgning: tilføj `VOYAGE_API_KEY` i Streamlit Cloud secrets og genstart appen. "
+                f"Fundne secrets: {_key_liste}. "
+                "**Tjek**: nøglen skal hedde nøjagtigt `VOYAGE_API_KEY` (ingen mellemrum, store bogstaver), "
+                "og du skal klikke 'Reboot app' i Streamlit Cloud efter du gemmer secrets.",
+                icon="ℹ️",
+            )
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:

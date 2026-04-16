@@ -264,6 +264,34 @@ header[data-testid="stHeader"] button svg {
 .badge-afvist       { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
 .badge-ukendt       { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
 
+/* ── Aktive filter-chips (klikbare til at fjerne) ── */
+.active-filters-wrap {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    padding: 10px 0 6px; margin-bottom: 4px; border-bottom: 1px solid #e2e8f0;
+}
+.active-filters-label {
+    font-size: 10.5px; font-weight: 600; color: #64748b;
+    text-transform: uppercase; letter-spacing: 0.6px; margin-right: 6px;
+}
+/* Style Streamlit-knapper som placeres inde i en chip-container */
+.active-filters-wrap + div [data-testid="stHorizontalBlock"] button,
+div[data-testid="element-container"]:has(.active-filters-anchor) ~ div button[kind="secondary"] {
+    background: #f1f5f9 !important; color: #475569 !important;
+    border: 1px solid #cbd5e1 !important; border-radius: 4px !important;
+    font-size: 11.5px !important; font-weight: 500 !important;
+    padding: 3px 10px !important; min-height: 26px !important; height: 26px !important;
+    line-height: 1.2 !important;
+}
+div[data-testid="element-container"]:has(.active-filters-anchor) ~ div button[kind="secondary"]:hover {
+    background: #fef2f2 !important; color: #8C1C2E !important; border-color: #fecaca !important;
+}
+div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div button {
+    background: transparent !important; color: #8C1C2E !important;
+    border: 1px solid #fecaca !important; border-radius: 4px !important;
+    font-size: 11.5px !important; font-weight: 600 !important;
+    padding: 3px 10px !important; min-height: 26px !important; height: 26px !important;
+}
+
 /* ── Stat cards ── */
 .stat-card   { background: #ffffff; border-radius: 6px; padding: 20px 18px; text-align: center; border: 1px solid #e2e8f0; }
 .stat-number { font-family: 'Inter', system-ui, sans-serif; font-size: 26px; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; }
@@ -500,6 +528,31 @@ def inject_css() -> None:
         st.html(_CSS_HTML)
     except AttributeError:
         st.markdown(_CSS_HTML, unsafe_allow_html=True)
+
+
+def render_filter_chips(chips: list, key_prefix: str = "flt") -> None:
+    """Render clickable "active filter" chips. Each chip: (label, callback).
+
+    Callback runs when chip is clicked (typically removes a value from session_state).
+    Shows a "Ryd alle" chip at the end that runs the last callback in `chips` when its
+    label is "__CLEAR_ALL__". Chips wrap across rows (max 8 per row).
+    """
+    if not chips:
+        return
+    st.markdown(
+        '<div class="active-filters-wrap"><span class="active-filters-label">Aktive filtre</span></div>'
+        '<span class="active-filters-anchor" style="display:none"></span>',
+        unsafe_allow_html=True,
+    )
+    per_row = 8
+    for row_start in range(0, len(chips), per_row):
+        row_chips = chips[row_start:row_start + per_row]
+        cols = st.columns([1] * len(row_chips) + [max(1, per_row - len(row_chips))])
+        for i, (label, cb) in enumerate(row_chips):
+            with cols[i]:
+                if st.button(f"{label} ×", key=f"{key_prefix}_{row_start + i}", use_container_width=True):
+                    cb()
+                    st.rerun()
 
 
 def copy_button(text: str, label: str = "Kopiér", key: str = "copy") -> None:

@@ -20,7 +20,7 @@ from shared import (
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
-    klassificer_query, highlight_query, copy_button,
+    klassificer_query, highlight_query, copy_button, render_filter_chips,
 )
 
 
@@ -799,6 +799,50 @@ with tab_søg:
             st.markdown('</div>', unsafe_allow_html=True)
 
     else:
+        # ── Aktive filter-chips (klikbare) ──
+        _chips = []
+        if søg_input.strip():
+            def _clr_søg():
+                # text_input har ingen session-key; vi bruger en nulstil-flag
+                st.session_state["_pkn_clear_soeg"] = True
+            _chips.append((f"Søgeord: {søg_input.strip()[:30]}", _clr_søg))
+        for _k in valgte_kats:
+            def _clr_kat(_val=_k):
+                st.session_state["kat"] = [x for x in st.session_state.get("kat", []) if x != _val]
+            _chips.append((f"Kat: {_k}", _clr_kat))
+        for _p in plantype_valg:
+            def _clr_pt(_val=_p):
+                st.session_state["pt"] = [x for x in st.session_state.get("pt", []) if x != _val]
+            _chips.append((f"Plantype: {_p}", _clr_pt))
+        for _dt in dokumenttype_valg:
+            def _clr_dt(_val=_dt):
+                st.session_state["dt"] = [x for x in st.session_state.get("dt", []) if x != _val]
+            _chips.append((f"Dok: {_dt}", _clr_dt))
+        for _sg in sagsgruppe_valg:
+            def _clr_sg(_val=_sg):
+                st.session_state["sg"] = [x for x in st.session_state.get("sg", []) if x != _val]
+            _chips.append((f"Gruppe: {_sg}", _clr_sg))
+        for _u in udfald_valg:
+            def _clr_ud(_val=_u):
+                st.session_state["ud"] = [x for x in st.session_state.get("ud", []) if x != _val]
+            _chips.append((f"Udfald: {_u}", _clr_ud))
+        if år_range != (år_min, år_max):
+            def _clr_aar():
+                for k in list(st.session_state.keys()):
+                    # Slider har auto-key; vi sletter alle slider-relaterede keys
+                    if "år" in k.lower() or "aar" in k.lower():
+                        try: del st.session_state[k]
+                        except Exception: pass
+            _chips.append((f"År: {år_range[0]}–{år_range[1]}", _clr_aar))
+        if _chips:
+            def _clr_all():
+                for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type"]:
+                    if k in st.session_state:
+                        del st.session_state[k]
+                st.session_state["_pkn_clear_soeg"] = True
+            _chips.append(("Ryd alle", _clr_all))
+            render_filter_chips(_chips, key_prefix="pkn_chip")
+
         total_filtreret = len(df_filter)
         hits  = len(df_vis)
         if søg_input:
@@ -1008,13 +1052,29 @@ with tab_ai:
 </div>
 """, unsafe_allow_html=True)
 
-    # Diagnostik: vis warning hvis nøgle er sat men embeddings ikke loader
-    if _voyage_key_sat and not _embeds_ok:
-        st.warning(
-            "**Semantisk søgning ikke aktiv.** Embedding-nøgle fundet, men indekset kunne ikke bygges. "
-            "Tjek at nøglen hedder nøjagtigt `VOYAGE_API_KEY` (store bogstaver, ingen mellemrum) i Streamlit secrets.",
-            icon="⚠️",
-        )
+    # Diagnostik: vis altid en besked hvis embeddings ikke er aktive
+    if not _embeds_ok:
+        try:
+            _secret_keys = sorted([k for k in st.secrets.keys()])
+        except Exception:
+            _secret_keys = []
+        _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
+        if _voyage_key_sat:
+            st.warning(
+                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges. "
+                "Sandsynligvis er API-nøglen ugyldig eller udløbet. "
+                f"Fundne secrets: {_key_liste}",
+                icon="⚠️",
+            )
+        else:
+            st.info(
+                "**TF-IDF-søgning er aktiv** (ordbaseret). "
+                "For hybrid semantisk søgning: tilføj `VOYAGE_API_KEY` i Streamlit Cloud secrets og genstart appen. "
+                f"Fundne secrets: {_key_liste}. "
+                "**Tjek**: nøglen skal hedde nøjagtigt `VOYAGE_API_KEY` (ingen mellemrum, store bogstaver), "
+                "og du skal klikke 'Reboot app' i Streamlit Cloud efter du gemmer secrets.",
+                icon="ℹ️",
+            )
 
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
