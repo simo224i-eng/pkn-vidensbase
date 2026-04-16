@@ -428,6 +428,14 @@ div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="elemen
     .stat-card { padding: 14px 10px !important; }
     .stat-number { font-size: 20px !important; }
     .stat-label { font-size: 9.5px !important; }
+    /* KPI-kort: 2x2 på mobil ved at lade Streamlit-kolonner wrappe */
+    [data-testid="stHorizontalBlock"]:has(.stat-card) {
+        flex-wrap: wrap !important;
+    }
+    [data-testid="stHorizontalBlock"]:has(.stat-card) > [data-testid="stColumn"] {
+        min-width: 45% !important;
+        flex: 1 1 45% !important;
+    }
     .detail-title { font-size: 1.15rem !important; }
     .detail-meta-strip { flex-direction: column; width: 100% !important; }
     .detail-meta-cell { border-right: none !important; border-bottom: 1px solid #e2e8f0; padding: 8px 14px !important; }

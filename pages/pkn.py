@@ -809,7 +809,21 @@ with tab_søg:
         st.markdown(label)
 
         if hits == 0:
-            st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
+            st.markdown(
+                '<div style="text-align:center;padding:3rem 1rem;color:#94a3b8;">'
+                '<div style="font-size:2rem;margin-bottom:0.5rem;">🔍</div>'
+                '<div style="font-size:15px;font-weight:600;color:#475569;margin-bottom:0.4rem;">'
+                'Ingen afgørelser matcher din søgning</div>'
+                '<div style="font-size:13px;">Prøv at udvide filtrene eller ændre søgeordene.</div>'
+                '</div>',
+                unsafe_allow_html=True,
+            )
+            if _har_filtre:
+                if st.button("Nulstil filtre", key="_pkn_reset_empty", use_container_width=False):
+                    for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type"]:
+                        if k in st.session_state:
+                            del st.session_state[k]
+                    st.rerun()
         else:
             _BADGE_STYLE = {
                 "Medhold":      "background:#f0fdf4;color:#166534;border:1px solid #bbf7d0",
@@ -1063,6 +1077,48 @@ with tab_ai:
                     {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
                 st.rerun()
 
+        # Input-form (øverst, så bruger ikke skal scrolle)
+        with st.form("chat_form", clear_on_submit=True):
+            spørgsmål = st.text_area("Dit spørgsmål", height=80,
+                                      placeholder="Hvad er PKN's praksis for…?")
+            c1, c2 = st.columns([3, 1])
+            send = c1.form_submit_button("Send ➤", use_container_width=True, type="primary")
+            ryd  = c2.form_submit_button("Ryd chat", use_container_width=True)
+
+        if ryd:
+            st.session_state.chat_historik = []
+            st.rerun()
+
+        if send and spørgsmål.strip():
+            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
+            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
+            svar_placeholder = st.empty()
+            with st.spinner("Søger i afgørelser…"):
+                try:
+                    _, alle_kilder = smart_retrieval(
+                        spørgsmål, df, vec, mat, ai_sub_idx,
+                        st.session_state.chat_historik, top_retrieve=40, top_final=8,
+                        embeds=embeds,
+                    )
+                except Exception as e:
+                    alle_kilder = []
+            try:
+                svar = claude_svar_stream(spørgsmål, alle_kilder,
+                                         historik=st.session_state.chat_historik,
+                                         placeholder=svar_placeholder)
+                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
+                try:
+                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
+                except Exception:
+                    pass
+            except Exception as e:
+                alle_kilder = []
+                svar = f"Fejl ved AI Assistent: {e}"
+                svar_placeholder.error(svar)
+            st.session_state.chat_historik.append(
+                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
+            st.rerun()
+
         st.divider()
 
         # Historik
@@ -1206,48 +1262,6 @@ with tab_ai:
                                     f'Åbn original afgørelse på PKN\'s hjemmeside ↗</a>',
                                     unsafe_allow_html=True
                                 )
-
-        # Input-form
-        with st.form("chat_form", clear_on_submit=True):
-            spørgsmål = st.text_area("Dit spørgsmål", height=80,
-                                      placeholder="Hvad er PKN's praksis for…?")
-            c1, c2 = st.columns([3, 1])
-            send = c1.form_submit_button("Send ➤", use_container_width=True, type="primary")
-            ryd  = c2.form_submit_button("Ryd chat", use_container_width=True)
-
-        if ryd:
-            st.session_state.chat_historik = []
-            st.rerun()
-
-        if send and spørgsmål.strip():
-            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
-            svar_placeholder = st.empty()
-            with st.spinner("Søger i afgørelser…"):
-                try:
-                    _, alle_kilder = smart_retrieval(
-                        spørgsmål, df, vec, mat, ai_sub_idx,
-                        st.session_state.chat_historik, top_retrieve=40, top_final=8,
-                        embeds=embeds,
-                    )
-                except Exception as e:
-                    alle_kilder = []
-            try:
-                svar = claude_svar_stream(spørgsmål, alle_kilder,
-                                         historik=st.session_state.chat_historik,
-                                         placeholder=svar_placeholder)
-                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
-                try:
-                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
-                except Exception:
-                    pass
-            except Exception as e:
-                alle_kilder = []
-                svar = f"Fejl ved AI Assistent: {e}"
-                svar_placeholder.error(svar)
-            st.session_state.chat_historik.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
-            st.rerun()
 
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 4 – PLANLOVEN
