@@ -21,6 +21,7 @@ from shared import (
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank, saml_kilder,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
+    klassificer_query, highlight_query,
 )
 
 
@@ -302,9 +303,14 @@ def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander: bool = Fa
 
 def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik,
                           top_retrieve: int = 40, top_final: int = 8, embeds=None):
-    """RAG-pipeline med hybrid search:
-    rewrite → expand → (TF-IDF ∪ embeddings via RRF) → LLM rerank → merge med historik.
+    """RAG-pipeline med hybrid search + adaptiv retrieval:
+    classify → rewrite → expand → (TF-IDF ∪ HyDE-embeddings via RRF) → Voyage rerank → merge.
     Falder tilbage til ren TF-IDF hvis embeds er None."""
+    # Adaptiv retrieval baseret på query-type
+    qtype = klassificer_query(spoergsmaal)
+    top_retrieve = qtype["top_retrieve"]
+    top_final = qtype["top_final"]
+
     standalone = omformuler_opfoelgning(spoergsmaal, historik or [])
     if embeds is not None:
         udvidet = udvid_query(standalone)
@@ -742,23 +748,26 @@ with tab_soeg:
         if hits == 0:
             st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
         else:
+            _hl_q = soeg_input.strip() if soeg_input.strip() else ""
             for _, row in df_vis.head(_vis_antal).iterrows():
                 badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
                 dato_str = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "-"
                 underkat_tag = row.get("Underkategori", "")
                 sagstype_tag = row.get("Sagstype", "")
+                _hl_titel   = highlight_query(row["Titel"], _hl_q) if _hl_q else row["Titel"]
+                _hl_excerpt = highlight_query(row["Excerpt"], _hl_q, max_len=300) if _hl_q else (row["Excerpt"] + "...")
                 st.markdown(f"""
 <div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
     <span style="font-size:11px;color:#94a3b8;font-weight:500;">{dato_str}</span>
     <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;{badge_style}">{row['Udfald']}</span>
   </div>
-  <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{row['Titel']}</div>
+  <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{_hl_titel}</div>
   <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
     <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{underkat_tag}</span>
     <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{sagstype_tag}</span>
   </div>
-  <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{row['Excerpt']}...</div>
+  <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{_hl_excerpt}</div>
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen</a>
   </div>
