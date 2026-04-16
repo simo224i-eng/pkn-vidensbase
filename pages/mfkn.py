@@ -537,7 +537,10 @@ if df.empty:
     st.error(f"Ingen data fundet for {valgt_navn}.")
     st.stop()
 vec, mat = build_index(valgt_stem, len(df))
-embeds = build_embeddings_mfkn(valgt_stem, len(df))  # None uden embedding-nøgle
+embeds = build_embeddings_mfkn(valgt_stem, len(df))
+if embeds is None and embeddings_tilgængelige():
+    build_embeddings_mfkn.clear()
+    embeds = build_embeddings_mfkn(valgt_stem, len(df))
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
