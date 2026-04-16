@@ -931,6 +931,7 @@ with tab_ai:
     antal_tekst = f"{n_ai:,}" if filtreret else f"{len(df):,}"
     filtreret_label = " (filtreret)" if filtreret else ""
 
+    _søge_mode = "Hybrid (TF-IDF + semantisk)" if embeds is not None else "TF-IDF"
     st.markdown(f"""
 <div class="ai-hero">
   <span class="material-symbols-rounded ai-hero-icon">smart_toy</span>
@@ -941,6 +942,7 @@ with tab_ai:
       og svarer med kildehenvisninger.
       Opfølgningsspørgsmål husker kontekst.
     </div>
+    <div style="font-size:10.5px;color:#94a3b8;margin-top:4px;">Søgemetode: {_søge_mode}</div>
   </div>
 </div>
 """, unsafe_allow_html=True)
