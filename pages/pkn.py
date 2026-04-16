@@ -14,7 +14,7 @@ import requests
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as cos_sim
 from shared import (
-    logo, _llm, strip_html, extract_kommune, BADGE,
+    logo, _llm, _llm_stream, strip_html, extract_kommune, BADGE,
     format_afgørelse_tekst, render_detail_header,
     udtræk_kerneafsnit, sidebar_log_ud,
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
@@ -22,6 +22,21 @@ from shared import (
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query,
 )
+
+
+def _log_feedback(modul: str, svar_tekst: str, rating: str):
+    """Log bruger-feedback (thumbs up/down) til CSV-fil for kvalitetsopfølgning."""
+    import os, datetime
+    log_dir = "/tmp/pkn_data"
+    os.makedirs(log_dir, exist_ok=True)
+    log_path = os.path.join(log_dir, "feedback.csv")
+    exists = os.path.exists(log_path)
+    with open(log_path, "a", encoding="utf-8") as f:
+        if not exists:
+            f.write("tidspunkt,modul,rating,svar_uddrag\n")
+        ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        safe = svar_tekst.replace('"', "'").replace("\n", " ")
+        f.write(f'{ts},{modul},{rating},"{safe}"\n')
 
 
 def _tilfoej_citat_advarsel(svar: str, alle_kilder: list) -> str:
@@ -389,17 +404,22 @@ _udtræk_kerneafsnit = udtræk_kerneafsnit  # alias til shared.py
 def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik,
                     top_retrieve: int = 40, top_final: int = 8, embeds=None) -> tuple:
     """Forbedret RAG-pipeline med hybrid search + adaptiv retrieval:
-    classify → rewrite → expand → (TF-IDF ∪ HyDE-embeddings via RRF) → Voyage rerank → merge.
-    Returnerer (standalone_query, alle_kilder).
+    (classify ∥ rewrite) → expand → (TF-IDF ∪ HyDE-embeddings via RRF) → Voyage rerank → merge.
+    Haiku-kald paralleliseres for lavere latency.
 
     Hvis embeds er None, falder den tilbage til ren TF-IDF — ingen funktionel regression."""
-    # 0. Klassificér query-type og tilpas retrieval-parametre
-    qtype = klassificer_query(spørgsmål)
+    from concurrent.futures import ThreadPoolExecutor
+
+    # 0+1. Parallelisér klassificering og rewriting (begge bruger Haiku, uafhængige)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        fut_classify = pool.submit(klassificer_query, spørgsmål)
+        fut_rewrite = pool.submit(omformuler_opfoelgning, spørgsmål, historik or [])
+        qtype = fut_classify.result()
+        standalone = fut_rewrite.result()
+
     top_retrieve = qtype["top_retrieve"]
     top_final = qtype["top_final"]
 
-    # 1. Omskriv opfølgningsspørgsmål til standalone query
-    standalone = omformuler_opfoelgning(spørgsmål, historik or [])
     # 2. Hybrid retrieval: TF-IDF + HyDE-embeddings fusioneret via RRF
     if embeds is not None:
         udvidet = udvid_query(standalone)
@@ -425,14 +445,12 @@ def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik,
     return standalone, alle_kilder
 
 
-def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
-    if not ANTHROPIC_API_KEY:
-        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    # Chunk-level kontekst: scorer afsnit mod spørgsmålet og sender kun de mest relevante
+def _byg_pkn_prompt(spørgsmål: str, docs: list, historik: list = None) -> list:
+    """Byg prompt-blokke til PKN AI-svar (bruges af både streaming og blokerende)."""
     kontekst = byg_fokuseret_kontekst(spørgsmål, docs, max_chunks_per_doc=3)
     historik_tekst = ""
     if historik:
-        for msg in historik[:-1]:  # ekskluder det aktuelle spørgsmål
+        for msg in historik[:-1]:
             rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
             historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
@@ -440,8 +458,7 @@ def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
         f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
         for i, d in enumerate(docs)
     )
-    # Afgørelserne caches – samme dokumenter ved opfølgningsspørgsmål genbruger cachen
-    blocks = [
+    return [
         {
             "type": "text",
             "text": (
@@ -471,7 +488,21 @@ def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
             "text": f"{samtale_blok}SPØRGSMÅL: {spørgsmål}\n\nSVAR:",
         },
     ]
+
+
+def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
+    if not ANTHROPIC_API_KEY:
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
+    blocks = _byg_pkn_prompt(spørgsmål, docs, historik)
     return _llm(blocks)
+
+
+def claude_svar_stream(spørgsmål: str, docs: list, historik: list = None, placeholder=None) -> str:
+    """Streaming-version: viser svaret ord-for-ord i placeholderen."""
+    if not ANTHROPIC_API_KEY:
+        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
+    blocks = _byg_pkn_prompt(spørgsmål, docs, historik)
+    return _llm_stream(blocks, placeholder=placeholder)
 
 
 def claude_resumé(titel: str, tekst: str) -> str:
@@ -992,18 +1023,30 @@ with tab_ai:
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
-                with st.spinner("Analyserer, søger og genererer svar…"):
+                st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
+                svar_placeholder = st.empty()
+                with st.spinner("Søger i afgørelser…"):
                     try:
                         _, alle_kilder = smart_retrieval(
                             f, df, vec, mat, ai_sub_idx,
                             st.session_state.chat_historik, top_retrieve=40, top_final=8,
                             embeds=embeds,
                         )
-                        svar = claude_svar(f, alle_kilder, historik=st.session_state.chat_historik)
-                        svar = _tilfoej_citat_advarsel(svar, alle_kilder)
                     except Exception as e:
                         alle_kilder = []
-                        svar = f"Fejl ved AI Assistent: {e}"
+                try:
+                    svar = claude_svar_stream(f, alle_kilder,
+                                             historik=st.session_state.chat_historik,
+                                             placeholder=svar_placeholder)
+                    svar = _tilfoej_citat_advarsel(svar, alle_kilder)
+                    try:
+                        svar_placeholder.markdown(svar, unsafe_allow_html=True)
+                    except Exception:
+                        pass
+                except Exception as e:
+                    alle_kilder = []
+                    svar = f"Fejl ved AI Assistent: {e}"
+                    svar_placeholder.error(svar)
                 st.session_state.chat_historik.append(
                     {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
                 st.rerun()
@@ -1042,6 +1085,22 @@ with tab_ai:
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
+                    # Feedback-knapper
+                    fb_key = f"fb_{msg_idx}"
+                    fb_state = st.session_state.get(fb_key)
+                    fb1, fb2, _ = st.columns([1, 1, 6])
+                    with fb1:
+                        if st.button("👍" if fb_state != "up" else "✅ Tak",
+                                     key=f"{fb_key}_up", disabled=fb_state is not None):
+                            st.session_state[fb_key] = "up"
+                            _log_feedback("pkn", msg.get("tekst", "")[:200], "up")
+                            st.rerun()
+                    with fb2:
+                        if st.button("👎" if fb_state != "down" else "❌ Noteret",
+                                     key=f"{fb_key}_down", disabled=fb_state is not None):
+                            st.session_state[fb_key] = "down"
+                            _log_feedback("pkn", msg.get("tekst", "")[:200], "down")
+                            st.rerun()
                     # Klikbare kilde-knapper under AI-svaret
                     if ref_kilder:
                         st.markdown(
@@ -1144,18 +1203,30 @@ with tab_ai:
 
         if send and spørgsmål.strip():
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            with st.spinner("Analyserer, søger og genererer svar…"):
+            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
+            svar_placeholder = st.empty()
+            with st.spinner("Søger i afgørelser…"):
                 try:
                     _, alle_kilder = smart_retrieval(
                         spørgsmål, df, vec, mat, ai_sub_idx,
                         st.session_state.chat_historik, top_retrieve=40, top_final=8,
                         embeds=embeds,
                     )
-                    svar = claude_svar(spørgsmål, alle_kilder, historik=st.session_state.chat_historik)
-                    svar = _tilfoej_citat_advarsel(svar, alle_kilder)
                 except Exception as e:
                     alle_kilder = []
-                    svar = f"Fejl ved AI Assistent: {e}"
+            try:
+                svar = claude_svar_stream(spørgsmål, alle_kilder,
+                                         historik=st.session_state.chat_historik,
+                                         placeholder=svar_placeholder)
+                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
+                try:
+                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
+                except Exception:
+                    pass
+            except Exception as e:
+                alle_kilder = []
+                svar = f"Fejl ved AI Assistent: {e}"
+                svar_placeholder.error(svar)
             st.session_state.chat_historik.append(
                 {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
             st.rerun()
