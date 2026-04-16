@@ -970,6 +970,123 @@ def byg_indeks_tekst(titel: str, tekst: str, max_tegn: int = 6000) -> str:
     return f"{t} {t} {t} {kerne}"
 
 
+# ── Dansk stemming til TF-IDF ────────────────────────────────────────────────
+_dk_stemmer = None
+
+def _get_dk_stemmer():
+    global _dk_stemmer
+    if _dk_stemmer is None:
+        try:
+            from nltk.stem.snowball import SnowballStemmer
+            _dk_stemmer = SnowballStemmer("danish")
+        except ImportError:
+            return None
+    return _dk_stemmer
+
+
+_TOKEN_RE = re.compile(r"[a-zæøåA-ZÆØÅ][a-zæøåA-ZÆØÅ\-]{1,}")
+
+def dansk_tokenizer(text: str) -> list:
+    """Tokenisér og stem dansk tekst med Snowball Danish stemmer.
+    Bruges som custom analyzer i TfidfVectorizer for bedre matching
+    af bøjningsformer (afgørelser→afgør, planloven→planlov osv.)."""
+    stemmer = _get_dk_stemmer()
+    tokens = _TOKEN_RE.findall(text.lower())
+    if stemmer is None:
+        return tokens
+    return [stemmer.stem(t) for t in tokens]
+
+
+def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int = 80) -> list:
+    """Del en afgørelsestekst i overlappende chunks à ~chunk_size tokens.
+    Hvert chunk bærer titel-kontekst for bedre retrieval.
+    Returnerer liste af chunk-strenge."""
+    if not tekst:
+        return [titel] if titel else []
+    ord_liste = tekst.split()
+    if len(ord_liste) <= chunk_size:
+        return [f"{titel}\n{tekst}" if titel else tekst]
+    chunks = []
+    start = 0
+    while start < len(ord_liste):
+        end = min(start + chunk_size, len(ord_liste))
+        chunk = " ".join(ord_liste[start:end])
+        if titel:
+            chunk = f"{titel}\n{chunk}"
+        chunks.append(chunk)
+        start += chunk_size - overlap
+    return chunks
+
+
+def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
+                            chunk_size: int = 400, max_total_chars: int = 24000) -> str:
+    """Chunk-level kontekst-udvælgelse: i stedet for at sende hele kerneafsnit til LLM'en,
+    chunker vi hvert dokument og scorer chunks mod query med simpel TF-IDF.
+    Returnerer formateret kontekst-streng med [Kilde N] headers bevaret.
+
+    Dette giver LLM'en mere fokuseret, relevant kontekst og reducerer støj.
+    Falder tilbage til udtræk_kerneafsnit ved fejl."""
+    if not docs:
+        return ""
+    try:
+        from sklearn.feature_extraction.text import TfidfVectorizer
+        from sklearn.metrics.pairwise import cosine_similarity as _cos
+    except ImportError:
+        # Fallback: brug kerneafsnit som hidtil
+        return "\n\n".join(
+            f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n"
+            f"{udtræk_kerneafsnit(d.get('Tekst') or '', max_tegn=4000)}"
+            for i, d in enumerate(docs)
+        )
+
+    # 1. Chunk hvert dokument og hold styr på kilde-nummer
+    all_chunks = []     # (kilde_idx, chunk_text)
+    for i, d in enumerate(docs):
+        kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=6000)
+        chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=80)
+        if not chunks:
+            chunks = [kerne[:3000]] if kerne else [d.get("Titel", "")]
+        for c in chunks:
+            all_chunks.append((i, c))
+
+    if not all_chunks:
+        return ""
+
+    # 2. Scorer chunks mod query
+    chunk_texts = [c for _, c in all_chunks]
+    try:
+        mini_vec = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
+        chunk_mat = mini_vec.fit_transform(chunk_texts)
+        qv = mini_vec.transform([query])
+        scores = _cos(qv, chunk_mat).flatten()
+    except Exception:
+        scores = np.ones(len(all_chunks))
+
+    # 3. Vælg bedste chunks per kilde (bevar kilde-rækkefølge)
+    from collections import defaultdict
+    kilde_chunks = defaultdict(list)
+    for idx, (kilde_i, chunk) in enumerate(all_chunks):
+        kilde_chunks[kilde_i].append((float(scores[idx]), chunk))
+
+    dele = []
+    total_chars = 0
+    for i, d in enumerate(docs):
+        header = f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}"
+        best = sorted(kilde_chunks.get(i, []), key=lambda x: -x[0])[:max_chunks_per_doc]
+        best_texts = [c for _, c in best]
+        content = "\n[…]\n".join(best_texts) if best_texts else udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=2000)
+        entry = f"{header}\n{content}"
+        if total_chars + len(entry) > max_total_chars:
+            # Afkort sidste kilde
+            remaining = max_total_chars - total_chars
+            if remaining > 500:
+                dele.append(entry[:remaining] + "…")
+            break
+        dele.append(entry)
+        total_chars += len(entry)
+    return "\n\n".join(dele)
+
+
 def rrf_merge(rangeringer: list, k: int = 60) -> dict:
     """Reciprocal Rank Fusion: kombinér flere rangeringer til én score.
     rangeringer = liste af lister, hvor hver indre liste er et globalt indeks sorteret bedst-først."""
@@ -1178,18 +1295,23 @@ def hybrid_retrieval(query: str, df, vec, mat, embeds, sub_idx=None,
 
 
 def udvid_query(query: str) -> str:
-    """Query expansion: Haiku tilføjer danske juridiske synonymer og relaterede termer.
-    Returnerer den originale query + expansions (samlet streng til TF-IDF-søgning)."""
+    """Query expansion: Haiku tilføjer danske juridiske synonymer, lovhenvisninger
+    og alternative formuleringer. Returnerer query + expansions til TF-IDF."""
     if not query or len(query) < 3:
         return query
     prompt = (
-        "Du er ekspert i dansk juridisk terminologi (planloven, miljølovgivning, forvaltningsret).\n"
+        "Du er ekspert i dansk juridisk terminologi inden for planloven, naturbeskyttelsesloven, "
+        "miljøbeskyttelsesloven, forvaltningsret og nævnspraksis.\n\n"
         "Brugerens søgning: \"" + query + "\"\n\n"
-        "Returnér 5-10 juridiske synonymer, relaterede termer og alternative formuleringer "
-        "som ville optræde i danske nævnsafgørelser. Kun termer – komma-separeret, ingen forklaring.\n\n"
+        "Returnér 5-12 termer der vil forbedre søgning i danske nævnsafgørelser:\n"
+        "- Juridiske synonymer (fx 'dispensation' ↔ 'fravigelse')\n"
+        "- Lovhenvisninger (fx '§ 35' ved landzonetilladelse, 'planlovens § 19' ved dispensation)\n"
+        "- Bøjningsformer og sammensætninger (fx 'stadfæstes', 'stadfæstelse')\n"
+        "- Relaterede begreber (fx 'nabohøring' ved dispensation, 'partshøring' ved klage)\n\n"
+        "Kun termer – komma-separeret, ingen forklaring.\n\n"
         "Termer:"
     )
-    udvidet = _llm_haiku(prompt, max_tokens=150)
+    udvidet = _llm_haiku(prompt, max_tokens=200)
     if not udvidet or "apinøgle" in udvidet.lower():
         return query
     return f"{query} {udvidet}"

@@ -19,7 +19,7 @@ from shared import (
     udtræk_kerneafsnit, sidebar_log_ud,
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
-    valider_citationer,
+    valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
 )
 
 
@@ -296,14 +296,15 @@ def load_data(version: int = 22):  # bump version to bust cache
 
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
-def build_index(n_rows: int, version: int = 2):
-    """TF-IDF over titel×3 + kerneafsnit (sektions-level indeksering).
-    version-param bruges til at buste cache når indekserings-logikken ændres."""
+def build_index(n_rows: int, version: int = 3):
+    """TF-IDF over titel×3 + kerneafsnit med dansk stemming.
+    version 3: tilføjer dansk Snowball stemmer via custom tokenizer."""
     from sklearn.feature_extraction.text import TfidfVectorizer
     df2 = load_data()
     texts = [byg_indeks_tekst(t, tx) for t, tx in zip(df2["Titel"].astype(str), df2["Tekst"].astype(str))]
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
-                          min_df=2, sublinear_tf=True)
+                          min_df=2, sublinear_tf=True, tokenizer=dansk_tokenizer,
+                          token_pattern=None)
     mat = vec.fit_transform(texts)
     return vec, mat
 
@@ -425,11 +426,8 @@ def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik,
 def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    # Udtræk kun relevante sektioner (Klagen + Vurdering) i stedet for rå tekst
-    kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{_udtræk_kerneafsnit(d['Tekst'])}"
-        for i, d in enumerate(docs)
-    )
+    # Chunk-level kontekst: scorer afsnit mod spørgsmålet og sender kun de mest relevante
+    kontekst = byg_fokuseret_kontekst(spørgsmål, docs, max_chunks_per_doc=3)
     historik_tekst = ""
     if historik:
         for msg in historik[:-1]:  # ekskluder det aktuelle spørgsmål
@@ -445,15 +443,20 @@ def claude_svar(spørgsmål: str, docs: list, historik: list = None) -> str:
         {
             "type": "text",
             "text": (
-                f"Du er en juridisk assistent specialiseret i dansk planlovgivning og PKN-praksis.\n\n"
-                f"VIGTIGE REGLER:\n"
-                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.\n"
-                f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference. Eks: [Kilde 3] eller [Kilde 1, 2].\n"
-                f"3. Svar på dansk med overskrifter og afsnit.\n"
-                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
-                f"5. Understøt centrale påstande med et kort ordret citat fra kilden i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3].\n"
-                f"6. Hvis kilderne ikke entydigt besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n\n"
-                f"KILDEREGISTER (brug disse numre i dine referencer):\n{kilde_liste}"
+                f"Du er en juridisk assistent specialiseret i dansk planlovgivning og Planklagenævnets (PKN) praksis. "
+                f"Dine brugere er professionelle jurister der kender lovgivningen – giv præcise, faktabaserede svar.\n\n"
+                f"REGLER:\n"
+                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser. Opfind ikke fakta.\n"
+                f"2. Brug kildeformatet [Kilde X] konsekvent – ALDRIG kommunenavne eller datoer som reference.\n"
+                f"3. Svar på dansk. Strukturér med overskrifter og afsnit.\n"
+                f"4. Understøt juridiske påstande med ordret citat i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3]. "
+                f"Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat.\n"
+                f"5. Identificér mønstre på tværs af afgørelserne: er der en fast praksis, eller varierer udfaldet? "
+                f"Angiv evt. fordelingen (fx \"3 af 5 afgørelser giver medhold\").\n"
+                f"6. Nævn relevant lovhjemmel (§-reference) når den fremgår af afgørelserne.\n"
+                f"7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
+                f"8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n\n"
+                f"KILDEREGISTER:\n{kilde_liste}"
             ),
         },
         {
