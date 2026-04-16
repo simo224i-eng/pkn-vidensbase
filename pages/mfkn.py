@@ -20,7 +20,7 @@ from shared import (
     udtræk_kerneafsnit, sidebar_log_ud,
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank, saml_kilder,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
-    valider_citationer,
+    valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
 )
 
 
@@ -241,12 +241,13 @@ def load_kategori(stem, version=1):
     return df
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
-def build_index(stem, n_rows, version: int = 2):
-    """TF-IDF over titel×3 + kerneafsnit (sektions-level).
-    version buster cache når indekserings-logikken ændres."""
+def build_index(stem, n_rows, version: int = 3):
+    """TF-IDF over titel×3 + kerneafsnit med dansk stemming.
+    version 3: tilføjer dansk Snowball stemmer."""
     df2 = load_kategori(stem, 1)
     texts = [byg_indeks_tekst(t, tx) for t, tx in zip(df2["Titel"].astype(str), df2["Tekst"].astype(str))]
-    vec = TfidfVectorizer(max_features=40_000, ngram_range=(1,2), min_df=2, sublinear_tf=True)
+    vec = TfidfVectorizer(max_features=40_000, ngram_range=(1,2), min_df=2, sublinear_tf=True,
+                          tokenizer=dansk_tokenizer, token_pattern=None)
     mat = vec.fit_transform(texts)
     return vec, mat
 
@@ -330,10 +331,7 @@ def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik,
 def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{udtræk_kerneafsnit(d['Tekst'])}"
-        for i, d in enumerate(docs)
-    )
+    kontekst = byg_fokuseret_kontekst(spoergsmaal, docs, max_chunks_per_doc=3)
     kilde_liste = "\n".join(
         f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
         for i, d in enumerate(docs)
@@ -348,14 +346,19 @@ def mfkn_svar(spoergsmaal, docs, historik=None, kat_navn=""):
         {
             "type": "text",
             "text": (
-                f"Du er en juridisk assistent specialiseret i dansk forvaltningsret og MFKN's praksis for {kat_navn}.\n\n"
-                f"VIGTIGE REGLER:\n"
-                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.\n"
-                f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference.\n"
-                f"3. Svar på dansk, præcist og struktureret med overskrifter og afsnit.\n"
-                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
-                f"5. Understøt centrale påstande med et kort ordret citat fra kilden i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3].\n"
-                f"6. Hvis kilderne ikke entydigt besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n\n"
+                f"Du er en juridisk assistent specialiseret i dansk forvaltningsret og Miljø- og Fødevareklagenævnets (MFKN) praksis for {kat_navn}. "
+                f"Dine brugere er professionelle jurister der kender lovgivningen – giv præcise, faktabaserede svar.\n\n"
+                f"REGLER:\n"
+                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser. Opfind ikke fakta.\n"
+                f"2. Brug kildeformatet [Kilde X] konsekvent – ALDRIG kommunenavne eller datoer som reference.\n"
+                f"3. Svar på dansk. Strukturér med overskrifter og afsnit.\n"
+                f"4. Understøt juridiske påstande med ordret citat i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3]. "
+                f"Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat.\n"
+                f"5. Identificér mønstre på tværs af afgørelserne: er der en fast praksis, eller varierer udfaldet? "
+                f"Angiv evt. fordelingen (fx \"4 af 6 afgørelser stadfæster\").\n"
+                f"6. Nævn relevant lovhjemmel (§-reference) når den fremgår af afgørelserne.\n"
+                f"7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
+                f"8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n\n"
                 f"KILDEREGISTER:\n{kilde_liste}"
             ),
         },
@@ -375,10 +378,7 @@ def mfkn_svar_stream(spoergsmaal, docs, historik=None, kat_navn="", placeholder=
     """Streaming-version af mfkn_svar – viser svaret ord-for-ord."""
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    kontekst = "\n\n".join(
-        f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n{udtræk_kerneafsnit(d['Tekst'])}"
-        for i, d in enumerate(docs)
-    )
+    kontekst = byg_fokuseret_kontekst(spoergsmaal, docs, max_chunks_per_doc=3)
     kilde_liste = "\n".join(
         f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
         for i, d in enumerate(docs)
@@ -393,14 +393,19 @@ def mfkn_svar_stream(spoergsmaal, docs, historik=None, kat_navn="", placeholder=
         {
             "type": "text",
             "text": (
-                f"Du er en juridisk assistent specialiseret i dansk forvaltningsret og MFKN's praksis for {kat_navn}.\n\n"
-                f"VIGTIGE REGLER:\n"
-                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser.\n"
-                f"2. Brug UDELUKKENDE referencerne i formatet [Kilde X] – ALDRIG kommunenavne eller årstal som reference.\n"
-                f"3. Svar på dansk, præcist og struktureret med overskrifter og afsnit.\n"
-                f"4. Er det et opfølgningsspørgsmål, brug den tidligere samtale – kilderne er de samme numre.\n"
-                f"5. Understøt centrale påstande med et kort ordret citat fra kilden i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3].\n"
-                f"6. Hvis kilderne ikke entydigt besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n\n"
+                f"Du er en juridisk assistent specialiseret i dansk forvaltningsret og Miljø- og Fødevareklagenævnets (MFKN) praksis for {kat_navn}. "
+                f"Dine brugere er professionelle jurister der kender lovgivningen – giv præcise, faktabaserede svar.\n\n"
+                f"REGLER:\n"
+                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte afgørelser. Opfind ikke fakta.\n"
+                f"2. Brug kildeformatet [Kilde X] konsekvent – ALDRIG kommunenavne eller datoer som reference.\n"
+                f"3. Svar på dansk. Strukturér med overskrifter og afsnit.\n"
+                f"4. Understøt juridiske påstande med ordret citat i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3]. "
+                f"Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat.\n"
+                f"5. Identificér mønstre på tværs af afgørelserne: er der en fast praksis, eller varierer udfaldet? "
+                f"Angiv evt. fordelingen (fx \"4 af 6 afgørelser stadfæster\").\n"
+                f"6. Nævn relevant lovhjemmel (§-reference) når den fremgår af afgørelserne.\n"
+                f"7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
+                f"8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n\n"
                 f"KILDEREGISTER:\n{kilde_liste}"
             ),
         },
