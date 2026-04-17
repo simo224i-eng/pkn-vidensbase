@@ -1239,40 +1239,39 @@ def embeddings_tilgængelige() -> bool:
     return _embedding_provider()[0] is not None
 
 
-def _embed_batch(texts: list, input_type: str = "document") -> "np.ndarray | None":
-    """Embed en batch af tekster. input_type = 'document' | 'query' (kun Voyage bruger dette).
+def _embed_batch(texts: list, input_type: str = "document", _retries: int = 4) -> "np.ndarray | None":
+    """Embed en batch af tekster med retry ved rate-limit (429).
     Returnerer numpy array shape (N, dim) eller None ved fejl."""
+    import time as _time
     provider, key, model, dim = _embedding_provider()
     if not provider or not texts:
         return None
-    try:
-        if provider == "voyage":
-            r = requests.post(
-                "https://api.voyageai.com/v1/embeddings",
-                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-                json={"input": texts, "model": model, "input_type": input_type, "truncation": True},
-                timeout=120,
-            )
-            if not r.ok:
-                _EMBED_LAST_ERROR[:] = [f"Voyage API {r.status_code}: {r.text[:300]}"]
-                return None
-            data = r.json().get("data", [])
-            return np.array([d["embedding"] for d in data], dtype=np.float32)
-        else:  # openai
-            r = requests.post(
-                "https://api.openai.com/v1/embeddings",
-                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-                json={"input": texts, "model": model},
-                timeout=120,
-            )
-            if not r.ok:
-                _EMBED_LAST_ERROR[:] = [f"OpenAI API {r.status_code}: {r.text[:300]}"]
-                return None
-            data = r.json().get("data", [])
-            return np.array([d["embedding"] for d in data], dtype=np.float32)
-    except Exception as e:
-        _EMBED_LAST_ERROR[:] = [f"Exception: {e}"]
-        return None
+    url = ("https://api.voyageai.com/v1/embeddings" if provider == "voyage"
+           else "https://api.openai.com/v1/embeddings")
+    headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+    payload = {"input": texts, "model": model}
+    if provider == "voyage":
+        payload.update({"input_type": input_type, "truncation": True})
+
+    for attempt in range(_retries + 1):
+        try:
+            r = requests.post(url, headers=headers, json=payload, timeout=120)
+            if r.ok:
+                data = r.json().get("data", [])
+                return np.array([d["embedding"] for d in data], dtype=np.float32)
+            if r.status_code == 429 and attempt < _retries:
+                wait = min(2 ** (attempt + 1), 30)
+                _time.sleep(wait)
+                continue
+            _EMBED_LAST_ERROR[:] = [f"{provider.title()} API {r.status_code}: {r.text[:300]}"]
+            return None
+        except Exception as e:
+            if attempt < _retries:
+                _time.sleep(2 ** (attempt + 1))
+                continue
+            _EMBED_LAST_ERROR[:] = [f"Exception: {e}"]
+            return None
+    return None
 
 
 def _embed_query(query: str) -> "np.ndarray | None":
@@ -1317,7 +1316,7 @@ def _hyde_embed(query: str) -> "np.ndarray | None":
     return v / n if n > 0 else v
 
 
-def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 96) -> "np.ndarray | None":
+def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 32) -> "np.ndarray | None":
     """Byg et persistent embedding-indeks over df. Cache'r resultatet som .npy på disk.
     - cache_key: unik nøgle pr. datasæt (fx 'pkn', 'mfkn_husdyrbrug')
     - tekst_bygger: callable(titel, tekst) -> str; default er byg_indeks_tekst
