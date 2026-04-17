@@ -21,7 +21,7 @@ from shared import (
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank, saml_kilder,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
-    klassificer_query, highlight_query,
+    klassificer_query, highlight_query, copy_button,
 )
 
 
@@ -561,6 +561,9 @@ if embeds is None and embeddings_tilgængelige():
     build_embeddings_mfkn.clear()
     embeds = build_embeddings_mfkn(valgt_stem, len(df))
 
+_voyage_key_sat = bool(st.secrets.get("VOYAGE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", ""))
+_embeds_ok = embeds is not None
+
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(150, dark=True)}</div></div>', unsafe_allow_html=True)
@@ -768,7 +771,21 @@ with tab_soeg:
         st.markdown(label)
 
         if hits == 0:
-            st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
+            st.markdown(
+                '<div style="text-align:center;padding:3rem 1rem;color:#94a3b8;">'
+                '<div style="font-size:2rem;margin-bottom:0.5rem;">🔍</div>'
+                '<div style="font-size:15px;font-weight:600;color:#475569;margin-bottom:0.4rem;">'
+                'Ingen afgørelser matcher din søgning</div>'
+                '<div style="font-size:13px;">Prøv at udvide filtrene eller ændre søgeordene.</div>'
+                '</div>',
+                unsafe_allow_html=True,
+            )
+            if _har_filtre:
+                if st.button("Nulstil filtre", key="_mfkn_reset_empty", use_container_width=False):
+                    for k in ["mfkn_underkat", "mfkn_sg", "mfkn_ud", "mfkn_soeg", "mfkn_soegetype"]:
+                        if k in st.session_state:
+                            del st.session_state[k]
+                    st.rerun()
         else:
             _hl_q = soeg_input.strip() if soeg_input.strip() else ""
             for _, row in df_vis.head(_vis_antal).iterrows():
@@ -895,6 +912,28 @@ with tab_ai:
 </div>
 """, unsafe_allow_html=True)
 
+    if not _embeds_ok:
+        try:
+            _secret_keys = sorted([k for k in st.secrets.keys()])
+        except Exception:
+            _secret_keys = []
+        _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
+        if _voyage_key_sat:
+            st.warning(
+                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges. "
+                "Sandsynligvis er API-nøglen ugyldig eller udløbet. "
+                f"Fundne secrets: {_key_liste}",
+                icon="⚠️",
+            )
+        else:
+            st.info(
+                "**TF-IDF-søgning er aktiv** (ordbaseret). "
+                "For hybrid semantisk søgning: tilføj `VOYAGE_API_KEY` i Streamlit Cloud secrets og genstart appen. "
+                f"Fundne secrets: {_key_liste}. "
+                "**Tjek**: nøglen skal hedde nøjagtigt `VOYAGE_API_KEY` (ingen mellemrum, store bogstaver), "
+                "og du skal klikke 'Reboot app' i Streamlit Cloud efter du gemmer secrets.",
+                icon="ℹ️",
+            )
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:
@@ -951,6 +990,46 @@ with tab_ai:
                     {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
                 st.rerun()
 
+        # Input-form (øverst)
+        with st.form("mfkn_chat_form", clear_on_submit=True):
+            spoergsmaal = st.text_area("Dit spørgsmål", height=80,
+                                       placeholder="Hvad er MFKN's praksis for…?")
+            c1, c2 = st.columns([3, 1])
+            send = c1.form_submit_button("Send", use_container_width=True, type="primary")
+            ryd = c2.form_submit_button("Ryd chat", use_container_width=True)
+
+        if ryd:
+            st.session_state.mfkn_chat = []
+            st.rerun()
+
+        if send and spoergsmaal.strip():
+            st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": spoergsmaal})
+            st.markdown(f'<div class="chat-user">{spoergsmaal}</div>', unsafe_allow_html=True)
+            svar_placeholder = st.empty()
+            try:
+                _, alle_kilder = smart_retrieval_mfkn(
+                    spoergsmaal, df, vec, mat, ai_sub_idx,
+                    st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
+                    embeds=embeds,
+                )
+                svar = mfkn_svar_stream(spoergsmaal, alle_kilder,
+                                        historik=st.session_state.mfkn_chat,
+                                        kat_navn=valgt_navn, placeholder=svar_placeholder)
+                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
+                try:
+                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
+                except Exception:
+                    pass
+            except Exception as e:
+                alle_kilder = []
+                svar = f"Fejl ved API: {e}"
+                svar_placeholder.error(svar)
+            st.session_state.mfkn_chat.append(
+                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
+            st.rerun()
+
+        st.divider()
+
         for msg_idx, msg in enumerate(st.session_state.mfkn_chat):
             if msg["rolle"] == "bruger":
                 st.markdown(f'<div class="chat-user">{msg["tekst"]}</div>', unsafe_allow_html=True)
@@ -961,22 +1040,27 @@ with tab_ai:
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
-                    # Feedback-knapper
+                    # Feedback + copy knapper
                     fb_key = f"mfkn_fb_{msg_idx}"
                     fb_state = st.session_state.get(fb_key)
-                    fb1, fb2, _ = st.columns([1, 1, 6])
+                    fb1, fb2, fb3 = st.columns([1, 1, 2])
                     with fb1:
-                        if st.button("👍" if fb_state != "up" else "✅ Tak",
-                                     key=f"{fb_key}_up", disabled=fb_state is not None):
+                        if st.button("👍" if fb_state != "up" else "✅",
+                                     key=f"{fb_key}_up", disabled=fb_state is not None,
+                                     help="Godt svar"):
                             st.session_state[fb_key] = "up"
                             _log_feedback("mfkn", msg.get("tekst", "")[:200], "up")
                             st.rerun()
                     with fb2:
-                        if st.button("👎" if fb_state != "down" else "❌ Noteret",
-                                     key=f"{fb_key}_down", disabled=fb_state is not None):
+                        if st.button("👎" if fb_state != "down" else "❌",
+                                     key=f"{fb_key}_down", disabled=fb_state is not None,
+                                     help="Dårligt svar"):
                             st.session_state[fb_key] = "down"
                             _log_feedback("mfkn", msg.get("tekst", "")[:200], "down")
                             st.rerun()
+                    with fb3:
+                        _ren_tekst = strip_html(msg.get("tekst", ""))
+                        copy_button(_ren_tekst, label="Kopiér svar", key=f"mfkn_cp_{msg_idx}")
                 with col_kld:
                     if kilder:
                         st.markdown(
@@ -1028,40 +1112,3 @@ with tab_ai:
                                     f'Åbn original afgørelse på MFKN hjemmeside</a>',
                                     unsafe_allow_html=True
                                 )
-
-        with st.form("mfkn_chat_form", clear_on_submit=True):
-            spoergsmaal = st.text_area("Dit spørgsmål", height=80,
-                                       placeholder="Hvad er MFKN's praksis for…?")
-            c1, c2 = st.columns([3, 1])
-            send = c1.form_submit_button("Send", use_container_width=True, type="primary")
-            ryd = c2.form_submit_button("Ryd chat", use_container_width=True)
-
-        if ryd:
-            st.session_state.mfkn_chat = []
-            st.rerun()
-
-        if send and spoergsmaal.strip():
-            st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": spoergsmaal})
-            st.markdown(f'<div class="chat-user">{spoergsmaal}</div>', unsafe_allow_html=True)
-            svar_placeholder = st.empty()
-            try:
-                _, alle_kilder = smart_retrieval_mfkn(
-                    spoergsmaal, df, vec, mat, ai_sub_idx,
-                    st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
-                    embeds=embeds,
-                )
-                svar = mfkn_svar_stream(spoergsmaal, alle_kilder,
-                                        historik=st.session_state.mfkn_chat,
-                                        kat_navn=valgt_navn, placeholder=svar_placeholder)
-                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
-                try:
-                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
-                except Exception:
-                    pass
-            except Exception as e:
-                alle_kilder = []
-                svar = f"Fejl ved API: {e}"
-                svar_placeholder.error(svar)
-            st.session_state.mfkn_chat.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
-            st.rerun()

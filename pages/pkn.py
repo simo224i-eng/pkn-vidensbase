@@ -20,7 +20,7 @@ from shared import (
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
-    klassificer_query, highlight_query,
+    klassificer_query, highlight_query, copy_button, render_filter_chips,
 )
 
 
@@ -562,6 +562,10 @@ if embeds is None and embeddings_tilgængelige():
     build_embeddings.clear()
     embeds = build_embeddings(len(df))
 
+# Diagnostik: vis hvad der sker med embeddings (kun synlig for debug)
+_voyage_key_sat = bool(st.secrets.get("VOYAGE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", ""))
+_embeds_ok = embeds is not None
+
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(
@@ -795,6 +799,50 @@ with tab_søg:
             st.markdown('</div>', unsafe_allow_html=True)
 
     else:
+        # ── Aktive filter-chips (klikbare) ──
+        _chips = []
+        if søg_input.strip():
+            def _clr_søg():
+                # text_input har ingen session-key; vi bruger en nulstil-flag
+                st.session_state["_pkn_clear_soeg"] = True
+            _chips.append((f"Søgeord: {søg_input.strip()[:30]}", _clr_søg))
+        for _k in valgte_kats:
+            def _clr_kat(_val=_k):
+                st.session_state["kat"] = [x for x in st.session_state.get("kat", []) if x != _val]
+            _chips.append((f"Kat: {_k}", _clr_kat))
+        for _p in plantype_valg:
+            def _clr_pt(_val=_p):
+                st.session_state["pt"] = [x for x in st.session_state.get("pt", []) if x != _val]
+            _chips.append((f"Plantype: {_p}", _clr_pt))
+        for _dt in dokumenttype_valg:
+            def _clr_dt(_val=_dt):
+                st.session_state["dt"] = [x for x in st.session_state.get("dt", []) if x != _val]
+            _chips.append((f"Dok: {_dt}", _clr_dt))
+        for _sg in sagsgruppe_valg:
+            def _clr_sg(_val=_sg):
+                st.session_state["sg"] = [x for x in st.session_state.get("sg", []) if x != _val]
+            _chips.append((f"Gruppe: {_sg}", _clr_sg))
+        for _u in udfald_valg:
+            def _clr_ud(_val=_u):
+                st.session_state["ud"] = [x for x in st.session_state.get("ud", []) if x != _val]
+            _chips.append((f"Udfald: {_u}", _clr_ud))
+        if år_range != (år_min, år_max):
+            def _clr_aar():
+                for k in list(st.session_state.keys()):
+                    # Slider har auto-key; vi sletter alle slider-relaterede keys
+                    if "år" in k.lower() or "aar" in k.lower():
+                        try: del st.session_state[k]
+                        except Exception: pass
+            _chips.append((f"År: {år_range[0]}–{år_range[1]}", _clr_aar))
+        if _chips:
+            def _clr_all():
+                for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type"]:
+                    if k in st.session_state:
+                        del st.session_state[k]
+                st.session_state["_pkn_clear_soeg"] = True
+            _chips.append(("Ryd alle", _clr_all))
+            render_filter_chips(_chips, key_prefix="pkn_chip")
+
         total_filtreret = len(df_filter)
         hits  = len(df_vis)
         if søg_input:
@@ -805,7 +853,21 @@ with tab_søg:
         st.markdown(label)
 
         if hits == 0:
-            st.warning("Ingen resultater – prøv andre søgeord eller filtre.")
+            st.markdown(
+                '<div style="text-align:center;padding:3rem 1rem;color:#94a3b8;">'
+                '<div style="font-size:2rem;margin-bottom:0.5rem;">🔍</div>'
+                '<div style="font-size:15px;font-weight:600;color:#475569;margin-bottom:0.4rem;">'
+                'Ingen afgørelser matcher din søgning</div>'
+                '<div style="font-size:13px;">Prøv at udvide filtrene eller ændre søgeordene.</div>'
+                '</div>',
+                unsafe_allow_html=True,
+            )
+            if _har_filtre:
+                if st.button("Nulstil filtre", key="_pkn_reset_empty", use_container_width=False):
+                    for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type"]:
+                        if k in st.session_state:
+                            del st.session_state[k]
+                    st.rerun()
         else:
             _BADGE_STYLE = {
                 "Medhold":      "background:#f0fdf4;color:#166534;border:1px solid #bbf7d0",
@@ -990,6 +1052,30 @@ with tab_ai:
 </div>
 """, unsafe_allow_html=True)
 
+    # Diagnostik: vis altid en besked hvis embeddings ikke er aktive
+    if not _embeds_ok:
+        try:
+            _secret_keys = sorted([k for k in st.secrets.keys()])
+        except Exception:
+            _secret_keys = []
+        _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
+        if _voyage_key_sat:
+            st.warning(
+                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges. "
+                "Sandsynligvis er API-nøglen ugyldig eller udløbet. "
+                f"Fundne secrets: {_key_liste}",
+                icon="⚠️",
+            )
+        else:
+            st.info(
+                "**TF-IDF-søgning er aktiv** (ordbaseret). "
+                "For hybrid semantisk søgning: tilføj `VOYAGE_API_KEY` i Streamlit Cloud secrets og genstart appen. "
+                f"Fundne secrets: {_key_liste}. "
+                "**Tjek**: nøglen skal hedde nøjagtigt `VOYAGE_API_KEY` (ingen mellemrum, store bogstaver), "
+                "og du skal klikke 'Reboot app' i Streamlit Cloud efter du gemmer secrets.",
+                icon="ℹ️",
+            )
+
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
     else:
@@ -1051,6 +1137,48 @@ with tab_ai:
                     {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
                 st.rerun()
 
+        # Input-form (øverst, så bruger ikke skal scrolle)
+        with st.form("chat_form", clear_on_submit=True):
+            spørgsmål = st.text_area("Dit spørgsmål", height=80,
+                                      placeholder="Hvad er PKN's praksis for…?")
+            c1, c2 = st.columns([3, 1])
+            send = c1.form_submit_button("Send ➤", use_container_width=True, type="primary")
+            ryd  = c2.form_submit_button("Ryd chat", use_container_width=True)
+
+        if ryd:
+            st.session_state.chat_historik = []
+            st.rerun()
+
+        if send and spørgsmål.strip():
+            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
+            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
+            svar_placeholder = st.empty()
+            with st.spinner("Søger i afgørelser…"):
+                try:
+                    _, alle_kilder = smart_retrieval(
+                        spørgsmål, df, vec, mat, ai_sub_idx,
+                        st.session_state.chat_historik, top_retrieve=40, top_final=8,
+                        embeds=embeds,
+                    )
+                except Exception as e:
+                    alle_kilder = []
+            try:
+                svar = claude_svar_stream(spørgsmål, alle_kilder,
+                                         historik=st.session_state.chat_historik,
+                                         placeholder=svar_placeholder)
+                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
+                try:
+                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
+                except Exception:
+                    pass
+            except Exception as e:
+                alle_kilder = []
+                svar = f"Fejl ved AI Assistent: {e}"
+                svar_placeholder.error(svar)
+            st.session_state.chat_historik.append(
+                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
+            st.rerun()
+
         st.divider()
 
         # Historik
@@ -1085,22 +1213,28 @@ with tab_ai:
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
-                    # Feedback-knapper
+                    # Feedback + copy knapper
                     fb_key = f"fb_{msg_idx}"
                     fb_state = st.session_state.get(fb_key)
-                    fb1, fb2, _ = st.columns([1, 1, 6])
+                    fb1, fb2, fb3 = st.columns([1, 1, 2])
                     with fb1:
-                        if st.button("👍" if fb_state != "up" else "✅ Tak",
-                                     key=f"{fb_key}_up", disabled=fb_state is not None):
+                        if st.button("👍" if fb_state != "up" else "✅",
+                                     key=f"{fb_key}_up", disabled=fb_state is not None,
+                                     help="Godt svar"):
                             st.session_state[fb_key] = "up"
                             _log_feedback("pkn", msg.get("tekst", "")[:200], "up")
                             st.rerun()
                     with fb2:
-                        if st.button("👎" if fb_state != "down" else "❌ Noteret",
-                                     key=f"{fb_key}_down", disabled=fb_state is not None):
+                        if st.button("👎" if fb_state != "down" else "❌",
+                                     key=f"{fb_key}_down", disabled=fb_state is not None,
+                                     help="Dårligt svar"):
                             st.session_state[fb_key] = "down"
                             _log_feedback("pkn", msg.get("tekst", "")[:200], "down")
                             st.rerun()
+                    with fb3:
+                        # Strip HTML-tags for ren tekst til clipboard
+                        _ren_tekst = strip_html(msg.get("tekst", ""))
+                        copy_button(_ren_tekst, label="Kopiér svar", key=f"cp_{msg_idx}")
                     # Klikbare kilde-knapper under AI-svaret
                     if ref_kilder:
                         st.markdown(
@@ -1188,48 +1322,6 @@ with tab_ai:
                                     f'Åbn original afgørelse på PKN\'s hjemmeside ↗</a>',
                                     unsafe_allow_html=True
                                 )
-
-        # Input-form
-        with st.form("chat_form", clear_on_submit=True):
-            spørgsmål = st.text_area("Dit spørgsmål", height=80,
-                                      placeholder="Hvad er PKN's praksis for…?")
-            c1, c2 = st.columns([3, 1])
-            send = c1.form_submit_button("Send ➤", use_container_width=True, type="primary")
-            ryd  = c2.form_submit_button("Ryd chat", use_container_width=True)
-
-        if ryd:
-            st.session_state.chat_historik = []
-            st.rerun()
-
-        if send and spørgsmål.strip():
-            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
-            svar_placeholder = st.empty()
-            with st.spinner("Søger i afgørelser…"):
-                try:
-                    _, alle_kilder = smart_retrieval(
-                        spørgsmål, df, vec, mat, ai_sub_idx,
-                        st.session_state.chat_historik, top_retrieve=40, top_final=8,
-                        embeds=embeds,
-                    )
-                except Exception as e:
-                    alle_kilder = []
-            try:
-                svar = claude_svar_stream(spørgsmål, alle_kilder,
-                                         historik=st.session_state.chat_historik,
-                                         placeholder=svar_placeholder)
-                svar = _tilfoej_citat_advarsel(svar, alle_kilder)
-                try:
-                    svar_placeholder.markdown(svar, unsafe_allow_html=True)
-                except Exception:
-                    pass
-            except Exception as e:
-                alle_kilder = []
-                svar = f"Fejl ved AI Assistent: {e}"
-                svar_placeholder.error(svar)
-            st.session_state.chat_historik.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
-            st.rerun()
 
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 4 – PLANLOVEN
