@@ -1216,6 +1216,13 @@ def _llm_haiku(prompt: str, max_tokens: int = 400) -> str:
 
 
 # ── Embeddings (Voyage AI primær, OpenAI fallback) ───────────────────────────
+_EMBED_LAST_ERROR: list = []  # module-level så den er tilgængelig fra cache_resource kontekst
+
+
+def get_embed_error() -> str:
+    return _EMBED_LAST_ERROR[0] if _EMBED_LAST_ERROR else ""
+
+
 def _embedding_provider() -> tuple:
     """Returnerer (provider_navn, api_key, model, dim) baseret på tilgængelige secrets.
     Preferer Voyage (bedst til dansk), falder tilbage til OpenAI."""
@@ -1247,7 +1254,7 @@ def _embed_batch(texts: list, input_type: str = "document") -> "np.ndarray | Non
                 timeout=120,
             )
             if not r.ok:
-                st.session_state["_embed_error"] = f"Voyage API {r.status_code}: {r.text[:300]}"
+                _EMBED_LAST_ERROR[:] = [f"Voyage API {r.status_code}: {r.text[:300]}"]
                 return None
             data = r.json().get("data", [])
             return np.array([d["embedding"] for d in data], dtype=np.float32)
@@ -1259,12 +1266,12 @@ def _embed_batch(texts: list, input_type: str = "document") -> "np.ndarray | Non
                 timeout=120,
             )
             if not r.ok:
-                st.session_state["_embed_error"] = f"OpenAI API {r.status_code}: {r.text[:300]}"
+                _EMBED_LAST_ERROR[:] = [f"OpenAI API {r.status_code}: {r.text[:300]}"]
                 return None
             data = r.json().get("data", [])
             return np.array([d["embedding"] for d in data], dtype=np.float32)
     except Exception as e:
-        st.session_state["_embed_error"] = f"Exception: {e}"
+        _EMBED_LAST_ERROR[:] = [f"Exception: {e}"]
         return None
 
 

@@ -21,7 +21,7 @@ from shared import (
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank, saml_kilder,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
-    klassificer_query, highlight_query, copy_button,
+    klassificer_query, highlight_query, copy_button, get_embed_error,
 )
 
 
@@ -919,7 +919,7 @@ with tab_ai:
             _secret_keys = []
         _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
         if _voyage_key_sat:
-            _embed_err = st.session_state.get("_embed_error", "Ukendt fejl")
+            _embed_err = get_embed_error() or "Ukendt fejl – kontrollér at nøglen er gyldig"
             st.warning(
                 "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges.\n\n"
                 f"**API-fejl:** `{_embed_err}`\n\n"
