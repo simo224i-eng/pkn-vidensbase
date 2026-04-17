@@ -22,6 +22,7 @@ from shared import (
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, get_embed_error,
+    auto_filter_query, apply_auto_filters,
 )
 
 
@@ -317,37 +318,63 @@ def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander: bool = Fa
 
 
 def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik,
-                          top_retrieve: int = 40, top_final: int = 8, embeds=None):
-    """RAG-pipeline med hybrid search + adaptiv retrieval.
-    Haiku-kald paralleliseres for lavere latency.
+                          top_retrieve: int = 40, top_final: int = 8, embeds=None,
+                          filter_options=None):
+    """RAG-pipeline med auto-filtering + hybrid search + adaptiv retrieval.
+    auto-filter: Haiku analyserer spørgsmålet og foreslår filtre der indsnævrer korpus.
     Falder tilbage til ren TF-IDF hvis embeds er None."""
     from concurrent.futures import ThreadPoolExecutor
 
-    with ThreadPoolExecutor(max_workers=2) as pool:
+    n_workers = 3 if filter_options else 2
+    with ThreadPoolExecutor(max_workers=n_workers) as pool:
         fut_classify = pool.submit(klassificer_query, spoergsmaal)
         fut_rewrite = pool.submit(omformuler_opfoelgning, spoergsmaal, historik or [])
+        fut_autofilter = pool.submit(auto_filter_query, spoergsmaal, filter_options) if filter_options else None
         qtype = fut_classify.result()
         standalone = fut_rewrite.result()
+        auto_filters = fut_autofilter.result() if fut_autofilter else {}
 
     top_retrieve = qtype["top_retrieve"]
     top_final = qtype["top_final"]
-    if embeds is not None:
-        udvidet = udvid_query(standalone)
-        tfidf_query = udvidet if udvidet else standalone
-        fused_idx = hybrid_retrieval(
-            tfidf_query, df, vec, mat, embeds,
-            sub_idx=ai_sub_idx, top_retrieve=top_retrieve, top_final=top_retrieve,
-        )
-        if fused_idx:
-            hits = df.iloc[fused_idx].copy()
-            hits["_score"] = [1.0] * len(hits)
-            hits = hits.reset_index(drop=True)
-        else:
-            hits = df.iloc[0:0].copy()
-    else:
-        hits = tfidf_soeg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
+
+    # Adaptive scaling for large corpora
+    corpus_size = len(ai_sub_idx) if ai_sub_idx else len(df)
+    if corpus_size > 500:
+        top_retrieve = max(top_retrieve, 100)
+        top_final = max(top_final, 15)
+    elif corpus_size > 200:
+        top_retrieve = max(top_retrieve, 70)
+        top_final = max(top_final, 12)
+
+    # Apply auto-detected filters
+    effective_sub, prefiltered = apply_auto_filters(df, ai_sub_idx, auto_filters)
+
+    # Prepare expanded query once
+    udvidet = udvid_query(standalone)
+    tfidf_query = udvidet if udvidet else standalone
+
+    def _do_retrieval(sub):
+        if embeds is not None:
+            fused = hybrid_retrieval(tfidf_query, df, vec, mat, embeds, sub_idx=sub,
+                                     top_retrieve=top_retrieve, top_final=top_retrieve)
+            if fused:
+                h = df.iloc[fused].copy()
+                h["_score"] = [1.0] * len(h)
+                return h.reset_index(drop=True)
+            return df.iloc[0:0].copy()
+        return tfidf_soeg(tfidf_query, df, vec, mat, sub_idx=sub,
+                          top_n=top_retrieve, ekspander=False)
+
+    hits = _do_retrieval(effective_sub)
     kandidater = hits.to_dict("records") if len(hits) > 0 else []
     rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
+
+    # Fallback if auto-filter was too aggressive
+    if len(rerankede) < 3 and prefiltered:
+        hits = _do_retrieval(ai_sub_idx)
+        kandidater = hits.to_dict("records") if len(hits) > 0 else []
+        rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
+
     alle_kilder = saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
     return standalone, alle_kilder
 
@@ -560,6 +587,12 @@ embeds = build_embeddings_mfkn(valgt_stem, len(df))
 if embeds is None and embeddings_tilgængelige():
     build_embeddings_mfkn.clear()
     embeds = build_embeddings_mfkn(valgt_stem, len(df))
+
+# Auto-filter options for AI retrieval
+_mfkn_filter_options = {
+    "Underkategori": sorted(df["Underkategori"].dropna().unique().tolist()),
+    "Sagstype": sorted(df["Sagstype"].unique().tolist()),
+}
 
 _voyage_key_sat = bool(st.secrets.get("VOYAGE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", ""))
 _embeds_ok = embeds is not None
@@ -973,7 +1006,7 @@ with tab_ai:
                     _, alle_kilder = smart_retrieval_mfkn(
                         f, df, vec, mat, ai_sub_idx,
                         st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
-                        embeds=embeds,
+                        embeds=embeds, filter_options=_mfkn_filter_options,
                     )
                     svar = mfkn_svar_stream(f, alle_kilder,
                                             historik=st.session_state.mfkn_chat,
@@ -1011,7 +1044,7 @@ with tab_ai:
                 _, alle_kilder = smart_retrieval_mfkn(
                     spoergsmaal, df, vec, mat, ai_sub_idx,
                     st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
-                    embeds=embeds,
+                    embeds=embeds, filter_options=_mfkn_filter_options,
                 )
                 svar = mfkn_svar_stream(spoergsmaal, alle_kilder,
                                         historik=st.session_state.mfkn_chat,

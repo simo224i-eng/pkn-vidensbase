@@ -21,6 +21,7 @@ from shared import (
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
+    auto_filter_query, apply_auto_filters,
 )
 
 
@@ -402,45 +403,67 @@ _udtræk_kerneafsnit = udtræk_kerneafsnit  # alias til shared.py
 
 
 def smart_retrieval(spørgsmål: str, df, vec, mat, ai_sub_idx, historik,
-                    top_retrieve: int = 40, top_final: int = 8, embeds=None) -> tuple:
-    """Forbedret RAG-pipeline med hybrid search + adaptiv retrieval:
-    (classify ∥ rewrite) → expand → (TF-IDF ∪ HyDE-embeddings via RRF) → Voyage rerank → merge.
-    Haiku-kald paralleliseres for lavere latency.
+                    top_retrieve: int = 40, top_final: int = 8, embeds=None,
+                    filter_options=None) -> tuple:
+    """Forbedret RAG-pipeline med auto-filtering + hybrid search + adaptiv retrieval:
+    (classify ∥ rewrite ∥ auto-filter) → expand → pre-filter → retrieval → rerank → merge.
 
-    Hvis embeds er None, falder den tilbage til ren TF-IDF — ingen funktionel regression."""
+    auto-filter: Haiku analyserer spørgsmålet og foreslår filtre (fx Plantype: Kommuneplan)
+    der indsnævrer korpus, så retrieval fokuserer på de mest relevante afgørelser.
+    Falder tilbage til ren TF-IDF hvis embeds er None."""
     from concurrent.futures import ThreadPoolExecutor
 
-    # 0+1. Parallelisér klassificering og rewriting (begge bruger Haiku, uafhængige)
-    with ThreadPoolExecutor(max_workers=2) as pool:
+    # 0. Parallelisér klassificering, rewriting og auto-filtrering
+    n_workers = 3 if filter_options else 2
+    with ThreadPoolExecutor(max_workers=n_workers) as pool:
         fut_classify = pool.submit(klassificer_query, spørgsmål)
         fut_rewrite = pool.submit(omformuler_opfoelgning, spørgsmål, historik or [])
+        fut_autofilter = pool.submit(auto_filter_query, spørgsmål, filter_options) if filter_options else None
         qtype = fut_classify.result()
         standalone = fut_rewrite.result()
+        auto_filters = fut_autofilter.result() if fut_autofilter else {}
 
     top_retrieve = qtype["top_retrieve"]
     top_final = qtype["top_final"]
 
-    # 2. Hybrid retrieval: TF-IDF + HyDE-embeddings fusioneret via RRF
-    if embeds is not None:
-        udvidet = udvid_query(standalone)
-        tfidf_query = udvidet if udvidet else standalone
-        fused_idx = hybrid_retrieval(
-            tfidf_query, df, vec, mat, embeds,
-            sub_idx=ai_sub_idx, top_retrieve=top_retrieve, top_final=top_retrieve,
-        )
-        if fused_idx:
-            hits = df.iloc[fused_idx].copy()
-            hits["_score"] = [1.0] * len(hits)
-            hits = hits.reset_index(drop=True)
-        else:
-            hits = df.iloc[0:0].copy()
-    else:
-        hits = tfidf_søg(standalone, df, vec, mat, sub_idx=ai_sub_idx, top_n=top_retrieve, ekspander=True)
+    # Adaptive scaling for large corpora
+    corpus_size = len(ai_sub_idx) if ai_sub_idx else len(df)
+    if corpus_size > 500:
+        top_retrieve = max(top_retrieve, 100)
+        top_final = max(top_final, 15)
+    elif corpus_size > 200:
+        top_retrieve = max(top_retrieve, 70)
+        top_final = max(top_final, 12)
 
+    # Apply auto-detected filters to narrow corpus
+    effective_sub, prefiltered = apply_auto_filters(df, ai_sub_idx, auto_filters)
+
+    # Prepare expanded query once
+    udvidet = udvid_query(standalone)
+    tfidf_query = udvidet if udvidet else standalone
+
+    def _do_retrieval(sub):
+        if embeds is not None:
+            fused = hybrid_retrieval(tfidf_query, df, vec, mat, embeds, sub_idx=sub,
+                                     top_retrieve=top_retrieve, top_final=top_retrieve)
+            if fused:
+                h = df.iloc[fused].copy()
+                h["_score"] = [1.0] * len(h)
+                return h.reset_index(drop=True)
+            return df.iloc[0:0].copy()
+        return tfidf_søg(tfidf_query, df, vec, mat, sub_idx=sub,
+                         top_n=top_retrieve, ekspander=False)
+
+    hits = _do_retrieval(effective_sub)
     kandidater = hits.to_dict("records") if len(hits) > 0 else []
-    # 3. Voyage rerank (fallback til Haiku LLM-rerank)
     rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
-    # 4. Smelt sammen med tidligere kilder for kontinuitet
+
+    # Fallback: if auto-filter was too aggressive, retry on full filtered set
+    if len(rerankede) < 3 and prefiltered:
+        hits = _do_retrieval(ai_sub_idx)
+        kandidater = hits.to_dict("records") if len(hits) > 0 else []
+        rerankede = llm_rerank(standalone, kandidater, top_n=top_final)
+
     alle_kilder = _saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
     return standalone, alle_kilder
 
@@ -561,6 +584,14 @@ embeds   = build_embeddings(len(df))
 if embeds is None and embeddings_tilgængelige():
     build_embeddings.clear()
     embeds = build_embeddings(len(df))
+
+# Auto-filter options for AI retrieval
+_pkn_filter_options = {
+    "Kategori": sorted({k for kats in df["Kategori"] for k in kats}),
+    "Plantype": ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"],
+    "Dokumenttype": ["Screeningsafgørelse", "Miljørapport"],
+    "Sagsgruppe": ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"],
+}
 
 # Diagnostik: vis hvad der sker med embeddings (kun synlig for debug)
 _voyage_key_sat = bool(st.secrets.get("VOYAGE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", ""))
@@ -1117,7 +1148,7 @@ with tab_ai:
                         _, alle_kilder = smart_retrieval(
                             f, df, vec, mat, ai_sub_idx,
                             st.session_state.chat_historik, top_retrieve=40, top_final=8,
-                            embeds=embeds,
+                            embeds=embeds, filter_options=_pkn_filter_options,
                         )
                     except Exception as e:
                         alle_kilder = []
@@ -1159,7 +1190,7 @@ with tab_ai:
                     _, alle_kilder = smart_retrieval(
                         spørgsmål, df, vec, mat, ai_sub_idx,
                         st.session_state.chat_historik, top_retrieve=40, top_final=8,
-                        embeds=embeds,
+                        embeds=embeds, filter_options=_pkn_filter_options,
                     )
                 except Exception as e:
                     alle_kilder = []
