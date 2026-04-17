@@ -32,7 +32,6 @@ def _tæl_afgørelser():
     mfkn = _tæl_zip("mfkn_*.csv.zip")
     n_mfkn_kat = len(_glob.glob(os.path.join(_root, "mfkn_*.csv.zip")))
 
-    # Seneste ændringsdato for zip-filerne
     alle_zips = _glob.glob(os.path.join(_root, "pkn_*.csv.zip")) + _glob.glob(os.path.join(_root, "mfkn_*.csv.zip"))
     if alle_zips:
         seneste = max(os.path.getmtime(f) for f in alle_zips)
@@ -45,116 +44,104 @@ _pkn_antal, _mfkn_antal, _mfkn_kat, _senest_opdateret = _tæl_afgørelser()
 
 st.markdown("""
 <style>
-/* Page-link knapper på forsiden — smelter sammen med nævn-card */
-[data-testid="stPageLink"] { margin-top: -2px !important; }
+[data-testid="stPageLink"] { margin-top: -1px !important; }
 [data-testid="stPageLink"] a {
     display: flex !important; align-items: center; justify-content: center; gap: 6px;
-    width: 100%; padding: 11px 16px !important;
-    background: #ffffff !important; color: #8C1C2E !important;
+    width: 100%; padding: 10px 16px !important;
+    background: #0f172a !important; color: #f1f5f9 !important;
     border-radius: 0 0 8px 8px !important;
-    font-size: 12px !important; font-weight: 600 !important;
-    letter-spacing: 0.2px !important;
+    font-size: 12px !important; font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
     text-decoration: none !important;
-    border: 1px solid #e2e8f0 !important; border-top: none !important;
-    transition: background .12s, color .12s, border-color .12s !important;
+    border: 1px solid #0f172a !important; border-top: none !important;
+    transition: background .15s !important;
 }
 [data-testid="stPageLink"] a:hover {
-    background: #8C1C2E !important; color: #ffffff !important;
-    border-color: #8C1C2E !important;
+    background: #1e293b !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
     st.markdown(
-        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(140, dark=True)}</div></div>',
+        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(120, dark=True)}</div></div>',
         unsafe_allow_html=True,
     )
 
 # ── Hero ──────────────────────────────────────────────────────────────────────
 st.markdown(f"""
-<div style="text-align:center;padding:3.5rem 0 3rem;">
-  {logo(200)}
-  <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1.4px;
-              font-weight:500;margin-top:1.2rem;">Juridisk vidensbase</div>
+<div style="text-align:center;padding:4rem 0 2.5rem;">
+  {logo(170)}
+  <div style="font-size:10.5px;color:#94a3b8;text-transform:uppercase;letter-spacing:2px;
+              font-weight:500;margin-top:1.4rem;">Juridisk vidensbase</div>
 </div>
 """, unsafe_allow_html=True)
 
 # ── Modulkort ─────────────────────────────────────────────────────────────────
-_CS = ("background:#ffffff;border-radius:8px 8px 0 0;padding:2rem 2.2rem 1.8rem;"
-       "border:1px solid #e2e8f0;border-bottom:none;display:flex;flex-direction:column;height:100%;")
-
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
     st.markdown(f"""
-<div style="{_CS}">
-  <div style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
-              border-radius:8px;background:#fef2f2;margin-bottom:1.1rem;">
-    <span class="material-symbols-rounded" style="font-size:22px;color:#8C1C2E;">gavel</span>
+<div style="background:#ffffff;border-radius:8px 8px 0 0;padding:2rem 2rem 1.6rem;
+            border:1px solid #eef1f6;border-bottom:none;display:flex;flex-direction:column;height:100%;">
+  <div style="font-size:0.95rem;font-weight:700;color:#0f172a;letter-spacing:-0.3px;margin-bottom:0.3rem;">
+    Planklagenævnet
   </div>
-  <div style="font-size:1.05rem;font-weight:700;color:#0f172a;letter-spacing:-0.3px;margin-bottom:0.2rem;">Planklagenævnet</div>
-  <div style="font-size:11.5px;color:#64748b;font-weight:500;
-              margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f1f5f9;">
-    PKN · afgørelser efter 2017
+  <div style="font-size:11px;color:#94a3b8;font-weight:500;
+              margin-bottom:1rem;padding-bottom:0.9rem;border-bottom:1px solid #f1f5f9;">
+    PKN
   </div>
-  <div style="font-size:13.5px;color:#475569;line-height:1.65;margin-bottom:1.2rem;flex:1;">
+  <div style="font-size:13px;color:#64748b;line-height:1.65;margin-bottom:1.2rem;flex:1;">
     Afgørelser om lokalplaner, kommuneplantillæg, planvedtagelser og landzone.
     Søg og analyser PKN's praksis.
   </div>
-  <div style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.6px;">
-    Planloven · {_pkn_antal:,} afgørelser
+  <div style="font-size:10.5px;font-weight:500;color:#94a3b8;letter-spacing:0.3px;">
+    {_pkn_antal:,} afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/pkn.py", label="Åbn Planklagenævnet →", use_container_width=True)
+    st.page_link("pages/pkn.py", label="Planklagenævnet", use_container_width=True)
 
 with col2:
     st.markdown(f"""
-<div style="{_CS}">
-  <div style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
-              border-radius:8px;background:#fef2f2;margin-bottom:1.1rem;">
-    <span class="material-symbols-rounded" style="font-size:22px;color:#8C1C2E;">eco</span>
+<div style="background:#ffffff;border-radius:8px 8px 0 0;padding:2rem 2rem 1.6rem;
+            border:1px solid #eef1f6;border-bottom:none;display:flex;flex-direction:column;height:100%;">
+  <div style="font-size:0.95rem;font-weight:700;color:#0f172a;letter-spacing:-0.3px;margin-bottom:0.3rem;">
+    Miljø- og Fødevareklagenævnet
   </div>
-  <div style="font-size:1.05rem;font-weight:700;color:#0f172a;letter-spacing:-0.3px;margin-bottom:0.2rem;">Miljø- og Fødevareklagenævnet</div>
-  <div style="font-size:11.5px;color:#64748b;font-weight:500;
-              margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f1f5f9;">
-    MFKN · alle retsområder
+  <div style="font-size:11px;color:#94a3b8;font-weight:500;
+              margin-bottom:1rem;padding-bottom:0.9rem;border-bottom:1px solid #f1f5f9;">
+    MFKN
   </div>
-  <div style="font-size:13.5px;color:#475569;line-height:1.65;margin-bottom:1.2rem;flex:1;">
-    Afgørelser om beskyttelseslinjer, beskyttede naturtyper, miljøbeskyttelse, husdyrbrug,
-    vandforsyning og meget mere.
+  <div style="font-size:13px;color:#64748b;line-height:1.65;margin-bottom:1.2rem;flex:1;">
+    Afgørelser om beskyttelseslinjer, beskyttede naturtyper, miljøbeskyttelse,
+    husdyrbrug, vandforsyning og meget mere.
   </div>
-  <div style="font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.6px;">
-    {_mfkn_kat} retsområder · {_mfkn_antal:,} afgørelser
+  <div style="font-size:10.5px;font-weight:500;color:#94a3b8;letter-spacing:0.3px;">
+    {_mfkn_kat} retsområder &middot; {_mfkn_antal:,} afgørelser
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/mfkn.py", label="Åbn Miljøklagenævnet →", use_container_width=True)
+    st.page_link("pages/mfkn.py", label="Miljøklagenævnet", use_container_width=True)
 
 sidebar_log_ud()
 
 # ── Udfaldsterminologi-legende ──────────────────────────────────────────────
-st.markdown(f"""
-<div style="margin-top:2.5rem;padding:1.4rem 1.8rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;">
-  <div style="font-size:10.5px;font-weight:600;color:#64748b;
-              text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.7rem;">Udfaldsterminologi</div>
-  <div style="display:flex;flex-wrap:wrap;gap:10px 24px;font-size:12.5px;color:#475569;line-height:1.65;">
-    <span><strong style="color:#166534;">Medhold/Ophævet/Hjemvist</strong> — klager får helt eller delvist ret</span>
-    <span><strong style="color:#991b1b;">Stadfæstelse/Ikke medhold</strong> — afgørelsen fastholdes</span>
-    <span><strong style="color:#92400e;">Afvist</strong> — klagen behandles ikke (frist, kompetence mv.)</span>
-    <span><strong style="color:#5b21b6;">Ændring</strong> — nævnet ændrer afgørelsens indhold</span>
+st.markdown("""
+<div style="margin-top:2.5rem;padding:1.2rem 1.6rem;background:#f8fafc;border-radius:8px;border:1px solid #eef1f6;">
+  <div style="font-size:10px;font-weight:600;color:#94a3b8;
+              text-transform:uppercase;letter-spacing:1px;margin-bottom:0.6rem;">Udfaldsterminologi</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12px;color:#64748b;line-height:1.7;">
+    <span><strong style="color:#15803d;">Medhold/Ophævet/Hjemvist</strong> — klager får ret</span>
+    <span><strong style="color:#b91c1c;">Stadfæstelse/Ikke medhold</strong> — fastholdes</span>
+    <span><strong style="color:#a16207;">Afvist</strong> — behandles ikke</span>
+    <span><strong style="color:#6d28d9;">Ændring</strong> — ændres</span>
   </div>
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown(f"""
-<div style="text-align:center;padding-top:2.5rem;border-top:1px solid #e2e8f0;
-            margin-top:2rem;margin-bottom:1rem;">
-  <span style="font-size:10.5px;color:#94a3b8;letter-spacing:0.6px;text-transform:uppercase;font-weight:500;">
-    Harald · Juridisk vidensbase
-  </span>
-  <br>
-  <span style="font-size:10.5px;color:#cbd5e1;letter-spacing:0.2px;">
-    Data senest opdateret {_senest_opdateret}
+<div style="text-align:center;padding-top:2rem;margin-top:1.5rem;margin-bottom:1rem;">
+  <span style="font-size:10px;color:#cbd5e1;letter-spacing:0.4px;font-weight:400;">
+    Data opdateret {_senest_opdateret}
   </span>
 </div>
 """, unsafe_allow_html=True)

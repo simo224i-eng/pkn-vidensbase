@@ -13,15 +13,15 @@ inject_css()
 # ── Global adgangskodegate ────────────────────────────────────────────────────
 if not st.session_state.get("_autentificeret_v2"):
     st.markdown(
-        f"<div style='text-align:center;margin-top:5rem;margin-bottom:0.6rem;'>{logo(160)}</div>"
-        "<p style='text-align:center;color:#64748b;font-size:12px;letter-spacing:0.4px;"
-        "margin-bottom:2.5rem;'>Juridisk vidensbase</p>",
+        f"<div style='text-align:center;margin-top:6rem;margin-bottom:0.4rem;'>{logo(140)}</div>"
+        "<p style='text-align:center;color:#94a3b8;font-size:11px;letter-spacing:0.6px;"
+        "text-transform:uppercase;font-weight:500;margin-bottom:3rem;'>Juridisk vidensbase</p>",
         unsafe_allow_html=True,
     )
-    col = st.columns([1, 2, 1])[1]
+    col = st.columns([1.2, 1, 1.2])[1]
     with col:
         pw = st.text_input("Adgangskode", type="password", placeholder="Indtast adgangskode…")
-        if st.button("Log ind →", use_container_width=True):
+        if st.button("Log ind", use_container_width=True, type="primary"):
             korrekt = st.secrets.get("APP_PASSWORD", "")
             if not korrekt:
                 st.error("Adgangskode ikke konfigureret. Tilføj APP_PASSWORD i Streamlit secrets.")
@@ -33,9 +33,9 @@ if not st.session_state.get("_autentificeret_v2"):
     st.stop()
 
 pg = st.navigation([
-    st.Page("pages/home.py",  title="Forside",             icon=":material/home:",  default=True),
-    st.Page("pages/pkn.py",   title="Planklagenævnet",     icon=":material/gavel:"),
-    st.Page("pages/mfkn.py",  title="Miljøklagenævnet",    icon=":material/eco:"),
+    st.Page("pages/home.py",  title="Forside",             default=True),
+    st.Page("pages/pkn.py",   title="Planklagenævnet"),
+    st.Page("pages/mfkn.py",  title="Miljøklagenævnet"),
 ])
 pg.run()
 
