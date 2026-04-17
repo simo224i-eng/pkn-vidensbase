@@ -919,9 +919,10 @@ with tab_ai:
             _secret_keys = []
         _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
         if _voyage_key_sat:
+            _embed_err = st.session_state.get("_embed_error", "Ukendt fejl")
             st.warning(
-                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges. "
-                "Sandsynligvis er API-nøglen ugyldig eller udløbet. "
+                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges.\n\n"
+                f"**API-fejl:** `{_embed_err}`\n\n"
                 f"Fundne secrets: {_key_liste}",
                 icon="⚠️",
             )
