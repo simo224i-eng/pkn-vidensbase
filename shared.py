@@ -1247,6 +1247,7 @@ def _embed_batch(texts: list, input_type: str = "document") -> "np.ndarray | Non
                 timeout=120,
             )
             if not r.ok:
+                st.session_state["_embed_error"] = f"Voyage API {r.status_code}: {r.text[:300]}"
                 return None
             data = r.json().get("data", [])
             return np.array([d["embedding"] for d in data], dtype=np.float32)
@@ -1258,10 +1259,12 @@ def _embed_batch(texts: list, input_type: str = "document") -> "np.ndarray | Non
                 timeout=120,
             )
             if not r.ok:
+                st.session_state["_embed_error"] = f"OpenAI API {r.status_code}: {r.text[:300]}"
                 return None
             data = r.json().get("data", [])
             return np.array([d["embedding"] for d in data], dtype=np.float32)
-    except Exception:
+    except Exception as e:
+        st.session_state["_embed_error"] = f"Exception: {e}"
         return None
 
 
