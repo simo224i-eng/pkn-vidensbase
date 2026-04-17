@@ -1196,6 +1196,95 @@ def klassificer_query(query: str) -> dict:
     return default
 
 
+def auto_filter_query(query: str, filter_options: dict) -> dict:
+    """Use Haiku to extract implicit filter preferences from a user's question.
+    filter_options = {"Kategori": ["val1", ...], "Plantype": ["val1", ...], ...}
+    Returns dict of suggested filters, e.g. {"Kategori": ["Kommuneplan"]}."""
+    if not query or not filter_options or len(query) < 10:
+        return {}
+    lines = []
+    for name, vals in filter_options.items():
+        lines.append(f"- {name}: [{', '.join(str(v) for v in vals[:40])}]")
+    filter_desc = "\n".join(lines)
+    prompt = (
+        "Analysér dette juridiske spørgsmål og foreslå filtre der vil indsnævre "
+        "søgningen til de mest relevante nævnsafgørelser.\n\n"
+        f"SPØRGSMÅL: \"{query}\"\n\n"
+        f"TILGÆNGELIGE FILTRE (brug KUN værdier fra listerne):\n{filter_desc}\n\n"
+        "REGLER:\n"
+        "- Foreslå KUN filtre der er TYDELIGT impliceret af spørgsmålet\n"
+        "- Brug PRÆCIS de værdier der er listet ovenfor (stavning og store/små bogstaver)\n"
+        "- Vær konservativ — hellere for få filtre end for mange\n"
+        "- Undgå Udfald-filtre medmindre spørgsmålet eksplicit nævner udfald\n"
+        "- Hvis ingen filtre er tydelige, skriv: INGEN\n\n"
+        "Svar i format (ét filter per linje):\nFilternavn: Værdi1, Værdi2\n\n"
+        "FILTRE:"
+    )
+    svar = _llm_haiku(prompt, max_tokens=150)
+    if not svar or "INGEN" in svar.upper()[:30]:
+        return {}
+    suggested = {}
+    for line in svar.strip().split("\n"):
+        line = line.strip().lstrip("- ")
+        if ":" not in line or "INGEN" in line.upper():
+            continue
+        parts = line.split(":", 1)
+        name_raw = parts[0].strip()
+        vals_raw = parts[1].strip()
+        matched_name = None
+        for fn in filter_options:
+            if fn.lower() == name_raw.lower():
+                matched_name = fn
+                break
+        if not matched_name:
+            for fn in filter_options:
+                if fn.lower() in name_raw.lower() or name_raw.lower() in fn.lower():
+                    matched_name = fn
+                    break
+        if not matched_name:
+            continue
+        raw_vals = [v.strip() for v in vals_raw.split(",")]
+        valid = []
+        for rv in raw_vals:
+            if not rv:
+                continue
+            for opt in filter_options[matched_name]:
+                if rv.lower() == str(opt).lower():
+                    valid.append(opt)
+                    break
+        if valid:
+            suggested[matched_name] = valid
+    return suggested
+
+
+def apply_auto_filters(df, sub_idx, auto_filters, min_hits: int = 3):
+    """Apply auto-detected filters to narrow sub_idx within existing user filters.
+    Returns (narrowed_idx, was_narrowed)."""
+    if not auto_filters or not sub_idx:
+        return sub_idx, False
+    narrowed = []
+    for idx in sub_idx:
+        row = df.iloc[idx]
+        match = True
+        for col, vals in auto_filters.items():
+            cell = row.get(col)
+            if cell is None:
+                continue
+            if isinstance(cell, list):
+                if not any(v in cell for v in vals):
+                    match = False
+                    break
+            else:
+                if cell not in vals:
+                    match = False
+                    break
+        if match:
+            narrowed.append(idx)
+    if len(narrowed) >= min_hits and len(narrowed) < len(sub_idx) * 0.9:
+        return narrowed, True
+    return sub_idx, False
+
+
 def rrf_merge(rangeringer: list, k: int = 60) -> dict:
     """Reciprocal Rank Fusion: kombinér flere rangeringer til én score.
     rangeringer = liste af lister, hvor hver indre liste er et globalt indeks sorteret bedst-først."""
