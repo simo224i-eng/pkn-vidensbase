@@ -1443,7 +1443,7 @@ def _push_embedding_to_github(fname: str, local_path: str) -> bool:
     """Push embedding-fil til GitHub så den overlever deploys.
     Kræver GITHUB_TOKEN i secrets. Returnerer True hvis pushet."""
     import os as _os
-    token = st.secrets.get("GITHUB_TOKEN", "")
+    token = st.secrets.get("GITHUB_TOKEN", "").strip()
     if not token or not _os.path.exists(local_path):
         return False
     if _os.path.getsize(local_path) > 80_000_000:
@@ -1470,6 +1470,37 @@ def _push_embedding_to_github(fname: str, local_path: str) -> bool:
         return False
 
 
+def _download_embedding_from_github(fname: str, save_dir: str) -> str | None:
+    """Hent embedding-fil fra GitHub repo hvis den eksisterer.
+    Returnerer lokal sti til filen, eller None."""
+    import os as _os
+    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    if not token:
+        return None
+    repo = "simo224i-eng/pkn-vidensbase"
+    repo_path = f"embeds/{fname}"
+    url = f"https://api.github.com/repos/{repo}/contents/{repo_path}"
+    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    try:
+        r = requests.get(url, headers=headers, timeout=30)
+        if r.status_code != 200:
+            return None
+        data = r.json()
+        download_url = data.get("download_url")
+        if not download_url:
+            return None
+        r2 = requests.get(download_url, headers={"Authorization": f"token {token}"}, timeout=120)
+        if r2.status_code != 200:
+            return None
+        _os.makedirs(save_dir, exist_ok=True)
+        out_path = _os.path.join(save_dir, fname)
+        with open(out_path, "wb") as f:
+            f.write(r2.content)
+        return out_path
+    except Exception:
+        return None
+
+
 def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 32) -> "np.ndarray | None":
     """Byg et persistent embedding-indeks. Tjekker git-tracked embeds/ først (gratis),
     derefter /tmp cache, og bygger fra API som sidste udvej.
@@ -1487,20 +1518,36 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     _git_dir = _os.path.join(_app_root, "embeds")
     _tmp_dir = "/tmp/pkn_data/embeds"
 
-    # 1. Tjek git-tracked embeds/ (persister på tværs af deploys)
-    for d in [_git_dir, _tmp_dir]:
-        p = _os.path.join(d, _fname)
-        if _os.path.exists(p):
-            try:
-                arr = np.load(p)["arr_0"]
-                if arr.dtype == np.float16:
-                    arr = arr.astype(np.float32)
-                if arr.shape == (len(df), dim):
-                    return arr
-            except Exception:
-                pass
+    def _try_load(path):
+        if not _os.path.exists(path):
+            return None
+        try:
+            arr = np.load(path)["arr_0"]
+            if arr.dtype == np.float16:
+                arr = arr.astype(np.float32)
+            if arr.shape == (len(df), dim):
+                return arr
+        except Exception:
+            pass
+        return None
 
-    # 2. Byg fra API
+    # 1. Tjek lokale filer (git-tracked embeds/ og /tmp cache)
+    for d in [_git_dir, _tmp_dir]:
+        loaded = _try_load(_os.path.join(d, _fname))
+        if loaded is not None:
+            return loaded
+
+    # 2. Hent fra GitHub API (hvis pushel lykkedes ved en tidligere build)
+    try:
+        _dl = _download_embedding_from_github(_fname, _tmp_dir)
+        if _dl:
+            loaded = _try_load(_dl)
+            if loaded is not None:
+                return loaded
+    except Exception:
+        pass
+
+    # 3. Byg fra API
     texts = [tekst_bygger(str(t), str(x))[:8000]
              for t, x in zip(df["Titel"].fillna(""), df["Tekst"].fillna(""))]
 
@@ -1531,7 +1578,7 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     norms[norms == 0] = 1.0
     out = out / norms
 
-    # 3. Gem som float16 komprimeret (halverer filstørrelse)
+    # 4. Gem som float16 komprimeret (halverer filstørrelse)
     out16 = out.astype(np.float16)
     for d in [_git_dir, _tmp_dir]:
         try:
@@ -1540,7 +1587,7 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
         except Exception:
             pass
 
-    # 4. Auto-push til GitHub (så næste deploy er gratis)
+    # 5. Auto-push til GitHub (så næste deploy er gratis)
     _local = _os.path.join(_git_dir, _fname)
     if not _os.path.exists(_local):
         _local = _os.path.join(_tmp_dir, _fname)
