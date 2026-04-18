@@ -11,6 +11,15 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import requests
+import pickle, io
+if st.sidebar.button("🚨 HENT DATA NU"):
+    try:
+        data = byg_embeddings_indeks(15000)
+        buf = io.BytesIO()
+        pickle.dump(data, buf)
+        st.sidebar.download_button("GEM FIL", buf.getvalue(), "backup.pkl")
+    except:
+        st.sidebar.error("Kunne ikke hente data")
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as cos_sim
 from shared import (
