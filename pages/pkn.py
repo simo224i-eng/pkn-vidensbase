@@ -22,8 +22,11 @@ from shared import (
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
     auto_filter_query, apply_auto_filters,
-    sync_embeddings_to_github,
 )
+try:
+    from shared import sync_embeddings_to_github
+except ImportError:
+    def sync_embeddings_to_github(): return 0
 
 
 def _log_feedback(modul: str, svar_tekst: str, rating: str):
@@ -593,7 +596,10 @@ if embeds is None and embeddings_tilgængelige():
     embeds = build_embeddings(len(df))
 
 # Sync usynkede embeddings til GitHub (retry hvis token var forkert før)
-sync_embeddings_to_github()
+try:
+    sync_embeddings_to_github()
+except Exception:
+    pass
 
 # Auto-filter options for AI retrieval
 _pkn_filter_options = {
