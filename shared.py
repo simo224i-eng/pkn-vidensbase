@@ -1677,6 +1677,35 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     except Exception:
         pass
 
+    if progress is not None:
+        try: progress.empty()
+        except Exception: pass
+    return out
+
+
+def ensure_embeddings_on_disk(embeds, cache_key: str):
+    """Sørg for at in-memory embeddings er gemt som .npz på disk
+    (til brug af sync_embeddings_to_github)."""
+    if embeds is None:
+        return
+    import os as _os
+    provider, _key, model, dim = _embedding_provider()
+    if not provider:
+        return
+    _fname = f"{cache_key}__{provider}__{model}__{len(embeds)}.npz"
+    _tmp_dir = "/tmp/pkn_data/embeds"
+    _app_root = _os.path.dirname(_os.path.abspath(__file__))
+    _git_dir = _os.path.join(_app_root, "embeds")
+    for d in [_git_dir, _tmp_dir]:
+        if _os.path.exists(_os.path.join(d, _fname)):
+            return
+    try:
+        _os.makedirs(_tmp_dir, exist_ok=True)
+        out16 = embeds.astype(np.float16) if embeds.dtype != np.float16 else embeds
+        np.savez_compressed(_os.path.join(_tmp_dir, _fname), out16)
+    except Exception:
+        pass
+
 
 def sync_embeddings_to_github():
     """Push alle lokale embedding-filer til GitHub der ikke allerede er der.
@@ -1701,11 +1730,6 @@ def sync_embeddings_to_github():
             except Exception:
                 pass
     return pushed
-
-    if progress is not None:
-        try: progress.empty()
-        except Exception: pass
-    return out
 
 
 def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30, use_hyde: bool = True):
