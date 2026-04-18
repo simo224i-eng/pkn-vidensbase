@@ -1399,10 +1399,42 @@ def _hyde_embed(query: str) -> "np.ndarray | None":
     return v / n if n > 0 else v
 
 
+def _push_embedding_to_github(fname: str, local_path: str) -> bool:
+    """Push embedding-fil til GitHub så den overlever deploys.
+    Kræver GITHUB_TOKEN i secrets. Returnerer True hvis pushet."""
+    import os as _os
+    token = st.secrets.get("GITHUB_TOKEN", "")
+    if not token or not _os.path.exists(local_path):
+        return False
+    if _os.path.getsize(local_path) > 80_000_000:
+        return False
+    repo = "simo224i-eng/pkn-vidensbase"
+    repo_path = f"embeds/{fname}"
+    url = f"https://api.github.com/repos/{repo}/contents/{repo_path}"
+    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    try:
+        r = requests.get(url, headers=headers, timeout=30)
+        if r.status_code == 200:
+            return False
+        import base64 as _b64_push
+        with open(local_path, "rb") as f:
+            content = _b64_push.b64encode(f.read()).decode()
+        data = {
+            "message": f"Gem embedding-cache: {fname}",
+            "content": content,
+            "branch": "main",
+        }
+        r = requests.put(url, headers=headers, json=data, timeout=180)
+        return r.status_code in (200, 201)
+    except Exception:
+        return False
+
+
 def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 32) -> "np.ndarray | None":
-    """Byg et persistent embedding-indeks over df. Cache'r resultatet som .npz på disk.
-    Prøver flere cache-stier for bedst mulig persistens på Streamlit Cloud.
-    Returnerer (N, dim) array eller None hvis embeddings ikke er konfigureret."""
+    """Byg et persistent embedding-indeks. Tjekker git-tracked embeds/ først (gratis),
+    derefter /tmp cache, og bygger fra API som sidste udvej.
+    Gemmer som float16 komprimeret for minimal filstørrelse (~50% af float32).
+    Auto-pusher til GitHub hvis GITHUB_TOKEN er sat, så næste deploy er gratis."""
     provider, _key, model, dim = _embedding_provider()
     if not provider or df is None or len(df) == 0:
         return None
@@ -1411,41 +1443,24 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
 
     import os as _os
     _fname = f"{cache_key}__{provider}__{model}__{len(df)}.npz"
+    _app_root = _os.path.dirname(_os.path.abspath(__file__))
+    _git_dir = _os.path.join(_app_root, "embeds")
+    _tmp_dir = "/tmp/pkn_data/embeds"
 
-    # Prøv flere cache-stier (mest persistent først)
-    _cache_dirs = [
-        _os.path.expanduser("~/.cache/harald_embeds"),
-        _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), ".embeds_cache"),
-        "/tmp/pkn_data/embeds",
-    ]
-    # Find eksisterende cache i en af stierne
-    for d in _cache_dirs:
+    # 1. Tjek git-tracked embeds/ (persister på tværs af deploys)
+    for d in [_git_dir, _tmp_dir]:
         p = _os.path.join(d, _fname)
         if _os.path.exists(p):
             try:
                 arr = np.load(p)["arr_0"]
+                if arr.dtype == np.float16:
+                    arr = arr.astype(np.float32)
                 if arr.shape == (len(df), dim):
                     return arr
             except Exception:
                 pass
 
-    # Vælg skrivestien (den første der virker)
-    cache_dir = "/tmp/pkn_data/embeds"
-    for d in _cache_dirs:
-        try:
-            _os.makedirs(d, exist_ok=True)
-            _test = _os.path.join(d, ".write_test")
-            with open(_test, "w") as f:
-                f.write("ok")
-            _os.remove(_test)
-            cache_dir = d
-            break
-        except Exception:
-            continue
-    _os.makedirs(cache_dir, exist_ok=True)
-    cache_path = _os.path.join(cache_dir, _fname)
-
-    # Byg fra bunden
+    # 2. Byg fra API
     texts = [tekst_bygger(str(t), str(x))[:8000]
              for t, x in zip(df["Titel"].fillna(""), df["Tekst"].fillna(""))]
 
@@ -1472,18 +1487,28 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
             try: progress.progress((b + 1) / n_batches, text=f"Bygger semantisk indeks ({cache_key})… {end}/{len(texts)}")
             except Exception: pass
 
-    # Normalisér rækker for hurtig cosine via dot product
     norms = np.linalg.norm(out, axis=1, keepdims=True)
     norms[norms == 0] = 1.0
     out = out / norms
 
-    # Gem komprimeret til alle tilgængelige stier
-    for d in _cache_dirs:
+    # 3. Gem som float16 komprimeret (halverer filstørrelse)
+    out16 = out.astype(np.float16)
+    for d in [_git_dir, _tmp_dir]:
         try:
             _os.makedirs(d, exist_ok=True)
-            np.savez_compressed(_os.path.join(d, _fname), out)
+            np.savez_compressed(_os.path.join(d, _fname), out16)
         except Exception:
             pass
+
+    # 4. Auto-push til GitHub (så næste deploy er gratis)
+    _local = _os.path.join(_git_dir, _fname)
+    if not _os.path.exists(_local):
+        _local = _os.path.join(_tmp_dir, _fname)
+    try:
+        _push_embedding_to_github(_fname, _local)
+    except Exception:
+        pass
+
     if progress is not None:
         try: progress.empty()
         except Exception: pass
