@@ -1439,9 +1439,33 @@ def _hyde_embed(query: str) -> "np.ndarray | None":
     return v / n if n > 0 else v
 
 
-def _push_embedding_to_github(fname: str, local_path: str) -> bool:
+def _delete_embedding_from_github(fname: str) -> bool:
+    """Slet en embedding-fil fra GitHub (bruges til at fjerne partial efter komplet build)."""
+    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    if not token:
+        return False
+    repo = "simo224i-eng/pkn-vidensbase"
+    url = f"https://api.github.com/repos/{repo}/contents/embeds/{fname}"
+    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+    try:
+        r = requests.get(url, headers=headers, timeout=30)
+        if r.status_code != 200:
+            return False
+        sha = r.json().get("sha", "")
+        r2 = requests.delete(url, headers=headers, json={
+            "message": f"Fjern partial-cache: {fname}",
+            "sha": sha,
+            "branch": "main",
+        }, timeout=30)
+        return r2.status_code == 200
+    except Exception:
+        return False
+
+
+def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = False) -> bool:
     """Push embedding-fil til GitHub så den overlever deploys.
-    Kræver GITHUB_TOKEN i secrets. Returnerer True hvis pushet."""
+    Kræver GITHUB_TOKEN i secrets. overwrite=True overskriver eksisterende fil
+    (bruges til at opdatere partial-filer med mere fremskridt)."""
     import os as _os
     token = st.secrets.get("GITHUB_TOKEN", "").strip()
     if not token or not _os.path.exists(local_path):
@@ -1454,8 +1478,11 @@ def _push_embedding_to_github(fname: str, local_path: str) -> bool:
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
     try:
         r = requests.get(url, headers=headers, timeout=30)
+        existing_sha = None
         if r.status_code == 200:
-            return False
+            if not overwrite:
+                return False
+            existing_sha = r.json().get("sha")
         import base64 as _b64_push
         with open(local_path, "rb") as f:
             content = _b64_push.b64encode(f.read()).decode()
@@ -1464,6 +1491,8 @@ def _push_embedding_to_github(fname: str, local_path: str) -> bool:
             "content": content,
             "branch": "main",
         }
+        if existing_sha:
+            data["sha"] = existing_sha
         r = requests.put(url, headers=headers, json=data, timeout=180)
         return r.status_code in (200, 201)
     except Exception:
@@ -1554,21 +1583,35 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     out = np.zeros((len(texts), dim), dtype=np.float32)
     start_batch = 0
 
-    # Tjek for partial (halvfærdigt) build fra tidligere forsøg
+    # Tjek for partial (halvfærdigt) build — lokalt eller på GitHub
     _partial_fname = f"{cache_key}__partial__{provider}__{model}__{len(df)}.npz"
     _partial_path = _os.path.join(_tmp_dir, _partial_fname)
-    if _os.path.exists(_partial_path):
+
+    def _load_partial():
+        """Forsøg at loade partial fra /tmp/ eller GitHub."""
+        # Lokal først
+        if _os.path.exists(_partial_path):
+            try:
+                _pdata = np.load(_partial_path)
+                return _pdata["embeddings"], int(_pdata["n_done"])
+            except Exception:
+                pass
+        # Hent fra GitHub hvis ikke lokalt
         try:
-            _pdata = np.load(_partial_path)
-            _parr = _pdata["embeddings"]
-            _pdone = int(_pdata["n_done"])
-            if _parr.shape == (len(df), dim) and _pdone > 0:
-                if _parr.dtype == np.float16:
-                    _parr = _parr.astype(np.float32)
-                out[:_pdone] = _parr[:_pdone]
-                start_batch = _pdone // batch_size
+            _dl = _download_embedding_from_github(_partial_fname, _tmp_dir)
+            if _dl:
+                _pdata = np.load(_dl)
+                return _pdata["embeddings"], int(_pdata["n_done"])
         except Exception:
             pass
+        return None, 0
+
+    _parr, _pdone = _load_partial()
+    if _parr is not None and _parr.shape == (len(df), dim) and _pdone > 0:
+        if _parr.dtype == np.float16:
+            _parr = _parr.astype(np.float32)
+        out[:_pdone] = _parr[:_pdone]
+        start_batch = _pdone // batch_size
 
     progress = None
     try:
@@ -1583,13 +1626,14 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
         batch = texts[start:end]
         arr = _embed_batch(batch, input_type="document")
         if arr is None:
-            # Gem hvad vi har indtil videre, så vi kan genoptage næste gang
+            # Gem hvad vi har indtil videre (lokalt + GitHub), så vi kan genoptage
             if start > 0:
                 try:
                     _os.makedirs(_tmp_dir, exist_ok=True)
                     np.savez_compressed(_partial_path,
                                         embeddings=out.astype(np.float16),
                                         n_done=np.array(start))
+                    _push_embedding_to_github(_partial_fname, _partial_path, overwrite=True)
                 except Exception:
                     pass
             if progress is not None:
@@ -1616,10 +1660,11 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
         except Exception:
             pass
 
-    # 5. Fjern partial-fil (bygget færdigt)
+    # 5. Fjern partial-fil (bygget færdigt) — lokalt + GitHub
     try:
         if _os.path.exists(_partial_path):
             _os.remove(_partial_path)
+        _delete_embedding_from_github(_partial_fname)
     except Exception:
         pass
 
