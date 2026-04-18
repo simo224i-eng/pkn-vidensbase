@@ -22,6 +22,7 @@ from shared import (
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
     auto_filter_query, apply_auto_filters,
+    sync_embeddings_to_github,
 )
 
 
@@ -590,6 +591,9 @@ embeds   = build_embeddings(len(df))
 if embeds is None and embeddings_tilgængelige():
     build_embeddings.clear()
     embeds = build_embeddings(len(df))
+
+# Sync usynkede embeddings til GitHub (retry hvis token var forkert før)
+sync_embeddings_to_github()
 
 # Auto-filter options for AI retrieval
 _pkn_filter_options = {

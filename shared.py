@@ -1677,6 +1677,31 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     except Exception:
         pass
 
+
+def sync_embeddings_to_github():
+    """Push alle lokale embedding-filer til GitHub der ikke allerede er der.
+    Kald denne ved sideindlæsning for at fange tilfælde hvor token manglede
+    ved build-tidspunkt men nu er rettet."""
+    import os as _os, glob as _g
+    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    if not token:
+        return
+    _tmp_dir = "/tmp/pkn_data/embeds"
+    _app_root = _os.path.dirname(_os.path.abspath(__file__))
+    _git_dir = _os.path.join(_app_root, "embeds")
+    pushed = 0
+    for d in [_tmp_dir, _git_dir]:
+        for f in _g.glob(_os.path.join(d, "*.npz")):
+            fname = _os.path.basename(f)
+            if "__partial__" in fname:
+                continue
+            try:
+                if _push_embedding_to_github(fname, f):
+                    pushed += 1
+            except Exception:
+                pass
+    return pushed
+
     if progress is not None:
         try: progress.empty()
         except Exception: pass
