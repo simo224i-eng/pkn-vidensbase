@@ -348,6 +348,12 @@ def smart_retrieval_mfkn(spoergsmaal, df, vec, mat, ai_sub_idx, historik,
 
     # Apply auto-detected filters
     effective_sub, prefiltered = apply_auto_filters(df, ai_sub_idx, auto_filters)
+    st.session_state["_mfkn_last_auto_filters"] = {
+        "suggested": auto_filters,
+        "applied": prefiltered,
+        "before": len(ai_sub_idx) if ai_sub_idx else len(df),
+        "after": len(effective_sub) if effective_sub else 0,
+    }
 
     # Prepare expanded query once
     udvidet = udvid_query(standalone)
@@ -1020,8 +1026,10 @@ with tab_ai:
                     alle_kilder = []
                     svar = f"Fejl: {e}"
                     svar_placeholder.error(svar)
+                _af_info = st.session_state.pop("_mfkn_last_auto_filters", None)
                 st.session_state.mfkn_chat.append(
-                    {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
+                    {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder,
+                     "auto_filters": _af_info})
                 st.rerun()
 
         # Input-form (øverst)
@@ -1058,8 +1066,10 @@ with tab_ai:
                 alle_kilder = []
                 svar = f"Fejl ved API: {e}"
                 svar_placeholder.error(svar)
+            _af_info = st.session_state.pop("_mfkn_last_auto_filters", None)
             st.session_state.mfkn_chat.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder})
+                {"rolle": "assistent", "tekst": svar, "kilder": alle_kilder,
+                 "auto_filters": _af_info})
             st.rerun()
 
         st.divider()
@@ -1073,6 +1083,24 @@ with tab_ai:
 
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
+                    _af = msg.get("auto_filters")
+                    if _af and _af.get("suggested"):
+                        _chips = " · ".join(
+                            f"<strong>{k}:</strong> {', '.join(str(v) for v in vs)}"
+                            for k, vs in _af["suggested"].items()
+                        )
+                        _status = (
+                            f'Indsnævret til {_af["after"]} afgørelser'
+                            if _af.get("applied") else "Foreslået (ikke anvendt — for få hits)"
+                        )
+                        st.markdown(
+                            f'<div style="margin:0 0 0.6rem;padding:6px 10px;background:#f8fafc;'
+                            f'border:1px solid #eef1f6;border-radius:4px;font-size:11px;color:#64748b;">'
+                            f'<span style="color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;'
+                            f'font-weight:600;font-size:9.5px;">Auto-filter</span> &nbsp;{_chips} '
+                            f'<span style="color:#94a3b8;">— {_status}</span></div>',
+                            unsafe_allow_html=True,
+                        )
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
                     # Feedback + copy knapper
                     fb_key = f"mfkn_fb_{msg_idx}"

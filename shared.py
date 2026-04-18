@@ -1206,12 +1206,18 @@ def auto_filter_query(query: str, filter_options: dict) -> dict:
         f"SPØRGSMÅL: \"{query}\"\n\n"
         f"TILGÆNGELIGE FILTRE (brug KUN værdier fra listerne):\n{filter_desc}\n\n"
         "REGLER:\n"
-        "- Foreslå KUN filtre der er TYDELIGT impliceret af spørgsmålet\n"
-        "- Brug PRÆCIS de værdier der er listet ovenfor (stavning og store/små bogstaver)\n"
-        "- Vær konservativ — hellere for få filtre end for mange\n"
-        "- Undgå Udfald-filtre medmindre spørgsmålet eksplicit nævner udfald\n"
+        "- Foreslå filtre der er impliceret af spørgsmålet — også når brugeren bruger "
+        "flertalsformer som \"kommuneplaner\", \"screeningsafgørelser\" eller \"lokalplaner\".\n"
+        "- Kopiér værdien PRÆCIS som den står i listen (ental, stavning, store/små bogstaver) — "
+        "fx \"Kommuneplan\" (IKKE \"Kommuneplaner\"), \"Screeningsafgørelse\" (IKKE \"Screeningsafgørelser\").\n"
+        "- VIGTIGT: \"Kommuneplan\" og \"Kommuneplantillæg\" er to FORSKELLIGE plantyper. "
+        "Hvis brugeren skriver \"kommuneplaner\" (ikke kommuneplantillæg) → vælg KUN Kommuneplan. "
+        "Hvis brugeren skriver \"kommuneplantillæg\" → vælg KUN Kommuneplantillæg.\n"
+        "- Vær konservativ — hellere for få filtre end for mange.\n"
+        "- Undgå Udfald-filtre medmindre spørgsmålet eksplicit nævner udfald.\n"
         "- Hvis ingen filtre er tydelige, skriv: INGEN\n\n"
-        "Svar i format (ét filter per linje):\nFilternavn: Værdi1, Værdi2\n\n"
+        "Svar i format (ét filter per linje, ingen forklaring):\n"
+        "Filternavn: Værdi1, Værdi2\n\n"
         "FILTRE:"
     )
     svar = _llm_haiku(prompt, max_tokens=150)
@@ -1242,10 +1248,40 @@ def auto_filter_query(query: str, filter_options: dict) -> dict:
         for rv in raw_vals:
             if not rv:
                 continue
+            rv_l = rv.lower().rstrip(".")
+            # Normalisér danske bøjningsendelser: "kommuneplaner"→"kommuneplan",
+            # "screeningsafgørelser"→"screeningsafgørelse" osv.
+            def _stem(s):
+                s = s.lower().rstrip(".")
+                for suf in ("erne", "ene", "er", "en", "et", "e", "r"):
+                    if s.endswith(suf) and len(s) - len(suf) >= 4:
+                        return s[:-len(suf)]
+                return s
+            rv_stem = _stem(rv_l)
+            match_opt = None
             for opt in filter_options[matched_name]:
-                if rv.lower() == str(opt).lower():
-                    valid.append(opt)
+                ol = str(opt).lower()
+                if rv_l == ol:
+                    match_opt = opt
                     break
+            if not match_opt:
+                for opt in filter_options[matched_name]:
+                    ol = str(opt).lower()
+                    ol_stem = _stem(ol)
+                    if rv_stem == ol_stem or rv_stem == ol or rv_l == ol_stem:
+                        match_opt = opt
+                        break
+            if not match_opt:
+                # Substring-fallback: "kommuneplan" ⊂ "kommuneplantillæg" må IKKE matche,
+                # så vi kræver at stem-formerne er identiske eller at den ene starter med den anden
+                # og længdeforskellen er ≤ 2 (bøjning).
+                for opt in filter_options[matched_name]:
+                    ol = str(opt).lower()
+                    if (rv_l.startswith(ol) or ol.startswith(rv_l)) and abs(len(rv_l) - len(ol)) <= 3:
+                        match_opt = opt
+                        break
+            if match_opt and match_opt not in valid:
+                valid.append(match_opt)
         if valid:
             suggested[matched_name] = valid
     return suggested
@@ -1261,14 +1297,18 @@ def apply_auto_filters(df, sub_idx, auto_filters, min_hits: int = 3):
         row = df.iloc[idx]
         match = True
         for col, vals in auto_filters.items():
-            cell = row.get(col)
-            if cell is None:
+            if col not in row.index:
                 continue
+            cell = row[col]
             if isinstance(cell, list):
                 if not any(v in cell for v in vals):
                     match = False
                     break
             else:
+                # None/NaN betyder at rækken ikke har den egenskab — ekskludér
+                if cell is None or (isinstance(cell, float) and cell != cell):
+                    match = False
+                    break
                 if cell not in vals:
                     match = False
                     break
