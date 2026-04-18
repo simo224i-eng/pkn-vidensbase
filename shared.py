@@ -1547,11 +1547,29 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     except Exception:
         pass
 
-    # 3. Byg fra API
+    # 3. Byg fra API (med resume-support: gem partial ved fejl)
     texts = [tekst_bygger(str(t), str(x))[:8000]
              for t, x in zip(df["Titel"].fillna(""), df["Tekst"].fillna(""))]
 
     out = np.zeros((len(texts), dim), dtype=np.float32)
+    start_batch = 0
+
+    # Tjek for partial (halvfærdigt) build fra tidligere forsøg
+    _partial_fname = f"{cache_key}__partial__{provider}__{model}__{len(df)}.npz"
+    _partial_path = _os.path.join(_tmp_dir, _partial_fname)
+    if _os.path.exists(_partial_path):
+        try:
+            _pdata = np.load(_partial_path)
+            _parr = _pdata["embeddings"]
+            _pdone = int(_pdata["n_done"])
+            if _parr.shape == (len(df), dim) and _pdone > 0:
+                if _parr.dtype == np.float16:
+                    _parr = _parr.astype(np.float32)
+                out[:_pdone] = _parr[:_pdone]
+                start_batch = _pdone // batch_size
+        except Exception:
+            pass
+
     progress = None
     try:
         progress = st.progress(0.0, text=f"Bygger semantisk indeks ({cache_key})…")
@@ -1559,19 +1577,30 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
         pass
 
     n_batches = (len(texts) + batch_size - 1) // batch_size
-    for b in range(n_batches):
+    for b in range(start_batch, n_batches):
         start = b * batch_size
         end = min(start + batch_size, len(texts))
         batch = texts[start:end]
         arr = _embed_batch(batch, input_type="document")
         if arr is None:
+            # Gem hvad vi har indtil videre, så vi kan genoptage næste gang
+            if start > 0:
+                try:
+                    _os.makedirs(_tmp_dir, exist_ok=True)
+                    np.savez_compressed(_partial_path,
+                                        embeddings=out.astype(np.float16),
+                                        n_done=np.array(start))
+                except Exception:
+                    pass
             if progress is not None:
                 try: progress.empty()
                 except Exception: pass
             return None
         out[start:end] = arr
         if progress is not None:
-            try: progress.progress((b + 1) / n_batches, text=f"Bygger semantisk indeks ({cache_key})… {end}/{len(texts)}")
+            try: progress.progress((b + 1) / n_batches,
+                    text=f"Bygger semantisk indeks ({cache_key})… {end}/{len(texts)}"
+                         + (f" (genoptaget fra {start_batch * batch_size})" if start_batch > 0 else ""))
             except Exception: pass
 
     norms = np.linalg.norm(out, axis=1, keepdims=True)
@@ -1587,7 +1616,14 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
         except Exception:
             pass
 
-    # 5. Auto-push til GitHub (så næste deploy er gratis)
+    # 5. Fjern partial-fil (bygget færdigt)
+    try:
+        if _os.path.exists(_partial_path):
+            _os.remove(_partial_path)
+    except Exception:
+        pass
+
+    # 6. Auto-push til GitHub (så næste deploy er gratis)
     _local = _os.path.join(_git_dir, _fname)
     if not _os.path.exists(_local):
         _local = _os.path.join(_tmp_dir, _fname)
