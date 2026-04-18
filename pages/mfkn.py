@@ -23,6 +23,7 @@ from shared import (
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, get_embed_error,
     auto_filter_query, apply_auto_filters,
+    sync_embeddings_to_github,
 )
 
 
@@ -574,6 +575,9 @@ if not alle_kats:
 
 # Prebuild embeddings for alle kategorier (kører kun én gang)
 _prebuild_all_mfkn_embeddings(tuple(sorted(alle_kats.keys())))
+
+# Sync usynkede embeddings til GitHub (retry hvis token var forkert før)
+sync_embeddings_to_github()
 
 kat_navne = {v["navn"]: k for k, v in alle_kats.items()}
 kat_liste = _byg_grupperet_liste(alle_kats)
