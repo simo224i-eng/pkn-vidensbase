@@ -25,9 +25,10 @@ from shared import (
     auto_filter_query, apply_auto_filters,
 )
 try:
-    from shared import sync_embeddings_to_github
+    from shared import sync_embeddings_to_github, ensure_embeddings_on_disk
 except ImportError:
     def sync_embeddings_to_github(): return 0
+    def ensure_embeddings_on_disk(*a, **k): pass
 
 
 def _tilfoej_citat_advarsel(svar: str, alle_kilder: list) -> str:
@@ -579,8 +580,9 @@ if not alle_kats:
 # Prebuild embeddings for alle kategorier (kører kun én gang)
 _prebuild_all_mfkn_embeddings(tuple(sorted(alle_kats.keys())))
 
-# Sync usynkede embeddings til GitHub (retry hvis token var forkert før)
+# Sørg for at embeddings er på disk + push til GitHub
 try:
+    ensure_embeddings_on_disk(embeds, f"mfkn_{valgt_stem}")
     sync_embeddings_to_github()
 except Exception:
     pass
