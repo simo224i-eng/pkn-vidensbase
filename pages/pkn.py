@@ -1,25 +1,4 @@
 import streamlit as st
-import pickle, io
-
-# NØD-KNAP ØVERST I SIDEBAREN
-if st.sidebar.button("🚨 HENT DATA NU"):
-    try:
-        # Vi prøver at nappe det objekt, som Streamlit gemmer i RAM
-        # Vi henter det direkte fra session_state, hvis det findes der
-        data = st.session_state.get('embeddings_index')
-        
-        if data is None:
-            st.sidebar.error("Data ikke fundet i RAM endnu. Prøv at søge på noget først, og tryk så her igen.")
-        else:
-            buf = io.BytesIO()
-            pickle.dump(data, buf)
-            st.sidebar.download_button("💾 GEM FILEN NU", buf.getvalue(), "backup.pkl")
-            st.sidebar.success("Fundet! Klik på knappen ovenfor.")
-    except Exception as e:
-        st.sidebar.error(f"Fejl: {e}")
-
-# Resten af din kode starter herunder...
-import streamlit as st
 
 if not st.session_state.get("_autentificeret_v2"):
     st.switch_page("app.py")
