@@ -277,6 +277,28 @@ def build_embeddings_mfkn(stem, n_rows, version: int = 1):
     df2 = load_kategori(stem, 1)
     return byg_embeddings_indeks(df2, cache_key=f"mfkn_{stem}")
 
+
+@st.cache_resource(show_spinner=False)
+def _prebuild_all_mfkn_embeddings(_kat_stems: tuple):
+    """Byg embeddings for ALLE MFKN-kategorier på én gang, så brugeren
+    ikke skal klikke ind på hver enkelt."""
+    if not embeddings_tilgængelige():
+        return True
+    placeholder = st.empty()
+    total = len(_kat_stems)
+    for i, stem in enumerate(_kat_stems):
+        try:
+            df2 = load_kategori(stem, 1)
+            if df2 is None or df2.empty:
+                continue
+            placeholder.progress((i) / total,
+                text=f"Bygger MFKN-embeddings… {i+1}/{total}")
+            byg_embeddings_indeks(df2, cache_key=f"mfkn_{stem}")
+        except Exception:
+            pass
+    placeholder.empty()
+    return True
+
 def tfidf_soeg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander: bool = False):
     """TF-IDF med valgfri query expansion og tids-decay boost (nyere sager prioriteres let)."""
     effektiv_query = udvid_query(query) if ekspander else query
@@ -549,6 +571,9 @@ alle_kats = _find_kategorier()
 if not alle_kats:
     st.warning("Ingen MFKN CSV-filer fundet. Upload mfkn_*.csv eller mfkn_*.csv.zip filer til repo-roden.")
     st.stop()
+
+# Prebuild embeddings for alle kategorier (kører kun én gang)
+_prebuild_all_mfkn_embeddings(tuple(sorted(alle_kats.keys())))
 
 kat_navne = {v["navn"]: k for k, v in alle_kats.items()}
 kat_liste = _byg_grupperet_liste(alle_kats)
