@@ -1400,13 +1400,9 @@ def _hyde_embed(query: str) -> "np.ndarray | None":
 
 
 def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 32) -> "np.ndarray | None":
-    """Byg et persistent embedding-indeks over df. Cache'r resultatet som .npy på disk.
-    - cache_key: unik nøgle pr. datasæt (fx 'pkn', 'mfkn_husdyrbrug')
-    - tekst_bygger: callable(titel, tekst) -> str; default er byg_indeks_tekst
-    Returnerer (N, dim) array eller None hvis embeddings ikke er konfigureret.
-
-    Inkluderer antal rækker + provider/model i cache-nøglen, så cachen bustes automatisk
-    når datasættet vokser eller embedding-model skiftes."""
+    """Byg et persistent embedding-indeks over df. Cache'r resultatet som .npz på disk.
+    Prøver flere cache-stier for bedst mulig persistens på Streamlit Cloud.
+    Returnerer (N, dim) array eller None hvis embeddings ikke er konfigureret."""
     provider, _key, model, dim = _embedding_provider()
     if not provider or df is None or len(df) == 0:
         return None
@@ -1414,17 +1410,40 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
         tekst_bygger = lambda t, x: byg_indeks_tekst(t, x, max_tegn=4000)
 
     import os as _os
-    cache_dir = "/tmp/pkn_data/embeds"
-    _os.makedirs(cache_dir, exist_ok=True)
-    cache_path = _os.path.join(cache_dir, f"{cache_key}__{provider}__{model}__{len(df)}.npy")
+    _fname = f"{cache_key}__{provider}__{model}__{len(df)}.npz"
 
-    if _os.path.exists(cache_path):
+    # Prøv flere cache-stier (mest persistent først)
+    _cache_dirs = [
+        _os.path.expanduser("~/.cache/harald_embeds"),
+        _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), ".embeds_cache"),
+        "/tmp/pkn_data/embeds",
+    ]
+    # Find eksisterende cache i en af stierne
+    for d in _cache_dirs:
+        p = _os.path.join(d, _fname)
+        if _os.path.exists(p):
+            try:
+                arr = np.load(p)["arr_0"]
+                if arr.shape == (len(df), dim):
+                    return arr
+            except Exception:
+                pass
+
+    # Vælg skrivestien (den første der virker)
+    cache_dir = "/tmp/pkn_data/embeds"
+    for d in _cache_dirs:
         try:
-            arr = np.load(cache_path)
-            if arr.shape == (len(df), dim):
-                return arr
+            _os.makedirs(d, exist_ok=True)
+            _test = _os.path.join(d, ".write_test")
+            with open(_test, "w") as f:
+                f.write("ok")
+            _os.remove(_test)
+            cache_dir = d
+            break
         except Exception:
-            pass
+            continue
+    _os.makedirs(cache_dir, exist_ok=True)
+    cache_path = _os.path.join(cache_dir, _fname)
 
     # Byg fra bunden
     texts = [tekst_bygger(str(t), str(x))[:8000]
@@ -1444,7 +1463,6 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
         batch = texts[start:end]
         arr = _embed_batch(batch, input_type="document")
         if arr is None:
-            # Fejl under embedding — drop cache og returnér None
             if progress is not None:
                 try: progress.empty()
                 except Exception: pass
@@ -1459,10 +1477,13 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     norms[norms == 0] = 1.0
     out = out / norms
 
-    try:
-        np.save(cache_path, out)
-    except Exception:
-        pass
+    # Gem komprimeret til alle tilgængelige stier
+    for d in _cache_dirs:
+        try:
+            _os.makedirs(d, exist_ok=True)
+            np.savez_compressed(_os.path.join(d, _fname), out)
+        except Exception:
+            pass
     if progress is not None:
         try: progress.empty()
         except Exception: pass
