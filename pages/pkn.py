@@ -596,21 +596,75 @@ if embeds is None and embeddings_tilgængelige():
     build_embeddings.clear()
     embeds = build_embeddings(len(df))
 
-# Sørg for at embeddings er på disk + push til GitHub
+# ── Embedding-cache debug + GitHub test ──────────────────────────────────────
+with st.sidebar:
+    with st.expander("Embedding-cache status", expanded=True):
+        st.markdown(f"**Embeds i hukommelsen:** {'✅ ja ' + str(embeds.shape) if embeds is not None else '❌ nej'}")
+
+        import os as _os_dbg, glob as _glob_dbg
+        _tmp_files = _glob_dbg.glob("/tmp/pkn_data/embeds/*.npz")
+        _git_files = _glob_dbg.glob(_os_dbg.path.join(_os_dbg.path.dirname(_os_dbg.path.dirname(_os_dbg.path.abspath(__file__))), "embeds", "*.npz"))
+        st.markdown(f"**Filer i /tmp/:** {len(_tmp_files)}")
+        for f in _tmp_files:
+            st.markdown(f"  `{_os_dbg.path.basename(f)}` ({_os_dbg.path.getsize(f)//1024}KB)")
+        st.markdown(f"**Filer i embeds/:** {len(_git_files)}")
+
+        _token_present = bool(st.secrets.get("GITHUB_TOKEN", "").strip())
+        st.markdown(f"**GITHUB_TOKEN:** {'✅ sat' if _token_present else '❌ mangler'}")
+
+        if st.button("🧪 Test GitHub-push", key="test_gh_push"):
+            import requests as _req_test, datetime as _dt_test
+            token = st.secrets.get("GITHUB_TOKEN", "").strip()
+            if not token:
+                st.error("Ingen GITHUB_TOKEN i secrets")
+            else:
+                _test_url = "https://api.github.com/repos/simo224i-eng/pkn-vidensbase/contents/embeds/_test.txt"
+                _headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+                try:
+                    import base64 as _b64t
+                    _content = _b64t.b64encode(f"test {_dt_test.datetime.now()}".encode()).decode()
+
+                    # Tjek om test-filen allerede eksisterer (slet først)
+                    r1 = _req_test.get(_test_url, headers=_headers, timeout=15)
+                    st.markdown(f"GET status: **{r1.status_code}**")
+                    _sha = r1.json().get("sha") if r1.status_code == 200 else None
+
+                    _data = {"message": "Test push", "content": _content, "branch": "main"}
+                    if _sha:
+                        _data["sha"] = _sha
+                    r2 = _req_test.put(_test_url, headers=_headers, json=_data, timeout=30)
+                    if r2.status_code in (200, 201):
+                        st.success(f"✅ Push virker! (HTTP {r2.status_code})")
+                        # Ryd op: slet test-filen
+                        try:
+                            _sha2 = r2.json().get("content", {}).get("sha", "")
+                            _req_test.delete(_test_url, headers=_headers, json={
+                                "message": "Fjern test", "sha": _sha2, "branch": "main"
+                            }, timeout=15)
+                        except Exception:
+                            pass
+                    else:
+                        st.error(f"❌ Push fejlede: HTTP {r2.status_code}\n\n{r2.text[:300]}")
+                except Exception as e:
+                    st.error(f"❌ Fejl: {type(e).__name__}: {e}")
+
+        if _tmp_files and st.button("🚀 Push embeddings til GitHub nu", key="push_embeds_now"):
+            ensure_embeddings_on_disk(embeds, "pkn")
+            results = sync_embeddings_to_github()
+            for fn, status in (results or []):
+                if "OK" in str(status):
+                    st.success(f"✅ {fn}: {status}")
+                elif "SKIP" in str(status):
+                    st.info(f"⏭️ {fn}: {status}")
+                else:
+                    st.error(f"❌ {fn}: {status}")
+
+# Baggrunds-sync (stille)
 try:
     ensure_embeddings_on_disk(embeds, "pkn")
-    _sync_results = sync_embeddings_to_github()
-    if _sync_results:
-        _sync_msgs = [f"**{fn}**: {s}" for fn, s in _sync_results]
-        with st.sidebar:
-            with st.expander("Embedding-cache status", expanded=False):
-                st.markdown(f"Embeds i hukommelsen: **{'ja' if embeds is not None else 'nej'}** "
-                            f"({embeds.shape if embeds is not None else '—'})")
-                for m in _sync_msgs:
-                    st.markdown(m, unsafe_allow_html=True)
-except Exception as e:
-    with st.sidebar:
-        st.warning(f"Embedding sync fejl: {e}")
+    sync_embeddings_to_github()
+except Exception:
+    pass
 
 # Auto-filter options for AI retrieval
 _pkn_filter_options = {
