@@ -145,7 +145,7 @@ header[data-testid="stHeader"] button svg {
 [data-testid="stSidebarNav"]::before { display: none !important; }
 [data-testid="stSidebarNavLink"] {
     color: #94a3b8 !important;
-    font-size: 12.5px !important;
+    font-size: 13px !important;
     font-weight: 500 !important;
     padding: 7px 12px !important;
     border-radius: 6px !important;
@@ -237,16 +237,16 @@ header[data-testid="stHeader"] button svg {
     border: 1px solid #eef1f6; border-left: 2px solid transparent;
     transition: all .15s ease;
 }
-.pkn-card:hover { border-color: #e2e8f0; border-left-color: #8C1C2E; box-shadow: 0 2px 8px rgba(15,23,42,.04); }
+.pkn-card:hover { border-color: #e2e8f0; border-left-color: #0f172a; box-shadow: 0 2px 8px rgba(15,23,42,.04); }
 .pkn-card-toprow  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .pkn-card-dato    { font-size: 11px; color: #94a3b8; font-weight: 500; letter-spacing: .1px; }
-.pkn-card-title   { font-size: 13.5px; font-weight: 600; color: #0f172a; margin: 0 0 8px; line-height: 1.5; }
+.pkn-card-title   { font-size: 13px; font-weight: 600; color: #0f172a; margin: 0 0 8px; line-height: 1.5; }
 .pkn-card-tags    { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
-.pkn-tag          { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 10.5px; font-weight: 500; color: #64748b; background: #f8fafc; border: 1px solid #eef1f6; }
-.pkn-card-excerpt { font-size: 12.5px; color: #475569; line-height: 1.6; }
+.pkn-tag          { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 10px; font-weight: 500; color: #64748b; background: #f8fafc; border: 1px solid #eef1f6; }
+.pkn-card-excerpt { font-size: 13px; color: #475569; line-height: 1.6; }
 .pkn-card-footer  { margin-top: 10px; padding-top: 10px; border-top: 1px solid #f1f5f9; }
 .pkn-card-link    { font-size: 11px; color: #94a3b8; text-decoration: none; font-weight: 500; transition: color .12s; }
-.pkn-card-link:hover { color: #8C1C2E; }
+.pkn-card-link:hover { color: #0f172a; }
 
 /* ── Badges ── */
 .pkn-badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-right: 4px; letter-spacing: .2px; }
@@ -275,17 +275,17 @@ div[data-testid="element-container"]:has(.active-filters-anchor) ~ div button[ki
     line-height: 1.2 !important;
 }
 div[data-testid="element-container"]:has(.active-filters-anchor) ~ div button[kind="secondary"]:hover {
-    background: #fef2f2 !important; color: #8C1C2E !important; border-color: #fecaca !important;
+    background: #f1f5f9 !important; color: #0f172a !important; border-color: #94a3b8 !important;
 }
 div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div button {
-    background: transparent !important; color: #8C1C2E !important;
-    border: 1px solid #fecaca !important; border-radius: 4px !important;
+    background: transparent !important; color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important; border-radius: 4px !important;
     font-size: 11.5px !important; font-weight: 600 !important;
     padding: 3px 10px !important; min-height: 26px !important; height: 26px !important;
 }
 
 /* ── Stat cards ── */
-.stat-card   { background: #f8fafc; border-radius: 8px; padding: 20px 18px; text-align: center; border: 1px solid #eef1f6; }
+.stat-card   { background: #f8fafc; border-radius: 8px; padding: 20px 18px; text-align: center; border: 1px solid #cbd5e1; }
 .stat-number { font-family: 'Inter', system-ui, sans-serif; font-size: 24px; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; }
 .stat-label  { font-size: 10px; color: #94a3b8; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; }
 
@@ -297,10 +297,10 @@ div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div but
     padding: 16px 20px; margin-bottom: 20px;
 }
 .ai-hero-icon {
-    font-size: 20px; flex-shrink: 0; color: #8C1C2E; line-height: 1;
+    font-size: 20px; flex-shrink: 0; color: #0f172a; line-height: 1;
     margin-top: 1px;
 }
-.ai-hero-icon .material-symbols-rounded { font-size: 20px; color: #8C1C2E; }
+.ai-hero-icon .material-symbols-rounded { font-size: 20px; color: #0f172a; }
 .ai-hero-title {
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 13px; font-weight: 600;
@@ -340,7 +340,7 @@ div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div but
     background: #0f172a;
     color: #f1f5f9; border-radius: 12px 12px 4px 12px;
     padding: 12px 16px; margin: 6px 0 6px auto; max-width: 75%;
-    font-size: 13.5px; line-height: 1.6;
+    font-size: 13px; line-height: 1.6;
 }
 .chat-assistant {
     background: #ffffff; color: #0f172a;
@@ -350,20 +350,20 @@ div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div but
 }
 .chat-assistant h1 { font-size: 15px !important; font-weight: 700 !important; margin: 0.9em 0 0.4em !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; }
 .chat-assistant h2 { font-size: 14px !important; font-weight: 700 !important; margin: 0.7em 0 0.3em !important; }
-.chat-assistant h3 { font-size: 13.5px !important; font-weight: 600 !important; margin: 0.6em 0 0.25em !important; }
+.chat-assistant h3 { font-size: 13px !important; font-weight: 600 !important; margin: 0.6em 0 0.25em !important; }
 .chat-assistant p  { margin: 0 0 0.6em !important; }
 .chat-assistant ul, .chat-assistant ol { margin: 0.3em 0 0.6em 1.2em !important; }
 .chat-assistant li { margin-bottom: 0.2em !important; }
-.source-chip    { display: inline-block; padding: 3px 9px; border-radius: 3px; background: #f8fafc; color: #64748b; font-size: 11px; margin: 3px; text-decoration: none; border: 1px solid #eef1f6; transition: all .12s; }
+.source-chip    { display: inline-block; padding: 3px 9px; border-radius: 3px; background: #f8fafc; color: #64748b; font-size: 11.5px; margin: 3px; text-decoration: none; border: 1px solid #eef1f6; transition: all .12s; }
 .source-chip:hover { border-color: #cbd5e1; color: #0f172a; }
 
 /* ── Tabs ── */
-[data-testid="stTabs"] [role="tab"] { font-size: 12.5px; font-weight: 500; color: #94a3b8; padding: 8px 18px; transition: color .12s; }
+[data-testid="stTabs"] [role="tab"] { font-size: 13px; font-weight: 500; color: #94a3b8; padding: 8px 18px; transition: color .12s; }
 [data-testid="stTabs"] [role="tab"]:hover { color: #475569; }
 [data-testid="stTabs"] [role="tab"][aria-selected="true"] { color: #0f172a !important; border-bottom-color: #0f172a !important; font-weight: 600; }
 
 /* ── Buttons ── */
-[data-testid="stBaseButton-secondary"] { border-color: #eef1f6 !important; color: #475569 !important; font-size: 12.5px !important; border-radius: 6px !important; background: #ffffff !important; font-weight: 500 !important; transition: all .12s !important; }
+[data-testid="stBaseButton-secondary"] { border-color: #eef1f6 !important; color: #475569 !important; font-size: 13px !important; border-radius: 6px !important; background: #ffffff !important; font-weight: 500 !important; transition: all .12s !important; }
 [data-testid="stBaseButton-secondary"]:hover { border-color: #cbd5e1 !important; color: #0f172a !important; background: #f8fafc !important; }
 [data-testid="stBaseButton-primary"] { background: #0f172a !important; border-color: #0f172a !important; color: #ffffff !important; border-radius: 6px !important; font-weight: 600 !important; transition: all .12s !important; }
 [data-testid="stBaseButton-primary"]:hover { background: #1e293b !important; border-color: #1e293b !important; }
@@ -378,8 +378,8 @@ div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div but
 .detail-meta-strip { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid #eef1f6; border-radius: 6px; overflow: hidden; margin-bottom: 1.2rem; width: fit-content; background: #ffffff; }
 .detail-meta-cell { padding: 10px 18px; border-right: 1px solid #eef1f6; }
 .detail-meta-cell:last-child { border-right: none; }
-.detail-meta-lbl { font-size: 9px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 3px; }
-.detail-meta-val { font-size: 12.5px; font-weight: 600; color: #0f172a; white-space: nowrap; }
+.detail-meta-lbl { font-size: 10px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 3px; }
+.detail-meta-val { font-size: 13px; font-weight: 600; color: #0f172a; white-space: nowrap; }
 .detail-source-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #64748b; text-decoration: none; border: 1px solid #eef1f6; border-radius: 6px; padding: 6px 14px; transition: all .12s; font-weight: 500; background: #ffffff; }
 .detail-source-link:hover { border-color: #cbd5e1; color: #0f172a; }
 .detail-reader { font-size: 15px; line-height: 1.85; color: #1e293b; font-family: 'Inter', system-ui, sans-serif; font-weight: 400; max-width: 70ch; }
@@ -415,7 +415,7 @@ div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div but
 .nævn-card-icon .material-symbols-rounded { font-size: 22px; }
 .nævn-card-title { font-family: 'Inter', system-ui, sans-serif; font-size: 1.05rem; font-weight: 700; color: #0f172a; letter-spacing: -0.3px; margin-bottom: 0.25rem; }
 .nævn-card-sub { font-size: 11.5px; color: #64748b; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f1f5f9; font-weight: 500; }
-.nævn-card-desc { font-size: 13.5px; color: #475569; line-height: 1.65; margin-bottom: 1.2rem; flex: 1; }
+.nævn-card-desc { font-size: 13px; color: #475569; line-height: 1.65; margin-bottom: 1.2rem; flex: 1; }
 .nævn-card-count { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 1.4rem; }
 .nævn-card-cta {
     display: block; text-align: center; padding: 0.7rem 1rem;
@@ -433,7 +433,7 @@ div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="elemen
     border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;
     border-bottom-left-radius: 6px !important; border-bottom-right-radius: 6px !important;
     background: #f8fafc !important; color: #334155 !important;
-    font-size: 12.5px !important; font-weight: 600 !important;
+    font-size: 13px !important; font-weight: 600 !important;
     padding: 10px 22px !important; letter-spacing: 0.2px !important;
 }
 div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="element-container"] [data-testid="stBaseButton-secondary"]:hover {
@@ -488,7 +488,7 @@ div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="elemen
     }
 }
 
-sup.detail-ref { font-size: 9px; font-weight: 700; color: #8C1C2E; vertical-align: super; letter-spacing: 0; }
+sup.detail-ref { font-size: 10px; font-weight: 700; color: #0f172a; vertical-align: super; letter-spacing: 0; }
 </style>
 <script>
 (function removeIconTooltips() {

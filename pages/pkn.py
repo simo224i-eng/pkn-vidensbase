@@ -775,7 +775,7 @@ st.markdown(f"""
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 1 – AFGØRELSER
 # ════════════════════════════════════════════════════════════════════════════
-tab_søg, tab_stat, tab_ai, tab_lov = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  ", "  Planloven  "])
+tab_søg, tab_stat, tab_ai = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  "])
 
 with tab_søg:
 
@@ -1730,13 +1730,11 @@ def _søg_planloven(query: str, paragraphs: list) -> list:
     return results
 
 
-with tab_lov:
+# ── Planloven opslagsværk (separat sektion under tabs) ─────────────────────
+st.markdown("---")
+with st.expander("Planloven — opslagsværk", expanded=False):
     st.markdown(
-        '<div class="h-page-header">'
-        '<h1 class="h-page-title" style="font-size:1.1rem;">PLANLOVEN</h1>'
-        '<div class="h-gold-line"></div>'
-        '<p class="h-page-meta">Bekendtgørelse nr. 223 af 1. marts 2024</p>'
-        "</div>",
+        '<p class="h-page-meta" style="margin-bottom:1rem;">Bekendtgørelse nr. 223 af 1. marts 2024</p>',
         unsafe_allow_html=True,
     )
 
@@ -1779,7 +1777,7 @@ with tab_lov:
             chap_label = f"{p['chapter']}" + (f" · {p['chapter_title']}" if p["chapter_title"] else "")
             with st.expander(f"**{p['para']}**  —  {p['text'][:80].rstrip()}{'…' if len(p['text']) > 80 else ''}"):
                 st.markdown(
-                    f'<div style="font-size:10.5px;color:#94a3b8;text-transform:uppercase;'
+                    f'<div style="font-size:10px;color:#94a3b8;text-transform:uppercase;'
                     f'letter-spacing:1px;margin-bottom:.6rem;">{chap_label}</div>',
                     unsafe_allow_html=True,
                 )
@@ -1787,7 +1785,7 @@ with tab_lov:
                 tekst = p["text"]
                 tekst_html = re.sub(
                     r"(Stk\.\s*\d+\.)",
-                    r'<span style="font-weight:700;color:#8C1C2E;">\1</span>',
+                    r'<span style="font-weight:700;color:#0f172a;">\1</span>',
                     tekst,
                 )
                 # Nummererede punkter
