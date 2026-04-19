@@ -662,9 +662,18 @@ with st.sidebar:
 # Baggrunds-sync (stille)
 try:
     ensure_embeddings_on_disk(embeds, "pkn")
-    sync_embeddings_to_github()
-except Exception:
-    pass
+    _sync_results = sync_embeddings_to_github()
+    if _sync_results:
+        _sync_msgs = [f"**{fn}**: {s}" for fn, s in _sync_results]
+        with st.sidebar:
+            with st.expander("Embedding-cache status", expanded=False):
+                st.markdown(f"Embeds i hukommelsen: **{'ja' if embeds is not None else 'nej'}** "
+                            f"({embeds.shape if embeds is not None else '—'})")
+                for m in _sync_msgs:
+                    st.markdown(m, unsafe_allow_html=True)
+except Exception as e:
+    with st.sidebar:
+        st.warning(f"Embedding sync fejl: {e}")
 
 # Auto-filter options for AI retrieval
 _pkn_filter_options = {
@@ -1867,3 +1876,34 @@ with tab_lov:
                     f'border:1px solid #e2e8f0;">{p["para"]}. {tekst_html}</div>',
                     unsafe_allow_html=True,
                 )
+# --- REPARATION AF KNÆKKET LINJE ---
+df_filter = df[mask].reset_index(drop=True)
+
+# --- NØD-KNAPPER TIL BACKUP (Sættes i bunden af filen) ---
+import os
+with st.sidebar:
+    st.divider()
+    st.subheader("⚠️ Nød-backup")
+    
+    # Prøv at finde filer i /tmp/
+    try:
+        # Vi tjekker både /tmp/ og /tmp/pkn_data/ da din kode bruger begge
+        paths_to_check = ['/tmp', '/tmp/pkn_data']
+        found_any = False
+        
+        for p in paths_to_check:
+            if os.path.exists(p):
+                tmp_files = [f for f in os.listdir(p) if f.endswith('.npz')]
+                if tmp_files:
+                    st.success(f"Fundet i {p}:")
+                    for file in tmp_files:
+                        with open(os.path.join(p, file), 'rb') as f:
+                            st.download_button(label=f"Download {file}", data=f, file_name=file)
+                    found_any = True
+        
+        if not found_any:
+            st.error("Ingen .npz filer fundet på disken.")
+            st.info("Dine embeddings lever nok kun i hukommelsen (RAM).")
+            
+    except Exception as e:
+        st.error(f"Fejl: {e}")
