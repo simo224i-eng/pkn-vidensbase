@@ -1,0 +1,33 @@
+name: Byg embeddings
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer dependencies
+        run: pip install numpy requests
+
+      - name: Byg alle embeddings (PKN + MFKN)
+        env:
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+        run: python3 build_all_embeddings.py
+
+      - name: Commit og push embeddings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add embeds/*.npz
+          git status
+          git commit -m "Auto-byg embeddings via GitHub Action" || echo "Ingen nye filer at committe"
+          git push
