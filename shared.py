@@ -1462,16 +1462,17 @@ def _delete_embedding_from_github(fname: str) -> bool:
         return False
 
 
-def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = False) -> bool:
-    """Push embedding-fil til GitHub så den overlever deploys.
-    Kræver GITHUB_TOKEN i secrets. overwrite=True overskriver eksisterende fil
-    (bruges til at opdatere partial-filer med mere fremskridt)."""
+def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = False) -> str:
+    """Push embedding-fil til GitHub. Returnerer status-streng for debug."""
     import os as _os
     token = st.secrets.get("GITHUB_TOKEN", "").strip()
-    if not token or not _os.path.exists(local_path):
-        return False
-    if _os.path.getsize(local_path) > 80_000_000:
-        return False
+    if not token:
+        return "SKIP: ingen GITHUB_TOKEN"
+    if not _os.path.exists(local_path):
+        return f"SKIP: fil ikke fundet: {local_path}"
+    fsize = _os.path.getsize(local_path)
+    if fsize > 80_000_000:
+        return f"SKIP: fil for stor ({fsize} bytes)"
     repo = "simo224i-eng/pkn-vidensbase"
     repo_path = f"embeds/{fname}"
     url = f"https://api.github.com/repos/{repo}/contents/{repo_path}"
@@ -1481,8 +1482,12 @@ def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = Fal
         existing_sha = None
         if r.status_code == 200:
             if not overwrite:
-                return False
+                return "SKIP: eksisterer allerede på GitHub"
             existing_sha = r.json().get("sha")
+        elif r.status_code == 401:
+            return f"FEJL: ugyldig token (401)"
+        elif r.status_code == 403:
+            return f"FEJL: ingen adgang (403)"
         import base64 as _b64_push
         with open(local_path, "rb") as f:
             content = _b64_push.b64encode(f.read()).decode()
@@ -1493,10 +1498,12 @@ def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = Fal
         }
         if existing_sha:
             data["sha"] = existing_sha
-        r = requests.put(url, headers=headers, json=data, timeout=180)
-        return r.status_code in (200, 201)
-    except Exception:
-        return False
+        r = requests.put(url, headers=headers, json=data, timeout=300)
+        if r.status_code in (200, 201):
+            return f"OK: pushet ({fsize//1024}KB)"
+        return f"FEJL: HTTP {r.status_code} — {r.text[:200]}"
+    except Exception as e:
+        return f"FEJL: {type(e).__name__}: {e}"
 
 
 def _download_embedding_from_github(fname: str, save_dir: str) -> str | None:
@@ -1708,28 +1715,28 @@ def ensure_embeddings_on_disk(embeds, cache_key: str):
 
 
 def sync_embeddings_to_github():
-    """Push alle lokale embedding-filer til GitHub der ikke allerede er der.
-    Kald denne ved sideindlæsning for at fange tilfælde hvor token manglede
-    ved build-tidspunkt men nu er rettet."""
+    """Push alle lokale embedding-filer til GitHub.
+    Returnerer liste af (filnavn, status) for debug-visning."""
     import os as _os, glob as _g
     token = st.secrets.get("GITHUB_TOKEN", "").strip()
     if not token:
-        return
+        return [("—", "Ingen GITHUB_TOKEN konfigureret")]
     _tmp_dir = "/tmp/pkn_data/embeds"
     _app_root = _os.path.dirname(_os.path.abspath(__file__))
     _git_dir = _os.path.join(_app_root, "embeds")
-    pushed = 0
+    results = []
+    found_any = False
     for d in [_tmp_dir, _git_dir]:
         for f in _g.glob(_os.path.join(d, "*.npz")):
             fname = _os.path.basename(f)
             if "__partial__" in fname:
                 continue
-            try:
-                if _push_embedding_to_github(fname, f):
-                    pushed += 1
-            except Exception:
-                pass
-    return pushed
+            found_any = True
+            status = _push_embedding_to_github(fname, f)
+            results.append((fname, status))
+    if not found_any:
+        results.append(("—", f"Ingen .npz filer fundet i {_tmp_dir} eller {_git_dir}"))
+    return results
 
 
 def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30, use_hyde: bool = True):

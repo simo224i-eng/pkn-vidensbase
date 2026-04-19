@@ -599,9 +599,18 @@ if embeds is None and embeddings_tilgængelige():
 # Sørg for at embeddings er på disk + push til GitHub
 try:
     ensure_embeddings_on_disk(embeds, "pkn")
-    sync_embeddings_to_github()
-except Exception:
-    pass
+    _sync_results = sync_embeddings_to_github()
+    if _sync_results:
+        _sync_msgs = [f"**{fn}**: {s}" for fn, s in _sync_results]
+        with st.sidebar:
+            with st.expander("Embedding-cache status", expanded=False):
+                st.markdown(f"Embeds i hukommelsen: **{'ja' if embeds is not None else 'nej'}** "
+                            f"({embeds.shape if embeds is not None else '—'})")
+                for m in _sync_msgs:
+                    st.markdown(m, unsafe_allow_html=True)
+except Exception as e:
+    with st.sidebar:
+        st.warning(f"Embedding sync fejl: {e}")
 
 # Auto-filter options for AI retrieval
 _pkn_filter_options = {
