@@ -596,84 +596,6 @@ if embeds is None and embeddings_tilgængelige():
     build_embeddings.clear()
     embeds = build_embeddings(len(df))
 
-# ── Embedding-cache debug + GitHub test ──────────────────────────────────────
-with st.sidebar:
-    with st.expander("Embedding-cache status", expanded=True):
-        st.markdown(f"**Embeds i hukommelsen:** {'✅ ja ' + str(embeds.shape) if embeds is not None else '❌ nej'}")
-
-        import os as _os_dbg, glob as _glob_dbg
-        _tmp_files = _glob_dbg.glob("/tmp/pkn_data/embeds/*.npz")
-        _git_files = _glob_dbg.glob(_os_dbg.path.join(_os_dbg.path.dirname(_os_dbg.path.dirname(_os_dbg.path.abspath(__file__))), "embeds", "*.npz"))
-        st.markdown(f"**Filer i /tmp/:** {len(_tmp_files)}")
-        for f in _tmp_files:
-            st.markdown(f"  `{_os_dbg.path.basename(f)}` ({_os_dbg.path.getsize(f)//1024}KB)")
-        st.markdown(f"**Filer i embeds/:** {len(_git_files)}")
-
-        _token_present = bool(st.secrets.get("GITHUB_TOKEN", "").strip())
-        st.markdown(f"**GITHUB_TOKEN:** {'✅ sat' if _token_present else '❌ mangler'}")
-
-        if st.button("🧪 Test GitHub-push", key="test_gh_push"):
-            import requests as _req_test, datetime as _dt_test
-            token = st.secrets.get("GITHUB_TOKEN", "").strip()
-            if not token:
-                st.error("Ingen GITHUB_TOKEN i secrets")
-            else:
-                _test_url = "https://api.github.com/repos/simo224i-eng/pkn-vidensbase/contents/embeds/_test.txt"
-                _headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
-                try:
-                    import base64 as _b64t
-                    _content = _b64t.b64encode(f"test {_dt_test.datetime.now()}".encode()).decode()
-
-                    # Tjek om test-filen allerede eksisterer (slet først)
-                    r1 = _req_test.get(_test_url, headers=_headers, timeout=15)
-                    st.markdown(f"GET status: **{r1.status_code}**")
-                    _sha = r1.json().get("sha") if r1.status_code == 200 else None
-
-                    _data = {"message": "Test push", "content": _content, "branch": "main"}
-                    if _sha:
-                        _data["sha"] = _sha
-                    r2 = _req_test.put(_test_url, headers=_headers, json=_data, timeout=30)
-                    if r2.status_code in (200, 201):
-                        st.success(f"✅ Push virker! (HTTP {r2.status_code})")
-                        # Ryd op: slet test-filen
-                        try:
-                            _sha2 = r2.json().get("content", {}).get("sha", "")
-                            _req_test.delete(_test_url, headers=_headers, json={
-                                "message": "Fjern test", "sha": _sha2, "branch": "main"
-                            }, timeout=15)
-                        except Exception:
-                            pass
-                    else:
-                        st.error(f"❌ Push fejlede: HTTP {r2.status_code}\n\n{r2.text[:300]}")
-                except Exception as e:
-                    st.error(f"❌ Fejl: {type(e).__name__}: {e}")
-
-        if _tmp_files and st.button("🚀 Push embeddings til GitHub nu", key="push_embeds_now"):
-            ensure_embeddings_on_disk(embeds, "pkn")
-            results = sync_embeddings_to_github()
-            for fn, status in (results or []):
-                if "OK" in str(status):
-                    st.success(f"✅ {fn}: {status}")
-                elif "SKIP" in str(status):
-                    st.info(f"⏭️ {fn}: {status}")
-                else:
-                    st.error(f"❌ {fn}: {status}")
-
-# Baggrunds-sync (stille)
-try:
-    ensure_embeddings_on_disk(embeds, "pkn")
-    _sync_results = sync_embeddings_to_github()
-    if _sync_results:
-        _sync_msgs = [f"**{fn}**: {s}" for fn, s in _sync_results]
-        with st.sidebar:
-            with st.expander("Embedding-cache status", expanded=False):
-                st.markdown(f"Embeds i hukommelsen: **{'ja' if embeds is not None else 'nej'}** "
-                            f"({embeds.shape if embeds is not None else '—'})")
-                for m in _sync_msgs:
-                    st.markdown(m, unsafe_allow_html=True)
-except Exception as e:
-    with st.sidebar:
-        st.warning(f"Embedding sync fejl: {e}")
 
 # Auto-filter options for AI retrieval
 _pkn_filter_options = {
@@ -696,16 +618,16 @@ with st.sidebar:
 
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
     søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
-    søge_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="søge_type")
+    søge_type = st.radio("", ["Ordret", "Intelligent"], horizontal=True, label_visibility="collapsed", key="søge_type")
     st.markdown('<span style="font-size:10.5px;color:#64748b;line-height:1.4;display:block;margin-top:-6px;">'
-                'Præcis = nøjagtig tekstmatch &nbsp;·&nbsp; Semantisk = AI-baseret søgning efter betydning</span>',
+                'Ordret = nøjagtig tekstmatch &nbsp;·&nbsp; Intelligent = AI finder relevante sager</span>',
                 unsafe_allow_html=True)
 
     st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
     _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Miljøvurderingsloven"})
-    isoler_kat  = st.checkbox("Isoler (kun rene sager)", key="iso_kat") if _isoler_relevant else False
+    isoler_kat  = st.checkbox("Kun sager der udelukkende handler om valgte", key="iso_kat", help="Ekskluderer sager som også berører andre kategorier") if _isoler_relevant else False
 
     _mvu_valgt = "Miljøvurderingsloven" in (valgte_kats or [])
     if _mvu_valgt:
@@ -716,17 +638,18 @@ with st.sidebar:
 
     st.markdown('<span class="h-filter-label">Plantype</span>', unsafe_allow_html=True)
     plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
-    isoler_pt     = st.checkbox("Isoler (kun rene sager)", key="iso_pt") if plantype_valg else False
-
-    st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
-    sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
+    isoler_pt     = st.checkbox("Kun sager der udelukkende handler om valgte", key="iso_pt", help="Ekskluderer sager som også berører andre plantyper") if plantype_valg else False
 
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
     år_min, år_max   = 2017, int(df["År"].max())
     år_range         = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
 
-    st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
-    udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
+    with st.expander("Flere filtre"):
+        st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
+        sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
+
+        st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
+        udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
 
     st.markdown("---")
     st.markdown(f"<span style='font-size:12px;color:#cbd5e1;font-weight:500;'>**{len(df):,}** afgørelser &nbsp;·&nbsp; 2017–{år_max}</span>", unsafe_allow_html=True)
@@ -769,7 +692,7 @@ if st.session_state.get("_filter_sig") != _filter_sig:
 
 _vis_antal = st.session_state.get("vis_antal", 25)
 
-if søg_input.strip() and søge_type == "Semantisk":
+if søg_input.strip() and søge_type == "Intelligent":
     df_vis     = tfidf_søg(søg_input.strip(), df, vec, mat, sub_idx=sub_idx)
     ai_sub_idx = sub_idx
 elif søg_input.strip():
@@ -967,7 +890,7 @@ with tab_søg:
         total_filtreret = len(df_filter)
         hits  = len(df_vis)
         if søg_input:
-            _type_label = "semantisk" if søge_type == "Semantisk" else "præcis"
+            _type_label = "intelligent" if søge_type == "Intelligent" else "ordret"
             label = f"**{hits}** resultater for \"{søg_input}\" · {_type_label} søgning (ud af {total_filtreret:,} filtrerede)"
         else:
             label = f"Viser {min(_vis_antal, hits)} af **{total_filtreret:,}** afgørelser (nyeste først)"
@@ -1183,7 +1106,7 @@ with tab_ai:
         if _voyage_key_sat:
             _embed_err = get_embed_error() or "Ukendt fejl – kontrollér at nøglen er gyldig"
             st.warning(
-                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges.\n\n"
+                "**Intelligent søgning ikke aktiv.** Embedding-indekset kunne ikke bygges.\n\n"
                 f"**API-fejl:** `{_embed_err}`\n\n"
                 f"Fundne secrets: {_key_liste}",
                 icon="⚠️",

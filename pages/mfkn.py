@@ -580,12 +580,6 @@ if not alle_kats:
 # Prebuild embeddings for alle kategorier (kører kun én gang)
 _prebuild_all_mfkn_embeddings(tuple(sorted(alle_kats.keys())))
 
-# Sørg for at embeddings er på disk + push til GitHub
-try:
-    ensure_embeddings_on_disk(embeds, f"mfkn_{valgt_stem}")
-    sync_embeddings_to_github()
-except Exception:
-    pass
 
 kat_navne = {v["navn"]: k for k, v in alle_kats.items()}
 kat_liste = _byg_grupperet_liste(alle_kats)
@@ -696,9 +690,9 @@ with st.sidebar:
 
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
     soeg_input = st.text_input("", placeholder="f.eks. dispensation terrasse...", label_visibility="collapsed", key="mfkn_soeg")
-    soege_type = st.radio("", ["Præcis", "Semantisk"], horizontal=True, label_visibility="collapsed", key="mfkn_soegetype")
+    soege_type = st.radio("", ["Ordret", "Intelligent"], horizontal=True, label_visibility="collapsed", key="mfkn_soegetype")
     st.markdown('<span style="font-size:10px;color:#64748b;line-height:1.4;display:block;margin-top:-8px;">'
-                'Præcis = nøjagtig tekstmatch &nbsp;·&nbsp; Semantisk = AI-baseret søgning efter betydning</span>',
+                'Ordret = nøjagtig tekstmatch &nbsp;·&nbsp; Intelligent = AI finder relevante sager</span>',
                 unsafe_allow_html=True)
 
     # Underkategori filter (kun hvis der er mere end 1)
@@ -748,7 +742,7 @@ if st.session_state.get("mfkn_filter_sig") != _filter_sig:
     st.session_state["mfkn_filter_sig"] = _filter_sig
 _vis_antal = st.session_state.get("mfkn_vis_antal", 25)
 
-if soeg_input.strip() and soege_type == "Semantisk":
+if soeg_input.strip() and soege_type == "Intelligent":
     df_vis = tfidf_soeg(soeg_input.strip(), df, vec, mat, sub_idx=sub_idx)
     ai_sub_idx = sub_idx
 elif soeg_input.strip():
@@ -997,7 +991,7 @@ with tab_ai:
         if _voyage_key_sat:
             _embed_err = get_embed_error() or "Ukendt fejl – kontrollér at nøglen er gyldig"
             st.warning(
-                "**Semantisk søgning ikke aktiv.** Embedding-nøgle er fundet, men indekset kunne ikke bygges.\n\n"
+                "**Intelligent søgning ikke aktiv.** Embedding-indekset kunne ikke bygges.\n\n"
                 f"**API-fejl:** `{_embed_err}`\n\n"
                 f"Fundne secrets: {_key_liste}",
                 icon="⚠️",
