@@ -1876,34 +1876,3 @@ with tab_lov:
                     f'border:1px solid #e2e8f0;">{p["para"]}. {tekst_html}</div>',
                     unsafe_allow_html=True,
                 )
-# --- REPARATION AF KNÆKKET LINJE ---
-df_filter = df[mask].reset_index(drop=True)
-
-# --- NØD-KNAPPER TIL BACKUP (Sættes i bunden af filen) ---
-import os
-with st.sidebar:
-    st.divider()
-    st.subheader("⚠️ Nød-backup")
-    
-    # Prøv at finde filer i /tmp/
-    try:
-        # Vi tjekker både /tmp/ og /tmp/pkn_data/ da din kode bruger begge
-        paths_to_check = ['/tmp', '/tmp/pkn_data']
-        found_any = False
-        
-        for p in paths_to_check:
-            if os.path.exists(p):
-                tmp_files = [f for f in os.listdir(p) if f.endswith('.npz')]
-                if tmp_files:
-                    st.success(f"Fundet i {p}:")
-                    for file in tmp_files:
-                        with open(os.path.join(p, file), 'rb') as f:
-                            st.download_button(label=f"Download {file}", data=f, file_name=file)
-                    found_any = True
-        
-        if not found_any:
-            st.error("Ingen .npz filer fundet på disken.")
-            st.info("Dine embeddings lever nok kun i hukommelsen (RAM).")
-            
-    except Exception as e:
-        st.error(f"Fejl: {e}")
