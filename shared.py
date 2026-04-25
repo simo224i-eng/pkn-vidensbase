@@ -2124,6 +2124,25 @@ def fjern_afgørelse(mappe_id: str, link: str) -> None:
         mappe["afgørelser"] = [a for a in mappe["afgørelser"] if a["link"] != link]
 
 
+def opdater_note(mappe_id: str, link: str, note: str) -> None:
+    init_sagsmapper()
+    mappe = st.session_state["sagsmapper"]["mapper"].get(mappe_id)
+    if not mappe:
+        return
+    for a in mappe["afgørelser"]:
+        if a["link"] == link:
+            a["note"] = note
+            return
+
+
+def find_mappe_for_link(link: str) -> str:
+    init_sagsmapper()
+    for mid, m in st.session_state["sagsmapper"]["mapper"].items():
+        if any(a["link"] == link for a in m["afgørelser"]):
+            return mid
+    return None
+
+
 def hent_alle_gemte_links() -> set:
     init_sagsmapper()
     links = set()

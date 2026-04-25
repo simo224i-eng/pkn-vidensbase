@@ -22,7 +22,8 @@ from shared import (
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
     auto_filter_query, apply_auto_filters,
-    init_sagsmapper, gem_fra_row, hent_alle_gemte_links,
+    init_sagsmapper, gem_fra_row, hent_alle_gemte_links, fjern_afgørelse,
+    find_mappe_for_link, opret_mappe,
 )
 try:
     from shared import sync_embeddings_to_github, ensure_embeddings_on_disk
@@ -830,15 +831,41 @@ with tab_søg:
         # ── Gem i sagsmappe ─────────────────────────────────────────────────
         _gemte = hent_alle_gemte_links()
         _er_gemt = row["Link"] in _gemte
-        _save_c1, _save_c2 = st.columns([1, 5])
+        _save_c1, _save_c2 = st.columns([2, 6])
         with _save_c1:
             if _er_gemt:
-                st.markdown('<span style="font-size:12px;color:#166534;font-weight:600;">&#9733; Gemt</span>',
-                            unsafe_allow_html=True)
+                _mid_d = find_mappe_for_link(row["Link"])
+                _mname_d = st.session_state["sagsmapper"]["mapper"].get(_mid_d, {}).get("navn", "")
+                with st.popover(f"★ Gemt i {_mname_d}", use_container_width=True):
+                    if st.button("Fjern fra sagsmappe", key="_pkn_detail_rm", type="primary"):
+                        fjern_afgørelse(_mid_d, row["Link"])
+                        st.toast("Fjernet fra sagsmappe", icon="✓")
+                        st.rerun()
             else:
-                if st.button("☆ Gem i sagsmappe", key="_pkn_detail_save"):
-                    gem_fra_row(row, "pkn")
-                    st.rerun()
+                _mapper_d = st.session_state["sagsmapper"]["mapper"]
+                if not _mapper_d:
+                    if st.button("☆ Gem i sagsmappe", key="_pkn_detail_save", use_container_width=True):
+                        gem_fra_row(row, "pkn")
+                        st.toast("Gemt i 'Mine afgørelser'", icon="📁")
+                        st.rerun()
+                else:
+                    with st.popover("☆ Gem i sagsmappe", use_container_width=True):
+                        st.caption("Gem i mappe:")
+                        for _midd, _md in _mapper_d.items():
+                            if st.button(_md["navn"], key=f"_pkn_d_sv_{_midd}", use_container_width=True):
+                                gem_fra_row(row, "pkn", mappe_id=_midd)
+                                st.toast(f"Gemt i '{_md['navn']}'", icon="📁")
+                                st.rerun()
+                        st.markdown("---")
+                        _nyd = st.text_input("Ny mappe", placeholder="Mappenavn…",
+                                             label_visibility="collapsed", key="_pkn_d_nm")
+                        if st.button("＋ Opret og gem", key="_pkn_d_nb",
+                                     use_container_width=True, type="primary"):
+                            if _nyd.strip():
+                                _newm = opret_mappe(_nyd.strip())
+                                gem_fra_row(row, "pkn", mappe_id=_newm)
+                                st.toast(f"Gemt i ny mappe '{_nyd.strip()}'", icon="📁")
+                                st.rerun()
 
         # ── Indhold: tekst + AI ──────────────────────────────────────────────
         col_tekst, col_ai = st.columns([3, 2], gap="large")
@@ -969,7 +996,7 @@ with tab_søg:
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
   </div>
 </div>""", unsafe_allow_html=True)
-                _c_read, _c_save = st.columns([4, 1])
+                _c_read, _c_save = st.columns([4, 1.2])
                 with _c_read:
                     if st.button("Læs afgørelse →", key=f"btn_{row['Link'][-20:]}"):
                         st.session_state.valgt_afgørelse = row.to_dict()
@@ -977,12 +1004,43 @@ with tab_søg:
                             del st.session_state["_resumé"]
                         st.rerun()
                 with _c_save:
-                    if row["Link"] in _gemte_links:
-                        st.markdown('<span style="font-size:11px;color:#166534;font-weight:600;">&#9733; Gemt</span>',
-                                    unsafe_allow_html=True)
-                    elif st.button("☆ Gem", key=f"save_{row['Link'][-20:]}"):
-                        gem_fra_row(row.to_dict(), "pkn")
-                        st.rerun()
+                    _link = row["Link"]
+                    _link_key = _link[-20:]
+                    if _link in _gemte_links:
+                        _mid = find_mappe_for_link(_link)
+                        _mname = st.session_state["sagsmapper"]["mapper"].get(_mid, {}).get("navn", "")
+                        with st.popover(f"★ Gemt", use_container_width=True):
+                            st.caption(f"Gemt i: **{_mname}**")
+                            if st.button("Fjern fra sagsmappe", key=f"rm_{_link_key}", type="primary"):
+                                fjern_afgørelse(_mid, _link)
+                                st.toast("Fjernet fra sagsmappe", icon="✓")
+                                st.rerun()
+                    else:
+                        _mapper = st.session_state["sagsmapper"]["mapper"]
+                        if not _mapper:
+                            if st.button("☆ Gem", key=f"save_{_link_key}", use_container_width=True):
+                                gem_fra_row(row.to_dict(), "pkn")
+                                st.toast("Gemt i 'Mine afgørelser'", icon="📁")
+                                st.rerun()
+                        else:
+                            with st.popover("☆ Gem", use_container_width=True):
+                                st.caption("Gem i mappe:")
+                                for _mid, _m in _mapper.items():
+                                    if st.button(_m["navn"], key=f"sv_{_link_key}_{_mid}", use_container_width=True):
+                                        gem_fra_row(row.to_dict(), "pkn", mappe_id=_mid)
+                                        st.toast(f"Gemt i '{_m['navn']}'", icon="📁")
+                                        st.rerun()
+                                st.markdown("---")
+                                _ny = st.text_input("Ny mappe", placeholder="Mappenavn…",
+                                                    label_visibility="collapsed",
+                                                    key=f"nm_{_link_key}")
+                                if st.button("＋ Opret og gem", key=f"nb_{_link_key}",
+                                             use_container_width=True, type="primary"):
+                                    if _ny.strip():
+                                        _new_mid = opret_mappe(_ny.strip())
+                                        gem_fra_row(row.to_dict(), "pkn", mappe_id=_new_mid)
+                                        st.toast(f"Gemt i ny mappe '{_ny.strip()}'", icon="📁")
+                                        st.rerun()
 
             if _vis_antal < hits:
                 tilbage = hits - _vis_antal
