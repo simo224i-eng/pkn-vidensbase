@@ -23,6 +23,7 @@ from shared import (
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, get_embed_error,
     auto_filter_query, apply_auto_filters,
+    init_sagsmapper, gem_fra_row, hent_alle_gemte_links,
 )
 try:
     from shared import sync_embeddings_to_github, ensure_embeddings_on_disk
@@ -613,6 +614,7 @@ except AttributeError:
 for key in ["mfkn_valgt", "mfkn_chat"]:
     if key not in st.session_state:
         st.session_state[key] = [] if key == "mfkn_chat" else None
+init_sagsmapper()
 
 # ── Indlaes data ─────────────────────────────────────────────────────────────
 df = load_kategori(valgt_stem, 1)
@@ -794,6 +796,13 @@ tab_soeg, tab_stat, tab_ai = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI 
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_soeg:
 
+    # Navigation fra sagsmappe
+    _nav = st.session_state.pop("_navigate_to_decision", None)
+    if _nav and _nav.get("kilde") == "mfkn":
+        _match = df[df["Link"] == _nav["link"]]
+        if not _match.empty:
+            st.session_state.mfkn_valgt = _match.iloc[0].to_dict()
+
     if st.session_state.mfkn_valgt is not None:
         row = st.session_state.mfkn_valgt
 
@@ -815,6 +824,19 @@ with tab_soeg:
                 link=row["Link"], link_label="Åbn original på MFKN's hjemmeside", accent=accent,
             ), unsafe_allow_html=True,
         )
+
+        # ── Gem i sagsmappe ─────────────────────────────────────────────────
+        _gemte = hent_alle_gemte_links()
+        _er_gemt = row["Link"] in _gemte
+        _save_c1, _save_c2 = st.columns([1, 5])
+        with _save_c1:
+            if _er_gemt:
+                st.markdown('<span style="font-size:12px;color:#166534;font-weight:600;">&#9733; Gemt</span>',
+                            unsafe_allow_html=True)
+            else:
+                if st.button("☆ Gem i sagsmappe", key="_mfkn_detail_save"):
+                    gem_fra_row(row, "mfkn")
+                    st.rerun()
 
         col_tekst, col_ai = st.columns([3, 2], gap="large")
         with col_tekst:
@@ -858,6 +880,7 @@ with tab_soeg:
                     st.rerun()
         else:
             _hl_q = soeg_input.strip() if soeg_input.strip() else ""
+            _gemte_links = hent_alle_gemte_links()
             for _, row in df_vis.head(_vis_antal).iterrows():
                 badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
                 dato_str = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "-"
@@ -881,12 +904,21 @@ with tab_soeg:
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen</a>
   </div>
 </div>""", unsafe_allow_html=True)
-                btn_key = f"mfkn_btn_{hash(row['Link'])}"
-                if st.button("Læs afgørelse →", key=btn_key):
-                    st.session_state.mfkn_valgt = row.to_dict()
-                    if "mfkn_resume_txt" in st.session_state:
-                        del st.session_state["mfkn_resume_txt"]
-                    st.rerun()
+                _link_hash = hash(row['Link'])
+                _c_read, _c_save = st.columns([4, 1])
+                with _c_read:
+                    if st.button("Læs afgørelse →", key=f"mfkn_btn_{_link_hash}"):
+                        st.session_state.mfkn_valgt = row.to_dict()
+                        if "mfkn_resume_txt" in st.session_state:
+                            del st.session_state["mfkn_resume_txt"]
+                        st.rerun()
+                with _c_save:
+                    if row["Link"] in _gemte_links:
+                        st.markdown('<span style="font-size:11px;color:#166534;font-weight:600;">&#9733; Gemt</span>',
+                                    unsafe_allow_html=True)
+                    elif st.button("☆ Gem", key=f"mfkn_save_{_link_hash}"):
+                        gem_fra_row(row.to_dict(), "mfkn")
+                        st.rerun()
 
             if _vis_antal < hits:
                 tilbage = hits - _vis_antal

@@ -33,9 +33,10 @@ if not st.session_state.get("_autentificeret_v2"):
     st.stop()
 
 pg = st.navigation([
-    st.Page("pages/home.py",  title="Forside",             default=True),
-    st.Page("pages/pkn.py",   title="Planklagenævnet"),
-    st.Page("pages/mfkn.py",  title="Miljøklagenævnet"),
+    st.Page("pages/home.py",       title="Forside",             default=True),
+    st.Page("pages/pkn.py",        title="Planklagenævnet"),
+    st.Page("pages/mfkn.py",       title="Miljøklagenævnet"),
+    st.Page("pages/sagsmappe.py",  title="Sagsmappe"),
 ])
 pg.run()
 

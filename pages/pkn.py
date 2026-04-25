@@ -22,6 +22,7 @@ from shared import (
     valider_citationer, dansk_tokenizer, chunk_tekst, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
     auto_filter_query, apply_auto_filters,
+    init_sagsmapper, gem_fra_row, hent_alle_gemte_links,
 )
 try:
     from shared import sync_embeddings_to_github, ensure_embeddings_on_disk
@@ -586,6 +587,7 @@ if "chat_historik"   not in st.session_state: st.session_state.chat_historik   =
 if "valgt_afgørelse" not in st.session_state: st.session_state.valgt_afgørelse = None
 if "ai_adgang"       not in st.session_state: st.session_state.ai_adgang       = False
 if "resumé_adgang"   not in st.session_state: st.session_state.resumé_adgang   = False
+init_sagsmapper()
 
 # ── Indlæs data ───────────────────────────────────────────────────────────────
 df       = load_data()
@@ -779,6 +781,13 @@ tab_søg, tab_stat, tab_ai = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI 
 
 with tab_søg:
 
+    # Navigation fra sagsmappe
+    _nav = st.session_state.pop("_navigate_to_decision", None)
+    if _nav and _nav.get("kilde") == "pkn":
+        _match = df[df["Link"] == _nav["link"]]
+        if not _match.empty:
+            st.session_state.valgt_afgørelse = _match.iloc[0].to_dict()
+
     # Detaljevisning
     if st.session_state.valgt_afgørelse is not None:
         row = st.session_state.valgt_afgørelse
@@ -817,6 +826,19 @@ with tab_søg:
             ),
             unsafe_allow_html=True,
         )
+
+        # ── Gem i sagsmappe ─────────────────────────────────────────────────
+        _gemte = hent_alle_gemte_links()
+        _er_gemt = row["Link"] in _gemte
+        _save_c1, _save_c2 = st.columns([1, 5])
+        with _save_c1:
+            if _er_gemt:
+                st.markdown('<span style="font-size:12px;color:#166534;font-weight:600;">&#9733; Gemt</span>',
+                            unsafe_allow_html=True)
+            else:
+                if st.button("☆ Gem i sagsmappe", key="_pkn_detail_save"):
+                    gem_fra_row(row, "pkn")
+                    st.rerun()
 
         # ── Indhold: tekst + AI ──────────────────────────────────────────────
         col_tekst, col_ai = st.columns([3, 2], gap="large")
@@ -924,6 +946,7 @@ with tab_søg:
             }
             _BADGE_DEFAULT = "background:#f8fafc;color:#64748b;border:1px solid #e2e8f0"
             _hl_q = søg_input.strip() if søg_input.strip() else ""
+            _gemte_links = hent_alle_gemte_links()
             for _, row in df_vis.head(_vis_antal).iterrows():
                 badge_style = _BADGE_STYLE.get(row["Udfald"], _BADGE_DEFAULT)
                 dato_str    = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
@@ -946,11 +969,20 @@ with tab_søg:
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
   </div>
 </div>""", unsafe_allow_html=True)
-                if st.button("Læs afgørelse →", key=f"btn_{row['Link'][-20:]}"):
-                    st.session_state.valgt_afgørelse = row.to_dict()
-                    if "_resumé" in st.session_state:
-                        del st.session_state["_resumé"]
-                    st.rerun()
+                _c_read, _c_save = st.columns([4, 1])
+                with _c_read:
+                    if st.button("Læs afgørelse →", key=f"btn_{row['Link'][-20:]}"):
+                        st.session_state.valgt_afgørelse = row.to_dict()
+                        if "_resumé" in st.session_state:
+                            del st.session_state["_resumé"]
+                        st.rerun()
+                with _c_save:
+                    if row["Link"] in _gemte_links:
+                        st.markdown('<span style="font-size:11px;color:#166534;font-weight:600;">&#9733; Gemt</span>',
+                                    unsafe_allow_html=True)
+                    elif st.button("☆ Gem", key=f"save_{row['Link'][-20:]}"):
+                        gem_fra_row(row.to_dict(), "pkn")
+                        st.rerun()
 
             if _vis_antal < hits:
                 tilbage = hits - _vis_antal

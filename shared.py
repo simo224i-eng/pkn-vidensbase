@@ -2052,3 +2052,113 @@ BADGE = {
     "Ændring":       "badge-medhold",
     "Hjemvist":      "badge-ophaevet",
 }
+
+
+# ── Sagsmappe ────────────────────────────────────────────────────────────────
+import uuid as _uuid
+import datetime as _dt
+
+
+def init_sagsmapper() -> None:
+    if "sagsmapper" not in st.session_state:
+        st.session_state["sagsmapper"] = {"mapper": {}, "standard_mappe": None}
+
+
+def opret_mappe(navn: str) -> str:
+    init_sagsmapper()
+    mid = _uuid.uuid4().hex[:12]
+    st.session_state["sagsmapper"]["mapper"][mid] = {
+        "id": mid,
+        "navn": navn,
+        "oprettet": _dt.datetime.now().isoformat(timespec="seconds"),
+        "afgørelser": [],
+    }
+    if st.session_state["sagsmapper"]["standard_mappe"] is None:
+        st.session_state["sagsmapper"]["standard_mappe"] = mid
+    return mid
+
+
+def slet_mappe(mappe_id: str) -> None:
+    init_sagsmapper()
+    st.session_state["sagsmapper"]["mapper"].pop(mappe_id, None)
+    if st.session_state["sagsmapper"]["standard_mappe"] == mappe_id:
+        remaining = list(st.session_state["sagsmapper"]["mapper"].keys())
+        st.session_state["sagsmapper"]["standard_mappe"] = remaining[0] if remaining else None
+
+
+def omdøb_mappe(mappe_id: str, nyt_navn: str) -> None:
+    init_sagsmapper()
+    m = st.session_state["sagsmapper"]["mapper"].get(mappe_id)
+    if m:
+        m["navn"] = nyt_navn
+
+
+def gem_afgørelse(mappe_id: str, link: str, titel: str, dato: str,
+                  udfald: str, kilde: str, kategori: str,
+                  kommune: str, excerpt: str) -> bool:
+    init_sagsmapper()
+    mappe = st.session_state["sagsmapper"]["mapper"].get(mappe_id)
+    if not mappe:
+        return False
+    if any(a["link"] == link for a in mappe["afgørelser"]):
+        return False
+    mappe["afgørelser"].append({
+        "link": link,
+        "titel": titel,
+        "dato": dato,
+        "udfald": udfald,
+        "kilde": kilde,
+        "kategori": kategori,
+        "kommune": kommune,
+        "excerpt": excerpt[:280],
+        "tilføjet": _dt.datetime.now().isoformat(timespec="seconds"),
+    })
+    st.session_state["sagsmapper"]["standard_mappe"] = mappe_id
+    return True
+
+
+def fjern_afgørelse(mappe_id: str, link: str) -> None:
+    init_sagsmapper()
+    mappe = st.session_state["sagsmapper"]["mapper"].get(mappe_id)
+    if mappe:
+        mappe["afgørelser"] = [a for a in mappe["afgørelser"] if a["link"] != link]
+
+
+def hent_alle_gemte_links() -> set:
+    init_sagsmapper()
+    links = set()
+    for m in st.session_state["sagsmapper"]["mapper"].values():
+        for a in m["afgørelser"]:
+            links.add(a["link"])
+    return links
+
+
+def _auto_opret_mappe() -> str:
+    init_sagsmapper()
+    mapper = st.session_state["sagsmapper"]["mapper"]
+    if not mapper:
+        return opret_mappe("Mine afgørelser")
+    return st.session_state["sagsmapper"]["standard_mappe"] or list(mapper.keys())[0]
+
+
+def gem_fra_row(row: dict, kilde: str, mappe_id: str = None) -> bool:
+    mid = mappe_id or _auto_opret_mappe()
+    kategori = row.get("Kategori", row.get("Underkategori", ""))
+    if isinstance(kategori, list):
+        kategori = " / ".join(kategori)
+    dato = ""
+    try:
+        dato = pd.Timestamp(row["Dato"]).strftime("%Y-%m-%d")
+    except Exception:
+        dato = str(row.get("Dato", ""))[:10]
+    return gem_afgørelse(
+        mappe_id=mid,
+        link=row["Link"],
+        titel=row["Titel"],
+        dato=dato,
+        udfald=row.get("Udfald", ""),
+        kilde=kilde,
+        kategori=kategori,
+        kommune=row.get("Kommune", ""),
+        excerpt=row.get("Excerpt", "")[:280],
+    )
