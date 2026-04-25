@@ -778,7 +778,7 @@ st.markdown(f"""
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 1 – AFGØRELSER
 # ════════════════════════════════════════════════════════════════════════════
-tab_søg, tab_stat, tab_ai = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  "])
+tab_søg, tab_stat, tab_ai, tab_vejl = st.tabs(["  Afgørelser  ", "  Statistik  ", "  AI Assistent  ", "  Vejledninger  "])
 
 with tab_søg:
 
@@ -1818,6 +1818,105 @@ def _søg_planloven(query: str, paragraphs: list) -> list:
         if ql in haystack:
             results.append(p)
     return results
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# TAB 4 – VEJLEDNINGER
+# ════════════════════════════════════════════════════════════════════════════
+with tab_vejl:
+    st.markdown(
+        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;">'
+        '<span class="material-symbols-rounded" style="font-size:24px;color:#0f172a;">menu_book</span>'
+        '<div>'
+        '<div style="font-size:16px;font-weight:700;color:#0f172a;">Vejledninger</div>'
+        '<div style="font-size:12px;color:#94a3b8;">Officielle myndighedsvejledninger om plan- og miljøret</div>'
+        '</div></div>',
+        unsafe_allow_html=True,
+    )
+
+    # ── Vejledning-data (placeholder) ────────────────────────────────────
+    import os as _os, json as _json
+    _vejl_path = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "vejledninger")
+
+    @st.cache_data(show_spinner=False)
+    def _load_vejledninger_pkn():
+        """Indlæs vejledninger relevant for PKN fra vejledninger/-mappen."""
+        _meta_file = _os.path.join(_vejl_path, "pkn_vejledninger.json")
+        if _os.path.exists(_meta_file):
+            with open(_meta_file, "r", encoding="utf-8") as f:
+                return _json.load(f)
+        return []
+
+    vejl_data = _load_vejledninger_pkn()
+
+    if not vejl_data:
+        st.markdown(
+            '<div style="text-align:center;padding:3rem 1rem;background:#f8fafc;'
+            'border:1px dashed #cbd5e1;border-radius:10px;">'
+            '<span class="material-symbols-rounded" style="font-size:36px;color:#94a3b8;'
+            'display:block;margin-bottom:0.8rem;">construction</span>'
+            '<div style="font-size:14px;font-weight:600;color:#475569;margin-bottom:0.4rem;">'
+            'Vejledninger er under opbygning</div>'
+            '<div style="font-size:12.5px;color:#94a3b8;line-height:1.6;max-width:400px;margin:0 auto;">'
+            'Vi er i gang med at kortlægge og indsamle de vigtigste myndighedsvejledninger '
+            'for plan- og miljøret. Snart kan du søge og stille spørgsmål til vejledningerne her.'
+            '</div></div>',
+            unsafe_allow_html=True,
+        )
+    else:
+        # ── Søg i vejledninger ───────────────────────────────────────────
+        vejl_søg = st.text_input("Søg i vejledninger", placeholder="Fx: landzone dispensation, §35 stk. 1…",
+                                 label_visibility="collapsed", key="_pkn_vejl_soeg")
+
+        for v in vejl_data:
+            if vejl_søg and vejl_søg.lower() not in v.get("titel", "").lower() + v.get("beskrivelse", "").lower():
+                continue
+            with st.expander(f"**{v['titel']}** — {v.get('udgiver', '')}"):
+                st.markdown(
+                    f'<div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">'
+                    f'{v.get("udgiver", "")} · {v.get("år", "")}</div>'
+                    f'<div style="font-size:13px;line-height:1.7;color:#1e293b;">'
+                    f'{v.get("beskrivelse", "")}</div>',
+                    unsafe_allow_html=True,
+                )
+                if v.get("url"):
+                    st.markdown(f'<a href="{v["url"]}" target="_blank" style="font-size:12px;color:#2563eb;">'
+                                f'Åbn original ↗</a>', unsafe_allow_html=True)
+
+        # ── AI-chat om vejledninger ──────────────────────────────────────
+        st.markdown("---")
+        st.markdown(
+            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;">'
+            '<span class="material-symbols-rounded" style="font-size:20px;color:#0f172a;">smart_toy</span>'
+            '<div style="font-size:14px;font-weight:600;color:#0f172a;">Spørg om vejledningerne</div>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+        if "pkn_vejl_chat" not in st.session_state:
+            st.session_state.pkn_vejl_chat = []
+
+        for msg in st.session_state.pkn_vejl_chat:
+            role_label = "Dig" if msg["rolle"] == "bruger" else "Harald"
+            if msg["rolle"] == "bruger":
+                st.markdown(f'<div style="background:#f1f5f9;border-radius:8px;padding:12px 16px;'
+                            f'margin-bottom:8px;font-size:13px;color:#0f172a;">'
+                            f'<strong>{role_label}:</strong> {msg["tekst"]}</div>',
+                            unsafe_allow_html=True)
+            else:
+                st.markdown(f'<div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;'
+                            f'padding:12px 16px;margin-bottom:8px;font-size:13px;color:#1e293b;'
+                            f'line-height:1.7;">{msg["tekst"]}</div>',
+                            unsafe_allow_html=True)
+
+        vejl_q = st.chat_input("Stil et spørgsmål om vejledningerne…", key="_pkn_vejl_q")
+        if vejl_q:
+            st.session_state.pkn_vejl_chat.append({"rolle": "bruger", "tekst": vejl_q})
+            st.session_state.pkn_vejl_chat.append({
+                "rolle": "assistent",
+                "tekst": "Vejlednings-AI er under opbygning. Snart kan du stille spørgsmål her og få svar baseret på de officielle vejledninger.",
+            })
+            st.rerun()
 
 
 # ── Planloven opslagsværk (separat sektion under tabs) ─────────────────────
