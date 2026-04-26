@@ -1824,99 +1824,183 @@ def _søg_planloven(query: str, paragraphs: list) -> list:
 # TAB 4 – VEJLEDNINGER
 # ════════════════════════════════════════════════════════════════════════════
 with tab_vejl:
-    st.markdown(
-        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;">'
-        '<span class="material-symbols-rounded" style="font-size:24px;color:#0f172a;">menu_book</span>'
-        '<div>'
-        '<div style="font-size:16px;font-weight:700;color:#0f172a;">Vejledninger</div>'
-        '<div style="font-size:12px;color:#94a3b8;">Officielle myndighedsvejledninger om plan- og miljøret</div>'
-        '</div></div>',
-        unsafe_allow_html=True,
-    )
-
-    # ── Vejledning-data (placeholder) ────────────────────────────────────
     import os as _os, json as _json
-    _vejl_path = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "vejledninger")
+
+    _vejl_root = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "vejledninger")
 
     @st.cache_data(show_spinner=False)
     def _load_vejledninger_pkn():
-        """Indlæs vejledninger relevant for PKN fra vejledninger/-mappen."""
-        _meta_file = _os.path.join(_vejl_path, "pkn_vejledninger.json")
-        if _os.path.exists(_meta_file):
-            with open(_meta_file, "r", encoding="utf-8") as f:
-                return _json.load(f)
-        return []
+        _meta = _os.path.join(_vejl_root, "pkn_vejledninger.json")
+        if not _os.path.exists(_meta):
+            return []
+        with open(_meta, "r", encoding="utf-8") as f:
+            return _json.load(f)
 
-    vejl_data = _load_vejledninger_pkn()
+    _vejl_liste = _load_vejledninger_pkn()
 
-    if not vejl_data:
+    if not _vejl_liste:
         st.markdown(
-            '<div style="text-align:center;padding:3rem 1rem;background:#f8fafc;'
+            '<div style="text-align:center;padding:4rem 1rem;background:#f8fafc;'
             'border:1px dashed #cbd5e1;border-radius:10px;">'
-            '<span class="material-symbols-rounded" style="font-size:36px;color:#94a3b8;'
-            'display:block;margin-bottom:0.8rem;">construction</span>'
-            '<div style="font-size:14px;font-weight:600;color:#475569;margin-bottom:0.4rem;">'
+            '<span class="material-symbols-rounded" style="font-size:40px;color:#94a3b8;'
+            'display:block;margin-bottom:1rem;">menu_book</span>'
+            '<div style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:0.5rem;">'
             'Vejledninger er under opbygning</div>'
-            '<div style="font-size:12.5px;color:#94a3b8;line-height:1.6;max-width:400px;margin:0 auto;">'
-            'Vi er i gang med at kortlægge og indsamle de vigtigste myndighedsvejledninger '
-            'for plan- og miljøret. Snart kan du søge og stille spørgsmål til vejledningerne her.'
-            '</div></div>',
-            unsafe_allow_html=True,
-        )
-    else:
-        # ── Søg i vejledninger ───────────────────────────────────────────
-        vejl_søg = st.text_input("Søg i vejledninger", placeholder="Fx: landzone dispensation, §35 stk. 1…",
-                                 label_visibility="collapsed", key="_pkn_vejl_soeg")
-
-        for v in vejl_data:
-            if vejl_søg and vejl_søg.lower() not in v.get("titel", "").lower() + v.get("beskrivelse", "").lower():
-                continue
-            with st.expander(f"**{v['titel']}** — {v.get('udgiver', '')}"):
-                st.markdown(
-                    f'<div style="font-size:11px;color:#94a3b8;margin-bottom:8px;">'
-                    f'{v.get("udgiver", "")} · {v.get("år", "")}</div>'
-                    f'<div style="font-size:13px;line-height:1.7;color:#1e293b;">'
-                    f'{v.get("beskrivelse", "")}</div>',
-                    unsafe_allow_html=True,
-                )
-                if v.get("url"):
-                    st.markdown(f'<a href="{v["url"]}" target="_blank" style="font-size:12px;color:#2563eb;">'
-                                f'Åbn original ↗</a>', unsafe_allow_html=True)
-
-        # ── AI-chat om vejledninger ──────────────────────────────────────
-        st.markdown("---")
-        st.markdown(
-            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;">'
-            '<span class="material-symbols-rounded" style="font-size:20px;color:#0f172a;">smart_toy</span>'
-            '<div style="font-size:14px;font-weight:600;color:#0f172a;">Spørg om vejledningerne</div>'
+            '<div style="font-size:13px;color:#94a3b8;line-height:1.7;max-width:440px;margin:0 auto;">'
+            'Vi kortlægger og indsamler de vigtigste myndighedsvejledninger for planret. '
+            'Snart kan du vælge en vejledning og stille spørgsmål direkte til indholdet.</div>'
             '</div>',
             unsafe_allow_html=True,
         )
+    else:
+        # ── Vælg vejledning ──────────────────────────────────────────────
+        _vejl_titler = {v["id"]: v["titel"] for v in _vejl_liste}
+        _sel_col, _info_col = st.columns([3, 2])
+        with _sel_col:
+            st.markdown('<span class="h-filter-label" style="color:#0f172a;">Vælg vejledning</span>',
+                        unsafe_allow_html=True)
+            _valgt_vejl_id = st.selectbox(
+                "", list(_vejl_titler.keys()),
+                format_func=lambda x: _vejl_titler[x],
+                label_visibility="collapsed", key="_pkn_vejl_select",
+            )
 
-        if "pkn_vejl_chat" not in st.session_state:
-            st.session_state.pkn_vejl_chat = []
+        _valgt_vejl = next((v for v in _vejl_liste if v["id"] == _valgt_vejl_id), None)
 
-        for msg in st.session_state.pkn_vejl_chat:
-            role_label = "Dig" if msg["rolle"] == "bruger" else "Harald"
-            if msg["rolle"] == "bruger":
-                st.markdown(f'<div style="background:#f1f5f9;border-radius:8px;padding:12px 16px;'
+        if _valgt_vejl:
+            with _info_col:
+                st.markdown(
+                    f'<div style="padding-top:1.6rem;">'
+                    f'<div style="font-size:11px;color:#94a3b8;">'
+                    f'{_valgt_vejl.get("udgiver", "")} · {_valgt_vejl.get("år", "")}</div>'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
+
+            # ── To kolonner: indhold + AI ────────────────────────────────
+            _col_tekst, _col_ai = st.columns([3, 2], gap="large")
+
+            with _col_tekst:
+                st.markdown(
+                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;">'
+                    '<span class="material-symbols-rounded" style="font-size:20px;color:#0f172a;">description</span>'
+                    '<span style="font-size:14px;font-weight:600;color:#0f172a;">Indhold</span>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+
+                _tekst = _valgt_vejl.get("tekst", "")
+                if _tekst:
+                    _vejl_søg = st.text_input("Søg i vejledningen", placeholder="Fx: dispensation, §35…",
+                                              label_visibility="collapsed", key="_pkn_vejl_tsøg")
+                    # Vis tekst i scrollbar
+                    _display_tekst = _tekst
+                    if _vejl_søg:
+                        _display_tekst = highlight_query(_tekst, _vejl_søg, max_len=len(_tekst))
+                    st.markdown(
+                        f'<div style="font-size:13.5px;line-height:1.8;color:#1e293b;'
+                        f'max-height:600px;overflow-y:auto;padding:16px 20px;'
+                        f'background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">'
+                        f'{_display_tekst}</div>',
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.info("Vejledningstekst er endnu ikke indlæst.")
+
+                if _valgt_vejl.get("url"):
+                    st.markdown(
+                        f'<a href="{_valgt_vejl["url"]}" target="_blank" '
+                        f'style="font-size:12px;color:#94a3b8;text-decoration:none;font-weight:500;'
+                        f'margin-top:8px;display:inline-block;">Åbn original vejledning ↗</a>',
+                        unsafe_allow_html=True,
+                    )
+
+            with _col_ai:
+                st.markdown(
+                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;">'
+                    '<span class="material-symbols-rounded" style="font-size:20px;color:#0f172a;">smart_toy</span>'
+                    '<span style="font-size:14px;font-weight:600;color:#0f172a;">Spørg om vejledningen</span>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+
+                _chat_key = f"pkn_vejl_chat_{_valgt_vejl_id}"
+                if _chat_key not in st.session_state:
+                    st.session_state[_chat_key] = []
+
+                _historik = st.session_state[_chat_key]
+
+                if not _historik:
+                    st.markdown(
+                        f'<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;'
+                        f'padding:16px;margin-bottom:1rem;">'
+                        f'<div style="font-size:12.5px;color:#64748b;line-height:1.7;">'
+                        f'Stil et spørgsmål om <strong>{_valgt_vejl["titel"]}</strong> '
+                        f'— Harald svarer udelukkende baseret på vejledningens indhold.</div></div>',
+                        unsafe_allow_html=True,
+                    )
+
+                for msg in _historik:
+                    if msg["rolle"] == "bruger":
+                        st.markdown(
+                            f'<div style="background:#f1f5f9;border-radius:8px;padding:12px 16px;'
                             f'margin-bottom:8px;font-size:13px;color:#0f172a;">'
-                            f'<strong>{role_label}:</strong> {msg["tekst"]}</div>',
-                            unsafe_allow_html=True)
-            else:
-                st.markdown(f'<div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;'
+                            f'<strong>Dig:</strong> {msg["tekst"]}</div>',
+                            unsafe_allow_html=True,
+                        )
+                    else:
+                        st.markdown(
+                            f'<div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;'
                             f'padding:12px 16px;margin-bottom:8px;font-size:13px;color:#1e293b;'
                             f'line-height:1.7;">{msg["tekst"]}</div>',
-                            unsafe_allow_html=True)
+                            unsafe_allow_html=True,
+                        )
 
-        vejl_q = st.chat_input("Stil et spørgsmål om vejledningerne…", key="_pkn_vejl_q")
-        if vejl_q:
-            st.session_state.pkn_vejl_chat.append({"rolle": "bruger", "tekst": vejl_q})
-            st.session_state.pkn_vejl_chat.append({
-                "rolle": "assistent",
-                "tekst": "Vejlednings-AI er under opbygning. Snart kan du stille spørgsmål her og få svar baseret på de officielle vejledninger.",
-            })
-            st.rerun()
+                _vejl_q = st.chat_input(f"Spørg om {_valgt_vejl['titel'][:50]}…", key="_pkn_vejl_q")
+                if _vejl_q and _tekst:
+                    _historik.append({"rolle": "bruger", "tekst": _vejl_q})
+                    # Byg kontekst fra vejledningen
+                    _vejl_chunks = chunk_tekst(_tekst, max_tokens=800)
+                    _relevante = []
+                    _q_lower = _vejl_q.lower()
+                    for ch in _vejl_chunks:
+                        if any(t in ch.lower() for t in _q_lower.split() if len(t) >= 3):
+                            _relevante.append(ch)
+                    if not _relevante:
+                        _relevante = _vejl_chunks[:5]
+                    _relevante = _relevante[:8]
+                    _kontekst = "\n---\n".join(_relevante)
+                    _prompt = [
+                        {"type": "text", "text": (
+                            f"Du er en juridisk assistent der svarer på spørgsmål om en specifik vejledning.\n\n"
+                            f"REGLER:\n"
+                            f"1. Svar KUN baseret på vejledningsteksten herunder. Opfind ikke fakta.\n"
+                            f"2. Citér relevant tekst i anførselstegn når du henviser til vejledningen.\n"
+                            f"3. Svar på dansk. Vær præcis og konkret.\n"
+                            f"4. Hvis vejledningen ikke besvarer spørgsmålet, sig det eksplicit.\n\n"
+                            f"VEJLEDNING: {_valgt_vejl['titel']}\n"
+                            f"UDGIVER: {_valgt_vejl.get('udgiver', '')}\n"
+                        )},
+                        {"type": "text", "text": f"\nVEJLEDNINGSTEKST:\n{_kontekst}\n",
+                         "cache_control": {"type": "ephemeral"}},
+                        {"type": "text", "text": f"SPØRGSMÅL: {_vejl_q}\n\nSVAR:"},
+                    ]
+                    with st.spinner("Analyserer vejledningen…"):
+                        try:
+                            _svar = _llm(_prompt)
+                        except Exception as e:
+                            _svar = f"Fejl: {e}"
+                    _historik.append({"rolle": "assistent", "tekst": _svar})
+                    st.rerun()
+                elif _vejl_q and not _tekst:
+                    _historik.append({"rolle": "bruger", "tekst": _vejl_q})
+                    _historik.append({"rolle": "assistent", "tekst": "Vejledningsteksten er ikke indlæst endnu — AI-chat kræver at vejledningens tekst er tilgængelig."})
+                    st.rerun()
+
+                if _historik:
+                    if st.button("Ryd samtale", key="_pkn_vejl_ryd"):
+                        st.session_state[_chat_key] = []
+                        st.rerun()
 
 
 # ── Planloven opslagsværk (separat sektion under tabs) ─────────────────────
