@@ -1872,7 +1872,7 @@ with tab_vejl:
                 st.markdown(
                     f'<div style="padding-top:1.6rem;">'
                     f'<div style="font-size:11px;color:#94a3b8;">'
-                    f'{_valgt_vejl.get("udgiver", "")} · {_valgt_vejl.get("år", "")}</div>'
+                    f'{_valgt_vejl.get("udgiver", "")} · {_valgt_vejl.get("aar", "")}</div>'
                     f'</div>',
                     unsafe_allow_html=True,
                 )
@@ -1889,11 +1889,10 @@ with tab_vejl:
                     unsafe_allow_html=True,
                 )
 
-                _tekst = _valgt_vejl.get("tekst", "")
+                _tekst = _valgt_vejl.get("tekst") or ""
                 if _tekst:
                     _vejl_søg = st.text_input("Søg i vejledningen", placeholder="Fx: dispensation, §35…",
                                               label_visibility="collapsed", key="_pkn_vejl_tsøg")
-                    # Vis tekst i scrollbar
                     _display_tekst = _tekst
                     if _vejl_søg:
                         _display_tekst = highlight_query(_tekst, _vejl_søg, max_len=len(_tekst))
@@ -1905,7 +1904,26 @@ with tab_vejl:
                         unsafe_allow_html=True,
                     )
                 else:
-                    st.info("Vejledningstekst er endnu ikke indlæst.")
+                    _ro = ", ".join(_valgt_vejl.get("retsomraade", []))
+                    _cit = _valgt_vejl.get("citationer", 0)
+                    st.markdown(
+                        f'<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;'
+                        f'padding:16px 20px;margin-bottom:1rem;">'
+                        f'<div style="font-size:13px;font-weight:600;color:#92400e;margin-bottom:8px;">'
+                        f'Vejledningstekst ikke hentet endnu</div>'
+                        f'<div style="font-size:12px;color:#78350f;line-height:1.7;">'
+                        f'Kør <code>python fetch_vejledninger.py</code> for at hente teksten fra retsinformation.dk.'
+                        f'</div></div>'
+                        f'<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;'
+                        f'padding:16px 20px;">'
+                        f'<div style="font-size:12px;color:#64748b;line-height:1.8;">'
+                        f'<strong>Udgiver:</strong> {_valgt_vejl.get("udgiver", "–")}<br>'
+                        f'<strong>År:</strong> {_valgt_vejl.get("aar", "–")}<br>'
+                        f'<strong>Retsområde:</strong> {_ro or "–"}<br>'
+                        f'<strong>Citeret i afgørelser:</strong> {_cit}x'
+                        f'</div></div>',
+                        unsafe_allow_html=True,
+                    )
 
                 if _valgt_vejl.get("url"):
                     st.markdown(
