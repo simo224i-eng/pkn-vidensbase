@@ -1303,7 +1303,7 @@ with tab_vejl:
 
     _vejl_root = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "vejledninger")
 
-    @st.cache_data(show_spinner=False)
+    @st.cache_data(show_spinner=False, ttl=60)
     def _load_vejledninger_mfkn(kat_stem):
         _meta_file = _os.path.join(_vejl_root, f"mfkn_{kat_stem}_vejledninger.json")
         if _os.path.exists(_meta_file):

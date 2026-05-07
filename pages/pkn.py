@@ -1828,7 +1828,7 @@ with tab_vejl:
 
     _vejl_root = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "vejledninger")
 
-    @st.cache_data(show_spinner=False)
+    @st.cache_data(show_spinner=False, ttl=60)
     def _load_vejledninger_pkn():
         _meta = _os.path.join(_vejl_root, "pkn_vejledninger.json")
         if not _os.path.exists(_meta):
