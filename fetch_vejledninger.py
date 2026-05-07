@@ -1,34 +1,51 @@
 """
-Hent vejledningstekster fra retsinformation.dk og gem i JSON-filer.
+Hent vejledningstekster fra retsinformation.dk og andre kilder.
 
-Kør dette script lokalt (ikke i sandbox) for at populere vejledninger/*.json
-med den fulde tekst fra hver vejledning.
+Bruges typisk via GitHub Actions (.github/workflows/fetch-vejledninger.yml)
+men kan også køres lokalt:
 
-Brug:
-    python fetch_vejledninger.py
+    pip install requests beautifulsoup4 trafilatura pdfplumber
+    python fetch_vejledninger.py [--force] [--only retsinformation]
 
-Kræver: requests, beautifulsoup4
-    pip install requests beautifulsoup4
+Default: kun vejledninger uden 'tekst' eller med tekst < MIN_REAL_LEN
+hentes. Med --force genhentes alt.
 """
+import argparse
 import json
 import os
 import re
 import sys
 import time
+from urllib.parse import urlparse
 
 try:
     import requests
     from bs4 import BeautifulSoup
 except ImportError:
     print("Installer dependencies først:")
-    print("  pip install requests beautifulsoup4")
+    print("  pip install requests beautifulsoup4 trafilatura pdfplumber")
     sys.exit(1)
+
+try:
+    import trafilatura
+    HAS_TRAFILATURA = True
+except ImportError:
+    HAS_TRAFILATURA = False
+
+try:
+    import pdfplumber
+    HAS_PDFPLUMBER = True
+except ImportError:
+    HAS_PDFPLUMBER = False
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 VEJL_DIR = os.path.join(ROOT, "vejledninger")
 
+# Tekster kortere end dette betragtes som resume / placeholder og genhentes
+MIN_REAL_LEN = 8000
+
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "da,en;q=0.5",
 }
@@ -37,55 +54,78 @@ SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
 
 
-def fetch_retsinformation(url: str) -> str | None:
-    """Hent tekst fra retsinformation.dk."""
+def _clean(text: str) -> str:
+    text = re.sub(r"\r\n?", "\n", text)
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
+def fetch_html(url: str) -> str | None:
+    """Hent og udtræk hovedtekst fra en HTML-side. Bruger trafilatura
+    primært (purpose-built for content extraction) med BeautifulSoup som
+    fallback."""
     try:
-        resp = SESSION.get(url, timeout=30)
+        resp = SESSION.get(url, timeout=30, allow_redirects=True)
         if resp.status_code != 200:
-            print(f"    HTTP {resp.status_code} for {url}")
+            print(f"    HTTP {resp.status_code}")
             return None
-
-        soup = BeautifulSoup(resp.text, "html.parser")
-
-        content = soup.find("div", class_="444teleLogText") or \
-                  soup.find("div", class_="444teleLogContent") or \
-                  soup.find("div", id="LovContent") or \
-                  soup.find("div", class_="444teleContent") or \
-                  soup.find("article") or \
-                  soup.find("div", class_="444teleLog")
-
-        if not content:
-            content_divs = soup.find_all("div", class_=re.compile(r"content|text|body", re.I))
-            if content_divs:
-                content = max(content_divs, key=lambda d: len(d.get_text()))
-            else:
-                content = soup.find("body")
-
-        if not content:
-            return None
-
-        text = content.get_text(separator="\n", strip=True)
-        text = re.sub(r'\n{3,}', '\n\n', text)
-        text = re.sub(r'[ \t]+', ' ', text)
-
-        if len(text) < 100:
-            return None
-
-        return text
-
+        html = resp.text
     except Exception as e:
-        print(f"    Fejl: {e}")
+        print(f"    Henter-fejl: {e}")
         return None
+
+    if HAS_TRAFILATURA:
+        try:
+            extracted = trafilatura.extract(
+                html,
+                include_comments=False,
+                include_tables=True,
+                favor_recall=True,
+                deduplicate=True,
+            )
+            if extracted and len(extracted) > 500:
+                return _clean(extracted)
+        except Exception as e:
+            print(f"    trafilatura-fejl: {e}")
+
+    # Fallback: BeautifulSoup heuristik
+    try:
+        soup = BeautifulSoup(html, "html.parser")
+        for tag in soup(["script", "style", "nav", "header", "footer", "aside", "form"]):
+            tag.decompose()
+
+        candidates = []
+        for selector in [
+            ("div", {"id": "LovContent"}),
+            ("article", {}),
+            ("main", {}),
+            ("div", {"class": re.compile(r"(content|tekst|body|text|article|main)", re.I)}),
+        ]:
+            for el in soup.find_all(selector[0], selector[1] if selector[1] else True):
+                text = el.get_text(separator="\n", strip=True)
+                if len(text) > 500:
+                    candidates.append((len(text), text))
+
+        if not candidates:
+            body = soup.find("body")
+            if body:
+                candidates.append((0, body.get_text(separator="\n", strip=True)))
+
+        if candidates:
+            candidates.sort(reverse=True)
+            return _clean(candidates[0][1])
+    except Exception as e:
+        print(f"    BS4-fejl: {e}")
+
+    return None
 
 
 def fetch_pdf(url: str) -> str | None:
-    """Hent tekst fra PDF (kræver pdfplumber)."""
-    try:
-        import pdfplumber
-    except ImportError:
-        print("    Skipping PDF - installer pdfplumber: pip install pdfplumber")
+    """Hent og udtræk tekst fra PDF."""
+    if not HAS_PDFPLUMBER:
+        print("    pdfplumber ikke installeret")
         return None
-
     try:
         resp = SESSION.get(url, timeout=60)
         if resp.status_code != 200:
@@ -97,70 +137,77 @@ def fetch_pdf(url: str) -> str | None:
             tmp_path = f.name
 
         text_parts = []
-        with pdfplumber.open(tmp_path) as pdf:
-            for page in pdf.pages:
-                page_text = page.extract_text()
-                if page_text:
-                    text_parts.append(page_text)
-
-        os.unlink(tmp_path)
+        try:
+            with pdfplumber.open(tmp_path) as pdf:
+                for page in pdf.pages:
+                    page_text = page.extract_text()
+                    if page_text:
+                        text_parts.append(page_text)
+        finally:
+            os.unlink(tmp_path)
 
         text = "\n\n".join(text_parts)
-        if len(text) < 100:
-            return None
-        return text
-
+        return _clean(text) if len(text) > 200 else None
     except Exception as e:
         print(f"    PDF-fejl: {e}")
         return None
 
 
 def process_vejledning(vejl: dict) -> str | None:
-    """Forsøg at hente tekst for en vejledning."""
-    url = vejl.get("url")
-    pdf_url = vejl.get("pdf_url")
+    """Prøv at hente fuld tekst for en vejledning. Returnerer ny tekst
+    eller None ved fejl."""
+    url = vejl.get("url") or ""
+    pdf_url = vejl.get("pdf_url") or ""
 
-    if url and "retsinformation.dk" in url:
-        print(f"    Henter fra retsinformation.dk...")
-        text = fetch_retsinformation(url)
-        if text:
-            return text
-
-    if pdf_url:
-        print(f"    Henter PDF...")
-        text = fetch_pdf(pdf_url)
-        if text:
-            return text
-
-    if url and url.endswith(".pdf"):
-        print(f"    Henter PDF fra URL...")
+    # Direkte PDF-URL
+    if url.lower().endswith(".pdf"):
         text = fetch_pdf(url)
+        if text:
+            return text
+
+    # HTML-URL (alle domæner)
+    if url and url.startswith("http"):
+        text = fetch_html(url)
+        if text:
+            return text
+
+    # Eksplicit pdf_url-felt som fallback
+    if pdf_url and pdf_url.startswith("http"):
+        text = fetch_pdf(pdf_url)
         if text:
             return text
 
     return None
 
 
-def main():
-    json_files = [
-        os.path.join(VEJL_DIR, "pkn_vejledninger.json"),
-        os.path.join(VEJL_DIR, "mfkn_vejledninger.json"),
-    ]
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--force", action="store_true",
+                        help="Genhent også vejledninger der allerede har lang tekst")
+    parser.add_argument("--only", default=None,
+                        help="Behandl kun vejledninger hvor URL indeholder denne streng")
+    args = parser.parse_args()
 
-    for pattern in os.listdir(VEJL_DIR):
-        if pattern.endswith("_vejledninger.json"):
-            full = os.path.join(VEJL_DIR, pattern)
-            if full not in json_files:
-                json_files.append(full)
+    if not HAS_TRAFILATURA:
+        print("ADVARSEL: trafilatura ikke installeret — falder tilbage til BS4")
+    if not HAS_PDFPLUMBER:
+        print("ADVARSEL: pdfplumber ikke installeret — PDF'er kan ikke hentes")
+
+    json_files = []
+    for fname in sorted(os.listdir(VEJL_DIR)):
+        if fname.endswith("_vejledninger.json"):
+            json_files.append(os.path.join(VEJL_DIR, fname))
+
+    if not json_files:
+        print(f"Ingen *_vejledninger.json filer i {VEJL_DIR}")
+        return 1
 
     total_fetched = 0
     total_skipped = 0
     total_failed = 0
+    total_no_url = 0
 
     for json_path in json_files:
-        if not os.path.exists(json_path):
-            continue
-
         print(f"\n{'='*60}")
         print(f"Behandler: {os.path.basename(json_path)}")
         print(f"{'='*60}")
@@ -171,43 +218,58 @@ def main():
         changed = False
         for i, vejl in enumerate(vejledninger):
             titel = vejl.get("titel", "Ukendt")
-            print(f"\n  [{i+1}/{len(vejledninger)}] {titel[:60]}")
+            url = vejl.get("url") or ""
+            existing = vejl.get("tekst") or ""
 
-            if vejl.get("tekst"):
-                print(f"    ✓ Tekst allerede hentet ({len(vejl['tekst'])} tegn)")
+            print(f"\n  [{i+1}/{len(vejledninger)}] {titel[:70]}")
+
+            if args.only and args.only not in url:
+                print(f"    – Skipped (--only {args.only})")
+                continue
+
+            if not args.force and len(existing) >= MIN_REAL_LEN:
+                print(f"    ✓ Har allerede fuld tekst ({len(existing)} tegn)")
                 total_skipped += 1
                 continue
 
+            if not url:
+                print(f"    – Ingen URL — beholder resume ({len(existing)} tegn)")
+                total_no_url += 1
+                continue
+
+            print(f"    Henter {urlparse(url).netloc}…")
             text = process_vejledning(vejl)
-            if text:
+
+            if text and len(text) > len(existing):
+                # Bevar resumé så vi har en fallback hvis fetch'en blev dårlig
+                if existing and "tekst_resume" not in vejl:
+                    vejl["tekst_resume"] = existing
                 vejl["tekst"] = text
+                vejl["tekst_kilde"] = url
                 changed = True
                 total_fetched += 1
-                print(f"    ✓ Hentet! ({len(text)} tegn)")
+                print(f"    ✓ Hentet! ({len(text):,} tegn)".replace(",", "."))
             else:
                 total_failed += 1
-                print(f"    ✗ Kunne ikke hentes")
+                print(f"    ✗ Kunne ikke hente — beholder resume ({len(existing)} tegn)")
 
-            time.sleep(2)
+            time.sleep(1.5)
 
         if changed:
             with open(json_path, "w", encoding="utf-8") as f:
                 json.dump(vejledninger, f, ensure_ascii=False, indent=2)
-            print(f"\n  Gemt opdateret fil: {json_path}")
+            print(f"\n  Gemt: {json_path}")
 
     print(f"\n{'='*60}")
     print(f"RESULTAT:")
-    print(f"  Hentet:   {total_fetched}")
-    print(f"  Skippet:  {total_skipped} (allerede hentet)")
-    print(f"  Fejlet:   {total_failed}")
+    print(f"  Hentet:    {total_fetched}")
+    print(f"  Skippet:   {total_skipped} (havde allerede fuld tekst)")
+    print(f"  Uden URL:  {total_no_url}")
+    print(f"  Fejlet:    {total_failed}")
     print(f"{'='*60}")
 
-    if total_failed > 0:
-        print("\nTip: Vejledninger der fejlede kan evt. hentes manuelt fra:")
-        print("  - retsinformation.dk (søg på vejledningsnr.)")
-        print("  - mst.dk (Miljøstyrelsens publikationer)")
-        print("  - planinfo.dk (planlægningsvejledninger)")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
