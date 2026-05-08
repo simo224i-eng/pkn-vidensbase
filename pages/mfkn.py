@@ -1300,22 +1300,41 @@ with tab_ai:
 # ════════════════════════════════════════════════════════════════════════════
 with tab_vejl:
     import os as _os, json as _json
+    from vejledning_fetcher import fetch_vejledning, is_summary, persist_to_json
 
     _vejl_root = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "vejledninger")
 
-    @st.cache_data(show_spinner=False, ttl=60)
-    def _load_vejledninger_mfkn(kat_stem):
+    def _resolve_mfkn_json_path(kat_stem):
         _meta_file = _os.path.join(_vejl_root, f"mfkn_{kat_stem}_vejledninger.json")
         if _os.path.exists(_meta_file):
-            with open(_meta_file, "r", encoding="utf-8") as f:
-                return _json.load(f)
+            return _meta_file
         _general = _os.path.join(_vejl_root, "mfkn_vejledninger.json")
         if _os.path.exists(_general):
-            with open(_general, "r", encoding="utf-8") as f:
-                return _json.load(f)
-        return []
+            return _general
+        return None
+
+    _vejl_json_path = _resolve_mfkn_json_path(valgt_stem)
+
+    @st.cache_data(show_spinner=False, ttl=60)
+    def _load_vejledninger_mfkn(kat_stem):
+        p = _resolve_mfkn_json_path(kat_stem)
+        if not p:
+            return []
+        with open(p, "r", encoding="utf-8") as f:
+            return _json.load(f)
 
     _vejl_liste = _load_vejledninger_mfkn(valgt_stem)
+
+    # ── Scrollbar + chat styling ────────────────────────────────────────
+    st.markdown("""<style>
+    .vejl-text-box::-webkit-scrollbar{width:6px}
+    .vejl-text-box::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+    .vejl-text-box{scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+    .vejl-chat-scroll::-webkit-scrollbar{width:5px}
+    .vejl-chat-scroll::-webkit-scrollbar-thumb{background:#e2e8f0;border-radius:3px}
+    .vejl-chip{display:inline-block;background:#e0f2fe;color:#0369a1;padding:2px 10px;
+               border-radius:99px;font-size:11px;font-weight:500;margin-right:6px;margin-bottom:4px}
+    </style>""", unsafe_allow_html=True)
 
     if not _vejl_liste:
         st.markdown(
@@ -1333,90 +1352,111 @@ with tab_vejl:
             unsafe_allow_html=True,
         )
     else:
+        # ── Tab header ───────────────────────────────────────────────────
+        st.markdown(
+            '<div style="margin-bottom:1.2rem;">'
+            '<div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">'
+            f'<span class="material-symbols-rounded" style="font-size:22px;color:{accent};">menu_book</span>'
+            f'<span style="font-size:17px;font-weight:700;color:#0f172a;">Vejledninger</span></div>'
+            '<p style="font-size:13px;color:#64748b;margin:0;">Udforsk myndighedsvejledninger '
+            'og stil spørgsmål til indholdet — AI\'en svarer kun ud fra vejledningen.</p></div>',
+            unsafe_allow_html=True,
+        )
+
         # ── Vælg vejledning ──────────────────────────────────────────────
-        _vejl_titler = {v["id"]: v["titel"] for v in _vejl_liste}
-        _sel_col, _info_col = st.columns([3, 2])
-        with _sel_col:
-            st.markdown(f'<span class="h-filter-label" style="color:{accent};">Vælg vejledning</span>',
-                        unsafe_allow_html=True)
-            _valgt_vejl_id = st.selectbox(
-                "", list(_vejl_titler.keys()),
-                format_func=lambda x: _vejl_titler[x],
-                label_visibility="collapsed", key="_mfkn_vejl_select",
-            )
+        _vejl_titler = {v["id"]: f'{v["titel"]}  ({v.get("aar","")})' for v in _vejl_liste}
+        st.markdown(f'<span class="h-filter-label" style="color:{accent};">Vælg vejledning</span>',
+                    unsafe_allow_html=True)
+        _valgt_vejl_id = st.selectbox(
+            "", list(_vejl_titler.keys()),
+            format_func=lambda x: _vejl_titler[x],
+            label_visibility="collapsed", key="_mfkn_vejl_select",
+        )
 
         _valgt_vejl = next((v for v in _vejl_liste if v["id"] == _valgt_vejl_id), None)
 
         if _valgt_vejl:
-            with _info_col:
-                st.markdown(
-                    f'<div style="padding-top:1.6rem;">'
-                    f'<div style="font-size:11px;color:#94a3b8;">'
-                    f'{_valgt_vejl.get("udgiver", "")} · {_valgt_vejl.get("aar", "")}</div>'
-                    f'</div>',
-                    unsafe_allow_html=True,
-                )
+            # ── Metadata badges ──────────────────────────────────────────
+            _ro_chips = "".join(f'<span class="vejl-chip">{r}</span>' for r in _valgt_vejl.get("retsomraade", []))
+            _cit = _valgt_vejl.get("citationer", 0)
+            _url = _valgt_vejl.get("url")
+            _link_html = (f' · <a href="{_url}" target="_blank" '
+                          f'style="color:#0369a1;text-decoration:none;font-weight:500;">Åbn original ↗</a>'
+                          if _url else "")
+            st.markdown(
+                f'<div style="margin:8px 0 16px 0;">'
+                f'<div style="font-size:12.5px;color:#64748b;font-weight:500;margin-bottom:6px;">'
+                f'{_valgt_vejl.get("udgiver", "")} · {_valgt_vejl.get("aar", "")}'
+                f' · Citeret i {_cit} afgørelser{_link_html}</div>'
+                f'<div>{_ro_chips}</div></div>',
+                unsafe_allow_html=True,
+            )
+
+            # ── Hent fuld tekst hvis nødvendigt ──────────────────────────
+            _tekst = _valgt_vejl.get("tekst") or ""
+            _is_sum = _tekst and is_summary(_tekst)
+            _fetch_key = f"_mfkn_fetched_{_valgt_vejl_id}"
+
+            if _is_sum and _valgt_vejl.get("url") and _fetch_key not in st.session_state:
+                with st.spinner("Henter fuld vejledningstekst fra retsinformation.dk…"):
+                    _full = fetch_vejledning(_valgt_vejl["url"])
+                if _full and len(_full) > len(_tekst):
+                    _tekst = _full
+                    _valgt_vejl["tekst"] = _full
+                    st.session_state[_fetch_key] = _full
+                    if _vejl_json_path:
+                        persist_to_json(_vejl_json_path, _valgt_vejl_id, _full)
+                    st.cache_data.clear()
+                else:
+                    st.session_state[_fetch_key] = None
+            elif _is_sum and _fetch_key in st.session_state and st.session_state[_fetch_key]:
+                _tekst = st.session_state[_fetch_key]
 
             # ── To kolonner: indhold + AI ────────────────────────────────
-            _col_tekst, _col_ai = st.columns([3, 2], gap="large")
+            _col_tekst, _col_ai = st.columns([5, 4], gap="large")
 
             with _col_tekst:
+                _label = "Vejledningens indhold" if not is_summary(_tekst) else "Sammenfatning af vejledningen"
+                _sub = ("" if not is_summary(_tekst) else
+                        '<p style="font-size:11.5px;color:#94a3b8;margin:0 0 8px 0;">'
+                        'Fuld tekst kunne ikke hentes — viser sammenfatning.</p>')
                 st.markdown(
-                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;">'
-                    f'<span class="material-symbols-rounded" style="font-size:20px;color:{accent};">description</span>'
-                    f'<span style="font-size:14px;font-weight:600;color:#0f172a;">Indhold</span>'
-                    '</div>',
+                    f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:0.5rem;">'
+                    f'<span class="material-symbols-rounded" style="font-size:18px;color:{accent};">description</span>'
+                    f'<span style="font-size:14px;font-weight:600;color:#0f172a;">{_label}</span>'
+                    f'</div>{_sub}',
                     unsafe_allow_html=True,
                 )
 
-                _tekst = _valgt_vejl.get("tekst") or ""
                 if _tekst:
-                    _vejl_søg = st.text_input("Søg i vejledningen", placeholder="Fx: dispensation, §35…",
+                    _vejl_søg = st.text_input("Søg i vejledningen", placeholder="Fx: dispensation, §35, partshøring…",
                                               label_visibility="collapsed", key="_mfkn_vejl_tsøg")
                     _display_tekst = _tekst
                     if _vejl_søg:
                         _display_tekst = highlight_query(_tekst, _vejl_søg, max_len=len(_tekst))
                     st.markdown(
-                        f'<div style="font-size:13.5px;line-height:1.8;color:#1e293b;'
-                        f'max-height:600px;overflow-y:auto;padding:16px 20px;'
-                        f'background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">'
+                        f'<div class="vejl-text-box" style="font-size:13.5px;line-height:1.8;color:#1e293b;'
+                        f'max-height:550px;overflow-y:auto;padding:16px 20px;'
+                        f'background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;'
+                        f'white-space:pre-wrap;">'
                         f'{_display_tekst}</div>',
                         unsafe_allow_html=True,
                     )
                 else:
-                    _ro = ", ".join(_valgt_vejl.get("retsomraade", []))
-                    _cit = _valgt_vejl.get("citationer", 0)
                     st.markdown(
                         f'<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;'
                         f'padding:16px 20px;margin-bottom:1rem;">'
                         f'<div style="font-size:13px;font-weight:600;color:#92400e;margin-bottom:8px;">'
-                        f'Vejledningstekst ikke hentet endnu</div>'
+                        f'Vejledningstekst ikke tilgængelig</div>'
                         f'<div style="font-size:12px;color:#78350f;line-height:1.7;">'
-                        f'Kør <code>python fetch_vejledninger.py</code> for at hente teksten fra retsinformation.dk.'
-                        f'</div></div>'
-                        f'<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;'
-                        f'padding:16px 20px;">'
-                        f'<div style="font-size:12px;color:#64748b;line-height:1.8;">'
-                        f'<strong>Udgiver:</strong> {_valgt_vejl.get("udgiver", "–")}<br>'
-                        f'<strong>År:</strong> {_valgt_vejl.get("aar", "–")}<br>'
-                        f'<strong>Retsområde:</strong> {_ro or "–"}<br>'
-                        f'<strong>Citeret i afgørelser:</strong> {_cit}x'
-                        f'</div></div>',
-                        unsafe_allow_html=True,
-                    )
-
-                if _valgt_vejl.get("url"):
-                    st.markdown(
-                        f'<a href="{_valgt_vejl["url"]}" target="_blank" '
-                        f'style="font-size:12px;color:#94a3b8;text-decoration:none;font-weight:500;'
-                        f'margin-top:8px;display:inline-block;">Åbn original vejledning ↗</a>',
+                        f'Kunne ikke hente teksten automatisk.</div></div>',
                         unsafe_allow_html=True,
                     )
 
             with _col_ai:
                 st.markdown(
-                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;">'
-                    f'<span class="material-symbols-rounded" style="font-size:20px;color:{accent};">smart_toy</span>'
+                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:0.5rem;">'
+                    f'<span class="material-symbols-rounded" style="font-size:18px;color:{accent};">smart_toy</span>'
                     f'<span style="font-size:14px;font-weight:600;color:#0f172a;">Spørg om vejledningen</span>'
                     '</div>',
                     unsafe_allow_html=True,
@@ -1432,32 +1472,51 @@ with tab_vejl:
                     st.markdown(
                         f'<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;'
                         f'padding:16px;margin-bottom:1rem;">'
-                        f'<div style="font-size:12.5px;color:#64748b;line-height:1.7;">'
+                        f'<div style="font-size:12.5px;color:#64748b;line-height:1.7;margin-bottom:10px;">'
                         f'Stil et spørgsmål om <strong>{_valgt_vejl["titel"]}</strong> '
-                        f'— Harald svarer udelukkende baseret på vejledningens indhold.</div></div>',
+                        f'— Harald svarer udelukkende baseret på vejledningens indhold.</div>'
+                        f'<div style="font-size:11.5px;color:#94a3b8;">Prøv fx:</div></div>',
                         unsafe_allow_html=True,
                     )
+                    _forslag = [
+                        f"Hvad er hovedreglerne i denne vejledning?",
+                        f"Hvornår kræves dispensation?",
+                        f"Hvad er de vigtigste undtagelser?",
+                    ]
+                    _f_cols = st.columns(len(_forslag))
+                    for _fi, (_fc, _fq) in enumerate(zip(_f_cols, _forslag)):
+                        with _fc:
+                            if st.button(_fq, key=f"_mfkn_vf_{_valgt_vejl_id}_{_fi}", use_container_width=True):
+                                st.session_state[f"_mfkn_vejl_auto_q_{_valgt_vejl_id}"] = _fq
+                                st.rerun()
 
+                if _historik:
+                    st.markdown('<div class="vejl-chat-scroll" style="max-height:420px;overflow-y:auto;'
+                                'padding-right:4px;margin-bottom:8px;">', unsafe_allow_html=True)
                 for msg in _historik:
                     if msg["rolle"] == "bruger":
                         st.markdown(
-                            f'<div style="background:#f1f5f9;border-radius:8px;padding:12px 16px;'
+                            f'<div style="background:#e0f2fe;border-left:3px solid #0284c7;'
+                            f'border-radius:0 8px 8px 0;padding:10px 14px;'
                             f'margin-bottom:8px;font-size:13px;color:#0f172a;">'
-                            f'<strong>Dig:</strong> {msg["tekst"]}</div>',
+                            f'{msg["tekst"]}</div>',
                             unsafe_allow_html=True,
                         )
                     else:
                         st.markdown(
-                            f'<div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;'
-                            f'padding:12px 16px;margin-bottom:8px;font-size:13px;color:#1e293b;'
+                            f'<div style="background:#ffffff;border-left:3px solid #10b981;'
+                            f'border:1px solid #e2e8f0;border-left:3px solid #10b981;border-radius:0 8px 8px 0;'
+                            f'padding:10px 14px;margin-bottom:8px;font-size:13px;color:#1e293b;'
                             f'line-height:1.7;">{msg["tekst"]}</div>',
                             unsafe_allow_html=True,
                         )
+                if _historik:
+                    st.markdown('</div>', unsafe_allow_html=True)
 
-                _vejl_q = st.chat_input(f"Spørg om {_valgt_vejl['titel'][:50]}… ({valgt_navn})", key="_mfkn_vejl_q")
+                _auto_q = st.session_state.pop(f"_mfkn_vejl_auto_q_{_valgt_vejl_id}", None)
+                _vejl_q = _auto_q or st.chat_input(f"Spørg om {_valgt_vejl['titel'][:50]}…", key="_mfkn_vejl_q")
                 if _vejl_q and _tekst:
                     _historik.append({"rolle": "bruger", "tekst": _vejl_q})
-                    # Byg kontekst fra vejledningen
                     _vejl_chunks = chunk_tekst(_tekst, max_tokens=800)
                     _relevante = []
                     _q_lower = _vejl_q.lower()
@@ -1496,6 +1555,8 @@ with tab_vejl:
                     st.rerun()
 
                 if _historik:
+                    st.markdown('<div style="text-align:right;margin-top:4px;">', unsafe_allow_html=True)
                     if st.button("Ryd samtale", key="_mfkn_vejl_ryd"):
                         st.session_state[_chat_key] = []
                         st.rerun()
+                    st.markdown('</div>', unsafe_allow_html=True)
