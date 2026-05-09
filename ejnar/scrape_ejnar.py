@@ -78,6 +78,51 @@ def parse_sp_date(s: str) -> str:
     return s[:10]
 
 
+_DK_MND = {
+    "januar": 1, "februar": 2, "marts": 3, "april": 4, "maj": 5, "juni": 6,
+    "juli": 7, "august": 8, "september": 9, "oktober": 10, "november": 11, "december": 12,
+    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "jun": 6, "jul": 7, "aug": 8,
+    "sep": 9, "okt": 10, "nov": 11, "dec": 12,
+}
+
+
+def extract_kendelse_date(tekst: str) -> str:
+    """Træk afsigelsesdatoen ud af kendelsens PDF-tekst.
+
+    Typisk format i AKF-kendelser:
+        'Den 29. maj 2006 blev i sag nr. 66.295: ...'
+        'København, den 12. december 2018'
+        '12. december 2018'
+    Returnér 'YYYY-MM-DD' eller tom streng."""
+    if not tekst:
+        return ""
+    # Mønster: (valgfrit "Den") + dag + ". " + mdr + " " + årstal
+    pat = re.compile(
+        r"(?:Den|den)?\s*(\d{1,2})\.\s*(januar|februar|marts|april|maj|juni|juli|"
+        r"august|september|oktober|november|december|jan|feb|mar|apr|jun|jul|aug|"
+        r"sep|okt|nov|dec)\s+(19\d{2}|20\d{2})",
+        flags=re.IGNORECASE,
+    )
+    # Læs kun de første 3000 tegn (afsigelsesdatoen står næsten altid på side 1)
+    m = pat.search(tekst[:3000])
+    if not m:
+        return ""
+    dag = int(m.group(1))
+    mdr = _DK_MND.get(m.group(2).lower())
+    aar = int(m.group(3))
+    if not mdr:
+        return ""
+    return f"{aar:04d}-{mdr:02d}-{dag:02d}"
+
+
+def extract_kendelse_sagsnr(tekst: str) -> str:
+    """Hent referencenummer som 'NNN/YY' fra øverste højre hjørne af kendelsen."""
+    if not tekst:
+        return ""
+    m = re.search(r"\b(\d{1,4}/\d{2})\b", tekst[:500])
+    return m.group(1) if m else ""
+
+
 def strip_html_keep_structure(soup_or_html) -> str:
     if isinstance(soup_or_html, str):
         soup = BeautifulSoup(soup_or_html, "html.parser")
@@ -533,12 +578,25 @@ def main():
         udfald = detect_udfald(tekst, a.get("RulingType", ""))
         mangler = detect_mangeltyper(tekst)
 
+        # Datoen fra PDF-teksten er den korrekte afsigelsesdato. SharePoint's
+        # Write/LastModifiedTime er kun at-data, så den overskriver vi.
+        pdf_dato = extract_kendelse_date(tekst)
+        # Reference-nummer (749/06 i øverste højre hjørne) — ofte mere brugbart
+        # som visnings-reference end SharePoint's interne CN.
+        pdf_ref = extract_kendelse_sagsnr(tekst)
+
+        # Brug AnkeforsikringCaseNumber som primært sagsnummer (= CN i URL'en),
+        # men hvis der er et tydeligere "NNN/ÅÅ" øverst i kendelsen, tag det med.
+        sagsnr_kombineret = a.get("Sagsnummer", "")
+        if pdf_ref and pdf_ref != sagsnr_kombineret:
+            sagsnr_kombineret = f"{sagsnr_kombineret} ({pdf_ref})" if sagsnr_kombineret else pdf_ref
+
         batch.append({
-            "Dato":            a["Dato"],
+            "Dato":            pdf_dato or a["Dato"],
             "Titel":           a["Titel"],
             "Link":            a["Link"],
             "Tekst":           tekst,
-            "Sagsnummer":      a.get("Sagsnummer", ""),
+            "Sagsnummer":      sagsnr_kombineret,
             "Selskab":         a.get("Selskab", ""),
             "Udfald":          udfald,
             "Mangeltype":      ", ".join(mangler),
