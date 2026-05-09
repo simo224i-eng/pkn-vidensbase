@@ -39,24 +39,10 @@ SEARCH_API = f"{BASE_URL}/_api/search/query"
 # Filteret som UI'en bruger
 REFINEMENT_FILTER = 'AnkeforsikringInsuranceType:equals("Ejerskifteforsikring")'
 
-# Felter vi vil have med fra hver række (SharePoint managed properties).
-# De første er standard SP-felter; resten er Ankeforsikring-specifikke felter
-# vi gætter på baseret på navngivningen i refiners. Hvis et felt ikke findes,
-# returnerer SharePoint blot null — så det er sikkert at spørge efter dem.
-SELECT_PROPERTIES = [
-    "Title", "Path", "OriginalPath", "Write", "LastModifiedTime",
-    "HitHighlightedSummary", "Author",
-    # Ankeforsikring-specifikke felter (gættet — kan tilpasses efter behov)
-    "AnkeforsikringInsuranceType",
-    "AnkeforsikringCompanyName",
-    "AnkeforsikringCompanyNameAndID",
-    "AnkeforsikringRulingType",
-    "AnkeforsikringRulingDate",
-    "AnkeforsikringCaseNumber",
-    "AnkeforsikringSummary",
-    "AnkeforsikringPrincipal",
-]
-
+# Note: vi sender IKKE selectproperties — i stedet lader vi SharePoint
+# returnere alle standardfelter + alle Ankeforsikring-specifikke felter
+# der måtte være konfigureret. Det undgår 500-fejl ved at bede om felter
+# der ikke findes som managed properties på serveren.
 ROW_LIMIT = 50
 SLEEP_SEC = 0.5
 
@@ -177,16 +163,18 @@ def detect_mangeltyper(tekst: str) -> list[str]:
 
 # ── SharePoint Search API ────────────────────────────────────────────────────
 def search_page(session: requests.Session, start_row: int, debug: bool = False) -> dict:
-    """Hent én side af søgeresultater (rowlimit kendelser)."""
+    """Hent én side af søgeresultater (rowlimit kendelser).
+    Parametrene er bevidst valgt så de matcher det browseren sender — undtagen
+    rowlimit/startrow som tilføjes til paginering."""
     params = {
-        "querytext":         "'*'",
-        "refinementfilters": f"'{REFINEMENT_FILTER}'",
-        "rowlimit":          ROW_LIMIT,
-        "startrow":          start_row,
-        "selectproperties":  "'" + ",".join(SELECT_PROPERTIES) + "'",
-        "trimduplicates":    "false",
-        "culture":           1030,  # da-DK
-        "properties":        "'SourceName:AnkeforsikringKendelser,SourceLevel:SSA'",
+        "querytext":                  "'(*)'",
+        "refiners":                   "'AnkeforsikringCompanyNameAndID(sort=name:ascending,filter=500/0/*),AnkeforsikringInsuranceType(sort=name:ascending,filter=50/0/*)'",
+        "properties":                 "'SourceName:AnkeforsikringKendelser,SourceLevel:SSA'",
+        "culture":                    1030,
+        "QueryTemplatePropertiesUrl": "'spfile://webroot/queryparametertemplate.xml'",
+        "refinementfilters":          f"'{REFINEMENT_FILTER}'",
+        "rowlimit":                   ROW_LIMIT,
+        "startrow":                   start_row,
     }
     r = session.get(SEARCH_API, headers=DEFAULT_HEADERS, params=params, timeout=30)
     if debug:
@@ -218,14 +206,26 @@ def parse_search_response(data: dict) -> tuple[list[dict], int]:
             continue
         if not path.startswith("http"):
             path = urljoin(BASE_URL, path)
+        # Vi prøver flere mulige feltnavne — SharePoint sites har ofte
+        # forskellige konventioner (refinable strings owstaxIdAnkeforsikring* osv.)
         out.append({
-            "Titel":         d.get("Title") or "",
-            "Link":          path,
-            "Dato":          parse_sp_date(d.get("Write") or d.get("AnkeforsikringRulingDate") or ""),
-            "Sagsnummer":    d.get("AnkeforsikringCaseNumber") or "",
-            "Selskab":       d.get("AnkeforsikringCompanyName") or "",
-            "RulingType":    d.get("AnkeforsikringRulingType") or "",
-            "ApiSummary":    d.get("AnkeforsikringSummary") or d.get("HitHighlightedSummary") or "",
+            "Titel":      (d.get("Title") or d.get("AnkeforsikringTitle") or
+                           d.get("AnkeforsikringSubject") or ""),
+            "Link":       path,
+            "Dato":       parse_sp_date(
+                d.get("AnkeforsikringRulingDate") or
+                d.get("RulingDate") or
+                d.get("Write") or ""),
+            "Sagsnummer": (d.get("AnkeforsikringCaseNumber") or
+                           d.get("CaseNumber") or
+                           d.get("AnkeforsikringRulingNumber") or ""),
+            "Selskab":    (d.get("AnkeforsikringCompanyName") or
+                           d.get("CompanyName") or ""),
+            "RulingType": (d.get("AnkeforsikringRulingType") or
+                           d.get("RulingType") or ""),
+            "ApiSummary": (d.get("AnkeforsikringSummary") or
+                           d.get("HitHighlightedSummary") or ""),
+            "_alle_felter": d,   # bevares til debug
         })
     return out, int(total)
 
@@ -317,6 +317,12 @@ def main():
         if total_hits is None:
             total_hits = total
             print(f"  Total hits ifølge API: {total_hits}")
+            if args.debug and rows:
+                print(f"  Felter returneret pr. række (første resultat):")
+                for k in sorted(rows[0].get("_alle_felter", {}).keys()):
+                    v = rows[0]["_alle_felter"][k]
+                    if v not in (None, ""):
+                        print(f"    {k} = {str(v)[:80]}")
         if not rows:
             break
         alle.extend(rows)
