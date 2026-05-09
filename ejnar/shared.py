@@ -1346,10 +1346,11 @@ def get_embed_error() -> str:
 
 def _embedding_provider() -> tuple:
     """Returnerer (provider_navn, api_key, model, dim) baseret på tilgængelige secrets.
-    Preferer Voyage (bedst til dansk), falder tilbage til OpenAI."""
+    Preferer Voyage 3-large (bedst til dansk + chunk-niveau retrieval),
+    falder tilbage til OpenAI."""
     voyage_key = st.secrets.get("VOYAGE_API_KEY", "")
     if voyage_key:
-        return ("voyage", voyage_key, "voyage-multilingual-2", 1024)
+        return ("voyage", voyage_key, "voyage-3-large", 1024)
     openai_key = st.secrets.get("OPENAI_API_KEY", "")
     if openai_key:
         return ("openai", openai_key, "text-embedding-3-small", 1536)
@@ -1537,11 +1538,94 @@ def _download_embedding_from_github(fname: str, save_dir: str) -> str | None:
         return None
 
 
-def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 32) -> "np.ndarray | None":
-    """Byg et persistent embedding-indeks. Tjekker git-tracked embeds/ først (gratis),
-    derefter /tmp cache, og bygger fra API som sidste udvej.
-    Gemmer som float16 komprimeret for minimal filstørrelse (~50% af float32).
-    Auto-pusher til GitHub hvis GITHUB_TOKEN er sat, så næste deploy er gratis."""
+def _load_chunked_embeds(cache_key: str, n_docs: int):
+    """Find og indlæs chunk-niveau embeddings (nyt format med chunk_to_doc-mapping).
+
+    Returnér dict {"vectors": ndarray (N_chunks, D), "chunk_to_doc": ndarray (N_chunks,),
+                   "n_docs": int, "model": str} eller None hvis ikke fundet.
+    Filer matches på mønstret: {cache_key}__voyage__voyage-3-large__{n_docs}d_*c.npz"""
+    import os as _os, glob as _glob
+    provider, _key, model, dim = _embedding_provider()
+    if not provider:
+        return None
+    _app_root = _os.path.dirname(_os.path.abspath(__file__))
+    _git_dir = _os.path.join(_app_root, "embeds")
+    _tmp_dir = "/tmp/ejnar_data/embeds"
+    pattern = f"{cache_key}__{provider}__{model}__{n_docs}d_*c.npz"
+
+    candidates = []
+    for d in (_git_dir, _tmp_dir):
+        candidates.extend(_glob.glob(_os.path.join(d, pattern)))
+
+    # Prøv også at hente fra GitHub hvis vi ikke fandt det lokalt
+    if not candidates:
+        try:
+            # GitHub: liste ejnar/embeds/ og find matching navn
+            import requests as _req
+            token = st.secrets.get("GITHUB_TOKEN", "").strip()
+            if token:
+                repo = "simo224i-eng/pkn-vidensbase"
+                url = f"https://api.github.com/repos/{repo}/contents/ejnar/embeds"
+                r = _req.get(url, headers={"Authorization": f"token {token}"}, timeout=30)
+                if r.ok:
+                    name_prefix = f"{cache_key}__{provider}__{model}__{n_docs}d_"
+                    for entry in r.json():
+                        if entry["name"].startswith(name_prefix) and entry["name"].endswith("c.npz"):
+                            _dl = _download_embedding_from_github(entry["name"], _tmp_dir)
+                            if _dl:
+                                candidates.append(_dl)
+                                break
+        except Exception:
+            pass
+
+    if not candidates:
+        return None
+
+    for path in candidates:
+        try:
+            data = np.load(path)
+            if "embeddings" not in data.files or "chunk_to_doc" not in data.files:
+                continue
+            vectors = data["embeddings"]
+            if vectors.dtype == np.float16:
+                vectors = vectors.astype(np.float32)
+            chunk_to_doc = data["chunk_to_doc"].astype(np.int32)
+            stored_n_docs = int(data["n_docs"]) if "n_docs" in data.files else n_docs
+            if stored_n_docs != n_docs:
+                continue
+            return {
+                "vectors": vectors,
+                "chunk_to_doc": chunk_to_doc,
+                "n_docs": n_docs,
+                "model": model,
+            }
+        except Exception:
+            continue
+    return None
+
+
+def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int = 32):
+    """Byg/indlæs persistent embedding-indeks.
+
+    Foretrækker chunk-niveau format (nyere builds). Falder tilbage til doc-niveau
+    format hvis kun det findes. Som sidste udvej bygges fra API on-the-fly.
+
+    Returnerer:
+      - dict med {"vectors", "chunk_to_doc", "n_docs"} for chunk-niveau, ELLER
+      - ndarray for doc-niveau (gammelt format),
+      - None hvis intet kunne loades/bygges.
+    embedding_soeg() håndterer begge typer."""
+    # 1. Forsøg at indlæse chunk-niveau (nyt format)
+    chunked = _load_chunked_embeds(cache_key, len(df) if df is not None else 0)
+    if chunked is not None:
+        return chunked
+    # 2. Fald tilbage til gammelt doc-niveau format (eller byg fra API)
+    return _byg_embeddings_indeks_legacy(df, cache_key, tekst_bygger, batch_size)
+
+
+def _byg_embeddings_indeks_legacy(df, cache_key: str, tekst_bygger=None, batch_size: int = 32) -> "np.ndarray | None":
+    """Doc-niveau embeddings — gammelt format. Bevares for bagudkompatibilitet
+    og for tilfælde hvor en chunk-build ikke er kørt offline endnu."""
     provider, _key, model, dim = _embedding_provider()
     if not provider or df is None or len(df) == 0:
         return None
@@ -1740,10 +1824,17 @@ def sync_embeddings_to_github():
 
 
 def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30, use_hyde: bool = True):
-    """Semantisk søgning med HyDE: genererer hypotetisk svar, embedder det,
-    og matcher mod pre-computed doc embeddings via cosine similarity.
-    Falder tilbage til rå query-embedding hvis HyDE fejler.
-    Returnerer liste af (global_idx, score) sorteret bedst-først."""
+    """Semantisk søgning med HyDE og chunk-niveau retrieval.
+
+    Hvis `embeds` er et dict (nyt chunk-format), søges på chunk-niveau:
+    hver kendelse har 3-8 chunks, og vi tager max chunk-score pr. kendelse
+    som dokumentets endelige score. Det giver bedre præcision når kun ét
+    afsnit er relevant.
+
+    Hvis `embeds` er en ndarray (gammelt doc-niveau format), bruges den
+    klassiske doc-niveau matching.
+
+    Returnerer liste af (global_doc_idx, score) sorteret bedst-først."""
     if embeds is None or df is None or len(df) == 0:
         return []
     qv = _hyde_embed(query) if use_hyde else _embed_query(query)
@@ -1751,9 +1842,52 @@ def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30, use_hy
         qv = _embed_query(query)
     if qv is None:
         return []
+
+    # ── Chunk-niveau (nyt format) ──────────────────────────────────────────
+    if isinstance(embeds, dict) and "chunk_to_doc" in embeds:
+        vectors = embeds["vectors"]
+        chunk_to_doc = embeds["chunk_to_doc"]
+
+        # Score alle chunks (vektorer er allerede L2-normaliserede)
+        all_scores = vectors @ qv
+
+        # Filtrér chunks til dem der hører til docs i sub_idx
+        if sub_idx is not None and len(sub_idx) > 0:
+            sub_arr = np.asarray(sub_idx, dtype=np.int32)
+            mask = np.isin(chunk_to_doc, sub_arr)
+            if not mask.any():
+                return []
+            chunk_indices = np.where(mask)[0]
+            scores_sub = all_scores[chunk_indices]
+            chunks_doc = chunk_to_doc[chunk_indices]
+        else:
+            chunks_doc = chunk_to_doc
+            scores_sub = all_scores
+            chunk_indices = np.arange(len(all_scores))
+
+        # Effektiv aggregering: tag top-K chunks først, gruppér efter doc med max-score
+        if len(scores_sub) == 0:
+            return []
+        n_top_chunks = min(len(scores_sub), top_n * 8)
+        top_local = np.argpartition(-scores_sub, n_top_chunks - 1)[:n_top_chunks]
+        # Sortér disse på score for deterministisk rækkefølge
+        top_local = top_local[np.argsort(-scores_sub[top_local])]
+
+        seen_docs: dict[int, float] = {}
+        for li in top_local:
+            d = int(chunks_doc[li])
+            s = float(scores_sub[li])
+            prev = seen_docs.get(d)
+            if prev is None or s > prev:
+                seen_docs[d] = s
+
+        sorted_docs = sorted(seen_docs.items(), key=lambda x: -x[1])[:top_n]
+        return [(d, s) for d, s in sorted_docs if s > 0.15]
+
+    # ── Doc-niveau (gammelt format) ────────────────────────────────────────
     if sub_idx is not None and len(sub_idx) > 0:
         sub_mat = embeds[sub_idx]
-        scores = sub_mat @ qv  # normaliserede vektorer → cosine = dot
+        scores = sub_mat @ qv
         order = np.argsort(-scores)[:top_n]
         return [(int(sub_idx[i]), float(scores[i])) for i in order if scores[i] > 0.15]
     scores = embeds @ qv

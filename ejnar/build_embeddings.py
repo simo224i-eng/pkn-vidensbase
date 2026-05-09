@@ -1,9 +1,17 @@
 #!/usr/bin/env python3
 """Embedding-builder for Ejnar (ejerskifteforsikrings-kendelser).
 
-Kører uafhængigt af Streamlit. Gemmer fremskridt løbende, så afbrudte
-kørsler kan genoptages. Voyage AI's voyage-multilingual-2 (samme model
-som Harald) er primær — sæt VOYAGE_API_KEY i miljøet før kørsel.
+Bygger CHUNK-NIVEAU embeddings: hver kendelse deles i overlappende
+~1000-token-chunks (hver med titel-prefix), og hver chunk får sin egen
+vektor. Det giver væsentligt bedre præcision på lange juridiske tekster
+hvor kun ét afsnit er relevant for et givet spørgsmål.
+
+Bruger Voyage-3-large (2024-modellen, bedre på dansk end multilingual-2).
+
+Output-format (.npz med flere arrays):
+    embeddings:   (N_chunks, DIM)    float16, L2-normaliserede
+    chunk_to_doc: (N_chunks,)        int32, hvilket dokument hver chunk hører til
+    n_docs:       scalar             total antal dokumenter
 
 Brug:
     cd ejnar
@@ -21,10 +29,14 @@ import numpy as np
 import requests
 
 VOYAGE_API_KEY = os.environ.get("VOYAGE_API_KEY", "")
-MODEL = "voyage-multilingual-2"
+MODEL = "voyage-3-large"
 DIM = 1024
 BATCH_SIZE = 32
-MAX_TEXT_LEN = 8000
+
+# Chunk-parametre
+CHUNK_SIZE = 1000      # tokens (ca. 4000 tegn) — passer godt til afsnit i juridiske tekster
+CHUNK_OVERLAP = 150    # tokens — sikrer at sætninger ikke skæres midt over
+MAX_CHUNKS_PER_DOC = 8 # cap for ekstreme outliere så længste 1% ikke dominerer
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EMBEDS_DIR = os.path.join(ROOT, "embeds")
@@ -33,7 +45,7 @@ os.makedirs(EMBEDS_DIR, exist_ok=True)
 os.makedirs(PROGRESS_DIR, exist_ok=True)
 
 CACHE_KEY = "ejnar_ejerskifteforsikring"
-CSV_NAMES = ["ejnar_ejerskifteforsikring.csv"]   # tilføj flere hvis du splitter op
+CSV_NAMES = ["ejnar_ejerskifteforsikring.csv"]
 
 
 # ── HTML strip (samme regler som shared.py) ─────────────────────────────────
@@ -65,37 +77,44 @@ def strip_html(text: str) -> str:
     return "\n".join(out).strip()
 
 
-def kerneafsnit(tekst: str, max_tegn: int = 6000) -> str:
-    """Foretræk klagens kerne + nævnets begrundelse/afgørelse."""
-    sektioner = re.split(r"\n(#{2,3} .+)", tekst)
-    dele = []
-    for i, d in enumerate(sektioner):
-        if d.startswith("## ") or d.startswith("### "):
-            ind = sektioner[i + 1] if i + 1 < len(sektioner) else ""
-            dele.append((d.lstrip("#").strip().lower(), ind.strip()))
-    prio = [
-        "klagen", "klagerens påstand",
-        "selskabets påstand",
-        "ankenævnets bemærkninger",
-        "ankenævnets afgørelse",
-        "begrundelse", "afgørelse",
-    ]
-    udtræk, brugt = [], 0
-    for p in prio:
-        for h, ind in dele:
-            if p in h and ind:
-                t = f"[{h.upper()}]\n{ind}"
-                if brugt + len(t) <= max_tegn:
-                    udtræk.append(t)
-                    brugt += len(t)
-    if udtræk:
-        return "\n\n".join(udtræk)
-    return tekst[-max_tegn:]
+# ── Chunking ───────────────────────────────────────────────────────────────
+def chunk_text(titel: str, tekst: str,
+               chunk_size: int = CHUNK_SIZE,
+               overlap: int = CHUNK_OVERLAP,
+               max_chunks: int = MAX_CHUNKS_PER_DOC) -> list[str]:
+    """Del en kendelse i overlappende chunks med titel-prefix.
 
+    Hvert chunk får titlen prependet, så embedding-modellen altid har
+    kontekst til at forstå hvad chunk'en handler om — kritisk for
+    præcis matching af spørgsmål til den rigtige kendelse."""
+    titel = (titel or "").strip()
+    tekst = (tekst or "").strip()
+    if not tekst:
+        return [titel] if titel else []
 
-def indeks_tekst(titel: str, tekst: str, max_tegn: int = 4000) -> str:
-    t = titel or ""
-    return f"{t} {t} {t} {kerneafsnit(tekst or '', max_tegn=max_tegn)}"
+    # Vi bruger ord som proxy for tokens (1 ord ≈ 1.3 tokens i dansk).
+    # CHUNK_SIZE = 1000 tokens ≈ 770 ord.
+    chunk_words = int(chunk_size * 0.77)
+    overlap_words = int(overlap * 0.77)
+
+    ord_liste = tekst.split()
+    if len(ord_liste) <= chunk_words:
+        return [f"{titel}\n\n{tekst}" if titel else tekst]
+
+    chunks = []
+    start = 0
+    while start < len(ord_liste) and len(chunks) < max_chunks:
+        end = min(start + chunk_words, len(ord_liste))
+        chunk_body = " ".join(ord_liste[start:end])
+        if titel:
+            chunks.append(f"{titel}\n\n{chunk_body}")
+        else:
+            chunks.append(chunk_body)
+        if end >= len(ord_liste):
+            break
+        start += chunk_words - overlap_words
+
+    return chunks
 
 
 # ── Voyage embedding ───────────────────────────────────────────────────────
@@ -168,63 +187,84 @@ def load_all() -> list[tuple[str, str]]:
 
 # ── Build + save ───────────────────────────────────────────────────────────
 def build(cache_key: str, data) -> bool:
-    n = len(data)
-    if n == 0:
+    n_docs = len(data)
+    if n_docs == 0:
         print(f"  {cache_key}: ingen data")
         return True
 
-    fname = f"{cache_key}__voyage__{MODEL}__{n}.npz"
+    # 1. Chunk alle dokumenter, byg samtidig chunk-til-doc mapping
+    print(f"  Chunker {n_docs} dokumenter (chunk_size={CHUNK_SIZE}, overlap={CHUNK_OVERLAP})…")
+    all_chunks: list[str] = []
+    chunk_to_doc: list[int] = []
+    for doc_idx, (titel, tekst) in enumerate(data):
+        for c in chunk_text(titel, tekst):
+            all_chunks.append(c)
+            chunk_to_doc.append(doc_idx)
+    n_chunks = len(all_chunks)
+    print(f"  → {n_chunks} chunks ({n_chunks / max(n_docs, 1):.2f} chunks pr. dokument i snit)")
+
+    fname = f"{cache_key}__voyage__{MODEL}__{n_docs}d_{n_chunks}c.npz"
     out_path = os.path.join(EMBEDS_DIR, fname)
 
     if os.path.exists(out_path):
         try:
-            arr = np.load(out_path)["arr_0"]
-            if arr.shape[0] == n:
-                print(f"  SKIP {cache_key}: findes allerede ({n} rækker)")
+            arr = np.load(out_path)
+            if "embeddings" in arr.files and arr["embeddings"].shape[0] == n_chunks:
+                print(f"  SKIP {cache_key}: findes allerede ({n_chunks} chunks)")
                 return True
         except Exception:
             pass
 
-    texts = [indeks_tekst(t, tx)[:MAX_TEXT_LEN] for t, tx in data]
-    out = np.zeros((n, DIM), dtype=np.float32)
+    # 2. Embed i batches med resume-support
+    out = np.zeros((n_chunks, DIM), dtype=np.float32)
     start_batch = 0
 
-    progress_path = os.path.join(PROGRESS_DIR, f"{cache_key}__partial.npz")
+    progress_path = os.path.join(PROGRESS_DIR, f"{cache_key}__partial_chunked.npz")
     if os.path.exists(progress_path):
         try:
             p = np.load(progress_path)
             parr, pdone = p["embeddings"], int(p["n_done"])
-            if parr.shape == (n, DIM) and pdone > 0:
+            if parr.shape == (n_chunks, DIM) and pdone > 0:
                 if parr.dtype == np.float16:
                     parr = parr.astype(np.float32)
                 out[:pdone] = parr[:pdone]
                 start_batch = pdone // BATCH_SIZE
-                print(f"  Genoptager {cache_key} fra batch {start_batch} ({pdone}/{n} done)")
+                print(f"  Genoptager {cache_key} fra batch {start_batch} ({pdone}/{n_chunks} done)")
         except Exception:
             pass
 
-    n_batches = (n + BATCH_SIZE - 1) // BATCH_SIZE
+    n_batches = (n_chunks + BATCH_SIZE - 1) // BATCH_SIZE
+    t_start = time.time()
     for b in range(start_batch, n_batches):
         s = b * BATCH_SIZE
-        e = min(s + BATCH_SIZE, n)
-        arr = embed_batch(texts[s:e])
+        e = min(s + BATCH_SIZE, n_chunks)
+        arr = embed_batch(all_chunks[s:e])
         if arr is None:
             if s > 0:
                 np.savez_compressed(progress_path,
                                     embeddings=out.astype(np.float16),
                                     n_done=np.array(s))
-                print(f"  PARTIAL SAVE ved {s}/{n}")
+                print(f"  PARTIAL SAVE ved {s}/{n_chunks}")
             return False
         out[s:e] = arr
         if (b + 1) % 5 == 0 or b == n_batches - 1:
-            print(f"  {cache_key}: {e}/{n} ({(b + 1) / n_batches * 100:.0f}%)")
+            elapsed = time.time() - t_start
+            pct = (b + 1) / n_batches * 100
+            eta = elapsed / (b + 1 - start_batch) * (n_batches - b - 1) if b + 1 > start_batch else 0
+            print(f"  {cache_key}: {e}/{n_chunks} ({pct:.0f}%) — ETA {int(eta)}s")
 
+    # 3. L2-normalisér
     norms = np.linalg.norm(out, axis=1, keepdims=True)
     norms[norms == 0] = 1.0
     out = out / norms
 
-    np.savez_compressed(out_path, out.astype(np.float16))
-    print(f"  DONE {cache_key}: {n} rækker — {os.path.getsize(out_path) // 1024}KB")
+    # 4. Gem som komprimeret .npz med chunk → doc mapping
+    np.savez_compressed(out_path,
+                        embeddings=out.astype(np.float16),
+                        chunk_to_doc=np.array(chunk_to_doc, dtype=np.int32),
+                        n_docs=np.array(n_docs, dtype=np.int32))
+    print(f"  DONE {cache_key}: {n_chunks} chunks fra {n_docs} docs — "
+          f"{os.path.getsize(out_path) // 1024}KB")
 
     if os.path.exists(progress_path):
         os.remove(progress_path)
@@ -237,11 +277,12 @@ def main():
         sys.exit(1)
 
     print(f"Voyage model: {MODEL} (dim {DIM})")
+    print(f"Chunk-størrelse: {CHUNK_SIZE} tokens, overlap {CHUNK_OVERLAP}")
     print(f"Output: {EMBEDS_DIR}\n")
 
     print("Test af API-nøgle…")
     if embed_batch(["test"]) is None:
-        print("API-nøgle virker ikke.")
+        print("API-nøgle virker ikke — eller modellen er ikke tilgængelig.")
         sys.exit(1)
     print("OK.\n")
 
@@ -249,7 +290,7 @@ def main():
     data = load_all()
     print(f"  {len(data)} kendelser i alt\n")
 
-    print("Bygger embeddings…")
+    print("Bygger chunk-niveau embeddings…")
     ok = build(CACHE_KEY, data)
     print()
 
