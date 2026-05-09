@@ -297,31 +297,58 @@ def _docx_to_text(content: bytes) -> str:
     return text.strip()
 
 
+def _looks_like_doc(content: bytes) -> str | None:
+    """Returnér 'docx', 'doc' eller None alt efter binær-signaturen."""
+    if not content or len(content) < 8:
+        return None
+    if content[:4] == b'PK\x03\x04':
+        return "docx"
+    if content[:4] == b'\xd0\xcf\x11\xe0':
+        return "doc"
+    return None
+
+
 def fetch_kendelse_text(session: requests.Session, url: str, debug: bool = False) -> str:
     """Hent fuld tekst fra en viewdoc.aspx-kendelses-side.
 
-    1. Hent viewdoc.aspx-siden.
-    2. Find .doc/.docx-URL'en i HTML'en (Office-viewer's iframe).
-    3. Download .doc/.docx og udtræk tekst.
-    """
+    viewdoc.aspx leverer ofte Word-filen direkte (ikke en HTML-side med
+    en viewer). Vi henter med Accept der signalerer at vi gerne vil have
+    den rå fil, og parser bytes som .doc/.docx hvis signaturerne matcher.
+    Falder tilbage til HTML-parsing hvis det er en almindelig side."""
     try:
         r = session.get(url, headers={
-            "User-Agent":      DEFAULT_HEADERS["User-Agent"],
-            "Accept":          "text/html,application/xhtml+xml",
+            "User-Agent": DEFAULT_HEADERS["User-Agent"],
+            "Accept":     "application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,*/*",
             "Accept-Language": "da,en;q=0.7",
-        }, timeout=20)
+            "Referer":    f"{BASE_URL}/kendelser/Sider/kendelser.aspx",
+        }, timeout=30)
         r.raise_for_status()
     except requests.RequestException as e:
         if debug:
             print(f"  Fejl ved {url}: {e}")
         return ""
 
+    ct = (r.headers.get("Content-Type") or "").lower()
+    body_kind = _looks_like_doc(r.content)
+    if debug:
+        print(f"  HTTP {r.status_code} | Content-Type: {ct[:60]} | "
+              f"signatur: {body_kind} | størrelse: {len(r.content)} bytes")
+
+    # 1. Hvis svaret ER en Word-fil → parse direkte
+    if body_kind in ("doc", "docx") or "officedocument" in ct or "msword" in ct:
+        text = _docx_to_text(r.content)
+        if text and len(text) > 200:
+            return text
+        if debug:
+            print(f"  Word-parsing gav kun {len(text or '')} tegn")
+
+    # 2. Ellers: forsøg at finde en .doc-URL i HTML'en (gammel sti)
     doc_url = _extract_doc_url(r.text)
     if doc_url:
         if not doc_url.startswith("http"):
             doc_url = urljoin(BASE_URL, doc_url)
         if debug:
-            print(f"  Fundet doc-URL: {doc_url}")
+            print(f"  Fundet doc-URL i HTML: {doc_url}")
         try:
             r2 = session.get(doc_url, headers={
                 "User-Agent": DEFAULT_HEADERS["User-Agent"],
@@ -330,7 +357,7 @@ def fetch_kendelse_text(session: requests.Session, url: str, debug: bool = False
             }, timeout=30)
             r2.raise_for_status()
             text = _docx_to_text(r2.content)
-            if text and len(text) > 300:
+            if text and len(text) > 200:
                 return text
             if debug:
                 print(f"  doc-tekst kun {len(text)} tegn — falder tilbage til HTML")
