@@ -175,6 +175,15 @@ def search_page(session: requests.Session, start_row: int, debug: bool = False) 
         "refinementfilters":          f"'{REFINEMENT_FILTER}'",
         "rowlimit":                   ROW_LIMIT,
         "startrow":                   start_row,
+        # Ask SharePoint to also include candidate CN/sagsnummer fields.
+        # If a property doesn't exist server-side it's silently ignored
+        # (single bad name → 500 only when MIXED with valid; safe-list).
+        "selectproperties":           "'CN,AnkeforsikringCN,AnkeforsikringCaseNumber,"
+                                       "AnkeforsikringSagsnummer,AnkeforsikringRulingNumber,"
+                                       "ListItemID,SPListItemID,owsCN,owsCN0,"
+                                       "AnkeforsikringRulingDate,AnkeforsikringInsuranceType,"
+                                       "AnkeforsikringCompanyName,AnkeforsikringSummary,"
+                                       "Title,Path,OriginalPath,Write,LastModifiedTime'",
     }
     r = session.get(SEARCH_API, headers=DEFAULT_HEADERS, params=params, timeout=30)
     if debug:
