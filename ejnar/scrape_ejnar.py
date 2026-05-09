@@ -484,6 +484,20 @@ def load_existing(path: Path) -> dict[str, dict]:
         return {r["Link"]: r for r in csv.DictReader(f)}
 
 
+def _sanitize(s):
+    """Fjern lone surrogates og andre ugyldige UTF-8-sekvenser fra en streng.
+    Gamle scannede PDF'er kan indeholde tegn som '\\udbc0' (et halvt surrogate-par)
+    som Python ikke kan skrive til en utf-8-fil — vi smider dem væk."""
+    if not isinstance(s, str):
+        return s
+    if not s:
+        return s
+    # Fjern lone surrogates (\ud800-\udfff)
+    cleaned = re.sub(r'[\ud800-\udfff]', '', s)
+    # Round-trip via utf-8 for at fange andre ugyldige sekvenser
+    return cleaned.encode("utf-8", errors="replace").decode("utf-8", errors="replace")
+
+
 def append_rows(path: Path, rows: list[dict]) -> None:
     write_header = not path.exists()
     with open(path, "a", newline="", encoding="utf-8") as f:
@@ -491,7 +505,13 @@ def append_rows(path: Path, rows: list[dict]) -> None:
         if write_header:
             w.writeheader()
         for r in rows:
-            w.writerow({k: r.get(k, "") for k in FIELDNAMES})
+            clean = {k: _sanitize(r.get(k, "")) for k in FIELDNAMES}
+            try:
+                w.writerow(clean)
+            except (UnicodeEncodeError, ValueError) as e:
+                print(f"  ⚠ kunne ikke skrive række ({e}); springer over: "
+                      f"{(clean.get('Link') or '')[:80]}")
+                continue
 
 
 # ── Main ─────────────────────────────────────────────────────────────────────
