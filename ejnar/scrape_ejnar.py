@@ -210,37 +210,100 @@ def parse_search_response(data: dict) -> tuple[list[dict], int]:
     for row in raw_rows:
         cells = (row.get("Cells", {}) or {}).get("results", [])
         d = cells_to_dict(cells)
-        path = d.get("OriginalPath") or d.get("Path") or ""
-        if not path:
+        sagsnr = (d.get("AnkeforsikringCaseNumber") or
+                  d.get("CaseNumber") or "")
+        if not sagsnr:
+            # Hvis vi ikke har et sagsnummer kan vi ikke lave en offentlig URL
             continue
-        if not path.startswith("http"):
-            path = urljoin(BASE_URL, path)
-        # Vi prøver flere mulige feltnavne — SharePoint sites har ofte
-        # forskellige konventioner (refinable strings owstaxIdAnkeforsikring* osv.)
+        public_url = f"{BASE_URL}/adm-ankenaevnet/Sider/viewdoc.aspx?CN={sagsnr}"
+        # Internal BDC path bevares til evt. fuld-tekst download
+        bdc_path = d.get("OriginalPath") or d.get("Path") or ""
         out.append({
-            "Titel":      (d.get("Title") or d.get("AnkeforsikringTitle") or
-                           d.get("AnkeforsikringSubject") or ""),
-            "Link":       path,
+            "Titel":      d.get("AnkeforsikringSummary") or d.get("Title") or "",
+            "Link":       public_url,
+            "BDCPath":    bdc_path,
             "Dato":       parse_sp_date(
                 d.get("AnkeforsikringRulingDate") or
-                d.get("RulingDate") or
                 d.get("Write") or ""),
-            "Sagsnummer": (d.get("AnkeforsikringCaseNumber") or
-                           d.get("CaseNumber") or
-                           d.get("AnkeforsikringRulingNumber") or ""),
+            "Sagsnummer": sagsnr,
             "Selskab":    (d.get("AnkeforsikringCompanyName") or
                            d.get("CompanyName") or ""),
             "RulingType": (d.get("AnkeforsikringRulingType") or
                            d.get("RulingType") or ""),
-            "ApiSummary": (d.get("AnkeforsikringSummary") or
-                           d.get("HitHighlightedSummary") or ""),
-            "_alle_felter": d,   # bevares til debug
+            "ApiSummary": (d.get("AnkeforsikringSummary") or ""),
+            "_alle_felter": d,
         })
     return out, int(total)
 
 
+def _extract_doc_url(html: str) -> str:
+    """Find URL'en til den indlejrede Word-fil i en viewdoc.aspx-side.
+
+    Word vises i en Office-viewer der indlæser dokumentet via en URL i
+    iframe-src, et data-attribut eller et JavaScript-objekt som fx
+    'sourceDoc' / 'WopiSrc' / 'fileUrl'. Vi prøver flere mønstre."""
+    # 1. Iframe / embed med .doc/.docx
+    for pat in (
+        r'src=["\']([^"\']+\.docx?(?:\?[^"\']*)?)["\']',
+        r'data-doc=["\']([^"\']+)["\']',
+        r'WopiSrc["\']?\s*[:=]\s*["\']([^"\']+)["\']',
+        r'sourceDoc["\']?\s*[:=]\s*["\']([^"\']+)["\']',
+        r'fileUrl["\']?\s*[:=]\s*["\']([^"\']+)["\']',
+        r'(/adm-ankenaevnet/[^\s"\']+\.docx?)',
+    ):
+        m = re.search(pat, html, flags=re.IGNORECASE)
+        if m:
+            return m.group(1)
+    return ""
+
+
+def _docx_to_text(content: bytes) -> str:
+    """Træk tekst ud af en .docx eller (gammel) .doc fil."""
+    # .docx er en zip — læs document.xml direkte uden afhængigheder
+    try:
+        import zipfile, io as _io, xml.etree.ElementTree as ET
+        with zipfile.ZipFile(_io.BytesIO(content)) as z:
+            if "word/document.xml" in z.namelist():
+                xml = z.read("word/document.xml").decode("utf-8", errors="ignore")
+                # Strip namespace, så <w:t>tekst</w:t> bliver pænt
+                xml_clean = re.sub(r'\s+xmlns[^=]*="[^"]*"', '', xml)
+                xml_clean = re.sub(r'<[^/][^>]*:', '<', xml_clean)
+                xml_clean = re.sub(r'</[^>]*:', '</', xml_clean)
+                root = ET.fromstring(xml_clean)
+                paragraphs = []
+                for p in root.iter('p'):
+                    txt = "".join(t.text or "" for t in p.iter('t'))
+                    if txt.strip():
+                        paragraphs.append(txt.strip())
+                return "\n\n".join(paragraphs)
+    except Exception:
+        pass
+
+    # Gammel .doc binær — prøv python-docx2txt hvis tilgængelig
+    try:
+        import docx2txt, tempfile
+        with tempfile.NamedTemporaryFile(suffix=".doc", delete=False) as tmp:
+            tmp.write(content)
+            tmp.flush()
+            return docx2txt.process(tmp.name)
+    except Exception:
+        pass
+
+    # Fald-tilbage: prøv at trække ASCII-tekst ud af binær-blobben
+    text = content.decode("latin-1", errors="ignore")
+    # Behold kun printbare karakterer + danske bogstaver + linjeskift
+    text = re.sub(r'[^\x20-\x7eæøåÆØÅ\n]', ' ', text)
+    text = re.sub(r'\s{3,}', '\n\n', text)
+    return text.strip()
+
+
 def fetch_kendelse_text(session: requests.Session, url: str, debug: bool = False) -> str:
-    """Hent fuld tekst fra én kendelses-side."""
+    """Hent fuld tekst fra en viewdoc.aspx-kendelses-side.
+
+    1. Hent viewdoc.aspx-siden.
+    2. Find .doc/.docx-URL'en i HTML'en (Office-viewer's iframe).
+    3. Download .doc/.docx og udtræk tekst.
+    """
     try:
         r = session.get(url, headers={
             "User-Agent":      DEFAULT_HEADERS["User-Agent"],
@@ -253,13 +316,32 @@ def fetch_kendelse_text(session: requests.Session, url: str, debug: bool = False
             print(f"  Fejl ved {url}: {e}")
         return ""
 
+    doc_url = _extract_doc_url(r.text)
+    if doc_url:
+        if not doc_url.startswith("http"):
+            doc_url = urljoin(BASE_URL, doc_url)
+        if debug:
+            print(f"  Fundet doc-URL: {doc_url}")
+        try:
+            r2 = session.get(doc_url, headers={
+                "User-Agent": DEFAULT_HEADERS["User-Agent"],
+                "Accept":     "*/*",
+                "Referer":    url,
+            }, timeout=30)
+            r2.raise_for_status()
+            text = _docx_to_text(r2.content)
+            if text and len(text) > 300:
+                return text
+            if debug:
+                print(f"  doc-tekst kun {len(text)} tegn — falder tilbage til HTML")
+        except requests.RequestException as e:
+            if debug:
+                print(f"  Fejl ved doc-download {doc_url}: {e}")
+
+    # Fald-tilbage: forsøg at hive synlig tekst ud af viewdoc.aspx-siden
     soup = BeautifulSoup(r.text, "html.parser")
-    # SharePoint-publishing-sider har typisk indhold i én af disse:
-    for sel in (
-        "#contentBox", "#mainContent", ".ms-rtestate-field",
-        ".content-box", "main", "article",
-        "#DeltaPlaceHolderMain", ".s4-ca",
-    ):
+    for sel in ("#contentBox", "#mainContent", ".ms-rtestate-field",
+                "main", "article", "#DeltaPlaceHolderMain", ".s4-ca"):
         el = soup.select_one(sel)
         if el and len(el.get_text(strip=True)) > 400:
             return strip_html_keep_structure(el)
