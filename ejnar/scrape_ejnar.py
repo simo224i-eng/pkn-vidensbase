@@ -298,14 +298,52 @@ def _docx_to_text(content: bytes) -> str:
 
 
 def _looks_like_doc(content: bytes) -> str | None:
-    """Returnér 'docx', 'doc' eller None alt efter binær-signaturen."""
+    """Returnér 'docx', 'doc', 'pdf' eller None alt efter binær-signaturen."""
     if not content or len(content) < 8:
         return None
     if content[:4] == b'PK\x03\x04':
         return "docx"
     if content[:4] == b'\xd0\xcf\x11\xe0':
         return "doc"
+    if content[:5] == b'%PDF-':
+        return "pdf"
     return None
+
+
+def _pdf_to_text(content: bytes) -> str:
+    """Træk tekst ud af en PDF. Forsøger pypdf, derefter pdfminer.six."""
+    # pypdf (mest udbredt, pure-python)
+    try:
+        import io as _io
+        from pypdf import PdfReader
+        reader = PdfReader(_io.BytesIO(content))
+        sider = []
+        for page in reader.pages:
+            try:
+                sider.append(page.extract_text() or "")
+            except Exception:
+                pass
+        text = "\n\n".join(s.strip() for s in sider if s.strip())
+        if text:
+            return text
+    except ImportError:
+        pass
+    except Exception:
+        pass
+
+    # pdfminer.six (mere robust)
+    try:
+        import io as _io
+        from pdfminer.high_level import extract_text
+        text = extract_text(_io.BytesIO(content))
+        if text:
+            return text.strip()
+    except ImportError:
+        pass
+    except Exception:
+        pass
+
+    return ""
 
 
 def fetch_kendelse_text(session: requests.Session, url: str, debug: bool = False) -> str:
@@ -334,7 +372,16 @@ def fetch_kendelse_text(session: requests.Session, url: str, debug: bool = False
         print(f"  HTTP {r.status_code} | Content-Type: {ct[:60]} | "
               f"signatur: {body_kind} | størrelse: {len(r.content)} bytes")
 
-    # 1. Hvis svaret ER en Word-fil → parse direkte
+    # 1a. Hvis svaret ER en PDF → parse direkte
+    if body_kind == "pdf" or "application/pdf" in ct:
+        text = _pdf_to_text(r.content)
+        if text and len(text) > 200:
+            return text
+        if debug:
+            print(f"  PDF-parsing gav kun {len(text or '')} tegn — "
+                  f"installér pypdf eller pdfminer.six?")
+
+    # 1b. Hvis svaret ER en Word-fil → parse direkte
     if body_kind in ("doc", "docx") or "officedocument" in ct or "msword" in ct:
         text = _docx_to_text(r.content)
         if text and len(text) > 200:
