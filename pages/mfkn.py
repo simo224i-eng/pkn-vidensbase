@@ -265,9 +265,10 @@ def load_kategori(stem, version=1):
     return df
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
-def build_index(stem, n_rows, version: int = 3):
+def build_index(stem, n_rows, version: int = 4):
     """TF-IDF over titel×3 + kerneafsnit med dansk stemming.
-    version 3: tilføjer dansk Snowball stemmer."""
+    version 4: udtræk_kerneafsnit understøtter nu HTML-headings (PKN/MFKN-format),
+    hvor v3 faldt igennem til tekst[-N:] for 100% af korpus."""
     df2 = load_kategori(stem, 1)
     texts = [byg_indeks_tekst(t, tx) for t, tx in zip(df2["Titel"].astype(str), df2["Tekst"].astype(str))]
     vec = TfidfVectorizer(max_features=40_000, ngram_range=(1,2), min_df=2, sublinear_tf=True,

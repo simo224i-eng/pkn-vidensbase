@@ -991,16 +991,64 @@ def format_afgørelse_tekst(tekst: str) -> str:
     )
 
 
+_HTML_ENTITY_MAP = {
+    '&aelig;': 'æ', '&oslash;': 'ø', '&aring;': 'å',
+    '&Aelig;': 'Æ', '&Oslash;': 'Ø', '&Aring;': 'Å',
+    '&nbsp;': ' ', '&amp;': '&', '&sect;': '§',
+    '&quot;': '"', '&lt;': '<', '&gt;': '>',
+    '&ndash;': '–', '&mdash;': '—',
+}
+
+
+def _decode_html_entities(s: str) -> str:
+    for k, v in _HTML_ENTITY_MAP.items():
+        if k in s:
+            s = s.replace(k, v)
+    return s
+
+
+def _split_html_sections(html: str) -> list:
+    """Parse PKN/MFKN HTML og returnér [(heading_lower, content_plain), ...]
+    via <h1>-<h6> som sektions-anker. Tags strippes fra indhold."""
+    text = _decode_html_entities(html)
+    heading_re = re.compile(r'<(h[1-6])\b[^>]*>(.*?)</\1>', re.IGNORECASE | re.DOTALL)
+    matches = list(heading_re.finditer(text))
+    if not matches:
+        return []
+    dele = []
+    for i, m in enumerate(matches):
+        heading = re.sub(r'<[^>]+>', '', m.group(2))
+        heading = re.sub(r'\s+', ' ', heading).strip().lower()
+        if not heading or len(heading) > 200:
+            continue
+        # Fjern indledende afsnitsnummer som "2.3.4. " så prioritet-listen rammer.
+        heading = re.sub(r'^\d+(\.\d+)*\.?\s+', '', heading)
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        indhold = re.sub(r'<[^>]+>', ' ', text[start:end])
+        indhold = re.sub(r'\s+', ' ', indhold).strip()
+        if indhold:
+            dele.append((heading, indhold))
+    return dele
+
+
 def udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
     """Udtræk de vigtigste sektioner fra en afgørelse (klagen + vurdering/afgørelse).
-    Springer 'Sagens oplysninger' og andre faktuelle sektioner over."""
-    sektioner = re.split(r'\n(#{2,3} .+)', tekst)
+    Springer 'Sagens oplysninger' og andre faktuelle sektioner over.
+    Understøtter både HTML (PKN/MFKN-korpus) og markdown."""
+    if not tekst:
+        return ""
 
-    dele = []
-    for i, del_ in enumerate(sektioner):
-        if del_.startswith('## ') or del_.startswith('### '):
-            indhold = sektioner[i + 1] if i + 1 < len(sektioner) else ""
-            dele.append((del_.lstrip('#').strip().lower(), indhold.strip()))
+    # HTML-detektion: PKN/MFKN-korpus er ren HTML. Markdown-fallback bevares.
+    if tekst.count('<') > 5 and '>' in tekst:
+        dele = _split_html_sections(tekst)
+    else:
+        sektioner = re.split(r'\n(#{2,3} .+)', tekst)
+        dele = []
+        for i, del_ in enumerate(sektioner):
+            if del_.startswith('## ') or del_.startswith('### '):
+                indhold = sektioner[i + 1] if i + 1 < len(sektioner) else ""
+                dele.append((del_.lstrip('#').strip().lower(), indhold.strip()))
 
     prioritet = [
         "klagen",
@@ -1008,6 +1056,7 @@ def udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
         "planklagenævnets bemærkninger og afgørelse",
         "miljø- og fødevareklagenævnets afgørelse",
         "nævnets bemærkninger og afgørelse",
+        "planklagenævnets vurdering",
         "nævnets vurdering",
         "retlig vurdering",
         "begrundelse for afgørelsen",
@@ -1020,16 +1069,26 @@ def udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
 
     udtræk = []
     brugt = 0
+    set_brugt = set()
     for prio in prioritet:
-        for heading, indhold in dele:
+        for idx, (heading, indhold) in enumerate(dele):
+            if idx in set_brugt:
+                continue
             if prio in heading and indhold:
                 tekst_del = f"[{heading.upper()}]\n{indhold}"
                 if brugt + len(tekst_del) <= max_tegn:
                     udtræk.append(tekst_del)
                     brugt += len(tekst_del)
+                    set_brugt.add(idx)
 
     if udtræk:
         return "\n\n".join(udtræk)
+    # Sidste fallback: hvis ingen prioriterede headings fandtes, brug halen
+    # men strip HTML først så vi ikke fylder tokens med tags.
+    if tekst.count('<') > 5:
+        stripped = re.sub(r'<[^>]+>', ' ', _decode_html_entities(tekst))
+        stripped = re.sub(r'\s+', ' ', stripped).strip()
+        return stripped[-max_tegn:]
     return tekst[-max_tegn:]
 
 

@@ -320,9 +320,10 @@ def load_data(version: int = 22):  # bump version to bust cache
 
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
-def build_index(n_rows: int, version: int = 3):
+def build_index(n_rows: int, version: int = 4):
     """TF-IDF over titel×3 + kerneafsnit med dansk stemming.
-    version 3: tilføjer dansk Snowball stemmer via custom tokenizer."""
+    version 4: udtræk_kerneafsnit understøtter nu HTML-headings (PKN/MFKN-format),
+    hvor v3 faldt igennem til tekst[-N:] for 100% af korpus."""
     from sklearn.feature_extraction.text import TfidfVectorizer
     df2 = load_data()
     texts = [byg_indeks_tekst(t, tx) for t, tx in zip(df2["Titel"].astype(str), df2["Tekst"].astype(str))]
