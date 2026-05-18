@@ -659,7 +659,7 @@ _embeds_ok = embeds is not None
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(150, dark=True)}</div></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(124, dark=True)}</div></div>', unsafe_allow_html=True)
 
     # ── To-trins kategori-vaelger ──
     # Byg gruppe → kategorier mapping (kun tilgaengelige)

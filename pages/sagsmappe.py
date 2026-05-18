@@ -41,7 +41,7 @@ mapper = st.session_state["sagsmapper"]["mapper"]
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(
-        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(150, dark=True)}</div></div>',
+        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(124, dark=True)}</div></div>',
         unsafe_allow_html=True,
     )
 

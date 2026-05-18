@@ -6,3 +6,6 @@ __pycache__/
 __MACOSX/
 *.pyc
 .embeds_cache/
+
+# Local Streamlit secrets (aldrig committes)
+.streamlit/secrets.toml

@@ -88,7 +88,7 @@ st.markdown("""
 
 with st.sidebar:
     st.markdown(
-        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(120, dark=True)}</div></div>',
+        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(124, dark=True)}</div></div>',
         unsafe_allow_html=True,
     )
 

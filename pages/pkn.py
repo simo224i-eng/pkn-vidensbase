@@ -233,8 +233,20 @@ def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
         reader = csv.DictReader(f)
         for row in reader:
             tekst = strip_html(row["Tekst"], preserve_headings=True)
-            excerpt_clean = re.sub(r'^#{2,3} ', '', tekst, flags=re.M).replace('\n', ' ')
-            excerpt_clean = re.sub(r'\s+', ' ', excerpt_clean).strip()
+            # Premium excerpt: drop heading-linjer + ledende faktuel scaffold
+            # ("1. Sagens oplysninger 1.1. Forløbet før…") så preview læser
+            # som reel prosa, ikke navigations-støj.
+            _body = "\n".join(ln for ln in tekst.split("\n")
+                              if not ln.lstrip().startswith("#"))
+            _body = re.sub(r"\s+", " ", _body).strip()
+            _body = re.sub(
+                r"^(?:\d+(?:\.\d+)*\.?\s+|"
+                r"(?:Sagens oplysninger|Sagsfremstilling|Ejendommen og \w+|"
+                r"Forløbet (?:før|forud)[^.]*|Afgørelsen,? der er klaget over|"
+                r"Den påklagede afgørelse)\s*)+",
+                "", _body, flags=re.I).strip()
+            excerpt_clean = _body or re.sub(r"\s+", " ",
+                re.sub(r"^#{2,5} ", "", tekst, flags=re.M).replace("\n", " ")).strip()
             rows.append({
                 "Dato":        row["Dato"],
                 "Titel":       row["Titel"],
@@ -247,7 +259,7 @@ def _læs_csv(sti: str, fallback_retsomraade: str = "") -> list:
 
 
 @st.cache_data(show_spinner="Indlæser afgørelser…", ttl=None)
-def load_data(version: int = 22):  # bump version to bust cache
+def load_data(version: int = 23):  # bump version to bust cache
     import os, zipfile, glob as _glob
     csv.field_size_limit(10_000_000)
 
@@ -627,7 +639,7 @@ _embeds_ok = embeds is not None
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(
-        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(150, dark=True)}</div></div>',
+        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(124, dark=True)}</div></div>',
         unsafe_allow_html=True,
     )
 
@@ -1004,19 +1016,19 @@ with tab_søg:
                 _hl_titel   = highlight_query(row["Titel"], _hl_q) if _hl_q else row["Titel"]
                 _hl_excerpt = highlight_query(row["Excerpt"], _hl_q, max_len=300) if _hl_q else (row["Excerpt"] + "…")
                 st.markdown(f"""
-<div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-    <span style="font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:.2px;">{dato_str}</span>
-    <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.1px;{badge_style}">{row['Udfald']}</span>
+<div class="pkn-card-v2" style="background:var(--bg);padding:20px 24px;border:1px solid var(--border);font-family:'Inter',system-ui,sans-serif;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+    <span style="font-size:12px;color:var(--fg-tertiary);font-weight:500;letter-spacing:.01em;">{dato_str}</span>
+    <span style="display:inline-block;padding:3px 10px;border-radius:var(--r-pill);font-size:11px;font-weight:600;letter-spacing:.01em;{badge_style}">{row['Udfald']}</span>
   </div>
-  <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{_hl_titel}</div>
-  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
-    <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{kat_str}</span>
-    <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{row['Sagsgruppe']}</span>
+  <div style="font-size:15px;font-weight:600;color:var(--fg);margin:0 0 10px;line-height:1.45;letter-spacing:-.01em;">{_hl_titel}</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+    <span style="display:inline-block;padding:3px 9px;border-radius:var(--r-sm);font-size:12px;font-weight:500;color:var(--fg-secondary);background:var(--surface-2);border:1px solid var(--border);">{kat_str}</span>
+    <span style="display:inline-block;padding:3px 9px;border-radius:var(--r-sm);font-size:12px;font-weight:500;color:var(--fg-secondary);background:var(--surface-2);border:1px solid var(--border);">{row['Sagsgruppe']}</span>
   </div>
-  <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{_hl_excerpt}</div>
-  <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
-    <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
+  <div style="font-size:14px;color:var(--fg-secondary);line-height:1.65;">{_hl_excerpt}</div>
+  <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
+    <a href="{row['Link']}" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:var(--fg-tertiary);text-decoration:none;font-weight:500;">Åbn afgørelse på portalen ↗</a>
   </div>
 </div>""", unsafe_allow_html=True)
                 _c_read, _c_save = st.columns([4, 1.2])
