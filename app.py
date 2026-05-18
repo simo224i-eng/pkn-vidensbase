@@ -23,9 +23,10 @@ if not st.session_state.get("_autentificeret_v2"):
         pw = st.text_input("Adgangskode", type="password", placeholder="Indtast adgangskode…")
         if st.button("Log ind", use_container_width=True, type="primary"):
             korrekt = st.secrets.get("APP_PASSWORD", "")
+            import hmac
             if not korrekt:
                 st.error("Adgangskode ikke konfigureret. Tilføj APP_PASSWORD i Streamlit secrets.")
-            elif pw == korrekt:
+            elif hmac.compare_digest(str(pw), str(korrekt)):
                 st.session_state["_autentificeret_v2"] = True
                 st.rerun()
             else:

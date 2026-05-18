@@ -551,7 +551,10 @@ def render_filter_chips(chips: list, key_prefix: str = "flt") -> None:
 
 def copy_button(text: str, label: str = "Kopiér", key: str = "copy") -> None:
     """Renders a small copy-to-clipboard button using JS. text is what gets copied."""
-    safe = text.replace("`", "\\`").replace("$", "\\$").replace("\\", "\\\\")
+    # Backslash FØRST, ellers dobbelt-escapes de backslashes de andre tilføjer.
+    safe = (text.replace("\\", "\\\\").replace("`", "\\`")
+            .replace("$", "\\$").replace("</", "<\\/"))
+    label = str(label).replace("\\", "\\\\").replace("'", "\\'").replace("</", "<\\/")
     st.components.v1.html(f"""
 <button onclick="navigator.clipboard.writeText(`{safe}`).then(()=>{{
     this.innerText='✓ Kopieret';
@@ -596,6 +599,24 @@ def render_detail_header(
 ) -> str:
     """Returnér detail-header HTML med udelukkende inline styles.
     Bruges i stedet for CSS-klasser der kan blive strippet af Streamlit."""
+    import html as _h
+    # Korpus-data (titel/link/dato/udfald) er scraped fra eksterne sider og
+    # MÅ html-escapes før indlejring, ellers er der stored-XSS/JS-injection
+    # via href og inline onclick. JS-streng-literal escapes separat.
+    titel_safe = _h.escape(str(titel), quote=True)
+    _lnk = str(link).strip()
+    # Kun http/https tillades — blokér javascript:/data:/vbscript: scheme.
+    link_safe = _h.escape(_lnk, quote=True) if _lnk[:7].lower() == "http://" or _lnk[:8].lower() == "https://" else "#"
+    dato_safe = _h.escape(str(dato_str), quote=True)
+    udfald = _h.escape(str(udfald), quote=True)
+    link_label = _h.escape(str(link_label), quote=True)
+
+    def _js_str(s: str) -> str:
+        return (str(s).replace("\\", "\\\\").replace("'", "\\'")
+                .replace('"', '\\"').replace("\n", " ").replace("\r", " ")
+                .replace("<", "\\x3c").replace(">", "\\x3e"))
+
+    js_ref = _js_str(f"{titel} – {dato_str} – {link}")
     all_meta = [("Dato", dato_str)] + list(meta_extra)
     meta_cells = ""
     for i, (lbl, val) in enumerate(all_meta):
@@ -604,7 +625,7 @@ def render_detail_header(
             f'<div style="padding:9px 18px;{border}">'
             f'<div style="font-size:9.5px;font-weight:600;color:#94a3b8;text-transform:uppercase;'
             f'letter-spacing:0.8px;margin-bottom:3px;">{lbl}</div>'
-            f'<div style="font-size:13px;font-weight:600;color:#0f172a;white-space:nowrap;">{val}</div>'
+            f'<div style="font-size:13px;font-weight:600;color:#0f172a;white-space:nowrap;">{_h.escape(str(val), quote=True)}</div>'
             f'</div>'
         )
     return (
@@ -615,16 +636,16 @@ def render_detail_header(
         f'{udfald}</span></div>'
         f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:clamp(1.2rem,2vw,1.55rem);'
         f'font-weight:700;color:#0f172a;line-height:1.3;letter-spacing:-0.3px;margin:0 0 1rem;max-width:80ch;">'
-        f'{titel}</div>'
+        f'{titel_safe}</div>'
         f'<div style="height:2px;width:28px;background:{accent};border-radius:2px;margin-bottom:1rem;"></div>'
         f'<div style="display:inline-flex;flex-wrap:wrap;border:1px solid #e2e8f0;border-radius:6px;'
         f'overflow:hidden;background:#ffffff;margin-bottom:1rem;">{meta_cells}</div><br>'
-        f'<a href="{link}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;'
+        f'<a href="{link_safe}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;'
         f'font-size:12px;font-weight:500;color:#475569;text-decoration:none;border:1px solid #e2e8f0;'
         f'border-radius:6px;padding:7px 14px;background:#ffffff;margin-top:0.5rem;">'
         f'{link_label} &nbsp;↗</a>'
         f'&nbsp;&nbsp;'
-        f'<button onclick="navigator.clipboard.writeText(\'{titel.replace(chr(39), chr(8217))} – {dato_str} – {link}\').'
+        f'<button onclick="navigator.clipboard.writeText(\'{js_ref}\').'
         f'then(function(){{this.textContent=\'Kopieret!\';var b=this;setTimeout(function(){{b.textContent=\'Kopiér reference\'}},2000)}}.bind(this))"'
         f' style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;'
         f'color:#475569;text-decoration:none;border:1px solid #e2e8f0;border-radius:6px;padding:7px 14px;'
@@ -764,15 +785,6 @@ def _llm_stream(prompt, max_tokens: int = 2000, placeholder=None):
 
 # ── Delte hjælpefunktioner ────────────────────────────────────────────────────
 def strip_html(text: str, preserve_headings: bool = False) -> str:
-    entities = {
-        "&nbsp;": " ", "&amp;": "&", "&lt;": "<", "&gt;": ">",
-        "&oslash;": "ø", "&aelig;": "æ", "&aring;": "å",
-        "&Oslash;": "Ø", "&AElig;": "Æ", "&Aring;": "Å",
-        "&ndash;": "–", "&mdash;": "—", "&ldquo;": '"', "&rdquo;": '"',
-        "&laquo;": "«", "&raquo;": "»", "&bull;": "•", "&hellip;": "…",
-        "&sect;": "§", "&para;": "¶", "&copy;": "©", "&reg;": "®",
-        "&#167;": "§",
-    }
     if preserve_headings:
         # Preserve h2/h3 as structural markers before stripping all other tags
         text = re.sub(r'<h2[^>]*>(.*?)</h2>', lambda m: f'\n## {m.group(1).strip()}\n', text, flags=re.I | re.S)
@@ -784,9 +796,12 @@ def strip_html(text: str, preserve_headings: bool = False) -> str:
         # Preserve paragraph/line breaks as newlines
         text = re.sub(r'</p>|<br\s*/?>|</div>', '\n', text, flags=re.I)
     text = re.sub(r"<[^>]+>", " ", text)
-    for ent, rep in entities.items():
-        text = text.replace(ent, rep)
-    text = re.sub(r"&#\d+;", " ", text)
+    # Fuld HTML-entity-afkodning (matcher scraperens html.unescape). Tidligere
+    # blev kun ~23 navngivne entiteter oversat og ALLE numeriske &#NNN;
+    # (inkl. &#39; apostrof, &#8217;) erstattet med mellemrum — det korrumperede
+    # både visning, ordret-søgning og TF-IDF-indekset.
+    import html as _html_mod
+    text = _html_mod.unescape(text)
     if preserve_headings:
         # Collapse spaces within lines but keep newlines
         lines = [re.sub(r'[ \t]+', ' ', ln).strip() for ln in text.splitlines()]
@@ -1050,41 +1065,83 @@ def udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:
                 indhold = sektioner[i + 1] if i + 1 < len(sektioner) else ""
                 dele.append((del_.lstrip('#').strip().lower(), indhold.strip()))
 
-    prioritet = [
-        "klagen",
-        "klagen vedrører",
-        "planklagenævnets bemærkninger og afgørelse",
-        "miljø- og fødevareklagenævnets afgørelse",
-        "nævnets bemærkninger og afgørelse",
-        "planklagenævnets vurdering",
-        "nævnets vurdering",
-        "retlig vurdering",
-        "begrundelse for afgørelsen",
-        "begrundelse",
-        "afgørelse",
-        "nævnets bemærkninger",
-        "afsluttende bemærkninger",
-        "konklusion",
-    ]
+    # Skip-liste-strategi: ekskludér kun de kendte rent faktuelle/processuelle
+    # sektioner ("Sagens oplysninger" m.fl.) og behold ALT andet i
+    # dokumentrækkefølge. Det bevarer den juridiske sammenhæng (klagen →
+    # kommunens bemærkninger → generelt om reglen → nævnets vurdering →
+    # afsluttende bemærkninger) og undgår substring-fejl som tidligere
+    # fik prioritet "klagen" til at matche "planklagenævnets".
+    SKIP_PREFIKSER = (
+        "sagens oplysninger",
+        "sagsfremstilling",
+        "sagens baggrund",
+        "ejendommen og lokalplan",
+        "ejendommen og planforhold",
+        "forløbet før kommunens afgørelse",
+        "forløbet forud for",
+        "afgørelsen, der er klaget over",
+        "afgørelsen der er klaget over",
+        "den påklagede afgørelse",
+        "tidligere afgørelse",
+        "tidligere behandling",
+    )
 
-    udtræk = []
-    brugt = 0
-    set_brugt = set()
-    for prio in prioritet:
-        for idx, (heading, indhold) in enumerate(dele):
-            if idx in set_brugt:
-                continue
-            if prio in heading and indhold:
-                tekst_del = f"[{heading.upper()}]\n{indhold}"
-                if brugt + len(tekst_del) <= max_tegn:
-                    udtræk.append(tekst_del)
-                    brugt += len(tekst_del)
-                    set_brugt.add(idx)
+    def _er_faktuel(h: str) -> bool:
+        return any(h.startswith(p) or h == p.rstrip() for p in SKIP_PREFIKSER)
 
-    if udtræk:
-        return "\n\n".join(udtræk)
-    # Sidste fallback: hvis ingen prioriterede headings fandtes, brug halen
-    # men strip HTML først så vi ikke fylder tokens med tags.
+    # Vurderings-/afgørelsessektioner er vigtigst hvis vi må afkorte.
+    def _er_kerne(h: str) -> bool:
+        return any(nøgle in h for nøgle in (
+            "vurdering", "afgørelse", "begrundelse",
+            "konklusion", "bemærkninger og afgørelse",
+            "kompetence", "klageberettig", "klagefrist",
+        ))
+
+    relevante = [(i, h, c) for i, (h, c) in enumerate(dele)
+                 if c and not _er_faktuel(h)]
+    if not relevante:
+        # Intet tilbage efter skip → tag alt vi har, ellers HTML-strippet hale.
+        relevante = [(i, h, c) for i, (h, c) in enumerate(dele) if c]
+
+    if relevante:
+        # To-pas budgettering: kernesektioner først (så de aldrig afkortes
+        # væk), derefter resten i dokumentrækkefølge. Output bevarer
+        # dokumentrækkefølge for læsbarhed.
+        kerne_idx = {i for i, h, c in relevante if _er_kerne(h)}
+        valgte = set()
+        brugt = 0
+        for prioriter_kerne in (True, False):
+            for i, h, c in relevante:
+                if i in valgte:
+                    continue
+                if prioriter_kerne and i not in kerne_idx:
+                    continue
+                blok = f"[{h.upper()}]\n{c}"
+                if brugt + len(blok) + 2 <= max_tegn:
+                    valgte.add(i)
+                    brugt += len(blok) + 2
+                elif prioriter_kerne and not valgte:
+                    # Allerførste kernesektion er selv større end budgettet:
+                    # tag en afkortet udgave så vi ikke ender i hale-fallback.
+                    valgte.add(i)
+                    brugt = max_tegn
+        if valgte:
+            ud = []
+            rest = max_tegn
+            for i, h, c in relevante:
+                if i not in valgte:
+                    continue
+                blok = f"[{h.upper()}]\n{c}"
+                if len(blok) > rest:
+                    blok = blok[:max(0, rest)]
+                ud.append(blok)
+                rest -= len(blok) + 2
+                if rest <= 0:
+                    break
+            if ud:
+                return "\n\n".join(ud)
+
+    # Sidste fallback: ingen brugbare headings → HTML-strippet hale.
     if tekst.count('<') > 5:
         stripped = re.sub(r'<[^>]+>', ' ', _decode_html_entities(tekst))
         stripped = re.sub(r'\s+', ' ', stripped).strip()

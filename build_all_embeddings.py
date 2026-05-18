@@ -105,32 +105,62 @@ def udtræk_kerneafsnit(tekst, max_tegn=8000):
             if del_.startswith('## ') or del_.startswith('### '):
                 indhold = sektioner[i + 1] if i + 1 < len(sektioner) else ""
                 dele.append((del_.lstrip('#').strip().lower(), indhold.strip()))
-    prioritet = [
-        "klagen", "klagen vedrører",
-        "planklagenævnets bemærkninger og afgørelse",
-        "miljø- og fødevareklagenævnets afgørelse",
-        "nævnets bemærkninger og afgørelse",
-        "planklagenævnets vurdering",
-        "nævnets vurdering", "retlig vurdering",
-        "begrundelse for afgørelsen", "begrundelse",
-        "afgørelse", "nævnets bemærkninger",
-        "afsluttende bemærkninger", "konklusion",
-    ]
-    udtræk = []
-    brugt = 0
-    set_brugt = set()
-    for prio in prioritet:
-        for idx, (heading, indhold) in enumerate(dele):
-            if idx in set_brugt:
-                continue
-            if prio in heading and indhold:
-                tekst_del = f"[{heading.upper()}]\n{indhold}"
-                if brugt + len(tekst_del) <= max_tegn:
-                    udtræk.append(tekst_del)
-                    brugt += len(tekst_del)
-                    set_brugt.add(idx)
-    if udtræk:
-        return "\n\n".join(udtræk)
+    SKIP_PREFIKSER = (
+        "sagens oplysninger", "sagsfremstilling", "sagens baggrund",
+        "ejendommen og lokalplan", "ejendommen og planforhold",
+        "forløbet før kommunens afgørelse", "forløbet forud for",
+        "afgørelsen, der er klaget over", "afgørelsen der er klaget over",
+        "den påklagede afgørelse", "tidligere afgørelse", "tidligere behandling",
+    )
+
+    def _er_faktuel(h):
+        return any(h.startswith(p) or h == p.rstrip() for p in SKIP_PREFIKSER)
+
+    def _er_kerne(h):
+        return any(n in h for n in (
+            "vurdering", "afgørelse", "begrundelse",
+            "konklusion", "bemærkninger og afgørelse",
+            "kompetence", "klageberettig", "klagefrist",
+        ))
+
+    relevante = [(i, h, c) for i, (h, c) in enumerate(dele)
+                 if c and not _er_faktuel(h)]
+    if not relevante:
+        relevante = [(i, h, c) for i, (h, c) in enumerate(dele) if c]
+
+    if relevante:
+        kerne_idx = {i for i, h, c in relevante if _er_kerne(h)}
+        valgte = set()
+        brugt = 0
+        for prioriter_kerne in (True, False):
+            for i, h, c in relevante:
+                if i in valgte:
+                    continue
+                if prioriter_kerne and i not in kerne_idx:
+                    continue
+                blok = f"[{h.upper()}]\n{c}"
+                if brugt + len(blok) + 2 <= max_tegn:
+                    valgte.add(i)
+                    brugt += len(blok) + 2
+                elif prioriter_kerne and not valgte:
+                    valgte.add(i)
+                    brugt = max_tegn
+        if valgte:
+            ud = []
+            rest = max_tegn
+            for i, h, c in relevante:
+                if i not in valgte:
+                    continue
+                blok = f"[{h.upper()}]\n{c}"
+                if len(blok) > rest:
+                    blok = blok[:max(0, rest)]
+                ud.append(blok)
+                rest -= len(blok) + 2
+                if rest <= 0:
+                    break
+            if ud:
+                return "\n\n".join(ud)
+
     if tekst.count('<') > 5:
         stripped = re.sub(r'<[^>]+>', ' ', _decode_html_entities(tekst))
         stripped = re.sub(r'\s+', ' ', stripped).strip()
