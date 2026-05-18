@@ -90,15 +90,23 @@ header[data-testid="stHeader"] button svg {
 
 /* ── Sidebar (flad mørk) ── */
 [data-testid="stSidebar"] { background: var(--sidebar) !important; border-right: 1px solid var(--sidebar-border); }
-[data-testid="stSidebar"] *:not(.material-symbols-rounded):not(.material-symbols-rounded *) {
+[data-testid="stSidebar"] *:not(.material-symbols-rounded):not(.material-symbols-rounded *):not([data-testid="stIconMaterial"]):not([class*="material-symbols"]) {
     color: var(--sidebar-fg) !important;
     font-family: 'Inter', sans-serif !important;
 }
 [data-testid="stSidebar"] .material-symbols-rounded,
-[data-testid="stSidebar"] [class*="material-symbols"] {
-    font-family: 'Material Symbols Rounded' !important;
+[data-testid="stSidebar"] [class*="material-symbols"],
+[data-testid="stSidebar"] [data-testid="stIconMaterial"],
+[data-testid="stSidebar"] [class*="material-icons"] {
+    font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons' !important;
     font-feature-settings: 'liga' !important;
     -webkit-font-feature-settings: 'liga' !important;
+}
+/* Streamlit egne Material-ikoner (expander-chevron mv.) overalt — undgå
+   at Inter-override brækker ligaturen til rå tekst som "arrow_right". */
+[data-testid="stIconMaterial"] {
+    font-family: 'Material Symbols Rounded', 'Material Symbols Outlined' !important;
+    font-feature-settings: 'liga' !important;
 }
 [data-testid="stSidebar"] .stTextInput input {
     background: #1e293b !important; border: 1px solid #334155 !important;

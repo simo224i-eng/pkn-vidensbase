@@ -48,17 +48,22 @@ st.markdown("""
 [data-testid="stPageLink"] a {
     display: flex !important; align-items: center; justify-content: center; gap: 8px;
     width: 100%; padding: 13px 16px !important;
-    background: var(--accent) !important; color: #fff !important;
-    border-radius: 0 0 var(--r) var(--r) !important;
-    font-size: 13px !important; font-weight: 600 !important;
+    background: #8C1C2E !important;
+    border-radius: 0 0 8px 8px !important;
+    font-size: 14px !important; font-weight: 600 !important;
     letter-spacing: 0.1px !important;
     text-decoration: none !important;
-    border: 1px solid var(--accent) !important; border-top: none !important;
-    transition: background var(--ease), transform var(--ease) !important;
+    border: 1px solid #8C1C2E !important; border-top: none !important;
+    transition: background .15s ease !important;
 }
-[data-testid="stPageLink"] a:hover {
-    background: var(--accent-hover) !important;
+[data-testid="stPageLink"] a,
+[data-testid="stPageLink"] a *,
+[data-testid="stPageLink"] a p,
+[data-testid="stPageLink"] a span {
+    color: #ffffff !important; fill: #ffffff !important;
 }
+[data-testid="stPageLink"] a:hover { background: #73111F !important; }
+[data-testid="stPageLink"] a:hover * { color:#fff !important; }
 .h-hero-title { font-size: 12px; color: var(--fg-tertiary); text-transform: uppercase;
     letter-spacing: .18em; font-weight: 600; margin-top: 1.5rem; }
 .h-mod-card { background: var(--bg); border-radius: var(--r) var(--r) 0 0;
