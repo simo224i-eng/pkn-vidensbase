@@ -733,13 +733,13 @@ with st.sidebar:
     _alle_underkat = sorted(df["Underkategori"].dropna().unique())
     if len(_alle_underkat) > 1:
         st.markdown('<span class="h-filter-label">Underkategori</span>', unsafe_allow_html=True)
-        valgte_underkat = st.multiselect("", _alle_underkat, label_visibility="collapsed", key="mfkn_underkat")
+        valgte_underkat = st.multiselect("Underkategori", _alle_underkat, label_visibility="collapsed", key="mfkn_underkat")
     else:
         valgte_underkat = []
 
     st.markdown('<span class="h-filter-label">Sagstype</span>', unsafe_allow_html=True)
     _alle_sagstyper = sorted(df["Sagstype"].unique())
-    sagstype_valg = st.multiselect("", _alle_sagstyper, label_visibility="collapsed", key="mfkn_sg")
+    sagstype_valg = st.multiselect("Sagstype", _alle_sagstyper, label_visibility="collapsed", key="mfkn_sg")
 
     st.markdown('<span class="h-side-group">Tidsrum</span>', unsafe_allow_html=True)
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
@@ -749,10 +749,10 @@ with st.sidebar:
     if aar_max < aar_min:
         aar_max = 2026
     _default_start = max(2017, aar_min)
-    aar_range = st.slider("", aar_min, aar_max, (_default_start, aar_max), label_visibility="collapsed", key="mfkn_yr")
+    aar_range = st.slider("Årsinterval", aar_min, aar_max, (_default_start, aar_max), label_visibility="collapsed", key="mfkn_yr")
 
     st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
-    udfald_valg = st.multiselect("", sorted(df["Udfald"].unique()), label_visibility="collapsed", key="mfkn_ud")
+    udfald_valg = st.multiselect("Udfald", sorted(df["Udfald"].unique()), label_visibility="collapsed", key="mfkn_ud")
 
     st.markdown("---")
     st.markdown(f"<span style='font-size:12px;color:#5a7a9e'>**{len(df):,}** afgørelser &nbsp;·&nbsp; {aar_min}-{aar_max}</span>", unsafe_allow_html=True)

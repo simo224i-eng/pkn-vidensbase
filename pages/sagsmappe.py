@@ -60,7 +60,7 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown('<span class="h-filter-label">Ny mappe</span>', unsafe_allow_html=True)
-    ny_navn = st.text_input("", placeholder="fx Lokalplan 234…", label_visibility="collapsed", key="_sag_ny_navn")
+    ny_navn = st.text_input("Mappenavn", placeholder="fx Lokalplan 234…", label_visibility="collapsed", key="_sag_ny_navn")
     if st.button("＋ Opret mappe", use_container_width=True, key="_sag_opret"):
         if ny_navn.strip():
             opret_mappe(ny_navn.strip())

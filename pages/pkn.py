@@ -666,19 +666,19 @@ with st.sidebar:
     st.markdown('<span class="h-side-group">Filtre</span>', unsafe_allow_html=True)
     st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
-    valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
+    valgte_kats = st.multiselect("Kategori", _alle_kats, label_visibility="collapsed", key="kat")
     _isoler_relevant = bool(valgte_kats and set(valgte_kats) & {"Planvedtagelse", "Miljøvurderingsloven"})
     isoler_kat  = st.checkbox("Kun sager der udelukkende handler om valgte", key="iso_kat", help="Ekskluderer sager som også berører andre kategorier") if _isoler_relevant else False
 
     _mvu_valgt = "Miljøvurderingsloven" in (valgte_kats or [])
     if _mvu_valgt:
         st.markdown('<span class="h-filter-label">Dokumenttype</span>', unsafe_allow_html=True)
-        dokumenttype_valg = st.multiselect("", ["Screeningsafgørelse", "Miljørapport"], label_visibility="collapsed", key="dt")
+        dokumenttype_valg = st.multiselect("Dokumenttype", ["Screeningsafgørelse", "Miljørapport"], label_visibility="collapsed", key="dt")
     else:
         dokumenttype_valg = []
 
     st.markdown('<span class="h-filter-label">Plantype</span>', unsafe_allow_html=True)
-    plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
+    plantype_valg = st.multiselect("Plantype", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
     isoler_pt     = st.checkbox("Kun sager der udelukkende handler om valgte", key="iso_pt", help="Ekskluderer sager som også berører andre plantyper") if plantype_valg else False
 
     st.markdown('<span class="h-side-group">Tidsrum</span>', unsafe_allow_html=True)
@@ -687,14 +687,14 @@ with st.sidebar:
     år_min, år_max   = 2017, (int(_aar_max_raw) if pd.notna(_aar_max_raw) else 2026)
     if år_max < år_min:
         år_max = 2026
-    år_range         = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed", key="pkn_aar")
+    år_range         = st.slider("Årsinterval", år_min, år_max, (år_min, år_max), label_visibility="collapsed", key="pkn_aar")
 
     with st.expander("Flere filtre"):
         st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
-        sagsgruppe_valg = st.multiselect("", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
+        sagsgruppe_valg = st.multiselect("Sagsgruppe", ["Realitetsbehandling", "Afvisning", "Genoptagelse", "Opsættende virkning"], label_visibility="collapsed", key="sg")
 
         st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
-        udfald_valg    = st.multiselect("", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
+        udfald_valg    = st.multiselect("Udfald", ["Medhold", "Ikke medhold", "Ophævet", "Afvist", "Ukendt"], label_visibility="collapsed", key="ud")
 
     st.markdown("---")
     st.markdown(f"<span style='font-size:12px;color:#cbd5e1;font-weight:500;'>**{len(df):,}** afgørelser &nbsp;·&nbsp; 2017–{år_max}</span>", unsafe_allow_html=True)
