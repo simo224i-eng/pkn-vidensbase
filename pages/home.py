@@ -46,19 +46,43 @@ st.markdown("""
 <style>
 [data-testid="stPageLink"] { margin-top: -1px !important; }
 [data-testid="stPageLink"] a {
-    display: flex !important; align-items: center; justify-content: center; gap: 6px;
-    width: 100%; padding: 10px 16px !important;
-    background: #0f172a !important; color: #f1f5f9 !important;
-    border-radius: 0 0 8px 8px !important;
-    font-size: 12px !important; font-weight: 500 !important;
-    letter-spacing: 0.3px !important;
+    display: flex !important; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 13px 16px !important;
+    background: var(--accent) !important; color: #fff !important;
+    border-radius: 0 0 var(--r) var(--r) !important;
+    font-size: 13px !important; font-weight: 600 !important;
+    letter-spacing: 0.1px !important;
     text-decoration: none !important;
-    border: 1px solid #0f172a !important; border-top: none !important;
-    transition: background .15s !important;
+    border: 1px solid var(--accent) !important; border-top: none !important;
+    transition: background var(--ease), transform var(--ease) !important;
 }
 [data-testid="stPageLink"] a:hover {
-    background: #1e293b !important;
+    background: var(--accent-hover) !important;
 }
+.h-hero-title { font-size: 12px; color: var(--fg-tertiary); text-transform: uppercase;
+    letter-spacing: .18em; font-weight: 600; margin-top: 1.5rem; }
+.h-mod-card { background: var(--bg); border-radius: var(--r) var(--r) 0 0;
+    padding: 2rem 2rem 1.6rem; border: 1px solid var(--border); border-bottom: none;
+    display: flex; flex-direction: column; height: 100%; box-shadow: var(--sh-sm);
+    transition: box-shadow var(--ease); }
+[data-testid="stHorizontalBlock"]:hover .h-mod-card { box-shadow: var(--sh-md); }
+.h-mod-name { font-size: 1.05rem; font-weight: 700; color: var(--fg);
+    letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+.h-mod-tag { display:inline-block; font-size: 11px; color: var(--accent);
+    background: var(--accent-tint); font-weight: 600; letter-spacing: .04em;
+    padding: 2px 8px; border-radius: var(--r-pill); margin-bottom: 1rem; width: fit-content; }
+.h-mod-desc { font-size: 14px; color: var(--fg-secondary); line-height: 1.65;
+    margin-bottom: 1.4rem; flex: 1; }
+.h-mod-count { font-size: 12px; font-weight: 600; color: var(--fg-tertiary);
+    letter-spacing: .02em; padding-top: 1rem; border-top: 1px solid var(--border); }
+.h-legend { margin-top: 2.5rem; padding: 1.2rem 1.6rem; background: var(--surface);
+    border-radius: var(--r); border: 1px solid var(--border); }
+.h-legend-h { font-size: 11px; font-weight: 600; color: var(--fg-tertiary);
+    text-transform: uppercase; letter-spacing: .08em; margin-bottom: 0.7rem; }
+.h-legend-row { display:flex; flex-wrap:wrap; gap:8px 22px; font-size:13px;
+    color: var(--fg-secondary); line-height:1.7; }
+.h-foot { text-align:center; padding-top:2rem; margin:1.5rem 0 1rem;
+    font-size:12px; color: var(--fg-tertiary); letter-spacing:.02em; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -72,8 +96,7 @@ with st.sidebar:
 st.markdown(f"""
 <div style="text-align:center;padding:4rem 0 2.5rem;">
   {logo(170)}
-  <div style="font-size:10.5px;color:#94a3b8;text-transform:uppercase;letter-spacing:2px;
-              font-weight:500;margin-top:1.4rem;">Juridisk vidensbase</div>
+  <div class="h-hero-title">Juridisk vidensbase</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -82,66 +105,45 @@ col1, col2 = st.columns(2, gap="large")
 
 with col1:
     st.markdown(f"""
-<div style="background:#ffffff;border-radius:8px 8px 0 0;padding:2rem 2rem 1.6rem;
-            border:1px solid #eef1f6;border-bottom:none;display:flex;flex-direction:column;height:100%;">
-  <div style="font-size:0.95rem;font-weight:700;color:#0f172a;letter-spacing:-0.3px;margin-bottom:0.3rem;">
-    Planklagenævnet
+<div class="h-mod-card">
+  <div class="h-mod-name">Planklagenævnet</div>
+  <span class="h-mod-tag">PKN</span>
+  <div class="h-mod-desc">
+    Afgørelser om lokalplaner, kommuneplantillæg, planvedtagelser, landzone
+    og lovliggørelse. Søg og analysér PKN's praksis med AI.
   </div>
-  <div style="font-size:11px;color:#94a3b8;font-weight:500;
-              margin-bottom:1rem;padding-bottom:0.9rem;border-bottom:1px solid #f1f5f9;">
-    PKN
-  </div>
-  <div style="font-size:13px;color:#64748b;line-height:1.65;margin-bottom:1.2rem;flex:1;">
-    Afgørelser om lokalplaner, kommuneplantillæg, planvedtagelser og landzone.
-    Søg og analyser PKN's praksis.
-  </div>
-  <div style="font-size:10.5px;font-weight:500;color:#94a3b8;letter-spacing:0.3px;">
-    {_pkn_antal:,} afgørelser
-  </div>
+  <div class="h-mod-count">{_pkn_antal:,} afgørelser</div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/pkn.py", label="Planklagenævnet", use_container_width=True)
+    st.page_link("pages/pkn.py", label="Åbn Planklagenævnet", use_container_width=True)
 
 with col2:
     st.markdown(f"""
-<div style="background:#ffffff;border-radius:8px 8px 0 0;padding:2rem 2rem 1.6rem;
-            border:1px solid #eef1f6;border-bottom:none;display:flex;flex-direction:column;height:100%;">
-  <div style="font-size:0.95rem;font-weight:700;color:#0f172a;letter-spacing:-0.3px;margin-bottom:0.3rem;">
-    Miljø- og Fødevareklagenævnet
-  </div>
-  <div style="font-size:11px;color:#94a3b8;font-weight:500;
-              margin-bottom:1rem;padding-bottom:0.9rem;border-bottom:1px solid #f1f5f9;">
-    MFKN
-  </div>
-  <div style="font-size:13px;color:#64748b;line-height:1.65;margin-bottom:1.2rem;flex:1;">
+<div class="h-mod-card">
+  <div class="h-mod-name">Miljø- og Fødevareklagenævnet</div>
+  <span class="h-mod-tag">MFKN</span>
+  <div class="h-mod-desc">
     Afgørelser om beskyttelseslinjer, beskyttede naturtyper, miljøbeskyttelse,
     husdyrbrug, vandforsyning og meget mere.
   </div>
-  <div style="font-size:10.5px;font-weight:500;color:#94a3b8;letter-spacing:0.3px;">
-    {_mfkn_kat} retsområder &middot; {_mfkn_antal:,} afgørelser
-  </div>
+  <div class="h-mod-count">{_mfkn_kat} retsområder &middot; {_mfkn_antal:,} afgørelser</div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("pages/mfkn.py", label="Miljøklagenævnet", use_container_width=True)
+    st.page_link("pages/mfkn.py", label="Åbn Miljøklagenævnet", use_container_width=True)
 
 sidebar_log_ud()
 
 # ── Udfaldsterminologi-legende ──────────────────────────────────────────────
 st.markdown("""
-<div style="margin-top:2.5rem;padding:1.2rem 1.6rem;background:#f8fafc;border-radius:8px;border:1px solid #eef1f6;">
-  <div style="font-size:10px;font-weight:600;color:#94a3b8;
-              text-transform:uppercase;letter-spacing:1px;margin-bottom:0.6rem;">Udfaldsterminologi</div>
-  <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12px;color:#64748b;line-height:1.7;">
-    <span><strong style="color:#15803d;">Medhold/Ophævet/Hjemvist</strong> — klager får ret</span>
-    <span><strong style="color:#b91c1c;">Stadfæstelse/Ikke medhold</strong> — fastholdes</span>
-    <span><strong style="color:#a16207;">Afvist</strong> — behandles ikke</span>
-    <span><strong style="color:#6d28d9;">Ændring</strong> — ændres</span>
+<div class="h-legend">
+  <div class="h-legend-h">Udfaldsterminologi</div>
+  <div class="h-legend-row">
+    <span><strong style="color:var(--ok);">Medhold / Ophævet / Hjemvist</strong> — klager får ret</span>
+    <span><strong style="color:var(--no);">Stadfæstelse / Ikke medhold</strong> — fastholdes</span>
+    <span><strong style="color:var(--warn);">Afvist</strong> — behandles ikke</span>
+    <span><strong style="color:var(--violet);">Ændring</strong> — ændres</span>
   </div>
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown(f"""
-<div style="text-align:center;padding-top:2rem;margin-top:1.5rem;margin-bottom:1rem;">
-  <span style="font-size:10px;color:#cbd5e1;letter-spacing:0.4px;font-weight:400;">
-    Data opdateret {_senest_opdateret}
-  </span>
-</div>
+<div class="h-foot">Data opdateret {_senest_opdateret}</div>
 """, unsafe_allow_html=True)
