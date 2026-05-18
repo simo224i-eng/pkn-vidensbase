@@ -557,6 +557,28 @@ sup.detail-ref { font-size: 11px; font-weight: 700; color: var(--accent); vertic
   font-size:13px;line-height:1.55; }
 .h-callout.err { background:var(--no-bg);border:1px solid var(--no-bd);color:var(--no); }
 .h-callout.info{ background:var(--violet-bg);border:1px solid var(--violet-bd);color:var(--violet); }
+
+/* Chat avatars + row layout */
+.h-chat-row { display:flex; align-items:flex-start; gap:10px; margin:1rem 0 .2rem; }
+.h-chat-row.user { justify-content:flex-end; }
+.h-chat-row.user .h-avatar { order:2; }
+.h-avatar { width:28px; height:28px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700; letter-spacing:-.02em; margin-top:2px; }
+.h-avatar.assistant { background:var(--accent); color:#fff; }
+.h-avatar.user { background:var(--surface-2); color:var(--fg-secondary);
+  border:1px solid var(--border); }
+.h-chat-label { font-size:11px; font-weight:600; letter-spacing:.06em;
+  text-transform:uppercase; margin:0 0 .3rem; }
+.h-chat-label.assistant { color:var(--accent); }
+.h-chat-label.user { color:var(--fg-tertiary); text-align:right; }
+
+/* Sidebar filter-grupper */
+.h-side-group { font-size:11px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--sidebar-muted) !important;
+  margin:1.4rem 0 .5rem; padding-bottom:.4rem;
+  border-bottom:1px solid var(--sidebar-border); display:block; }
+.h-side-group:first-of-type { margin-top:.4rem; }
 </style>
 <script>
 (function removeIconTooltips() {
@@ -610,9 +632,22 @@ def skeleton_cards(n: int = 4) -> None:
     _html(f'<div class="h-skeleton-wrap">{rows}</div>')
 
 
+def typing_html(text: str = "Søger i afgørelser…") -> str:
+    """Returnér typing-indikator som HTML-streng (til st.empty()-placeholder
+    i streaming-flowet). Med Harald-avatar for konsistens med chat-historik."""
+    import html as _h
+    return (
+        '<div class="h-chat-row assistant">'
+        '<div class="h-avatar assistant">H</div>'
+        '<div class="chat-assistant" style="display:inline-flex;align-items:center;gap:10px;">'
+        '<div class="h-typing"><span></span><span></span><span></span></div>'
+        f'<span style="font-size:12px;color:var(--fg-tertiary);">{_h.escape(text)}</span>'
+        '</div></div>'
+    )
+
+
 def typing_indicator() -> None:
-    _html('<div class="chat-assistant" style="max-width:120px;">'
-          '<div class="h-typing"><span></span><span></span><span></span></div></div>')
+    _html(typing_html())
 
 
 def empty_state(title: str, body: str = "", icon: str = "search") -> None:

@@ -25,7 +25,7 @@ from shared import (
     auto_filter_query, apply_auto_filters,
     init_sagsmapper, gem_fra_row, hent_alle_gemte_links, fjern_afgørelse,
     find_mappe_for_link, opret_mappe,
-    skeleton_cards, empty_state, callout, typing_indicator,
+    skeleton_cards, empty_state, callout, typing_indicator, typing_html,
 )
 try:
     from shared import sync_embeddings_to_github, ensure_embeddings_on_disk
@@ -711,13 +711,24 @@ with st.sidebar:
 
     st.markdown("---")
 
+    st.markdown('<span class="h-side-group">Søgning</span>', unsafe_allow_html=True)
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
-    soeg_input = st.text_input("", placeholder="f.eks. dispensation terrasse...", label_visibility="collapsed", key="mfkn_soeg")
-    soege_type = st.radio("", ["Ordret", "Intelligent"], horizontal=True, label_visibility="collapsed", key="mfkn_soegetype")
+    soeg_input = st.text_input("Søgeord", placeholder="f.eks. dispensation terrasse...", label_visibility="collapsed", key="mfkn_soeg")
+    try:
+        _mst = st.segmented_control(
+            "Søgetype", ["Ordret", "Intelligent"],
+            default="Ordret", key="mfkn_soegetype",
+            label_visibility="collapsed",
+        )
+        soege_type = _mst or "Ordret"
+    except (AttributeError, TypeError):
+        soege_type = st.radio("Søgetype", ["Ordret", "Intelligent"], horizontal=True,
+                              label_visibility="collapsed", key="mfkn_soegetype")
     st.markdown('<span style="font-size:10px;color:#64748b;line-height:1.4;display:block;margin-top:-8px;">'
                 'Ordret = nøjagtig tekstmatch &nbsp;·&nbsp; Intelligent = AI finder relevante sager</span>',
                 unsafe_allow_html=True)
 
+    st.markdown('<span class="h-side-group">Filtre</span>', unsafe_allow_html=True)
     # Underkategori filter (kun hvis der er mere end 1)
     _alle_underkat = sorted(df["Underkategori"].dropna().unique())
     if len(_alle_underkat) > 1:
@@ -730,6 +741,7 @@ with st.sidebar:
     _alle_sagstyper = sorted(df["Sagstype"].unique())
     sagstype_valg = st.multiselect("", _alle_sagstyper, label_visibility="collapsed", key="mfkn_sg")
 
+    st.markdown('<span class="h-side-group">Tidsrum</span>', unsafe_allow_html=True)
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
     _aar_min_raw, _aar_max_raw = df["Aar"].min(), df["Aar"].max()
     aar_min = int(_aar_min_raw) if pd.notna(_aar_min_raw) else 2017
@@ -1139,8 +1151,11 @@ with tab_ai:
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"mfkn_fs_{i}"):
                 st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": f})
-                st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="h-chat-row user"><div class="h-avatar user">Du</div>'
+                    f'<div class="chat-user">{f}</div></div>', unsafe_allow_html=True)
                 svar_placeholder = st.empty()
+                svar_placeholder.markdown(typing_html(), unsafe_allow_html=True)
                 try:
                     _, alle_kilder = smart_retrieval_mfkn(
                         f, df, vec, mat, ai_sub_idx,
@@ -1150,6 +1165,7 @@ with tab_ai:
                 except Exception:
                     alle_kilder = []
                 if not alle_kilder:
+                    svar_placeholder.empty()
                     st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
                     st.stop()
                 try:
@@ -1185,8 +1201,11 @@ with tab_ai:
 
         if send and spoergsmaal.strip():
             st.session_state.mfkn_chat.append({"rolle": "bruger", "tekst": spoergsmaal})
-            st.markdown(f'<div class="chat-user">{spoergsmaal}</div>', unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="h-chat-row user"><div class="h-avatar user">Du</div>'
+                f'<div class="chat-user">{spoergsmaal}</div></div>', unsafe_allow_html=True)
             svar_placeholder = st.empty()
+            svar_placeholder.markdown(typing_html(), unsafe_allow_html=True)
             try:
                 _, alle_kilder = smart_retrieval_mfkn(
                     spoergsmaal, df, vec, mat, ai_sub_idx,
@@ -1196,6 +1215,7 @@ with tab_ai:
             except Exception:
                 alle_kilder = []
             if not alle_kilder:
+                svar_placeholder.empty()
                 st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
                 st.stop()
             try:
@@ -1221,7 +1241,10 @@ with tab_ai:
 
         for msg_idx, msg in enumerate(st.session_state.mfkn_chat):
             if msg["rolle"] == "bruger":
-                st.markdown(f'<div class="chat-user">{msg["tekst"]}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="h-chat-row user"><div class="h-avatar user">Du</div>'
+                    f'<div class="chat-user">{msg["tekst"]}</div></div>',
+                    unsafe_allow_html=True)
             else:
                 kilder = msg.get("kilder", [])
                 vist_tekst = erstat_kilde_refs(msg["tekst"], kilder) if kilder else msg["tekst"]
@@ -1246,6 +1269,12 @@ with tab_ai:
                             f'<span style="color:#94a3b8;">— {_status}</span></div>',
                             unsafe_allow_html=True,
                         )
+                    st.markdown(
+                        '<div style="display:flex;align-items:center;gap:6px;margin:.2rem 0 .3rem;">'
+                        '<span class="h-avatar assistant" style="width:22px;height:22px;font-size:11px;">H</span>'
+                        '<span style="font-size:11px;font-weight:600;color:var(--accent);'
+                        'text-transform:uppercase;letter-spacing:0.06em;">Harald</span></div>',
+                        unsafe_allow_html=True)
                     st.markdown(f'<div class="chat-assistant">{vist_tekst}</div>', unsafe_allow_html=True)
                     # Feedback + copy knapper
                     fb_key = f"mfkn_fb_{msg_idx}"

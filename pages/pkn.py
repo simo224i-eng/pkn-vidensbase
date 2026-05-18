@@ -24,7 +24,7 @@ from shared import (
     auto_filter_query, apply_auto_filters,
     init_sagsmapper, gem_fra_row, hent_alle_gemte_links, fjern_afgørelse,
     find_mappe_for_link, opret_mappe,
-    skeleton_cards, empty_state, callout, typing_indicator,
+    skeleton_cards, empty_state, callout, typing_indicator, typing_html,
 )
 try:
     from shared import sync_embeddings_to_github, ensure_embeddings_on_disk
@@ -631,16 +631,27 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
+    st.markdown('<span class="h-side-group">Søgning</span>', unsafe_allow_html=True)
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
     if st.session_state.get("_pkn_clear_soeg"):
         st.session_state.pop("pkn_soeg", None)
         st.session_state.pop("_pkn_clear_soeg", None)
-    søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed", key="pkn_soeg")
-    søge_type = st.radio("", ["Ordret", "Intelligent"], horizontal=True, label_visibility="collapsed", key="søge_type")
+    søg_input = st.text_input("Søgeord", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed", key="pkn_soeg")
+    try:
+        _st = st.segmented_control(
+            "Søgetype", ["Ordret", "Intelligent"],
+            default="Ordret", key="søge_type",
+            label_visibility="collapsed",
+        )
+        søge_type = _st or "Ordret"
+    except (AttributeError, TypeError):
+        søge_type = st.radio("Søgetype", ["Ordret", "Intelligent"], horizontal=True,
+                             label_visibility="collapsed", key="søge_type")
     st.markdown('<span style="font-size:10.5px;color:#64748b;line-height:1.4;display:block;margin-top:-6px;">'
                 'Ordret = nøjagtig tekstmatch &nbsp;·&nbsp; Intelligent = AI finder relevante sager</span>',
                 unsafe_allow_html=True)
 
+    st.markdown('<span class="h-side-group">Filtre</span>', unsafe_allow_html=True)
     st.markdown('<span class="h-filter-label">Kategori</span>', unsafe_allow_html=True)
     _alle_kats  = sorted({k for kats in df["Kategori"] for k in kats})
     valgte_kats = st.multiselect("", _alle_kats, label_visibility="collapsed", key="kat")
@@ -658,6 +669,7 @@ with st.sidebar:
     plantype_valg = st.multiselect("", ["Lokalplan", "Kommuneplantillæg", "Kommuneplan", "Andet"], label_visibility="collapsed", key="pt")
     isoler_pt     = st.checkbox("Kun sager der udelukkende handler om valgte", key="iso_pt", help="Ekskluderer sager som også berører andre plantyper") if plantype_valg else False
 
+    st.markdown('<span class="h-side-group">Tidsrum</span>', unsafe_allow_html=True)
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
     _aar_max_raw = df["År"].max()
     år_min, år_max   = 2017, (int(_aar_max_raw) if pd.notna(_aar_max_raw) else 2026)
@@ -1249,18 +1261,21 @@ with tab_ai:
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
                 st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
-                st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="h-chat-row user"><div class="h-avatar user">Du</div>'
+                    f'<div class="chat-user">{f}</div></div>', unsafe_allow_html=True)
                 svar_placeholder = st.empty()
-                with st.spinner("Søger i afgørelser…"):
-                    try:
-                        _, alle_kilder = smart_retrieval(
-                            f, df, vec, mat, ai_sub_idx,
-                            st.session_state.chat_historik, top_retrieve=40, top_final=8,
-                            embeds=embeds, filter_options=_pkn_filter_options,
-                        )
-                    except Exception as e:
-                        alle_kilder = []
+                svar_placeholder.markdown(typing_html(), unsafe_allow_html=True)
+                try:
+                    _, alle_kilder = smart_retrieval(
+                        f, df, vec, mat, ai_sub_idx,
+                        st.session_state.chat_historik, top_retrieve=40, top_final=8,
+                        embeds=embeds, filter_options=_pkn_filter_options,
+                    )
+                except Exception:
+                    alle_kilder = []
                 if not alle_kilder:
+                    svar_placeholder.empty()
                     st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
                     st.stop()
                 try:
@@ -1296,18 +1311,21 @@ with tab_ai:
 
         if send and spørgsmål.strip():
             st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="h-chat-row user"><div class="h-avatar user">Du</div>'
+                f'<div class="chat-user">{spørgsmål}</div></div>', unsafe_allow_html=True)
             svar_placeholder = st.empty()
-            with st.spinner("Søger i afgørelser…"):
-                try:
-                    _, alle_kilder = smart_retrieval(
-                        spørgsmål, df, vec, mat, ai_sub_idx,
-                        st.session_state.chat_historik, top_retrieve=40, top_final=8,
-                        embeds=embeds, filter_options=_pkn_filter_options,
-                    )
-                except Exception as e:
-                    alle_kilder = []
+            svar_placeholder.markdown(typing_html(), unsafe_allow_html=True)
+            try:
+                _, alle_kilder = smart_retrieval(
+                    spørgsmål, df, vec, mat, ai_sub_idx,
+                    st.session_state.chat_historik, top_retrieve=40, top_final=8,
+                    embeds=embeds, filter_options=_pkn_filter_options,
+                )
+            except Exception:
+                alle_kilder = []
             if not alle_kilder:
+                svar_placeholder.empty()
                 st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
                 st.stop()
             try:
@@ -1335,13 +1353,7 @@ with tab_ai:
         for msg_idx, msg in enumerate(st.session_state.chat_historik):
             if msg["rolle"] == "bruger":
                 st.markdown(
-                    '<div style="display:flex;justify-content:flex-end;margin:1rem 0 0.2rem;">'
-                    '<span style="font-size:10px;font-weight:700;color:#64748b;'
-                    'text-transform:uppercase;letter-spacing:1.2px;">Du</span></div>',
-                    unsafe_allow_html=True,
-                )
-                st.markdown(
-                    f'<div style="display:flex;justify-content:flex-end;">'
+                    f'<div class="h-chat-row user"><div class="h-avatar user">Du</div>'
                     f'<div class="chat-user">{msg["tekst"]}</div></div>',
                     unsafe_allow_html=True,
                 )
@@ -1349,8 +1361,9 @@ with tab_ai:
                 # Label: Harald
                 st.markdown(
                     '<div style="display:flex;align-items:center;gap:6px;margin:1rem 0 0.2rem;">'
-                    '<span style="font-size:10px;font-weight:600;color:#8C1C2E;'
-                    'text-transform:uppercase;letter-spacing:0.6px;">Harald</span></div>',
+                    '<span class="h-avatar assistant" style="width:22px;height:22px;font-size:11px;">H</span>'
+                    '<span style="font-size:11px;font-weight:600;color:var(--accent);'
+                    'text-transform:uppercase;letter-spacing:0.06em;">Harald</span></div>',
                     unsafe_allow_html=True,
                 )
                 # Auto-filter badge (vis hvilke filtre AI'en selv lagde på)
