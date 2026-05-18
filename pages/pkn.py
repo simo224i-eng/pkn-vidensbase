@@ -151,8 +151,9 @@ def detect_udfald(titel: str, tekst: str = "") -> str:
     # ── Procedurelle sager – detektér direkte fra titel ──────────────────────
     if "planklagenævnet orienterer" in t:               return "Orientering"
     if re.search(r"afslag på gen[p]?tagelse", t):       return "Afvist"
-    if "afslag på opsættende virkning" in t:            return "Afvist"
-    if "meddelelse af opsættende virkning" in t:        return "Medhold"
+    # Opsættende virkning er en interim-procedureafgørelse, ikke et realitetsudfald
+    if "afslag på opsættende virkning" in t:            return "Ukendt"
+    if "meddelelse af opsættende virkning" in t:        return "Ukendt"
 
     # ── Realitetsafgørelser – titel ───────────────────────────────────────────
     if any(k in t for k in ("ophævet", "ugyldig", "ugyldigt", "annulleret",
@@ -181,9 +182,12 @@ def detect_udfald(titel: str, tekst: str = "") -> str:
                                 "klagen afvises")):
         return "Afvist"
     if any(k in conc for k in ("giver medhold", "gives medhold", "medhold i klagen",
-                                "tager klagen til følge", "klagen tages til følge",
-                                "medhold")):
+                                "tager klagen til følge", "klagen tages til følge")):
         return "Medhold"
+    for _m in re.finditer(r"medhold", conc):
+        _pre = conc[max(0, _m.start() - 15):_m.start()]
+        if "ikke" not in _pre and "delvist" not in _pre:
+            return "Medhold"
 
     # ── Bredere søgning i hele teksten ───────────────────────────────────────
     if any(k in tx for k in ("klagen tages til følge", "giver klageren medhold",
@@ -621,7 +625,10 @@ with st.sidebar:
     )
 
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
-    søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed")
+    if st.session_state.get("_pkn_clear_soeg"):
+        st.session_state.pop("pkn_soeg", None)
+        st.session_state.pop("_pkn_clear_soeg", None)
+    søg_input = st.text_input("", placeholder="f.eks. planlovens § 15 a, terrasse, lokalplan…", label_visibility="collapsed", key="pkn_soeg")
     søge_type = st.radio("", ["Ordret", "Intelligent"], horizontal=True, label_visibility="collapsed", key="søge_type")
     st.markdown('<span style="font-size:10.5px;color:#64748b;line-height:1.4;display:block;margin-top:-6px;">'
                 'Ordret = nøjagtig tekstmatch &nbsp;·&nbsp; Intelligent = AI finder relevante sager</span>',
@@ -645,8 +652,11 @@ with st.sidebar:
     isoler_pt     = st.checkbox("Kun sager der udelukkende handler om valgte", key="iso_pt", help="Ekskluderer sager som også berører andre plantyper") if plantype_valg else False
 
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
-    år_min, år_max   = 2017, int(df["År"].max())
-    år_range         = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
+    _aar_max_raw = df["År"].max()
+    år_min, år_max   = 2017, (int(_aar_max_raw) if pd.notna(_aar_max_raw) else 2026)
+    if år_max < år_min:
+        år_max = 2026
+    år_range         = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed", key="pkn_aar")
 
     with st.expander("Flere filtre"):
         st.markdown('<span class="h-filter-label">Sagsgruppe</span>', unsafe_allow_html=True)
@@ -664,13 +674,14 @@ with st.sidebar:
                        or udfald_valg or søg_input.strip() or år_range != (år_min, år_max))
     if _har_filtre:
         if st.button("Nulstil filtre", use_container_width=True, key="_pkn_reset"):
-            for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type"]:
+            for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type", "pkn_aar"]:
                 if k in st.session_state:
                     del st.session_state[k]
+            st.session_state["_pkn_clear_soeg"] = True
             st.rerun()
 
 
-mask = (df["År"] >= år_range[0]) & (df["År"] <= år_range[1])
+mask = df["År"].isna() | ((df["År"] >= år_range[0]) & (df["År"] <= år_range[1]))
 if valgte_kats:
     if isoler_kat:
         mask &= df["Kategori"].apply(lambda kats: set(kats).issubset(set(valgte_kats)))
@@ -922,15 +933,11 @@ with tab_søg:
             _chips.append((f"Udfald: {_u}", _clr_ud))
         if år_range != (år_min, år_max):
             def _clr_aar():
-                for k in list(st.session_state.keys()):
-                    # Slider har auto-key; vi sletter alle slider-relaterede keys
-                    if "år" in k.lower() or "aar" in k.lower():
-                        try: del st.session_state[k]
-                        except Exception: pass
+                st.session_state.pop("pkn_aar", None)
             _chips.append((f"År: {år_range[0]}–{år_range[1]}", _clr_aar))
         if _chips:
             def _clr_all():
-                for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type"]:
+                for k in ["kat", "iso_kat", "dt", "pt", "iso_pt", "sg", "ud", "søge_type", "pkn_aar"]:
                     if k in st.session_state:
                         del st.session_state[k]
                 st.session_state["_pkn_clear_soeg"] = True
@@ -1256,6 +1263,9 @@ with tab_ai:
                         )
                     except Exception as e:
                         alle_kilder = []
+                if not alle_kilder:
+                    st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
+                    st.stop()
                 try:
                     svar = claude_svar_stream(f, alle_kilder,
                                              historik=st.session_state.chat_historik,
@@ -1300,6 +1310,9 @@ with tab_ai:
                     )
                 except Exception as e:
                     alle_kilder = []
+            if not alle_kilder:
+                st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
+                st.stop()
             try:
                 svar = claude_svar_stream(spørgsmål, alle_kilder,
                                          historik=st.session_state.chat_historik,

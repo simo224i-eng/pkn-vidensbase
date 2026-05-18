@@ -155,8 +155,8 @@ def _byg_grupperet_liste(alle_kats):
 
 
 # ── Hjelpefunktioner ─────────────────────────────────────────────────────────
-def detect_udfald(titel):
-    t = titel.lower()
+def detect_udfald(titel, tekst=""):
+    t = (titel or "").lower()
     if any(k in t for k in ("hjemvisning","hjemvises","hjemvist")): return "Hjemvist"
     if any(k in t for k in ("ophaevelse","ophævelse","ophævet","ophæves")): return "Ophævet"
     if "aendring" in t or "ændring" in t or "ændres" in t: return "Ændring"
@@ -164,6 +164,21 @@ def detect_udfald(titel):
     if any(k in t for k in ("afvisning","afvises","afvist","klagefristen overskredet")): return "Afvist"
     if any(k in t for k in ("stadfaestelse","stadfæstes","stadfæstelse")): return "Stadfæstelse"
     if "afslag" in t: return "Afslag"
+
+    # ── Brødtekst-fallback: kun for at overskrive "Ukendt" ────────────────────
+    tx = (tekst or "").strip().lower()
+    if tx:
+        m = re.search(r"(afgørelse|konklusion)", tx)
+        conc = tx[m.start():] if m else tx[-1500:]
+        nm = re.search(r"miljø-?\s*og\s*fødevareklagenævnet", conc)
+        seg = conc[nm.start():nm.start() + 400] if nm else conc[-1500:]
+        if "ophæver" in seg: return "Ophævet"
+        if "stadfæster" in seg: return "Stadfæstelse"
+        if "hjemviser" in seg: return "Hjemvist"
+        if "ændrer" in seg: return "Ændret"
+        if "afviser" in seg: return "Afvist"
+        if "ikke medhold" in seg: return "Ikke medhold"
+        if "giver medhold" in seg: return "Medhold"
     return "Ukendt"
 
 def detect_sagstype(titel):
@@ -252,7 +267,7 @@ def load_kategori(stem, version=1):
         return df
     df["Dato"] = pd.to_datetime(df["Dato"], errors="coerce")
     df["Aar"] = df["Dato"].dt.year.astype("Int64")
-    df["Udfald"] = df["Titel"].apply(detect_udfald)
+    df["Udfald"] = df.apply(lambda r: detect_udfald(r["Titel"], r.get("Tekst", "")), axis=1)
     df["Sagstype"] = df["Titel"].apply(detect_sagstype)
     df["Kommune"] = df["Titel"].apply(extract_kommune)
     # Underkategori
@@ -626,8 +641,11 @@ if df.empty:
 vec, mat = build_index(valgt_stem, len(df))
 embeds = build_embeddings_mfkn(valgt_stem, len(df))
 if embeds is None and embeddings_tilgængelige():
-    build_embeddings_mfkn.clear()
-    embeds = build_embeddings_mfkn(valgt_stem, len(df))
+    # Tving genopbygning for KUN denne kategori via version-bump (rydder ikke
+    # cachen for andre kategorier).
+    _bust_key = f"_mfkn_embed_ver_{valgt_stem}"
+    st.session_state[_bust_key] = st.session_state.get(_bust_key, 1) + 1
+    embeds = build_embeddings_mfkn(valgt_stem, len(df), st.session_state[_bust_key])
 
 # Auto-filter options for AI retrieval
 _mfkn_filter_options = {
@@ -712,7 +730,11 @@ with st.sidebar:
     sagstype_valg = st.multiselect("", _alle_sagstyper, label_visibility="collapsed", key="mfkn_sg")
 
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
-    aar_min, aar_max = int(df["Aar"].min()), int(df["Aar"].max())
+    _aar_min_raw, _aar_max_raw = df["Aar"].min(), df["Aar"].max()
+    aar_min = int(_aar_min_raw) if pd.notna(_aar_min_raw) else 2017
+    aar_max = int(_aar_max_raw) if pd.notna(_aar_max_raw) else 2026
+    if aar_max < aar_min:
+        aar_max = 2026
     _default_start = max(2017, aar_min)
     aar_range = st.slider("", aar_min, aar_max, (_default_start, aar_max), label_visibility="collapsed", key="mfkn_yr")
 
@@ -733,7 +755,7 @@ with st.sidebar:
             st.rerun()
 
 # ── Filtrering ───────────────────────────────────────────────────────────────
-mask = (df["Aar"] >= aar_range[0]) & (df["Aar"] <= aar_range[1])
+mask = df["Aar"].isna() | ((df["Aar"] >= aar_range[0]) & (df["Aar"] <= aar_range[1]))
 if valgte_underkat:  mask &= df["Underkategori"].isin(valgte_underkat)
 if sagstype_valg:    mask &= df["Sagstype"].isin(sagstype_valg)
 if udfald_valg:      mask &= df["Udfald"].isin(udfald_valg)
@@ -1135,6 +1157,12 @@ with tab_ai:
                         st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
                         embeds=embeds, filter_options=_mfkn_filter_options,
                     )
+                except Exception:
+                    alle_kilder = []
+                if not alle_kilder:
+                    st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
+                    st.stop()
+                try:
                     svar = mfkn_svar_stream(f, alle_kilder,
                                             historik=st.session_state.mfkn_chat,
                                             kat_navn=valgt_navn, placeholder=svar_placeholder)
@@ -1175,6 +1203,12 @@ with tab_ai:
                     st.session_state.mfkn_chat, top_retrieve=40, top_final=8,
                     embeds=embeds, filter_options=_mfkn_filter_options,
                 )
+            except Exception:
+                alle_kilder = []
+            if not alle_kilder:
+                st.error("Kunne ikke hente kilder — prøv igen eller justér filtre.")
+                st.stop()
+            try:
                 svar = mfkn_svar_stream(spoergsmaal, alle_kilder,
                                         historik=st.session_state.mfkn_chat,
                                         kat_navn=valgt_navn, placeholder=svar_placeholder)
