@@ -119,6 +119,12 @@ def kategoriser(titel: str) -> list:
     # 6. Planvedtagelse uden "vedtagelse af" (f.eks. "endelig vedtagelse")
     if re.search(r"endelig vedtagelse", t) and is_plan:
         return ["Planvedtagelse"]
+    # 6b. Lovliggørelse / påbud — distinkt håndhævelses-sagstype der ellers
+    # forsvandt i "Andet" (~30% af Andet-bucket). Additiv; rører ikke
+    # plan-/dispensation-/miljøvurderingslogikken ovenfor.
+    if re.search(r"lovliggør|\bpåbud\b|påbud om|forbud mod|"
+                 r"ophøre? med at anvende|standsning af", t):
+        return ["Lovliggørelse/Påbud"]
     # 7. Øvrige plan-sager der nævner en plantype
     if "lokalplan" in t or "byplanvedtægt" in t:
         return ["Andet"]
