@@ -24,6 +24,7 @@ from shared import (
     auto_filter_query, apply_auto_filters,
     init_sagsmapper, gem_fra_row, hent_alle_gemte_links, fjern_afgørelse,
     find_mappe_for_link, opret_mappe,
+    skeleton_cards, empty_state, callout, typing_indicator,
 )
 try:
     from shared import sync_embeddings_to_github, ensure_embeddings_on_disk
@@ -954,14 +955,10 @@ with tab_søg:
         st.markdown(label)
 
         if hits == 0:
-            st.markdown(
-                '<div style="text-align:center;padding:3rem 1rem;color:#94a3b8;">'
-                '<div style="font-size:2rem;margin-bottom:0.5rem;">🔍</div>'
-                '<div style="font-size:15px;font-weight:600;color:#475569;margin-bottom:0.4rem;">'
-                'Ingen afgørelser matcher din søgning</div>'
-                '<div style="font-size:13px;">Prøv at udvide filtrene eller ændre søgeordene.</div>'
-                '</div>',
-                unsafe_allow_html=True,
+            empty_state(
+                "Ingen afgørelser matcher din søgning",
+                "Prøv at udvide filtrene eller ændre søgeordene.",
+                icon="search_off",
             )
             if _har_filtre:
                 if st.button("Nulstil filtre", key="_pkn_reset_empty", use_container_width=False):
@@ -1194,30 +1191,24 @@ with tab_ai:
 </div>
 """, unsafe_allow_html=True)
 
-    # Diagnostik: vis altid en besked hvis embeddings ikke er aktive
+    # Diagnostik: detaljer kun bag DEBUG-flag (læk ikke secret-navne til
+    # slutbrugere i et juristvendt produkt).
     if not _embeds_ok:
-        try:
-            _secret_keys = sorted([k for k in st.secrets.keys()])
-        except Exception:
-            _secret_keys = []
-        _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
-        if _voyage_key_sat:
-            _embed_err = get_embed_error() or "Ukendt fejl – kontrollér at nøglen er gyldig"
-            st.warning(
-                "**Intelligent søgning ikke aktiv.** Embedding-indekset kunne ikke bygges.\n\n"
-                f"**API-fejl:** `{_embed_err}`\n\n"
-                f"Fundne secrets: {_key_liste}",
-                icon="⚠️",
-            )
-        else:
-            st.info(
-                "**TF-IDF-søgning er aktiv** (ordbaseret). "
-                "For hybrid semantisk søgning: tilføj `VOYAGE_API_KEY` i Streamlit Cloud secrets og genstart appen. "
-                f"Fundne secrets: {_key_liste}. "
-                "**Tjek**: nøglen skal hedde nøjagtigt `VOYAGE_API_KEY` (ingen mellemrum, store bogstaver), "
-                "og du skal klikke 'Reboot app' i Streamlit Cloud efter du gemmer secrets.",
-                icon="ℹ️",
-            )
+        _debug = bool(st.secrets.get("DEBUG", False))
+        if _debug:
+            try:
+                _secret_keys = sorted([k for k in st.secrets.keys()])
+            except Exception:
+                _secret_keys = []
+            _key_liste = ", ".join(f"`{k}`" for k in _secret_keys) if _secret_keys else "(ingen)"
+            if _voyage_key_sat:
+                st.warning(
+                    "**[debug] Intelligent søgning ikke aktiv.**\n\n"
+                    f"**API-fejl:** `{get_embed_error() or 'ukendt'}`\n\n"
+                    f"Fundne secrets: {_key_liste}", icon="⚠️",
+                )
+            else:
+                st.info(f"**[debug]** TF-IDF aktiv. Fundne secrets: {_key_liste}", icon="ℹ️")
 
     if not ANTHROPIC_API_KEY:
         st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
