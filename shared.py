@@ -1810,6 +1810,17 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
     except Exception:
         pass
 
+    # Spend-guard: byg ALDRIG fra betalt embedding-API medmindre eksplicit
+    # tilladt via secret. Forhindrer at et cache-miss (fx ændret korpus-
+    # rækkeantal i filnavnet) udløser en dyr fuld genopbygning uden varsel.
+    # Uden flaget degraderer appen pænt til ren TF-IDF (gratis).
+    try:
+        _allow_rebuild = bool(st.secrets.get("ALLOW_EMBED_REBUILD", False))
+    except Exception:
+        _allow_rebuild = False
+    if not _allow_rebuild:
+        return None
+
     # 3. Byg fra API (med resume-support: gem partial ved fejl)
     texts = [tekst_bygger(str(t), str(x))[:8000]
              for t, x in zip(df["Titel"].fillna(""), df["Tekst"].fillna(""))]
