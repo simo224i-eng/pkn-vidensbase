@@ -6,3 +6,6 @@ __pycache__/
 __MACOSX/
 *.pyc
 .embeds_cache/
+.streamlit/secrets.toml
+pkn_udkast/.streamlit/secrets.toml
+ejnar/ejnar_ejerskifteforsikring.csv
