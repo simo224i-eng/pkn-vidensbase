@@ -456,8 +456,12 @@ with st.sidebar:
     )
 
     st.markdown('<span class="h-filter-label">Søgeord</span>', unsafe_allow_html=True)
+    # Ryd søgefeltet hvis en chip eller "Ryd alle" har anmodet om det (skal ske
+    # før widget'en instantieres, ellers ignorerer Streamlit værdiændringen).
+    if st.session_state.pop("_ejnar_clear_soeg", False):
+        st.session_state["ejnar_soeg"] = ""
     søg_input = st.text_input("", placeholder="f.eks. skimmel, tag, selvrisiko, levetid…",
-                              label_visibility="collapsed")
+                              label_visibility="collapsed", key="ejnar_soeg")
     søge_type = st.radio("", ["Ordret", "Intelligent"], horizontal=True,
                          label_visibility="collapsed", key="søge_type")
     st.markdown('<span style="font-size:10.5px;color:#64748b;line-height:1.4;display:block;margin-top:-6px;">'
@@ -504,6 +508,7 @@ with st.sidebar:
             for k in ["mt", "sel", "ud", "søge_type"]:
                 if k in st.session_state:
                     del st.session_state[k]
+            st.session_state["_ejnar_clear_soeg"] = True
             st.rerun()
 
 

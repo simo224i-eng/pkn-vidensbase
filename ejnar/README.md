@@ -61,11 +61,14 @@ GITHUB_TOKEN       = "..."     # valgfri – auto-pusher byggede embeddings til 
    - HTML-selectors `.search-result, .afgoerelse-card, article a`
    - Detalje-selectors (`article .field--name-body` mv.)
 
-2. **Byg embeddings** (kører Voyage AI's `voyage-multilingual-2`):
+2. **Byg embeddings** (kører Voyage AI's `voyage-3-large` på chunk-niveau):
    ```bash
    VOYAGE_API_KEY=... python3 build_embeddings.py
    ```
-   Output: `ejnar/embeds/ejnar_ejerskifteforsikring__voyage__voyage-multilingual-2__N.npz`.
+   Hver kendelse deles i overlappende ~1000-token-chunks (hver med titel-prefix),
+   så lange juridiske tekster matches præcist afsnit for afsnit.
+   Output: `ejnar/embeds/ejnar_ejerskifteforsikring__voyage__voyage-3-large__{N}d_{M}c.npz`
+   (N dokumenter, M chunks).
 
 3. **Commit og push**:
    ```bash
