@@ -122,7 +122,10 @@ def _læs_csv(sti: str) -> list:
     return rows
 
 
-@st.cache_data(show_spinner="Indlæser kendelser…", ttl=None)
+# cache_resource (ikke cache_data): deler ÉT df-objekt i stedet for at deep-copy'e
+# de ~170MB tekst ved hvert kald. df muteres aldrig in-place efter load → sikkert,
+# og sparer 1-2 fulde kopier i RAM ved opstart (afgørende for Streamlit Clouds 1GB).
+@st.cache_resource(show_spinner="Indlæser kendelser…")
 def load_data(version: int = 1):
     _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     _tmp = "/tmp/ejnar_data"
@@ -198,8 +201,10 @@ def build_index(n_rows: int, version: int = 1):
     df2 = load_data()
     if df2.empty:
         return None, None
-    texts = [byg_indeks_tekst(t, tx) for t, tx in
-             zip(df2["Titel"].astype(str), df2["Tekst"].astype(str))]
+    # generator (ikke liste): undgår at materialisere en hel ekstra kopi af
+    # teksten i RAM — TfidfVectorizer itererer alligevel kun én gang.
+    texts = (byg_indeks_tekst(t, tx) for t, tx in
+             zip(df2["Titel"].astype(str), df2["Tekst"].astype(str)))
     vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True, tokenizer=dansk_tokenizer,
                           token_pattern=None)
