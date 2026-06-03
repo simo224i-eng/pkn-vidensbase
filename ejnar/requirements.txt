@@ -1,9 +1,12 @@
-streamlit
-pandas
-numpy
-scikit-learn
-plotly
-requests
-nltk
-beautifulsoup4
-pypdf
+# Pinned til en kendt, stabil stak. Streamlit Cloud trak ellers bleeding-edge
+# versioner (pandas 3.0 / numpy 2.4 / Python 3.14) som appen aldrig er testet på
+# og som crashede. Disse versioner har wheels for Python 3.12 OG 3.13.
+streamlit==1.39.0
+pandas==2.2.3
+numpy==2.0.2
+scikit-learn==1.5.2
+plotly==5.24.1
+requests==2.32.3
+nltk==3.9.1
+beautifulsoup4==4.12.3
+pypdf==5.1.0
