@@ -18,6 +18,7 @@ Ankenævnet har ~5641 ejerskifteforsikrings-kendelser. Med rowlimit=50 og
 0,5 sek pause pr. side tager en fuld kørsel ca. 60-90 sekunder for listen
 + ekstra tid til at hente fuld tekst på hver kendelse.
 """
+from __future__ import annotations  # gør PEP 604-typehints (X | None) lazy → kører også på Python 3.9
 
 import argparse
 import csv

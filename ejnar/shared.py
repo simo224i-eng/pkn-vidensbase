@@ -1,4 +1,5 @@
 """Delte hjælpefunktioner, CSS og logo til Ejnar (Forsikringsankenævnets praksis for ejerskifteforsikring)."""
+from __future__ import annotations  # gør PEP 604-typehints (X | None) lazy → kører også på Python 3.9
 import re
 import csv
 import base64 as _b64

@@ -36,7 +36,7 @@ BATCH_SIZE = 32
 # Chunk-parametre
 CHUNK_SIZE = 1000      # tokens (ca. 4000 tegn) — passer godt til afsnit i juridiske tekster
 CHUNK_OVERLAP = 150    # tokens — sikrer at sætninger ikke skæres midt over
-MAX_CHUNKS_PER_DOC = 8 # cap for ekstreme outliere så længste 1% ikke dominerer
+MAX_CHUNKS_PER_DOC = 80 # cap højt nok til at dække selv længste kendelse (74 chunks) → 0% tekst tabt
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 EMBEDS_DIR = os.path.join(ROOT, "embeds")
