@@ -1,12 +1,23 @@
-# Pinned til en kendt, stabil stak. Streamlit Cloud trak ellers bleeding-edge
-# versioner (pandas 3.0 / numpy 2.4 / Python 3.14) som appen aldrig er testet på
-# og som crashede. Disse versioner har wheels for Python 3.12 OG 3.13.
-streamlit==1.39.0
-pandas==2.2.3
-numpy==2.0.2
-scikit-learn==1.5.2
-plotly==5.24.1
-requests==2.32.3
-nltk==3.9.1
-beautifulsoup4==4.12.3
-pypdf==5.1.0
+# Streamlit Community Cloud tvinger pt. en helt ny Python (3.14) og IGNORERER
+# runtime.txt / .python-version (kendt platform-issue). Pakkerne SKAL derfor
+# have wheels for den Python, ellers fejler `pip install` KOMPLET — og så bliver
+# INGEN pakker installeret, heller ikke plotly. Resultatet er et misvisende
+# "ModuleNotFoundError: plotly" når appen rammer `import plotly.express`.
+#
+# De tidligere pins (numpy==2.0.2, pandas==2.2.3, scikit-learn==1.5.2,
+# streamlit==1.39.0) havde netop INGEN cp314-wheels → installationen fejlede.
+#
+# Eneste hårde krav fra app-koden er pandas < 3 (pandas 3.0 har breaking changes
+# — ny default string-dtype + Copy-on-Write — som appen ikke er skrevet til).
+# pandas 2.3.3 er sidste 2.x OG første 2.x med Python 3.14-wheels. Resten holdes
+# på nyere versioner med cp313/cp314-wheels via nedre grænser, så pip selv kan
+# vælge den nyeste version der har et wheel til den Python Cloud kører på.
+streamlit>=1.40
+pandas>=2.3.3,<3
+numpy>=2.1
+scikit-learn>=1.6
+plotly>=5.24
+requests>=2.32
+nltk>=3.9
+beautifulsoup4>=4.12
+pypdf>=5.1
