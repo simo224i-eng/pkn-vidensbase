@@ -195,6 +195,19 @@ with st.expander("⚙️  Filtrér emner"):
 if not valgte_emner:
     valgte_emner = [e["id"] for e in EMNER]
 
+# ── Regeltidslinje (byggeregler der ændrede byggeskikken) ─────────────────────
+_milepaele = META.get("milepaele", [])
+if _milepaele:
+    with st.expander("📜  Regeltidslinje — byggeregler der ændrede byggeskikken"):
+        rows = "".join(
+            "<div style='display:flex;gap:.85rem;padding:.4rem 0;border-bottom:1px solid #ece6d8;'>"
+            f"<div style='min-width:84px;font-family:\"Space Grotesk\",sans-serif;font-weight:700;"
+            f"font-size:.85rem;color:{TEAL_D};'>{m['aar']}</div>"
+            f"<div style='font-size:.88rem;color:#4a463d;line-height:1.5;'>{m['tekst']}</div></div>"
+            for m in _milepaele
+        )
+        st.markdown(rows, unsafe_allow_html=True)
+
 
 # ── Byg det aktuelle deck ─────────────────────────────────────────────────────
 def build_deck():
