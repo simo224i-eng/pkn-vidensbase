@@ -22,13 +22,19 @@ bevidst forskelligt fra Harald og Ejnar.
 
 ## Sådan er det bygget op
 
-- **Periode-først:** en tidslinje øverst (Alle perioder · Før 1930 · 1930–1960 ·
-  1960–1979 · 1979–1998 · 1998–2008 · 2008–nu). Vælg en æra, og indholdet
+- **Periode-først:** en tidslinje øverst, hvor grænserne følger de faktiske
+  bygningsreglement-skift: Alle perioder · Før 1930 · 1930–1960 ·
+  **1960–1972** (før fugt-/isoleringskrav) · **1972–1979** (BR72: fugtsikring) ·
+  **1979–1995** (energistramning) · 1995–2008 · 2008–nu. Vælg en æra, og indholdet
   filtreres til netop den.
+- **Regeltidslinje:** en udfoldelig oversigt over de byggeregler, der ændrede
+  byggeskikken (1858/1939 fugt, BR61, BR72 kapillarbrydende lag, 1979-energistramning,
+  asbestforbud 1986 osv.), så du kan koble et hus' årstal til, hvad der gjaldt.
 - **Tværgående grundbegreber** (hvad er puds, mørtel, tegl, beton, isolering …)
   vises uanset periode — kan slås fra, hvis du kun vil have det periode-specifikke.
 - **Emnefilter:** Materialer & begreber · Tag · Ydervæg & facade · Fundament &
-  sokkel · Gulve & dæk · Vinduer & døre · Vådrum · Fugt, skimmel & svamp.
+  sokkel · Gulve & dæk · Vinduer & døre · Vådrum · Fugt, skimmel & svamp ·
+  Regler & milepæle.
 
 ## Struktur
 

@@ -2,77 +2,1192 @@
   "meta": {
     "titel": "Børge – Lær byggeteknik periode for periode",
     "beskrivelse": "Byggetekniske flashcards og quiz, organiseret efter bygningens opførelsesperiode. Vælg en æra (fx 1960–1979) og lær, hvordan husene fra den tid er bygget — tag, vægge, fundament, materialer — og hvad du skal være obs på. Rent byggeteknisk; ingen jura.",
-    "version": "2.0",
-    "noter": "Generelt fagstof til læring. Årstal for materialer/normer er vejledende — overgange er glidende."
+    "version": "3.0",
+    "noter": "Generelt fagstof til læring. Årstal for materialer/normer er vejledende — overgange er glidende.",
+    "milepaele": [
+      {
+        "aar": "1858",
+        "tekst": "Byggeloven: krav om fugtstandsende lag mellem fundament og vægge."
+      },
+      {
+        "aar": "1939",
+        "tekst": "BR39 skærper fugtisolering ved terræn (mod kapillær opstigning)."
+      },
+      {
+        "aar": "1960",
+        "tekst": "Landsbyggeloven: fugtspærre-krav udvides til hele landet (også landzone)."
+      },
+      {
+        "aar": "1961",
+        "tekst": "BR61 — første landsdækkende bygningsreglement; krav om terrænfald og sokkelhøjde."
+      },
+      {
+        "aar": "ca. 1970",
+        "tekst": "Lovkrav om hulmursisolering på nybyggeri."
+      },
+      {
+        "aar": "1972",
+        "tekst": "BR72 — krav om kapillarbrydende lag i fundamenter (moderne fugtsikring af terrændæk)."
+      },
+      {
+        "aar": "1977",
+        "tekst": "BR77 — samlet reglement efter oliekriserne."
+      },
+      {
+        "aar": "1. feb. 1979",
+        "tekst": "Markant stramning af varmeisoleringskravene (energi) — tillæg til BR77."
+      },
+      {
+        "aar": "1980",
+        "tekst": "Asbest-import/-brug forbydes — dog stadig undtagelse for asbestcement (eternit)."
+      },
+      {
+        "aar": "1986",
+        "tekst": "Totalforbud mod asbest — slut for asbestholdig eternit."
+      },
+      {
+        "aar": "1995/1998",
+        "tekst": "BR95/BR98 — nye energi- og isoleringskrav."
+      },
+      {
+        "aar": "2008/2010",
+        "tekst": "BR08/BR10 — energimærkning og markant lavere energiramme."
+      },
+      {
+        "aar": "2015/2018",
+        "tekst": "BR15/BR18 — lavenergi, tæthedskrav, typisk 3-lags ruder."
+      }
+    ]
   },
   "perioder": [
-    {"id": "alle", "navn": "Tværgående", "aar": "Grundbegreber", "titel": "Materialer & begreber", "resume": "Byggetekniske grundbegreber der gælder uanset alder — hvad er puds, mørtel, tegl, beton, isolering osv."},
-    {"id": "foer1930", "navn": "Før 1930", "aar": "–1930", "titel": "Det murede håndværkshus", "resume": "Massivt teglmurværk uden isolering, træbjælkelag, høje tegltage, ingen fugtspærre. Bygget i hånden med kalkmørtel."},
-    {"id": "1930_1960", "navn": "1930–1960", "aar": "1930–1960", "titel": "Hulmurens gennembrud", "resume": "Hulmuren bliver standard (formur, hulrum, bagmur, bindere). Funkis og murermestervillaer. Stadig sparsom isolering."},
-    {"id": "1960_1979", "navn": "1960–1979", "aar": "1960–1979", "titel": "Parcelhusets storhedstid", "resume": "Typehuse og montagebyggeri i tusindvis. Flade/lavthældende tagpaptage, eternit, termoruder, betontagsten, terrændæk."},
-    {"id": "1979_1998", "navn": "1979–1998", "aar": "1979–1998", "titel": "Energikrisernes hus", "resume": "Oliekriserne giver tykkere isolering og tættere huse. Undertag bliver standard. Rustfri bindere."},
-    {"id": "1998_2008", "navn": "1998–2008", "aar": "1998–2008", "titel": "Det tætte hus", "resume": "Energiruder, skærpede tætheds- og fugtkrav, moderne vådrumssikring med membran."},
-    {"id": "2008_nu", "navn": "2008–nu", "aar": "2008–", "titel": "Lavenergihuset", "resume": "BR10/15/18: 3-lags ruder, meget isolering, lufttæt klimaskærm og mekanisk ventilation med varmegenvinding."}
+    {
+      "id": "alle",
+      "navn": "Tværgående",
+      "aar": "Grundbegreber",
+      "titel": "Materialer & begreber",
+      "resume": "Byggetekniske grundbegreber der gælder uanset alder — puds, mørtel, tegl, beton, isolering osv."
+    },
+    {
+      "id": "foer1930",
+      "navn": "Før 1930",
+      "aar": "–1930",
+      "titel": "Det murede håndværkshus",
+      "resume": "Massivt teglmurværk dominerer (muret i kalkmørtel), træbjælkelag, høje tegltage ofte uden undertag, ingen isolering og som regel ingen fugtspærre. Hulmuren dukker dog op allerede fra ca. 1900."
+    },
+    {
+      "id": "1930_1960",
+      "navn": "1930–1960",
+      "aar": "1930–1960",
+      "titel": "Hulmurens tid",
+      "resume": "Hulmuren (formur + hulrum + bagmur + bindere) er nu standard. Funkis og murermestervillaer. Stadig sparsom isolering; tegltage og eternitskifer."
+    },
+    {
+      "id": "1960_1972",
+      "navn": "1960–1972",
+      "aar": "1960–1972",
+      "titel": "Parcelhusboomet — før fugt- og isoleringskravene",
+      "resume": "Typehuse i tusindvis, montagebyggeri, flade/lavthældende tagpaptage, eternit (asbest), termoruder. Terrændæk bliver udbredt — men ofte UDEN kapillarbrydende lag, for fugtkravet kom først med BR72. Minimal isolering = mange kuldebroer."
+    },
+    {
+      "id": "1972_1979",
+      "navn": "1972–1979",
+      "aar": "1972–1979",
+      "titel": "BR72: fugtsikringen kommer",
+      "resume": "BR72 indfører krav om kapillarbrydende lag i fundamenter, og hulmursisolering blev lovkrav på nybyg (ca. 1970). Stadig før den store energistramning — overgangshuse mellem 'før' og 'efter' fugt-/isoleringskrav."
+    },
+    {
+      "id": "1979_1995",
+      "navn": "1979–1995",
+      "aar": "1979–1995",
+      "titel": "Energikravenes hus",
+      "resume": "1. feb. 1979 strammes varmeisoleringskravene markant (oliekriserne). Tykkere isolering, tættere huse. Undertag bliver standard (nogle skøre fabrikater), og bindere bliver rustfri."
+    },
+    {
+      "id": "1995_2008",
+      "navn": "1995–2008",
+      "aar": "1995–2008",
+      "titel": "Det tætte hus",
+      "resume": "BR95/BR98: energiruder, skærpede tætheds- og fugtkrav og moderne vådrumssikring med membran. Velisolerede konstruktioner, der ikke længere så let tørrer ud."
+    },
+    {
+      "id": "2008_nu",
+      "navn": "2008–nu",
+      "aar": "2008–",
+      "titel": "Lavenergihuset",
+      "resume": "BR08/BR10/BR15/BR18: 3-lags ruder, meget isolering, lufttæt klimaskærm og mekanisk ventilation med varmegenvinding."
+    }
   ],
   "emner": [
-    {"id": "materialer", "navn": "Materialer & begreber", "ikon": "category"},
-    {"id": "tag", "navn": "Tag", "ikon": "roofing"},
-    {"id": "ydervaeg", "navn": "Ydervæg & facade", "ikon": "wall"},
-    {"id": "fundament", "navn": "Fundament & sokkel", "ikon": "foundation"},
-    {"id": "gulv", "navn": "Gulve & dæk", "ikon": "grid_on"},
-    {"id": "vinduer", "navn": "Vinduer & døre", "ikon": "window"},
-    {"id": "vaadrum", "navn": "Vådrum", "ikon": "bathtub"},
-    {"id": "fugt", "navn": "Fugt, skimmel & svamp", "ikon": "humidity_high"}
+    {
+      "id": "materialer",
+      "navn": "Materialer & begreber",
+      "ikon": "category"
+    },
+    {
+      "id": "tag",
+      "navn": "Tag",
+      "ikon": "roofing"
+    },
+    {
+      "id": "ydervaeg",
+      "navn": "Ydervæg & facade",
+      "ikon": "wall"
+    },
+    {
+      "id": "fundament",
+      "navn": "Fundament & sokkel",
+      "ikon": "foundation"
+    },
+    {
+      "id": "gulv",
+      "navn": "Gulve & dæk",
+      "ikon": "grid_on"
+    },
+    {
+      "id": "vinduer",
+      "navn": "Vinduer & døre",
+      "ikon": "window"
+    },
+    {
+      "id": "vaadrum",
+      "navn": "Vådrum",
+      "ikon": "bathtub"
+    },
+    {
+      "id": "fugt",
+      "navn": "Fugt, skimmel & svamp",
+      "ikon": "humidity_high"
+    },
+    {
+      "id": "regler",
+      "navn": "Regler & milepæle",
+      "ikon": "history_edu"
+    }
   ],
   "kort": [
-    {"id": 1, "emne": "materialer", "perioder": ["alle"], "forside": "Hvad er puds?", "bagside": "Puds er et tyndt lag **mørtel**, der trækkes ud på en mur eller væg som overflade og beskyttelse. Det udjævner murværket, beskytter mod vejr og kan males. Typer:\n- **Kalkpuds** — blød, diffusionsåben, bruges på ældre huse.\n- **Kalkcementpuds** (bastard) — stærkere, mest udbredt i dag.\n- **Cementpuds** — hård og stærk, fx på sokkel.\nOverfladen kan stå groft, **filtset** (gnedet glat) eller **vandskuret** (tyndt udjævnet).", "quiz": {"sp": "Hvad er puds grundlæggende lavet af?", "valg": ["Mørtel der trækkes ud på muren", "Smeltet plast", "Presset træfiber", "Brændt ler i plader"], "korrekt": 0, "forklaring": "Puds er en mørtelbelægning (kalk/cement + sand + vand) som overflade på murværk."}},
-    {"id": 2, "emne": "materialer", "perioder": ["alle"], "forside": "Hvad er mørtel — og forskellen på kalk-, cement- og bastardmørtel?", "bagside": "Mørtel er bindemiddel + sand + vand, der binder mursten sammen (fugemørtel) eller pudses på.\n- **Kalkmørtel:** blød, eftergivende, diffusionsåben — i ældre murværk (før ca. 1950).\n- **Cementmørtel:** hård og stærk, men tæt — kan give fugtproblemer i gammelt murværk.\n- **Bastardmørtel (kalkcement):** blanding — det almindelige kompromis i dag.", "quiz": {"sp": "Hvilken mørteltype sidder typisk i ældre murværk fra før ca. 1950?", "valg": ["Kalkmørtel", "Ren cementmørtel", "Epoxymørtel", "Gipsmørtel"], "korrekt": 0, "forklaring": "Ældre murværk er muret i blød, diffusionsåben kalkmørtel. Hård cementmørtel kom bredt til senere."}},
-    {"id": 3, "emne": "materialer", "perioder": ["alle"], "forside": "Hvad er en mursten (tegl), og hvad betyder 'frostfast'?", "bagside": "En teglsten brændes af ler. **Blødstrøgne** sten (håndlavet udtryk) ses i ældre/dyrere byggeri, **maskinsten** er industrielt fremstillet. En **frostfast** sten kan tåle at blive våd og fryse uden at skalle af. Sten med høj vandoptagelse (porøse, bløde) frostsprænges, især på udsatte steder som sokkel, skorsten og murkrone.", "quiz": {"sp": "Hvad betyder det, at en mursten er 'frostfast'?", "valg": ["Den kan blive våd og fryse uden at skalle af", "Den leder ikke kulde", "Den er malet med frostvæske", "Den er hærdet med stål"], "korrekt": 0, "forklaring": "Frostfasthed handler om, at sten med vand i porerne kan modstå frysning uden afskalning/frostsprængning."}},
-    {"id": 4, "emne": "ydervaeg", "perioder": ["alle"], "forside": "Hvad er et teglstik (og en overligger)?", "bagside": "Over en åbning (vindue/dør) skal murværkets vægt bæres. Det sker enten med et **teglstik** — mursten sat på højkant i en flad eller buet bue, så de bærer hinanden — eller med en **overligger** af stål (bjælke) eller beton. Svigter stikket, eller ruster en stålbjælke, opstår revner over åbningen.", "quiz": {"sp": "Hvad er et teglstik?", "valg": ["Mursten sat på højkant i en bue, der bærer muren over en åbning", "Et værktøj til at lægge tegl", "En revne i en mur", "Et stykke isolering bag muren"], "korrekt": 0, "forklaring": "Teglstikket bærer murværket over et vindue/dør ved at stenene på højkant overfører lasten til siderne."}},
-    {"id": 5, "emne": "materialer", "perioder": ["alle"], "forside": "Hvad er en fuge i murværk?", "bagside": "Fugen er mørtelfyldningen mellem murstenene. Den binder, fordeler last og holder vand ude. Fugen kan være **glat/tilbageliggende**, **fyldt** eller **tilbageskåret**. Udvaskede, smuldrende eller revnede fuger lukker vand ind i muren og er et klassisk vedligeholdspunkt. Omfugning kaldes 'udkradsning og ny fuge'.", "quiz": {"sp": "Hvad er fugens vigtigste funktioner i en mur?", "valg": ["Binde stenene, fordele last og holde vand ude", "Kun at se pæn ud", "At isolere mod kulde", "At lede el i væggen"], "korrekt": 0, "forklaring": "Fugen binder murværket sammen, fordeler lasten og er murens vandtætning udadtil."}},
-    {"id": 6, "emne": "materialer", "perioder": ["alle"], "forside": "Hvad er forskellen på beton og jernbeton (armeret beton)?", "bagside": "**Beton** (cement + sten + sand + vand) er stærk i tryk, men svag i træk (bøjning). **Jernbeton** har indstøbte **armeringsjern**, der optager trækkræfterne, så betonen kan bære bøjning — fx i dæk, bjælker og overliggere. Ruster armeringen (pga. fugt/karbonatisering), udvider den sig og **sprænger betonen** (armeringskorrosion / betonskader).", "quiz": {"sp": "Hvorfor armerer man beton med jern?", "valg": ["Beton er svag i træk/bøjning — jernet optager trækkræfterne", "For at lede strøm", "For at gøre den lettere", "For at den kan males"], "korrekt": 0, "forklaring": "Beton tåler tryk, men ikke træk. Armeringsjern optager trækket, så konstruktionen kan bære bøjning."}},
-    {"id": 7, "emne": "materialer", "perioder": ["alle"], "forside": "Hvad er letbeton, gasbeton og letklinkerbeton (Leca)?", "bagside": "Lette betonvarianter brugt især til bagmure og fundamentblokke:\n- **Gasbeton/porebeton** (Ytong, Siporex): luftfyldt, let, isolerende, men sugende over for fugt.\n- **Letklinkerbeton (Leca):** beton med brændte lerkugler — bruges i blokke og fundamenter.\nDe er lette at bearbejde, men tåler ikke vedvarende fugt godt.", "quiz": {"sp": "Hvad kendetegner gasbeton/porebeton?", "valg": ["Let og isolerende, men sugende over for fugt", "Tungt og helt vandtæt", "Lavet af ren cement uden luft", "Et metal"], "korrekt": 0, "forklaring": "Porebeton er fyldt med luftporer (let + isolerende), men suger fugt og tåler ikke vedvarende vand."}},
-    {"id": 8, "emne": "materialer", "perioder": ["alle"], "forside": "Hvad er en dampspærre, og hvor sidder den?", "bagside": "En dampspærre (typisk en plastfolie) sidder på den **varme side** af isoleringen og forhindrer fugtig indeluft i at trænge ud i den kolde isolering, hvor den ville kondensere og give skimmel/råd. Den skal være **ubrudt og tæt** — huller fra fx indbygningsspots eller fejlsamlinger giver fugtskader i konstruktionen.", "quiz": {"sp": "På hvilken side af isoleringen skal dampspærren sidde?", "valg": ["Den varme (indvendige) side", "Den kolde (udvendige) side", "Midt i isoleringen", "Det er lige meget"], "korrekt": 0, "forklaring": "Dampspærren skal sidde på den varme side, så varm, fugtig indeluft ikke trænger ud og kondenserer i den kolde isolering."}},
-    {"id": 9, "emne": "tag", "perioder": ["alle"], "forside": "Hvad er et undertag, og hvad er forskellen på fast og banevareundertag?", "bagside": "Undertaget er en ekstra vandskærm under tagstenene, der fanger slagregn, fygesne og kondens og leder det til tagrenden.\n- **Fast undertag:** plader (fx brædder/krydsfiner) — robust.\n- **Banevare-/duge-undertag:** udrullet membran på lægter — billigere, men ældre, bløde typer kan skørne og revne.", "quiz": {"sp": "Hvad er undertagets funktion?", "valg": ["Fange regn/sne der trænger forbi tagstenene og lede det væk", "Bære hele tagets vægt", "Isolere loftet", "Holde fugle ude"], "korrekt": 0, "forklaring": "Undertaget er en sekundær vandskærm under tagdækningen, der afleder vand, der slipper forbi stenene."}},
-    {"id": 10, "emne": "tag", "perioder": ["alle"], "forside": "Hvad er spær, lægter, rem og hanebånd i en tagkonstruktion?", "bagside": "- **Spær:** de skrå hovedbjælker, der danner tagets form og bærer dækningen.\n- **Lægter:** vandrette lister på tværs af spærene, som tagstenene hænges på.\n- **Rem:** vandret tømmer på toppen af ydervæggen, som spærene hviler på.\n- **Hanebånd:** vandret afstivning mellem to spær, der hindrer dem i at sprede sig.", "quiz": {"sp": "Hvad hænger tagstenene fast på?", "valg": ["Lægterne", "Hanebåndene", "Remmen", "Dampspærren"], "korrekt": 0, "forklaring": "Tagstenene hænges på lægterne — de vandrette lister på tværs af spærene."}},
-    {"id": 11, "emne": "tag", "perioder": ["alle"], "forside": "Hvad er en inddækning?", "bagside": "En inddækning er tætningen (zink, bly, alu eller skumbånd) omkring alt det, der bryder tagfladen: skorsten, ovenlys, kviste, og overgange mellem tag og mur. Det er tagets mest udsatte sted — de fleste tagutætheder opstår ved inddækninger, ikke i selve tagstenene.", "quiz": {"sp": "Hvor opstår tagutætheder oftest?", "valg": ["Ved inddækninger (skorsten, ovenlys, overgange)", "Midt på en hel tagflade", "I tagrenden", "I spærene"], "korrekt": 0, "forklaring": "Gennembrydninger og overgange — altså inddækningerne — er de typiske svage punkter, hvor vand trænger ind."}},
-    {"id": 12, "emne": "tag", "perioder": ["alle"], "forside": "Hvad er tagpap, og hvor bruges det?", "bagside": "Tagpap er baner af armeret bitumen (asfalt), der svejses eller klæbes i flere lag til en vandtæt membran. Det bruges især på **flade og lavthældende tage**. Svagheder: samlinger, opkanter og gennemføringer, og pappen nedbrydes af UV/sol og temperaturskift, så den revner og bliver utæt med alderen.", "quiz": {"sp": "Hvor bruges tagpap typisk?", "valg": ["På flade og lavthældende tage", "Kun på stejle tegltage", "Som undergulv", "Som facadebeklædning"], "korrekt": 0, "forklaring": "Tagpap lægger en sammenhængende vandtæt membran og bruges derfor på flade/lavt hældende tage."}},
-    {"id": 13, "emne": "tag", "perioder": ["alle"], "forside": "Hvad er forskellen på tegltagsten og betontagsten?", "bagside": "**Tegltagsten** brændes af ler (fx den klassiske røde **vingetegl**) — lang levetid, kan blive mosgroet. **Betontagsten** støbes af cement — billigere, lidt tungere, og overfladen kan med årene afslide/forvitre. Begge lægges på lægter med et undertag under. Tunge tage stiller krav til spær og rem.", "quiz": {"sp": "Hvad er en vingetegl?", "valg": ["En klassisk tegltagsten af brændt ler", "En betonblok til facaden", "Et stykke undertag", "En type isolering"], "korrekt": 0, "forklaring": "Vingeteglen er den traditionelle danske tegltagsten af brændt ler."}},
-    {"id": 14, "emne": "tag", "perioder": ["1930_1960", "1960_1979"], "forside": "Hvad er eternit/fibercement — og hvorfor er ældre plader et særligt opmærksomhedspunkt?", "bagside": "Eternit er fibercement: cement armeret med fibre, støbt i bølgeplader eller skifer. **Ældre eternit frem til slutningen af 1980'erne indeholdt asbest**, som er sundhedsskadeligt ved bearbejdning/nedrivning. Pladerne skørner og bliver mosgroede med alderen. Nyere fibercement er asbestfri.", "quiz": {"sp": "Hvad skal man være særligt obs på ved ældre eternit-tagplader?", "valg": ["De kan indeholde asbest", "De er altid utætte", "De er lavet af træ", "De ruster"], "korrekt": 0, "forklaring": "Eternit fra før slutningen af 1980'erne er typisk asbestholdig — farlig ved bearbejdning/nedrivning."}},
-    {"id": 15, "emne": "ydervaeg", "perioder": ["1930_1960", "1960_1979", "1979_1998", "1998_2008", "2008_nu"], "forside": "Hvordan er en hulmur bygget op?", "bagside": "En hulmur har tre dele: en ydre **formur** (vejrskærm, ofte tegl), et **hulrum** (i dag isoleret) og en indre **bagmur** (bærer huset — tegl, letbeton). De to mure holdes sammen af **bindere** (trådbøjler), så formuren ikke vælter ud. Hulrummet bryder kapillarvandets vej, så slagregn ikke når ind til bagmuren.", "quiz": {"sp": "Hvilken del af en hulmur bærer huset?", "valg": ["Bagmuren", "Formuren", "Hulrummet", "Bindere"], "korrekt": 0, "forklaring": "Bagmuren er den bærende del; formuren er vejrskærm, og bindere holder de to sammen."}},
-    {"id": 16, "emne": "ydervaeg", "perioder": ["1930_1960", "1960_1979", "1979_1998"], "forside": "Hvad er murbindere, og hvad sker der, når de ruster?", "bagside": "Bindere er trådbøjler af stål, der binder formur og bagmur sammen i en hulmur. Ældre **ubehandlede/galvaniserede** bindere kan ruste over årtier. Rust fylder mere end stål og kan sprænge fugerne (vandrette revner), og i værste fald slipper formuren sin forankring og **buler ud**. Nyere bindere er rustfri.", "quiz": {"sp": "Hvad er en typisk følge af rustne murbindere?", "valg": ["Formuren kan bule ud og fugerne revne", "Taget bliver utæt", "Gulvet hæver sig", "Vinduerne punkterer"], "korrekt": 0, "forklaring": "Rust udvider sig og sprænger fuger; mister formuren forankringen, kan den bule ud."}},
-    {"id": 17, "emne": "ydervaeg", "perioder": ["alle"], "forside": "Hvad er en kuldebro?", "bagside": "En kuldebro er et sted, hvor varmen ledes hurtigere ud end i resten af konstruktionen — fx en betonsøjle, en uisoleret samling eller en vinduesfalse. Den indvendige overflade bliver koldere, og dér samler fugt sig som **kondens**, hvilket giver skimmel. Ældre, dårligt isolerede konstruktioner har mange kuldebroer.", "quiz": {"sp": "Hvorfor opstår der ofte skimmel ved en kuldebro?", "valg": ["Den kolde overflade giver kondens, som skimmel lever af", "Der er altid utæt der", "Kuldebroer afgiver varme", "Der er træk"], "korrekt": 0, "forklaring": "En kold overflade ved en kuldebro fortætter indeluftens fugt til kondens — ideelt for skimmel."}},
-    {"id": 18, "emne": "fundament", "perioder": ["alle"], "forside": "Hvad er forskellen på sokkel og fundament?", "bagside": "**Fundamentet** er den del under jorden, der overfører husets vægt til bæredygtig bund; det skal nå under **frostfri dybde** (~0,9 m). **Soklen** er den synlige nederste del af ydervæggen over terræn — ofte pudset/malet beton. Sokkel og fundament er udsatte for opstigende fugt, frost og sætninger.", "quiz": {"sp": "Hvad er soklen?", "valg": ["Den synlige nederste del af ydervæggen over terræn", "Bjælken under taget", "Membranen i badet", "Hulrummet i muren"], "korrekt": 0, "forklaring": "Soklen er ydervæggens synlige fod over jorden; fundamentet er den skjulte del under jorden."}},
-    {"id": 19, "emne": "fundament", "perioder": ["alle"], "forside": "Hvad er en sætning (sætningsskade)?", "bagside": "En sætning er, når huset synker — typisk **ujævnt** (differenssætning), fordi jordbunden er forskellig under bygningen. Det giver skæve gulve, døre der binder, og **trappeformede revner** i murværket ud fra hjørner af vinduer og døre. Årsager: blød/organisk bund, for lav fundering, udtørring af lerjord (træer), udvaskning fra utæt kloak.", "quiz": {"sp": "Hvilket revnemønster peger typisk på en sætning?", "valg": ["Trappeformede revner ud fra vindue-/dørhjørner", "Helt vandrette revner i én højde", "Stjerneformede revner i loftet", "Ingen revner"], "korrekt": 0, "forklaring": "Sætninger giver klassisk trappeformede (diagonale) revner i murværket, ofte fra åbningshjørner."}},
-    {"id": 20, "emne": "gulv", "perioder": ["alle"], "forside": "Hvad er forskellen på et terrændæk og et strøgulv?", "bagside": "- **Terrændæk:** gulvet ligger direkte på jorden, opbygget som jord → kapillarbrydende lag → isolering → fugtspærre → betonplade → belægning. Standard i nyere huse.\n- **Strøgulv:** trægulv på **strøer** (bjælker) over et ventileret hulrum/krybekælder. Almindeligt i ældre huse.\nFugt håndteres helt forskelligt: terrændæk med fugtspærre, strøgulv med ventilation.", "quiz": {"sp": "Hvordan holdes et strøgulv tørt?", "valg": ["Ved ventilation af hulrummet/krybekælderen under gulvet", "Med en betonplade", "Med tagpap", "Med en dampspærre i loftet"], "korrekt": 0, "forklaring": "Strøgulve ligger over et ventileret hulrum; ventilationen fjerner fugt, så strøer/brædder ikke rådner."}},
-    {"id": 21, "emne": "gulv", "perioder": ["alle"], "forside": "Hvad er en fugtspærre i et terrændæk, og hvad sker der hvis den mangler?", "bagside": "Et terrændæk skal have en **fugtspærre** (typisk plastmembran) og et kapillarbrydende lag, der stopper jordfugt i at stige op i gulvkonstruktionen. Mangler den, eller er den utæt, suges fugt op i isolering, strøer og gulvbrædder → råd, skimmel og lugtgener. Samme membran begrænser ofte radon nedefra.", "quiz": {"sp": "Hvad forhindrer en fugtspærre i terrændækket?", "valg": ["At jordfugt stiger op i gulvkonstruktionen", "At taget bliver utæt", "At muren revner", "At vinduet dugger"], "korrekt": 0, "forklaring": "Fugtspærren (+kapillarbrydende lag) stopper opstigende jordfugt i terrændækket."}},
-    {"id": 22, "emne": "vinduer", "perioder": ["alle"], "forside": "Hvad er en sålbænk (vandnæse)?", "bagside": "En sålbænk er den skrå flade/liste under et vindue, der leder regnvand væk fra facaden. **Vandnæsen** er den lille underkant/rille, der får dråberne til at slippe og dryppe fri i stedet for at løbe ind under bænken og ind i muren. Manglende eller defekt vandnæse giver fugt og frostskader under vinduet.", "quiz": {"sp": "Hvad er formålet med en vandnæse under et vindue?", "valg": ["At få regnvand til at dryppe fri af facaden", "At isolere vinduet", "At bære ruden", "At lukke for træk"], "korrekt": 0, "forklaring": "Vandnæsen sikrer, at vandet slipper og drypper fri, så det ikke løber ind i muren under vinduet."}},
-    {"id": 23, "emne": "vinduer", "perioder": ["1960_1979", "1979_1998", "1998_2008"], "forside": "Hvad er en termorude, og hvad betyder det at den er 'punkteret'?", "bagside": "En termorude er to (eller flere) lag glas med et forseglet, ofte gasfyldt mellemrum og et fugtsugende afstandsprofil i kanten. **Punktering** betyder, at kantforseglingen er utæt, så fugt trænger ind mellem glassene og giver **dug inde i ruden**, der ikke kan tørres væk. Ruden isolerer dårligere — men huset tager ikke skade.", "quiz": {"sp": "Hvad er tegnet på en punkteret termorude?", "valg": ["Dug/kondens MELLEM glassene, der ikke kan tørres væk", "Kondens på indersiden om morgenen", "En revne i karmen", "Træk fra hængslerne"], "korrekt": 0, "forklaring": "Punktering = utæt kantforsegling → fugt fanges mellem glassene som dug, der ikke kan fjernes."}},
-    {"id": 24, "emne": "vaadrum", "perioder": ["alle"], "forside": "Hvorfor er fliser IKKE vandtætte — og hvad er en vådrumsmembran?", "bagside": "Fliser og fuger lukker det meste vand ude, men er **ikke vandtætte** — vand kan trænge gennem fuger og samlinger. Det er en **vådrumsmembran** (et vandtæt lag påført væg og gulv *bag* fliserne), der reelt holder vand ude af konstruktionen. Mangler eller er membranen defekt, siver vand ud i vægge og dæk → skjult fugt, råd og skimmel.", "quiz": {"sp": "Hvad holder reelt vandet ude af konstruktionen i et moderne bad?", "valg": ["Vådrumsmembranen bag fliserne", "Selve fliserne", "Fugerne mellem fliserne", "Malingen"], "korrekt": 0, "forklaring": "Fliser/fuger er ikke vandtætte; det er membranen bag dem, der er vandspærren."}},
-    {"id": 25, "emne": "vaadrum", "perioder": ["alle"], "forside": "Hvorfor skal et badeværelsesgulv have fald mod afløbet?", "bagside": "Gulvet skal hælde jævnt og ubrudt mod **gulvafløbet**, så vandet løber bort i stedet for at stå. **Bagfald** (mod væggen) eller fladt gulv giver vandpytter, der belaster fuger og membran og øger risikoen for gennemsivning. Fald, membranens tilslutning til afløbet og selve membranen er de tre kritiske detaljer i et vådrum.", "quiz": {"sp": "Hvad er problemet med 'bagfald' på et badegulv?", "valg": ["Vandet løber forkert vej og bliver stående", "Gulvet bliver for varmt", "Fliserne bliver glatte", "Afløbet lugter"], "korrekt": 0, "forklaring": "Bagfald leder vandet væk fra afløbet, så det står og belaster membran/fuger — øget fugtrisiko."}},
-    {"id": 26, "emne": "fugt", "perioder": ["alle"], "forside": "Under hvilke betingelser vokser skimmelsvamp?", "bagside": "Skimmel kræver tre ting samtidig: **fugt** (høj relativ luftfugtighed ved overfladen, typisk over ~75–80 % i en periode), **organisk næring** (støv, papir på gips, tapet, træ, maling) og **rumtemperatur**. Fjernes fugten, standser væksten. Skimmel er derfor altid et symptom på et fugtproblem — find fugtkilden.", "quiz": {"sp": "Hvad er den udløsende faktor for skimmelvækst, man kan fjerne?", "valg": ["Fugt", "Ilt", "Lys", "Varme"], "korrekt": 0, "forklaring": "Fjerner man fugten, stopper skimlen — den er altid symptom på et fugtproblem."}},
-    {"id": 27, "emne": "fugt", "perioder": ["alle"], "forside": "Hvad er forskellen på råd og ægte hussvamp?", "bagside": "Begge nedbryder træ ved fugt, men:\n- **Råd** kræver vedvarende høj træfugt og nedbryder træet langsomt og lokalt.\n- **Ægte hussvamp** (Serpula lacrymans) er aggressiv: den kan **transportere vand** gennem sit mycelium og brede sig ind i tørt træ — endda gennem murværk — og smuldre træet til brun, terningformet masse. Den kræver omfattende sanering.", "quiz": {"sp": "Hvorfor er ægte hussvamp særligt frygtet?", "valg": ["Den kan transportere vand og brede sig ind i tørt træ og gennem murværk", "Den spiser kun maling", "Den vokser kun udendørs", "Den er harmløs"], "korrekt": 0, "forklaring": "Ægte hussvamp kan selv fugte tørt træ via myceliet og sprede sig aggressivt — derfor den alvorligste."}},
-    {"id": 28, "emne": "fugt", "perioder": ["alle"], "forside": "Hvad er opstigende grundfugt?", "bagside": "Opstigende grundfugt er vand, der suges op fra den fugtige jord gennem porøse materialer (mursten, beton, fundament) ved **kapillarvirkning** — som vand i et sugerør. I ældre huse uden effektiv fugtspærre stiger fugten op i væggene og giver saltudslag, afskalning af puds og skimmel forneden.", "quiz": {"sp": "Hvilken mekanisme driver opstigende grundfugt?", "valg": ["Kapillarvirkning i porøse materialer", "Vindtryk", "Kondens fra luften", "Tyngdekraft"], "korrekt": 0, "forklaring": "Kapillarvirkning suger jordfugt opad i porøse materialer som mursten og beton."}},
-    {"id": 29, "emne": "fugt", "perioder": ["alle"], "forside": "Hvad er borebiller ('træorm') og husbukke?", "bagside": "Træ-nedbrydende insekter:\n- **Almindelig borebille ('træorm'):** små 1–2 mm runde flyvehuller og fint boresmuld i tørt træ.\n- **Husbuk:** angriber nåletræ i tagkonstruktioner med større ovale gange — kan svække bærende tømmer alvorligt.\nEt angreb er **aktivt**, hvis der er friskt, lyst boremel og nye huller; ellers er det gammelt/inaktivt.", "quiz": {"sp": "Hvordan ser man, at et insektangreb i træ er aktivt?", "valg": ["Friskt, lyst boremel og nye huller", "Træet er malet", "Der er mos på", "Hullerne er sorte"], "korrekt": 0, "forklaring": "Friskt, lyst boresmuld og nye flyvehuller viser, at angrebet stadig er aktivt."}},
-
-    {"id": 40, "emne": "materialer", "perioder": ["foer1930"], "forside": "Hvad kendetegner et hus bygget før 1930?", "bagside": "Det murede håndværkshus:\n- **Massivt teglmurværk** (1½–2 sten) uden hulrum og uden isolering, muret i **kalkmørtel**.\n- **Træbjælkelag**, ofte med indmurede bjælkeender.\n- **Høje tegltage** (vingetegl) eller skifer, tit uden undertag.\n- **Ingen fugtspærre** i fundamentet → opstigende grundfugt er normalt.\n- Murede/kampestens-fundamenter. Dannebrogsvinduer med enkeltglas.", "quiz": {"sp": "Hvad kendetegner ydervæggen i et typisk hus fra før 1930?", "valg": ["Massivt teglmurværk uden hulrum og isolering", "Isoleret hulmur med rustfri bindere", "Letbetonelementer", "Trærammer med mineraluld"], "korrekt": 0, "forklaring": "Før hulmurens udbredelse byggede man massive teglvægge i kalkmørtel — uden hulrum eller isolering."}},
-    {"id": 41, "emne": "tag", "perioder": ["foer1930"], "forside": "Hvordan er taget typisk bygget på et hus fra før 1930?", "bagside": "Stejle, **høje tegltage** med vingetegl (eller skifer på fornemmere huse), lagt på lægter — ofte **uden undertag** eller med fast bræddeundertag. Den store hældning afleder vand effektivt. Vær obs på: utætheder hvor der intet undertag er, råd i spær/lægter og i tagfod, og gamle, tærede inddækninger ved skorsten.", "quiz": {"sp": "Hvad mangler ofte under tagstenene på de ældste huse (før 1930)?", "valg": ["Et undertag", "Lægter", "Spær", "Tagrender"], "korrekt": 0, "forklaring": "Mange ældre tage er lagt uden undertag (eller kun fast bræddeundertag); regn forbi stenene kan derfor give problemer."}},
-    {"id": 42, "emne": "fugt", "perioder": ["foer1930"], "forside": "Hvorfor er opstigende grundfugt så almindeligt i huse fra før 1930?", "bagside": "Fordi der sjældent blev lagt en **fugtspærre** mellem fundament og murværk dengang — det var ikke datidens byggeskik. Jordfugt suges derfor op i den massive, porøse mur ved kapillarvirkning og giver saltudslag, afskallende puds og skimmel i de nederste ~½–1 meter. Det forværres af tæt, fugtafvisende maling/cementpuds, der spærrer for udtørring.", "quiz": {"sp": "Hvorfor stiger grundfugt ofte op i de ældste huse?", "valg": ["Der mangler en fugtspærre mellem fundament og mur", "Murene er for tynde", "Taget er utæt", "Der er for mange vinduer"], "korrekt": 0, "forklaring": "Datidens byggeskik havde sjældent fugtspærre, så jordfugt suges op i den massive mur."}},
-
-    {"id": 50, "emne": "materialer", "perioder": ["1930_1960"], "forside": "Hvad kendetegner et hus fra 1930–1960?", "bagside": "Hulmurens gennembrud:\n- **Hulmur** bliver standard: formur, hulrum (oprindeligt uisoleret), bagmur og **bindere**.\n- Funkis-stil og murermestervillaer; blank mur eller pudset facade.\n- Stadig **sparsom isolering**; bjælkelag og strøgulve af træ, parket vinder frem.\n- Tegltage, evt. eternitskifer; koblede dannebrog/smalsprossede vinduer.", "quiz": {"sp": "Hvilken konstruktion bliver standard i ydervægge i perioden 1930–1960?", "valg": ["Hulmuren (formur + hulrum + bagmur)", "Massivt murværk uden hulrum", "Præfabrikerede betonelementer", "Træskeletvægge"], "korrekt": 0, "forklaring": "Hulmuren slår igennem i denne periode og afløser gradvist den massive mur."}},
-    {"id": 51, "emne": "ydervaeg", "perioder": ["1930_1960"], "forside": "Hvad skal man være obs på ved hulmuren i huse fra 1930–1960?", "bagside": "Hulrummet var oprindeligt **uisoleret** og blev mange steder senere **hulmursisoleret** (indblæst granulat). Pas på: ældre **stålbindere kan ruste** (formur kan bule, fuger revne); fejludført eller fugtskadet hulmursisolering kan danne **fugtbroer** over hulrummet; og **mørtelpløkker/-rester** i hulrummet kan lede slagregn ind til bagmuren.", "quiz": {"sp": "Hvad kan gå galt, når en gammel uisoleret hulmur efter-isoleres?", "valg": ["Fugtbroer, hvis isoleringen udføres forkert eller bliver fugtig", "Muren bliver for varm", "Taget løfter sig", "Vinduerne falder ud"], "korrekt": 0, "forklaring": "Fejludført/fugtskadet hulmursisolering kan bygge bro over hulrummet og føre slagregn ind til bagmuren."}},
-
-    {"id": 60, "emne": "materialer", "perioder": ["1960_1979"], "forside": "Hvad kendetegner et typehus/parcelhus fra 1960–1979?", "bagside": "Parcelhusets storhedstid — masseproduktion og montagebyggeri:\n- **Lavthældende eller flade tage**, ofte med **tagpap** eller betontagsten; **eternit-bølgeplader** udbredte (asbest!).\n- Hulmur med teglformur eller letbeton-bagmur; store **termorude**-partier.\n- **Terrændæk** af beton bliver standard (afløser tit krybekælder).\n- Begrænset isolering efter nutidens målestok; mange kuldebroer.", "quiz": {"sp": "Hvilken tagtype er særligt karakteristisk for parcelhuse fra 1960–1979?", "valg": ["Lavthældende/fladt tag med tagpap", "Stejlt stråtag", "Højt skifertag", "Grønt sedumtag"], "korrekt": 0, "forklaring": "Det lave/flade tagpaptag (og betontagsten) er signatur for parcelhusbølgen — og en kendt skadeskandidat."}},
-    {"id": 61, "emne": "tag", "perioder": ["1960_1979"], "forside": "En sag om TAG på et hus fra 1970'erne — hvad skal du være obs på?", "bagside": "Tjek hvilken af de tre typiske tagløsninger huset har:\n1. **Fladt/lavt tagpaptag:** notorisk skadeskandidat — utætte samlinger, opkanter og gennemføringer; pap nedbrudt af UV; stående vand.\n2. **Eternit-bølgeplader:** ofte **asbestholdige**; skørner og mosgror med alderen.\n3. **Betontagsten på lægter:** tidlige/manglende eller skøre undertage giver vandindtrængning i tagrum.", "quiz": {"sp": "Et hus fra 1975 med fladt tagpaptag — hvad er den klassiske svaghed?", "valg": ["Utætheder ved samlinger/opkanter og UV-nedbrudt pap", "At teglstenene falder af", "Råd i et stråtag", "Punkterede ruder i taget"], "korrekt": 0, "forklaring": "Flade tagpaptage fejler typisk ved samlinger, opkanter og gennemføringer, og pappen nedbrydes af sol/UV."}},
-    {"id": 62, "emne": "gulv", "perioder": ["1960_1979"], "forside": "Hvad er typisk for gulvet (terrændæk) i et parcelhus fra 1960–1979?", "bagside": "**Terrændæk af beton** blev standard. Men fugtsikringen var ikke altid god: **manglende eller mangelfuld fugtspærre/kapillarbrydende lag** kan lade jordfugt stige op i gulvopbygningen → fugt i strøer/trægulv, lugt og skimmel. Tæpper limet direkte på betonen var udbredt og kan skjule fugt.", "quiz": {"sp": "Hvad er en typisk fugtsvaghed i terrændæk fra denne periode?", "valg": ["Mangelfuld fugtspærre, så jordfugt stiger op", "For meget undertag", "Rustne bindere", "Punkterede ruder"], "korrekt": 0, "forklaring": "Datidens terrændæk havde ikke altid effektiv fugtspærre/kapillarbrydende lag → opstigende fugt."}},
-
-    {"id": 70, "emne": "materialer", "perioder": ["1979_1998"], "forside": "Hvad kendetegner et hus fra 1979–1998?", "bagside": "Energikrisernes hus:\n- Oliekriserne giver **skærpede isoleringskrav** (Bygningsreglementet) — tykkere isolering, tættere huse.\n- **Undertag bliver standard** under tegl/betontagsten.\n- Hulmur fortsat, nu med **rustfri bindere**.\n- Mere isolering uden god fugtteknik kan give **kondens/kuldebroer**.", "quiz": {"sp": "Hvad ændrede oliekriserne ved husene fra slut-70'erne og frem?", "valg": ["Tykkere isolering og tættere klimaskærm", "Tyndere mure", "Flade tage forsvandt helt", "Man holdt op med at bruge tegl"], "korrekt": 0, "forklaring": "Energikrav efter oliekriserne gav markant mere isolering og tættere konstruktioner."}},
-    {"id": 71, "emne": "tag", "perioder": ["1979_1998"], "forside": "Hvilken kendt tagsvaghed knytter sig til huse fra ca. 1980–2000?", "bagside": "Visse **bløde banevare-undertage** fra denne periode (bestemte fabrikater) er kendt for at **skørne, blive møre og revne** før tid — påvirket af varme og UV i tagrummet. Resultatet er utætheder, hvor vand løber ned i isolering og lofter, ofte set som vandrande indvendigt. Et ellers intakt tegltag kan altså have et udtjent undertag.", "quiz": {"sp": "Hvad er en kendt svaghed ved nogle undertage fra ca. 1980–2000?", "valg": ["De skørner og revner før tid", "De er lavet af bly", "De vokser fast i tagstenene", "De ruster"], "korrekt": 0, "forklaring": "Visse bløde undertagsfabrikater fra perioden bliver møre/skøre og revner, så taget bliver utæt indefra."}},
-
-    {"id": 80, "emne": "materialer", "perioder": ["1998_2008"], "forside": "Hvad kendetegner et hus fra 1998–2008?", "bagside": "Det tætte hus:\n- **Energiruder** (2-lags med lavenergi-coating og gas) afløser almindelige termoruder.\n- Skærpede **tætheds- og fugtkrav**; mere fokus på dampspærre og undgåelse af kuldebroer.\n- **Moderne vådrumssikring** med membran efter strammere regler.\n- Velisolerede konstruktioner — men en utæthed kan ikke længere så let tørre ud.", "quiz": {"sp": "Hvad afløser den klassiske termorude omkring årtusindskiftet?", "valg": ["Energiruden (lavenergi-coating + gas)", "Enkeltglas", "Akrylplader", "Punkterede ruder"], "korrekt": 0, "forklaring": "Energiruder med selektiv coating og ædelgas i mellemrummet blev standard for bedre isolering."}},
-    {"id": 81, "emne": "fugt", "perioder": ["1998_2008", "2008_nu"], "forside": "Hvorfor er moderne, tætte huse fugtfølsomme på en ny måde?", "bagside": "Jo tættere og mere velisoleret en konstruktion er, jo **dårligere tørrer den ud**, hvis der først kommer fugt ind — fra en lille utæthed, en brudt dampspærre eller indbygget byggefugt. Skaden bliver derfor **skjult og langsom** (råd/skimmel inde i konstruktionen) frem for at fordampe. Korrekt udført dampspærre og ventilation er afgørende.", "quiz": {"sp": "Hvad er bagsiden ved meget tætte, velisolerede konstruktioner?", "valg": ["De tørrer dårligt ud, hvis der først kommer fugt ind", "De bliver aldrig fugtige", "De leder for meget varme ud", "De kan ikke males"], "korrekt": 0, "forklaring": "Tætte konstruktioner er uforladende: indtrængt/indbygget fugt kan ikke tørre væk og giver skjulte skader."}},
-
-    {"id": 90, "emne": "materialer", "perioder": ["2008_nu"], "forside": "Hvad kendetegner et lavenergihus fra 2008 og frem?", "bagside": "BR10/BR15/BR18-husene:\n- **3-lags ruder** og meget tykke isoleringslag.\n- **Lufttæt klimaskærm** (tæthedsprøves med blower-door).\n- **Mekanisk ventilation med varmegenvinding** (i stedet for naturlig udluftning).\n- Fokus på at undgå kuldebroer og på robust fugtteknik. Skader handler her oftest om **udførelses-/projekteringsfejl** snarere end alder.", "quiz": {"sp": "Hvilken løftning af vinduer er typisk i nyere lavenergihuse?", "valg": ["3-lags ruder", "Enkeltglas", "Koblede dannebrogsvinduer", "Punkterede termoruder"], "korrekt": 0, "forklaring": "Lavenergihuse efter BR10/15/18 bruger typisk 3-lags energiruder for at minimere varmetab."}},
-    {"id": 91, "emne": "materialer", "perioder": ["2008_nu"], "forside": "Hvad er mekanisk ventilation med varmegenvinding, og hvorfor er det relevant for fugt?", "bagside": "Et **ventilationsanlæg** suger brugt, fugtig luft ud (fra bad/køkken) og blæser frisk luft ind, mens en **varmeveksler** genvinder varmen fra udsugningsluften. I tætte huse er det ofte den primære måde at fjerne fugt på. Svigter eller slukkes anlægget (eller vedligeholdes filtre ikke), stiger luftfugtigheden → kondens og skimmel.", "quiz": {"sp": "Hvad sker der typisk, hvis ventilationsanlægget i et tæt hus svigter?", "valg": ["Luftfugtigheden stiger → kondens og skimmel", "Taget bliver utæt", "Fundamentet sætter sig", "Ruderne punkterer"], "korrekt": 0, "forklaring": "I tætte huse fjerner anlægget fugten; svigter det, stiger luftfugtigheden og giver kondens/skimmel."}}
+    {
+      "id": 1,
+      "emne": "materialer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er puds?",
+      "bagside": "Puds er et tyndt lag **mørtel**, der trækkes ud på en mur eller væg som overflade og beskyttelse. Det udjævner murværket, beskytter mod vejr og kan males. Typer:\n- **Kalkpuds** — blød, diffusionsåben, bruges på ældre huse.\n- **Kalkcementpuds** (bastard) — stærkere, mest udbredt i dag.\n- **Cementpuds** — hård og stærk, fx på sokkel.\nOverfladen kan stå groft, **filtset** (gnedet glat) eller **vandskuret** (tyndt udjævnet).",
+      "quiz": {
+        "sp": "Hvad er puds grundlæggende lavet af?",
+        "valg": [
+          "Mørtel der trækkes ud på muren",
+          "Smeltet plast",
+          "Presset træfiber",
+          "Brændt ler i plader"
+        ],
+        "korrekt": 0,
+        "forklaring": "Puds er en mørtelbelægning (kalk/cement + sand + vand) som overflade på murværk."
+      }
+    },
+    {
+      "id": 2,
+      "emne": "materialer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er mørtel — og forskellen på kalk-, cement- og bastardmørtel?",
+      "bagside": "Mørtel er bindemiddel + sand + vand, der binder mursten sammen (fugemørtel) eller pudses på.\n- **Kalkmørtel:** blød, eftergivende, diffusionsåben — i ældre murværk (før ca. 1950).\n- **Cementmørtel:** hård og stærk, men tæt — kan give fugtproblemer i gammelt murværk.\n- **Bastardmørtel (kalkcement):** blanding — det almindelige kompromis i dag.",
+      "quiz": {
+        "sp": "Hvilken mørteltype sidder typisk i ældre murværk fra før ca. 1950?",
+        "valg": [
+          "Kalkmørtel",
+          "Ren cementmørtel",
+          "Epoxymørtel",
+          "Gipsmørtel"
+        ],
+        "korrekt": 0,
+        "forklaring": "Ældre murværk er muret i blød, diffusionsåben kalkmørtel. Hård cementmørtel kom bredt til senere."
+      }
+    },
+    {
+      "id": 3,
+      "emne": "materialer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en mursten (tegl), og hvad betyder 'frostfast'?",
+      "bagside": "En teglsten brændes af ler. **Blødstrøgne** sten (håndlavet udtryk) ses i ældre/dyrere byggeri, **maskinsten** er industrielt fremstillet. En **frostfast** sten kan tåle at blive våd og fryse uden at skalle af. Sten med høj vandoptagelse (porøse, bløde) frostsprænges, især på udsatte steder som sokkel, skorsten og murkrone.",
+      "quiz": {
+        "sp": "Hvad betyder det, at en mursten er 'frostfast'?",
+        "valg": [
+          "Den kan blive våd og fryse uden at skalle af",
+          "Den leder ikke kulde",
+          "Den er malet med frostvæske",
+          "Den er hærdet med stål"
+        ],
+        "korrekt": 0,
+        "forklaring": "Frostfasthed handler om, at sten med vand i porerne kan modstå frysning uden afskalning/frostsprængning."
+      }
+    },
+    {
+      "id": 4,
+      "emne": "ydervaeg",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er et teglstik (og en overligger)?",
+      "bagside": "Over en åbning (vindue/dør) skal murværkets vægt bæres. Det sker enten med et **teglstik** — mursten sat på højkant i en flad eller buet bue, så de bærer hinanden — eller med en **overligger** af stål (bjælke) eller beton. Svigter stikket, eller ruster en stålbjælke, opstår revner over åbningen.",
+      "quiz": {
+        "sp": "Hvad er et teglstik?",
+        "valg": [
+          "Mursten sat på højkant i en bue, der bærer muren over en åbning",
+          "Et værktøj til at lægge tegl",
+          "En revne i en mur",
+          "Et stykke isolering bag muren"
+        ],
+        "korrekt": 0,
+        "forklaring": "Teglstikket bærer murværket over et vindue/dør ved at stenene på højkant overfører lasten til siderne."
+      }
+    },
+    {
+      "id": 5,
+      "emne": "materialer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en fuge i murværk?",
+      "bagside": "Fugen er mørtelfyldningen mellem murstenene. Den binder, fordeler last og holder vand ude. Fugen kan være **glat/tilbageliggende**, **fyldt** eller **tilbageskåret**. Udvaskede, smuldrende eller revnede fuger lukker vand ind i muren og er et klassisk vedligeholdspunkt. Omfugning kaldes 'udkradsning og ny fuge'.",
+      "quiz": {
+        "sp": "Hvad er fugens vigtigste funktioner i en mur?",
+        "valg": [
+          "Binde stenene, fordele last og holde vand ude",
+          "Kun at se pæn ud",
+          "At isolere mod kulde",
+          "At lede el i væggen"
+        ],
+        "korrekt": 0,
+        "forklaring": "Fugen binder murværket sammen, fordeler lasten og er murens vandtætning udadtil."
+      }
+    },
+    {
+      "id": 6,
+      "emne": "materialer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er forskellen på beton og jernbeton (armeret beton)?",
+      "bagside": "**Beton** (cement + sten + sand + vand) er stærk i tryk, men svag i træk (bøjning). **Jernbeton** har indstøbte **armeringsjern**, der optager trækkræfterne, så betonen kan bære bøjning — fx i dæk, bjælker og overliggere. Ruster armeringen (pga. fugt/karbonatisering), udvider den sig og **sprænger betonen** (armeringskorrosion / betonskader).",
+      "quiz": {
+        "sp": "Hvorfor armerer man beton med jern?",
+        "valg": [
+          "Beton er svag i træk/bøjning — jernet optager trækkræfterne",
+          "For at lede strøm",
+          "For at gøre den lettere",
+          "For at den kan males"
+        ],
+        "korrekt": 0,
+        "forklaring": "Beton tåler tryk, men ikke træk. Armeringsjern optager trækket, så konstruktionen kan bære bøjning."
+      }
+    },
+    {
+      "id": 7,
+      "emne": "materialer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er letbeton, gasbeton og letklinkerbeton (Leca)?",
+      "bagside": "Lette betonvarianter brugt især til bagmure og fundamentblokke:\n- **Gasbeton/porebeton** (Ytong, Siporex): luftfyldt, let, isolerende, men sugende over for fugt.\n- **Letklinkerbeton (Leca):** beton med brændte lerkugler — bruges i blokke og fundamenter.\nDe er lette at bearbejde, men tåler ikke vedvarende fugt godt.",
+      "quiz": {
+        "sp": "Hvad kendetegner gasbeton/porebeton?",
+        "valg": [
+          "Let og isolerende, men sugende over for fugt",
+          "Tungt og helt vandtæt",
+          "Lavet af ren cement uden luft",
+          "Et metal"
+        ],
+        "korrekt": 0,
+        "forklaring": "Porebeton er fyldt med luftporer (let + isolerende), men suger fugt og tåler ikke vedvarende vand."
+      }
+    },
+    {
+      "id": 8,
+      "emne": "materialer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en dampspærre, og hvor sidder den?",
+      "bagside": "En dampspærre (typisk en plastfolie) sidder på den **varme side** af isoleringen og forhindrer fugtig indeluft i at trænge ud i den kolde isolering, hvor den ville kondensere og give skimmel/råd. Den skal være **ubrudt og tæt** — huller fra fx indbygningsspots eller fejlsamlinger giver fugtskader i konstruktionen.",
+      "quiz": {
+        "sp": "På hvilken side af isoleringen skal dampspærren sidde?",
+        "valg": [
+          "Den varme (indvendige) side",
+          "Den kolde (udvendige) side",
+          "Midt i isoleringen",
+          "Det er lige meget"
+        ],
+        "korrekt": 0,
+        "forklaring": "Dampspærren skal sidde på den varme side, så varm, fugtig indeluft ikke trænger ud og kondenserer i den kolde isolering."
+      }
+    },
+    {
+      "id": 9,
+      "emne": "tag",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er et undertag, og hvad er forskellen på fast og banevareundertag?",
+      "bagside": "Undertaget er en ekstra vandskærm under tagstenene, der fanger slagregn, fygesne og kondens og leder det til tagrenden.\n- **Fast undertag:** plader (fx brædder/krydsfiner) — robust.\n- **Banevare-/duge-undertag:** udrullet membran på lægter — billigere, men ældre, bløde typer kan skørne og revne.",
+      "quiz": {
+        "sp": "Hvad er undertagets funktion?",
+        "valg": [
+          "Fange regn/sne der trænger forbi tagstenene og lede det væk",
+          "Bære hele tagets vægt",
+          "Isolere loftet",
+          "Holde fugle ude"
+        ],
+        "korrekt": 0,
+        "forklaring": "Undertaget er en sekundær vandskærm under tagdækningen, der afleder vand, der slipper forbi stenene."
+      }
+    },
+    {
+      "id": 10,
+      "emne": "tag",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er spær, lægter, rem og hanebånd i en tagkonstruktion?",
+      "bagside": "- **Spær:** de skrå hovedbjælker, der danner tagets form og bærer dækningen.\n- **Lægter:** vandrette lister på tværs af spærene, som tagstenene hænges på.\n- **Rem:** vandret tømmer på toppen af ydervæggen, som spærene hviler på.\n- **Hanebånd:** vandret afstivning mellem to spær, der hindrer dem i at sprede sig.",
+      "quiz": {
+        "sp": "Hvad hænger tagstenene fast på?",
+        "valg": [
+          "Lægterne",
+          "Hanebåndene",
+          "Remmen",
+          "Dampspærren"
+        ],
+        "korrekt": 0,
+        "forklaring": "Tagstenene hænges på lægterne — de vandrette lister på tværs af spærene."
+      }
+    },
+    {
+      "id": 11,
+      "emne": "tag",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en inddækning?",
+      "bagside": "En inddækning er tætningen (zink, bly, alu eller skumbånd) omkring alt det, der bryder tagfladen: skorsten, ovenlys, kviste, og overgange mellem tag og mur. Det er tagets mest udsatte sted — de fleste tagutætheder opstår ved inddækninger, ikke i selve tagstenene.",
+      "quiz": {
+        "sp": "Hvor opstår tagutætheder oftest?",
+        "valg": [
+          "Ved inddækninger (skorsten, ovenlys, overgange)",
+          "Midt på en hel tagflade",
+          "I tagrenden",
+          "I spærene"
+        ],
+        "korrekt": 0,
+        "forklaring": "Gennembrydninger og overgange — altså inddækningerne — er de typiske svage punkter, hvor vand trænger ind."
+      }
+    },
+    {
+      "id": 12,
+      "emne": "tag",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er tagpap, og hvor bruges det?",
+      "bagside": "Tagpap er baner af armeret bitumen (asfalt), der svejses eller klæbes i flere lag til en vandtæt membran. Det bruges især på **flade og lavthældende tage**. Svagheder: samlinger, opkanter og gennemføringer, og pappen nedbrydes af UV/sol og temperaturskift, så den revner og bliver utæt med alderen.",
+      "quiz": {
+        "sp": "Hvor bruges tagpap typisk?",
+        "valg": [
+          "På flade og lavthældende tage",
+          "Kun på stejle tegltage",
+          "Som undergulv",
+          "Som facadebeklædning"
+        ],
+        "korrekt": 0,
+        "forklaring": "Tagpap lægger en sammenhængende vandtæt membran og bruges derfor på flade/lavt hældende tage."
+      }
+    },
+    {
+      "id": 13,
+      "emne": "tag",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er forskellen på tegltagsten og betontagsten?",
+      "bagside": "**Tegltagsten** brændes af ler (fx den klassiske røde **vingetegl**) — lang levetid, kan blive mosgroet. **Betontagsten** støbes af cement — billigere, lidt tungere, og overfladen kan med årene afslide/forvitre. Begge lægges på lægter med et undertag under. Tunge tage stiller krav til spær og rem.",
+      "quiz": {
+        "sp": "Hvad er en vingetegl?",
+        "valg": [
+          "En klassisk tegltagsten af brændt ler",
+          "En betonblok til facaden",
+          "Et stykke undertag",
+          "En type isolering"
+        ],
+        "korrekt": 0,
+        "forklaring": "Vingeteglen er den traditionelle danske tegltagsten af brændt ler."
+      }
+    },
+    {
+      "id": 14,
+      "emne": "tag",
+      "perioder": [
+        "1930_1960",
+        "1960_1972",
+        "1972_1979",
+        "1979_1995"
+      ],
+      "forside": "Hvad er eternit/fibercement — og hvorfor er ældre plader et særligt opmærksomhedspunkt?",
+      "bagside": "Eternit er fibercement: cement armeret med fibre, støbt i bølgeplader eller skifer. **Ældre eternit frem til slutningen af 1980'erne indeholdt asbest**, som er sundhedsskadeligt ved bearbejdning/nedrivning. Pladerne skørner og bliver mosgroede med alderen. Nyere fibercement er asbestfri.",
+      "quiz": {
+        "sp": "Hvad skal man være særligt obs på ved ældre eternit-tagplader?",
+        "valg": [
+          "De kan indeholde asbest",
+          "De er altid utætte",
+          "De er lavet af træ",
+          "De ruster"
+        ],
+        "korrekt": 0,
+        "forklaring": "Eternit fra før slutningen af 1980'erne er typisk asbestholdig — farlig ved bearbejdning/nedrivning."
+      }
+    },
+    {
+      "id": 15,
+      "emne": "ydervaeg",
+      "perioder": [
+        "foer1930",
+        "1930_1960",
+        "1960_1972",
+        "1972_1979",
+        "1979_1995",
+        "1995_2008",
+        "2008_nu"
+      ],
+      "forside": "Hvordan er en hulmur bygget op?",
+      "bagside": "En hulmur har tre dele: en ydre **formur** (vejrskærm, ofte tegl), et **hulrum** (i dag isoleret) og en indre **bagmur** (bærer huset — tegl, letbeton). De to mure holdes sammen af **bindere** (trådbøjler), så formuren ikke vælter ud. Hulrummet bryder kapillarvandets vej, så slagregn ikke når ind til bagmuren.",
+      "quiz": {
+        "sp": "Hvilken del af en hulmur bærer huset?",
+        "valg": [
+          "Bagmuren",
+          "Formuren",
+          "Hulrummet",
+          "Bindere"
+        ],
+        "korrekt": 0,
+        "forklaring": "Bagmuren er den bærende del; formuren er vejrskærm, og bindere holder de to sammen."
+      }
+    },
+    {
+      "id": 16,
+      "emne": "ydervaeg",
+      "perioder": [
+        "foer1930",
+        "1930_1960",
+        "1960_1972",
+        "1972_1979"
+      ],
+      "forside": "Hvad er murbindere, og hvad sker der, når de ruster?",
+      "bagside": "Bindere er trådbøjler af stål, der binder formur og bagmur sammen i en hulmur. Ældre **ubehandlede/galvaniserede** bindere kan ruste over årtier. Rust fylder mere end stål og kan sprænge fugerne (vandrette revner), og i værste fald slipper formuren sin forankring og **buler ud**. Nyere bindere er rustfri.",
+      "quiz": {
+        "sp": "Hvad er en typisk følge af rustne murbindere?",
+        "valg": [
+          "Formuren kan bule ud og fugerne revne",
+          "Taget bliver utæt",
+          "Gulvet hæver sig",
+          "Vinduerne punkterer"
+        ],
+        "korrekt": 0,
+        "forklaring": "Rust udvider sig og sprænger fuger; mister formuren forankringen, kan den bule ud."
+      }
+    },
+    {
+      "id": 17,
+      "emne": "ydervaeg",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en kuldebro?",
+      "bagside": "En kuldebro er et sted, hvor varmen ledes hurtigere ud end i resten af konstruktionen — fx en betonsøjle, en uisoleret samling eller en vinduesfalse. Den indvendige overflade bliver koldere, og dér samler fugt sig som **kondens**, hvilket giver skimmel. Ældre, dårligt isolerede konstruktioner har mange kuldebroer.",
+      "quiz": {
+        "sp": "Hvorfor opstår der ofte skimmel ved en kuldebro?",
+        "valg": [
+          "Den kolde overflade giver kondens, som skimmel lever af",
+          "Der er altid utæt der",
+          "Kuldebroer afgiver varme",
+          "Der er træk"
+        ],
+        "korrekt": 0,
+        "forklaring": "En kold overflade ved en kuldebro fortætter indeluftens fugt til kondens — ideelt for skimmel."
+      }
+    },
+    {
+      "id": 18,
+      "emne": "fundament",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er forskellen på sokkel og fundament?",
+      "bagside": "**Fundamentet** er den del under jorden, der overfører husets vægt til bæredygtig bund; det skal nå under **frostfri dybde** (~0,9 m). **Soklen** er den synlige nederste del af ydervæggen over terræn — ofte pudset/malet beton. Sokkel og fundament er udsatte for opstigende fugt, frost og sætninger.",
+      "quiz": {
+        "sp": "Hvad er soklen?",
+        "valg": [
+          "Den synlige nederste del af ydervæggen over terræn",
+          "Bjælken under taget",
+          "Membranen i badet",
+          "Hulrummet i muren"
+        ],
+        "korrekt": 0,
+        "forklaring": "Soklen er ydervæggens synlige fod over jorden; fundamentet er den skjulte del under jorden."
+      }
+    },
+    {
+      "id": 19,
+      "emne": "fundament",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en sætning (sætningsskade)?",
+      "bagside": "En sætning er, når huset synker — typisk **ujævnt** (differenssætning), fordi jordbunden er forskellig under bygningen. Det giver skæve gulve, døre der binder, og **trappeformede revner** i murværket ud fra hjørner af vinduer og døre. Årsager: blød/organisk bund, for lav fundering, udtørring af lerjord (træer), udvaskning fra utæt kloak.",
+      "quiz": {
+        "sp": "Hvilket revnemønster peger typisk på en sætning?",
+        "valg": [
+          "Trappeformede revner ud fra vindue-/dørhjørner",
+          "Helt vandrette revner i én højde",
+          "Stjerneformede revner i loftet",
+          "Ingen revner"
+        ],
+        "korrekt": 0,
+        "forklaring": "Sætninger giver klassisk trappeformede (diagonale) revner i murværket, ofte fra åbningshjørner."
+      }
+    },
+    {
+      "id": 20,
+      "emne": "gulv",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er forskellen på et terrændæk og et strøgulv?",
+      "bagside": "- **Terrændæk:** gulvet ligger direkte på jorden, opbygget som jord → kapillarbrydende lag → isolering → fugtspærre → betonplade → belægning. Standard i nyere huse.\n- **Strøgulv:** trægulv på **strøer** (bjælker) over et ventileret hulrum/krybekælder. Almindeligt i ældre huse.\nFugt håndteres helt forskelligt: terrændæk med fugtspærre, strøgulv med ventilation.",
+      "quiz": {
+        "sp": "Hvordan holdes et strøgulv tørt?",
+        "valg": [
+          "Ved ventilation af hulrummet/krybekælderen under gulvet",
+          "Med en betonplade",
+          "Med tagpap",
+          "Med en dampspærre i loftet"
+        ],
+        "korrekt": 0,
+        "forklaring": "Strøgulve ligger over et ventileret hulrum; ventilationen fjerner fugt, så strøer/brædder ikke rådner."
+      }
+    },
+    {
+      "id": 21,
+      "emne": "gulv",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en fugtspærre i et terrændæk, og hvad sker der hvis den mangler?",
+      "bagside": "Et terrændæk skal have en **fugtspærre** (typisk plastmembran) og et kapillarbrydende lag, der stopper jordfugt i at stige op i gulvkonstruktionen. Mangler den, eller er den utæt, suges fugt op i isolering, strøer og gulvbrædder → råd, skimmel og lugtgener. Samme membran begrænser ofte radon nedefra.",
+      "quiz": {
+        "sp": "Hvad forhindrer en fugtspærre i terrændækket?",
+        "valg": [
+          "At jordfugt stiger op i gulvkonstruktionen",
+          "At taget bliver utæt",
+          "At muren revner",
+          "At vinduet dugger"
+        ],
+        "korrekt": 0,
+        "forklaring": "Fugtspærren (+kapillarbrydende lag) stopper opstigende jordfugt i terrændækket."
+      }
+    },
+    {
+      "id": 22,
+      "emne": "vinduer",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er en sålbænk (vandnæse)?",
+      "bagside": "En sålbænk er den skrå flade/liste under et vindue, der leder regnvand væk fra facaden. **Vandnæsen** er den lille underkant/rille, der får dråberne til at slippe og dryppe fri i stedet for at løbe ind under bænken og ind i muren. Manglende eller defekt vandnæse giver fugt og frostskader under vinduet.",
+      "quiz": {
+        "sp": "Hvad er formålet med en vandnæse under et vindue?",
+        "valg": [
+          "At få regnvand til at dryppe fri af facaden",
+          "At isolere vinduet",
+          "At bære ruden",
+          "At lukke for træk"
+        ],
+        "korrekt": 0,
+        "forklaring": "Vandnæsen sikrer, at vandet slipper og drypper fri, så det ikke løber ind i muren under vinduet."
+      }
+    },
+    {
+      "id": 23,
+      "emne": "vinduer",
+      "perioder": [
+        "1960_1972",
+        "1972_1979",
+        "1979_1995",
+        "1995_2008"
+      ],
+      "forside": "Hvad er en termorude, og hvad betyder det at den er 'punkteret'?",
+      "bagside": "En termorude er to (eller flere) lag glas med et forseglet, ofte gasfyldt mellemrum og et fugtsugende afstandsprofil i kanten. **Punktering** betyder, at kantforseglingen er utæt, så fugt trænger ind mellem glassene og giver **dug inde i ruden**, der ikke kan tørres væk. Ruden isolerer dårligere — men huset tager ikke skade.",
+      "quiz": {
+        "sp": "Hvad er tegnet på en punkteret termorude?",
+        "valg": [
+          "Dug/kondens MELLEM glassene, der ikke kan tørres væk",
+          "Kondens på indersiden om morgenen",
+          "En revne i karmen",
+          "Træk fra hængslerne"
+        ],
+        "korrekt": 0,
+        "forklaring": "Punktering = utæt kantforsegling → fugt fanges mellem glassene som dug, der ikke kan fjernes."
+      }
+    },
+    {
+      "id": 24,
+      "emne": "vaadrum",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvorfor er fliser IKKE vandtætte — og hvad er en vådrumsmembran?",
+      "bagside": "Fliser og fuger lukker det meste vand ude, men er **ikke vandtætte** — vand kan trænge gennem fuger og samlinger. Det er en **vådrumsmembran** (et vandtæt lag påført væg og gulv *bag* fliserne), der reelt holder vand ude af konstruktionen. Mangler eller er membranen defekt, siver vand ud i vægge og dæk → skjult fugt, råd og skimmel.",
+      "quiz": {
+        "sp": "Hvad holder reelt vandet ude af konstruktionen i et moderne bad?",
+        "valg": [
+          "Vådrumsmembranen bag fliserne",
+          "Selve fliserne",
+          "Fugerne mellem fliserne",
+          "Malingen"
+        ],
+        "korrekt": 0,
+        "forklaring": "Fliser/fuger er ikke vandtætte; det er membranen bag dem, der er vandspærren."
+      }
+    },
+    {
+      "id": 25,
+      "emne": "vaadrum",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvorfor skal et badeværelsesgulv have fald mod afløbet?",
+      "bagside": "Gulvet skal hælde jævnt og ubrudt mod **gulvafløbet**, så vandet løber bort i stedet for at stå. **Bagfald** (mod væggen) eller fladt gulv giver vandpytter, der belaster fuger og membran og øger risikoen for gennemsivning. Fald, membranens tilslutning til afløbet og selve membranen er de tre kritiske detaljer i et vådrum.",
+      "quiz": {
+        "sp": "Hvad er problemet med 'bagfald' på et badegulv?",
+        "valg": [
+          "Vandet løber forkert vej og bliver stående",
+          "Gulvet bliver for varmt",
+          "Fliserne bliver glatte",
+          "Afløbet lugter"
+        ],
+        "korrekt": 0,
+        "forklaring": "Bagfald leder vandet væk fra afløbet, så det står og belaster membran/fuger — øget fugtrisiko."
+      }
+    },
+    {
+      "id": 26,
+      "emne": "fugt",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Under hvilke betingelser vokser skimmelsvamp?",
+      "bagside": "Skimmel kræver tre ting samtidig: **fugt** (høj relativ luftfugtighed ved overfladen, typisk over ~75–80 % i en periode), **organisk næring** (støv, papir på gips, tapet, træ, maling) og **rumtemperatur**. Fjernes fugten, standser væksten. Skimmel er derfor altid et symptom på et fugtproblem — find fugtkilden.",
+      "quiz": {
+        "sp": "Hvad er den udløsende faktor for skimmelvækst, man kan fjerne?",
+        "valg": [
+          "Fugt",
+          "Ilt",
+          "Lys",
+          "Varme"
+        ],
+        "korrekt": 0,
+        "forklaring": "Fjerner man fugten, stopper skimlen — den er altid symptom på et fugtproblem."
+      }
+    },
+    {
+      "id": 27,
+      "emne": "fugt",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er forskellen på råd og ægte hussvamp?",
+      "bagside": "Begge nedbryder træ ved fugt, men:\n- **Råd** kræver vedvarende høj træfugt og nedbryder træet langsomt og lokalt.\n- **Ægte hussvamp** (Serpula lacrymans) er aggressiv: den kan **transportere vand** gennem sit mycelium og brede sig ind i tørt træ — endda gennem murværk — og smuldre træet til brun, terningformet masse. Den kræver omfattende sanering.",
+      "quiz": {
+        "sp": "Hvorfor er ægte hussvamp særligt frygtet?",
+        "valg": [
+          "Den kan transportere vand og brede sig ind i tørt træ og gennem murværk",
+          "Den spiser kun maling",
+          "Den vokser kun udendørs",
+          "Den er harmløs"
+        ],
+        "korrekt": 0,
+        "forklaring": "Ægte hussvamp kan selv fugte tørt træ via myceliet og sprede sig aggressivt — derfor den alvorligste."
+      }
+    },
+    {
+      "id": 28,
+      "emne": "fugt",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er opstigende grundfugt?",
+      "bagside": "Opstigende grundfugt er vand, der suges op fra den fugtige jord gennem porøse materialer (mursten, beton, fundament) ved **kapillarvirkning** — som vand i et sugerør. I ældre huse uden effektiv fugtspærre stiger fugten op i væggene og giver saltudslag, afskalning af puds og skimmel forneden.",
+      "quiz": {
+        "sp": "Hvilken mekanisme driver opstigende grundfugt?",
+        "valg": [
+          "Kapillarvirkning i porøse materialer",
+          "Vindtryk",
+          "Kondens fra luften",
+          "Tyngdekraft"
+        ],
+        "korrekt": 0,
+        "forklaring": "Kapillarvirkning suger jordfugt opad i porøse materialer som mursten og beton."
+      }
+    },
+    {
+      "id": 29,
+      "emne": "fugt",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er borebiller ('træorm') og husbukke?",
+      "bagside": "Træ-nedbrydende insekter:\n- **Almindelig borebille ('træorm'):** små 1–2 mm runde flyvehuller og fint boresmuld i tørt træ.\n- **Husbuk:** angriber nåletræ i tagkonstruktioner med større ovale gange — kan svække bærende tømmer alvorligt.\nEt angreb er **aktivt**, hvis der er friskt, lyst boremel og nye huller; ellers er det gammelt/inaktivt.",
+      "quiz": {
+        "sp": "Hvordan ser man, at et insektangreb i træ er aktivt?",
+        "valg": [
+          "Friskt, lyst boremel og nye huller",
+          "Træet er malet",
+          "Der er mos på",
+          "Hullerne er sorte"
+        ],
+        "korrekt": 0,
+        "forklaring": "Friskt, lyst boresmuld og nye flyvehuller viser, at angrebet stadig er aktivt."
+      }
+    },
+    {
+      "id": 40,
+      "emne": "materialer",
+      "perioder": [
+        "foer1930"
+      ],
+      "forside": "Hvad kendetegner et hus bygget før 1930?",
+      "bagside": "Det murede håndværkshus:\n- **Massivt teglmurværk** (1½–2 sten) dominerer, muret i blød **kalkmørtel**, uden isolering.\n- **Hulmuren dukker dog op fra ca. 1900**, så mange huse 1900–1930 HAR allerede hulmur.\n- **Træbjælkelag**, ofte med indmurede bjælkeender.\n- **Høje tegltage** (vingetegl) eller skifer, tit uden undertag.\n- Som regel **ingen fugtspærre** → opstigende grundfugt er normalt.",
+      "quiz": {
+        "sp": "Hvad er mest retvisende om ydervægge i huse fra før 1930?",
+        "valg": [
+          "Massivt murværk dominerer, men hulmur findes allerede fra ca. 1900",
+          "Alle huse har isoleret hulmur",
+          "Alle huse er massivt murværk uden undtagelse",
+          "Lette træskeletvægge"
+        ],
+        "korrekt": 0,
+        "forklaring": "Massivt murværk er det typiske, men hulmuren opstod allerede ca. 1900 — så det er ikke enten/eller."
+      }
+    },
+    {
+      "id": 41,
+      "emne": "tag",
+      "perioder": [
+        "foer1930"
+      ],
+      "forside": "Hvordan er taget typisk bygget på et hus fra før 1930?",
+      "bagside": "Stejle, **høje tegltage** med vingetegl (eller skifer på finere huse), lagt på lægter — ofte **uden undertag** eller med fast bræddeundertag. Den store hældning afleder vand effektivt. Vær obs på: utætheder hvor der intet undertag er, råd i spær og tagfod, og gamle, tærede inddækninger ved skorsten.",
+      "quiz": {
+        "sp": "Hvad mangler ofte under tagstenene på de ældste huse (før 1930)?",
+        "valg": [
+          "Et undertag",
+          "Lægter",
+          "Spær",
+          "Tagrender"
+        ],
+        "korrekt": 0,
+        "forklaring": "Mange ældre tage er lagt uden undertag (eller kun fast bræddeundertag); regn forbi stenene kan derfor give problemer."
+      }
+    },
+    {
+      "id": 42,
+      "emne": "fugt",
+      "perioder": [
+        "foer1930"
+      ],
+      "forside": "Hvorfor er opstigende grundfugt så almindeligt i huse fra før 1930?",
+      "bagside": "Fordi der sjældent blev lagt en effektiv **fugtspærre** mellem fundament og murværk — det var ikke datidens byggeskik (de moderne krav kom først senere). Jordfugt suges derfor op i den massive, porøse mur ved kapillarvirkning og giver saltudslag, afskallende puds og skimmel i de nederste ½–1 meter. Tæt cementpuds/maling forværrer det ved at spærre for udtørring.",
+      "quiz": {
+        "sp": "Hvorfor stiger grundfugt ofte op i de ældste huse?",
+        "valg": [
+          "Der mangler en effektiv fugtspærre mellem fundament og mur",
+          "Murene er for tynde",
+          "Taget er utæt",
+          "Der er for mange vinduer"
+        ],
+        "korrekt": 0,
+        "forklaring": "Datidens byggeskik havde sjældent en effektiv fugtspærre, så jordfugt suges op i den massive mur."
+      }
+    },
+    {
+      "id": 50,
+      "emne": "materialer",
+      "perioder": [
+        "1930_1960"
+      ],
+      "forside": "Hvad kendetegner et hus fra 1930–1960?",
+      "bagside": "Hulmurens tid:\n- **Hulmur** er nu standard: formur, hulrum (oprindeligt uisoleret), bagmur og **bindere**.\n- Funkis-stil og murermestervillaer; blank mur eller pudset facade.\n- Stadig **sparsom isolering**; bjælkelag og strøgulve af træ, parket vinder frem.\n- Tegltage, evt. eternitskifer; koblede dannebrog/smalsprossede vinduer.",
+      "quiz": {
+        "sp": "Hvilken ydervægskonstruktion er standard i perioden 1930–1960?",
+        "valg": [
+          "Hulmuren (formur + hulrum + bagmur)",
+          "Massivt murværk uden hulrum",
+          "Præfabrikerede betonelementer",
+          "Træskeletvægge"
+        ],
+        "korrekt": 0,
+        "forklaring": "Hulmuren er slået helt igennem og er standard i denne periode."
+      }
+    },
+    {
+      "id": 51,
+      "emne": "ydervaeg",
+      "perioder": [
+        "1930_1960",
+        "1960_1972"
+      ],
+      "forside": "Hvad skal man være obs på ved hulmuren i ældre huse (1930–1960)?",
+      "bagside": "Hulrummet var oprindeligt **uisoleret** og blev mange steder senere **hulmursisoleret** (indblæst granulat). Pas på: ældre **stålbindere kan ruste** (formur kan bule, fuger revne); fejludført eller fugtskadet hulmursisolering kan danne **fugtbroer** over hulrummet; og **mørtelpløkker/-rester** i hulrummet kan lede slagregn ind til bagmuren.",
+      "quiz": {
+        "sp": "Hvad kan gå galt, når en gammel uisoleret hulmur efter-isoleres?",
+        "valg": [
+          "Fugtbroer, hvis isoleringen udføres forkert eller bliver fugtig",
+          "Muren bliver for varm",
+          "Taget løfter sig",
+          "Vinduerne falder ud"
+        ],
+        "korrekt": 0,
+        "forklaring": "Fejludført/fugtskadet hulmursisolering kan bygge bro over hulrummet og føre slagregn ind til bagmuren."
+      }
+    },
+    {
+      "id": 60,
+      "emne": "materialer",
+      "perioder": [
+        "1960_1972"
+      ],
+      "forside": "Hvad kendetegner et parcelhus fra 1960–1972 (FØR fugt- og isoleringskravene)?",
+      "bagside": "Parcelhusboomets første bølge — masseproduktion og montagebyggeri:\n- **Lavthældende eller flade tagpaptage**, betontagsten og **eternit-bølgeplader** (asbest!).\n- Hulmur med teglformur eller letbeton-bagmur; store **termorude**-partier.\n- **Terrændæk** af beton bliver udbredt — men ofte **uden kapillarbrydende lag/fugtsikring**, for det krav kom først med BR72.\n- **Minimal isolering** efter nutidens målestok → mange kuldebroer.",
+      "quiz": {
+        "sp": "Hvad er en typisk fugtsvaghed i terrændæk fra 1960–1972?",
+        "valg": [
+          "Mangelfuld/ingen kapillarbrydende lag, så jordfugt stiger op",
+          "For meget undertag",
+          "Rustne bindere",
+          "3-lags ruder"
+        ],
+        "korrekt": 0,
+        "forklaring": "Før BR72 var kapillarbrydende lag ikke et krav — terrændæk fra 1960–1972 mangler ofte effektiv fugtsikring."
+      }
+    },
+    {
+      "id": 61,
+      "emne": "tag",
+      "perioder": [
+        "1960_1972",
+        "1972_1979"
+      ],
+      "forside": "En sag om TAG på et hus fra 1970'erne — hvad skal du være obs på?",
+      "bagside": "Tjek hvilken af de tre typiske tagløsninger huset har:\n1. **Fladt/lavt tagpaptag:** notorisk skadeskandidat — utætte samlinger, opkanter og gennemføringer; pap nedbrudt af UV; stående vand.\n2. **Eternit-bølgeplader:** ofte **asbestholdige** (frem til 1986); skørner og mosgror med alderen.\n3. **Betontagsten på lægter:** tidlige/manglende eller skøre undertage giver vandindtrængning i tagrum.",
+      "quiz": {
+        "sp": "Et hus fra 1975 med fladt tagpaptag — hvad er den klassiske svaghed?",
+        "valg": [
+          "Utætheder ved samlinger/opkanter og UV-nedbrudt pap",
+          "At teglstenene falder af",
+          "Råd i et stråtag",
+          "Punkterede ruder i taget"
+        ],
+        "korrekt": 0,
+        "forklaring": "Flade tagpaptage fejler typisk ved samlinger, opkanter og gennemføringer, og pappen nedbrydes af sol/UV."
+      }
+    },
+    {
+      "id": 62,
+      "emne": "gulv",
+      "perioder": [
+        "1960_1972"
+      ],
+      "forside": "Hvorfor er terrændæk fra 1960–1972 en særlig fugtfælde?",
+      "bagside": "Fordi kravet om **kapillarbrydende lag** i fundamenter/terrændæk først kom med **BR72**. Terrændæk støbt før da har ofte **ingen effektiv fugtsikring**, så jordfugt suges op i gulvopbygningen → fugt i strøer/trægulv, lugt og skimmel. Tæpper limet direkte på betonen var udbredt og kan skjule fugten.",
+      "quiz": {
+        "sp": "Hvilken byggeregel gjorde kapillarbrydende lag i terrændæk til et krav?",
+        "valg": [
+          "BR72",
+          "BR98",
+          "Byggeloven 1858",
+          "BR18"
+        ],
+        "korrekt": 0,
+        "forklaring": "BR72 indførte kravet om kapillarbrydende lag — derfor er terrændæk fra FØR 1972 ofte fugtfælder."
+      }
+    },
+    {
+      "id": 65,
+      "emne": "materialer",
+      "perioder": [
+        "1972_1979"
+      ],
+      "forside": "Hvad kendetegner et hus fra 1972–1979 (overgangshuset)?",
+      "bagside": "BR72-overgangen:\n- **Kapillarbrydende lag** i terrændæk/fundament er nu krav (BR72) → bedre fugtsikret gulv end de lidt ældre parcelhuse.\n- **Hulmursisolering** er lovkrav på nybyg (ca. 1970).\n- Men det er stadig **før** den store energistramning (1. feb. 1979), så isoleringen er beskeden efter nutidens mål.\n- Ellers samme palet som 60'erne: tagpap/betontagsten, eternit, termoruder.",
+      "quiz": {
+        "sp": "Hvad er forskellen på et terrændæk fra 1968 og et fra 1975?",
+        "valg": [
+          "1975 har typisk kapillarbrydende lag (BR72-krav); 1968 ofte ikke",
+          "Ingen forskel",
+          "1968 er bedre isoleret",
+          "1975 har stråtag"
+        ],
+        "korrekt": 0,
+        "forklaring": "BR72 gjorde kapillarbrydende lag til krav, så terrændæk efter 1972 er typisk bedre fugtsikret end før."
+      }
+    },
+    {
+      "id": 70,
+      "emne": "materialer",
+      "perioder": [
+        "1979_1995"
+      ],
+      "forside": "Hvad kendetegner et hus fra 1979–1995?",
+      "bagside": "Energikravenes hus:\n- **1. feb. 1979** strammes varmeisoleringskravene markant (reaktion på oliekriserne) → tykkere isolering, tættere klimaskærm.\n- **Undertag bliver standard** under tegl/betontagsten.\n- Hulmur fortsat, nu med **rustfri bindere**.\n- Mere isolering uden god fugtteknik kan give **kondens/kuldebroer**.",
+      "quiz": {
+        "sp": "Hvilken dato markerer den store stramning af isoleringskravene efter oliekriserne?",
+        "valg": [
+          "1. februar 1979",
+          "1972",
+          "2008",
+          "1960"
+        ],
+        "korrekt": 0,
+        "forklaring": "Tillægget der trådte i kraft 1. feb. 1979 strammede varmeisoleringskravene markant."
+      }
+    },
+    {
+      "id": 71,
+      "emne": "tag",
+      "perioder": [
+        "1979_1995",
+        "1995_2008"
+      ],
+      "forside": "Hvilken kendt tagsvaghed knytter sig til huse fra ca. 1980–2000?",
+      "bagside": "Visse **bløde banevare-undertage** fra denne periode (bestemte fabrikater) er kendt for at **skørne, blive møre og revne** før tid — påvirket af varme og UV i tagrummet. Resultatet er utætheder, hvor vand løber ned i isolering og lofter, ofte set som vandrande indvendigt. Et ellers intakt tegltag kan altså have et udtjent undertag.",
+      "quiz": {
+        "sp": "Hvad er en kendt svaghed ved nogle undertage fra ca. 1980–2000?",
+        "valg": [
+          "De skørner og revner før tid",
+          "De er lavet af bly",
+          "De vokser fast i tagstenene",
+          "De ruster"
+        ],
+        "korrekt": 0,
+        "forklaring": "Visse bløde undertagsfabrikater fra perioden bliver møre/skøre og revner, så taget bliver utæt indefra."
+      }
+    },
+    {
+      "id": 80,
+      "emne": "materialer",
+      "perioder": [
+        "1995_2008"
+      ],
+      "forside": "Hvad kendetegner et hus fra 1995–2008?",
+      "bagside": "Det tætte hus:\n- **Energiruder** (2-lags med lavenergi-coating og gas) afløser almindelige termoruder.\n- Skærpede **tætheds- og fugtkrav**; mere fokus på dampspærre og på at undgå kuldebroer.\n- **Moderne vådrumssikring** med membran efter strammere regler.\n- Velisolerede konstruktioner — men en utæthed kan ikke længere så let tørre ud.",
+      "quiz": {
+        "sp": "Hvad afløser den klassiske termorude omkring årtusindskiftet?",
+        "valg": [
+          "Energiruden (lavenergi-coating + gas)",
+          "Enkeltglas",
+          "Akrylplader",
+          "Punkterede ruder"
+        ],
+        "korrekt": 0,
+        "forklaring": "Energiruder med selektiv coating og ædelgas i mellemrummet blev standard for bedre isolering."
+      }
+    },
+    {
+      "id": 81,
+      "emne": "fugt",
+      "perioder": [
+        "1995_2008",
+        "2008_nu"
+      ],
+      "forside": "Hvorfor er moderne, tætte huse fugtfølsomme på en ny måde?",
+      "bagside": "Jo tættere og mere velisoleret en konstruktion er, jo **dårligere tørrer den ud**, hvis der først kommer fugt ind — fra en lille utæthed, en brudt dampspærre eller indbygget byggefugt. Skaden bliver derfor **skjult og langsom** (råd/skimmel inde i konstruktionen) frem for at fordampe. Korrekt udført dampspærre og ventilation er afgørende.",
+      "quiz": {
+        "sp": "Hvad er bagsiden ved meget tætte, velisolerede konstruktioner?",
+        "valg": [
+          "De tørrer dårligt ud, hvis der først kommer fugt ind",
+          "De bliver aldrig fugtige",
+          "De leder for meget varme ud",
+          "De kan ikke males"
+        ],
+        "korrekt": 0,
+        "forklaring": "Tætte konstruktioner er uforladende: indtrængt/indbygget fugt kan ikke tørre væk og giver skjulte skader."
+      }
+    },
+    {
+      "id": 90,
+      "emne": "materialer",
+      "perioder": [
+        "2008_nu"
+      ],
+      "forside": "Hvad kendetegner et lavenergihus fra 2008 og frem?",
+      "bagside": "BR08/BR10/BR15/BR18-husene:\n- **3-lags ruder** og meget tykke isoleringslag.\n- **Lufttæt klimaskærm** (tæthedsprøves med blower-door).\n- **Mekanisk ventilation med varmegenvinding** i stedet for naturlig udluftning.\n- Fokus på at undgå kuldebroer og på robust fugtteknik. Skader handler her oftest om **udførelses-/projekteringsfejl** snarere end alder.",
+      "quiz": {
+        "sp": "Hvilken rudetype er typisk i nyere lavenergihuse?",
+        "valg": [
+          "3-lags ruder",
+          "Enkeltglas",
+          "Koblede dannebrogsvinduer",
+          "Punkterede termoruder"
+        ],
+        "korrekt": 0,
+        "forklaring": "Lavenergihuse efter BR10/15/18 bruger typisk 3-lags energiruder for at minimere varmetab."
+      }
+    },
+    {
+      "id": 91,
+      "emne": "materialer",
+      "perioder": [
+        "2008_nu"
+      ],
+      "forside": "Hvad er mekanisk ventilation med varmegenvinding, og hvorfor er det relevant for fugt?",
+      "bagside": "Et **ventilationsanlæg** suger brugt, fugtig luft ud (fra bad/køkken) og blæser frisk luft ind, mens en **varmeveksler** genvinder varmen fra udsugningsluften. I tætte huse er det ofte den primære måde at fjerne fugt på. Svigter eller slukkes anlægget (eller passes filtre ikke), stiger luftfugtigheden → kondens og skimmel.",
+      "quiz": {
+        "sp": "Hvad sker der typisk, hvis ventilationsanlægget i et tæt hus svigter?",
+        "valg": [
+          "Luftfugtigheden stiger → kondens og skimmel",
+          "Taget bliver utæt",
+          "Fundamentet sætter sig",
+          "Ruderne punkterer"
+        ],
+        "korrekt": 0,
+        "forklaring": "I tætte huse fjerner anlægget fugten; svigter det, stiger luftfugtigheden og giver kondens/skimmel."
+      }
+    },
+    {
+      "id": 100,
+      "emne": "regler",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvad er Bygningsreglementet (BR), og hvorfor er årstallene en god målestok?",
+      "bagside": "Bygningsreglementet er det offentlige regelsæt for byggeri. Det første **landsdækkende kom i 1961 (BR61)**, fulgt af BR66, BR72, BR77, BR82, BR95, BR98, BR08, BR10, BR15 og BR18. Hver udgave skærper typisk krav til isolering, fugt og tæthed. Ved at koble et hus' (om)bygningsår til den gældende BR-udgave ved man, hvad der faktisk var krav dengang.",
+      "quiz": {
+        "sp": "Hvornår kom det første landsdækkende bygningsreglement?",
+        "valg": [
+          "1961 (BR61)",
+          "1858",
+          "1995",
+          "1972"
+        ],
+        "korrekt": 0,
+        "forklaring": "BR61 var det første landsdækkende bygningsreglement; tidligere gjaldt separate byggelove for købstad og land."
+      }
+    },
+    {
+      "id": 101,
+      "emne": "regler",
+      "perioder": [
+        "1960_1972",
+        "1972_1979"
+      ],
+      "forside": "Hvad ændrede BR72 for fugt — og hvorfor deler det parcelhusene i to?",
+      "bagside": "**BR72 indførte kravet om kapillarbrydende lag i fundamenter** — altså moderne fugtsikring af terrændæk. Derfor er der en reel teknisk forskel på et parcelhus fra **før 1972** (ofte uden fugtsikring i gulvet → fugtfælde) og **efter 1972** (typisk med kapillarbrydende lag). Grundlæggende fugtspærre-krav findes dog helt tilbage fra byggeloven 1858 og BR39.",
+      "quiz": {
+        "sp": "Hvad indførte BR72 af betydning for fugt?",
+        "valg": [
+          "Krav om kapillarbrydende lag i fundamenter",
+          "Krav om 3-lags ruder",
+          "Forbud mod tegltage",
+          "Krav om solceller"
+        ],
+        "korrekt": 0,
+        "forklaring": "BR72's krav om kapillarbrydende lag er det moderne fugtsikrings-skel for terrændæk."
+      }
+    },
+    {
+      "id": 102,
+      "emne": "regler",
+      "perioder": [
+        "1972_1979",
+        "1979_1995"
+      ],
+      "forside": "Hvad skete der med isoleringskravene 1. februar 1979?",
+      "bagside": "Som reaktion på **oliekriserne i 1970'erne** trådte der 1. feb. 1979 et tillæg i kraft, der **strammede varmeisoleringskravene markant** for de enkelte bygningsdele. Det er det praktiske skel mellem det dårligt isolerede hus og det 'rigtigt' isolerede. Samtidig blev der oprettet en kontrolordning for isoleringsmaterialers varmeegenskaber.",
+      "quiz": {
+        "sp": "Hvad udløste den markante isoleringsstramning omkring 1979?",
+        "valg": [
+          "Oliekriserne i 1970'erne",
+          "Asbestforbuddet",
+          "Indførelsen af energimærket",
+          "Finanskrisen"
+        ],
+        "korrekt": 0,
+        "forklaring": "Oliekriserne gjorde energibesparelse til et mål — derfor stramningen af isoleringskravene 1. feb. 1979."
+      }
+    },
+    {
+      "id": 103,
+      "emne": "regler",
+      "perioder": [
+        "1960_1972",
+        "1972_1979",
+        "1979_1995"
+      ],
+      "forside": "Hvordan ser asbest-tidslinjen ud i dansk byggeri?",
+      "bagside": "Asbest blev udfaset gradvist:\n- **1972:** de første begrænsninger.\n- **1980:** import og brug forbydes — men med **undtagelse for asbestcement** (eternit-tagplader m.m.).\n- **1986:** **totalforbud** mod al asbest.\nDerfor kan **eternit fra før ca. 1986–88** indeholde asbest, der er sundhedsskadelig ved bearbejdning/nedrivning.",
+      "quiz": {
+        "sp": "Hvornår kom totalforbuddet mod asbest i Danmark?",
+        "valg": [
+          "1986",
+          "1972",
+          "1939",
+          "2008"
+        ],
+        "korrekt": 0,
+        "forklaring": "Asbest blev udfaset gradvist fra 1972 og totalforbudt i 1986 — eternit kan være asbestholdig frem til da."
+      }
+    },
+    {
+      "id": 104,
+      "emne": "regler",
+      "perioder": [
+        "1930_1960",
+        "1960_1972"
+      ],
+      "forside": "Hvornår blev hulmursisolering et lovkrav?",
+      "bagside": "Lovkrav om **hulmursisolering på nybyggeri kom omkring 1970**. Det betyder, at hulmure i huse fra **før ca. 1970** ofte oprindeligt var **uisolerede** og først er efterisoleret senere (indblæst granulat) — hvilket er et selvstændigt opmærksomhedspunkt (fugtbroer, sætninger i isoleringen).",
+      "quiz": {
+        "sp": "Hvad gælder typisk for hulmuren i et hus fra før ca. 1970?",
+        "valg": [
+          "Den var oprindeligt uisoleret og er evt. efterisoleret senere",
+          "Den havde altid 3-lags isolering",
+          "Den er altid massiv uden hulrum",
+          "Den indeholder asbest"
+        ],
+        "korrekt": 0,
+        "forklaring": "Hulmursisolering blev først lovkrav ca. 1970; ældre hulmure var oprindeligt uisolerede."
+      }
+    },
+    {
+      "id": 105,
+      "emne": "regler",
+      "perioder": [
+        "alle"
+      ],
+      "forside": "Hvor langt tilbage går kravene om fugtsikring egentlig?",
+      "bagside": "Længere end man tror:\n- **1858/1871 (byggeloven):** krav om fugtstandsende lag i/under fundament og vægge.\n- **BR39:** skærper fugtisolering ved terræn mod kapillær opstigning.\n- **1960 (Landsbyggeloven):** fugtspærre-krav udvides til hele landet.\n- **BR72:** krav om kapillarbrydende lag i fundamenter (det moderne terrændæk-fugtkrav).\nSå 'fugtsikring' er ikke nyt — men det *moderne* terrændæk-krav er fra 1972.",
+      "quiz": {
+        "sp": "Hvilket udsagn er rigtigt om fugtsikringens historie?",
+        "valg": [
+          "Grundlæggende fugtspærre-krav findes fra 1858, men det moderne kapillarbrydende lag-krav er fra BR72",
+          "Fugtsikring blev først opfundet i 2008",
+          "Der har aldrig været krav om fugtsikring",
+          "Krav om fugtspærre kom med BR18"
+        ],
+        "korrekt": 0,
+        "forklaring": "Fugtspærre-krav går tilbage til 1858; BR72 tilføjede det moderne krav om kapillarbrydende lag i terrændæk."
+      }
+    }
   ]
 }
