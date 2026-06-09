@@ -1,40 +1,43 @@
-# Børge — Byggeteknisk flashcards til ejerskifteforsikring
+# Børge — Lær byggeteknik periode for periode
 
-En selvstændig Streamlit-app, der hjælper **jurister med at lære byggeteknikken
-bag ejerskifteforsikring**: mangeltyper, skadesmekanismer, fagudtryk — og hvorfor
-det betyder noget for dækningen.
+En selvstændig Streamlit-app, der hjælper dig med at **lære byggeteknik** ud fra
+bygningens **opførelsesperiode**. Vælg en æra (fx 1960–1979), og lær hvordan
+husene fra den tid er bygget — tag, vægge, fundament, materialer — og hvad der
+kendetegner dem. Så når du sidder med en bygning fra 1975 og et anmeldt tag, ved
+du, hvad du skal kigge efter.
 
-Hvor **Ejnar** lader dig *slå op* i Ankenævnet for Forsikrings ~5.600 kendelser,
-lader **Børge** dig *terpe stoffet* med klassiske vend-kort (flashcards).
+> **Rent byggeteknisk** — ingen jura. Fokus er fagbegreber og konstruktion:
+> *hvad er puds, hvordan er et tag/en væg bygget op, hvad er en hulmur* osv.
+> El- og VVS-installationer er udeladt.
 
-> **Afgrænsning:** El- og VVS-installationer er bevidst udeladt. Kloak/dræn
-> indgår kun for det jord- og bygningstekniske (stikledninger, dræn, terrænfald),
-> ikke indvendige installationer.
+Appen har sit eget visuelle udtryk (petrol/teal på varmt papir, Space Grotesk),
+bevidst forskelligt fra Harald og Ejnar.
 
-## Sådan virker det
+## To måder at lære på
 
-- **Kurateret ekspertdeck** — 75 håndskrevne kort fordelt på 12 emner. Ingen
-  OCR-støj, ingen embeddings, ingen API-nøgler.
-- **Vend-kort** — spørgsmål på forsiden, fagligt svar på bagsiden, plus en boks
-  *"Hvorfor det betyder noget for dækningen"* der binder byggeteknikken til
-  jura'en.
-- **Filtre** — vælg emner og niveau (grund / videregående), bland kortene.
+- **📇 Lær** — klassiske vend-kort: spørgsmål på forsiden, byggeteknisk svar på
+  bagsiden. Bland kortene og bladr igennem.
+- **🎯 Quiz** — multiple choice for den valgte periode, med forklaring på hvert
+  svar og en score til sidst.
 
-## Emner
+## Sådan er det bygget op
 
-Grundbegreber & huseftersyn · Byggeperioder & datidens byggeskik · Fugt & skimmel ·
-Tag & tagdækning · Fundament & sætninger · Råd, svamp & insekt · Murværk & facade ·
-Vinduer & døre · Vådrum & badeværelser · Gulve & terrændæk · Bærende konstruktioner ·
-Kloak & dræn.
+- **Periode-først:** en tidslinje øverst (Alle perioder · Før 1930 · 1930–1960 ·
+  1960–1979 · 1979–1998 · 1998–2008 · 2008–nu). Vælg en æra, og indholdet
+  filtreres til netop den.
+- **Tværgående grundbegreber** (hvad er puds, mørtel, tegl, beton, isolering …)
+  vises uanset periode — kan slås fra, hvis du kun vil have det periode-specifikke.
+- **Emnefilter:** Materialer & begreber · Tag · Ydervæg & facade · Fundament &
+  sokkel · Gulve & dæk · Vinduer & døre · Vådrum · Fugt, skimmel & svamp.
 
 ## Struktur
 
 ```
 byggeteknik/
-├── app.py                  # hele appen (ét selvstændigt vend-kort-UI)
-├── data/flashcards.json    # det kuraterede deck (kategorier + kort)
+├── app.py                  # hele appen (Lær + Quiz, periode-tidslinje)
+├── data/flashcards.json    # det kuraterede deck (perioder + emner + kort m. quiz)
 ├── requirements.txt        # kun streamlit
-├── .streamlit/config.toml  # tema (samme look som Ejnar)
+├── .streamlit/config.toml  # tema (petrol/teal på varmt papir)
 └── README.md
 ```
 
@@ -53,29 +56,29 @@ Opret en ny app og peg på dette repo:
 - **Repository:** `simo224i-eng/pkn-vidensbase`
 - **Main file path:** `byggeteknik/app.py`
 
-Valgfri secret:
+Valgfri secret: `APP_PASSWORD = "..."` (sættes den, kræver appen login; ellers åben).
 
-```toml
-APP_PASSWORD = "..."   # sættes den, kræver appen login. Ellers er den åben.
-```
+## Tilføj eller ret indhold
 
-## Tilføj eller ret kort
-
-Rediger `data/flashcards.json`. Hvert kort er et objekt i `"kort"`-listen:
+Rediger `data/flashcards.json`. Hvert kort:
 
 ```json
 {
-  "id": 42,
-  "kategori": "fundament",        // skal matche et id i "kategorier"
-  "niveau": "grund",              // "grund" eller "videre"
-  "spørgsmål": "Hvad er en sætningsskade?",
-  "svar": "En sætning er ...",     // markdown-fed (**…**) understøttes
-  "juridisk": "Klassisk ejerskiftesag ..."  // valgfri — vises i den røde boks
+  "id": 61,
+  "emne": "tag",                       // skal matche et id i "emner"
+  "perioder": ["1960_1979"],           // periode-id'er, eller ["alle"] for tværgående
+  "forside": "En sag om TAG på et hus fra 1970'erne — hvad skal du være obs på?",
+  "bagside": "Tjek hvilken af de tre typiske tagløsninger ...",  // markdown-fed (**…**) ok
+  "quiz": {                             // valgfri — uden den indgår kortet kun i Lær
+    "sp": "Et hus fra 1975 med fladt tagpaptag — hvad er den klassiske svaghed?",
+    "valg": ["...", "...", "...", "..."],
+    "korrekt": 0,                       // indeks i 'valg'
+    "forklaring": "..."
+  }
 }
 ```
 
-Hold `id` unikt. Nye kategorier tilføjes i `"kategorier"` med et `id`, et `navn`
-og evt. et Material-ikonnavn.
+Hold `id` unikt. Nye perioder/emner tilføjes i `"perioder"` / `"emner"`.
 
 ## Forhold til de andre apps i repoet
 
@@ -83,11 +86,10 @@ og evt. et Material-ikonnavn.
 |---|---|---|
 | **Harald** (`app.py`, `pages/`) | Plan- & Miljøklagenævn | Søg i praksis (RAG) |
 | **Ejnar** (`ejnar/`) | Ejerskifteforsikring, AKF | Søg i kendelser (RAG) |
-| **Børge** (`byggeteknik/`) | Byggeteknik bag ejerskifte | **Lær** stoffet (flashcards) |
+| **Børge** (`byggeteknik/`) | Byggeteknik, periode for periode | **Lær** byggeteknik (flashcards + quiz) |
 
 De tre apps deler repo, men er fuldstændig uafhængige og deployes hver for sig.
 
 ---
 
-> Børge er et lærings-deck — ikke juridisk rådgivning i en konkret sag. Slå
-> konkret praksis op i Ejnar eller i nævnets database.
+> Børge er et lærings-værktøj — ikke juridisk rådgivning i en konkret sag.

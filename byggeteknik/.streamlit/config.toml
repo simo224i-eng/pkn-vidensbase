@@ -1,6 +1,8 @@
+# Børge — helt eget visuelt udtryk (bevidst IKKE Harald/Ejnars burgundy + navy).
+# Varmt papir, petrol/teal accent, Space Grotesk-overskrifter.
 [theme]
-backgroundColor          = "#ffffff"
-secondaryBackgroundColor = "#f8fafc"
-textColor                = "#0f172a"
-primaryColor             = "#8C1C2E"
+backgroundColor          = "#F4F1E9"
+secondaryBackgroundColor = "#FBF9F3"
+textColor                = "#23211C"
+primaryColor             = "#0E7C7B"
 font                     = "sans serif"
