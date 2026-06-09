@@ -1,0 +1,7 @@
+# Børge — byggeteknisk flashcards. Bevidst minimal: ingen embeddings, ingen
+# API-nøgler, ingen tunge data-pakker. Kun Streamlit (+ stdlib json).
+#
+# Streamlit Community Cloud kan tvinge en helt ny Python (fx 3.14) og ignorere
+# runtime.txt/.python-version. Vi holder os derfor til nedre grænser, så pip selv
+# kan vælge en version med wheels til den Python Cloud kører på.
+streamlit>=1.40
