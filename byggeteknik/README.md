@@ -13,7 +13,7 @@ lader **Børge** dig *terpe stoffet* med klassiske vend-kort (flashcards).
 
 ## Sådan virker det
 
-- **Kurateret ekspertdeck** — 65 håndskrevne kort fordelt på 11 emner. Ingen
+- **Kurateret ekspertdeck** — 75 håndskrevne kort fordelt på 12 emner. Ingen
   OCR-støj, ingen embeddings, ingen API-nøgler.
 - **Vend-kort** — spørgsmål på forsiden, fagligt svar på bagsiden, plus en boks
   *"Hvorfor det betyder noget for dækningen"* der binder byggeteknikken til
@@ -22,9 +22,10 @@ lader **Børge** dig *terpe stoffet* med klassiske vend-kort (flashcards).
 
 ## Emner
 
-Grundbegreber & huseftersyn · Fugt & skimmel · Tag & tagdækning · Fundament &
-sætninger · Råd, svamp & insekt · Murværk & facade · Vinduer & døre · Vådrum &
-badeværelser · Gulve & terrændæk · Bærende konstruktioner · Kloak & dræn.
+Grundbegreber & huseftersyn · Byggeperioder & datidens byggeskik · Fugt & skimmel ·
+Tag & tagdækning · Fundament & sætninger · Råd, svamp & insekt · Murværk & facade ·
+Vinduer & døre · Vådrum & badeværelser · Gulve & terrændæk · Bærende konstruktioner ·
+Kloak & dræn.
 
 ## Struktur
 
