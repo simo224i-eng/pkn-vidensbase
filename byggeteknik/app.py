@@ -14,6 +14,7 @@ from __future__ import annotations
 import base64 as _b64
 import json
 import random
+import re
 from pathlib import Path
 
 import streamlit as st
@@ -116,6 +117,14 @@ try:
     st.html(_CSS)
 except AttributeError:
     st.markdown(_CSS, unsafe_allow_html=True)
+
+
+def md_html(text: str) -> str:
+    """Konvertér kortenes lette markdown til HTML, da teksten indsættes i rå
+    HTML-kort (hvor Streamlit ikke selv fortolker **fed** og punktopstilling)."""
+    text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)   # **fed** → <strong>
+    text = re.sub(r"(?m)^\s*-\s+", "• ", text)                       # "- " → "• "
+    return text
 
 
 @st.cache_data(show_spinner=False)
@@ -236,7 +245,7 @@ if periode_id != "ALLE":
     p = PER_BY_ID[periode_id]
     st.markdown(
         f"<div class='bx-era'><div class='yr'>{p['aar']}</div>"
-        f"<div class='ti'>{p['titel']}</div><div class='re'>{p['resume']}</div></div>",
+        f"<div class='ti'>{p['titel']}</div><div class='re'>{md_html(p['resume'])}</div></div>",
         unsafe_allow_html=True,
     )
 
@@ -276,17 +285,19 @@ def render_flashcards():
     if kort["perioder"] == ["alle"]:
         chip += " <span class='bx-chip t'>Tværgående</span>"
 
+    forside = md_html(kort["forside"])
+    bagside = md_html(kort["bagside"])
     if not flip:
         st.markdown(
             f"<div class='bx-card'>{chip}<div class='bx-side'>Spørgsmål</div>"
-            f"<div class='bx-front'>{kort['forside']}</div></div>",
+            f"<div class='bx-front'>{forside}</div></div>",
             unsafe_allow_html=True,
         )
     else:
         st.markdown(
             f"<div class='bx-card back'>{chip}"
-            f"<div class='bx-side'>Spørgsmål</div><div class='bx-front sm'>{kort['forside']}</div>"
-            f"<div class='bx-side'>Svar</div><div class='bx-back'>{kort['bagside']}</div></div>",
+            f"<div class='bx-side'>Spørgsmål</div><div class='bx-front sm'>{forside}</div>"
+            f"<div class='bx-side'>Svar</div><div class='bx-back'>{bagside}</div></div>",
             unsafe_allow_html=True,
         )
 
@@ -372,7 +383,7 @@ def render_quiz():
     st.progress(qidx / len(order))
     st.markdown(
         f"<span class='bx-chip'>{EMNE_NAVN[kort['emne']]}</span>"
-        f"<div class='bx-q'>{q['sp']}</div>",
+        f"<div class='bx-q'>{md_html(q['sp'])}</div>",
         unsafe_allow_html=True,
     )
 
@@ -399,7 +410,7 @@ def render_quiz():
         cls = "ok" if rigtigt else "no"
         head = "Rigtigt!" if rigtigt else "Ikke helt."
         st.markdown(
-            f"<div class='bx-expl {cls}'><b>{head}</b> {q.get('forklaring', '')}</div>",
+            f"<div class='bx-expl {cls}'><b>{head}</b> {md_html(q.get('forklaring', ''))}</div>",
             unsafe_allow_html=True,
         )
         sidste = qidx + 1 >= len(order)
