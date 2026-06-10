@@ -96,6 +96,12 @@ header[data-testid="stHeader"] {{ background:transparent !important; }}
 .bx-back strong {{ color:{TEAL_D}; }}
 .bx-meta {{ text-align:center; font-size:11px; color:#9a9281; letter-spacing:.3px; margin:.3rem 0 1rem; }}
 
+/* Diagram på kortets bagside */
+.bx-fig {{ margin-top:1.2rem; background:{PAPER}; border:1px solid #e7e0d0;
+           border-radius:12px; padding:.55rem .55rem .4rem; }}
+.bx-fig img {{ width:100%; display:block; border-radius:8px; }}
+.bx-figcap {{ font-size:.78rem; color:#9a9281; text-align:center; margin-top:.35rem; line-height:1.45; }}
+
 /* Quiz */
 .bx-q {{ font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:600; line-height:1.5;
          color:{INK}; margin:.4rem 0 1.1rem; }}
@@ -125,6 +131,16 @@ def md_html(text: str) -> str:
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)   # **fed** → <strong>
     text = re.sub(r"(?m)^\s*-\s+", "• ", text)                       # "- " → "• "
     return text
+
+
+@st.cache_data(show_spinner=False)
+def asset_data_uri(rel: str):
+    """Indlæs et diagram fra assets/ som data-URI, så det kan ligge inde i kort-HTML'en."""
+    p = ROOT / "assets" / rel
+    if not p.exists():
+        return None
+    mime = "image/svg+xml" if p.suffix == ".svg" else "image/png"
+    return f"data:{mime};base64," + _b64.b64encode(p.read_bytes()).decode()
 
 
 @st.cache_data(show_spinner=False)
@@ -294,10 +310,17 @@ def render_flashcards():
             unsafe_allow_html=True,
         )
     else:
+        fig_html = ""
+        if kort.get("billede"):
+            uri = asset_data_uri(kort["billede"])
+            if uri:
+                cap = kort.get("billedtekst", "")
+                cap_html = f"<div class='bx-figcap'>{cap}</div>" if cap else ""
+                fig_html = f"<div class='bx-fig'><img src='{uri}' alt=''/>{cap_html}</div>"
         st.markdown(
             f"<div class='bx-card back'>{chip}"
             f"<div class='bx-side'>Spørgsmål</div><div class='bx-front sm'>{forside}</div>"
-            f"<div class='bx-side'>Svar</div><div class='bx-back'>{bagside}</div></div>",
+            f"<div class='bx-side'>Svar</div><div class='bx-back'>{bagside}</div>{fig_html}</div>",
             unsafe_allow_html=True,
         )
 

@@ -243,7 +243,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Teglstikket bærer murværket over et vindue/dør ved at stenene på højkant overfører lasten til siderne."
-      }
+      },
+      "billede": "teglstik.svg",
+      "billedtekst": "To måder at bære muren over en åbning: teglstik (sten på højkant) eller overligger."
     },
     {
       "id": 5,
@@ -323,7 +325,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Dampspærren skal sidde på den varme side, så varm, fugtig indeluft ikke trænger ud og kondenserer i den kolde isolering."
-      }
+      },
+      "billede": "dampspaerre.svg",
+      "billedtekst": "Dampspærren sidder på den varme side af isoleringen og stopper den fugtige indeluft."
     },
     {
       "id": 9,
@@ -343,7 +347,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Undertaget er en sekundær vandskærm under tagdækningen, der afleder vand, der slipper forbi stenene."
-      }
+      },
+      "billede": "undertag.svg",
+      "billedtekst": "Vand, der slipper forbi tagstenene, fanges af undertaget og ledes til tagrenden."
     },
     {
       "id": 10,
@@ -363,7 +369,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Tagstenene hænges på lægterne — de vandrette lister på tværs af spærene."
-      }
+      },
+      "billede": "tagkonstruktion.svg",
+      "billedtekst": "Tagets statik: spær, hanebånd og rem — og lægterne, som tagstenene hænger på."
     },
     {
       "id": 11,
@@ -383,7 +391,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Gennembrydninger og overgange — altså inddækningerne — er de typiske svage punkter, hvor vand trænger ind."
-      }
+      },
+      "billede": "inddaekning.svg",
+      "billedtekst": "Inddækningen tætner dér, hvor skorstenen bryder tagfladen."
     },
     {
       "id": 12,
@@ -472,7 +482,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Bagmuren er den bærende del; formuren er vejrskærm, og bindere holder de to sammen."
-      }
+      },
+      "billede": "hulmur.svg",
+      "billedtekst": "Hulmurens tre dele — holdt sammen af murbindere."
     },
     {
       "id": 16,
@@ -495,7 +507,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Rust udvider sig og sprænger fuger; mister formuren forankringen, kan den bule ud."
-      }
+      },
+      "billede": "binder_rust.svg",
+      "billedtekst": "Rust fylder mere end stål: fugerne revner vandret, og formuren kan miste sit greb."
     },
     {
       "id": 17,
@@ -515,7 +529,9 @@
         ],
         "korrekt": 0,
         "forklaring": "En kold overflade ved en kuldebro fortætter indeluftens fugt til kondens — ideelt for skimmel."
-      }
+      },
+      "billede": "kuldebro.svg",
+      "billedtekst": "Uisoleret beton leder varmen ud — indersiden bliver kold, og kondens samler sig."
     },
     {
       "id": 18,
@@ -535,7 +551,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Soklen er ydervæggens synlige fod over jorden; fundamentet er den skjulte del under jorden."
-      }
+      },
+      "billede": "sokkel_fundament.svg",
+      "billedtekst": "Soklen er den synlige fod; fundamentet arbejder under jorden — ført til frostfri dybde."
     },
     {
       "id": 19,
@@ -555,7 +573,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Sætninger giver klassisk trappeformede (diagonale) revner i murværket, ofte fra åbningshjørner."
-      }
+      },
+      "billede": "saetning.svg",
+      "billedtekst": "Differenssætning: huset synker ujævnt, og revnerne 'trapper' ud fra åbningernes hjørner."
     },
     {
       "id": 20,
@@ -575,7 +595,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Strøgulve ligger over et ventileret hulrum; ventilationen fjerner fugt, så strøer/brædder ikke rådner."
-      }
+      },
+      "billede": "terraendaek_stroegulv.svg",
+      "billedtekst": "To gulvprincipper: terrændæk på jord — eller strøgulv over et ventileret hulrum."
     },
     {
       "id": 21,
@@ -595,7 +617,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Fugtspærren (+kapillarbrydende lag) stopper opstigende jordfugt i terrændækket."
-      }
+      },
+      "billede": "terraendaek_lag.svg",
+      "billedtekst": "Terrændækkets lag: kapillarbrydende lag og fugtspærre bryder jordfugtens vej op."
     },
     {
       "id": 22,
@@ -615,7 +639,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Vandnæsen sikrer, at vandet slipper og drypper fri, så det ikke løber ind i muren under vinduet."
-      }
+      },
+      "billede": "saalbaenk.svg",
+      "billedtekst": "Sålbænkens fald og vandnæsen sikrer, at dråben slipper fri af facaden."
     },
     {
       "id": 23,
@@ -638,7 +664,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Punktering = utæt kantforsegling → fugt fanges mellem glassene som dug, der ikke kan fjernes."
-      }
+      },
+      "billede": "termorude.svg",
+      "billedtekst": "Punkteret rude: utæt forsegling lukker fugt ind — duggen sidder mellem glassene."
     },
     {
       "id": 24,
@@ -658,7 +686,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Fliser/fuger er ikke vandtætte; det er membranen bag dem, der er vandspærren."
-      }
+      },
+      "billede": "vaadrumsmembran.svg",
+      "billedtekst": "Fliser og fuger er ikke tætte — membranen bagved er den egentlige vandspærre."
     },
     {
       "id": 25,
@@ -678,7 +708,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Bagfald leder vandet væk fra afløbet, så det står og belaster membran/fuger — øget fugtrisiko."
-      }
+      },
+      "billede": "gulvfald.svg",
+      "billedtekst": "Vandet skal kunne løbe til afløbet — bagfald efterlader stående vand."
     },
     {
       "id": 26,
@@ -698,7 +730,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Fjerner man fugten, stopper skimlen — den er altid symptom på et fugtproblem."
-      }
+      },
+      "billede": "skimmel_trekant.svg",
+      "billedtekst": "Skimlens tre betingelser. Fugten er den, man kan fjerne."
     },
     {
       "id": 27,
@@ -718,7 +752,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Ægte hussvamp kan selv fugte tørt træ via myceliet og sprede sig aggressivt — derfor den alvorligste."
-      }
+      },
+      "billede": "hussvamp.svg",
+      "billedtekst": "Ægte hussvamp: brunmuld i terninger — og mycelium, der vandrer efter nyt træ."
     },
     {
       "id": 28,
@@ -738,7 +774,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Kapillarvirkning suger jordfugt opad i porøse materialer som mursten og beton."
-      }
+      },
+      "billede": "grundfugt.svg",
+      "billedtekst": "Uden fugtspærre suger muren jordfugt op — skaderne sætter sig nederst på væggen."
     },
     {
       "id": 29,
@@ -758,7 +796,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Friskt, lyst boresmuld og nye flyvehuller viser, at angrebet stadig er aktivt."
-      }
+      },
+      "billede": "borebille_husbuk.svg",
+      "billedtekst": "Kend forskel: borebillens små runde huller — husbukkens større ovale."
     },
     {
       "id": 40,
@@ -778,7 +818,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Massivt murværk er det typiske, men hulmuren opstod allerede ca. 1900 — så det er ikke enten/eller."
-      }
+      },
+      "billede": "grundfugt.svg",
+      "billedtekst": "Massiv mur uden fugtspærre — æraens typiske konstruktion og dens svage punkt."
     },
     {
       "id": 41,
@@ -818,7 +860,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Datidens byggeskik havde sjældent en effektiv fugtspærre, så jordfugt suges op i den massive mur."
-      }
+      },
+      "billede": "grundfugt.svg",
+      "billedtekst": "Uden fugtspærre vandrer jordfugten op i den massive mur."
     },
     {
       "id": 50,
@@ -838,7 +882,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Hulmuren er slået helt igennem og er standard i denne periode."
-      }
+      },
+      "billede": "hulmur.svg",
+      "billedtekst": "Hulmuren — periodens standard: formur, hulrum, bagmur og bindere."
     },
     {
       "id": 51,
@@ -859,7 +905,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Fejludført/fugtskadet hulmursisolering kan bygge bro over hulrummet og føre slagregn ind til bagmuren."
-      }
+      },
+      "billede": "hulmur.svg",
+      "billedtekst": "Hulrummet var oprindeligt uisoleret — senere ofte fyldt med indblæst granulat."
     },
     {
       "id": 60,
@@ -879,7 +927,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Før BR72 var kapillarbrydende lag ikke et krav — terrændæk fra 1960–1972 mangler ofte effektiv fugtsikring."
-      }
+      },
+      "billede": "terraendaek_lag.svg",
+      "billedtekst": "Disse fugt-lag var endnu ikke et krav — terrændæk fra før BR72 mangler dem ofte."
     },
     {
       "id": 61,
@@ -920,7 +970,9 @@
         ],
         "korrekt": 0,
         "forklaring": "BR72 indførte kravet om kapillarbrydende lag — derfor er terrændæk fra FØR 1972 ofte fugtfælder."
-      }
+      },
+      "billede": "terraendaek_lag.svg",
+      "billedtekst": "Lagene, der stopper jordfugten — ofte fraværende i terrændæk fra 1960–1972."
     },
     {
       "id": 65,
@@ -940,7 +992,9 @@
         ],
         "korrekt": 0,
         "forklaring": "BR72 gjorde kapillarbrydende lag til krav, så terrændæk efter 1972 er typisk bedre fugtsikret end før."
-      }
+      },
+      "billede": "terraendaek_lag.svg",
+      "billedtekst": "Med BR72 blev kapillarbrydende lag et krav — gulvets fugtsikring blev standard."
     },
     {
       "id": 70,
@@ -981,7 +1035,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Visse bløde undertagsfabrikater fra perioden bliver møre/skøre og revner, så taget bliver utæt indefra."
-      }
+      },
+      "billede": "undertag.svg",
+      "billedtekst": "Undertagets job — men visse fabrikater fra 1980–2000 skørner og revner før tid."
     },
     {
       "id": 80,
@@ -1022,7 +1078,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Tætte konstruktioner er uforladende: indtrængt/indbygget fugt kan ikke tørre væk og giver skjulte skader."
-      }
+      },
+      "billede": "dampspaerre.svg",
+      "billedtekst": "I tætte konstruktioner er en intakt dampspærre afgørende — indtrængt fugt tørrer ikke ud."
     },
     {
       "id": 90,
@@ -1103,7 +1161,9 @@
         ],
         "korrekt": 0,
         "forklaring": "BR72's krav om kapillarbrydende lag er det moderne fugtsikrings-skel for terrændæk."
-      }
+      },
+      "billede": "terraendaek_lag.svg",
+      "billedtekst": "BR72's krav: kapillarbrydende lag, der bryder jordfugtens vej op i gulvet."
     },
     {
       "id": 102,
@@ -1167,7 +1227,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Hulmursisolering blev først lovkrav ca. 1970; ældre hulmure var oprindeligt uisolerede."
-      }
+      },
+      "billede": "hulmur.svg",
+      "billedtekst": "Hulmuren — fra ca. 1970 skulle hulrummet isoleres i nybyggeri."
     },
     {
       "id": 105,
@@ -1187,7 +1249,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Fugtspærre-krav går tilbage til 1858; BR72 tilføjede det moderne krav om kapillarbrydende lag i terrændæk."
-      }
+      },
+      "billede": "grundfugt.svg",
+      "billedtekst": "Det, fugtsikringen skal forhindre: kapillær opsugning fra jorden."
     }
   ]
 }

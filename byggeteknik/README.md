@@ -16,7 +16,9 @@ bevidst forskelligt fra Harald og Ejnar.
 ## To måder at lære på
 
 - **📇 Lær** — klassiske vend-kort: spørgsmål på forsiden, byggeteknisk svar på
-  bagsiden. Bland kortene og bladr igennem.
+  bagsiden. De fleste kort har en **tegnet snittegning** (SVG i `assets/`) på
+  bagsiden — hulmur, terrændækkets lag, tagkonstruktion, punkteret termorude osv.
+  Bland kortene og bladr igennem.
 - **🎯 Quiz** — multiple choice for den valgte periode, med forklaring på hvert
   svar og en score til sidst.
 
@@ -42,10 +44,14 @@ bevidst forskelligt fra Harald og Ejnar.
 byggeteknik/
 ├── app.py                  # hele appen (Lær + Quiz, periode-tidslinje)
 ├── data/flashcards.json    # det kuraterede deck (perioder + emner + kort m. quiz)
+├── assets/                 # 20 tegnede snittegninger (SVG) til kortenes bagsider
 ├── requirements.txt        # kun streamlit
 ├── .streamlit/config.toml  # tema (petrol/teal på varmt papir)
 └── README.md
 ```
+
+Et kort får et diagram ved at sætte `"billede": "hulmur.svg"` (filnavn i
+`assets/`) og evt. `"billedtekst": "..."` på kortet i `flashcards.json`.
 
 ## Kør lokalt
 
