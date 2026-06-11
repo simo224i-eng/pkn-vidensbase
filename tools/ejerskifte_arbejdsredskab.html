@@ -232,6 +232,43 @@
   .whint{color:var(--ink-soft);font-size:.96rem;text-align:center;padding:42px 20px;line-height:1.6;}
   .wcount{font-size:.78rem;color:var(--ink-soft);margin:0 2px 12px;}
   mark{background:#f1e2a6;color:inherit;padding:0 2px;border-radius:3px;}
+
+  /* ---- Wiki v4: symptomer, ordbog, hus-snit ---- */
+  .chips .schip{appearance:none;font-family:inherit;font-size:.82rem;font-weight:600;color:#7a6420;background:#fff;
+    border:1px solid var(--line-strong);border-radius:10px;padding:6px 12px;cursor:pointer;transition:.15s;}
+  .chips .schip:hover{border-color:var(--amber);}
+  .chips .schip.active{background:var(--amber);border-color:var(--amber);color:#fff;}
+  .ord{border-bottom:1.5px dashed #9db4ab;cursor:help;}
+  .ord:hover{background:var(--accent-soft);border-bottom-color:var(--accent);}
+  .ordmodal[hidden]{display:none;}
+  .ordmodal{position:fixed;inset:0;background:rgba(35,33,28,.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:18px;}
+  .ordbox{background:var(--card);max-width:500px;width:100%;max-height:72vh;overflow:auto;border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);}
+  .ordbox h4{font-family:"Fraunces",serif;font-weight:500;font-size:1.25rem;margin:0 0 8px;letter-spacing:-.01em;}
+  .ordbox .odef{font-size:.92rem;line-height:1.6;color:#33373d;}
+  .ordbox .oclose{margin-top:14px;text-align:right;}
+  .ordterm{padding:10px 2px;border-top:1px solid var(--line);font-size:.9rem;cursor:pointer;}
+  .ordterm:hover{background:var(--accent-soft);}
+  .ordterm b{font-weight:650;}
+  .house-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px 8px;margin-bottom:16px;box-shadow:var(--shadow);}
+  .house-wrap svg{width:100%;height:auto;display:block;}
+  .house-wrap .hw-cap{font-size:.74rem;color:var(--ink-soft);text-align:center;margin-top:4px;}
+  svg .hs{cursor:pointer;}
+  svg .hs .fillable{transition:opacity .15s;}
+  svg .hs:hover .fillable{opacity:.78;}
+  svg .hs.active .outline{stroke:var(--accent);stroke-width:3.5;}
+  svg .hs text{pointer-events:none;}
+  .symbanner{background:linear-gradient(135deg,#8a6516,#6f520f);color:#f7f1de;border-radius:14px;padding:18px 22px;margin-bottom:16px;box-shadow:var(--shadow);}
+  .symbanner .eyr{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.85;font-weight:600;}
+  .symbanner .etitle{font-family:"Fraunces",serif;font-size:1.4rem;font-weight:500;margin:2px 0 7px;letter-spacing:-.01em;}
+  .symbanner .edesc{font-size:.92rem;line-height:1.55;color:#efe6c8;max-width:64ch;}
+  .perbadge{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.04em;padding:2px 9px;border-radius:20px;
+    background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);margin:0 4px 4px 0;}
+  .perbadge.hit{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .ckig{font-size:.86rem;margin:10px 0 0;padding:9px 13px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;color:#2e463e;}
+  .ckig b{font-weight:700;}
+  .wgoto{appearance:none;font-family:inherit;font-size:.74rem;font-weight:700;color:var(--accent);background:#fff;
+    border:1px solid var(--line-strong);border-radius:8px;padding:3px 10px;cursor:pointer;margin-left:8px;vertical-align:middle;}
+  .wgoto:hover{border-color:var(--accent);}
 </style>
 </head>
 <body>
@@ -435,20 +472,24 @@
   <!-- ================= BYGGETEKNIK-WIKI ================= -->
   <section class="panel" id="wiki">
     <div class="bsec-h">Byggeteknik gennem tiden</div>
-    <p class="bsec-sub">Slå hurtigt op, hvordan tag, vægge, fundament m.m. blev bygget i en given periode — og hvad du skal være obs på. <b>Skriv opførelsesåret</b>, så finder den perioden selv.</p>
+    <p class="bsec-sub">Tre veje ind: <b>skriv opførelsesåret</b> (perioden findes selv), <b>tryk på hus-tegningen</b>, eller vælg det <b>anmeldte symptom</b> (fugt, revner, vand fra taget …). Stiplede fagord kan trykkes for en forklaring i almindeligt dansk.</p>
     <div class="wikitop">
       <div class="wikirow">
         <div class="fld year"><label for="wyear">Opførelsesår</label><input id="wyear" type="number" inputmode="numeric" placeholder="fx 1974" min="1700" max="2030"></div>
         <div class="fld search"><label for="wsearch">Søg i byggeteknikken</label><input id="wsearch" type="text" placeholder="fx tagpap, fugtspærre, bindere, asbest…"></div>
+        <div class="fld"><label>&nbsp;</label><button class="btn" id="wordbtn" type="button">📖 Ordbog</button></div>
       </div>
       <div class="chips" id="wperiods"><span class="chips-lbl">Periode</span></div>
       <div class="chips" id="wparts"><span class="chips-lbl">Bygningsdel</span></div>
+      <div class="chips" id="wsymptoms"><span class="chips-lbl">Det anmeldte · symptom</span></div>
     </div>
+    <div class="house-wrap" id="whouse"><div id="whouseInner"></div><div class="hw-cap">Husets anatomi — tryk på en bygningsdel for at slå den op</div></div>
     <div id="wikibody"></div>
+    <div class="ordmodal" id="ordModal" hidden><div class="ordbox" id="ordBox"></div></div>
     <p class="disclaimer">Vejledende byggeskik — overgange mellem perioder er glidende, og det enkelte hus kan afvige. Brug det som pejling på, hvad du skal kigge efter, ikke som facit for den konkrete ejendom.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v3.1 · juni 2026 · ja/nej-dækningsvurdering · Byggeteknik-wiki med periode-ægte illustrationer</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v4 · juni 2026 · wiki med symptom-opslag, klikbar ordbog og hus-snit</span></footer>
 </div>
 
 <script>
@@ -669,7 +710,144 @@ function illusFor(periodId,partId){
   }
 }
 
-const wState={periode:null,part:'alle',q:''};
+/* ---- Wiki v4: ordbog ---- */
+const ORDBOG={
+ spaer:{t:'Spær',d:'De skrå træbjælker, der danner tagets form og bærer tagdækningen. Tagets “skelet”.'},
+ laegte:{t:'Lægte',d:'De vandrette trælister på tværs af spærene, som tagstenene hænges på.'},
+ rem:{t:'Rem',d:'Vandret stykke tømmer oven på ydervæggen, som spærene hviler på — fordeler tagets vægt til muren.'},
+ hanebaand:{t:'Hanebånd',d:'Vandret tværbjælke mellem to spær, der forhindrer dem i at glide fra hinanden.'},
+ undertag:{t:'Undertag',d:'Ekstra vandtæt lag UNDER tagstenene, der fanger regn og fygesne, som slipper forbi stenene, og leder det til tagrenden. Standard fra ca. 1979.'},
+ inddaekning:{t:'Inddækning',d:'Tætningen (typisk zink eller bly) omkring alt det, der bryder tagfladen: skorsten, ovenlys osv. Tagets mest udsatte punkt.'},
+ tagpap:{t:'Tagpap',d:'Vandtæt belægning af asfaltbaner, der svejses sammen — typisk på flade og lavt hældende tage. Nedbrydes af sol og revner med alderen.'},
+ eternit:{t:'Eternit',d:'Bølgeplader af fibercement. Plader fra før ca. 1986 indeholder typisk asbest, som er farligt ved bearbejdning.'},
+ vingetegl:{t:'Vingetegl',d:'Den klassiske danske tagsten af brændt ler.'},
+ formur:{t:'Formur',d:'Den yderste halvdel af en hulmur — “vejrskærmen”, man ser udefra. Bærer ikke huset.'},
+ bagmur:{t:'Bagmur',d:'Den inderste halvdel af en hulmur — det er den, der bærer huset.'},
+ hulmur:{t:'Hulmur',d:'Ydervæg i to lag (formur + bagmur) med et hulrum imellem, i dag fyldt med isolering. Standard fra ca. 1930.'},
+ murbinder:{t:'Murbinder',d:'Metaltråd, der binder formur og bagmur sammen, så ydervæggen ikke vælter ud. Ældre bindere af stål kan ruste og sprænge fugerne.'},
+ fuge:{t:'Fuge',d:'Mørtlen mellem murstenene. Binder stenene sammen og holder regnen ude. Smuldrende fuger lukker vand ind.'},
+ puds:{t:'Puds',d:'Et tyndt lag mørtel trukket ud over muren som overflade — kan males. Afskallet puds nederst på en væg er klassisk tegn på opstigende fugt.'},
+ kalkmortel:{t:'Kalkmørtel',d:'Den bløde, “åndbare” mørteltype, ældre huse er muret med. Tåler bevægelser, men er blødere end moderne cementmørtel.'},
+ sokkel:{t:'Sokkel',d:'Den synlige nederste del af husets ydervæg, lige over jorden — ofte grå/sort pudset beton.'},
+ fundament:{t:'Fundament',d:'Den del af huset, der står under jorden og fører husets vægt ned til fast bund. Skal nå under frostfri dybde (ca. 0,9 m).'},
+ terraendaek:{t:'Terrændæk',d:'Gulvkonstruktion, der ligger direkte på jorden (beton + isolering + fugtspærre). Standard i parcelhuse fra 1960’erne og frem.'},
+ stroegulv:{t:'Strøgulv',d:'Trægulv lagt på “strøer” (vandrette træstykker) over et hulrum, der ventileres. Den ældre gulvløsning før terrændækket.'},
+ krybekaelder:{t:'Krybekælder',d:'Det lave, ventilerede hulrum under gulvet i ældre huse. Blokeres ventilationen, opstår der fugt og råd.'},
+ kapillarbrydende:{t:'Kapillarbrydende lag',d:'Lag af sten/letklinker under gulvet, hvor vandet ikke kan “klatre” videre op. Krav fra BR72 — derfor mangler det ofte i gulve fra før 1972.'},
+ kapillarvirkning:{t:'Kapillarvirkning',d:'Vands evne til at suge sig OPAD i fine porer — som i et sugerør. Sådan kravler jordfugt op i mure og gulve.'},
+ fugtspaerre:{t:'Fugtspærre',d:'Tæt membran (typisk plast), der forhindrer fugt fra jorden i at trænge op i gulv eller mur.'},
+ dampspaerre:{t:'Dampspærre',d:'Tæt plastfolie på den VARME side af isoleringen, som forhindrer fugtig indeluft i at trænge ud i konstruktionen og give skimmel. Huller i den er en klassisk fejlkilde.'},
+ kuldebro:{t:'Kuldebro',d:'Et sted hvor varmen ledes hurtigere ud end i resten af væggen (fx uisoleret beton). Indersiden bliver kold → der dannes kondens → skimmel.'},
+ kondens:{t:'Kondens',d:'Når varm, fugtig luft rammer en kold overflade, bliver fugten til vanddråber — som duggen på et koldt glas.'},
+ skimmel:{t:'Skimmel',d:'Svamp, der vokser på fugtige overflader (sorte/grønne plamager). Kræver fugt — fjernes fugten, stopper væksten. Altid et symptom på et fugtproblem.'},
+ hussvamp:{t:'Ægte hussvamp',d:'Den farligste trænedbrydende svamp: kan selv transportere vand og sprede sig til TØRT træ og gennem murværk. Kræver omfattende sanering.'},
+ mycelium:{t:'Mycelium',d:'Svampens “rodnet” — hvide/grå tråde eller vat-agtigt lag, der vokser hen over træ og mur.'},
+ brunmuld:{t:'Brunmuld',d:'Slutstadiet når svamp har ædt træet: det bliver brunt og revner op i små terninger, der smuldrer mellem fingrene.'},
+ borebille:{t:'Borebille (“træorm”)',d:'Lille bille, hvis larver æder gange i træ. Kendes på små runde huller (1–2 mm) og fint, lyst boremel. Friskt boremel = aktivt angreb.'},
+ husbuk:{t:'Husbuk',d:'Stor træbille, der angriber nåletræ i tagkonstruktioner — større ovale huller. Kan svække bærende tømmer alvorligt.'},
+ termorude:{t:'Termorude',d:'Rude med to lag glas og forseglet luft imellem. “Punkteret” = forseglingen er utæt, så der kommer dug MELLEM glassene, som ikke kan tørres væk.'},
+ energirude:{t:'Energirude',d:'Moderne termorude med belægning og ædelgas, der isolerer markant bedre. Standard fra slut-1990’erne.'},
+ saalbaenk:{t:'Sålbænk',d:'Den skrå “hylde” under vinduet udvendigt, der leder regnvand væk fra muren.'},
+ vandnaese:{t:'Vandnæse',d:'Lille rille/kant på undersiden af sålbænken, der får vanddråben til at slippe og falde frit — i stedet for at løbe ind i muren.'},
+ vaadrumsmembran:{t:'Vådrumsmembran',d:'Det vandtætte lag BAG fliserne i et badeværelse. Fliser og fuger er ikke vandtætte i sig selv — det er membranen, der holder vandet ude. Krav fra ca. 1995.'},
+ dilatationsfuge:{t:'Dilatationsfuge',d:'Bevidst blød fuge i lange mure, der lader murværket udvide sig og trække sig sammen uden at revne.'},
+ saetning:{t:'Sætning',d:'Når huset synker — typisk ujævnt, fordi jorden bærer forskelligt. Giver skæve gulve, døre der binder og trappeformede revner fra vindueshjørner.'},
+ omfangsdraen:{t:'Omfangsdræn',d:'Drænrør i jorden langs fundamentet, der leder vand væk, så kælder og fundament ikke står i vand. OBS: ligger uden for bygningen og er typisk undtaget fra dækning (§ 2).'},
+ saltudslag:{t:'Saltudslag (salpeter)',d:'Hvide, pudderagtige udblomstringer på murværk. Opstår når fugt vandrer gennem muren og efterlader salte — klassisk tegn på opstigende grundfugt.'}
+};
+const ORDPAT=[
+ ['kapillarbrydende','kapillarbrydende'],['kapillarvirkning','kapillarvirkning'],
+ ['vådrumsmembran|vådrumssikring','vaadrumsmembran'],['dilatationsfuge','dilatationsfuge'],
+ ['omfangsdræn','omfangsdraen'],['saltudslag|salpeter','saltudslag'],
+ ['hussvamp','hussvamp'],['mycelium|mycelie','mycelium'],['brunmuld','brunmuld'],
+ ['murbinder|bindere|binderkorrosion','murbinder'],['dampspærre','dampspaerre'],['fugtspærre','fugtspaerre'],
+ ['terrændæk','terraendaek'],['strøgulv','stroegulv'],['krybekælder','krybekaelder'],
+ ['kalkmørtel','kalkmortel'],['vingetegl','vingetegl'],['inddækning','inddaekning'],
+ ['hanebånd','hanebaand'],['undertag','undertag'],['tagpap','tagpap'],['eternit','eternit'],
+ ['formur','formur'],['bagmur','bagmur'],['hulmursisolering|hulmur','hulmur'],
+ ['sokkel|soklen','sokkel'],['fundament|fundering','fundament'],
+ ['spær(?!re)','spaer'],['lægte','laegte'],['sætning','saetning'],
+ ['kuldebro','kuldebro'],['kondens','kondens'],['skimmel','skimmel'],
+ ['borebille|træorm','borebille'],['husbuk','husbuk'],
+ ['energirude','energirude'],['termorude|punkteret|punktering|punkterer','termorude'],
+ ['sålbænk','saalbaenk'],['vandnæse','vandnaese'],['fuge','fuge'],['puds','puds']
+].map(([pat,id])=>[new RegExp('(?<![a-zæøåA-ZÆØÅ])('+pat+'[a-zæøå]*)(?![^<]*>)','iu'),id]);
+function ordLink(html){
+  for(const [re,id] of ORDPAT){
+    if(!ORDBOG[id]) continue;
+    if(re.test(html)) html=html.replace(re,(m)=>'<span class="ord" data-ord="'+id+'">'+m+'</span>');
+  }
+  return html;
+}
+function openOrd(id){
+  const M=document.getElementById('ordModal'), B=document.getElementById('ordBox');
+  if(id&&ORDBOG[id]){
+    B.innerHTML='<h4>'+ORDBOG[id].t+'</h4><div class="odef">'+ORDBOG[id].d+'</div>'+
+      '<div class="oclose"><button class="btn" data-act="alle" type="button">Se alle begreber</button> '+
+      '<button class="btn" data-act="luk" type="button">Luk</button></div>';
+  }else{
+    const rows=Object.entries(ORDBOG).sort((a,b)=>a[1].t.localeCompare(b[1].t,'da'))
+      .map(([k,v])=>'<div class="ordterm"><b>'+v.t+'</b> — '+v.d+'</div>').join('');
+    B.innerHTML='<h4>Ordbog — byggeteknik på almindeligt dansk</h4>'+rows+
+      '<div class="oclose"><button class="btn" data-act="luk" type="button">Luk</button></div>';
+  }
+  M.hidden=false;
+}
+function closeOrd(){document.getElementById('ordModal').hidden=true;}
+
+/* ---- Wiki v4: symptomer (det anmeldte) ---- */
+const SYMPTOMER=[{"id": "fugt_vaeg", "navn": "💧 Fugt/skimmel på vægge", "titel": "Fugt eller skimmel på vægge", "intro": "Skimmel er altid et symptom på fugt. Opgaven er at finde fugtens VEJ ind — og den afhænger meget af husets alder.", "aarsager": [{"t": "Opstigende grundfugt", "prd": ["foer1930", "1930_1960"], "del": "fundament", "tekst": "Jorden suger vand op i muren nedefra (kapillarvirkning), fordi der mangler en effektiv fugtspærre — helt normalt i ældre huse.", "kig": "Saltudslag, afskallet puds og fugt på den nederste ½–1 meter af væggen. Værst i kælder og stueplan.", "obs": "I ældre huse er en vis grundfugt ofte FORVENTELIGT for alderen (trin d) — aktiv skade med følgeskader kan dog dækkes."}, {"t": "Kuldebro og kondens", "prd": ["1930_1960", "1960_1972", "1972_1979"], "del": "ydervaeg", "tekst": "Et dårligt isoleret sted i væggen bliver koldt indvendigt; rummets fugt sætter sig som kondens netop dér — og skimlen følger.", "kig": "Skimmel i kolde hjørner, over vinduer, bag møbler mod ydervæg. Typisk i de minimalt isolerede huse fra før 1979.", "obs": "Selskabet vil ofte pege på beboeradfærd (manglende udluftning). Konstruktiv kuldebro vs. adfærd er stridspunktet."}, {"t": "Slagregn gennem fuger/facade", "prd": ["alle"], "del": "ydervaeg", "tekst": "Smuldrende fuger eller revner i formuren lukker regn ind, som vandrer gennem muren.", "kig": "Fugt der kommer efter kraftig regn, især på vestvendte facader. Tjek fugernes stand.", "obs": "Nedslidte fuger kan være vedligehold (§ 4.6) — en skjult konstruktionsfejl kan være en skade."}, {"t": "Skjult vandskade fra badeværelse", "prd": ["alle"], "del": "vaadrum", "tekst": "Vand siver ud gennem utætte fuger eller manglende membran i et bad og viser sig på NABOVÆGGEN.", "kig": "Fugt/skimmel på væg, der deler med badeværelset — eller i etagen under.", "obs": "Følgeskaden i konstruktionen kan være dækningsberettiget, selv om manglende membran i sig selv ikke er (§ 4.2)."}]}, {"id": "revner", "navn": "🧱 Revner i vægge", "titel": "Revner i vægge eller facade", "intro": "Revnens MØNSTER er din vigtigste ledetråd: trappeform, vandret eller lodret peger på tre helt forskellige årsager.", "aarsager": [{"t": "Sætning (huset synker ujævnt)", "prd": ["alle"], "del": "fundament", "tekst": "Jorden bærer forskelligt under huset, så én del synker mere end resten. Giver de klassiske TRAPPEFORMEDE revner, der følger fugerne ud fra vindues- og dørhjørner.", "kig": "Trappeformede/diagonale revner, skæve gulve, døre der binder. Er revnen frisk og skarp — eller gammel og overmalet?", "obs": "Kernen er næsten altid: er sætningen AKTIV (fortsat skade) eller gammel og stabil (ofte forventelig)?"}, {"t": "Rustne murbindere", "prd": ["1930_1960", "1960_1972", "1972_1979"], "del": "ydervaeg", "tekst": "Ældre stålbindere i hulmuren ruster; rust fylder mere end stål og sprænger fugerne VANDRET. I værste fald buler formuren ud.", "kig": "Vandrette revner i fugerne med jævne mellemrum i højden — evt. udbuling af facaden.", "obs": "Alvorlig, ofte skjult skade. Hvor fremskreden var korrosionen ved overtagelsen?"}, {"t": "Temperaturbevægelser (manglende dilatationsfuge)", "prd": ["1960_1972", "1972_1979", "1979_1995"], "del": "ydervaeg", "tekst": "Lange murflader udvider sig i varme og trækker sig sammen i kulde. Uden bevægelsesfuger revner muren LODRET.", "kig": "Lodrette, ret lige revner på lange facader — typisk samme sted år efter år.", "obs": "Konstruktionsforhold, der var normalt for sin tid — vurderes mod datidens byggeskik."}, {"t": "Svigtende overligger over vindue/dør", "prd": ["alle"], "del": "ydervaeg", "tekst": "Murværket over en åbning bæres af et teglstik eller en stålbjælke. Ruster bjælken eller svigter stikket, revner det over åbningen.", "kig": "Revner og evt. nedbøjning lige OVER vinduer og døre.", "obs": "Skelnes fra sætningsrevner ved placeringen — kræver ofte byggeteknisk vurdering."}]}, {"id": "tagvand", "navn": "🌧 Vand fra taget", "titel": "Vandpletter i loftet / fugt på loftet", "intro": "Vand i loftet kommer sjældent fra “hul i taget” — det kommer typisk ind ved tagets DETALJER eller gennem et svigtende undertag.", "aarsager": [{"t": "Intet undertag (ældre tage)", "prd": ["foer1930", "1930_1960", "1960_1972", "1972_1979"], "del": "tag", "tekst": "Tage fra før ca. 1979 har ofte intet undertag — fygesne og slagregn, der slipper forbi tagstenene, lander direkte på loftet.", "kig": "Pletter, der kommer efter storm eller snefygning. Fugtspor på spær og lægter i tagrummet.", "obs": "Manglende undertag var datidens byggeskik — ikke i sig selv en fejl. Følgeskaden kan diskuteres."}, {"t": "Skørnet undertag (kendte fabrikater)", "prd": ["1979_1995", "1995_2008"], "del": "tag", "tekst": "Visse bløde undertage fra ca. 1980–2000 bliver møre og revner længe før tid — så taget bliver utæt indefra, selv om tagstenene er fine.", "kig": "Smuldrende, sprødt undertag i tagrummet; vandrande på isolering og loft.", "obs": "Klassisk tvist: dækningsberettiget skade eller blot udløbet levetid (§ 4.7)?"}, {"t": "Inddækninger og gennemføringer", "prd": ["alle"], "del": "tag", "tekst": "Tætningen omkring skorsten, ovenlys og rør er tagets svageste punkt — langt de fleste utætheder opstår her.", "kig": "Pletter tæt på skorsten/ovenlys. Tærede eller løse zinkinddækninger.", "obs": "En lille, skjult utæthed kan have stået på længe — relevant for, om skaden forelå ved overtagelsen."}, {"t": "Fladt tagpaptag", "prd": ["1960_1972", "1972_1979"], "del": "tag", "tekst": "Parcelhusenes flade tage holder dårligt på vandet: samlinger, opkanter og UV-mørnet pap giver utætheder.", "kig": "Stående vand på taget, blærer og revner i pappen, utætheder ved opkanter.", "obs": "Tagets restlevetid og vedligehold står ofte centralt (§§ 4.6–4.8)."}]}, {"id": "skaeve", "navn": "📐 Skæve gulve/døre", "titel": "Skæve gulve eller døre der binder", "intro": "Når gulve hælder, og døre pludselig binder, har huset bevæget sig. Spørgsmålet er hvor — og om det stadig sker.", "aarsager": [{"t": "Sætning i fundamentet", "prd": ["alle"], "del": "fundament", "tekst": "Huset synker ujævnt. Gulvene hælder mod det hjørne, der er sunket, og dørene binder, fordi karmene er trukket skæve.", "kig": "Hælder gulvet mod et bestemt hjørne? Følges det af trappeformede revner i murværket?", "obs": "Aktiv vs. stabil sætning er det afgørende — gentagne opmålinger eller revnemålere kan dokumentere det."}, {"t": "Nedbøjet bjælkelag / fjernet bærende væg", "prd": ["alle"], "del": "gulv", "tekst": "En tidligere ejer kan have fjernet en bærende væg uden at sætte en bjælke op — så hænger etagen over, og gulvet “fjedrer”.", "kig": "Lavning midt i gulvet (ikke ved ydervæg), revner i loftet under, gulv der gynger.", "obs": "Klassisk skjult gør-det-selv-fejl — ofte en dækningssag, hvis den forelå ved overtagelsen."}, {"t": "Fugtskadede strøer/bjælker", "prd": ["foer1930", "1930_1960", "1960_1972"], "del": "gulv", "tekst": "Fugt nedefra har givet råd i strøer eller bjælkeender, så gulvet synker lokalt.", "kig": "Bløde, fjedrende punkter i gulvet, muggen lugt, misfarvede brædder.", "obs": "Skjult skade under gulvet — fugtkilden (manglende fugtspærre/ventilation) afgør årsagsbilledet."}]}, {"id": "raad", "navn": "🪵 Råd/svamp/insekter", "titel": "Råd, svamp eller insekter i træværk", "intro": "Al trænedbrydning kræver fugt. Find fugtkilden — og find ud af, om angrebet stadig er AKTIVT.", "aarsager": [{"t": "Råd fra utætheder + dårlig ventilation", "prd": ["alle"], "del": "tag", "tekst": "Vedvarende fugt fra et utæt tag eller en lukket krybekælder nedbryder træet langsomt.", "kig": "Blødt, misfarvet træ ved tagfod, spærender og bjælkeender. Muggen lugt.", "obs": "Fugtkilden afgør sagen: konstruktionsfejl taler for skade, manglende vedligehold imod (§ 4.6)."}, {"t": "Ægte hussvamp", "prd": ["foer1930", "1930_1960"], "del": "tag", "tekst": "Den alvorligste svamp: kan transportere vand selv og sprede sig til tørt træ — endda gennem murværk. Træet smuldrer i terninger (brunmuld).", "kig": "Hvidt/gråt vatagtigt mycelium, rustrøde sporeflader, træ der revner i terninger.", "obs": "Store erstatninger og hårde tvister: hvornår startede angrebet, og hvor langt skal saneringen gå?"}, {"t": "Borebiller eller husbuk", "prd": ["alle"], "del": "tag", "tekst": "Borebillens larver laver små runde huller (1–2 mm); husbukken større ovale huller i nåletræ — den kan svække bærende tømmer.", "kig": "Friskt, LYST boremel og nye huller = aktivt angreb. Gamle mørke huller uden mel = dødt.", "obs": "Kun aktive angreb (eller svækkelsen efter dem) udgør en aktuel skade."}, {"t": "Indmurede bjælkeender", "prd": ["foer1930", "1930_1960"], "del": "ydervaeg", "tekst": "I ældre huse er etagebjælkerne muret ind i ydervæggen, hvor de står koldt og fugtigt — og rådner skjult.", "kig": "Gulve der synker ved ydervæggen; kræver ofte destruktiv undersøgelse.", "obs": "Skjult skade i bærende dele — typisk en alvorlig og dækningsrelevant sag."}]}, {"id": "kaelder", "navn": "🕳 Fugtig kælder", "titel": "Fugt i kælderen", "intro": "Vigtigste budskab: en ældre kælder var ALDRIG bygget tør. Spørgsmålet er, om fugten er forventelig for alderen — eller mere end det.", "aarsager": [{"t": "Forventelig kælderfugt (ældre huse)", "prd": ["foer1930", "1930_1960"], "del": "fundament", "tekst": "Kældre fra før ca. 1960 er støbt uden udvendig fugtsikring og var tænkt til opbevaring — ikke beboelse. Nogen fugt er normalt.", "kig": "Jævn, let fugt og saltudslag på kældervægge — uden aktivt vandindtræk.", "obs": "Ofte FORVENTELIGT for alderen (trin d) → ikke en skade. Indretning til beboelse ændrer ikke vurderingen."}, {"t": "Defekt eller manglende omfangsdræn", "prd": ["alle"], "del": "fundament", "tekst": "Drænet langs fundamentet er stoppet eller mangler, så vandet står mod kældervæggen.", "kig": "Vand der TRÆNGER IND ved kraftig regn; våde vægge i bestemte zoner.", "obs": "⚠ Omfangsdræn ligger uden for selve bygningen og er typisk UNDTAGET fra dækningen (§ 2)."}, {"t": "Terrænfald ind mod huset", "prd": ["alle"], "del": "fundament", "tekst": "Belægninger eller terræn hælder ind mod soklen, så regnvand ledes hen til fundamentet i stedet for væk.", "kig": "Fliser/jord der hælder mod huset; vandpytter langs soklen efter regn.", "obs": "Terrænforhold er uden for bygningen — men kan være den reelle årsag bag en “fugtskade”."}]}, {"id": "rude", "navn": "🪟 Dug i ruder", "titel": "Dug mellem glassene i ruden", "intro": "Dug MELLEM glassene (som ikke kan tørres af) betyder punkteret rude. Dug på indersiden er derimod et indeklima-tegn.", "aarsager": [{"t": "Punkteret termorude", "prd": ["1960_1972", "1972_1979", "1979_1995", "1995_2008"], "del": "vinduer", "tekst": "Rudens kantforsegling er blevet utæt, så fugt er trængt ind i mellemrummet. Ruden isolerer dårligere, men huset tager ikke skade.", "kig": "Dug/snavs MELLEM glassene, der ikke kan tørres væk fra nogen side.", "obs": "Typisk bagatel pr. rude og ofte særskilt undtaget — tjek policen. Ikke en bygningsskade i klassisk forstand."}, {"t": "Kondens på indersiden (ikke punktering)", "prd": ["alle"], "del": "vinduer", "tekst": "Dug på rudens INDERSIDE skyldes høj luftfugtighed i rummet — ikke en defekt rude.", "kig": "Dug der kan tørres af indvendigt, typisk om morgenen og i kolde rum.", "obs": "Indeklima/adfærd — ikke en skade. Men kan være tegn på et generelt fugtproblem i boligen."}]}, {"id": "bad", "navn": "🚿 Skader i badeværelse", "titel": "Fugt eller skader i badeværelset", "intro": "Husk: fliser og fuger er IKKE vandtætte. Det er membranen bagved, der holder vandet ude — og den kom først som krav ca. 1995.", "aarsager": [{"t": "Manglende vådrumsmembran (ældre bad)", "prd": ["foer1930", "1930_1960", "1960_1972", "1972_1979", "1979_1995"], "del": "vaadrum", "tekst": "Bade fra før ca. 1995 har ofte ingen membran — vandtætheden hviler alene på fliser og fuger. Det var lovligt dengang.", "kig": "Fugtskjolder på nabovæg/loft under badet, løse (“skrukke”) fliser, mørke fuger.", "obs": "Manglende membran i sig selv = funktionsforhold (§ 4.2), IKKE en skade. Følgeskaden i konstruktionen kan derimod dækkes."}, {"t": "Fejl i fald eller afløb (nyere bad)", "prd": ["1995_2008", "2008_nu"], "del": "vaadrum", "tekst": "I nyere bade er problemet typisk udførelsen: forkert fald mod afløbet eller utæt samling mellem membran og gulvafløb.", "kig": "Vand der bliver stående (“bagfald”), fugt omkring gulvafløbet.", "obs": "Udførelsesfejl med vandskade til følge kan være en dækningssag — fejlen alene er det ikke."}, {"t": "Utætte fuger og rørgennemføringer", "prd": ["alle"], "del": "vaadrum", "tekst": "Silikonefuger ældes og slipper; huller ved rør lukker vand ind bag fliserne, hvor det spreder sig skjult.", "kig": "Revnede/slupne fuger i hjørner og ved bruseniche; fugt ved rørgennemføringer.", "obs": "Fuger er vedligehold (§ 4.6) — men den skjulte følgeskade bagved kan have stået på siden før overtagelsen."}]}];
+
+/* ---- Wiki v4: hus-snit ---- */
+function houseSVG(active){
+  const A=id=>active===id?' active':'';
+  const OL='stroke="#8a857a" stroke-width="1.5"';
+  return '<svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" font-family="Public Sans,system-ui,sans-serif">'
+  +'<rect x="0" y="252" width="560" height="48" fill="#d9cfb8"/>'
+  +'<line x1="0" y1="252" x2="560" y2="252" stroke="#8a857a" stroke-width="2"/>'
+  +'<g class="hs'+A('fundament')+'" data-part="fundament"><title>Fundament og sokkel</title>'
+  +'<rect x="108" y="252" width="344" height="34" fill="transparent"/>'
+  +'<rect class="fillable" x="108" y="252" width="44" height="34" fill="#c9c2b2" '+OL+'/>'
+  +'<rect class="fillable" x="408" y="252" width="44" height="34" fill="#c9c2b2" '+OL+'/>'
+  +'<rect class="fillable outline" x="112" y="234" width="36" height="18" fill="#b5ada0" '+OL+'/>'
+  +'<rect class="fillable outline" x="412" y="234" width="36" height="18" fill="#b5ada0" '+OL+'/>'
+  +'<text x="78" y="276" font-size="11" fill="#5a554a" text-anchor="end" font-weight="600">Fundament</text></g>'
+  +'<g class="hs'+A('gulv')+'" data-part="gulv"><title>Gulv og terrændæk</title>'
+  +'<rect class="fillable outline" x="148" y="226" width="264" height="14" fill="#cfc8b8" '+OL+'/>'
+  +'<line x1="156" y1="233" x2="404" y2="233" stroke="#a39d90" stroke-dasharray="5 4"/>'
+  +'<text x="240" y="222" font-size="11" fill="#5a554a" text-anchor="middle" font-weight="600">Gulv</text></g>'
+  +'<g class="hs'+A('ydervaeg')+'" data-part="ydervaeg"><title>Ydervæg og facade</title>'
+  +'<rect class="fillable outline" x="116" y="118" width="32" height="116" fill="#d29070" '+OL+'/>'
+  +'<rect class="fillable outline" x="412" y="118" width="32" height="116" fill="#d29070" '+OL+'/>'
+  +'<line x1="124" y1="132" x2="140" y2="132" stroke="#b06a45"/><line x1="124" y1="210" x2="140" y2="210" stroke="#b06a45"/>'
+  +'<line x1="420" y1="140" x2="436" y2="140" stroke="#b06a45"/><line x1="420" y1="170" x2="436" y2="170" stroke="#b06a45"/>'
+  +'<line x1="420" y1="200" x2="436" y2="200" stroke="#b06a45"/>'
+  +'<text x="452" y="180" font-size="11" fill="#5a554a" font-weight="600">Ydervæg</text></g>'
+  +'<g class="hs'+A('vinduer')+'" data-part="vinduer"><title>Vinduer</title>'
+  +'<rect class="fillable outline" x="112" y="152" width="40" height="44" fill="#c3dcea" '+OL+'/>'
+  +'<line x1="132" y1="152" x2="132" y2="196" stroke="#8a857a"/>'
+  +'<text x="104" y="146" font-size="11" fill="#5a554a" text-anchor="end" font-weight="600">Vindue</text></g>'
+  +'<g class="hs'+A('vaadrum')+'" data-part="vaadrum"><title>Vådrum</title>'
+  +'<rect class="fillable outline" x="318" y="146" width="90" height="80" fill="#eaf1f2" '+OL+'/>'
+  +'<line x1="318" y1="172" x2="408" y2="172" stroke="#c5d4d7"/><line x1="318" y1="198" x2="408" y2="198" stroke="#c5d4d7"/>'
+  +'<line x1="348" y1="146" x2="348" y2="226" stroke="#c5d4d7"/><line x1="378" y1="146" x2="378" y2="226" stroke="#c5d4d7"/>'
+  +'<circle cx="348" cy="152" r="3" fill="#5a554a"/>'
+  +'<line x1="345" y1="157" x2="343" y2="163" stroke="#3E87C0" stroke-width="1.5"/>'
+  +'<line x1="349" y1="157" x2="349" y2="163" stroke="#3E87C0" stroke-width="1.5"/>'
+  +'<line x1="353" y1="157" x2="355" y2="163" stroke="#3E87C0" stroke-width="1.5"/>'
+  +'<text x="363" y="218" font-size="11" fill="#5a554a" text-anchor="middle" font-weight="600">Vådrum</text></g>'
+  +'<g class="hs'+A('tag')+'" data-part="tag"><title>Tag</title>'
+  +'<path d="M96,130 L280,26 L464,130 Z" fill="transparent"/>'
+  +'<path class="fillable outline" d="M96,130 L280,26 L464,130 L436,130 L280,42 L124,130 Z" fill="#d29070" '+OL+'/>'
+  +'<line x1="146" y1="118" x2="160" y2="126" stroke="#b06a45"/><line x1="196" y1="90" x2="210" y2="98" stroke="#b06a45"/>'
+  +'<line x1="246" y1="62" x2="260" y2="70" stroke="#b06a45"/><line x1="330" y1="70" x2="316" y2="78" stroke="#b06a45"/>'
+  +'<line x1="380" y1="98" x2="366" y2="106" stroke="#b06a45"/><line x1="430" y1="126" x2="416" y2="132" stroke="#b06a45"/>'
+  +'<text x="280" y="104" font-size="12" fill="#5a554a" text-anchor="middle" font-weight="700">Tag</text></g>'
+  +'<line x1="116" y1="118" x2="444" y2="118" stroke="#8a857a" stroke-width="1.5"/>'
+  +'</svg>';
+}
+
+const wState={periode:null,part:'alle',q:'',symptom:null};
 const wmd=s=>(s||'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
 const wEsc=s=>(s||'').replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 function wHi(html){
@@ -688,12 +866,40 @@ function wCard(era,partId,withEra){
     if(!hay.includes(q)) return '';
   }
   const eracap=withEra?`<div class="weracap">${era.navn} · ${era.titel}</div>`:'';
-  const obs=d.o?`<div class="wobs"><span class="ol">Obs — skadeskandidater</span>${wHi(wmd(d.o))}</div>`
+  const obs=d.o?`<div class="wobs"><span class="ol">Obs — skadeskandidater</span>${ordLink(wHi(wmd(d.o)))}</div>`
                :`<div class="wnone">Ingen særlige skadeskandidater her.</div>`;
   const ill=illusFor(era.id,partId);
   const fig=(ill&&WIKI_SVG[ill])?`<div class="wfig">${WIKI_SVG[ill]}<div class="wcap">${WIKI_CAP[ill]||''}</div></div>`:'';
   return `<div class="wcard">${eracap}<h4>${wHi(partNavn(partId))}</h4>`+
-         `${fig}<p class="wbuilt">${wHi(wmd(d.b))}</p>${obs}</div>`;
+         `${fig}<p class="wbuilt">${ordLink(wHi(wmd(d.b)))}</p>${obs}</div>`;
+}
+
+function symCard(sym,aarsag){
+  const q=wState.q.trim().toLowerCase();
+  if(q.length>=2){
+    const hay=(aarsag.t+' '+aarsag.tekst+' '+aarsag.kig+' '+aarsag.obs).toLowerCase();
+    if(!hay.includes(q)) return '';
+  }
+  const era=wState.periode?WIKI.find(e=>e.id===wState.periode):null;
+  const hit=era&&(aarsag.prd.includes('alle')||aarsag.prd.includes(era.id));
+  let badges='';
+  if(aarsag.prd.includes('alle')){
+    badges=`<span class="perbadge${hit?' hit':''}">Alle perioder</span>`;
+  }else{
+    badges=aarsag.prd.map(pid=>{
+      const pe=WIKI.find(e=>e.id===pid);
+      return `<span class="perbadge${era&&era.id===pid?' hit':''}">${pe?pe.navn:pid}</span>`;
+    }).join('');
+  }
+  const delnavn=partNavn(aarsag.del);
+  return `<div class="wcard">
+    <div class="weracap">${delnavn}<button class="wgoto" data-goto="${aarsag.del}" type="button">Se bygningsdelen →</button></div>
+    <h4>${wHi(aarsag.t)}</h4>
+    <div style="margin:0 0 8px">${badges}</div>
+    <p class="wbuilt">${ordLink(wHi(aarsag.tekst))}</p>
+    <div class="ckig"><b>Kig efter:</b> ${ordLink(wHi(aarsag.kig))}</div>
+    <div class="wobs" style="margin-top:10px"><span class="ol">Dækningsobs</span>${ordLink(wHi(aarsag.obs))}</div>
+  </div>`;
 }
 
 function renderWiki(){
@@ -710,33 +916,65 @@ function renderWiki(){
   // chips: bygningsdele
   const sc=document.getElementById('wparts');
   sc.querySelectorAll('.chip').forEach(c=>c.remove());
-  [{id:'alle',navn:'Alle'}].concat(WIKI_PARTS).forEach(p=>{
+  [{id:'alle',navn:'Alle'}].concat(WIKI_PARTS).forEach(pt=>{
     const b=document.createElement('button');
-    b.className='chip part'+(wState.part===p.id?' active':'');
-    b.textContent=p.navn;
-    b.addEventListener('click',()=>{wState.part=p.id;renderWiki();});
+    b.className='chip part'+(wState.part===pt.id&&!wState.symptom?' active':'');
+    b.textContent=pt.navn;
+    b.addEventListener('click',()=>{wState.part=pt.id;wState.symptom=null;renderWiki();});
     sc.appendChild(b);
   });
+  // chips: symptomer
+  const yc=document.getElementById('wsymptoms');
+  yc.querySelectorAll('.schip').forEach(c=>c.remove());
+  SYMPTOMER.forEach(sym=>{
+    const b=document.createElement('button');
+    b.className='schip'+(wState.symptom===sym.id?' active':'');
+    b.textContent=sym.navn;
+    b.addEventListener('click',()=>{wState.symptom=(wState.symptom===sym.id?null:sym.id);renderWiki();});
+    yc.appendChild(b);
+  });
+  // hus-snit (aktiv del fremhæves; dæmpes i symptom-visning)
+  const hw=document.getElementById('whouseInner');
+  if(hw) hw.innerHTML=houseSVG(wState.symptom?null:(wState.part!=='alle'?wState.part:null));
 
   const body=document.getElementById('wikibody');
-  const parts=wState.part==='alle'?WIKI_PARTS.map(p=>p.id):[wState.part];
   const q=wState.q.trim();
   let html='';
 
-  if(wState.periode){
+  if(wState.symptom){
+    const sym=SYMPTOMER.find(s=>s.id===wState.symptom);
+    const era=wState.periode?WIKI.find(e=>e.id===wState.periode):null;
+    const ctx=era?` — vist med <b>${era.navn}</b> fremhævet`:' — vælg evt. periode/årstal for at fremhæve det relevante';
+    html+=`<div class="symbanner"><div class="eyr">Det anmeldte</div><div class="etitle">${sym.titel}</div><div class="edesc">${ordLink(sym.intro)}${ctx}</div></div>`;
+    let causes=sym.aarsager.slice();
+    if(era){
+      causes.sort((a,b)=>{
+        const am=(a.prd.includes('alle')||a.prd.includes(era.id))?0:1;
+        const bm=(b.prd.includes('alle')||b.prd.includes(era.id))?0:1;
+        return am-bm;
+      });
+    }
+    const cards=causes.map(a=>symCard(sym,a)).join('');
+    html+=cards?`<div class="wcards">${cards}</div>`:`<p class="wnone">Ingen årsager matcher søgningen.</p>`;
+  } else if(wState.periode){
     const era=WIKI.find(e=>e.id===wState.periode);
-    html+=`<div class="erabanner"><div class="eyr">${era.navn}</div><div class="etitle">${era.titel}</div><div class="edesc">${era.desc}</div></div>`;
+    const parts=wState.part==='alle'?WIKI_PARTS.map(pt=>pt.id):[wState.part];
+    html+=`<div class="erabanner"><div class="eyr">${era.navn}</div><div class="etitle">${era.titel}</div><div class="edesc">${ordLink(wmd(era.desc))}</div></div>`;
     const cards=parts.map(pid=>wCard(era,pid,false)).join('');
     html+=cards?`<div class="wcards">${cards}</div>`
               :`<p class="wnone">Ingen byggedele matcher søgningen i denne periode.</p>`;
   } else if(q.length>=2){
-    // søg på tværs af alle perioder
+    const parts=wState.part==='alle'?WIKI_PARTS.map(pt=>pt.id):[wState.part];
     let cards='';
     WIKI.forEach(era=>{parts.forEach(pid=>{cards+=wCard(era,pid,true);});});
     html+=cards?`<p class="wcount">Resultater for “${q}” på tværs af alle perioder</p><div class="wcards">${cards}</div>`
               :`<p class="whint">Ingen resultater for “${q}”. Prøv fx <b>tagpap</b>, <b>fugtspærre</b>, <b>bindere</b> eller <b>asbest</b>.</p>`;
+  } else if(wState.part!=='alle'){
+    let cards='';
+    WIKI.forEach(era=>{cards+=wCard(era,wState.part,true);});
+    html+=`<p class="wcount">${partNavn(wState.part)} gennem alle perioder — vælg evt. et årstal for kun at se én</p><div class="wcards">${cards}</div>`;
   } else {
-    html+=`<p class="whint">Skriv et <b>opførelsesår</b> ovenfor (fx 1974), vælg en <b>periode</b>, eller søg på et begreb —<br>så får du, hvordan husene blev bygget, og hvad du skal kigge efter.</p>`;
+    html+=`<p class="whint">Skriv et <b>opførelsesår</b> (fx 1974), tryk på <b>hus-tegningen</b>, vælg et <b>symptom</b> — eller søg.<br>Stiplede <span class="ord" data-ord="undertag">fagord</span> kan trykkes for en forklaring.</p>`;
   }
   body.innerHTML=html;
 }
@@ -756,10 +994,23 @@ function initWiki(){
   yr.addEventListener('input',()=>{
     const v=parseInt(yr.value,10);
     if(!isNaN(v)&&yr.value.length>=4){const era=yearToEra(v);if(era){wState.periode=era.id;}}
-    else if(yr.value===''){/* lad perioden stå */}
     renderWiki();
   });
   se.addEventListener('input',()=>{wState.q=se.value;renderWiki();});
+  // ordbog: klik på fagord (hele dokumentet) + knap + modal-luk
+  document.addEventListener('click',e=>{
+    const o=e.target.closest('.ord'); if(o){openOrd(o.dataset.ord);return;}
+    const a=e.target.closest('[data-act]');
+    if(a){ if(a.dataset.act==='luk') closeOrd(); else openOrd(null); return; }
+    if(e.target.id==='ordModal') closeOrd();
+    const g=e.target.closest('.wgoto');
+    if(g){ wState.part=g.dataset.goto; wState.symptom=null; renderWiki();
+      document.getElementById('whouse').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    const hs=e.target.closest('#whouseInner .hs');
+    if(hs){ wState.part=hs.dataset.part; wState.symptom=null; renderWiki(); return; }
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeOrd(); });
+  const ob=document.getElementById('wordbtn'); if(ob) ob.addEventListener('click',()=>openOrd(null));
   renderWiki();
 }
 initWiki();
