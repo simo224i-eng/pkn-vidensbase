@@ -249,6 +249,11 @@
   .ordterm{padding:10px 2px;border-top:1px solid var(--line);font-size:.9rem;cursor:pointer;}
   .ordterm:hover{background:var(--accent-soft);}
   .ordterm b{font-weight:650;}
+  .ordterm[data-open]{cursor:pointer;}
+  .ordsearch{position:sticky;top:0;z-index:2;width:100%;font:inherit;font-size:.92rem;padding:9px 12px;
+    border:1px solid var(--line-strong);border-radius:9px;background:#fff;color:var(--ink);margin:2px 0 6px;}
+  .ordsearch:focus{outline:none;border-color:var(--accent);box-shadow:0 2px 10px rgba(63,94,84,.1);}
+  .ordcount{font-size:.7rem;color:var(--ink-soft);margin:0 0 8px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;}
   .house-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px 8px;margin-bottom:16px;box-shadow:var(--shadow);}
   .house-wrap svg{width:100%;height:auto;display:block;}
   .house-wrap .hw-cap{font-size:.74rem;color:var(--ink-soft);text-align:center;margin-top:4px;}
@@ -495,7 +500,7 @@
     <p class="disclaimer">Vejledende byggeskik — overgange mellem perioder er glidende, og det enkelte hus kan afvige. Brug det som pejling på, hvad du skal kigge efter, ikke som facit for den konkrete ejendom.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v4.1 · juni 2026 · wiki med symptom-opslag, ordbog, hus-snit og levetidstabel</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v4.2 · juni 2026 · wiki med symptom-opslag, søgbar ordbog, hus-snit og levetidstabel</span></footer>
 </div>
 
 <script>
@@ -792,12 +797,29 @@ function openOrd(id){
       '<div class="oclose"><button class="btn" data-act="alle" type="button">Se alle begreber</button> '+
       '<button class="btn" data-act="luk" type="button">Luk</button></div>';
   }else{
-    const rows=Object.entries(ORDBOG).sort((a,b)=>a[1].t.localeCompare(b[1].t,'da'))
-      .map(([k,v])=>'<div class="ordterm"><b>'+v.t+'</b> — '+v.d+'</div>').join('');
-    B.innerHTML='<h4>Ordbog — byggeteknik på almindeligt dansk</h4>'+rows+
+    B.innerHTML='<h4>Ordbog — byggeteknik på almindeligt dansk</h4>'+
+      '<input id="ordSearch" class="ordsearch" type="text" placeholder="Søg i ordbogen — fx fugt, tag, revne…" autocomplete="off">'+
+      '<div class="ordcount" id="ordCount"></div><div id="ordList"></div>'+
       '<div class="oclose"><button class="btn" data-act="luk" type="button">Luk</button></div>';
+    renderOrdList('');
+    const si=document.getElementById('ordSearch');
+    si.addEventListener('input',()=>renderOrdList(si.value));
+    setTimeout(()=>si.focus(),30);
   }
   M.hidden=false;
+}
+function renderOrdList(q){
+  const list=document.getElementById('ordList'); if(!list) return;
+  const ql=(q||'').trim().toLowerCase();
+  let items=Object.entries(ORDBOG).sort((a,b)=>a[1].t.localeCompare(b[1].t,'da'));
+  if(ql) items=items.filter(([k,v])=>(v.t+' '+v.d).toLowerCase().includes(ql));
+  const esc=ql.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const hl=s=>{ if(!ql) return s; try{ return s.replace(new RegExp('('+esc+')','ig'),'<mark>$1</mark>'); }catch(_){ return s; } };
+  const cnt=document.getElementById('ordCount');
+  if(cnt) cnt.textContent=items.length+' af '+Object.keys(ORDBOG).length+' begreber';
+  list.innerHTML=items.length
+    ? items.map(([k,v])=>'<div class="ordterm" data-open="'+k+'"><b>'+hl(v.t)+'</b> — '+hl(v.d)+'</div>').join('')
+    : '<div class="wnone" style="padding:14px 2px">Ingen begreber matcher \u201c'+(q||'').trim()+'\u201d.</div>';
 }
 const LEVETID=[
  ['Tegltag (vingetegl)','60–100 år'],
@@ -1035,6 +1057,7 @@ function initWiki(){
   // ordbog: klik på fagord (hele dokumentet) + knap + modal-luk
   document.addEventListener('click',e=>{
     const o=e.target.closest('.ord'); if(o){openOrd(o.dataset.ord);return;}
+    const ot=e.target.closest('.ordterm[data-open]'); if(ot){openOrd(ot.dataset.open);return;}
     const a=e.target.closest('[data-act]');
     if(a){ if(a.dataset.act==='luk') closeOrd(); else openOrd(null); return; }
     if(e.target.id==='ordModal') closeOrd();
