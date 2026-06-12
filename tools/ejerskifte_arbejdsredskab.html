@@ -306,9 +306,8 @@
   </header>
 
   <nav class="tabs">
-    <button class="tab active" data-tab="tool">Guidet vurdering</button>
-    <button class="tab" data-tab="ref">Opslag &amp; begreber</button>
-    <button class="tab" data-tab="wiki">Byggeteknik-wiki</button>
+    <button class="tab active" data-tab="tool">Dækningsvurdering</button>
+    <button class="tab" data-tab="wiki">Byggeteknik</button>
     <button class="tab" data-tab="ordbogtab">Ordbog</button>
   </nav>
 
@@ -420,12 +419,10 @@
        </div>
      </aside>
     </div>
-    <p class="disclaimer">Redskabet er en struktureret huskeliste, der følger den almindelige analyserækkefølge — det erstatter ikke den konkrete police, rapporterne eller en byggeteknisk vurdering. Slå altid aktuelle paragraffer og beløb op i nyeste version på retsinformation.dk.</p>
-  </section>
-
-  <!-- ================= REFERENCE ================= -->
-  <section class="panel" id="ref">
-    <div class="ref-grid">
+    <details class="gv-exc" style="margin-top:6px">
+      <summary>📚 Baggrund &amp; begreber — skadebegreb, tidslinje, klageinstanser<span class="chev">▶</span></summary>
+      <div class="gv-excbody" style="padding-top:8px">
+      <div class="ref-grid">
 
       <div class="refcard">
         <h3>Skadesbegrebet — de fire betingelser</h3>
@@ -494,7 +491,12 @@
       </div>
 
     </div>
+      </div>
+    </details>
+    <p class="disclaimer">Redskabet er en struktureret huskeliste, der følger den almindelige analyserækkefølge — det erstatter ikke den konkrete police, rapporterne eller en byggeteknisk vurdering. Slå altid aktuelle paragraffer og beløb op i nyeste version på retsinformation.dk.</p>
   </section>
+
+  
 
   <!-- ================= BYGGETEKNIK-WIKI ================= -->
   <section class="panel" id="wiki">
@@ -504,7 +506,7 @@
       <div class="wikirow">
         <div class="fld year"><label for="wyear">Opførelsesår</label><input id="wyear" type="number" inputmode="numeric" placeholder="fx 1974" min="1700" max="2030"></div>
         <div class="fld search"><label for="wsearch">Søg i byggeteknikken</label><input id="wsearch" type="text" placeholder="fx tagpap, fugtspærre, bindere, asbest…"></div>
-        <div class="fld"><label>&nbsp;</label><button class="btn" id="wordbtn" type="button">📖 Ordbog</button> <button class="btn" id="wlevbtn" type="button">⏳ Levetider</button></div>
+        <div class="fld"><label>&nbsp;</label><button class="btn" id="wlevbtn" type="button">⏳ Levetider</button></div>
       </div>
       <div class="chips" id="wperiods"><span class="chips-lbl">Periode</span></div>
       <div class="chips" id="wparts"><span class="chips-lbl">Bygningsdel</span></div>
@@ -527,7 +529,7 @@
     <p class="disclaimer">Vejledende forklaringer og principtegninger — det konkrete hus kan afvige.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v5 · juni 2026 · ny Ordbog-tab (billed-katalog) · wiki · dækningsvurdering</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v6 · juni 2026 · 3 rene faner: Dækningsvurdering · Byggeteknik · Ordbog</span></footer>
 </div>
 
 <script>
@@ -817,36 +819,15 @@ function ordLink(html){
   }
   return html;
 }
+let _ordTerm='';
 function openOrd(id){
+  if(!id||!ORDBOG[id]) return;
+  _ordTerm=ORDBOG[id].t;
   const M=document.getElementById('ordModal'), B=document.getElementById('ordBox');
-  if(id&&ORDBOG[id]){
-    B.innerHTML='<h4>'+ORDBOG[id].t+'</h4><div class="odef">'+ORDBOG[id].d+'</div>'+
-      '<div class="oclose"><button class="btn" data-act="alle" type="button">Se alle begreber</button> '+
-      '<button class="btn" data-act="luk" type="button">Luk</button></div>';
-  }else{
-    B.innerHTML='<h4>Ordbog — byggeteknik på almindeligt dansk</h4>'+
-      '<input id="ordSearch" class="ordsearch" type="text" placeholder="Søg i ordbogen — fx fugt, tag, revne…" autocomplete="off">'+
-      '<div class="ordcount" id="ordCount"></div><div id="ordList"></div>'+
-      '<div class="oclose"><button class="btn" data-act="luk" type="button">Luk</button></div>';
-    renderOrdList('');
-    const si=document.getElementById('ordSearch');
-    si.addEventListener('input',()=>renderOrdList(si.value));
-    setTimeout(()=>si.focus(),30);
-  }
+  B.innerHTML='<h4>'+ORDBOG[id].t+'</h4><div class="odef">'+ORDBOG[id].d+'</div>'+
+    '<div class="oclose"><button class="btn" data-act="seord" type="button">Se i Ordbog →</button> '+
+    '<button class="btn" data-act="luk" type="button">Luk</button></div>';
   M.hidden=false;
-}
-function renderOrdList(q){
-  const list=document.getElementById('ordList'); if(!list) return;
-  const ql=(q||'').trim().toLowerCase();
-  let items=Object.entries(ORDBOG).sort((a,b)=>a[1].t.localeCompare(b[1].t,'da'));
-  if(ql) items=items.filter(([k,v])=>(v.t+' '+v.d).toLowerCase().includes(ql));
-  const esc=ql.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  const hl=s=>{ if(!ql) return s; try{ return s.replace(new RegExp('('+esc+')','ig'),'<mark>$1</mark>'); }catch(_){ return s; } };
-  const cnt=document.getElementById('ordCount');
-  if(cnt) cnt.textContent=items.length+' af '+Object.keys(ORDBOG).length+' begreber';
-  list.innerHTML=items.length
-    ? items.map(([k,v])=>'<div class="ordterm" data-open="'+k+'"><b>'+hl(v.t)+'</b> — '+hl(v.d)+'</div>').join('')
-    : '<div class="wnone" style="padding:14px 2px">Ingen begreber matcher \u201c'+(q||'').trim()+'\u201d.</div>';
 }
 const LEVETID=[
  ['Tegltag (vingetegl)','60–100 år'],
@@ -876,6 +857,12 @@ function openLevetid(){
     'Levetid er direkte relevant for <b>§ 4.7</b> (udløbet levetid) og <b>§ 4.8</b> (tagets restlevetid).</p>'+
     '<div class="oclose"><button class="btn" data-act="luk" type="button">Luk</button></div>';
   M.hidden=false;
+}
+function goOrdbog(term){
+  const t=document.querySelector('.tab[data-tab="ordbogtab"]'); if(t) t.click();
+  const si=document.getElementById('okSearch');
+  if(si){ si.value=term||''; okState.q=term||''; renderOk(); }
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 function closeOrd(){document.getElementById('ordModal').hidden=true;}
 
@@ -1058,7 +1045,7 @@ function renderWiki(){
     WIKI.forEach(era=>{cards+=wCard(era,wState.part,true);});
     html+=`<p class="wcount">${partNavn(wState.part)} gennem alle perioder — vælg evt. et årstal for kun at se én</p><div class="wcards">${cards}</div>`;
   } else {
-    html+=`<p class="whint">Skriv et <b>opførelsesår</b> (fx 1974), tryk på <b>hus-tegningen</b>, vælg et <b>symptom</b> — eller søg.<br>Stiplede <span class="ord" data-ord="undertag">fagord</span> kan trykkes for en forklaring.</p>`;
+    html+=`<p class="whint">Skriv et <b>opførelsesår</b> (fx 1974), tryk på <b>hus-tegningen</b>, vælg et <b>symptom</b> — eller søg.<br>Stiplede <span class="ord" data-ord="undertag">fagord</span> kan trykkes for en hurtig forklaring.</p>`;
   }
   body.innerHTML=html;
 }
@@ -1084,9 +1071,8 @@ function initWiki(){
   // ordbog: klik på fagord (hele dokumentet) + knap + modal-luk
   document.addEventListener('click',e=>{
     const o=e.target.closest('.ord'); if(o){openOrd(o.dataset.ord);return;}
-    const ot=e.target.closest('.ordterm[data-open]'); if(ot){openOrd(ot.dataset.open);return;}
     const a=e.target.closest('[data-act]');
-    if(a){ if(a.dataset.act==='luk') closeOrd(); else openOrd(null); return; }
+    if(a){ if(a.dataset.act==='seord'){ closeOrd(); goOrdbog(_ordTerm); } else { closeOrd(); } return; }
     if(e.target.id==='ordModal') closeOrd();
     const g=e.target.closest('.wgoto');
     if(g){ wState.part=g.dataset.goto; wState.symptom=null; renderWiki();
@@ -1095,7 +1081,6 @@ function initWiki(){
     if(hs){ wState.part=hs.dataset.part; wState.symptom=null; renderWiki(); return; }
   });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeOrd(); });
-  const ob=document.getElementById('wordbtn'); if(ob) ob.addEventListener('click',()=>openOrd(null));
   const lb=document.getElementById('wlevbtn'); if(lb) lb.addEventListener('click',openLevetid);
   renderWiki();
 }
