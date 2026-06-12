@@ -436,6 +436,16 @@ def render_quiz():
             f"<div class='bx-expl {cls}'><b>{head}</b> {md_html(q.get('forklaring', ''))}</div>",
             unsafe_allow_html=True,
         )
+        # Vis kortets diagram som forklaring (først efter der er svaret)
+        if kort.get("billede"):
+            uri = asset_data_uri(kort["billede"])
+            if uri:
+                cap = kort.get("billedtekst", "")
+                cap_html = f"<div class='bx-figcap'>{cap}</div>" if cap else ""
+                st.markdown(
+                    f"<div class='bx-fig'><img src='{uri}' alt=''/>{cap_html}</div>",
+                    unsafe_allow_html=True,
+                )
         sidste = qidx + 1 >= len(order)
         if st.button("Se resultat" if sidste else "Næste spørgsmål →",
                      use_container_width=True, type="primary"):
