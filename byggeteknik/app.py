@@ -133,6 +133,23 @@ def md_html(text: str) -> str:
     return text
 
 
+def fig_html(billede, cap) -> str:
+    """Returnér HTML for ét diagram med billedtekst (eller '' hvis intet)."""
+    if not billede:
+        return ""
+    uri = asset_data_uri(billede)
+    if not uri:
+        return ""
+    cap_html = f"<div class='bx-figcap'>{cap}</div>" if cap else ""
+    return f"<div class='bx-fig'><img src='{uri}' alt=''/>{cap_html}</div>"
+
+
+def kort_figurer(kort) -> str:
+    """Saml ét eller to diagrammer for et kort."""
+    return (fig_html(kort.get("billede"), kort.get("billedtekst", ""))
+            + fig_html(kort.get("billede2"), kort.get("billedtekst2", "")))
+
+
 @st.cache_data(show_spinner=False)
 def asset_data_uri(rel: str):
     """Indlæs et diagram fra assets/ som data-URI, så det kan ligge inde i kort-HTML'en."""
@@ -310,17 +327,11 @@ def render_flashcards():
             unsafe_allow_html=True,
         )
     else:
-        fig_html = ""
-        if kort.get("billede"):
-            uri = asset_data_uri(kort["billede"])
-            if uri:
-                cap = kort.get("billedtekst", "")
-                cap_html = f"<div class='bx-figcap'>{cap}</div>" if cap else ""
-                fig_html = f"<div class='bx-fig'><img src='{uri}' alt=''/>{cap_html}</div>"
+        figs = kort_figurer(kort)
         st.markdown(
             f"<div class='bx-card back'>{chip}"
             f"<div class='bx-side'>Spørgsmål</div><div class='bx-front sm'>{forside}</div>"
-            f"<div class='bx-side'>Svar</div><div class='bx-back'>{bagside}</div>{fig_html}</div>",
+            f"<div class='bx-side'>Svar</div><div class='bx-back'>{bagside}</div>{figs}</div>",
             unsafe_allow_html=True,
         )
 
@@ -436,16 +447,10 @@ def render_quiz():
             f"<div class='bx-expl {cls}'><b>{head}</b> {md_html(q.get('forklaring', ''))}</div>",
             unsafe_allow_html=True,
         )
-        # Vis kortets diagram som forklaring (først efter der er svaret)
-        if kort.get("billede"):
-            uri = asset_data_uri(kort["billede"])
-            if uri:
-                cap = kort.get("billedtekst", "")
-                cap_html = f"<div class='bx-figcap'>{cap}</div>" if cap else ""
-                st.markdown(
-                    f"<div class='bx-fig'><img src='{uri}' alt=''/>{cap_html}</div>",
-                    unsafe_allow_html=True,
-                )
+        # Vis kortets diagram(mer) som forklaring (først efter der er svaret)
+        figs = kort_figurer(kort)
+        if figs:
+            st.markdown(figs, unsafe_allow_html=True)
         sidste = qidx + 1 >= len(order)
         if st.button("Se resultat" if sidste else "Næste spørgsmål →",
                      use_container_width=True, type="primary"):
