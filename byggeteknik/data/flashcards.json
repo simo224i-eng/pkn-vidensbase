@@ -183,7 +183,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Puds er en mørtelbelægning (kalk/cement + sand + vand) som overflade på murværk."
-      }
+      },
+      "billede": "puds.svg",
+      "billedtekst": "Puds er et tyndt lag mørtel som overflade — det udjævner og beskytter muren."
     },
     {
       "id": 2,
@@ -203,7 +205,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Ældre murværk er muret i blød, diffusionsåben kalkmørtel. Hård cementmørtel kom bredt til senere."
-      }
+      },
+      "billede": "moertel_fuge.svg",
+      "billedtekst": "Mørtlen i fugerne binder stenene sammen og holder regnen ude."
     },
     {
       "id": 3,
@@ -223,7 +227,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Frostfasthed handler om, at sten med vand i porerne kan modstå frysning uden afskalning/frostsprængning."
-      }
+      },
+      "billede": "frostspraengning.svg",
+      "billedtekst": "En frostfast sten tåler vand + frost; en porøs sten skaller af."
     },
     {
       "id": 4,
@@ -265,7 +271,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Fugen binder murværket sammen, fordeler lasten og er murens vandtætning udadtil."
-      }
+      },
+      "billede": "moertel_fuge.svg",
+      "billedtekst": "Fugen er mørtlen mellem stenene — den binder og tætner muren."
     },
     {
       "id": 6,
@@ -285,7 +293,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Beton tåler tryk, men ikke træk. Armeringsjern optager trækket, så konstruktionen kan bære bøjning."
-      }
+      },
+      "billede": "jernbeton.svg",
+      "billedtekst": "Beton tåler tryk; armeringsjernet forneden optager trækket."
     },
     {
       "id": 7,
@@ -305,7 +315,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Porebeton er fyldt med luftporer (let + isolerende), men suger fugt og tåler ikke vedvarende vand."
-      }
+      },
+      "billede": "letbeton.svg",
+      "billedtekst": "Lette betontyper: porebeton (luftporer) og letklinker (Leca)."
     },
     {
       "id": 8,
@@ -413,7 +425,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Tagpap lægger en sammenhængende vandtæt membran og bruges derfor på flade/lavt hældende tage."
-      }
+      },
+      "billede": "tagpap.svg",
+      "billedtekst": "Tagpap: vandtæt membran på fladt tag — svagt ved samlinger, opkanter og UV."
     },
     {
       "id": 13,
@@ -433,7 +447,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Vingeteglen er den traditionelle danske tegltagsten af brændt ler."
-      }
+      },
+      "billede": "tagsten_typer.svg",
+      "billedtekst": "Tegl- og betontagsten — begge lægges på lægter med undertag."
     },
     {
       "id": 14,
@@ -456,7 +472,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Eternit fra før slutningen af 1980'erne er typisk asbestholdig — farlig ved bearbejdning/nedrivning."
-      }
+      },
+      "billede": "eternit.svg",
+      "billedtekst": "Eternit-bølgeplader; plader fra før 1986 indeholder typisk asbest."
     },
     {
       "id": 15,
@@ -840,7 +858,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Mange ældre tage er lagt uden undertag (eller kun fast bræddeundertag); regn forbi stenene kan derfor give problemer."
-      }
+      },
+      "billede": "tag_uden_undertag.svg",
+      "billedtekst": "Ældre tegltag lagt direkte på lægter — uden undertag."
     },
     {
       "id": 42,
@@ -950,7 +970,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Flade tagpaptage fejler typisk ved samlinger, opkanter og gennemføringer, og pappen nedbrydes af sol/UV."
-      }
+      },
+      "billede": "tagpap.svg",
+      "billedtekst": "Parcelhusenes flade tagpaptag — den klassiske skadeskandidat."
     },
     {
       "id": 62,
@@ -1014,7 +1036,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Tillægget der trådte i kraft 1. feb. 1979 strammede varmeisoleringskravene markant."
-      }
+      },
+      "billede": "undertag.svg",
+      "billedtekst": "Undertaget blev standard her — en ekstra vandskærm under tagstenene."
     },
     {
       "id": 71,
@@ -1057,7 +1081,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Energiruder med selektiv coating og ædelgas i mellemrummet blev standard for bedre isolering."
-      }
+      },
+      "billede": "dampspaerre.svg",
+      "billedtekst": "Tætheds- og fugtkrav skærpes — dampspærren bliver afgørende."
     },
     {
       "id": 81,
@@ -1100,7 +1126,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Lavenergihuse efter BR10/15/18 bruger typisk 3-lags energiruder for at minimere varmetab."
-      }
+      },
+      "billede": "ventilation.svg",
+      "billedtekst": "Lavenergihuset er lufttæt og ventileres mekanisk med varmegenvinding."
     },
     {
       "id": 91,
@@ -1120,7 +1148,9 @@
         ],
         "korrekt": 0,
         "forklaring": "I tætte huse fjerner anlægget fugten; svigter det, stiger luftfugtigheden og giver kondens/skimmel."
-      }
+      },
+      "billede": "ventilation.svg",
+      "billedtekst": "Anlægget suger fugtig luft ud, blæser frisk ind og genvinder varmen."
     },
     {
       "id": 100,
@@ -1140,7 +1170,9 @@
         ],
         "korrekt": 0,
         "forklaring": "BR61 var det første landsdækkende bygningsreglement; tidligere gjaldt separate byggelove for købstad og land."
-      }
+      },
+      "billede": "br_tidslinje.svg",
+      "billedtekst": "Bygningsreglementet er løbende skærpet — årstallet afgør, hvad der var krav."
     },
     {
       "id": 101,
@@ -1184,7 +1216,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Oliekriserne gjorde energibesparelse til et mål — derfor stramningen af isoleringskravene 1. feb. 1979."
-      }
+      },
+      "billede": "kuldebro.svg",
+      "billedtekst": "Mere isolering efter 1979 mindsker kuldebroer og kondens."
     },
     {
       "id": 103,
@@ -1206,7 +1240,9 @@
         ],
         "korrekt": 0,
         "forklaring": "Asbest blev udfaset gradvist fra 1972 og totalforbudt i 1986 — eternit kan være asbestholdig frem til da."
-      }
+      },
+      "billede": "asbest_tidslinje.svg",
+      "billedtekst": "Asbest udfaset: begrænset 1972, forbudt 1980 (ej eternit), totalforbud 1986."
     },
     {
       "id": 104,
