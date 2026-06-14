@@ -94,6 +94,38 @@ def detect_udfald_ejnar(titel: str, tekst: str) -> str:
     return "Ukendt"
 
 
+# ── Opførelsesår-detektion ────────────────────────────────────────────────────
+# Bygningens opførelsesår er ikke et selvstændigt felt i data, men nævnes i
+# ~85% af kendelserne i sagsfremstillingen ("ejendommen er opført i 1972",
+# "huset er opført i 1966", "opførelsestidspunkt i 1897"). Vi trækker det ud, så
+# der kan sorteres på det. Tager FØRSTE træffer (= selve ejendommen; evt.
+# til-/ombygninger nævnes typisk senere i teksten).
+_NU_ÅR = pd.Timestamp.now().year
+_OPF_ÅR = r'(1[6-9]\d{2}|20[0-2]\d)'          # 1600–2029
+_OPF_MØNSTRE = [
+    # ejendommen/huset/bygningen … (er) opført/fra … ÅR   (mest præcist)
+    re.compile(r'(?:ejendom|hus|bygning|bolig|parcelhus|villa|rækkehus|sommerhus)\w*'
+               r'[^.\n]{0,50}?\b(?:opført|fra)\b[^\n0-9]{0,14}?' + _OPF_ÅR, re.I),
+    re.compile(r'opførelses(?:tidspunkt|år)\w*[^\n0-9]{0,18}?' + _OPF_ÅR, re.I),
+    re.compile(r'bygge[\s-]?år[^\n0-9]{0,12}?' + _OPF_ÅR, re.I),
+    re.compile(r'\bopført\b[^\n0-9]{0,14}?' + _OPF_ÅR, re.I),   # bredt fallback
+]
+
+
+def detect_opførelsesår(tekst: str):
+    """Find bygningens opførelsesår i kendelsesteksten. Returnér int eller None."""
+    if not tekst:
+        return None
+    t = tekst[:12000]   # opførelsesåret står altid tidligt i sagsfremstillingen
+    for rx in _OPF_MØNSTRE:
+        m = rx.search(t)
+        if m:
+            år = int(m.group(1))
+            if 1600 <= år <= _NU_ÅR:
+                return år
+    return None
+
+
 # ── Data loading ──────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Indlæser kendelser…", ttl=None)
 def _læs_csv(sti: str) -> list:
@@ -173,13 +205,16 @@ def load_data(version: int = 1):
         df = pd.DataFrame(columns=[
             "Dato", "Titel", "Link", "Tekst", "Excerpt", "Sagsnummer",
             "Selskab", "Udfald", "Mangeltype", "Forsikringstype", "År",
+            "Opførelsesår",
         ])
         df["Dato"] = pd.to_datetime(df["Dato"], errors="coerce")
         df["År"] = pd.Series(dtype="Int64")
+        df["Opførelsesår"] = pd.Series(dtype="Int64")
         return df
 
     df["Dato"] = pd.to_datetime(df["Dato"], errors="coerce")
     df["År"] = df["Dato"].dt.year.astype("Int64")
+    df["Opførelsesår"] = df["Tekst"].apply(detect_opførelsesår).astype("Int64")
 
     # Auto-detect mangeltyper/udfald hvis CSV-felterne er tomme
     needs_mt = df["Mangeltype"].apply(lambda x: not x)
@@ -453,6 +488,16 @@ _filter_options = {
 _voyage_key_sat = bool(st.secrets.get("VOYAGE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", ""))
 _embeds_ok = embeds is not None
 
+# Sorterings-muligheder:  label → (kolonne, ascending)
+_SORT_OPTS = {
+    "Nyeste afgørelse":           ("Dato", False),
+    "Ældste afgørelse":           ("Dato", True),
+    "Opførelsesår – nyest først": ("Opførelsesår", False),
+    "Opførelsesår – ældst først": ("Opførelsesår", True),
+}
+_STD_SORT = "Nyeste afgørelse"
+
+
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(
@@ -485,8 +530,11 @@ with st.sidebar:
         år_min, år_max = int(df["År"].min()), int(df["År"].max())
     else:
         år_min, år_max = 2000, 2026
-    st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
+    st.markdown('<span class="h-filter-label">Årsinterval (afgørelse)</span>', unsafe_allow_html=True)
     år_range = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
+
+    st.markdown('<span class="h-filter-label">Sortér efter</span>', unsafe_allow_html=True)
+    sort_valg = st.selectbox("", list(_SORT_OPTS), label_visibility="collapsed", key="ejnar_sort")
 
     with st.expander("Flere filtre"):
         st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
@@ -563,6 +611,15 @@ else:
     df_vis = df_filter.sort_values("Dato", ascending=False)
     ai_sub_idx = sub_idx
 
+# Anvend den valgte sortering. Intelligent søgning bevarer sin relevans-
+# rækkefølge, medmindre brugeren aktivt vælger en anden sortering end standard.
+# Kendelser uden registreret opførelsesår (NaN) placeres altid til sidst.
+_sort_col, _sort_asc = _SORT_OPTS.get(sort_valg, _SORT_OPTS[_STD_SORT])
+_intelligent = bool(søg_input.strip()) and søge_type == "Intelligent"
+if not (_intelligent and sort_valg == _STD_SORT):
+    df_vis = df_vis.sort_values(_sort_col, ascending=_sort_asc, na_position="last")
+df_vis = df_vis.reset_index(drop=True)
+
 
 def build_download_text(data, søgeord=""):
     lines = [
@@ -575,11 +632,14 @@ def build_download_text(data, søgeord=""):
     for _, row in data.iterrows():
         dato = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
         mt = ", ".join(row.get("Mangeltype") or []) or "–"
+        _opf = row.get("Opførelsesår")
+        opf_str = str(int(_opf)) if pd.notna(_opf) else "–"
         lines += [
             f"KENDELSE:    {row['Titel']}",
             f"DATO:        {dato}",
             f"SAGSNR:      {row.get('Sagsnummer') or '–'}",
             f"SELSKAB:     {row.get('Selskab') or '–'}",
+            f"OPFØRT:      {opf_str}",
             f"UDFALD:      {row.get('Udfald') or '–'}",
             f"MANGELTYPE:  {mt}",
             f"KILDE:       {row['Link']}",
@@ -641,6 +701,14 @@ with tab_søg:
         }
         chip_s = chip_styles.get(udfald, "background:#f8fafc;color:#64748b;border-color:#e2e8f0")
         mt_str = " / ".join(row.get("Mangeltype") or []) or "–"
+        _opf = row.get("Opførelsesår")
+        _meta = [
+            ("Sagsnr.", row.get("Sagsnummer") or "–"),
+            ("Selskab", row.get("Selskab") or "–"),
+        ]
+        if pd.notna(_opf):
+            _meta.append(("Opført", str(int(_opf))))
+        _meta.append(("Mangeltype", mt_str))
 
         st.markdown(
             render_detail_header(
@@ -648,11 +716,7 @@ with tab_søg:
                 udfald=udfald,
                 chip_style=chip_s,
                 dato_str=dato_str,
-                meta_extra=[
-                    ("Sagsnr.", row.get("Sagsnummer") or "–"),
-                    ("Selskab", row.get("Selskab") or "–"),
-                    ("Mangeltype", mt_str),
-                ],
+                meta_extra=_meta,
                 link=row["Link"],
                 link_label="Åbn original på ankeforsikring.dk",
             ),
@@ -715,7 +779,8 @@ with tab_søg:
             st.markdown(f"**{hits}** resultater for \"{søg_input}\" · {tag} søgning "
                         f"(ud af {total:,} filtrerede)")
         else:
-            st.markdown(f"Viser {min(_vis_antal, hits)} af **{total:,}** kendelser (nyeste først)")
+            st.markdown(f"Viser {min(_vis_antal, hits)} af **{total:,}** kendelser · "
+                        f"sorteret efter {sort_valg.lower()}")
 
         if hits == 0:
             st.markdown(
@@ -741,6 +806,13 @@ with tab_søg:
                 ds = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 mt_label = " / ".join(row.get("Mangeltype") or []) or "–"
                 sel = row.get("Selskab") or "–"
+                _opf = row.get("Opførelsesår")
+                opf_chip = (
+                    f'<span style="display:inline-block;padding:2px 8px;border-radius:4px;'
+                    f'font-size:10.5px;font-weight:600;color:#8C1C2E;background:#fef2f2;'
+                    f'border:1px solid #fecaca;">🏠 Opført {int(_opf)}</span>'
+                    if pd.notna(_opf) else ""
+                )
                 titel_h = highlight_query(row["Titel"], _hl) if _hl else row["Titel"]
                 exc_h = highlight_query(row["Excerpt"], _hl, max_len=300) if _hl \
                         else (row["Excerpt"] + "…")
@@ -754,6 +826,7 @@ with tab_søg:
   <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
     <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{mt_label}</span>
     <span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:500;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;">{sel}</span>
+    {opf_chip}
   </div>
   <div style="font-size:12.5px;color:#64748b;line-height:1.6;">{exc_h}</div>
   <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">
