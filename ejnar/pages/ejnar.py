@@ -9,6 +9,7 @@ import re
 import csv
 import zipfile
 import io
+import html
 import glob as _glob
 import pandas as pd
 import numpy as np
@@ -531,7 +532,24 @@ with st.sidebar:
     else:
         år_min, år_max = 2000, 2026
     st.markdown('<span class="h-filter-label">Årsinterval (afgørelse)</span>', unsafe_allow_html=True)
-    år_range = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
+    år_range = st.slider("", år_min, år_max, (år_min, år_max),
+                         label_visibility="collapsed", key="ejnar_aar_range")
+
+    # Filter på bygningens opførelsesår (kun hvis vi har udtrukket årstal)
+    _opf_ser = df["Opførelsesår"].dropna() if "Opførelsesår" in df.columns else pd.Series(dtype="Int64")
+    opf_har_data = not _opf_ser.empty
+    if opf_har_data:
+        opf_min, opf_max = int(_opf_ser.min()), int(_opf_ser.max())
+        st.markdown('<span class="h-filter-label">Opførelsesår (bygningen)</span>', unsafe_allow_html=True)
+        opf_range = st.slider("", opf_min, opf_max, (opf_min, opf_max),
+                              label_visibility="collapsed", key="ejnar_opf_range")
+        st.markdown(
+            '<span style="font-size:10.5px;color:#64748b;line-height:1.4;display:block;margin-top:-6px;">'
+            'Kendelser uden registreret opførelsesår skjules, når intervallet indsnævres.</span>',
+            unsafe_allow_html=True,
+        )
+    else:
+        opf_min, opf_max, opf_range = 0, 0, (0, 0)
 
     st.markdown('<span class="h-filter-label">Sortér efter</span>', unsafe_allow_html=True)
     sort_valg = st.selectbox("", list(_SORT_OPTS), label_visibility="collapsed", key="ejnar_sort")
@@ -554,11 +572,12 @@ with st.sidebar:
             unsafe_allow_html=True,
         )
 
-    _har_filtre = bool(mangel_valg or selskab_valg or udfald_valg
-                       or søg_input.strip() or år_range != (år_min, år_max))
+    _opf_aktiv = opf_har_data and opf_range != (opf_min, opf_max)
+    _har_filtre = bool(mangel_valg or selskab_valg or udfald_valg or søg_input.strip()
+                       or år_range != (år_min, år_max) or _opf_aktiv)
     if _har_filtre:
         if st.button("Nulstil filtre", use_container_width=True, key="_ejnar_reset"):
-            for k in ["mt", "sel", "ud", "søge_type"]:
+            for k in ["mt", "sel", "ud", "søge_type", "ejnar_aar_range", "ejnar_opf_range"]:
                 if k in st.session_state:
                     del st.session_state[k]
             st.session_state["_ejnar_clear_soeg"] = True
@@ -583,6 +602,9 @@ if selskab_valg:
     mask &= df["Selskab"].isin(selskab_valg)
 if udfald_valg:
     mask &= df["Udfald"].isin(udfald_valg)
+if _opf_aktiv:
+    mask &= ((df["Opførelsesår"] >= opf_range[0]) &
+             (df["Opførelsesår"] <= opf_range[1])).fillna(False)
 
 df_filter = df[mask].reset_index(drop=True)
 sub_idx = df[mask].index.tolist()
@@ -761,11 +783,14 @@ with tab_søg:
             def _c(_v=_u): st.session_state["ud"] = [x for x in st.session_state.get("ud", []) if x != _v]
             _chips.append((f"Udfald: {_u}", _c))
         if år_range != (år_min, år_max):
-            def _c(): pass
-            _chips.append((f"År: {år_range[0]}–{år_range[1]}", _c))
+            def _c(): st.session_state.pop("ejnar_aar_range", None)
+            _chips.append((f"Afgørelsesår: {år_range[0]}–{år_range[1]}", _c))
+        if _opf_aktiv:
+            def _c(): st.session_state.pop("ejnar_opf_range", None)
+            _chips.append((f"Opført: {opf_range[0]}–{opf_range[1]}", _c))
         if _chips:
             def _clr_all():
-                for k in ["mt", "sel", "ud", "søge_type"]:
+                for k in ["mt", "sel", "ud", "søge_type", "ejnar_aar_range", "ejnar_opf_range"]:
                     if k in st.session_state:
                         del st.session_state[k]
                 st.session_state["_ejnar_clear_soeg"] = True
@@ -803,9 +828,10 @@ with tab_søg:
             _hl = søg_input.strip()
             for _, row in df_vis.head(_vis_antal).iterrows():
                 bs = _BADGE.get(row["Udfald"], _BADGE_DEF)
+                udfald_h = html.escape(row["Udfald"] or "")
                 ds = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
-                mt_label = " / ".join(row.get("Mangeltype") or []) or "–"
-                sel = row.get("Selskab") or "–"
+                mt_label = html.escape(" / ".join(row.get("Mangeltype") or []) or "–")
+                sel = html.escape(row.get("Selskab") or "–")
                 _opf = row.get("Opførelsesår")
                 opf_chip = (
                     f'<span style="display:inline-block;padding:2px 8px;border-radius:4px;'
@@ -813,14 +839,14 @@ with tab_søg:
                     f'border:1px solid #fecaca;">🏠 Opført {int(_opf)}</span>'
                     if pd.notna(_opf) else ""
                 )
-                titel_h = highlight_query(row["Titel"], _hl) if _hl else row["Titel"]
+                titel_h = highlight_query(row["Titel"], _hl) if _hl else html.escape(row["Titel"])
                 exc_h = highlight_query(row["Excerpt"], _hl, max_len=300) if _hl \
-                        else (row["Excerpt"] + "…")
+                        else (html.escape(row["Excerpt"]) + "…")
                 st.markdown(f"""
 <div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
     <span style="font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:.2px;">{ds}</span>
-    <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.1px;{bs}">{row['Udfald']}</span>
+    <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.1px;{bs}">{udfald_h}</span>
   </div>
   <div style="font-size:13.5px;font-weight:600;color:#0f172a;margin:0 0 8px;line-height:1.5;">{titel_h}</div>
   <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
@@ -867,14 +893,17 @@ with tab_stat:
     if d.empty:
         st.info("Ingen data at vise med de valgte filtre.")
     else:
-        k1, k2, k3, k4 = st.columns(4)
+        k1, k2, k3, k4, k5 = st.columns(5)
         pct_medhold = (d["Udfald"].isin(["Medhold", "Delvis medhold"])).mean() * 100
         år_span = f"{int(d['År'].min())}–{int(d['År'].max())}" if d["År"].notna().any() else "–"
+        _opf_kpi = d["Opførelsesår"].dropna()
+        opf_median = f"{int(_opf_kpi.median())}" if not _opf_kpi.empty else "–"
         for col, tal, label in [
             (k1, f"{len(d):,}", "Kendelser"),
             (k2, f"{pct_medhold:.0f}%", "Medhold-rate"),
             (k3, f"{d['Selskab'].replace('', np.nan).dropna().nunique()}", "Selskaber"),
-            (k4, år_span, "Årsinterval"),
+            (k4, år_span, "Afgørelsesår"),
+            (k5, opf_median, "Median opførelsesår"),
         ]:
             col.markdown(
                 f'<div class="stat-card"><div class="stat-number">{tal}</div>'
@@ -900,6 +929,24 @@ with tab_stat:
             fig2.update_layout(**_LAYOUT)
             fig2.update_traces(marker_line_width=0)
             st.plotly_chart(fig2, use_container_width=True)
+
+        # Bygningens opførelsesår — fordeling pr. årti
+        _opf_stat = d["Opførelsesår"].dropna()
+        if not _opf_stat.empty:
+            st.markdown("#### Kendelser efter bygningens opførelsesår")
+            _årti = (_opf_stat // 10 * 10).astype(int)
+            opf_df = (_årti.value_counts().rename_axis("Årti").reset_index(name="Antal")
+                      .sort_values("Årti"))
+            fig_opf = px.bar(opf_df, x="Årti", y="Antal",
+                             color_discrete_sequence=["#8C1C2E"],
+                             labels={"Årti": "Opførelsesårti", "Antal": "Kendelser"})
+            fig_opf.update_layout(**_LAYOUT)
+            fig_opf.update_traces(marker_line_width=0)
+            st.plotly_chart(fig_opf, use_container_width=True)
+            st.caption(
+                f"Opførelsesåret er udtrukket af kendelsesteksten for {len(_opf_stat):,} "
+                f"af {len(d):,} kendelser ({100*len(_opf_stat)/len(d):.0f}%)."
+            )
 
         col_a, col_b = st.columns(2)
         with col_a:
