@@ -1019,107 +1019,9 @@ with tab_ai:
                 "Hvordan bedømmes restlevetid på installationer?",
                 "Hvornår er en mangel undtaget pga. tilstandsrapporten?",
             ]
-        st.markdown('<div id="ai-forslag-anchor"></div>', unsafe_allow_html=True)
-        cols = st.columns(4)
-        for i, f in enumerate(forslag):
-            if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
-                st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
-                st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
-                ph = st.empty()
-                with st.spinner("Søger i kendelser…"):
-                    try:
-                        _, kilder = smart_retrieval(
-                            f, df, vec, mat, ai_sub_idx,
-                            st.session_state.chat_historik, embeds=embeds,
-                            filter_options=_filter_options,
-                        )
-                    except Exception:
-                        kilder = []
-                try:
-                    svar = claude_svar_stream(f, kilder,
-                                              historik=st.session_state.chat_historik,
-                                              placeholder=ph)
-                    try:
-                        suspekte = valider_citationer(svar, kilder)
-                    except Exception:
-                        suspekte = []
-                    if suspekte:
-                        punkter = "".join(
-                            f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
-                            for c in suspekte[:3]
-                        )
-                        svar = svar + (
-                            "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
-                            "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
-                            "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
-                            "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
-                            f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
-                        )
-                        ph.markdown(svar, unsafe_allow_html=True)
-                except Exception as e:
-                    svar = f"Fejl ved AI Assistent: {e}"
-                    ph.error(svar)
-                    kilder = []
-                af = st.session_state.pop("_ejnar_last_auto_filters", None)
-                st.session_state.chat_historik.append(
-                    {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})
-                st.rerun()
-
-        with st.form("chat_form", clear_on_submit=True):
-            spørgsmål = st.text_area("Dit spørgsmål", height=80,
-                                      placeholder="Hvad er Ankenævnets praksis for…?")
-            c1, c2 = st.columns([3, 1])
-            send = c1.form_submit_button("Send ➤", use_container_width=True, type="primary")
-            ryd = c2.form_submit_button("Ryd chat", use_container_width=True)
-
-        if ryd:
-            st.session_state.chat_historik = []
-            st.rerun()
-
-        if send and spørgsmål.strip():
-            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
-            ph = st.empty()
-            with st.spinner("Søger i kendelser…"):
-                try:
-                    _, kilder = smart_retrieval(
-                        spørgsmål, df, vec, mat, ai_sub_idx,
-                        st.session_state.chat_historik, embeds=embeds,
-                        filter_options=_filter_options,
-                    )
-                except Exception:
-                    kilder = []
-            try:
-                svar = claude_svar_stream(spørgsmål, kilder,
-                                          historik=st.session_state.chat_historik,
-                                          placeholder=ph)
-                try:
-                    suspekte = valider_citationer(svar, kilder)
-                except Exception:
-                    suspekte = []
-                if suspekte:
-                    punkter = "".join(
-                        f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
-                        for c in suspekte[:3]
-                    )
-                    svar = svar + (
-                        "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
-                        "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
-                        "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
-                        "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
-                        f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
-                    )
-                    ph.markdown(svar, unsafe_allow_html=True)
-            except Exception as e:
-                svar = f"Fejl ved AI Assistent: {e}"
-                ph.error(svar)
-                kilder = []
-            af = st.session_state.pop("_ejnar_last_auto_filters", None)
-            st.session_state.chat_historik.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})
-            st.rerun()
-
-        st.divider()
+        # Forslag-knapper + inputfelt er flyttet NED under chat-historikken (se
+        # nedenfor), så samtalen læses oppefra og ned, og man skriver i bunden
+        # som i en normal chat. forslag-listen bygges ovenfor og bruges dér.
 
         for msg_idx, msg in enumerate(st.session_state.chat_historik):
             if msg["rolle"] == "bruger":
@@ -1235,3 +1137,91 @@ with tab_ai:
                                     f'Åbn original kendelse på ankeforsikring.dk ↗</a>',
                                     unsafe_allow_html=True,
                                 )
+
+        # ── Et nyt svar streames ind her — i bunden af historikken, lige over
+        #    inputfeltet (som i en normal chat). ────────────────────────────────
+        _svar_ph = st.empty()
+
+        def _besvar(spm):
+            """Tilføj spørgsmål, stream svaret ind i bunden af historikken, rerun."""
+            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spm})
+            with _svar_ph.container():
+                st.markdown(
+                    '<div style="display:flex;justify-content:flex-end;margin:1rem 0 0.2rem;">'
+                    '<span style="font-size:10px;font-weight:700;color:#64748b;'
+                    'text-transform:uppercase;letter-spacing:1.2px;">Du</span></div>',
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    f'<div style="display:flex;justify-content:flex-end;">'
+                    f'<div class="chat-user">{spm}</div></div>',
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    '<div style="display:flex;align-items:center;gap:6px;margin:1rem 0 0.2rem;">'
+                    '<span style="font-size:10px;font-weight:600;color:#8C1C2E;'
+                    'text-transform:uppercase;letter-spacing:0.6px;">Ejnar</span></div>',
+                    unsafe_allow_html=True,
+                )
+                ph = st.empty()
+                with st.spinner("Søger i kendelser…"):
+                    try:
+                        _, kilder = smart_retrieval(
+                            spm, df, vec, mat, ai_sub_idx,
+                            st.session_state.chat_historik, embeds=embeds,
+                            filter_options=_filter_options,
+                        )
+                    except Exception:
+                        kilder = []
+                try:
+                    svar = claude_svar_stream(spm, kilder,
+                                              historik=st.session_state.chat_historik,
+                                              placeholder=ph)
+                    try:
+                        suspekte = valider_citationer(svar, kilder)
+                    except Exception:
+                        suspekte = []
+                    if suspekte:
+                        punkter = "".join(
+                            f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
+                            for c in suspekte[:3]
+                        )
+                        svar = svar + (
+                            "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
+                            "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
+                            "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
+                            "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
+                            f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
+                        )
+                        ph.markdown(svar, unsafe_allow_html=True)
+                except Exception as e:
+                    svar = f"Fejl ved AI Assistent: {e}"
+                    ph.error(svar)
+                    kilder = []
+            af = st.session_state.pop("_ejnar_last_auto_filters", None)
+            st.session_state.chat_historik.append(
+                {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})
+            st.rerun()
+
+        st.divider()
+
+        # Forslag (kontekst-afhængige hurtigspørgsmål) lige over inputfeltet
+        st.markdown('<div id="ai-forslag-anchor"></div>', unsafe_allow_html=True)
+        cols = st.columns(4)
+        for i, f in enumerate(forslag):
+            if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
+                _besvar(f)
+
+        with st.form("chat_form", clear_on_submit=True):
+            spørgsmål = st.text_area("Dit spørgsmål", height=80,
+                                      placeholder="Hvad er Ankenævnets praksis for…?")
+            c1, c2 = st.columns([3, 1])
+            send = c1.form_submit_button("Send ➤", use_container_width=True, type="primary")
+            ryd = c2.form_submit_button("Ryd chat", use_container_width=True)
+
+        if ryd:
+            st.session_state.chat_historik = []
+            st.rerun()
+
+        if send and spørgsmål.strip():
+            _besvar(spørgsmål)
