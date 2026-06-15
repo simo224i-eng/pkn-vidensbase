@@ -72,12 +72,14 @@ header[data-testid="stHeader"] button svg {
 
 /* ── Sidebar (flad mørk) ── */
 [data-testid="stSidebar"] { background: #0f172a !important; border-right: 1px solid #1e293b; }
-[data-testid="stSidebar"] *:not(.material-symbols-rounded):not(.material-symbols-rounded *) {
+[data-testid="stSidebar"] *:not(.material-symbols-rounded):not(.material-symbols-rounded *):not([data-testid="stIconMaterial"]):not([data-testid="stExpanderToggleIcon"]) {
     color: #cbd5e1 !important;
     font-family: 'Inter', sans-serif !important;
 }
 [data-testid="stSidebar"] .material-symbols-rounded,
-[data-testid="stSidebar"] [class*="material-symbols"] {
+[data-testid="stSidebar"] [class*="material-symbols"],
+[data-testid="stSidebar"] [data-testid="stIconMaterial"],
+[data-testid="stSidebar"] [data-testid="stExpanderToggleIcon"] {
     font-family: 'Material Symbols Rounded' !important;
     font-feature-settings: 'liga' !important;
     -webkit-font-feature-settings: 'liga' !important;
