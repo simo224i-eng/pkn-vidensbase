@@ -1102,12 +1102,24 @@ function okCard(e,q){
     '<div class=\"okrow\"><b>Hvad:</b> '+okHi(e.hvad,q)+'</div>'+
     '<div class=\"okrow\"><b>Hvor:</b> '+okHi(e.hvor,q)+'</div></div>';
 }
+function okMatch(e,q){
+  // Bøjnings-tolerant søgning: hvert søgeord skal matche. Et ord matcher som
+  // delstreng (fugt → fugtskjolder) ELLER hvis et ord i opslaget er en stamme af
+  // søgeordet (sålbænk → sålbænke, fuge → fuger, vindue → vinduer).
+  const hay=(e.navn+' '+e.hvad+' '+e.hvor).toLowerCase();
+  const words=hay.split(/[^0-9a-zæøåäöü]+/).filter(Boolean);
+  const terms=q.split(/\s+/).filter(Boolean);
+  return terms.every(t=>{
+    if(hay.indexOf(t)>=0) return true;
+    return words.some(w=> w.length>=4 && t.length>w.length && t.indexOf(w)===0);
+  });
+}
 function renderOk(){
   const cc=document.getElementById('okCats'); if(!cc) return;
   cc.innerHTML='';
   OK_CATS.forEach(([id,lab])=>{ const b=document.createElement('button'); b.className='chip'+(okState.kat===id?' active':''); b.textContent=lab; b.addEventListener('click',()=>{okState.kat=id;renderOk();}); cc.appendChild(b); });
   const q=okState.q.trim().toLowerCase();
-  let items=ORDKAT.filter(e=>(okState.kat==='alle'||e.kat===okState.kat) && (!q || (e.navn+' '+e.hvad+' '+e.hvor).toLowerCase().includes(q)));
+  let items=ORDKAT.filter(e=>(okState.kat==='alle'||e.kat===okState.kat) && (!q || okMatch(e,q)));
   items.sort((a,b)=>a.navn.localeCompare(b.navn,'da'));
   document.getElementById('okCount').textContent=items.length+' opslag';
   const g=document.getElementById('okGrid');
