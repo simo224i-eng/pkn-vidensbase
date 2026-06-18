@@ -547,7 +547,7 @@
     <p class="disclaimer">Vejledende forklaringer og principtegninger — det konkrete hus kan afvige.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v11 · juni 2026 · ordbog: 175 opslag, 140 med tegning</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v12 · juni 2026 · ordbog: 175 opslag · ord-baseret søgning</span></footer>
 </div>
 
 <script>
@@ -1121,21 +1121,24 @@ function okCard(e,q,i){
     '<div class=\"okrow\"><b>Hvad:</b> '+okHi(e.hvad,q)+'</div>'+
     '<div class=\"okrow\"><b>Hvor:</b> '+okHi(e.hvor,q)+'</div></div>';
 }
-const OK_END=new Set(['e','r','er','en','et','ne','ene','erne','s','rne','et','ene']);
-const OK_ENDARR=['erne','ene','rne','er','en','et','ne','e','r','s'];
+const OK_ENDARR=['erne','ene','rne','ere','ede','er','en','et','ne','e','r','s'];
+function okStem(w){
+  for(const end of OK_ENDARR){ if(w.endsWith(end) && w.length-end.length>=4) return w.slice(0,-end.length); }
+  return w;
+}
 function okMatch(e,q){
-  // Bøjnings-tolerant søgning: hvert søgeord skal matche. Et ord matcher som
-  // delstreng, eller ved at afkorte søgeordet til dets stamme, eller hvis et ord
-  // i opslaget er stammen (sålbænk → sålbænke, galvaniseret → galvaniserede).
-  const hay=(e.navn+' '+e.hvad+' '+e.hvor).toLowerCase();
-  const words=hay.split(/[^0-9a-zæøåäöü]+/).filter(Boolean);
-  const terms=q.split(/\s+/).filter(Boolean);
-  return terms.every(t=>{
-    if(hay.indexOf(t)>=0) return true;                  // direkte delstreng
-    // søgeordets stamme (uden dansk endelse) som delstreng (galvaniseret → galvaniser)
-    for(const end of OK_ENDARR){ if(t.endsWith(end) && t.length-end.length>=3 && hay.indexOf(t.slice(0,-end.length))>=0) return true; }
-    // eller: et ord i opslaget er stammen, og søgeordet føjer kun en dansk endelse på
-    return words.some(w=> w.length>=4 && t.length>w.length && t.indexOf(w)===0 && OK_END.has(t.slice(w.length)));
+  // Ord-baseret, bøjnings-tolerant søgning. Et søgeord matcher, hvis det optræder
+  // som delstreng i ET ord i opslaget (fuge → dilatationsfuge), eller deler stamme
+  // med et ord (vinduer ↔ vindue, sålbænke ↔ sålbænk). 'fuge' rammer IKKE 'fugt'.
+  const words = e._w || (e._w = (e.navn+' '+e.hvad+' '+e.hvor).toLowerCase().split(/[^0-9a-zæøåäöü]+/).filter(Boolean));
+  return q.split(/\s+/).filter(Boolean).every(t=>{
+    const ts=okStem(t);
+    return words.some(w=>{
+      if(w.indexOf(t)>=0) return true;                 // søgeordet som delstreng i ordet
+      if(t.length>=4 && w.indexOf(ts)===0) return true; // ordet starter med søgeordets stamme
+      const ws=okStem(w);
+      return ws.length>=4 && ws===ts;                  // fælles stamme (bøjninger)
+    });
   });
 }
 function okEmpty(q){
