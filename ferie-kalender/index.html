@@ -185,7 +185,8 @@
     width:40px;height:40px;cursor:pointer}
   .emoji-row button.sel{border-color:var(--sea);background:#e8f2f3}
 
-  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:40px}
+  .bottom-bar{display:flex;gap:10px;justify-content:center;margin-top:36px}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
   footer a{color:var(--sea-dark)}
   .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
   .legend span{display:inline-flex;align-items:center;gap:5px}
@@ -260,7 +261,6 @@
     <h1 id="tripTitle">Vores ferie på Korfu</h1>
     <div class="sub" id="tripSub">Sol, hav og hinanden 🇬🇷</div>
     <div class="countdown" id="countdown"></div>
-    <div class="legend" id="legend"></div>
   </header>
 
   <div class="polaroids">
@@ -277,16 +277,13 @@
   </div>
 
   <div class="toolbar">
-    <div class="who-filter" id="whoFilter"></div>
+    <button class="btn btn-primary" onclick="openEvent()">＋ Ny aktivitet</button>
+    <button class="btn btn-ghost" onclick="document.getElementById('spisesteder').scrollIntoView({behavior:'smooth'})">🍽️ Spisesteder</button>
     <div class="spacer"></div>
     <div class="view-toggle">
       <button id="vAgenda" class="active" onclick="setView('agenda')">📋 Dagsplan</button>
       <button id="vList" onclick="setView('list')">🗒️ Liste</button>
     </div>
-    <button class="btn btn-primary" onclick="openEvent()">＋ Ny aktivitet</button>
-    <button class="btn btn-ghost" onclick="document.getElementById('spisesteder').scrollIntoView({behavior:'smooth'})">🍽️ Spisesteder</button>
-    <button class="btn btn-ghost" onclick="openSettings()">⚙️</button>
-    <button class="btn btn-ghost" onclick="shareTrip()">🔗 Del</button>
   </div>
 
   <div id="schedule"></div>
@@ -302,13 +299,18 @@
   <p class="section-sub">En blanding af ting at lave sammen og hver for sig. Klik på et kort for at vælge en dag.</p>
   <div class="ideas" id="ideas"></div>
 
+  <div class="bottom-bar">
+    <button class="btn btn-ghost" onclick="openSettings()">⚙️ Indstillinger</button>
+    <button class="btn btn-ghost" onclick="shareTrip()">🔗 Del</button>
+  </div>
+
   <footer>
     Lavet med ❤️ til en dejlig ferie ·
     <a href="#" onclick="exportData();return false">Eksportér</a> ·
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 8</div>
+    <div class="ver">version 9</div>
   </footer>
 </div>
 
@@ -322,10 +324,6 @@
       <div class="field">
         <label>Hvad skal I lave?</label>
         <input id="fTitle" placeholder="fx Frokost ved havnen" />
-      </div>
-      <div class="field">
-        <label>Hvem?</label>
-        <div class="who-pick" id="fWho"></div>
       </div>
       <div class="field">
         <label>Dato</label>
@@ -377,14 +375,6 @@
       <div class="row2">
         <div class="field"><label>Afrejse</label><input id="sStart" type="date" /></div>
         <div class="field"><label>Hjemkomst</label><input id="sEnd" type="date" /></div>
-      </div>
-      <div class="row2">
-        <div class="field"><label>Person 1 – navn</label><input id="sNameA" /></div>
-        <div class="field"><label>Farve</label><input id="sColorA" type="color" /></div>
-      </div>
-      <div class="row2">
-        <div class="field"><label>Person 2 – navn</label><input id="sNameB" /></div>
-        <div class="field"><label>Farve</label><input id="sColorB" type="color" /></div>
       </div>
 
       <hr style="border:none;border-top:1px solid var(--line);margin:18px 0" id="syncAnchor"/>
@@ -748,11 +738,6 @@ function renderHeader(){
   }else{
     cd.innerHTML = `<div class="cd-box"><b>💛</b><span>Minder for livet</span></div>`;
   }
-
-  document.getElementById('legend').innerHTML =
-    `<span><i class="dot" style="background:${state.people.A.color}"></i>${state.people.A.name}</span>
-     <span><i class="dot" style="background:${state.people.B.color}"></i>${state.people.B.name}</span>
-     <span><i class="dot" style="background:${getCSS('--both')}"></i>Sammen</span>`;
 }
 
 function renderFilter(){
@@ -770,8 +755,7 @@ function renderFilter(){
 }
 
 function visibleEvents(){
-  return state.events.filter(e=> filter==="all" ? true :
-         filter==="both" ? e.who==="both" : e.who===filter );
+  return state.events;
 }
 
 function renderSchedule(){
@@ -815,15 +799,13 @@ function cmpEvent(a,b){
 }
 
 function eventRow(e, showDate){
-  const col = whoColor(e.who);
   const dateLbl = showDate ? (()=>{const d=parse(e.date);return `${d.getDate()}/${d.getMonth()+1}`;})() : "";
   const endBit = e.endTime ? `<br><span style="font-weight:400;font-size:11px">– ${e.endTime}</span>` : "";
   return `<div class="event">
     <div class="time">${showDate?dateLbl+"<br>":""}${e.time||"—"}${endBit}</div>
-    <div class="bar" style="background:${col}"></div>
+    <div class="bar" style="background:var(--sea)"></div>
     <div class="body">
-      <div class="etitle">${e.emoji||"📍"} ${escapeHtml(e.title)}
-        <span class="badge" style="background:${col}">${whoLabel(e.who)}</span></div>
+      <div class="etitle">${e.emoji||"📍"} ${escapeHtml(e.title)}</div>
       ${e.loc?`<div class="eloc">📍 ${escapeHtml(e.loc)}</div>`:""}
       ${e.notes?`<div class="enotes">${escapeHtml(e.notes)}</div>`:""}
       <div class="row-actions">
@@ -859,9 +841,7 @@ const IDEAS = [
 ];
 function renderIdeas(){
   document.getElementById('ideas').innerHTML = IDEAS.map((x,i)=>{
-    const tag = x.who==="both"?"Sammen":x.who==="A"?"Hver for sig":"Hver for sig";
     return `<div class="idea" onclick="addIdea(${i})">
-      <span class="tag">${tag}</span>
       <div class="ico">${x.ico}</div>
       <h4>${x.t}</h4>
       <p>${x.p}</p>
@@ -874,7 +854,6 @@ function addIdea(i){
   openEvent();
   document.getElementById('fTitle').value = x.t;
   document.getElementById('fNotes').value = x.p;
-  setWho(x.who);
   setEmoji(x.ico);
 }
 
@@ -907,7 +886,7 @@ function setWho(w){
 }
 function openEvent(id, presetDate){
   editingId = id||null;
-  buildWhoPicker(); buildEmojiPicker();
+  buildEmojiPicker();
   if(id){
     const e = state.events.find(x=>x.id===id);
     document.getElementById('eventModalTitle').textContent="Redigér aktivitet";
@@ -917,7 +896,7 @@ function openEvent(id, presetDate){
     document.getElementById('fEnd').value=e.endTime||"";
     document.getElementById('fLoc').value=e.loc;
     document.getElementById('fNotes').value=e.notes;
-    setWho(e.who); setEmoji(e.emoji);
+    setEmoji(e.emoji);
   }else{
     document.getElementById('eventModalTitle').textContent="Ny aktivitet";
     document.getElementById('fTitle').value="";
@@ -926,7 +905,7 @@ function openEvent(id, presetDate){
     document.getElementById('fEnd').value="";
     document.getElementById('fLoc').value="";
     document.getElementById('fNotes').value="";
-    setWho("both"); setEmoji("📍");
+    setEmoji("📍");
   }
   // begræns datoer til ferien
   document.getElementById('fDate').min=state.start;
@@ -940,7 +919,6 @@ function saveEvent(){
   if(!title){ document.getElementById('fTitle').focus(); return; }
   const obj={
     title,
-    who:pickWho,
     date:document.getElementById('fDate').value||state.start,
     time:document.getElementById('fTime').value,
     endTime:document.getElementById('fEnd').value,
@@ -969,10 +947,6 @@ function openSettings(section){
   document.getElementById('sSub').value=state.sub;
   document.getElementById('sStart').value=state.start;
   document.getElementById('sEnd').value=state.end;
-  document.getElementById('sNameA').value=state.people.A.name;
-  document.getElementById('sColorA').value=state.people.A.color;
-  document.getElementById('sNameB').value=state.people.B.name;
-  document.getElementById('sColorB').value=state.people.B.color;
   // sync-felter
   const cfg=loadSyncCfg();
   document.getElementById('sTripCode').value = cfg?cfg.tripCode:"";
@@ -991,10 +965,6 @@ function saveSettings(){
   if(ns) state.start=ns;
   if(ne) state.end=ne;
   if(parse(state.end)<parse(state.start)) state.end=state.start;
-  state.people.A.name=document.getElementById('sNameA').value.trim()||"Person 1";
-  state.people.A.color=document.getElementById('sColorA').value;
-  state.people.B.name=document.getElementById('sNameB').value.trim()||"Person 2";
-  state.people.B.color=document.getElementById('sColorB').value;
   save(); closeSettings(); applyColors(); renderAll();
 }
 
@@ -1051,7 +1021,7 @@ function setView(v){
 function setFilter(f){ filter=f; renderFilter(); renderSchedule(); }
 
 function renderAll(){
-  applyColors(); renderHeader(); renderFilter(); renderSchedule(); renderPlaces(); renderIdeas();
+  applyColors(); renderHeader(); renderSchedule(); renderPlaces(); renderIdeas();
 }
 
 /* ─────────────────────────────────────────────────────────────
