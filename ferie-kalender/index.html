@@ -5,28 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Vores ferie · Korfu 🇬🇷</title>
 <link rel="manifest" href="manifest.webmanifest" />
-<meta name="theme-color" content="#1d9bb8" />
+<meta name="theme-color" content="#3f93a4" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Ferie" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="icon" href="icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <!-- Firebase (compat) – kun til valgfri live-synkronisering -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
   :root{
-    --bg:#f4f1ea;
-    --paper:#fffdf8;
-    --ink:#1f2d3d;
-    --muted:#7a8a99;
-    --line:#e7e1d4;
-    --sea:#1d9bb8;        /* Det Ioniske Hav */
-    --sea-dark:#13768c;
-    --olive:#7a8c4e;
-    --sun:#f3a712;
-    --terracotta:#d2603a;
-    --shadow:0 8px 30px rgba(31,45,61,.10);
+    --bg:#f3f1ec;
+    --paper:#fffefb;
+    --ink:#2a343d;
+    --muted:#8a939b;
+    --line:#e8e4db;
+    --sea:#3f93a4;        /* afdæmpet Ionisk hav */
+    --sea-dark:#2d7080;
+    --olive:#7d8c62;
+    --sun:#e0a64a;       /* blød amber – bruges sparsomt */
+    --terracotta:#c5694a;
+    --shadow:0 8px 26px rgba(42,52,61,.08);
     --radius:18px;
     /* personfarver – overskrives af opsætning */
     --pA:#1d9bb8;
@@ -36,34 +39,39 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{
-    font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+    font-family:"Poppins","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
     background:
-      radial-gradient(1200px 500px at 80% -10%, #cdeaf1 0%, rgba(205,234,241,0) 60%),
-      radial-gradient(900px 400px at -10% 0%, #f7e6cf 0%, rgba(247,230,207,0) 55%),
+      radial-gradient(1200px 500px at 80% -10%, #dcebee 0%, rgba(220,235,238,0) 60%),
+      radial-gradient(900px 400px at -10% 0%, #f1e7d8 0%, rgba(241,231,216,0) 55%),
       var(--bg);
     color:var(--ink);
     line-height:1.5;
     min-height:100vh;
+    -webkit-font-smoothing:antialiased;
   }
+  .serif{font-family:"Fraunces","Georgia",serif}
   .wrap{max-width:1080px;margin:0 auto;padding:24px 18px 80px}
 
   /* ── Header ──────────────────────────────────────────── */
   header.hero{
-    background:linear-gradient(135deg,var(--sea) 0%, var(--sea-dark) 100%);
-    color:#fff;border-radius:var(--radius);padding:26px 28px;
-    box-shadow:var(--shadow);position:relative;overflow:hidden;
+    background:
+      radial-gradient(600px 200px at 15% 0%, rgba(255,255,255,.14), transparent 70%),
+      linear-gradient(135deg,#4f9aa8 0%, var(--sea) 50%, var(--sea-dark) 100%);
+    color:#fff;border-radius:24px;padding:28px 30px;
+    box-shadow:0 12px 34px rgba(45,112,128,.22);position:relative;overflow:hidden;
   }
   header.hero::after{
-    content:"🏖️";position:absolute;right:18px;bottom:-12px;font-size:120px;opacity:.18;
+    content:"🏖️";position:absolute;right:18px;bottom:-14px;font-size:128px;opacity:.16;
     transform:rotate(-8deg);
   }
+  .hero h1{font-family:"Fraunces","Georgia",serif}
   .sync-pill{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.18);
     border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer;
     display:inline-flex;align-items:center;gap:7px;z-index:2;backdrop-filter:blur(4px)}
   .sync-pill .led{width:9px;height:9px;border-radius:50%;background:#cbd5e1}
   .sync-pill.live .led{background:#34d399;box-shadow:0 0 0 3px rgba(52,211,153,.3)}
   .sync-pill.err .led{background:#f87171}
-  .hero h1{margin:0;font-size:30px;letter-spacing:.3px;font-weight:800;padding-right:90px}
+  .hero h1{margin:0;font-size:33px;letter-spacing:.2px;font-weight:600;padding-right:90px;line-height:1.12}
   .hero .sub{opacity:.92;margin-top:4px;font-size:15px}
   .countdown{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
   .cd-box{background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:12px;
@@ -87,8 +95,8 @@
     border:none;border-radius:999px;padding:9px 16px;cursor:pointer;font-size:13px;
     font-weight:700;display:inline-flex;align-items:center;gap:7px;transition:.15s;
   }
-  .btn-primary{background:var(--sun);color:#3a2c00}
-  .btn-primary:hover{filter:brightness(1.05)}
+  .btn-primary{background:var(--sea);color:#fff}
+  .btn-primary:hover{background:var(--sea-dark)}
   .btn-ghost{background:var(--paper);border:1px solid var(--line);color:var(--ink)}
   .btn-ghost:hover{border-color:var(--sea)}
   .view-toggle{display:flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
@@ -111,7 +119,7 @@
   .day-meta{color:var(--muted);font-size:13px}
   .day-add{margin-left:auto;background:transparent;border:1px dashed var(--line);border-radius:10px;
     padding:7px 12px;cursor:pointer;font-weight:700;font-size:12px;color:var(--muted)}
-  .day-add:hover{border-color:var(--sun);color:var(--terracotta)}
+  .day-add:hover{border-color:var(--sea);color:var(--sea-dark)}
   .events{padding:8px 12px 12px}
   .event{
     display:flex;gap:12px;align-items:flex-start;padding:11px 10px;border-radius:12px;
@@ -136,18 +144,18 @@
   .empty-day{color:var(--muted);font-size:13px;padding:10px;text-align:center;font-style:italic}
 
   /* ── Idé-bibliotek ───────────────────────────────────── */
-  .section-title{font-weight:800;font-size:18px;margin:30px 0 8px;display:flex;align-items:center;gap:8px}
+  .section-title{font-family:"Fraunces","Georgia",serif;font-weight:600;font-size:23px;margin:34px 0 6px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
   .section-sub{color:var(--muted);font-size:14px;margin:0 0 14px}
   .ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
   .idea{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;
     box-shadow:var(--shadow);cursor:pointer;transition:.15s;position:relative}
-  .idea:hover{transform:translateY(-3px);border-color:var(--sun)}
+  .idea:hover{transform:translateY(-3px);border-color:var(--sea)}
   .idea .ico{font-size:26px}
   .idea h4{margin:6px 0 3px;font-size:15px}
   .idea p{margin:0;color:var(--muted);font-size:12.5px}
   .idea .tag{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;text-transform:uppercase;
     letter-spacing:.4px;color:var(--olive)}
-  .idea .add-hint{margin-top:8px;font-size:11px;font-weight:800;color:var(--terracotta);opacity:0;transition:.15s}
+  .idea .add-hint{margin-top:8px;font-size:11px;font-weight:800;color:var(--sea-dark);opacity:0;transition:.15s}
   .idea:hover .add-hint{opacity:1}
 
   /* ── Modal ───────────────────────────────────────────── */
@@ -175,7 +183,7 @@
   .emoji-row{display:flex;gap:6px;flex-wrap:wrap}
   .emoji-row button{font-size:18px;border:1px solid var(--line);background:#fff;border-radius:10px;
     width:40px;height:40px;cursor:pointer}
-  .emoji-row button.sel{border-color:var(--sun);background:#fff6e0}
+  .emoji-row button.sel{border-color:var(--sea);background:#e8f2f3}
 
   footer{text-align:center;color:var(--muted);font-size:12px;margin-top:40px}
   footer a{color:var(--sea-dark)}
@@ -183,10 +191,62 @@
   .legend span{display:inline-flex;align-items:center;gap:5px}
   .legend .dot{width:11px;height:11px;border-radius:50%}
 
+  /* ── Polaroid-billedstrip ────────────────────────────── */
+  .polaroids{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0 4px}
+  .polaroid{background:#fff;padding:10px 10px 14px;border-radius:8px;
+    box-shadow:0 10px 26px rgba(31,45,61,.16);cursor:pointer;transition:.2s;
+    width:160px;position:relative}
+  .polaroid:nth-child(1){transform:rotate(-3deg)}
+  .polaroid:nth-child(2){transform:rotate(2.5deg)}
+  .polaroid:hover{transform:rotate(0) translateY(-4px) scale(1.02);z-index:3}
+  .polaroid img{width:100%;height:190px;object-fit:cover;border-radius:4px;display:block;background:#eee}
+  .polaroid .cap{text-align:center;font-family:"Fraunces","Georgia",serif;font-size:14px;
+    color:var(--ink);margin-top:8px}
+  .pol-tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-4deg);
+    width:60px;height:20px;background:rgba(63,147,164,.28);border-radius:2px}
+
+  /* ── Spisesteder ─────────────────────────────────────── */
+  .places{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px}
+  .place{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px 16px;
+    box-shadow:var(--shadow);position:relative;transition:.15s}
+  .place:hover{border-color:var(--sea);transform:translateY(-2px)}
+  .place .ptop{display:flex;align-items:flex-start;gap:10px}
+  .place .pico{font-size:26px;line-height:1;flex:0 0 auto}
+  .place h4{margin:0;font-size:16px;font-weight:700}
+  .place .parea{color:var(--muted);font-size:12.5px;margin-top:1px}
+  .pbadges{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
+  .pbadge{font-size:11.5px;font-weight:700;color:var(--sea-dark);background:rgba(47,150,170,.12);
+    border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .place .pnote{color:var(--ink);opacity:.78;font-size:13px;margin-top:9px;line-height:1.45}
+  .place .pfoot{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+  .place .plink{font-size:12.5px;font-weight:700;color:var(--sea-dark);text-decoration:none;
+    display:inline-flex;align-items:center;gap:4px}
+  .place .pfav{position:absolute;top:12px;right:13px;font-size:18px;cursor:pointer;
+    background:none;border:none;opacity:.35;transition:.15s}
+  .place .pfav.on{opacity:1}
+  .place .pfav:hover{opacity:1;transform:scale(1.15)}
+  .place-empty{grid-column:1/-1;color:var(--muted);font-size:14px;text-align:center;
+    padding:26px;border:1.5px dashed var(--line);border-radius:16px;font-style:italic}
+  .add-place-card{display:flex;align-items:center;justify-content:center;gap:8px;
+    border:1.5px dashed var(--sea);background:rgba(29,155,184,.05);color:var(--sea-dark);
+    border-radius:16px;font-weight:700;font-size:14px;cursor:pointer;min-height:96px}
+  .add-place-card:hover{background:rgba(29,155,184,.1)}
+
+  /* ── Lightbox ────────────────────────────────────────── */
+  #lightbox{position:fixed;inset:0;background:rgba(15,23,32,.9);display:none;
+    align-items:center;justify-content:center;z-index:60;padding:20px}
+  #lightbox.show{display:flex}
+  #lightbox img{max-width:100%;max-height:90vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+
+  .ver{opacity:.5;font-size:10px;letter-spacing:.4px}
+
   @media(max-width:560px){
-    .hero h1{font-size:24px}
+    .wrap{padding:16px 14px 80px}
+    .hero h1{font-size:27px}
     .event .time{width:46px;flex-basis:46px}
     .row2{flex-direction:column;gap:0}
+    .polaroid{width:44%}
+    .polaroid img{height:38vw}
   }
 </style>
 </head>
@@ -203,6 +263,19 @@
     <div class="legend" id="legend"></div>
   </header>
 
+  <div class="polaroids">
+    <div class="polaroid" onclick="openLightbox('foto-1.jpg')">
+      <div class="pol-tape"></div>
+      <img src="foto-1.jpg" alt="Os to" loading="lazy" />
+      <div class="cap">os to ✨</div>
+    </div>
+    <div class="polaroid" onclick="openLightbox('foto-2.jpg')">
+      <div class="pol-tape"></div>
+      <img src="foto-2.jpg" alt="På tur" loading="lazy" />
+      <div class="cap">klar til ferie 🧢</div>
+    </div>
+  </div>
+
   <div class="toolbar">
     <div class="who-filter" id="whoFilter"></div>
     <div class="spacer"></div>
@@ -211,24 +284,35 @@
       <button id="vList" onclick="setView('list')">🗒️ Liste</button>
     </div>
     <button class="btn btn-primary" onclick="openEvent()">＋ Ny aktivitet</button>
+    <button class="btn btn-ghost" onclick="document.getElementById('spisesteder').scrollIntoView({behavior:'smooth'})">🍽️ Spisesteder</button>
     <button class="btn btn-ghost" onclick="openSettings()">⚙️</button>
     <button class="btn btn-ghost" onclick="shareTrip()">🔗 Del</button>
   </div>
 
   <div id="schedule"></div>
 
-  <div class="section-title">💡 Idéer til Korfu <span style="font-weight:400;color:var(--muted);font-size:14px">— tryk for at lægge i planen</span></div>
+  <div class="section-title" id="spisesteder">🍽️ Spisesteder</div>
+  <p class="section-sub">Jeres gemte favoritter — tryk på ⭐ for at fremhæve, eller på et anbefalet sted for at gemme det.</p>
+  <div class="places" id="savedPlaces"></div>
+
+  <p class="section-sub" style="margin-top:22px;font-weight:600;color:var(--ink)">Anbefalet — lokale &amp; Reddit-favoritter</p>
+  <div class="places" id="recPlaces"></div>
+
+  <div class="section-title">💡 Idéer til Korfu <span style="font-weight:400;color:var(--muted);font-size:15px">— tryk for at lægge i planen</span></div>
   <p class="section-sub">En blanding af ting at lave sammen og hver for sig. Klik på et kort for at vælge en dag.</p>
   <div class="ideas" id="ideas"></div>
 
   <footer>
-    Lavet med ❤️ til en dejlig ferie · Alt gemmes lokalt i din browser ·
+    Lavet med ❤️ til en dejlig ferie ·
     <a href="#" onclick="exportData();return false">Eksportér</a> ·
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
+    <div class="ver">version 8</div>
   </footer>
 </div>
+
+<div id="lightbox" onclick="this.classList.remove('show')"><img id="lightboxImg" src="" alt="" /></div>
 
 <!-- Event modal -->
 <div class="overlay" id="eventOverlay">
@@ -331,6 +415,65 @@
   </div>
 </div>
 
+<!-- Spisested modal -->
+<div class="overlay" id="placeOverlay">
+  <div class="modal">
+    <h3 id="placeModalTitle">Nyt spisested</h3>
+    <div class="content">
+      <div class="field">
+        <label>Navn</label>
+        <input id="pName" placeholder="fx Pomo d'Oro" />
+      </div>
+      <div class="field">
+        <label>Type</label>
+        <div class="emoji-row" id="pEmoji"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Måltid</label>
+          <select id="pMeal">
+            <option value="">—</option>
+            <option>Frokost</option>
+            <option>Aftensmad</option>
+            <option>Frokost &amp; aften</option>
+            <option>Pizza</option>
+            <option>Gyros/souvlaki</option>
+            <option>Café/morgen</option>
+            <option>Drinks</option>
+          </select>
+        </div>
+        <div class="field"><label>Pris</label>
+          <select id="pPrice">
+            <option value="">—</option>
+            <option>€</option><option>€€</option><option>€€€</option><option>€€€€</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Rating (0–5)</label><input id="pRating" type="number" min="0" max="5" step="0.1" placeholder="fx 4.6" /></div>
+        <div class="field"><label>Booking?</label>
+          <select id="pBooking">
+            <option value="">—</option>
+            <option>Ikke nødvendigt</option>
+            <option>Anbefales</option>
+            <option>Påkrævet</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Område</label><input id="pArea" placeholder="fx Korfu By" /></div>
+      <div class="field"><label>Note</label><textarea id="pNote" rows="2" placeholder="Hvad er godt? Husk…"></textarea></div>
+      <div class="field"><label>Link (Google Maps / hjemmeside)</label><input id="pLink" placeholder="https://…" /></div>
+      <div class="field" style="display:flex;align-items:center;gap:8px;margin-top:4px">
+        <input id="pNoFish" type="checkbox" style="width:auto" />
+        <label for="pNoFish" style="margin:0;text-transform:none;letter-spacing:0;font-weight:600;color:var(--ink)">🥩 Gode retter uden fisk</label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closePlace()">Annullér</button>
+      <button class="btn btn-primary" onclick="savePlace()">Gem</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ─────────────────────────────────────────────────────────────
    Datamodel
@@ -349,7 +492,8 @@ const DEFAULT_STATE = {
     A:{name:"Mig",     color:"#1d9bb8"},
     B:{name:"Kæreste", color:"#d2603a"},
   },
-  events:[]   // {id,title,who:'A'|'B'|'both',date:'YYYY-MM-DD',time:'HH:MM',emoji,loc,notes}
+  events:[],  // {id,title,who:'A'|'B'|'both',date:'YYYY-MM-DD',time:'HH:MM',emoji,loc,notes}
+  places:[]   // {id,name,emoji,meal,price,rating,booking,area,note,link,noFish,fav}
 };
 
 let state = load();
@@ -358,6 +502,8 @@ let filter = "all";          // all | A | B | both
 let editingId = null;
 let pickEmoji = "📍";
 let pickWho = "both";
+let editingPlaceId = null;
+let pickPEmoji = "🍽️";
 
 /* Sync-runtime */
 const cloud = {
@@ -905,7 +1051,169 @@ function setView(v){
 function setFilter(f){ filter=f; renderFilter(); renderSchedule(); }
 
 function renderAll(){
-  applyColors(); renderHeader(); renderFilter(); renderSchedule(); renderIdeas();
+  applyColors(); renderHeader(); renderFilter(); renderSchedule(); renderPlaces(); renderIdeas();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Spisesteder
+   ───────────────────────────────────────────────────────────── */
+/* Kuraterede anbefalinger til Korfu – lokale favoritter / ofte rost på Reddit.
+   noFish = har gode retter uden fisk. booking: Nej / Anbefales / Påkrævet. */
+const REC_PLACES = [
+  {name:"Pomo d'Oro", emoji:"🍝", area:"Korfu By (gamle bydel)", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Anbefales", noFish:true,
+   note:"Italiensk/middelhavs i hyggelig gyde. Pasta og kødretter i topklasse – fast Reddit-favorit."},
+  {name:"Venetian Well", emoji:"🍷", area:"Korfu By, Kremasti-pladsen", meal:"Aftensmad", price:"€€€", rating:4.6, booking:"Påkrævet", noFish:true,
+   note:"Romantisk gårdhave, kreativ middelhavsmenu og kæmpe vinkort. Perfekt til en særlig aften."},
+  {name:"Chrisomalis", emoji:"🥘", area:"Korfu By, N. Theotoki", meal:"Frokost & aften", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true,
+   note:"Ægte familietaverna med 'magirefta' (gryderetter). Billigt, lokalt og altid godt – masser uden fisk."},
+  {name:"Rex", emoji:"🏛️", area:"Korfu By, bag Liston", meal:"Frokost & aften", price:"€€", rating:4.3, booking:"Anbefales", noFish:true,
+   note:"En institution siden 1932. Prøv korfiotiske klassikere: pastitsada (kød) og sofrito."},
+  {name:"La Cucina", emoji:"🍕", area:"Korfu By, Guilford St.", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Anbefales", noFish:true,
+   note:"Elsket italiener – håndlavet pasta og pizza. Lille og populær, så book et bord."},
+  {name:"Etrusco", emoji:"⭐", area:"Kato Korakiana (20 min fra byen)", meal:"Aftensmad", price:"€€€€", rating:4.7, booking:"Påkrævet", noFish:true,
+   note:"Blandt Grækenlands bedste – moderne italiensk gastronomi. Til den helt store aften."},
+  {name:"Pane & Souvlaki", emoji:"🥙", area:"Korfu By, Guilford St.", meal:"Gyros/souvlaki", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true,
+   note:"Frisk, moderne souvlaki/gyros. Hurtigt, billigt og rigtig godt til frokost."},
+  {name:"Mr & Mrs People", emoji:"🍸", area:"Korfu By, Solomou", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true,
+   note:"Hip, moderne meze og cocktails i en stemningsfuld gyde. God til deling."},
+  {name:"To Tavernaki tis Marinas", emoji:"🍢", area:"Korfu By", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true,
+   note:"Charmerende taverna med grillretter og meze. Lokal stemning og live-musik enkelte aftener."},
+  {name:"Klimataria (Bellos)", emoji:"🍤", area:"Benitses (sydpå)", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Påkrævet", noFish:false,
+   note:"Berømt meze-taverna – mest fisk/skaldyr, men kødretter findes. Lille, så book i god tid."},
+  {name:"7th Heaven (Café Panorama)", emoji:"🌅", area:"Peroulades, nordvest", meal:"Drinks", price:"€€", rating:4.4, booking:"Anbefales", noFish:true,
+   note:"Klippe-café med Korfus flotteste solnedgang over Loggas Beach. Kom til drinks/snacks før middag."},
+  {name:"Anthos", emoji:"🌿", area:"Korfu By, gamle bydel", meal:"Aftensmad", price:"€€€", rating:4.5, booking:"Anbefales", noFish:true,
+   note:"Moderne græsk køkken med fokus på friske råvarer i en smuk gård. Fin til en rolig aften."},
+];
+
+function mapsLink(p){
+  return p.link && p.link.trim() ? p.link.trim()
+    : "https://www.google.com/maps/search/"+encodeURIComponent(p.name+" Corfu");
+}
+function stars(r){ if(!r&&r!==0) return ""; return "⭐ "+(Math.round(r*10)/10).toString().replace(".",","); }
+function bookingBadge(b){
+  if(!b) return "";
+  const map={"Påkrævet":"📞 Book","Anbefales":"📞 Book anbefales","Ikke nødvendigt":"🚶 Drop-in"};
+  return map[b]||b;
+}
+
+function placeCard(p, saved, idx){
+  const badges=[];
+  if(p.rating||p.rating===0) badges.push(stars(p.rating));
+  if(p.price) badges.push(p.price);
+  if(p.meal) badges.push(p.meal);
+  if(p.booking) badges.push(bookingBadge(p.booking));
+  if(p.noFish) badges.push("🥩 uden fisk");
+  const badgeHtml=badges.map(b=>`<span class="pbadge">${escapeHtml(b)}</span>`).join("");
+  if(saved){
+    return `<div class="place">
+      <button class="pfav ${p.fav?'on':''}" title="Favorit" onclick="toggleFav('${p.id}')">${p.fav?'⭐':'☆'}</button>
+      <div class="ptop"><div class="pico">${p.emoji||"🍽️"}</div>
+        <div><h4>${escapeHtml(p.name)}</h4>${p.area?`<div class="parea">📍 ${escapeHtml(p.area)}</div>`:""}</div></div>
+      <div class="pbadges">${badgeHtml}</div>
+      ${p.note?`<div class="pnote">${escapeHtml(p.note)}</div>`:""}
+      <div class="pfoot">
+        <a class="plink" href="${escapeHtml(mapsLink(p))}" target="_blank" rel="noopener">🗺️ Kort</a>
+        <button class="mini-btn" onclick="openPlace('${p.id}')">✏️ Redigér</button>
+        <button class="mini-btn del" onclick="delPlace('${p.id}')">🗑️ Slet</button>
+      </div></div>`;
+  }
+  // anbefalet kort
+  return `<div class="place">
+    <div class="ptop"><div class="pico">${p.emoji||"🍽️"}</div>
+      <div><h4>${escapeHtml(p.name)}</h4><div class="parea">📍 ${escapeHtml(p.area)}</div></div></div>
+    <div class="pbadges">${badgeHtml}</div>
+    <div class="pnote">${escapeHtml(p.note)}</div>
+    <div class="pfoot">
+      <a class="plink" href="${escapeHtml(mapsLink(p))}" target="_blank" rel="noopener">🗺️ Kort</a>
+      <button class="mini-btn" onclick="saveRec(${idx})">＋ Gem</button>
+    </div></div>`;
+}
+
+function renderPlaces(){
+  const saved=state.places||[];
+  const savedEl=document.getElementById('savedPlaces');
+  const sortedSaved=[...saved].sort((a,b)=> (b.fav?1:0)-(a.fav?1:0));
+  savedEl.innerHTML =
+    sortedSaved.map(p=>placeCard(p,true)).join("") +
+    `<div class="add-place-card" onclick="openPlace()">＋ Tilføj spisested</div>` +
+    (saved.length?"":`<div class="place-empty">Ingen gemte endnu — tryk på et anbefalet sted nedenfor, eller “Tilføj spisested”.</div>`);
+  document.getElementById('recPlaces').innerHTML =
+    REC_PLACES.map((p,i)=>({p,i})).filter(o=>!saved.some(s=>s.name===o.p.name))
+      .map(o=>placeCard(o.p,false,o.i)).join("")
+    || `<div class="place-empty">I har gemt alle anbefalingerne 🎉</div>`;
+}
+
+function saveRec(idx){
+  const r=REC_PLACES[idx]; if(!r) return;
+  state.places=state.places||[];
+  if(state.places.some(p=>p.name===r.name)) return;
+  state.places.push(Object.assign({id:uid(),fav:false,link:""}, r));
+  save(); renderPlaces();
+}
+
+const PLACE_EMOJIS=["🍽️","🍝","🍕","🥙","🥘","🍷","🍸","🐙","🥩","🌿","🏛️","🌅","☕","🍤","🍢","🍰"];
+function buildPlaceEmoji(){
+  document.getElementById('pEmoji').innerHTML=PLACE_EMOJIS.map(e=>
+    `<button onclick="setPEmoji('${e}')" data-e="${e}">${e}</button>`).join("");
+}
+function setPEmoji(e){
+  pickPEmoji=e;
+  document.querySelectorAll('#pEmoji button').forEach(b=>b.classList.toggle('sel',b.dataset.e===e));
+}
+function openPlace(id){
+  editingPlaceId=id||null;
+  buildPlaceEmoji();
+  const g=i=>document.getElementById(i);
+  if(id){
+    const p=(state.places||[]).find(x=>x.id===id);
+    g('placeModalTitle').textContent="Redigér spisested";
+    g('pName').value=p.name||""; g('pMeal').value=p.meal||""; g('pPrice').value=p.price||"";
+    g('pRating').value=(p.rating||p.rating===0)?p.rating:""; g('pBooking').value=p.booking||"";
+    g('pArea').value=p.area||""; g('pNote').value=p.note||""; g('pLink').value=p.link||"";
+    g('pNoFish').checked=!!p.noFish; setPEmoji(p.emoji||"🍽️");
+  }else{
+    g('placeModalTitle').textContent="Nyt spisested";
+    g('pName').value=""; g('pMeal').value=""; g('pPrice').value=""; g('pRating').value="";
+    g('pBooking').value=""; g('pArea').value=""; g('pNote').value=""; g('pLink').value="";
+    g('pNoFish').checked=false; setPEmoji("🍽️");
+  }
+  g('placeOverlay').classList.add('show');
+  setTimeout(()=>g('pName').focus(),50);
+}
+function closePlace(){ document.getElementById('placeOverlay').classList.remove('show'); }
+function savePlace(){
+  const g=i=>document.getElementById(i);
+  const name=g('pName').value.trim();
+  if(!name){ g('pName').focus(); return; }
+  const r=parseFloat(g('pRating').value);
+  const obj={
+    name, emoji:pickPEmoji, meal:g('pMeal').value, price:g('pPrice').value,
+    rating:isNaN(r)?null:Math.max(0,Math.min(5,r)), booking:g('pBooking').value,
+    area:g('pArea').value.trim(), note:g('pNote').value.trim(), link:g('pLink').value.trim(),
+    noFish:g('pNoFish').checked,
+  };
+  state.places=state.places||[];
+  if(editingPlaceId){
+    const p=state.places.find(x=>x.id===editingPlaceId); Object.assign(p,obj);
+  }else{
+    obj.id=uid(); obj.fav=false; state.places.push(obj);
+  }
+  save(); closePlace(); renderPlaces();
+}
+function delPlace(id){
+  if(!confirm("Slet dette spisested?")) return;
+  state.places=(state.places||[]).filter(p=>p.id!==id);
+  save(); renderPlaces();
+}
+function toggleFav(id){
+  const p=(state.places||[]).find(x=>x.id===id); if(!p) return;
+  p.fav=!p.fav; save(); renderPlaces();
+}
+
+function openLightbox(src){
+  document.getElementById('lightboxImg').src=src;
+  document.getElementById('lightbox').classList.add('show');
 }
 
 /* luk modal ved klik udenfor / Esc */
@@ -916,9 +1224,22 @@ applyColors();
 renderAll();
 bootSync();
 
-// Gør appen installerbar på telefonen
+// Gør appen installerbar – og opdaterer automatisk til nyeste version
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+  let reloaded=false;
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{
+    if(reloaded) return; reloaded=true; location.reload();
+  });
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("sw.js").then(reg=>{
+      reg.addEventListener("updatefound",()=>{
+        const nw=reg.installing;
+        nw && nw.addEventListener("statechange",()=>{
+          if(nw.state==="installed" && navigator.serviceWorker.controller) nw.postMessage("skipWaiting");
+        });
+      });
+    }).catch(()=>{});
+  });
 }
 </script>
 </body>
