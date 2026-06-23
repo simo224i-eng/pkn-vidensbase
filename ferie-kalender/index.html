@@ -126,13 +126,13 @@
   .badge{font-size:11px;font-weight:800;padding:2px 9px;border-radius:999px;color:#fff;white-space:nowrap}
   .event .enotes{color:var(--muted);font-size:13px;margin-top:2px}
   .event .eloc{color:var(--muted);font-size:12px;margin-top:2px}
-  .event .actions{display:flex;gap:4px;opacity:0;transition:.15s}
-  .event:hover .actions{opacity:1}
-  /* På touch-enheder (telefon/tablet) er der ingen hover – vis knapperne altid */
-  @media (hover: none){ .event .actions{opacity:1} }
-  .icon-btn{border:none;background:transparent;cursor:pointer;font-size:17px;color:var(--muted);
-    border-radius:8px;padding:6px 8px}
-  .icon-btn:hover{background:#efe9db;color:var(--terracotta)}
+  .row-actions{display:flex;gap:8px;margin-top:9px}
+  .mini-btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;
+    font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;display:inline-flex;
+    align-items:center;gap:5px}
+  .mini-btn:active{transform:scale(.96)}
+  .mini-btn:hover{border-color:var(--sea);color:var(--ink)}
+  .mini-btn.del:hover{border-color:var(--terracotta);color:var(--terracotta)}
   .empty-day{color:var(--muted);font-size:13px;padding:10px;text-align:center;font-style:italic}
 
   /* ── Idé-bibliotek ───────────────────────────────────── */
@@ -680,10 +680,10 @@ function eventRow(e, showDate){
         <span class="badge" style="background:${col}">${whoLabel(e.who)}</span></div>
       ${e.loc?`<div class="eloc">📍 ${escapeHtml(e.loc)}</div>`:""}
       ${e.notes?`<div class="enotes">${escapeHtml(e.notes)}</div>`:""}
-    </div>
-    <div class="actions">
-      <button class="icon-btn" title="Redigér" onclick="openEvent('${e.id}')">✏️</button>
-      <button class="icon-btn" title="Slet" onclick="delEvent('${e.id}')">🗑️</button>
+      <div class="row-actions">
+        <button class="mini-btn" onclick="openEvent('${e.id}')">✏️ Redigér</button>
+        <button class="mini-btn del" onclick="delEvent('${e.id}')">🗑️ Slet</button>
+      </div>
     </div>
   </div>`;
 }
