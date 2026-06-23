@@ -1,6 +1,6 @@
 /* Service worker – gør appen installerbar og brugbar offline.
    App-skallen caches; Firebase/netværkskald får altid lov at gå til nettet. */
-const CACHE = "korfu-ferie-v9";
+const CACHE = "korfu-ferie-v10";
 const ASSETS = [
   "./",
   "./index.html",
@@ -38,6 +38,9 @@ self.addEventListener("fetch", (e) => {
     url.includes("gstatic.com") ||
     url.includes("googleapis.com") ||
     url.includes("firebase") ||
+    url.includes("unpkg.com") ||
+    url.includes("openstreetmap.org") ||
+    url.includes("tile.") ||
     e.request.method !== "GET"
   ) {
     return;

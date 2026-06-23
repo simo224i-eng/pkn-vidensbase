@@ -66,6 +66,7 @@ Herefter ses alle ændringer live hos jer begge.
 - **Sammen og hver for sig** — hver aktivitet markeres som *Sammen*, *dig* eller *kæreste*, med hver sin farve. Filtrér med chip'erne foroven.
 - **Dagsplan + liste** — to visninger af ferien. Aktiviteter kan have både fra- og til-tidspunkt.
 - **🍽️ Spisesteder** — gem jeres favoritter med rating, pris, måltid (frokost/aften/pizza/gyros), om der skal bookes, og om der er gode retter uden fisk. Indeholder en kurateret liste af lokale- og Reddit-favoritter på Korfu, som I kan gemme med ét tryk. ⭐ fremhæver de bedste.
+- **🗺️ Kort nær mig** — separat kortvisning der bruger telefonens GPS og viser de gode, vettede spisesteder som nåle, sorteret efter afstand. Helt gratis (OpenStreetMap, ingen nøgle/betaling). Tryk på en nål for info + "rute hertil".
 - **Idéer til Korfu** — strande, bådture, paladser, tavernaer m.m. Klik for at lægge i planen.
 - **Billeder** — jeres egne fotos vises som polaroids øverst (tryk for stor visning).
 - **Nedtælling** til afrejse.

@@ -239,6 +239,34 @@
   #lightbox.show{display:flex}
   #lightbox img{max-width:100%;max-height:90vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 
+  /* ── Kort ────────────────────────────────────────────── */
+  #mapOverlay{position:fixed;inset:0;background:var(--bg);z-index:70;display:none;flex-direction:column}
+  #mapOverlay.show{display:flex}
+  .map-top{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--sea);color:#fff;
+    box-shadow:0 2px 12px rgba(0,0,0,.12);padding-top:max(14px,env(safe-area-inset-top))}
+  .map-title{font-family:"Fraunces","Georgia",serif;font-size:18px;font-weight:600;flex:1;min-width:0}
+  .map-loc{border:none;background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:13px;
+    border-radius:999px;padding:8px 14px;cursor:pointer}
+  .map-loc:hover{background:rgba(255,255,255,.32)}
+  .map-close{border:none;background:rgba(255,255,255,.16);color:#fff;font-size:16px;cursor:pointer;
+    width:34px;height:34px;border-radius:50%;flex:0 0 34px}
+  #mapEl{flex:1 1 auto;min-height:40vh;background:#dfe7e9}
+  #mapList{flex:0 0 auto;max-height:42vh;overflow:auto;background:var(--paper);
+    border-top:1px solid var(--line);padding:8px 10px 16px}
+  .map-row{display:flex;gap:11px;align-items:flex-start;padding:11px 8px;border-radius:12px;cursor:pointer}
+  .map-row:hover{background:#f3efe6}
+  .map-row .mpico{font-size:22px;flex:0 0 auto;line-height:1.2}
+  .map-row .mbody{flex:1;min-width:0}
+  .map-row h4{margin:0;font-size:15px;font-weight:700}
+  .map-row .mmeta{color:var(--muted);font-size:12.5px;margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+  .map-row .mdist{flex:0 0 auto;font-weight:800;font-size:13px;color:var(--sea-dark);text-align:right;
+    white-space:nowrap;padding-top:2px}
+  .map-pin{background:var(--sea);color:#fff;border-radius:50% 50% 50% 0;width:26px;height:26px;
+    transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff}
+  .map-pin span{transform:rotate(45deg);font-size:13px}
+  .map-hint{color:var(--muted);font-size:12px;text-align:center;padding:6px}
+
   .ver{opacity:.5;font-size:10px;letter-spacing:.4px}
 
   @media(max-width:560px){
@@ -279,6 +307,7 @@
   <div class="toolbar">
     <button class="btn btn-primary" onclick="openEvent()">＋ Ny aktivitet</button>
     <button class="btn btn-ghost" onclick="document.getElementById('spisesteder').scrollIntoView({behavior:'smooth'})">🍽️ Spisesteder</button>
+    <button class="btn btn-ghost" onclick="openMap()">🗺️ Kort nær mig</button>
     <div class="spacer"></div>
     <div class="view-toggle">
       <button id="vAgenda" class="active" onclick="setView('agenda')">📋 Dagsplan</button>
@@ -310,11 +339,22 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 9</div>
+    <div class="ver">version 10</div>
   </footer>
 </div>
 
 <div id="lightbox" onclick="this.classList.remove('show')"><img id="lightboxImg" src="" alt="" /></div>
+
+<!-- Kort over gode spisesteder -->
+<div id="mapOverlay">
+  <div class="map-top">
+    <div class="map-title">🗺️ Gode spisesteder nær dig</div>
+    <button class="map-loc" onclick="locateMe()">📍 Find mig</button>
+    <button class="map-close" onclick="closeMap()" aria-label="Luk">✕</button>
+  </div>
+  <div id="mapEl"></div>
+  <div id="mapList"></div>
+</div>
 
 <!-- Event modal -->
 <div class="overlay" id="eventOverlay">
@@ -1030,31 +1070,36 @@ function renderAll(){
 /* Kuraterede anbefalinger til Korfu – lokale favoritter / ofte rost på Reddit.
    noFish = har gode retter uden fisk. booking: Nej / Anbefales / Påkrævet. */
 const REC_PLACES = [
-  {name:"Pomo d'Oro", emoji:"🍝", area:"Korfu By (gamle bydel)", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Anbefales", noFish:true,
+  {name:"Pomo d'Oro", emoji:"🍝", area:"Korfu By (gamle bydel)", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Anbefales", noFish:true, lat:39.6249, lng:19.9206,
    note:"Italiensk/middelhavs i hyggelig gyde. Pasta og kødretter i topklasse – fast Reddit-favorit."},
-  {name:"Venetian Well", emoji:"🍷", area:"Korfu By, Kremasti-pladsen", meal:"Aftensmad", price:"€€€", rating:4.6, booking:"Påkrævet", noFish:true,
+  {name:"Venetian Well", emoji:"🍷", area:"Korfu By, Kremasti-pladsen", meal:"Aftensmad", price:"€€€", rating:4.6, booking:"Påkrævet", noFish:true, lat:39.6241, lng:19.9234,
    note:"Romantisk gårdhave, kreativ middelhavsmenu og kæmpe vinkort. Perfekt til en særlig aften."},
-  {name:"Chrisomalis", emoji:"🥘", area:"Korfu By, N. Theotoki", meal:"Frokost & aften", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true,
+  {name:"Chrisomalis", emoji:"🥘", area:"Korfu By, N. Theotoki", meal:"Frokost & aften", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6246, lng:19.9224,
    note:"Ægte familietaverna med 'magirefta' (gryderetter). Billigt, lokalt og altid godt – masser uden fisk."},
-  {name:"Rex", emoji:"🏛️", area:"Korfu By, bag Liston", meal:"Frokost & aften", price:"€€", rating:4.3, booking:"Anbefales", noFish:true,
+  {name:"Rex", emoji:"🏛️", area:"Korfu By, bag Liston", meal:"Frokost & aften", price:"€€", rating:4.3, booking:"Anbefales", noFish:true, lat:39.6239, lng:19.9232,
    note:"En institution siden 1932. Prøv korfiotiske klassikere: pastitsada (kød) og sofrito."},
-  {name:"La Cucina", emoji:"🍕", area:"Korfu By, Guilford St.", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Anbefales", noFish:true,
+  {name:"La Cucina", emoji:"🍕", area:"Korfu By, Guilford St.", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Anbefales", noFish:true, lat:39.6256, lng:19.9192,
    note:"Elsket italiener – håndlavet pasta og pizza. Lille og populær, så book et bord."},
-  {name:"Etrusco", emoji:"⭐", area:"Kato Korakiana (20 min fra byen)", meal:"Aftensmad", price:"€€€€", rating:4.7, booking:"Påkrævet", noFish:true,
+  {name:"Etrusco", emoji:"⭐", area:"Kato Korakiana (20 min fra byen)", meal:"Aftensmad", price:"€€€€", rating:4.7, booking:"Påkrævet", noFish:true, lat:39.7431, lng:19.8161,
    note:"Blandt Grækenlands bedste – moderne italiensk gastronomi. Til den helt store aften."},
-  {name:"Pane & Souvlaki", emoji:"🥙", area:"Korfu By, Guilford St.", meal:"Gyros/souvlaki", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true,
+  {name:"Pane & Souvlaki", emoji:"🥙", area:"Korfu By, Guilford St.", meal:"Gyros/souvlaki", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6257, lng:19.9190,
    note:"Frisk, moderne souvlaki/gyros. Hurtigt, billigt og rigtig godt til frokost."},
-  {name:"Mr & Mrs People", emoji:"🍸", area:"Korfu By, Solomou", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true,
+  {name:"Mr & Mrs People", emoji:"🍸", area:"Korfu By, Solomou", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true, lat:39.6248, lng:19.9216,
    note:"Hip, moderne meze og cocktails i en stemningsfuld gyde. God til deling."},
-  {name:"To Tavernaki tis Marinas", emoji:"🍢", area:"Korfu By", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true,
+  {name:"To Tavernaki tis Marinas", emoji:"🍢", area:"Korfu By", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true, lat:39.6232, lng:19.9212,
    note:"Charmerende taverna med grillretter og meze. Lokal stemning og live-musik enkelte aftener."},
-  {name:"Klimataria (Bellos)", emoji:"🍤", area:"Benitses (sydpå)", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Påkrævet", noFish:false,
+  {name:"Klimataria (Bellos)", emoji:"🍤", area:"Benitses (sydpå)", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Påkrævet", noFish:false, lat:39.5562, lng:19.9086,
    note:"Berømt meze-taverna – mest fisk/skaldyr, men kødretter findes. Lille, så book i god tid."},
-  {name:"7th Heaven (Café Panorama)", emoji:"🌅", area:"Peroulades, nordvest", meal:"Drinks", price:"€€", rating:4.4, booking:"Anbefales", noFish:true,
+  {name:"7th Heaven (Café Panorama)", emoji:"🌅", area:"Peroulades, nordvest", meal:"Drinks", price:"€€", rating:4.4, booking:"Anbefales", noFish:true, lat:39.7817, lng:19.6712,
    note:"Klippe-café med Korfus flotteste solnedgang over Loggas Beach. Kom til drinks/snacks før middag."},
-  {name:"Anthos", emoji:"🌿", area:"Korfu By, gamle bydel", meal:"Aftensmad", price:"€€€", rating:4.5, booking:"Anbefales", noFish:true,
+  {name:"Anthos", emoji:"🌿", area:"Korfu By, gamle bydel", meal:"Aftensmad", price:"€€€", rating:4.5, booking:"Anbefales", noFish:true, lat:39.6243, lng:19.9229,
    note:"Moderne græsk køkken med fokus på friske råvarer i en smuk gård. Fin til en rolig aften."},
 ];
+
+function dirLink(p){
+  if(p.lat&&p.lng) return "https://www.google.com/maps/dir/?api=1&destination="+p.lat+","+p.lng;
+  return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(p.name+" Corfu");
+}
 
 function mapsLink(p){
   return p.link && p.link.trim() ? p.link.trim()
@@ -1185,6 +1230,114 @@ function openLightbox(src){
   document.getElementById('lightboxImg').src=src;
   document.getElementById('lightbox').classList.add('show');
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Kort – gratis (Leaflet + OpenStreetMap), GPS via browseren
+   ───────────────────────────────────────────────────────────── */
+const mapState={map:null,markers:{},user:null,userLoc:null,ready:false};
+
+function ensureLeaflet(cb){
+  if(window.L) return cb();
+  if(!document.getElementById('leafletCss')){
+    const css=document.createElement('link');
+    css.id='leafletCss'; css.rel='stylesheet';
+    css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(css);
+  }
+  const s=document.createElement('script');
+  s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  s.onload=cb;
+  s.onerror=()=>{ document.getElementById('mapList').innerHTML=
+    '<div class="map-hint">Kunne ikke hente kortet – tjek internetforbindelsen og prøv igen.</div>'; };
+  document.head.appendChild(s);
+}
+function openMap(){
+  document.getElementById('mapOverlay').classList.add('show');
+  renderMapList();
+  ensureLeaflet(()=>{
+    initMap();
+    setTimeout(()=>mapState.map && mapState.map.invalidateSize(),150);
+    locateMe(true);
+  });
+}
+function closeMap(){ document.getElementById('mapOverlay').classList.remove('show'); }
+
+function initMap(){
+  if(mapState.ready) return;
+  const L=window.L;
+  const map=L.map('mapEl').setView([39.6243,19.9217],14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  REC_PLACES.forEach((p,i)=>{
+    if(!p.lat||!p.lng) return;
+    const icon=L.divIcon({className:'',
+      html:`<div class="map-pin"><span>${p.emoji||'🍽️'}</span></div>`,
+      iconSize:[26,26], iconAnchor:[13,26], popupAnchor:[0,-24]});
+    const m=L.marker([p.lat,p.lng],{icon}).addTo(map);
+    m.bindPopup(mapPopup(p));
+    mapState.markers[i]=m;
+  });
+  mapState.map=map; mapState.ready=true;
+}
+function mapPopup(p){
+  const badges=[stars(p.rating),p.price,p.meal,bookingBadge(p.booking),p.noFish?'🥩 uden fisk':''].filter(Boolean);
+  return `<div style="min-width:180px">
+    <div style="font-weight:700;font-size:15px">${escapeHtml(p.name)}</div>
+    <div style="color:#7a8a99;font-size:12px;margin:3px 0">${badges.map(escapeHtml).join(' · ')}</div>
+    <div style="font-size:12.5px;margin-bottom:7px">${escapeHtml(p.note||'')}</div>
+    <a href="${escapeHtml(dirLink(p))}" target="_blank" rel="noopener" style="font-weight:700;color:#2d7080;text-decoration:none">🧭 Rute hertil</a>
+  </div>`;
+}
+function locateMe(silent){
+  if(!navigator.geolocation){ if(!silent) alert('Din enhed understøtter ikke placering.'); return; }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const ll=[pos.coords.latitude,pos.coords.longitude];
+    mapState.userLoc=ll;
+    if(mapState.map){
+      const L=window.L;
+      if(mapState.user) mapState.user.setLatLng(ll);
+      else{
+        const uic=L.divIcon({className:'',iconSize:[18,18],iconAnchor:[9,9],
+          html:'<div style="width:18px;height:18px;border-radius:50%;background:#2d7080;border:3px solid #fff;box-shadow:0 0 0 3px rgba(45,112,128,.35)"></div>'});
+        mapState.user=L.marker(ll,{icon:uic,zIndexOffset:1000}).addTo(mapState.map);
+      }
+      mapState.map.setView(ll,15);
+    }
+    renderMapList();
+  },()=>{
+    if(!silent) alert('Kunne ikke finde din placering. Giv appen lov til at bruge din lokation og prøv igen.');
+  },{enableHighAccuracy:true,timeout:8000,maximumAge:60000});
+}
+function renderMapList(){
+  const u=mapState.userLoc;
+  const rows=REC_PLACES.map((p,i)=>({p,i,d:(u&&p.lat)?haversine(u,[p.lat,p.lng]):null}));
+  if(u) rows.sort((a,b)=>(a.d==null?9e9:a.d)-(b.d==null?9e9:b.d));
+  else rows.sort((a,b)=>(b.p.rating||0)-(a.p.rating||0));
+  document.getElementById('mapList').innerHTML =
+    (u?'':'<div class="map-hint">Tryk “📍 Find mig” for at sortere efter afstand</div>')+
+    rows.map(r=>{
+      const meta=[stars(r.p.rating),r.p.price,r.p.meal,bookingBadge(r.p.booking)].filter(Boolean).map(escapeHtml).join(' · ');
+      return `<div class="map-row" onclick="focusPlace(${r.i})">
+        <div class="mpico">${r.p.emoji||'🍽️'}</div>
+        <div class="mbody"><h4>${escapeHtml(r.p.name)}</h4>
+          <div class="mmeta">${meta}</div></div>
+        ${r.d!=null?`<div class="mdist">${fmtDist(r.d)}</div>`:''}
+      </div>`;
+    }).join("");
+}
+function focusPlace(i){
+  const p=REC_PLACES[i];
+  if(!p||!mapState.map){ window.open(dirLink(p),'_blank'); return; }
+  mapState.map.setView([p.lat,p.lng],16);
+  const m=mapState.markers[i]; if(m) m.openPopup();
+}
+function haversine(a,b){
+  const R=6371000, toR=x=>x*Math.PI/180;
+  const dLat=toR(b[0]-a[0]), dLng=toR(b[1]-a[1]);
+  const s=Math.sin(dLat/2)**2+Math.cos(toR(a[0]))*Math.cos(toR(b[0]))*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.sqrt(s));
+}
+function fmtDist(m){ return m<1000? Math.round(m)+" m" : (Math.round(m/100)/10).toString().replace(".",",")+" km"; }
 
 /* luk modal ved klik udenfor / Esc */
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); }));
