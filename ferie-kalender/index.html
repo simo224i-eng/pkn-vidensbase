@@ -243,14 +243,18 @@
         <label>Hvem?</label>
         <div class="who-pick" id="fWho"></div>
       </div>
+      <div class="field">
+        <label>Dato</label>
+        <input id="fDate" type="date" />
+      </div>
       <div class="row2">
         <div class="field">
-          <label>Dato</label>
-          <input id="fDate" type="date" />
+          <label>Fra kl.</label>
+          <input id="fTime" type="time" />
         </div>
         <div class="field">
-          <label>Tidspunkt</label>
-          <input id="fTime" type="time" />
+          <label>Til kl. (valgfrit)</label>
+          <input id="fEnd" type="time" />
         </div>
       </div>
       <div class="field">
@@ -667,8 +671,9 @@ function cmpEvent(a,b){
 function eventRow(e, showDate){
   const col = whoColor(e.who);
   const dateLbl = showDate ? (()=>{const d=parse(e.date);return `${d.getDate()}/${d.getMonth()+1}`;})() : "";
+  const endBit = e.endTime ? `<br><span style="font-weight:400;font-size:11px">– ${e.endTime}</span>` : "";
   return `<div class="event">
-    <div class="time">${showDate?dateLbl+"<br>":""}${e.time||"—"}</div>
+    <div class="time">${showDate?dateLbl+"<br>":""}${e.time||"—"}${endBit}</div>
     <div class="bar" style="background:${col}"></div>
     <div class="body">
       <div class="etitle">${e.emoji||"📍"} ${escapeHtml(e.title)}
@@ -763,6 +768,7 @@ function openEvent(id, presetDate){
     document.getElementById('fTitle').value=e.title;
     document.getElementById('fDate').value=e.date;
     document.getElementById('fTime').value=e.time;
+    document.getElementById('fEnd').value=e.endTime||"";
     document.getElementById('fLoc').value=e.loc;
     document.getElementById('fNotes').value=e.notes;
     setWho(e.who); setEmoji(e.emoji);
@@ -771,6 +777,7 @@ function openEvent(id, presetDate){
     document.getElementById('fTitle').value="";
     document.getElementById('fDate').value=presetDate||state.start;
     document.getElementById('fTime').value="";
+    document.getElementById('fEnd').value="";
     document.getElementById('fLoc').value="";
     document.getElementById('fNotes').value="";
     setWho("both"); setEmoji("📍");
@@ -790,6 +797,7 @@ function saveEvent(){
     who:pickWho,
     date:document.getElementById('fDate').value||state.start,
     time:document.getElementById('fTime').value,
+    endTime:document.getElementById('fEnd').value,
     emoji:pickEmoji,
     loc:document.getElementById('fLoc').value.trim(),
     notes:document.getElementById('fNotes').value.trim(),
