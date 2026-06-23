@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vores ferie · Korfu 🇬🇷</title>
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --paper:#fffdf8;
+    --ink:#1f2d3d;
+    --muted:#7a8a99;
+    --line:#e7e1d4;
+    --sea:#1d9bb8;        /* Det Ioniske Hav */
+    --sea-dark:#13768c;
+    --olive:#7a8c4e;
+    --sun:#f3a712;
+    --terracotta:#d2603a;
+    --shadow:0 8px 30px rgba(31,45,61,.10);
+    --radius:18px;
+    /* personfarver – overskrives af opsætning */
+    --pA:#1d9bb8;
+    --pB:#d2603a;
+    --both:#7a8c4e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(1200px 500px at 80% -10%, #cdeaf1 0%, rgba(205,234,241,0) 60%),
+      radial-gradient(900px 400px at -10% 0%, #f7e6cf 0%, rgba(247,230,207,0) 55%),
+      var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+    min-height:100vh;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:24px 18px 80px}
+
+  /* ── Header ──────────────────────────────────────────── */
+  header.hero{
+    background:linear-gradient(135deg,var(--sea) 0%, var(--sea-dark) 100%);
+    color:#fff;border-radius:var(--radius);padding:26px 28px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  header.hero::after{
+    content:"🏖️";position:absolute;right:18px;bottom:-12px;font-size:120px;opacity:.18;
+    transform:rotate(-8deg);
+  }
+  .hero h1{margin:0;font-size:30px;letter-spacing:.3px;font-weight:800}
+  .hero .sub{opacity:.92;margin-top:4px;font-size:15px}
+  .countdown{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .cd-box{background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:12px;
+    padding:10px 16px;text-align:center;min-width:74px}
+  .cd-box b{display:block;font-size:26px;line-height:1.1}
+  .cd-box span{font-size:11px;text-transform:uppercase;letter-spacing:.7px;opacity:.85}
+
+  /* ── Værktøjslinje ───────────────────────────────────── */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0 14px}
+  .who-filter{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{
+    border:1px solid var(--line);background:var(--paper);color:var(--ink);
+    padding:7px 14px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;
+    display:inline-flex;align-items:center;gap:7px;transition:.15s;user-select:none;
+  }
+  .chip .dot{width:10px;height:10px;border-radius:50%}
+  .chip:hover{border-color:var(--sea)}
+  .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .spacer{flex:1}
+  .btn{
+    border:none;border-radius:999px;padding:9px 16px;cursor:pointer;font-size:13px;
+    font-weight:700;display:inline-flex;align-items:center;gap:7px;transition:.15s;
+  }
+  .btn-primary{background:var(--sun);color:#3a2c00}
+  .btn-primary:hover{filter:brightness(1.05)}
+  .btn-ghost{background:var(--paper);border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--sea)}
+  .view-toggle{display:flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .view-toggle button{border:none;background:transparent;padding:6px 14px;border-radius:999px;
+    cursor:pointer;font-weight:700;font-size:13px;color:var(--muted)}
+  .view-toggle button.active{background:var(--sea);color:#fff}
+
+  /* ── Agenda / dage ───────────────────────────────────── */
+  .day{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;
+  }
+  .day-head{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);
+    background:linear-gradient(0deg,#fbf8f1,#fffdf8)}
+  .day-date{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:var(--sea);color:#fff;border-radius:12px;width:54px;height:54px;flex:0 0 54px}
+  .day-date b{font-size:22px;line-height:1}
+  .day-date span{font-size:10px;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
+  .day-title{font-weight:800;font-size:16px}
+  .day-meta{color:var(--muted);font-size:13px}
+  .day-add{margin-left:auto;background:transparent;border:1px dashed var(--line);border-radius:10px;
+    padding:7px 12px;cursor:pointer;font-weight:700;font-size:12px;color:var(--muted)}
+  .day-add:hover{border-color:var(--sun);color:var(--terracotta)}
+  .events{padding:8px 12px 12px}
+  .event{
+    display:flex;gap:12px;align-items:flex-start;padding:11px 10px;border-radius:12px;
+    position:relative;
+  }
+  .event:hover{background:#faf6ec}
+  .event .time{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);font-size:13px;
+    width:58px;flex:0 0 58px;text-align:right;padding-top:2px}
+  .event .bar{width:5px;align-self:stretch;border-radius:3px;flex:0 0 5px}
+  .event .body{flex:1;min-width:0}
+  .event .etitle{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .badge{font-size:11px;font-weight:800;padding:2px 9px;border-radius:999px;color:#fff;white-space:nowrap}
+  .event .enotes{color:var(--muted);font-size:13px;margin-top:2px}
+  .event .eloc{color:var(--muted);font-size:12px;margin-top:2px}
+  .event .actions{display:flex;gap:4px;opacity:0;transition:.15s}
+  .event:hover .actions{opacity:1}
+  .icon-btn{border:none;background:transparent;cursor:pointer;font-size:14px;color:var(--muted);
+    border-radius:8px;padding:4px 6px}
+  .icon-btn:hover{background:#efe9db;color:var(--terracotta)}
+  .empty-day{color:var(--muted);font-size:13px;padding:10px;text-align:center;font-style:italic}
+
+  /* ── Idé-bibliotek ───────────────────────────────────── */
+  .section-title{font-weight:800;font-size:18px;margin:30px 0 8px;display:flex;align-items:center;gap:8px}
+  .section-sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+  .ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .idea{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;
+    box-shadow:var(--shadow);cursor:pointer;transition:.15s;position:relative}
+  .idea:hover{transform:translateY(-3px);border-color:var(--sun)}
+  .idea .ico{font-size:26px}
+  .idea h4{margin:6px 0 3px;font-size:15px}
+  .idea p{margin:0;color:var(--muted);font-size:12.5px}
+  .idea .tag{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.4px;color:var(--olive)}
+  .idea .add-hint{margin-top:8px;font-size:11px;font-weight:800;color:var(--terracotta);opacity:0;transition:.15s}
+  .idea:hover .add-hint{opacity:1}
+
+  /* ── Modal ───────────────────────────────────────────── */
+  .overlay{position:fixed;inset:0;background:rgba(31,45,61,.45);backdrop-filter:blur(3px);
+    display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+  .overlay.show{display:flex}
+  .modal{background:var(--paper);border-radius:var(--radius);width:100%;max-width:460px;
+    box-shadow:var(--shadow);max-height:90vh;overflow:auto}
+  .modal h3{margin:0;padding:18px 22px;border-bottom:1px solid var(--line);font-size:18px}
+  .modal .content{padding:18px 22px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--muted);margin-bottom:5px}
+  .field input,.field textarea,.field select{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;
+    font-family:inherit;background:#fff;color:var(--ink)}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--sea)}
+  .row2{display:flex;gap:12px}
+  .row2 .field{flex:1}
+  .who-pick{display:flex;gap:8px}
+  .who-pick button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;
+    cursor:pointer;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px}
+  .who-pick button.sel{color:#fff;border-color:transparent}
+  .modal-foot{display:flex;gap:10px;justify-content:flex-end;padding:0 22px 20px}
+  .emoji-row{display:flex;gap:6px;flex-wrap:wrap}
+  .emoji-row button{font-size:18px;border:1px solid var(--line);background:#fff;border-radius:10px;
+    width:40px;height:40px;cursor:pointer}
+  .emoji-row button.sel{border-color:var(--sun);background:#fff6e0}
+
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:40px}
+  footer a{color:var(--sea-dark)}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .legend .dot{width:11px;height:11px;border-radius:50%}
+
+  @media(max-width:560px){
+    .hero h1{font-size:24px}
+    .event .time{width:46px;flex-basis:46px}
+    .row2{flex-direction:column;gap:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1 id="tripTitle">Vores ferie på Korfu</h1>
+    <div class="sub" id="tripSub">Sol, hav og hinanden 🇬🇷</div>
+    <div class="countdown" id="countdown"></div>
+    <div class="legend" id="legend"></div>
+  </header>
+
+  <div class="toolbar">
+    <div class="who-filter" id="whoFilter"></div>
+    <div class="spacer"></div>
+    <div class="view-toggle">
+      <button id="vAgenda" class="active" onclick="setView('agenda')">📋 Dagsplan</button>
+      <button id="vList" onclick="setView('list')">🗒️ Liste</button>
+    </div>
+    <button class="btn btn-primary" onclick="openEvent()">＋ Ny aktivitet</button>
+    <button class="btn btn-ghost" onclick="openSettings()">⚙️</button>
+    <button class="btn btn-ghost" onclick="shareTrip()">🔗 Del</button>
+  </div>
+
+  <div id="schedule"></div>
+
+  <div class="section-title">💡 Idéer til Korfu <span style="font-weight:400;color:var(--muted);font-size:14px">— tryk for at lægge i planen</span></div>
+  <p class="section-sub">En blanding af ting at lave sammen og hver for sig. Klik på et kort for at vælge en dag.</p>
+  <div class="ideas" id="ideas"></div>
+
+  <footer>
+    Lavet med ❤️ til en dejlig ferie · Alt gemmes lokalt i din browser ·
+    <a href="#" onclick="exportData();return false">Eksportér</a> ·
+    <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
+    <a href="#" onclick="resetAll();return false">Nulstil</a>
+    <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
+  </footer>
+</div>
+
+<!-- Event modal -->
+<div class="overlay" id="eventOverlay">
+  <div class="modal">
+    <h3 id="eventModalTitle">Ny aktivitet</h3>
+    <div class="content">
+      <div class="field">
+        <label>Hvad skal I lave?</label>
+        <input id="fTitle" placeholder="fx Frokost ved havnen" />
+      </div>
+      <div class="field">
+        <label>Hvem?</label>
+        <div class="who-pick" id="fWho"></div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Dato</label>
+          <input id="fDate" type="date" />
+        </div>
+        <div class="field">
+          <label>Tidspunkt</label>
+          <input id="fTime" type="time" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Ikon</label>
+        <div class="emoji-row" id="fEmoji"></div>
+      </div>
+      <div class="field">
+        <label>Sted (valgfrit)</label>
+        <input id="fLoc" placeholder="fx Paleokastritsa" />
+      </div>
+      <div class="field">
+        <label>Noter (valgfrit)</label>
+        <textarea id="fNotes" rows="2" placeholder="Booking, pris, husk…"></textarea>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeEvent()">Annullér</button>
+      <button class="btn btn-primary" onclick="saveEvent()">Gem</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="overlay" id="settingsOverlay">
+  <div class="modal">
+    <h3>Opsætning</h3>
+    <div class="content">
+      <div class="field">
+        <label>Rejsens titel</label>
+        <input id="sTitle" />
+      </div>
+      <div class="field">
+        <label>Undertekst</label>
+        <input id="sSub" />
+      </div>
+      <div class="row2">
+        <div class="field"><label>Afrejse</label><input id="sStart" type="date" /></div>
+        <div class="field"><label>Hjemkomst</label><input id="sEnd" type="date" /></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Person 1 – navn</label><input id="sNameA" /></div>
+        <div class="field"><label>Farve</label><input id="sColorA" type="color" /></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Person 2 – navn</label><input id="sNameB" /></div>
+        <div class="field"><label>Farve</label><input id="sColorB" type="color" /></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeSettings()">Annullér</button>
+      <button class="btn btn-primary" onclick="saveSettings()">Gem</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   Datamodel
+   ───────────────────────────────────────────────────────────── */
+const STORE_KEY = "korfu_ferie_v1";
+const WEEKDAYS = ["Søn","Man","Tir","Ons","Tor","Fre","Lør"];
+const MONTHS = ["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
+
+const DEFAULT_STATE = {
+  title:"Vores ferie på Korfu",
+  sub:"Sol, hav og hinanden 🇬🇷",
+  start:"2026-07-04",
+  end:"2026-07-12",
+  people:{
+    A:{name:"Mig",     color:"#1d9bb8"},
+    B:{name:"Kæreste", color:"#d2603a"},
+  },
+  events:[]   // {id,title,who:'A'|'B'|'both',date:'YYYY-MM-DD',time:'HH:MM',emoji,loc,notes}
+};
+
+let state = load();
+let view = "agenda";
+let filter = "all";          // all | A | B | both
+let editingId = null;
+let pickEmoji = "📍";
+let pickWho = "both";
+
+function load(){
+  // 1) prøv delt link i URL
+  if(location.hash.length>1){
+    try{
+      const data = JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
+      if(data && data.events){ history.replaceState(null,"",location.pathname); return migrate(data); }
+    }catch(e){/* ignorér */}
+  }
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw) return migrate(JSON.parse(raw));
+  }catch(e){}
+  return seed(structuredClone(DEFAULT_STATE));
+}
+function migrate(d){
+  const base = structuredClone(DEFAULT_STATE);
+  return Object.assign(base, d, {people:Object.assign(base.people,d.people||{})});
+}
+function save(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+}
+
+/* Forhåndsudfyld et par fælles ankre, så kalenderen ikke er tom */
+function seed(s){
+  const d0 = s.start;
+  const dEnd = s.end;
+  s.events = [
+    ev("Afrejse til Korfu ✈️","both",d0,"09:00","✈️","Københavns Lufthavn","Husk pas, boardingpas og solcreme"),
+    ev("Ankomst & indtjekning","both",d0,"15:30","🏨","Hotellet",""),
+    ev("Første middag ved havet","both",d0,"19:30","🍽️","Tavernaen","Skål for ferien 🥂"),
+    ev("Hjemrejse","both",dEnd,"12:00","🧳","","Tjek ud senest kl. 11"),
+  ];
+  return s;
+}
+function ev(title,who,date,time,emoji,loc,notes){
+  return {id:uid(),title,who,date,time,emoji:emoji||"📍",loc:loc||"",notes:notes||""};
+}
+function uid(){ return Math.random().toString(36).slice(2,9); }
+
+/* ─────────────────────────────────────────────────────────────
+   Dato-hjælpere
+   ───────────────────────────────────────────────────────────── */
+function parse(d){ const [y,m,da]=d.split("-").map(Number); return new Date(y,m-1,da); }
+function fmtKey(dt){ return dt.toISOString().slice(0,10); }
+function tripDays(){
+  const out=[]; let cur=parse(state.start); const end=parse(state.end);
+  while(cur<=end){ out.push(new Date(cur)); cur.setDate(cur.getDate()+1); }
+  return out;
+}
+function daysUntil(){
+  const today=new Date(); today.setHours(0,0,0,0);
+  return Math.round((parse(state.start)-today)/86400000);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Render
+   ───────────────────────────────────────────────────────────── */
+function applyColors(){
+  document.documentElement.style.setProperty('--pA',state.people.A.color);
+  document.documentElement.style.setProperty('--pB',state.people.B.color);
+}
+function whoColor(w){
+  if(w==="A") return state.people.A.color;
+  if(w==="B") return state.people.B.color;
+  return getCSS('--both');
+}
+function whoLabel(w){
+  if(w==="A") return state.people.A.name;
+  if(w==="B") return state.people.B.name;
+  return "Sammen";
+}
+function getCSS(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+function renderHeader(){
+  document.getElementById('tripTitle').textContent = state.title;
+  document.getElementById('tripSub').textContent = state.sub;
+  document.title = state.title + " · Korfu 🇬🇷";
+
+  const n = daysUntil();
+  const cd = document.getElementById('countdown');
+  if(n>0){
+    cd.innerHTML = `<div class="cd-box"><b>${n}</b><span>dage til afrejse</span></div>
+      <div class="cd-box"><b>${tripDays().length}</b><span>feriedage</span></div>
+      <div class="cd-box"><b>${state.events.length}</b><span>planlagt</span></div>`;
+  }else if(n<=0 && parse(state.end)>=new Date(new Date().setHours(0,0,0,0))){
+    cd.innerHTML = `<div class="cd-box"><b>🌞</b><span>I er på ferie nu!</span></div>
+      <div class="cd-box"><b>${state.events.length}</b><span>planlagt</span></div>`;
+  }else{
+    cd.innerHTML = `<div class="cd-box"><b>💛</b><span>Minder for livet</span></div>`;
+  }
+
+  document.getElementById('legend').innerHTML =
+    `<span><i class="dot" style="background:${state.people.A.color}"></i>${state.people.A.name}</span>
+     <span><i class="dot" style="background:${state.people.B.color}"></i>${state.people.B.name}</span>
+     <span><i class="dot" style="background:${getCSS('--both')}"></i>Sammen</span>`;
+}
+
+function renderFilter(){
+  const f = document.getElementById('whoFilter');
+  const opt = [
+    {k:"all",   label:"Alle",                col:"var(--ink)"},
+    {k:"both",  label:"Sammen",              col:getCSS('--both')},
+    {k:"A",     label:state.people.A.name,   col:state.people.A.color},
+    {k:"B",     label:state.people.B.name,   col:state.people.B.color},
+  ];
+  f.innerHTML = opt.map(o=>`
+    <div class="chip ${filter===o.k?'active':''}" onclick="setFilter('${o.k}')">
+      <span class="dot" style="background:${o.col}"></span>${o.label}
+    </div>`).join("");
+}
+
+function visibleEvents(){
+  return state.events.filter(e=> filter==="all" ? true :
+         filter==="both" ? e.who==="both" : e.who===filter );
+}
+
+function renderSchedule(){
+  const root = document.getElementById('schedule');
+  const evs = visibleEvents();
+
+  if(view==="list"){
+    const sorted=[...evs].sort(cmpEvent);
+    root.innerHTML = `<div class="day"><div class="events">`+
+      (sorted.length? sorted.map(e=>eventRow(e,true)).join("")
+        : `<div class="empty-day">Ingen aktiviteter endnu.</div>`)+
+      `</div></div>`;
+    return;
+  }
+
+  // agenda – grupperet pr. dag
+  let html="";
+  tripDays().forEach((dt,i)=>{
+    const key=fmtKey(dt);
+    const dayEvs = evs.filter(e=>e.date===key).sort(cmpEvent);
+    html += `<div class="day">
+      <div class="day-head">
+        <div class="day-date"><b>${dt.getDate()}</b><span>${MONTHS[dt.getMonth()]}</span></div>
+        <div>
+          <div class="day-title">${WEEKDAYS[dt.getDay()]}dag · Dag ${i+1}</div>
+          <div class="day-meta">${dayEvs.length?dayEvs.length+" aktivitet"+(dayEvs.length>1?"er":""):"Ingen planer endnu"}</div>
+        </div>
+        <button class="day-add" onclick="openEvent(null,'${key}')">＋ Tilføj</button>
+      </div>
+      <div class="events">
+        ${dayEvs.length? dayEvs.map(e=>eventRow(e,false)).join("")
+          : `<div class="empty-day">Fri dag — eller find en idé nedenfor ✨</div>`}
+      </div></div>`;
+  });
+  root.innerHTML = html;
+}
+
+function cmpEvent(a,b){
+  if(a.date!==b.date) return a.date<b.date?-1:1;
+  return (a.time||"99:99")<(b.time||"99:99")?-1:1;
+}
+
+function eventRow(e, showDate){
+  const col = whoColor(e.who);
+  const dateLbl = showDate ? (()=>{const d=parse(e.date);return `${d.getDate()}/${d.getMonth()+1}`;})() : "";
+  return `<div class="event">
+    <div class="time">${showDate?dateLbl+"<br>":""}${e.time||"—"}</div>
+    <div class="bar" style="background:${col}"></div>
+    <div class="body">
+      <div class="etitle">${e.emoji||"📍"} ${escapeHtml(e.title)}
+        <span class="badge" style="background:${col}">${whoLabel(e.who)}</span></div>
+      ${e.loc?`<div class="eloc">📍 ${escapeHtml(e.loc)}</div>`:""}
+      ${e.notes?`<div class="enotes">${escapeHtml(e.notes)}</div>`:""}
+    </div>
+    <div class="actions">
+      <button class="icon-btn" title="Redigér" onclick="openEvent('${e.id}')">✏️</button>
+      <button class="icon-btn" title="Slet" onclick="delEvent('${e.id}')">🗑️</button>
+    </div>
+  </div>`;
+}
+
+function escapeHtml(s){return (s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+/* ─────────────────────────────────────────────────────────────
+   Idé-bibliotek (Korfu)
+   ───────────────────────────────────────────────────────────── */
+const IDEAS = [
+  {ico:"🏖️",t:"Strand i Paleokastritsa",p:"Turkisblåt vand og bugter — leje af kajak eller bådtur til grotterne.",who:"both"},
+  {ico:"🏰",t:"Korfu By (gamle bydel)",p:"UNESCO-byen: smalle stræder, to fæstninger og hyggelige caféer.",who:"both"},
+  {ico:"⛪",t:"Vlacherna-kloster & Museøen",p:"Det berømte postkortbillede — bedst ved solnedgang.",who:"both"},
+  {ico:"🚤",t:"Bådtur til Paxos & Antipaxos",p:"Heldagstur til de blå huler og smaragdgrønt vand.",who:"both"},
+  {ico:"🥾",t:"Vandretur på Korfu Trail",p:"Et stykke af stien gennem olivenlunde og bjerglandsbyer.",who:"A"},
+  {ico:"🧖",t:"Spa & wellness-formiddag",p:"Massage og afslapning mens den anden sover længe.",who:"B"},
+  {ico:"🍷",t:"Vinsmagning & kumquat-likør",p:"Smag lokal vin og Korfus specialitet, kumquat.",who:"both"},
+  {ico:"🏛️",t:"Achilleion-paladset",p:"Kejserinde Sisis palads med haver og havudsigt.",who:"both"},
+  {ico:"🐠",t:"Snorkling i en stille bugt",p:"Pak masker — klart vand og masser af fisk.",who:"both"},
+  {ico:"🌅",t:"Solnedgang ved Loggas Beach",p:"Cafe-klippen 'Panorama' med dramatisk udsigt.",who:"both"},
+  {ico:"☕",t:"Doven morgen & frappé",p:"Sov længe, lang morgenmad, ingen planer.",who:"both"},
+  {ico:"🛍️",t:"Shopping & marked",p:"Lokale lædervarer, olivenolie og souvenirs.",who:"B"},
+  {ico:"🏍️",t:"Lej en scooter/quad",p:"Udforsk de små nordlige landsbyer på egen hånd.",who:"A"},
+  {ico:"🐙",t:"Frisk fisk i en taverna",p:"Grillet blæksprutte og ouzo ved vandkanten.",who:"both"},
+  {ico:"📖",t:"Strandhåndklæde & en bog",p:"Egen-tid: bare slappe af i solen.",who:"A"},
+  {ico:"🏊",t:"Morgensvømning",p:"Et frisk dyp før det bliver for varmt.",who:"both"},
+];
+function renderIdeas(){
+  document.getElementById('ideas').innerHTML = IDEAS.map((x,i)=>{
+    const tag = x.who==="both"?"Sammen":x.who==="A"?"Hver for sig":"Hver for sig";
+    return `<div class="idea" onclick="addIdea(${i})">
+      <span class="tag">${tag}</span>
+      <div class="ico">${x.ico}</div>
+      <h4>${x.t}</h4>
+      <p>${x.p}</p>
+      <div class="add-hint">＋ Læg i planen</div>
+    </div>`;
+  }).join("");
+}
+function addIdea(i){
+  const x = IDEAS[i];
+  openEvent();
+  document.getElementById('fTitle').value = x.t;
+  document.getElementById('fNotes').value = x.p;
+  setWho(x.who);
+  setEmoji(x.ico);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Modal: aktivitet
+   ───────────────────────────────────────────────────────────── */
+const EMOJIS = ["📍","🏖️","🍽️","🍷","🚤","🥾","☕","🏰","🌅","🛍️","🏊","🐙","🧖","✈️","🏨","🧳","❤️","📸","🍹","⛪"];
+function buildEmojiPicker(){
+  document.getElementById('fEmoji').innerHTML = EMOJIS.map(e=>
+    `<button onclick="setEmoji('${e}')" data-e="${e}">${e}</button>`).join("");
+}
+function setEmoji(e){
+  pickEmoji=e;
+  document.querySelectorAll('#fEmoji button').forEach(b=>b.classList.toggle('sel',b.dataset.e===e));
+}
+function buildWhoPicker(){
+  const w = document.getElementById('fWho');
+  w.innerHTML = [
+    {k:"both",l:"🤝 Sammen"},
+    {k:"A",l:"👤 "+state.people.A.name},
+    {k:"B",l:"👤 "+state.people.B.name},
+  ].map(o=>`<button data-w="${o.k}" onclick="setWho('${o.k}')">${o.l}</button>`).join("");
+}
+function setWho(w){
+  pickWho=w;
+  document.querySelectorAll('#fWho button').forEach(b=>{
+    const on=b.dataset.w===w; b.classList.toggle('sel',on);
+    b.style.background = on?whoColor(w):"#fff";
+  });
+}
+function openEvent(id, presetDate){
+  editingId = id||null;
+  buildWhoPicker(); buildEmojiPicker();
+  if(id){
+    const e = state.events.find(x=>x.id===id);
+    document.getElementById('eventModalTitle').textContent="Redigér aktivitet";
+    document.getElementById('fTitle').value=e.title;
+    document.getElementById('fDate').value=e.date;
+    document.getElementById('fTime').value=e.time;
+    document.getElementById('fLoc').value=e.loc;
+    document.getElementById('fNotes').value=e.notes;
+    setWho(e.who); setEmoji(e.emoji);
+  }else{
+    document.getElementById('eventModalTitle').textContent="Ny aktivitet";
+    document.getElementById('fTitle').value="";
+    document.getElementById('fDate').value=presetDate||state.start;
+    document.getElementById('fTime').value="";
+    document.getElementById('fLoc').value="";
+    document.getElementById('fNotes').value="";
+    setWho("both"); setEmoji("📍");
+  }
+  // begræns datoer til ferien
+  document.getElementById('fDate').min=state.start;
+  document.getElementById('fDate').max=state.end;
+  document.getElementById('eventOverlay').classList.add('show');
+  setTimeout(()=>document.getElementById('fTitle').focus(),50);
+}
+function closeEvent(){ document.getElementById('eventOverlay').classList.remove('show'); }
+function saveEvent(){
+  const title=document.getElementById('fTitle').value.trim();
+  if(!title){ document.getElementById('fTitle').focus(); return; }
+  const obj={
+    title,
+    who:pickWho,
+    date:document.getElementById('fDate').value||state.start,
+    time:document.getElementById('fTime').value,
+    emoji:pickEmoji,
+    loc:document.getElementById('fLoc').value.trim(),
+    notes:document.getElementById('fNotes').value.trim(),
+  };
+  if(editingId){
+    const e=state.events.find(x=>x.id===editingId); Object.assign(e,obj);
+  }else{
+    obj.id=uid(); state.events.push(obj);
+  }
+  save(); closeEvent(); renderAll();
+}
+function delEvent(id){
+  if(!confirm("Slet denne aktivitet?")) return;
+  state.events=state.events.filter(e=>e.id!==id);
+  save(); renderAll();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Modal: opsætning
+   ───────────────────────────────────────────────────────────── */
+function openSettings(){
+  document.getElementById('sTitle').value=state.title;
+  document.getElementById('sSub').value=state.sub;
+  document.getElementById('sStart').value=state.start;
+  document.getElementById('sEnd').value=state.end;
+  document.getElementById('sNameA').value=state.people.A.name;
+  document.getElementById('sColorA').value=state.people.A.color;
+  document.getElementById('sNameB').value=state.people.B.name;
+  document.getElementById('sColorB').value=state.people.B.color;
+  document.getElementById('settingsOverlay').classList.add('show');
+}
+function closeSettings(){ document.getElementById('settingsOverlay').classList.remove('show'); }
+function saveSettings(){
+  state.title=document.getElementById('sTitle').value.trim()||"Vores ferie";
+  state.sub=document.getElementById('sSub').value.trim();
+  const ns=document.getElementById('sStart').value, ne=document.getElementById('sEnd').value;
+  if(ns) state.start=ns;
+  if(ne) state.end=ne;
+  if(parse(state.end)<parse(state.start)) state.end=state.start;
+  state.people.A.name=document.getElementById('sNameA').value.trim()||"Person 1";
+  state.people.A.color=document.getElementById('sColorA').value;
+  state.people.B.name=document.getElementById('sNameB').value.trim()||"Person 2";
+  state.people.B.color=document.getElementById('sColorB').value;
+  save(); closeSettings(); applyColors(); renderAll();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Del / eksport / import
+   ───────────────────────────────────────────────────────────── */
+function shareTrip(){
+  const payload = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+  const url = location.origin+location.pathname+"#"+payload;
+  navigator.clipboard?.writeText(url).then(
+    ()=>alert("🔗 Delbart link kopieret!\n\nSend det til "+state.people.B.name+
+              ". Når linket åbnes, indlæses hele planen.\n\n(Bemærk: det er et øjebliksbillede — I redigerer hver for sig bagefter.)"),
+    ()=>prompt("Kopiér linket:",url)
+  );
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download="korfu-ferie.json"; a.click();
+}
+function importData(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ state=migrate(JSON.parse(r.result)); save(); applyColors(); renderAll();
+    alert("✅ Plan indlæst!"); }catch(e){ alert("Kunne ikke læse filen."); } };
+  r.readAsText(f); ev.target.value="";
+}
+function resetAll(){
+  if(!confirm("Nulstil alt og start forfra? Dette kan ikke fortrydes.")) return;
+  localStorage.removeItem(STORE_KEY);
+  state=seed(structuredClone(DEFAULT_STATE)); save(); applyColors(); renderAll();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   View / filter
+   ───────────────────────────────────────────────────────────── */
+function setView(v){
+  view=v;
+  document.getElementById('vAgenda').classList.toggle('active',v==='agenda');
+  document.getElementById('vList').classList.toggle('active',v==='list');
+  renderSchedule();
+}
+function setFilter(f){ filter=f; renderFilter(); renderSchedule(); }
+
+function renderAll(){
+  applyColors(); renderHeader(); renderFilter(); renderSchedule(); renderIdeas();
+}
+
+/* luk modal ved klik udenfor / Esc */
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); }));
+document.addEventListener('keydown',e=>{ if(e.key==="Escape") document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('show')); });
+
+applyColors();
+renderAll();
+</script>
+</body>
+</html>
