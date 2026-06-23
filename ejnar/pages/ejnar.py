@@ -17,7 +17,7 @@ import requests
 
 from shared import (
     logo, _llm, _llm_stream, strip_html, BADGE,
-    format_afgørelse_tekst, render_detail_header,
+    render_detail_header,
     udtræk_kerneafsnit, sidebar_log_ud,
     byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
@@ -476,10 +476,27 @@ def _behandl_spørgsmål(spørgsmål):
 
 
 def _render_kildeliste(msg_idx, kilder):
-    """Højre kolonne (standard): scanbar liste over de fundne afgørelser."""
+    """Højre kolonne (standard): scanbar, søgbar liste over de fundne afgørelser."""
     st.markdown(f'<div class="src-list-h">Fundne afgørelser ({len(kilder)})</div>',
                 unsafe_allow_html=True)
+    q = ""
+    if len(kilder) > 4:
+        q = st.text_input(
+            "Søg i fundne afgørelser", key=f"src_q_{msg_idx}",
+            placeholder="Filtrér på titel, selskab, sagsnr, udfald…",
+            label_visibility="collapsed").strip().lower()
+    vist = []
     for i, k in enumerate(kilder):
+        if q:
+            blob = " ".join(str(k.get(f, "") or "") for f in
+                            ("Titel", "Selskab", "Sagsnummer", "Udfald")).lower()
+            blob += " " + " ".join(k.get("Mangeltype") or []).lower()
+            if q not in blob:
+                continue
+        vist.append((i, k))
+    if not vist:
+        st.caption("Ingen af de fundne afgørelser matcher filteret.")
+    for i, k in vist:
         try:
             ds = pd.Timestamp(k["Dato"]).strftime("%d.%m.%Y")
         except Exception:
@@ -539,6 +556,102 @@ def _render_læserude(msg_idx, k, svar_tekst):
         f'Åbn original på ankeforsikring.dk ↗</a>',
         unsafe_allow_html=True,
     )
+
+
+def _render_bruger(msg):
+    st.markdown(
+        '<div style="display:flex;justify-content:flex-end;margin:1.1rem 0 0.2rem;">'
+        '<span style="font-size:10px;font-weight:700;color:#64748b;'
+        'text-transform:uppercase;letter-spacing:1.2px;">Du</span></div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        f'<div style="display:flex;justify-content:flex-end;">'
+        f'<div class="chat-user">{msg["tekst"]}</div></div>',
+        unsafe_allow_html=True,
+    )
+
+
+def _render_assistent_svar(msg_idx, msg):
+    """Render ét Ejnar-svar: markdown-formateret svar + klikbare citat-chips +
+    rolig citatkontrol, og enten kilde-liste eller åben læserude til højre."""
+    st.markdown(
+        '<div style="display:flex;align-items:center;gap:6px;margin:0.4rem 0 0.3rem;">'
+        '<span style="font-size:10px;font-weight:700;color:#2563eb;'
+        'text-transform:uppercase;letter-spacing:0.8px;">Ejnar</span></div>',
+        unsafe_allow_html=True,
+    )
+    af = msg.get("auto_filters")
+    if af and af.get("suggested"):
+        chips = " · ".join(
+            f"<strong>{k}:</strong> {', '.join(str(v) for v in vs)}"
+            for k, vs in af["suggested"].items()
+        )
+        status = (f'Indsnævret til {af["after"]} kendelser'
+                  if af.get("applied") else "Foreslået (ikke anvendt — for få hits)")
+        st.markdown(
+            f'<div style="margin:0 0 0.6rem;padding:6px 10px;background:#f8fafc;'
+            f'border:1px solid #eef1f6;border-radius:6px;font-size:11px;color:#64748b;">'
+            f'<span style="color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;'
+            f'font-weight:600;font-size:9.5px;">Auto-filter</span> &nbsp;{chips} '
+            f'<span style="color:#94a3b8;">— {status}</span></div>',
+            unsafe_allow_html=True,
+        )
+
+    kilder = msg.get("kilder", [])
+    html_svar = md_til_html(msg.get("tekst", ""))
+    if kilder:
+        vist, ref_kilder = erstat_kilde_refs(html_svar, kilder)
+    else:
+        vist, ref_kilder = html_svar, []
+
+    col_svar, col_kld = st.columns([3, 2], gap="large")
+    with col_svar:
+        st.markdown(f'<div class="chat-assistant">{vist}</div>', unsafe_allow_html=True)
+        ren = strip_html(msg.get("tekst", ""))
+        copy_button(ren, label="Kopiér svar", key=f"cp_{msg_idx}")
+
+        # Klikbare citat-chips → åbn kilden i ruden til højre m. fremhævet citat
+        if ref_kilder:
+            st.markdown(
+                '<div class="cite-chips-label">Citater — klik for at se i kendelsen</div>',
+                unsafe_allow_html=True,
+            )
+            ccols = st.columns(min(len(ref_kilder), 3))
+            for ci, (src_idx, label, k) in enumerate(ref_kilder):
+                with ccols[ci % 3]:
+                    if st.button(f"⟶ {label}", key=f"cite_{msg_idx}_{ci}",
+                                 use_container_width=True):
+                        st.session_state["_ejnar_open"] = (msg_idx, src_idx)
+                        st.rerun()
+
+        # Rolig citatkontrol (afløser den røde alarm-boks)
+        suspekte = msg.get("suspekte") or []
+        if suspekte:
+            with st.expander(f"⚠ Citatkontrol — {len(suspekte)} citat(er) bør dobbelttjekkes"):
+                st.markdown('<span class="cite-note-anchor"></span>', unsafe_allow_html=True)
+                punkter = "".join(
+                    f'<div class="cite-note" style="margin-bottom:6px;">'
+                    f'<span class="q">»{(c[:160] + "…") if len(c) > 160 else c}«</span></div>'
+                    for c in suspekte[:5]
+                )
+                st.markdown(
+                    '<div class="cite-note">Følgende citater kunne ikke genfindes ordret '
+                    'i kilderne. Det skyldes oftest små sproglige forskelle, men bør '
+                    f'dobbelttjekkes mod originalen:</div><div style="margin-top:6px;">{punkter}</div>',
+                    unsafe_allow_html=True,
+                )
+
+    with col_kld:
+        if not kilder:
+            st.caption("Ingen kilder fundet til dette svar.")
+        else:
+            open_state = st.session_state.get("_ejnar_open")
+            if (open_state and open_state[0] == msg_idx
+                    and 0 <= open_state[1] < len(kilder)):
+                _render_læserude(msg_idx, kilder[open_state[1]], msg.get("tekst", ""))
+            else:
+                _render_kildeliste(msg_idx, kilder)
 
 
 # ── Tilstand ──────────────────────────────────────────────────────────────────
@@ -1090,96 +1203,32 @@ with tab_ai:
 
         st.divider()
 
-        for msg_idx, msg in enumerate(st.session_state.chat_historik):
-            if msg["rolle"] == "bruger":
-                st.markdown(
-                    '<div style="display:flex;justify-content:flex-end;margin:1.1rem 0 0.2rem;">'
-                    '<span style="font-size:10px;font-weight:700;color:#64748b;'
-                    'text-transform:uppercase;letter-spacing:1.2px;">Du</span></div>',
-                    unsafe_allow_html=True,
-                )
-                st.markdown(
-                    f'<div style="display:flex;justify-content:flex-end;">'
-                    f'<div class="chat-user">{msg["tekst"]}</div></div>',
-                    unsafe_allow_html=True,
-                )
-                continue
+        # Gruppér i ture (spørgsmål → svar) og vis NYESTE øverst, så det seneste
+        # svar altid står lige under inputfeltet (ingen scroll-jagt nedad).
+        ture, cur = [], None
+        for idx, m in enumerate(st.session_state.chat_historik):
+            if m["rolle"] == "bruger":
+                cur = [(idx, m), None]
+                ture.append(cur)
+            elif cur is not None and cur[1] is None:
+                cur[1] = (idx, m)
+                cur = None
+            else:
+                ture.append([None, (idx, m)])
+                cur = None
 
-            # ── Assistent-svar ──────────────────────────────────────────────
+        if not ture:
             st.markdown(
-                '<div style="display:flex;align-items:center;gap:6px;margin:1.1rem 0 0.3rem;">'
-                '<span style="font-size:10px;font-weight:700;color:#2563eb;'
-                'text-transform:uppercase;letter-spacing:0.8px;">Ejnar</span></div>',
+                '<div style="text-align:center;padding:2.4rem 1rem;color:#94a3b8;">'
+                '<div style="font-size:1.7rem;margin-bottom:.4rem;">💬</div>'
+                '<div style="font-size:14px;font-weight:600;color:#475569;">Stil dit første spørgsmål</div>'
+                '<div style="font-size:12.5px;margin-top:.3rem;line-height:1.6;">Skriv ovenfor eller '
+                'vælg et forslag — svaret kommer her med kildehenvisninger du kan klikke på.</div></div>',
                 unsafe_allow_html=True,
             )
-            af = msg.get("auto_filters")
-            if af and af.get("suggested"):
-                chips = " · ".join(
-                    f"<strong>{k}:</strong> {', '.join(str(v) for v in vs)}"
-                    for k, vs in af["suggested"].items()
-                )
-                status = (f'Indsnævret til {af["after"]} kendelser'
-                          if af.get("applied") else "Foreslået (ikke anvendt — for få hits)")
-                st.markdown(
-                    f'<div style="margin:0 0 0.6rem;padding:6px 10px;background:#f8fafc;'
-                    f'border:1px solid #eef1f6;border-radius:6px;font-size:11px;color:#64748b;">'
-                    f'<span style="color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;'
-                    f'font-weight:600;font-size:9.5px;">Auto-filter</span> &nbsp;{chips} '
-                    f'<span style="color:#94a3b8;">— {status}</span></div>',
-                    unsafe_allow_html=True,
-                )
 
-            kilder = msg.get("kilder", [])
-            html_svar = md_til_html(msg.get("tekst", ""))
-            if kilder:
-                vist, ref_kilder = erstat_kilde_refs(html_svar, kilder)
-            else:
-                vist, ref_kilder = html_svar, []
-
-            col_svar, col_kld = st.columns([3, 2], gap="large")
-            with col_svar:
-                st.markdown(f'<div class="chat-assistant">{vist}</div>', unsafe_allow_html=True)
-                ren = strip_html(msg.get("tekst", ""))
-                copy_button(ren, label="Kopiér svar", key=f"cp_{msg_idx}")
-
-                # Klikbare citat-chips → åbn kilden i ruden til højre m. fremhævet citat
-                if ref_kilder:
-                    st.markdown(
-                        '<div class="cite-chips-label">Citater — klik for at se i kendelsen</div>',
-                        unsafe_allow_html=True,
-                    )
-                    ccols = st.columns(min(len(ref_kilder), 3))
-                    for ci, (src_idx, label, k) in enumerate(ref_kilder):
-                        with ccols[ci % 3]:
-                            if st.button(f"⟶ {label}", key=f"cite_{msg_idx}_{ci}",
-                                         use_container_width=True):
-                                st.session_state["_ejnar_open"] = (msg_idx, src_idx)
-                                st.rerun()
-
-                # Rolig citatkontrol (afløser den røde alarm-boks)
-                suspekte = msg.get("suspekte") or []
-                if suspekte:
-                    with st.expander(f"⚠ Citatkontrol — {len(suspekte)} citat(er) bør dobbelttjekkes"):
-                        st.markdown('<span class="cite-note-anchor"></span>', unsafe_allow_html=True)
-                        punkter = "".join(
-                            f'<div class="cite-note" style="margin-bottom:6px;">'
-                            f'<span class="q">»{(c[:160] + "…") if len(c) > 160 else c}«</span></div>'
-                            for c in suspekte[:5]
-                        )
-                        st.markdown(
-                            '<div class="cite-note">Følgende citater kunne ikke genfindes ordret '
-                            'i kilderne. Det skyldes oftest små sproglige forskelle, men bør '
-                            f'dobbelttjekkes mod originalen:</div><div style="margin-top:6px;">{punkter}</div>',
-                            unsafe_allow_html=True,
-                        )
-
-            with col_kld:
-                if not kilder:
-                    st.caption("Ingen kilder fundet til dette svar.")
-                else:
-                    open_state = st.session_state.get("_ejnar_open")
-                    if (open_state and open_state[0] == msg_idx
-                            and 0 <= open_state[1] < len(kilder)):
-                        _render_læserude(msg_idx, kilder[open_state[1]], msg.get("tekst", ""))
-                    else:
-                        _render_kildeliste(msg_idx, kilder)
+        for bruger, assistent in reversed(ture):
+            if bruger is not None:
+                _render_bruger(bruger[1])
+            if assistent is not None:
+                _render_assistent_svar(assistent[0], assistent[1])
