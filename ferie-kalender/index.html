@@ -339,7 +339,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 12</div>
+    <div class="ver">version 13</div>
   </footer>
 </div>
 
@@ -511,6 +511,7 @@
 const STORE_KEY = "korfu_ferie_v1";
 const SYNC_KEY  = "korfu_sync_v1";   // {tripCode, fbConfig}
 const WEEKDAYS = ["Søn","Man","Tir","Ons","Tor","Fre","Lør"];
+const WEEKDAYS_FULL = ["Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag"];
 const MONTHS = ["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
 
 const DEFAULT_STATE = {
@@ -813,14 +814,15 @@ function renderSchedule(){
 
   // agenda – grupperet pr. dag
   let html="";
+  const tripKeys=new Set();
   tripDays().forEach((dt,i)=>{
-    const key=fmtKey(dt);
+    const key=fmtKey(dt); tripKeys.add(key);
     const dayEvs = evs.filter(e=>e.date===key).sort(cmpEvent);
     html += `<div class="day">
       <div class="day-head">
         <div class="day-date"><b>${dt.getDate()}</b><span>${MONTHS[dt.getMonth()]}</span></div>
         <div>
-          <div class="day-title">${WEEKDAYS[dt.getDay()]}dag · Dag ${i+1}</div>
+          <div class="day-title">${WEEKDAYS_FULL[dt.getDay()]} · Dag ${i+1}</div>
           <div class="day-meta">${dayEvs.length?dayEvs.length+" aktivitet"+(dayEvs.length>1?"er":""):"Ingen planer endnu"}</div>
         </div>
         <button class="day-add" onclick="openEvent(null,'${key}')">＋ Tilføj</button>
@@ -830,6 +832,20 @@ function renderSchedule(){
           : `<div class="empty-day">Fri dag — eller find en idé nedenfor ✨</div>`}
       </div></div>`;
   });
+
+  // aktiviteter der ligger udenfor rejsedatoerne – vis dem så intet "forsvinder"
+  const outside = evs.filter(e=>!tripKeys.has(e.date)).sort(cmpEvent);
+  if(outside.length){
+    html += `<div class="day" style="border-color:var(--sun)">
+      <div class="day-head" style="background:#fdf4e3">
+        <div class="day-date" style="background:var(--sun)"><b>!</b><span>OBS</span></div>
+        <div>
+          <div class="day-title">Andre datoer</div>
+          <div class="day-meta">Ligger udenfor rejsedatoerne — ret datoen eller justér rejsen under ⚙️</div>
+        </div>
+      </div>
+      <div class="events">${outside.map(e=>eventRow(e,true)).join("")}</div></div>`;
+  }
   root.innerHTML = html;
 }
 
