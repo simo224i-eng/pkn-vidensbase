@@ -2,8 +2,18 @@
 <html lang="da">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Vores ferie · Korfu 🇬🇷</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#1d9bb8" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Ferie" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="icon" href="icon-192.png" />
+<!-- Firebase (compat) – kun til valgfri live-synkronisering -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
   :root{
     --bg:#f4f1ea;
@@ -47,7 +57,13 @@
     content:"🏖️";position:absolute;right:18px;bottom:-12px;font-size:120px;opacity:.18;
     transform:rotate(-8deg);
   }
-  .hero h1{margin:0;font-size:30px;letter-spacing:.3px;font-weight:800}
+  .sync-pill{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.18);
+    border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer;
+    display:inline-flex;align-items:center;gap:7px;z-index:2;backdrop-filter:blur(4px)}
+  .sync-pill .led{width:9px;height:9px;border-radius:50%;background:#cbd5e1}
+  .sync-pill.live .led{background:#34d399;box-shadow:0 0 0 3px rgba(52,211,153,.3)}
+  .sync-pill.err .led{background:#f87171}
+  .hero h1{margin:0;font-size:30px;letter-spacing:.3px;font-weight:800;padding-right:90px}
   .hero .sub{opacity:.92;margin-top:4px;font-size:15px}
   .countdown{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
   .cd-box{background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:12px;
@@ -176,6 +192,9 @@
 <div class="wrap">
 
   <header class="hero">
+    <div class="sync-pill" id="syncPill" onclick="openSettings('sync')" title="Synkronisering">
+      <span class="led"></span><span id="syncText">Lokalt</span>
+    </div>
     <h1 id="tripTitle">Vores ferie på Korfu</h1>
     <div class="sub" id="tripSub">Sol, hav og hinanden 🇬🇷</div>
     <div class="countdown" id="countdown"></div>
@@ -277,10 +296,31 @@
         <div class="field"><label>Person 2 – navn</label><input id="sNameB" /></div>
         <div class="field"><label>Farve</label><input id="sColorB" type="color" /></div>
       </div>
+
+      <hr style="border:none;border-top:1px solid var(--line);margin:18px 0" id="syncAnchor"/>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">🔄 Live-synkronisering</div>
+      <p style="color:var(--muted);font-size:12.5px;margin:0 0 14px">
+        Når begge telefoner bruger samme <b>ferie-kode</b> og Firebase-opsætning, opdateres planen
+        automatisk hos jer begge. Se <code>README</code> for 5-min opsætning (gratis).
+      </p>
+      <div class="field">
+        <label>Ferie-kode (samme hos jer begge)</label>
+        <input id="sTripCode" placeholder="fx korfu-os-to-2026" />
+      </div>
+      <div class="field">
+        <label>Firebase-opsætning (indsæt JSON fra Firebase)</label>
+        <textarea id="sFbConfig" rows="5" placeholder='{ "apiKey": "…", "projectId": "…", … }'></textarea>
+      </div>
+      <div id="syncStatusLine" style="font-size:12.5px;font-weight:700;margin-bottom:10px"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="connectSync()">🔌 Forbind &amp; synk</button>
+        <button class="btn btn-ghost" onclick="disconnectSync()">Afbryd</button>
+        <button class="btn btn-ghost" onclick="copyInvite()">📩 Kopiér invitations­link</button>
+      </div>
     </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeSettings()">Annullér</button>
-      <button class="btn btn-primary" onclick="saveSettings()">Gem</button>
+      <button class="btn btn-primary" onclick="saveSettings()">Gem navne &amp; datoer</button>
     </div>
   </div>
 </div>
@@ -290,6 +330,7 @@
    Datamodel
    ───────────────────────────────────────────────────────────── */
 const STORE_KEY = "korfu_ferie_v1";
+const SYNC_KEY  = "korfu_sync_v1";   // {tripCode, fbConfig}
 const WEEKDAYS = ["Søn","Man","Tir","Ons","Tor","Fre","Lør"];
 const MONTHS = ["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
 
@@ -312,11 +353,32 @@ let editingId = null;
 let pickEmoji = "📍";
 let pickWho = "both";
 
+/* Sync-runtime */
+const cloud = {
+  on:false, db:null, unsub:null, doc:null,
+  clientId: (localStorage.getItem("korfu_client") || (()=>{const c=uid()+uid();localStorage.setItem("korfu_client",c);return c;})()),
+  pushTimer:null, lastSig:null,
+};
+
+function b64decode(s){ return decodeURIComponent(escape(atob(s))); }
+function b64encode(s){ return btoa(unescape(encodeURIComponent(s))); }
+
 function load(){
-  // 1) prøv delt link i URL
-  if(location.hash.length>1){
+  const hash = location.hash.slice(1);
+  // 1a) invitations-link: #join=<base64 {tripCode,fbConfig}> → gem sync-opsætning
+  if(hash.startsWith("join=")){
     try{
-      const data = JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
+      const inv = JSON.parse(b64decode(hash.slice(5)));
+      if(inv && inv.tripCode && inv.fbConfig){
+        localStorage.setItem(SYNC_KEY, JSON.stringify(inv));
+      }
+    }catch(e){}
+    history.replaceState(null,"",location.pathname);
+  }
+  // 1b) gammelt øjebliksbillede-link: #<base64 state>
+  else if(hash.length>1){
+    try{
+      const data = JSON.parse(b64decode(hash));
       if(data && data.events){ history.replaceState(null,"",location.pathname); return migrate(data); }
     }catch(e){/* ignorér */}
   }
@@ -332,6 +394,123 @@ function migrate(d){
 }
 function save(){
   try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+  pushCloud();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Live-synkronisering (Firebase Firestore, compat-SDK)
+   ───────────────────────────────────────────────────────────── */
+function loadSyncCfg(){
+  try{ return JSON.parse(localStorage.getItem(SYNC_KEY)||"null"); }catch(e){ return null; }
+}
+function setSyncStatus(kind, text){
+  const pill=document.getElementById('syncPill');
+  pill.classList.remove('live','err');
+  if(kind==='live') pill.classList.add('live');
+  if(kind==='err')  pill.classList.add('err');
+  document.getElementById('syncText').textContent=text;
+}
+
+function bootSync(){
+  const cfg=loadSyncCfg();
+  if(cfg && cfg.tripCode && cfg.fbConfig){ startSync(cfg, false); }
+  else setSyncStatus('local','Lokalt');
+}
+
+function startSync(cfg, isFresh){
+  if(typeof firebase==="undefined" || !firebase.initializeApp){
+    setSyncStatus('err','Offline'); return;
+  }
+  try{
+    stopSync();
+    if(!firebase.apps.length) firebase.initializeApp(cfg.fbConfig);
+    cloud.db = firebase.firestore();
+    cloud.doc = cloud.db.collection("trips").doc(cfg.tripCode);
+    setSyncStatus('local','Forbinder…');
+
+    // Ved nyoprettet rum: hvis dokumentet ikke findes, så send vores plan op
+    cloud.doc.get().then(snap=>{
+      if(!snap.exists){ pushCloud(true); }
+    }).catch(()=>{});
+
+    cloud.unsub = cloud.doc.onSnapshot(snap=>{
+      cloud.on=true;
+      setSyncStatus('live','Live');
+      const data=snap.data();
+      if(!data || !data.state) return;
+      if(data.by===cloud.clientId) return;          // vores eget ekko
+      const sig=JSON.stringify(data.state);
+      if(sig===JSON.stringify(state)) return;        // ingen reel ændring
+      state=migrate(data.state);
+      cloud.lastSig=sig;
+      try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+      renderAll();
+    }, err=>{
+      console.warn("sync-fejl",err);
+      setSyncStatus('err','Sync-fejl');
+    });
+  }catch(e){
+    console.warn(e);
+    setSyncStatus('err','Fejl');
+  }
+}
+
+function stopSync(){
+  if(cloud.unsub){ try{cloud.unsub();}catch(e){} }
+  cloud.unsub=null; cloud.on=false; cloud.doc=null;
+}
+
+function pushCloud(force){
+  if(!cloud.doc) return;
+  const sig=JSON.stringify(state);
+  if(!force && sig===cloud.lastSig) return;
+  cloud.lastSig=sig;
+  clearTimeout(cloud.pushTimer);
+  cloud.pushTimer=setTimeout(()=>{
+    cloud.doc.set({ state:state, by:cloud.clientId, updatedAt:Date.now() })
+      .catch(err=>{ console.warn(err); setSyncStatus('err','Kunne ikke gemme'); });
+  }, 400);
+}
+
+function connectSync(){
+  const tripCode=document.getElementById('sTripCode').value.trim();
+  const raw=document.getElementById('sFbConfig').value.trim();
+  const line=document.getElementById('syncStatusLine');
+  if(!tripCode){ line.style.color="var(--terracotta)"; line.textContent="Skriv en ferie-kode først."; return; }
+  let fbConfig;
+  try{
+    fbConfig=JSON.parse(raw);
+    if(!fbConfig.projectId || !fbConfig.apiKey) throw 0;
+  }catch(e){
+    line.style.color="var(--terracotta)";
+    line.textContent="Firebase-opsætningen ser ikke rigtig ud (skal være JSON med apiKey og projectId).";
+    return;
+  }
+  const cfg={tripCode, fbConfig};
+  localStorage.setItem(SYNC_KEY, JSON.stringify(cfg));
+  line.style.color="var(--olive)";
+  line.textContent="Forbinder… planen synkroniseres nu mellem jeres telefoner. ✅";
+  startSync(cfg, true);
+}
+
+function disconnectSync(){
+  stopSync();
+  localStorage.removeItem(SYNC_KEY);
+  setSyncStatus('local','Lokalt');
+  const line=document.getElementById('syncStatusLine');
+  line.style.color="var(--muted)"; line.textContent="Afbrudt – planen ligger nu kun lokalt.";
+}
+
+function copyInvite(){
+  const cfg=loadSyncCfg();
+  const line=document.getElementById('syncStatusLine');
+  if(!cfg){ line.style.color="var(--terracotta)"; line.textContent="Forbind først, så kan du dele et invitationslink."; return; }
+  const url=location.origin+location.pathname+"#join="+b64encode(JSON.stringify(cfg));
+  navigator.clipboard?.writeText(url).then(
+    ()=>{ line.style.color="var(--olive)";
+          line.textContent="📩 Invitationslink kopieret! Send det til "+state.people.B.name+" – ét klik forbinder dem."; },
+    ()=>prompt("Kopiér invitationslinket:",url)
+  );
 }
 
 /* Forhåndsudfyld et par fælles ankre, så kalenderen ikke er tom */
@@ -614,7 +793,7 @@ function delEvent(id){
 /* ─────────────────────────────────────────────────────────────
    Modal: opsætning
    ───────────────────────────────────────────────────────────── */
-function openSettings(){
+function openSettings(section){
   document.getElementById('sTitle').value=state.title;
   document.getElementById('sSub').value=state.sub;
   document.getElementById('sStart').value=state.start;
@@ -623,7 +802,15 @@ function openSettings(){
   document.getElementById('sColorA').value=state.people.A.color;
   document.getElementById('sNameB').value=state.people.B.name;
   document.getElementById('sColorB').value=state.people.B.color;
+  // sync-felter
+  const cfg=loadSyncCfg();
+  document.getElementById('sTripCode').value = cfg?cfg.tripCode:"";
+  document.getElementById('sFbConfig').value = cfg?JSON.stringify(cfg.fbConfig,null,2):"";
+  const line=document.getElementById('syncStatusLine');
+  line.style.color = cloud.on?"var(--olive)":"var(--muted)";
+  line.textContent = cloud.on?"🟢 Live – planen synkroniseres mellem jeres telefoner.":"⚪ Ikke forbundet endnu.";
   document.getElementById('settingsOverlay').classList.add('show');
+  if(section==='sync') setTimeout(()=>document.getElementById('syncAnchor').scrollIntoView({behavior:'smooth'}),60);
 }
 function closeSettings(){ document.getElementById('settingsOverlay').classList.remove('show'); }
 function saveSettings(){
@@ -644,11 +831,22 @@ function saveSettings(){
    Del / eksport / import
    ───────────────────────────────────────────────────────────── */
 function shareTrip(){
-  const payload = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
-  const url = location.origin+location.pathname+"#"+payload;
+  const cfg=loadSyncCfg();
+  if(cfg){
+    // Live-synk slået til → del invitationslink (ét klik forbinder)
+    const url=location.origin+location.pathname+"#join="+b64encode(JSON.stringify(cfg));
+    navigator.clipboard?.writeText(url).then(
+      ()=>alert("📩 Invitationslink kopieret!\n\nSend det til "+state.people.B.name+
+                ". Når de åbner linket, er de forbundet til den fælles, live-opdaterede kalender."),
+      ()=>prompt("Kopiér invitationslinket:",url)
+    );
+    return;
+  }
+  // Ellers: øjebliksbillede-link
+  const url = location.origin+location.pathname+"#"+b64encode(JSON.stringify(state));
   navigator.clipboard?.writeText(url).then(
     ()=>alert("🔗 Delbart link kopieret!\n\nSend det til "+state.people.B.name+
-              ". Når linket åbnes, indlæses hele planen.\n\n(Bemærk: det er et øjebliksbillede — I redigerer hver for sig bagefter.)"),
+              ". Når linket åbnes, indlæses hele planen.\n\nTip: Slå live-synkronisering til under ⚙️ for at redigere samme kalender samtidig."),
     ()=>prompt("Kopiér linket:",url)
   );
 }
@@ -691,6 +889,12 @@ document.addEventListener('keydown',e=>{ if(e.key==="Escape") document.querySele
 
 applyColors();
 renderAll();
+bootSync();
+
+// Gør appen installerbar på telefonen
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+}
 </script>
 </body>
 </html>
