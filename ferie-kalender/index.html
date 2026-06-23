@@ -128,8 +128,10 @@
   .event .eloc{color:var(--muted);font-size:12px;margin-top:2px}
   .event .actions{display:flex;gap:4px;opacity:0;transition:.15s}
   .event:hover .actions{opacity:1}
-  .icon-btn{border:none;background:transparent;cursor:pointer;font-size:14px;color:var(--muted);
-    border-radius:8px;padding:4px 6px}
+  /* På touch-enheder (telefon/tablet) er der ingen hover – vis knapperne altid */
+  @media (hover: none){ .event .actions{opacity:1} }
+  .icon-btn{border:none;background:transparent;cursor:pointer;font-size:17px;color:var(--muted);
+    border-radius:8px;padding:6px 8px}
   .icon-btn:hover{background:#efe9db;color:var(--terracotta)}
   .empty-day{color:var(--muted);font-size:13px;padding:10px;text-align:center;font-style:italic}
 
