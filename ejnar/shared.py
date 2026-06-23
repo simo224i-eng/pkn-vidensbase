@@ -14,7 +14,7 @@ import streamlit as st
 #   Sidebar:     #0f172a (flat)
 #   Text:        #0f172a primær   #475569 sek.   #94a3b8 tert.
 #   Border:      #e2e8f0 hairline   #cbd5e1 emphasis
-#   Accent:      #8C1C2E (burgundy)   #fef2f2 (accent bg)
+#   Accent:      #2563eb (fintech-blå)   #eff6ff (accent bg)
 #   Typografi:   Inter 400/500/600/700/800 — ingen Cinzel
 #   Radius:      6px cards, 4px chips, 6px buttons
 _CSS_HTML = """
@@ -91,7 +91,7 @@ header[data-testid="stHeader"] button svg {
     background: #1e293b !important; border-color: #334155 !important; border-radius: 6px !important;
 }
 [data-testid="stSidebar"] hr { border-color: #1e293b !important; }
-[data-testid="stSidebar"] .stSlider [role="slider"] { background: #8C1C2E !important; }
+[data-testid="stSidebar"] .stSlider [role="slider"] { background: #2563eb !important; }
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] a { color: #cbd5e1 !important; }
 [data-testid="stSidebar"] .stCheckbox label { font-size: 11px !important; color: #94a3b8 !important; }
 
@@ -406,12 +406,12 @@ div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div but
     transition: border-color .15s, box-shadow .15s, transform .15s;
     display: flex; flex-direction: column; height: 100%;
 }
-.nævn-card:hover { border-color: #8C1C2E; box-shadow: 0 4px 16px rgba(15,23,42,.06); transform: translateY(-2px); }
-.nævn-card.mfkn:hover { border-color: #8C1C2E; }
+.nævn-card:hover { border-color: #2563eb; box-shadow: 0 4px 16px rgba(15,23,42,.06); transform: translateY(-2px); }
+.nævn-card.mfkn:hover { border-color: #2563eb; }
 .nævn-card-icon {
     display: inline-flex; align-items: center; justify-content: center;
     width: 40px; height: 40px; border-radius: 8px;
-    background: #fef2f2; color: #8C1C2E; margin-bottom: 1.2rem;
+    background: #eff6ff; color: #2563eb; margin-bottom: 1.2rem;
 }
 .nævn-card-icon .material-symbols-rounded { font-size: 22px; }
 .nævn-card-title { font-family: 'Inter', system-ui, sans-serif; font-size: 1.05rem; font-weight: 700; color: #0f172a; letter-spacing: -0.3px; margin-bottom: 0.25rem; }
@@ -420,11 +420,11 @@ div[data-testid="element-container"]:has(.active-filters-clear-anchor) ~ div but
 .nævn-card-count { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 1.4rem; }
 .nævn-card-cta {
     display: block; text-align: center; padding: 0.7rem 1rem;
-    background: #ffffff; border: 1px solid #8C1C2E; border-radius: 6px;
-    color: #8C1C2E; font-size: 13px; font-weight: 600; letter-spacing: 0.1px;
+    background: #ffffff; border: 1px solid #2563eb; border-radius: 6px;
+    color: #2563eb; font-size: 13px; font-weight: 600; letter-spacing: 0.1px;
     transition: background .12s, color .12s;
 }
-.nævn-card:hover .nævn-card-cta { background: #8C1C2E; color: #ffffff; }
+.nævn-card:hover .nævn-card-cta { background: #2563eb; color: #ffffff; }
 
 /* ── Card v2: knap smelter visuelt sammen med kortet ── */
 .pkn-card-v2 { border-radius: 6px 6px 0 0; border-bottom: none !important; margin-bottom: 0; }
@@ -490,6 +490,85 @@ div[data-testid="element-container"]:has(.pkn-card-v2) + div[data-testid="elemen
 }
 
 sup.detail-ref { font-size: 10px; font-weight: 700; color: #0f172a; vertical-align: super; letter-spacing: 0; }
+
+/* ════════════════ Forenet fintech-blå + lækker læsevisning ════════════════ */
+:root {
+  --accent: #2563eb; --accent-700: #1d4ed8; --accent-50: #eff6ff;
+  --ink: #0f172a; --ink-2: #334155; --ink-3: #64748b;
+  --line: #e2e8f0; --line-soft: #eef1f6; --surface: #f8fafc;
+}
+
+/* ── Indholdsfortegnelse (sticky, klikbar) ── */
+.rd-toc { position: sticky; top: 4.2rem; background: #fff; border: 1px solid var(--line-soft);
+    border-radius: 10px; padding: 14px 14px 16px; }
+.rd-toc-h { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 10px; }
+.rd-toc-link { display: block; font-size: 12.5px; line-height: 1.45; color: var(--ink-2);
+    text-decoration: none; padding: 5px 10px; border-radius: 6px; border-left: 2px solid transparent;
+    margin-bottom: 2px; transition: all .12s; }
+.rd-toc-link:hover { background: var(--accent-50); color: var(--accent-700); border-left-color: var(--accent); }
+.rd-toc-l3 { padding-left: 20px; font-size: 12px; color: var(--ink-3); }
+
+/* ── Reader-overskrifter med scroll-anker ── */
+.rd-h2 { scroll-margin-top: 4.5rem; display: block; font-size: 12.5px; font-weight: 700; color: var(--ink);
+    text-transform: uppercase; letter-spacing: 0.8px; margin: 2em 0 0.7em; padding: 9px 14px;
+    background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; }
+.rd-h3 { scroll-margin-top: 4.5rem; display: block; font-size: 11px; font-weight: 700; color: var(--ink-2);
+    text-transform: uppercase; letter-spacing: 0.8px; margin: 1.6em 0 0.5em; padding: 6px 12px;
+    background: var(--surface); border-left: 2px solid #cbd5e1; border-radius: 0 4px 4px 0; }
+.rd-h4 { scroll-margin-top: 4.5rem; display: block; font-size: 10.5px; font-weight: 700; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.6px; margin: 1.1em 0 0.3em; padding: 3px 10px;
+    border-left: 2px dotted #cbd5e1; }
+mark.rd-cite { background: #fef08a; color: #1e293b; padding: 0 2px; border-radius: 2px;
+    box-shadow: 0 0 0 1px #fde68a; }
+
+/* ── Læserude (AI-fanen, citat → kilde) ── */
+.rd-pane { border: 1px solid var(--line-soft); border-radius: 12px; overflow: hidden; background: #fff; }
+.rd-pane-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--line-soft); background: var(--surface); }
+.rd-pane-title { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.4; margin: 0 0 5px; }
+.rd-pane-meta { font-size: 11px; color: var(--ink-3); }
+.rd-body-scroll { max-height: 560px; overflow-y: auto; padding: 6px 18px 18px; }
+.rd-body-scroll .rd-toc { position: static; margin: 10px 0 6px; }
+.cite-callout { background: var(--accent-50); border: 1px solid #dbeafe; border-radius: 8px;
+    padding: 12px 14px; margin: 14px 16px 0; }
+.cite-callout-h { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+    color: var(--accent-700); margin-bottom: 6px; }
+.cite-callout-q { font-size: 13px; line-height: 1.6; color: var(--ink-2); font-style: italic;
+    border-left: 2px solid var(--accent); padding-left: 10px; margin: 6px 0; }
+
+/* ── Kilde-kort (browse de fundne afgørelser) ── */
+.src-list-h { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ink-3); margin: 0 0 10px; }
+.src-card { background: #fff; border: 1px solid var(--line-soft); border-radius: 10px;
+    padding: 12px 14px; margin-bottom: 2px; transition: border-color .12s, box-shadow .12s; }
+.src-card:hover { border-color: #cbd5e1; box-shadow: 0 2px 10px rgba(15,23,42,.05); }
+.src-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.src-card-num { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 20px; height: 20px; border-radius: 6px; background: var(--accent-50); color: var(--accent-700);
+    font-size: 11px; font-weight: 700; }
+.src-card-meta { font-size: 10.5px; color: var(--ink-3); }
+.src-card-title { font-size: 12.5px; font-weight: 600; color: var(--ink); line-height: 1.45; margin: 0; }
+
+/* ── Citat-chips (Perplexity-agtige, under svaret) ── */
+.cite-chips-label { font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 600; margin: 8px 0 4px; }
+
+/* ── Rolig citatkontrol (afløser den røde alarm-boks) ── */
+[data-testid="stExpander"]:has(.cite-note-anchor) summary { font-size: 11.5px !important; color: #92400e !important; }
+.cite-note { font-size: 12.5px; color: var(--ink-2); line-height: 1.65; }
+.cite-note .q { color: var(--ink-3); font-style: italic; }
+
+/* ── Chat-svar: lidt mere luft + ægte markdown-styling ── */
+.chat-assistant { font-size: 14.5px !important; }
+.chat-assistant h2 { color: var(--ink) !important; border-bottom: 1px solid var(--line) !important; padding-bottom: 4px !important; }
+.chat-assistant hr { border: none; border-top: 1px solid var(--line); margin: 1em 0; }
+.chat-assistant code { background: var(--surface); border: 1px solid var(--line-soft);
+    border-radius: 4px; padding: 1px 5px; font-size: 12.5px; }
+.chat-assistant strong { color: var(--ink); font-weight: 700; }
+
+/* ── Accent-knapper (primær = blå) ── */
+[data-testid="stBaseButton-primary"] { background: var(--accent) !important; border-color: var(--accent) !important; }
+[data-testid="stBaseButton-primary"]:hover { background: var(--accent-700) !important; border-color: var(--accent-700) !important; }
 </style>
 <script>
 (function removeIconTooltips() {
@@ -593,7 +672,7 @@ def render_detail_header(
     meta_extra: list,          # liste af (label, value) tupler
     link: str,
     link_label: str = "Åbn original på nævnets hjemmeside",
-    accent: str = "#8C1C2E",
+    accent: str = "#2563eb",
 ) -> str:
     """Returnér detail-header HTML med udelukkende inline styles.
     Bruges i stedet for CSS-klasser der kan blive strippet af Streamlit."""
@@ -835,7 +914,7 @@ _HEADING_WORDS.sort(key=len, reverse=True)
 _H_OPEN  = ('<div style="display:block;font-size:11.5px;font-weight:700;'
             'color:#475569;text-transform:uppercase;letter-spacing:0.8px;'
             'margin:2.2em 0 0.7em;padding:8px 14px;'
-            'background:#f8fafc;border-left:3px solid #8C1C2E;'
+            'background:#f8fafc;border-left:3px solid #2563eb;'
             'border-radius:0 4px 4px 0;">')
 _H_CLOSE = '</div>'
 # Matcher sætningsafslutning + valgfrit afsnitstal (fx "1." "2)") + overskriftsord
@@ -846,7 +925,7 @@ _H2_STYLE = (
     'display:block;font-size:12.5px;font-weight:700;color:#0f172a;'
     'text-transform:uppercase;letter-spacing:0.8px;'
     'margin:2em 0 0.6em;padding:9px 14px;'
-    'background:#f8fafc;border-left:3px solid #8C1C2E;border-radius:0 4px 4px 0;'
+    'background:#f8fafc;border-left:3px solid #2563eb;border-radius:0 4px 4px 0;'
 )
 _H3_STYLE = (
     'display:block;font-size:11px;font-weight:700;color:#475569;'
@@ -888,7 +967,7 @@ def format_afgørelse_tekst(tekst: str) -> str:
             # Style inline fodnotereferencer
             text_block = re.sub(
                 r'\[(\d{1,2})\]',
-                r'<sup style="font-size:9px;font-weight:700;color:#8C1C2E;vertical-align:super;letter-spacing:0;">[\1]</sup>',
+                r'<sup style="font-size:9px;font-weight:700;color:#2563eb;vertical-align:super;letter-spacing:0;">[\1]</sup>',
                 text_block,
             )
             # Split i sætningsgrupper (~280 tegn)
@@ -936,7 +1015,7 @@ def format_afgørelse_tekst(tekst: str) -> str:
         # 1. Style inline fodnotereferencer
         out = re.sub(
             r'\[(\d{1,2})\]',
-            r'<sup style="font-size:9px;font-weight:700;color:#8C1C2E;vertical-align:super;letter-spacing:0;">[\1]</sup>',
+            r'<sup style="font-size:9px;font-weight:700;color:#2563eb;vertical-align:super;letter-spacing:0;">[\1]</sup>',
             out,
         )
 
@@ -990,6 +1069,247 @@ def format_afgørelse_tekst(tekst: str) -> str:
         f'<div style="font-family:\'Inter\',system-ui,sans-serif;font-size:15px;'
         f'line-height:1.8;color:#1e293b;max-width:72ch;">{out}</div>'
     )
+
+
+# ── Markdown → HTML (Claudes svar renderes pænt inde i stylet bubble) ──────────
+def md_til_html(md: str) -> str:
+    """Konvertér den markdown-undermængde Claude bruger (## overskrifter, **fed**,
+    *kursiv*, lister, --- linjer) til HTML.
+
+    Streamlit renderer IKKE markdown inde i rå HTML (fx <div class="chat-assistant">),
+    så uden denne konvertering vises ##/**/--- råt. `[Kilde X]`-tokens bevares så
+    erstat_kilde_refs() kan markere dem bagefter."""
+    import html as _html
+    if not md:
+        return ""
+
+    def _inline(t: str) -> str:
+        t = _html.escape(t, quote=False)
+        t = re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
+        t = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", t)
+        t = re.sub(r"__([^_]+)__", r"<strong>\1</strong>", t)
+        t = re.sub(r"(?<![\*\w])\*([^*\n]+)\*(?![\*\w])", r"<em>\1</em>", t)
+        return t
+
+    lines = md.replace("\r\n", "\n").split("\n")
+    out: list[str] = []
+    para: list[str] = []
+    list_mode = None  # "ul" | "ol" | None
+
+    def flush_para():
+        if para:
+            out.append(f"<p>{' '.join(para).strip()}</p>")
+            para.clear()
+
+    def close_list():
+        nonlocal list_mode
+        if list_mode:
+            out.append(f"</{list_mode}>")
+            list_mode = None
+
+    for raw in lines:
+        s = raw.strip()
+        if not s:
+            flush_para(); close_list(); continue
+        if re.fullmatch(r"(-{3,}|\*{3,}|_{3,})", s):
+            flush_para(); close_list(); out.append("<hr>"); continue
+        m = re.match(r"(#{1,4})\s+(.*)", s)
+        if m:
+            flush_para(); close_list()
+            tag = {1: "h2", 2: "h2", 3: "h3", 4: "h4"}[len(m.group(1))]
+            out.append(f"<{tag}>{_inline(m.group(2).strip())}</{tag}>")
+            continue
+        mb = re.match(r"[-*]\s+(.*)", s)
+        if mb:
+            flush_para()
+            if list_mode != "ul":
+                close_list(); out.append("<ul>"); list_mode = "ul"
+            out.append(f"<li>{_inline(mb.group(1).strip())}</li>")
+            continue
+        mo = re.match(r"\d+[.)]\s+(.*)", s)
+        if mo:
+            flush_para()
+            if list_mode != "ol":
+                close_list(); out.append("<ol>"); list_mode = "ol"
+            out.append(f"<li>{_inline(mo.group(1).strip())}</li>")
+            continue
+        if list_mode:
+            close_list()
+        para.append(_inline(s))
+    flush_para(); close_list()
+    return "".join(out)
+
+
+# ── Citat-udtræk + lækker læservisning med indholdsfortegnelse ─────────────────
+def _flex_pattern(quote: str):
+    """Byg et fleksibelt regex-mønster af et citat: matcher på tværs af
+    tegnsætning/whitespace, så et parafraseret citat stadig kan findes i råteksten."""
+    if not quote:
+        return None
+    words = re.findall(r"\w+", quote, re.UNICODE)
+    if len(words) < 3:
+        return None
+    pat = r"[\W_]+".join(re.escape(w) for w in words[:60])
+    try:
+        return re.compile(pat, re.IGNORECASE)
+    except re.error:
+        return None
+
+
+def citater_i_svar(svar: str, min_len: int = 20) -> list:
+    """Returnér alle "..."-citater (inkl. » « og " ") i et AI-svar."""
+    if not svar:
+        return []
+    out, seen = [], set()
+    moenstre = [
+        r'"([^"]{%d,})"' % min_len,
+        r'»([^«]{%d,})«' % min_len,
+        r'"([^"]{%d,})"' % min_len,
+        r'„([^“]{%d,})“' % min_len,
+    ]
+    for mnstr in moenstre:
+        for m in re.finditer(mnstr, svar):
+            c = m.group(1).strip()
+            if c and c not in seen:
+                seen.add(c)
+                out.append(c)
+    return out
+
+
+def citater_for_kilde(svar: str, doc: dict, min_len: int = 20) -> list:
+    """Returnér de citater fra svaret der stammer fra netop denne kilde."""
+    korpus = _normaliser_citat(doc.get("Tekst") or "")
+    if not korpus:
+        return []
+    hits = []
+    for c in citater_i_svar(svar, min_len):
+        norm = _normaliser_citat(c)
+        if not norm:
+            continue
+        head = norm[: max(30, int(len(norm) * 0.6))]
+        if norm in korpus or head in korpus:
+            hits.append(c)
+    return hits
+
+
+def _toc_label(t: str) -> str:
+    t = (t or "").strip()
+    return t if len(t) <= 46 else t[:44].rstrip() + "…"
+
+
+_RD_P = ("margin:0 0 1.15em;font-size:15.5px;line-height:1.85;color:#1e293b;"
+         "font-family:'Inter',system-ui,sans-serif;")
+
+
+def byg_lækker_afgørelse(tekst: str, highlight_quotes=None, anchor_prefix: str = "sek"):
+    """Returnér (toc_html, body_html) for en afgørelse.
+
+    body_html har <div id="{prefix}-N"> ankre før hver overskrift, og TOC'en linker
+    dertil (klik = hop til sektion). highlight_quotes markeres med <mark> i teksten."""
+    HL_O, HL_C = "\x01", "\x02"
+    raw = tekst or ""
+
+    if highlight_quotes:
+        spans = []
+        for q in highlight_quotes:
+            pat = _flex_pattern(q)
+            if pat:
+                m = pat.search(raw)
+                if m:
+                    spans.append((m.start(), m.end()))
+        spans.sort(reverse=True)
+        last_start = len(raw) + 1
+        for s, e in spans:
+            if e > last_start:          # spring overlappende spans over
+                continue
+            raw = raw[:s] + HL_O + raw[s:e] + HL_C + raw[e:]
+            last_start = s
+
+    has_markers = ('\n## ' in raw or '\n### ' in raw
+                   or raw.startswith('## ') or raw.startswith('### '))
+    toc: list = []
+    body: list = []
+    carry = {"open": False}
+    counter = {"n": 0}
+
+    def emit_para(text_block: str):
+        text_block = text_block.strip()
+        if not text_block:
+            return
+        text_block = re.sub(
+            r'\[(\d{1,2})\]',
+            r'<sup style="font-size:9px;font-weight:700;color:#2563eb;'
+            r'vertical-align:super;">[\1]</sup>',
+            text_block)
+        sentences = re.split(r'(?<=[.!?]) +(?=[A-ZÆØÅ0-9])', text_block)
+        buf, chunks = "", []
+        for s in sentences:
+            if not buf:
+                buf = s
+            elif len(buf) < 320:
+                buf += " " + s
+            else:
+                chunks.append(buf); buf = s
+        if buf:
+            chunks.append(buf)
+        for c in chunks:
+            if carry["open"]:
+                c = HL_O + c
+            opens, closes = c.count(HL_O), c.count(HL_C)
+            if opens > closes:
+                c += HL_C; carry["open"] = True
+            elif closes >= opens and carry["open"] and closes > 0:
+                carry["open"] = False
+            body.append(f'<p style="{_RD_P}">{c}</p>')
+
+    if has_markers:
+        para_lines: list = []
+
+        def flush():
+            if para_lines:
+                emit_para(' '.join(para_lines)); para_lines.clear()
+
+        for line in raw.splitlines():
+            st_ = line.strip()
+            if st_.startswith('## '):
+                flush()
+                counter["n"] += 1
+                aid = f"{anchor_prefix}-{counter['n']}"
+                title = st_[3:].strip().replace(HL_O, "").replace(HL_C, "")
+                toc.append((2, title, aid))
+                body.append(f'<div id="{aid}" class="rd-h2">{title}</div>')
+            elif st_.startswith('### '):
+                flush()
+                counter["n"] += 1
+                aid = f"{anchor_prefix}-{counter['n']}"
+                title = st_[4:].strip().replace(HL_O, "").replace(HL_C, "")
+                toc.append((3, title, aid))
+                body.append(f'<div id="{aid}" class="rd-h3">{title}</div>')
+            elif st_.startswith('#### '):
+                flush()
+                title = st_[5:].strip().replace(HL_O, "").replace(HL_C, "")
+                body.append(f'<div class="rd-h4">{title}</div>')
+            elif st_ == '':
+                flush()
+            else:
+                para_lines.append(st_)
+        flush()
+    else:
+        emit_para(raw)
+
+    body_html = ''.join(body)
+    body_html = (body_html.replace(HL_O, '<mark class="rd-cite">')
+                          .replace(HL_C, '</mark>'))
+
+    if toc:
+        items = ''.join(
+            f'<a href="#{aid}" class="rd-toc-link rd-toc-l{lvl}">{_toc_label(title)}</a>'
+            for lvl, title, aid in toc
+        )
+        toc_html = f'<div class="rd-toc"><div class="rd-toc-h">Indhold</div>{items}</div>'
+    else:
+        toc_html = ""
+    return toc_html, body_html
 
 
 def udtræk_kerneafsnit(tekst: str, max_tegn: int = 8000) -> str:

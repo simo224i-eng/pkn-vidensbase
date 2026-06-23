@@ -24,6 +24,7 @@ from shared import (
     valider_citationer, dansk_tokenizer, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
     auto_filter_query, apply_auto_filters,
+    md_til_html, byg_lækker_afgørelse, citater_for_kilde,
 )
 
 
@@ -419,13 +420,125 @@ def erstat_kilde_refs(tekst, kilder):
                 label = f"{sag} {år}".strip()
                 unique[n - 1] = (label, k)
                 spans.append(
-                    f'<span style="color:#a0692a;font-weight:600;white-space:nowrap;">[{label}]</span>'
+                    f'<span style="color:#2563eb;font-weight:600;white-space:nowrap;">[{label}]</span>'
                 )
         return " ".join(spans) if spans else m.group(0)
 
     out = re.sub(r"\[Kilde\s+([\d,\s]+)\]", repl, tekst)
-    ordered = [v for _, v in sorted(unique.items())]
+    ordered = [(idx, label, k) for idx, (label, k) in sorted(unique.items())]
     return out, ordered
+
+
+def _behandl_spørgsmål(spørgsmål):
+    """Kør ét spørgsmål gennem RAG + Claude og gem i historikken.
+
+    Én kilde til sandhed for både forslags-knapper og send-formularen (afløser ~40
+    linjers dubleret kode). Citatkontrollen gemmes separat (ikke længere klistret
+    ind i svarteksten som en rød alarm-boks)."""
+    spørgsmål = (spørgsmål or "").strip()
+    if not spørgsmål:
+        return
+    st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
+    st.markdown(
+        f'<div style="display:flex;justify-content:flex-end;">'
+        f'<div class="chat-user">{spørgsmål}</div></div>',
+        unsafe_allow_html=True,
+    )
+    ph = st.empty()
+    with st.spinner("Søger i kendelser…"):
+        try:
+            _, kilder = smart_retrieval(
+                spørgsmål, df, vec, mat, ai_sub_idx,
+                st.session_state.chat_historik, embeds=embeds,
+                filter_options=_filter_options,
+            )
+        except Exception:
+            kilder = []
+    suspekte = []
+    try:
+        svar = claude_svar_stream(spørgsmål, kilder,
+                                  historik=st.session_state.chat_historik, placeholder=ph)
+        try:
+            suspekte = valider_citationer(svar, kilder)
+        except Exception:
+            suspekte = []
+    except Exception as e:
+        svar = f"Fejl ved AI Assistent: {e}"
+        ph.error(svar)
+        kilder = []
+    af = st.session_state.pop("_ejnar_last_auto_filters", None)
+    st.session_state.chat_historik.append({
+        "rolle": "assistent", "tekst": svar, "kilder": kilder,
+        "auto_filters": af, "suspekte": suspekte,
+    })
+    st.session_state.pop("_ejnar_open", None)
+    st.rerun()
+
+
+def _render_kildeliste(msg_idx, kilder):
+    """Højre kolonne (standard): scanbar liste over de fundne afgørelser."""
+    st.markdown(f'<div class="src-list-h">Fundne afgørelser ({len(kilder)})</div>',
+                unsafe_allow_html=True)
+    for i, k in enumerate(kilder):
+        try:
+            ds = pd.Timestamp(k["Dato"]).strftime("%d.%m.%Y")
+        except Exception:
+            ds = "–"
+        udf = k.get("Udfald") or "–"
+        sel = k.get("Selskab") or "–"
+        titel = (k.get("Titel") or "")[:90]
+        st.markdown(
+            f'<div class="src-card">'
+            f'<div class="src-card-top"><span class="src-card-num">{i+1}</span>'
+            f'<span class="src-card-meta">{ds} &nbsp;·&nbsp; {udf} &nbsp;·&nbsp; {sel}</span></div>'
+            f'<div class="src-card-title">{titel}</div></div>',
+            unsafe_allow_html=True,
+        )
+        if st.button("Læs & find citat →", key=f"open_src_{msg_idx}_{i}",
+                     use_container_width=True):
+            st.session_state["_ejnar_open"] = (msg_idx, i)
+            st.rerun()
+
+
+def _render_læserude(msg_idx, k, svar_tekst):
+    """Højre kolonne (åben): kendelsen formateret lækkert med indholdsfortegnelse
+    og det citat Ejnar brugte fremhævet i teksten."""
+    if st.button("← Luk", key=f"close_src_{msg_idx}"):
+        st.session_state.pop("_ejnar_open", None)
+        st.rerun()
+    try:
+        ds = pd.Timestamp(k["Dato"]).strftime("%d.%m.%Y")
+    except Exception:
+        ds = "–"
+    sag = k.get("Sagsnummer") or "–"
+    udf = k.get("Udfald") or "–"
+    sel = k.get("Selskab") or "–"
+    try:
+        quotes = citater_for_kilde(svar_tekst, k)
+    except Exception:
+        quotes = []
+    toc_html, body_html = byg_lækker_afgørelse(
+        k.get("Tekst", ""), highlight_quotes=quotes, anchor_prefix=f"s{msg_idx}")
+    callout = ""
+    if quotes:
+        qs = "".join(f'<div class="cite-callout-q">»{strip_html(q)}«</div>' for q in quotes[:4])
+        callout = ('<div class="cite-callout"><div class="cite-callout-h">'
+                   f'✦ Citat brugt i svaret — fremhævet nedenfor</div>{qs}</div>')
+    st.markdown(
+        f'<div class="rd-pane">'
+        f'<div class="rd-pane-head"><div class="rd-pane-title">{k.get("Titel","")}</div>'
+        f'<div class="rd-pane-meta">{ds} &nbsp;·&nbsp; {udf} &nbsp;·&nbsp; {sel} &nbsp;·&nbsp; sag {sag}</div></div>'
+        f'{callout}'
+        f'<div class="rd-body-scroll">{toc_html}{body_html}</div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        f'<a href="{k.get("Link","#")}" target="_blank" '
+        f'style="font-size:11.5px;color:#2563eb;text-decoration:none;font-weight:500;">'
+        f'Åbn original på ankeforsikring.dk ↗</a>',
+        unsafe_allow_html=True,
+    )
 
 
 # ── Tilstand ──────────────────────────────────────────────────────────────────
@@ -659,9 +772,16 @@ with tab_søg:
             unsafe_allow_html=True,
         )
 
-        col_tekst, col_ai = st.columns([3, 2], gap="large")
+        toc_html, body_html = byg_lækker_afgørelse(row["Tekst"], anchor_prefix="detail")
+        if toc_html:
+            col_toc, col_tekst, col_ai = st.columns([1.1, 3, 1.6], gap="large")
+            with col_toc:
+                st.markdown(toc_html, unsafe_allow_html=True)
+        else:
+            col_tekst, col_ai = st.columns([3, 1.6], gap="large")
         with col_tekst:
-            st.markdown(format_afgørelse_tekst(row["Tekst"]), unsafe_allow_html=True)
+            st.markdown(f'<div style="max-width:74ch;">{body_html}</div>',
+                        unsafe_allow_html=True)
         with col_ai:
             st.markdown(
                 '<div class="detail-ai-panel">'
@@ -814,7 +934,7 @@ with tab_stat:
         with col_l:
             st.markdown("#### Kendelser per år")
             år_df = d.dropna(subset=["År"]).groupby("År").size().reset_index(name="Antal")
-            fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#8C1C2E"])
+            fig = px.bar(år_df, x="År", y="Antal", color_discrete_sequence=["#2563eb"])
             fig.update_layout(**_LAYOUT)
             fig.update_traces(marker_line_width=0)
             st.plotly_chart(fig, use_container_width=True)
@@ -839,7 +959,7 @@ with tab_stat:
                 mt_df = pd.Series(mt_rows).value_counts().rename_axis("Mangeltype") \
                           .reset_index(name="Antal").sort_values("Antal", ascending=True).tail(15)
                 fig3 = px.bar(mt_df, x="Antal", y="Mangeltype", orientation="h",
-                              color_discrete_sequence=["#1a3060"])
+                              color_discrete_sequence=["#1e293b"])
                 fig3.update_layout(**_LAYOUT)
                 fig3.update_traces(marker_line_width=0)
                 st.plotly_chart(fig3, use_container_width=True)
@@ -850,7 +970,7 @@ with tab_stat:
                        .reset_index(name="Sager").sort_values("Sager", ascending=True).tail(15))
             if not sel_df.empty:
                 fig4 = px.bar(sel_df, x="Sager", y="Selskab", orientation="h",
-                              color_discrete_sequence=["#8C1C2E"])
+                              color_discrete_sequence=["#2563eb"])
                 fig4.update_layout(**_LAYOUT)
                 fig4.update_traces(marker_line_width=0)
                 st.plotly_chart(fig4, use_container_width=True)
@@ -950,108 +1070,30 @@ with tab_ai:
         cols = st.columns(4)
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
-                st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
-                st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
-                ph = st.empty()
-                with st.spinner("Søger i kendelser…"):
-                    try:
-                        _, kilder = smart_retrieval(
-                            f, df, vec, mat, ai_sub_idx,
-                            st.session_state.chat_historik, embeds=embeds,
-                            filter_options=_filter_options,
-                        )
-                    except Exception:
-                        kilder = []
-                try:
-                    svar = claude_svar_stream(f, kilder,
-                                              historik=st.session_state.chat_historik,
-                                              placeholder=ph)
-                    try:
-                        suspekte = valider_citationer(svar, kilder)
-                    except Exception:
-                        suspekte = []
-                    if suspekte:
-                        punkter = "".join(
-                            f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
-                            for c in suspekte[:3]
-                        )
-                        svar = svar + (
-                            "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
-                            "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
-                            "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
-                            "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
-                            f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
-                        )
-                        ph.markdown(svar, unsafe_allow_html=True)
-                except Exception as e:
-                    svar = f"Fejl ved AI Assistent: {e}"
-                    ph.error(svar)
-                    kilder = []
-                af = st.session_state.pop("_ejnar_last_auto_filters", None)
-                st.session_state.chat_historik.append(
-                    {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})
-                st.rerun()
+                _behandl_spørgsmål(f)
 
         with st.form("chat_form", clear_on_submit=True):
-            spørgsmål = st.text_area("Dit spørgsmål", height=80,
-                                      placeholder="Hvad er Ankenævnets praksis for…?")
+            spørgsmål = st.text_area(
+                "Dit spørgsmål", height=80, label_visibility="collapsed",
+                placeholder="Spørg om Ankenævnets praksis — fx »Hvornår dækkes skjult skimmel?«")
             c1, c2 = st.columns([3, 1])
             send = c1.form_submit_button("Send ➤", use_container_width=True, type="primary")
             ryd = c2.form_submit_button("Ryd chat", use_container_width=True)
 
         if ryd:
             st.session_state.chat_historik = []
+            st.session_state.pop("_ejnar_open", None)
             st.rerun()
 
         if send and spørgsmål.strip():
-            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
-            ph = st.empty()
-            with st.spinner("Søger i kendelser…"):
-                try:
-                    _, kilder = smart_retrieval(
-                        spørgsmål, df, vec, mat, ai_sub_idx,
-                        st.session_state.chat_historik, embeds=embeds,
-                        filter_options=_filter_options,
-                    )
-                except Exception:
-                    kilder = []
-            try:
-                svar = claude_svar_stream(spørgsmål, kilder,
-                                          historik=st.session_state.chat_historik,
-                                          placeholder=ph)
-                try:
-                    suspekte = valider_citationer(svar, kilder)
-                except Exception:
-                    suspekte = []
-                if suspekte:
-                    punkter = "".join(
-                        f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
-                        for c in suspekte[:3]
-                    )
-                    svar = svar + (
-                        "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
-                        "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
-                        "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
-                        "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
-                        f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
-                    )
-                    ph.markdown(svar, unsafe_allow_html=True)
-            except Exception as e:
-                svar = f"Fejl ved AI Assistent: {e}"
-                ph.error(svar)
-                kilder = []
-            af = st.session_state.pop("_ejnar_last_auto_filters", None)
-            st.session_state.chat_historik.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})
-            st.rerun()
+            _behandl_spørgsmål(spørgsmål)
 
         st.divider()
 
         for msg_idx, msg in enumerate(st.session_state.chat_historik):
             if msg["rolle"] == "bruger":
                 st.markdown(
-                    '<div style="display:flex;justify-content:flex-end;margin:1rem 0 0.2rem;">'
+                    '<div style="display:flex;justify-content:flex-end;margin:1.1rem 0 0.2rem;">'
                     '<span style="font-size:10px;font-weight:700;color:#64748b;'
                     'text-transform:uppercase;letter-spacing:1.2px;">Du</span></div>',
                     unsafe_allow_html=True,
@@ -1061,104 +1103,83 @@ with tab_ai:
                     f'<div class="chat-user">{msg["tekst"]}</div></div>',
                     unsafe_allow_html=True,
                 )
-            else:
+                continue
+
+            # ── Assistent-svar ──────────────────────────────────────────────
+            st.markdown(
+                '<div style="display:flex;align-items:center;gap:6px;margin:1.1rem 0 0.3rem;">'
+                '<span style="font-size:10px;font-weight:700;color:#2563eb;'
+                'text-transform:uppercase;letter-spacing:0.8px;">Ejnar</span></div>',
+                unsafe_allow_html=True,
+            )
+            af = msg.get("auto_filters")
+            if af and af.get("suggested"):
+                chips = " · ".join(
+                    f"<strong>{k}:</strong> {', '.join(str(v) for v in vs)}"
+                    for k, vs in af["suggested"].items()
+                )
+                status = (f'Indsnævret til {af["after"]} kendelser'
+                          if af.get("applied") else "Foreslået (ikke anvendt — for få hits)")
                 st.markdown(
-                    '<div style="display:flex;align-items:center;gap:6px;margin:1rem 0 0.2rem;">'
-                    '<span style="font-size:10px;font-weight:600;color:#8C1C2E;'
-                    'text-transform:uppercase;letter-spacing:0.6px;">Ejnar</span></div>',
+                    f'<div style="margin:0 0 0.6rem;padding:6px 10px;background:#f8fafc;'
+                    f'border:1px solid #eef1f6;border-radius:6px;font-size:11px;color:#64748b;">'
+                    f'<span style="color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;'
+                    f'font-weight:600;font-size:9.5px;">Auto-filter</span> &nbsp;{chips} '
+                    f'<span style="color:#94a3b8;">— {status}</span></div>',
                     unsafe_allow_html=True,
                 )
-                af = msg.get("auto_filters")
-                if af and af.get("suggested"):
-                    chips = " · ".join(
-                        f"<strong>{k}:</strong> {', '.join(str(v) for v in vs)}"
-                        for k, vs in af["suggested"].items()
-                    )
-                    status = (f'Indsnævret til {af["after"]} kendelser'
-                              if af.get("applied") else "Foreslået (ikke anvendt — for få hits)")
+
+            kilder = msg.get("kilder", [])
+            html_svar = md_til_html(msg.get("tekst", ""))
+            if kilder:
+                vist, ref_kilder = erstat_kilde_refs(html_svar, kilder)
+            else:
+                vist, ref_kilder = html_svar, []
+
+            col_svar, col_kld = st.columns([3, 2], gap="large")
+            with col_svar:
+                st.markdown(f'<div class="chat-assistant">{vist}</div>', unsafe_allow_html=True)
+                ren = strip_html(msg.get("tekst", ""))
+                copy_button(ren, label="Kopiér svar", key=f"cp_{msg_idx}")
+
+                # Klikbare citat-chips → åbn kilden i ruden til højre m. fremhævet citat
+                if ref_kilder:
                     st.markdown(
-                        f'<div style="margin:0 0 0.6rem;padding:6px 10px;background:#f8fafc;'
-                        f'border:1px solid #eef1f6;border-radius:4px;font-size:11px;color:#64748b;">'
-                        f'<span style="color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;'
-                        f'font-weight:600;font-size:9.5px;">Auto-filter</span> &nbsp;{chips} '
-                        f'<span style="color:#94a3b8;">— {status}</span></div>',
+                        '<div class="cite-chips-label">Citater — klik for at se i kendelsen</div>',
                         unsafe_allow_html=True,
                     )
-                kilder = msg.get("kilder", [])
-                if kilder:
-                    vist, ref_kilder = erstat_kilde_refs(msg["tekst"], kilder)
-                else:
-                    vist, ref_kilder = msg["tekst"], []
+                    ccols = st.columns(min(len(ref_kilder), 3))
+                    for ci, (src_idx, label, k) in enumerate(ref_kilder):
+                        with ccols[ci % 3]:
+                            if st.button(f"⟶ {label}", key=f"cite_{msg_idx}_{ci}",
+                                         use_container_width=True):
+                                st.session_state["_ejnar_open"] = (msg_idx, src_idx)
+                                st.rerun()
 
-                col_svar, col_kld = st.columns([3, 2])
-                with col_svar:
-                    st.markdown(f'<div class="chat-assistant">{vist}</div>', unsafe_allow_html=True)
-                    ren = strip_html(msg.get("tekst", ""))
-                    copy_button(ren, label="Kopiér svar", key=f"cp_{msg_idx}")
-                    if ref_kilder:
+                # Rolig citatkontrol (afløser den røde alarm-boks)
+                suspekte = msg.get("suspekte") or []
+                if suspekte:
+                    with st.expander(f"⚠ Citatkontrol — {len(suspekte)} citat(er) bør dobbelttjekkes"):
+                        st.markdown('<span class="cite-note-anchor"></span>', unsafe_allow_html=True)
+                        punkter = "".join(
+                            f'<div class="cite-note" style="margin-bottom:6px;">'
+                            f'<span class="q">»{(c[:160] + "…") if len(c) > 160 else c}«</span></div>'
+                            for c in suspekte[:5]
+                        )
                         st.markdown(
-                            '<div style="font-size:10px;color:#94a3b8;margin:6px 0 4px;'
-                            'text-transform:uppercase;letter-spacing:1px;font-weight:600;">'
-                            'Åbn kendelse:</div>',
+                            '<div class="cite-note">Følgende citater kunne ikke genfindes ordret '
+                            'i kilderne. Det skyldes oftest små sproglige forskelle, men bør '
+                            f'dobbelttjekkes mod originalen:</div><div style="margin-top:6px;">{punkter}</div>',
                             unsafe_allow_html=True,
                         )
-                        bcols = st.columns(min(len(ref_kilder), 3))
-                        for ci, (label, k) in enumerate(ref_kilder):
-                            with bcols[ci % 3]:
-                                if st.button(f"↗ {label}", key=f"ref_{msg_idx}_{ci}",
-                                             use_container_width=True):
-                                    st.session_state.valgt_kendelse = k
-                                    if "_resumé" in st.session_state:
-                                        del st.session_state["_resumé"]
-                                    st.rerun()
-                with col_kld:
-                    if kilder:
-                        st.markdown(
-                            '<div style="font-size:11px;font-weight:700;color:#475569;'
-                            'text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">'
-                            'Kilder</div>',
-                            unsafe_allow_html=True,
-                        )
-                        for i, k in enumerate(kilder):
-                            try:
-                                ts = pd.Timestamp(k["Dato"])
-                                ds = ts.strftime("%d.%m.%Y")
-                                aar = str(ts.year)
-                            except Exception:
-                                ds, aar = "–", "–"
-                            sag = k.get("Sagsnummer") or "–"
-                            udf = k.get("Udfald") or ""
-                            with st.expander(f"[{i+1}] {sag} · {aar}"):
-                                if st.button(f"▶ Åbn kendelsen i Ejnar",
-                                             key=f"kilde_open_{msg_idx}_{i}",
-                                             use_container_width=True, type="primary"):
-                                    st.session_state.valgt_kendelse = k
-                                    if "_resumé" in st.session_state:
-                                        del st.session_state["_resumé"]
-                                    st.rerun()
-                                st.markdown(
-                                    f'<div style="font-size:13px;font-weight:600;color:#1e3a5f;'
-                                    f'margin:8px 0 4px 0;line-height:1.4">{k["Titel"]}</div>',
-                                    unsafe_allow_html=True,
-                                )
-                                st.markdown(
-                                    f'<div style="font-size:11px;color:#64748b;margin-bottom:10px">'
-                                    f'{ds} &nbsp;·&nbsp; {udf} &nbsp;·&nbsp; '
-                                    f'{k.get("Selskab", "") or "–"}</div>',
-                                    unsafe_allow_html=True,
-                                )
-                                rå = k.get("Tekst", "")
-                                fmt = re.sub(r'\. ([A-ZÆØÅ])', r'.</p><p>\1', rå)
-                                st.markdown(
-                                    '<div style="font-size:13px;line-height:1.7;color:#1e293b;'
-                                    'max-height:420px;overflow-y:auto;padding:12px 14px;'
-                                    'background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;'
-                                    f'margin-bottom:8px"><p>{fmt}</p></div>',
-                                    unsafe_allow_html=True,
-                                )
-                                st.markdown(
-                                    f'<a href="{k["Link"]}" target="_blank" '
-                                    f'style="font-size:12px;color:#2563eb;text-decoration:none">'
-                                    f'Åbn original kendelse på ankeforsikring.dk ↗</a>',
-                                    unsafe_allow_html=True,
-                                )
+
+            with col_kld:
+                if not kilder:
+                    st.caption("Ingen kilder fundet til dette svar.")
+                else:
+                    open_state = st.session_state.get("_ejnar_open")
+                    if (open_state and open_state[0] == msg_idx
+                            and 0 <= open_state[1] < len(kilder)):
+                        _render_læserude(msg_idx, kilder[open_state[1]], msg.get("tekst", ""))
+                    else:
+                        _render_kildeliste(msg_idx, kilder)
