@@ -339,7 +339,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 10</div>
+    <div class="ver">version 11</div>
   </footer>
 </div>
 
@@ -1084,16 +1084,18 @@ const REC_PLACES = [
    note:"Blandt Grækenlands bedste – moderne italiensk gastronomi. Til den helt store aften."},
   {name:"Pane & Souvlaki", emoji:"🥙", area:"Korfu By, Guilford St.", meal:"Gyros/souvlaki", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6257, lng:19.9190,
    note:"Frisk, moderne souvlaki/gyros. Hurtigt, billigt og rigtig godt til frokost."},
-  {name:"Mr & Mrs People", emoji:"🍸", area:"Korfu By, Solomou", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true, lat:39.6248, lng:19.9216,
-   note:"Hip, moderne meze og cocktails i en stemningsfuld gyde. God til deling."},
-  {name:"To Tavernaki tis Marinas", emoji:"🍢", area:"Korfu By", meal:"Aftensmad", price:"€€", rating:4.5, booking:"Anbefales", noFish:true, lat:39.6232, lng:19.9212,
-   note:"Charmerende taverna med grillretter og meze. Lokal stemning og live-musik enkelte aftener."},
+  {name:"Taverna Ninos", emoji:"🍢", area:"Korfu By (lille sidegade i gamle bydel)", meal:"Frokost & aften", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6238, lng:19.9215,
+   note:"100+ år gammel familietaverna hvor de lokale spiser. Korfiotiske klassikere (sofrito, bourdeto) og berømt billig gyros (~4 €). Kan ikke bookes – mød bare op."},
+  {name:"To Tavernaki tis Marinas", emoji:"🥘", area:"Korfu By, gyde nær Gamle Havn", meal:"Aftensmad", price:"€€", rating:4.4, booking:"Anbefales", noFish:true, lat:39.6234, lng:19.9205,
+   note:"Familieejet med hjemmelavet korfiotisk mad af Marina Beska – sofrito og pastitsada (kød). Hyggeligt og populært, så book bord."},
   {name:"Klimataria (Bellos)", emoji:"🍤", area:"Benitses (sydpå)", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Påkrævet", noFish:false, lat:39.5562, lng:19.9086,
    note:"Berømt meze-taverna – mest fisk/skaldyr, men kødretter findes. Lille, så book i god tid."},
   {name:"7th Heaven (Café Panorama)", emoji:"🌅", area:"Peroulades, nordvest", meal:"Drinks", price:"€€", rating:4.4, booking:"Anbefales", noFish:true, lat:39.7817, lng:19.6712,
    note:"Klippe-café med Korfus flotteste solnedgang over Loggas Beach. Kom til drinks/snacks før middag."},
-  {name:"Anthos", emoji:"🌿", area:"Korfu By, gamle bydel", meal:"Aftensmad", price:"€€€", rating:4.5, booking:"Anbefales", noFish:true, lat:39.6243, lng:19.9229,
-   note:"Moderne græsk køkken med fokus på friske råvarer i en smuk gård. Fin til en rolig aften."},
+  {name:"Anthos", emoji:"🌿", area:"Korfu By, gamle bydel", meal:"Aftensmad", price:"€€€", rating:4.5, booking:"Anbefales", noFish:false, lat:39.6243, lng:19.9229,
+   note:"Elegant moderne græsk i en smuk brolagt gyde – men fisk/skaldyr er stjernen, så ikke det stærkeste valg hvis I vil undgå fisk."},
+  {name:"To Tsipouradiko", emoji:"🍶", area:"Korfu By, ved Gamle Havn", meal:"Aftensmad", price:"€€", rating:4.7, booking:"Anbefales", noFish:true, lat:39.6265, lng:19.9180,
+   note:"Elsket meze- & tsipouro-sted. Åbner 18:30 og fyldes hurtigt – kom tidligt eller ring og book. Masser af små retter (oste-dip, tzatziki, auberginer, pølse) udover fisk."},
 ];
 
 function dirLink(p){
