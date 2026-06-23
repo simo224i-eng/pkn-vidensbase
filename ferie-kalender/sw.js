@@ -1,6 +1,6 @@
 /* Service worker – gør appen installerbar og brugbar offline.
    App-skallen caches; Firebase/netværkskald får altid lov at gå til nettet. */
-const CACHE = "korfu-ferie-v2";
+const CACHE = "korfu-ferie-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -35,8 +35,15 @@ self.addEventListener("fetch", (e) => {
   ) {
     return;
   }
-  // App-skal: cache-first, fald tilbage til netværk
+  // App-skal: netværk-først (så opdateringer altid kommer igennem),
+  // fald tilbage til cache når man er offline.
   e.respondWith(
-    caches.match(e.request).then((r) => r || fetch(e.request).catch(() => caches.match("./index.html")))
+    fetch(e.request)
+      .then((resp) => {
+        const copy = resp.clone();
+        caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+        return resp;
+      })
+      .catch(() => caches.match(e.request).then((r) => r || caches.match("./index.html")))
   );
 });

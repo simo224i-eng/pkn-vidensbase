@@ -403,6 +403,20 @@ function save(){
 function loadSyncCfg(){
   try{ return JSON.parse(localStorage.getItem(SYNC_KEY)||"null"); }catch(e){ return null; }
 }
+/* Læser Firebase-opsætning – tåler både ren JSON og JS-blokken
+   "const firebaseConfig = { apiKey: "…", … };" som Firebase viser. */
+function parseFbConfig(raw){
+  raw=(raw||"").trim();
+  if(!raw) return null;
+  try{ const o=JSON.parse(raw); if(o&&o.apiKey&&o.projectId) return o; }catch(e){}
+  const m=raw.match(/\{[\s\S]*\}/);
+  const body=m?m[0]:raw;
+  const obj={};
+  const re=/([A-Za-z0-9_]+)\s*:\s*["'`]([^"'`]*)["'`]/g;
+  let g;
+  while((g=re.exec(body))){ obj[g[1]]=g[2]; }
+  return (obj.apiKey && obj.projectId) ? obj : null;
+}
 function setSyncStatus(kind, text){
   const pill=document.getElementById('syncPill');
   pill.classList.remove('live','err');
@@ -477,13 +491,10 @@ function connectSync(){
   const raw=document.getElementById('sFbConfig').value.trim();
   const line=document.getElementById('syncStatusLine');
   if(!tripCode){ line.style.color="var(--terracotta)"; line.textContent="Skriv en ferie-kode først."; return; }
-  let fbConfig;
-  try{
-    fbConfig=JSON.parse(raw);
-    if(!fbConfig.projectId || !fbConfig.apiKey) throw 0;
-  }catch(e){
+  const fbConfig=parseFbConfig(raw);
+  if(!fbConfig){
     line.style.color="var(--terracotta)";
-    line.textContent="Firebase-opsætningen ser ikke rigtig ud (skal være JSON med apiKey og projectId).";
+    line.textContent="Kunne ikke læse Firebase-opsætningen. Indsæt hele blokken fra Firebase (den med apiKey og projectId).";
     return;
   }
   const cfg={tripCode, fbConfig};
