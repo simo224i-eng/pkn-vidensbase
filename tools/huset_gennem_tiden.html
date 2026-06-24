@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Huset gennem tiden — interaktiv byggeteknik</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1E9; --card:#FFFEFB; --ink:#23211C; --ink-soft:#6f6857;
+  --teal:#0E7C7B; --teal-d:#0B5E5D; --teal-50:#dff0ef; --sand:#EDE7D9;
+  --line:#e4ddcc; --line-2:#d6cdb8; --shadow:0 8px 30px rgba(35,33,28,.08);
+  --warn:#c2410c; --warn-bg:#fdeee2; --ok:#176c3a;
+  --c-tag:#c0563b; --c-vaeg:#cf9b6f; --c-vindue:#7fb4cd; --c-fund:#8f897c;
+  --c-gulv:#bd9059; --c-vaadrum:#3a9d92; --c-skorsten:#9a6b52;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,.gt-wordmark{font-family:'Space Grotesk','Inter',system-ui,sans-serif;}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px;}
+
+/* Header */
+.gt-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;
+  border-bottom:2px solid var(--sand);padding-bottom:14px;margin-bottom:18px;flex-wrap:wrap;}
+.gt-wordmark{font-size:1.9rem;font-weight:700;letter-spacing:-.5px;margin:0;line-height:1;}
+.gt-wordmark .dot{color:var(--teal);}
+.gt-sub{font-size:12.5px;color:var(--ink-soft);margin-top:6px;}
+.gt-modes{display:flex;gap:6px;}
+.gt-mode{font-size:13px;font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--line-2);
+  background:var(--card);color:var(--ink-soft);cursor:pointer;transition:.15s;}
+.gt-mode:hover{border-color:var(--teal);color:var(--teal-d);}
+.gt-mode.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+
+/* Era timeline */
+.gt-timeline{display:flex;gap:0;align-items:stretch;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:6px;box-shadow:var(--shadow);margin-bottom:8px;overflow-x:auto;}
+.gt-era{flex:1 1 0;min-width:104px;text-align:center;padding:9px 8px;border-radius:10px;cursor:pointer;
+  border:1px solid transparent;transition:.15s;position:relative;}
+.gt-era:hover{background:var(--sand);}
+.gt-era.on{background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;box-shadow:0 4px 14px rgba(14,124,123,.25);}
+.gt-era .yr{font-size:10px;font-weight:700;letter-spacing:.4px;opacity:.8;}
+.gt-era .nm{font-size:12px;font-weight:600;line-height:1.25;margin-top:2px;}
+.gt-era.on .yr{opacity:.9;}
+.gt-hint{font-size:11.5px;color:var(--ink-soft);text-align:center;margin:0 0 16px;}
+
+/* Era intro banner */
+.gt-erabanner{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-d) 100%);color:#eafaf9;
+  border-radius:16px;padding:16px 20px;margin-bottom:18px;box-shadow:0 6px 22px rgba(14,124,123,.18);}
+.gt-erabanner .yr{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.85;font-weight:700;}
+.gt-erabanner .ti{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;margin:2px 0 6px;}
+.gt-erabanner .re{font-size:.93rem;line-height:1.6;color:#d8f0ef;}
+
+/* Stage layout */
+.gt-stage{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;align-items:start;}
+@media(max-width:880px){.gt-stage{grid-template-columns:1fr;}}
+
+.gt-housecard{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:10px 12px 12px;box-shadow:var(--shadow);position:relative;}
+.gt-house-svg{width:100%;height:auto;display:block;cursor:default;}
+.gt-house-svg .zone{cursor:pointer;transition:opacity .15s;}
+.gt-house-svg .zone:hover .face{filter:brightness(1.07);}
+.gt-house-svg .zone.dim{opacity:.4;}
+.gt-house-svg .lbl{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;fill:#fff;
+  paint-order:stroke;stroke:rgba(0,0,0,.35);stroke-width:3px;pointer-events:none;}
+.gt-house-svg .lead{stroke:rgba(35,33,28,.35);stroke-width:1.2;stroke-dasharray:3 3;}
+.gt-housetools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+.gt-tool{font-size:12px;font-weight:600;padding:7px 12px;border-radius:9px;border:1px solid var(--line-2);
+  background:var(--paper);color:var(--ink-soft);cursor:pointer;transition:.15s;}
+.gt-tool:hover{border-color:var(--teal);color:var(--teal-d);}
+.gt-tool.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+.gt-housecap{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:6px;}
+
+/* defect markers */
+.gt-defect{cursor:pointer;}
+.gt-defect circle.pulse{fill:var(--warn);opacity:.32;animation:gtpulse 1.8s ease-out infinite;}
+.gt-defect circle.dot{fill:var(--warn);stroke:#fff;stroke-width:1.5;}
+@keyframes gtpulse{0%{r:6;opacity:.5}100%{r:20;opacity:0}}
+
+/* Part chips */
+.gt-parts{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px;}
+.gt-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+  padding:7px 12px;border-radius:20px;border:1px solid var(--line-2);background:var(--card);
+  color:var(--ink);cursor:pointer;transition:.15s;}
+.gt-chip:hover{border-color:var(--teal);}
+.gt-chip .sw{width:11px;height:11px;border-radius:3px;}
+.gt-chip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* Detail panel */
+.gt-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow);overflow:hidden;min-height:300px;}
+.gt-panel-head{padding:14px 18px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#fff,#fdfbf6);}
+.gt-panel-eyebrow{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);}
+.gt-panel-title{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin:3px 0 0;display:flex;align-items:center;gap:9px;}
+.gt-panel-body{padding:16px 18px 20px;}
+.gt-byg{font-size:.95rem;line-height:1.65;color:#36332b;margin:0 0 14px;}
+.gt-byg b{color:var(--teal-d);}
+
+.gt-seclbl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#9a9281;margin:16px 0 8px;}
+
+/* Layer stack (exploded) */
+.gt-layers{display:flex;gap:14px;align-items:flex-start;}
+.gt-layers svg{flex:0 0 132px;}
+.gt-layerlist{flex:1;display:flex;flex-direction:column;gap:5px;}
+.gt-layer{display:flex;gap:9px;align-items:flex-start;padding:7px 9px;border-radius:9px;cursor:pointer;
+  border:1px solid transparent;transition:.12s;}
+.gt-layer:hover{background:var(--sand);border-color:var(--line-2);}
+.gt-layer.on{background:var(--teal-50);border-color:#bfe0de;}
+.gt-layer .sw{width:13px;height:13px;border-radius:3px;flex:0 0 auto;margin-top:2px;border:1px solid rgba(0,0,0,.12);}
+.gt-layer .lt{font-size:13px;}
+.gt-layer .lt b{font-weight:700;}
+.gt-layer .lt span{color:var(--ink-soft);}
+
+/* Defects + facts */
+.gt-deflist{display:flex;flex-direction:column;gap:7px;}
+.gt-def{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.5;
+  background:var(--warn-bg);border:1px solid #f3d8c4;border-radius:9px;padding:8px 11px;color:#7c2d12;}
+.gt-def .ic{flex:0 0 auto;}
+.gt-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.gt-metapill{font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:8px;background:var(--paper);
+  border:1px solid var(--line-2);color:var(--ink-soft);}
+.gt-obs{margin-top:14px;font-size:13px;line-height:1.6;background:#fffaf0;border:1px solid #f0e2c0;
+  border-radius:10px;padding:10px 12px;color:#6b5a2b;}
+.gt-obs b{color:var(--warn);}
+.gt-begreber{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+.gt-bchip{font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:20px;background:var(--teal-50);
+  color:var(--teal-d);border:1px solid #bfe0de;cursor:pointer;transition:.12s;}
+.gt-bchip:hover{background:var(--teal);color:#fff;border-color:var(--teal);}
+.gt-empty{padding:40px 20px;text-align:center;color:var(--ink-soft);}
+.gt-empty .big{font-size:2rem;margin-bottom:8px;}
+
+/* Glossary modal */
+.gt-modal{position:fixed;inset:0;background:rgba(35,33,28,.5);display:none;align-items:center;
+  justify-content:center;padding:20px;z-index:50;}
+.gt-modal.open{display:flex;}
+.gt-modal-box{background:var(--card);border-radius:16px;max-width:460px;width:100%;padding:22px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.gt-modal-box h3{margin:0 0 4px;font-size:1.2rem;}
+.gt-modal-box .k{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal);}
+.gt-modal-box p{font-size:.95rem;line-height:1.65;color:#36332b;margin:10px 0 0;white-space:pre-wrap;}
+.gt-modal-x{margin-top:18px;width:100%;padding:9px;border-radius:10px;border:1px solid var(--line-2);
+  background:var(--paper);font-weight:600;cursor:pointer;}
+
+/* Quiz */
+.gt-quiz{max-width:640px;margin:0 auto;}
+.gt-q{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:600;line-height:1.5;margin:6px 0 14px;}
+.gt-opt{display:block;width:100%;text-align:left;font-size:.95rem;padding:12px 14px;margin-bottom:9px;
+  border-radius:11px;border:1px solid var(--line-2);background:var(--card);cursor:pointer;transition:.12s;}
+.gt-opt:hover{border-color:var(--teal);}
+.gt-opt.correct{background:#e7f5ec;border-color:#bfe3cb;color:#176c3a;}
+.gt-opt.wrong{background:#fbeaea;border-color:#f0cccc;color:#9a2424;}
+.gt-opt:disabled{cursor:default;}
+.gt-expl{margin-top:6px;padding:11px 13px;border-radius:11px;font-size:.92rem;line-height:1.6;}
+.gt-expl.ok{background:#e7f5ec;color:#176c3a;border:1px solid #bfe3cb;}
+.gt-expl.no{background:#fbeaea;color:#9a2424;border:1px solid #f0cccc;}
+.gt-progress{height:7px;background:var(--sand);border-radius:5px;overflow:hidden;margin:8px 0 16px;}
+.gt-progress span{display:block;height:100%;background:var(--teal);transition:width .3s;}
+.gt-score{font-family:'Space Grotesk',sans-serif;font-size:2.6rem;font-weight:700;color:var(--teal-d);text-align:center;}
+.gt-btn{display:inline-block;font-size:14px;font-weight:600;padding:10px 18px;border-radius:11px;border:1px solid var(--teal);
+  background:var(--teal);color:#fff;cursor:pointer;transition:.15s;}
+.gt-btn:hover{background:var(--teal-d);border-color:var(--teal-d);}
+.gt-btn.ghost{background:var(--card);color:var(--teal-d);}
+.gt-center{text-align:center;}
+
+.gt-foot{text-align:center;margin-top:30px;padding-top:14px;border-top:2px solid var(--sand);
+  font-size:11px;color:#b3aa97;}
+.hide{display:none!important;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="gt-head">
+    <div>
+      <h1 class="gt-wordmark">Huset gennem tiden<span class="dot">.</span></h1>
+      <div class="gt-sub">Interaktiv byggeteknik — vælg en tidsalder, klik på en bygningsdel, og se hvordan den er bygget op lag for lag.</div>
+    </div>
+    <div class="gt-modes">
+      <button class="gt-mode on" data-mode="udforsk">🏠 Udforsk</button>
+      <button class="gt-mode" data-mode="quiz">🎯 Test dig selv</button>
+    </div>
+  </div>
+
+  <!-- UDFORSK -->
+  <div id="view-udforsk">
+    <div class="gt-timeline" id="timeline"></div>
+    <div class="gt-hint">Tidslinje — klik en periode, og se huset bygget som man gjorde dengang.</div>
+
+    <div class="gt-erabanner" id="erabanner"></div>
+
+    <div class="gt-stage">
+      <div>
+        <div class="gt-housecard">
+          <div id="housebox"></div>
+          <div class="gt-housetools">
+            <button class="gt-tool" id="tool-explode">🧱 Eksplodér huset</button>
+            <button class="gt-tool" id="tool-defects">⚠️ Vis typiske skader</button>
+          </div>
+          <div class="gt-housecap" id="housecap">Klik på en bygningsdel i huset</div>
+        </div>
+        <div class="gt-parts" id="parts"></div>
+      </div>
+
+      <div class="gt-panel" id="panel"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="view-quiz" class="hide">
+    <div class="gt-quiz" id="quizbox"></div>
+  </div>
+
+  <div class="gt-foot" id="foot"></div>
+</div>
+
+<div class="gt-modal" id="modal">
+  <div class="gt-modal-box">
+    <div class="k">Begreb</div>
+    <h3 id="modal-title"></h3>
+    <p id="modal-text"></p>
+    <button class="gt-modal-x" onclick="closeModal()">Luk</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ════════════════════════════════════════════════════════════════════════
+   DATA — kurateret byggeteknisk viden (bygget på Børge-modulets deck)
+   ════════════════════════════════════════════════════════════════════════ */
+
+const ERAS = [
+  {id:"foer1930", kort:"–1930", navn:"Før 1930", titel:"Det murede håndværkshus",
+   resume:"Massivt teglmurværk muret i blød kalkmørtel, uden isolering. Hulmuren dukker dog op fra ca. 1900. Træbjælkelag, høje stejle tegltage — ofte uden undertag. Sjældent en effektiv fugtspærre.",
+   hus:{tagFarve:"#b24a32", tagPitch:1.0, tagNavn:"Højt tegltag, intet undertag",
+        vaegFarve:"#c98f5e", vaegType:"Massiv teglmur", vindueLags:1, sokkelFugt:false, gulv:"stroe"}},
+  {id:"1930_1960", kort:"1930–60", navn:"1930–1960", titel:"Hulmurens tid",
+   resume:"Hulmur bliver standard: formur, uisoleret hulrum, bagmur og bindere. Funkis og murermestervillaer. Stadig sparsom isolering; træbjælkelag og strøgulve, parket vinder frem.",
+   hus:{tagFarve:"#b24a32", tagPitch:0.78, tagNavn:"Tegltag", vaegFarve:"#cf9b6f",
+        vaegType:"Hulmur (uisoleret)", vindueLags:1, sokkelFugt:false, gulv:"stroe"}},
+  {id:"1960_1972", kort:"1960–72", navn:"1960–1972", titel:"Parcelhusboomet — før kravene",
+   resume:"Masseproduktion og montagebyggeri. Lavthældende/flade tagpaptage, betontagsten og eternit-bølgeplader (asbest!). Store termorude-partier. Terrændæk af beton — ofte UDEN fugtsikring (før BR72).",
+   hus:{tagFarve:"#4a4a4a", tagPitch:0.34, tagNavn:"Fladt/lavt tagpaptag", vaegFarve:"#d6c2a8",
+        vaegType:"Hulmur / letbeton-bagmur", vindueLags:2, sokkelFugt:false, gulv:"terraen_uden"}},
+  {id:"1972_1979", kort:"1972–79", navn:"1972–1979", titel:"Overgangshuset (BR72)",
+   resume:"BR72 gør kapillarbrydende lag i terrændæk til krav → bedre fugtsikret gulv. Hulmursisolering er nu lovkrav på nybyg. Men det er stadig FØR den store energistramning i 1979.",
+   hus:{tagFarve:"#7a5b3a", tagPitch:0.5, tagNavn:"Beton-/tegltag", vaegFarve:"#cf9b6f",
+        vaegType:"Hulmur (isoleret)", vindueLags:2, sokkelFugt:true, gulv:"terraen"}},
+  {id:"1979_1995", kort:"1979–95", navn:"1979–1995", titel:"Energikravenes hus",
+   resume:"1. feb. 1979 strammes isoleringskravene markant (oliekriserne). Undertag bliver standard under tegl/beton. Hulmur med rustfri bindere. Mere isolering og tættere klimaskærm.",
+   hus:{tagFarve:"#b24a32", tagPitch:0.62, tagNavn:"Tegltag med undertag", vaegFarve:"#cf9b6f",
+        vaegType:"Hulmur (isoleret, rustfri bindere)", vindueLags:2, sokkelFugt:true, gulv:"terraen"}},
+  {id:"1995_2008", kort:"1995–08", navn:"1995–2008", titel:"Det tætte hus",
+   resume:"Energiruder afløser almindelige termoruder. Skærpede tætheds- og fugtkrav, fokus på dampspærre og kuldebroer. Moderne vådrumssikring med membran efter strammere regler.",
+   hus:{tagFarve:"#a8442e", tagPitch:0.62, tagNavn:"Tegltag med undertag", vaegFarve:"#cf9b6f",
+        vaegType:"Velisoleret hulmur", vindueLags:2, sokkelFugt:true, gulv:"terraen"}},
+  {id:"2008_nu", kort:"2008–", navn:"2008–nu", titel:"Lavenergihuset",
+   resume:"BR08/10/15/18: 3-lags ruder og tykke isoleringslag. Lufttæt klimaskærm (blower-door). Mekanisk ventilation med varmegenvinding i stedet for naturlig udluftning. Fokus på robuste, fugtsikre samlinger.",
+   hus:{tagFarve:"#9a3f2b", tagPitch:0.55, tagNavn:"Tegltag, tyk isolering", vaegFarve:"#cf9b6f",
+        vaegType:"Højisoleret, lufttæt klimaskærm", vindueLags:3, sokkelFugt:true, gulv:"terraen"}},
+];
+const ERA_INDEX = {}; ERAS.forEach((e,i)=>ERA_INDEX[e.id]=i);
+
+/* Layer-farver */
+const L = {
+  tegl:"#c0563b", betontag:"#7d6a55", tagpap:"#3f3f3f", eternit:"#9aa0a2", undertag:"#d8b08c",
+  laegte:"#caa46a", spaer:"#b88a4e", isolering:"#f3e09a", loft:"#ece4d2",
+  formur:"#cf8f5e", hulrum:"#fff6e0", hulrumIso:"#f3e09a", bagmur:"#c9b48f", puds:"#efe7d6", massiv:"#c98f5e",
+  beton:"#bdb6a6", fugtspaerre:"#2f6f6b", kapillar:"#d9c9a4", jord:"#a98b63", gulvbr:"#bd9059",
+  stroe:"#a87d4a", krybe:"#efe6d2", glas:"#bfe0ea", ramme:"#8a6b4a", gas:"#dff0f4",
+  flise:"#9fcfc7", membran:"#2f6f6b", spartel:"#e4d9c2", sokkel:"#9a948a", armering:"#7a7a7a",
+};
+
+const BEGREBER = {
+  kalkmoertel:{n:"Kalkmørtel",t:"Blødt, eftergivende og diffusionsåbent bindemiddel (kalk + sand + vand). Brugt i ældre murværk (før ca. 1950). Lader muren \"ånde\" og optage bevægelser uden at revne."},
+  cementmoertel:{n:"Cementmørtel",t:"Hård og stærk, men tæt mørtel. Kan give fugtproblemer hvis den bruges i gammelt, diffusionsåbent murværk, fordi fugt så ikke kan slippe ud."},
+  hulmur:{n:"Hulmur",t:"Tre dele: en ydre formur (vejrskærm, ofte tegl), et hulrum (i dag isoleret) og en indre bagmur (bærer huset). De holdes sammen af bindere. Hulrummet bryder kapillar opsugning af fugt fra formuren."},
+  bindere:{n:"Murbindere",t:"Trådbøjler af stål, der binder for- og bagmur sammen i en hulmur. Ældre ubehandlede/galvaniserede bindere kan ruste — rust fylder mere og kan sprænge fugerne (vandrette revner); i værste fald slipper formuren."},
+  massivmur:{n:"Massivt teglmurværk",t:"1½–2 sten massiv mur uden hulrum, typisk i kalkmørtel. Dominerer før ca. 1930. Uisoleret og porøst — kan suge fugt op (grundfugt) hvis fugtspærre mangler."},
+  undertag:{n:"Undertag",t:"Ekstra vandskærm under tagstenene, der fanger slagregn, fygesne og kondens og leder det til tagrenden. Fast undertag = plader (robust). Banevare-/dugeundertag = udrullet membran (billigere, men visse fabrikater fra ca. 1980–2000 skørner)."},
+  spaer:{n:"Spær, lægter, rem & hanebånd",t:"Spær = de skrå hovedbjælker, der bærer taget. Lægter = vandrette lister, tagstenene hænges på. Rem = tømmer på toppen af ydervæggen, spærene hviler på. Hanebånd = vandret afstivning mellem to spær."},
+  inddaekning:{n:"Inddækning",t:"Tætningen (zink, bly, alu) omkring alt der bryder tagfladen: skorsten, ovenlys, kviste og overgange. Tagets mest udsatte sted — de fleste tagutætheder opstår ved inddækninger, ikke i selve tagstenene."},
+  tagpap:{n:"Tagpap",t:"Baner af armeret bitumen svejset/klæbet i flere lag til en vandtæt membran. Især på flade/lavthældende tage. Svagheder: samlinger, opkanter og gennemføringer; pappen nedbrydes af UV og temperaturskift."},
+  eternit:{n:"Eternit / fibercement",t:"Cement armeret med fibre, støbt i bølgeplader. Ældre eternit frem til ca. 1986–88 indeholdt ASBEST, som er sundhedsskadeligt ved bearbejdning/nedrivning. Pladerne skørner og bliver mosgroede med alderen."},
+  kuldebro:{n:"Kuldebro",t:"Et sted hvor varmen ledes hurtigere ud end i resten af konstruktionen (fx en betonsøjle eller en vinduesfalse). Den indvendige overflade bliver koldere, og dér samler fugt sig som kondens → skimmel."},
+  dampspaerre:{n:"Dampspærre",t:"Typisk en plastfolie på den varme side af isoleringen, der forhindrer fugtig indeluft i at trænge ud i den kolde isolering, hvor den ville kondensere. Skal være ubrudt og tæt — huller fra fx spots er en klassisk fejl."},
+  fugtspaerre:{n:"Fugtspærre",t:"Et vandtæt lag (typisk plastmembran) der stopper jordfugt i at stige op i konstruktionen. I terrændæk ligger den sammen med et kapillarbrydende lag. Mangler den, suges fugt op → råd, skimmel og lugt."},
+  kapillar:{n:"Kapillarbrydende lag",t:"Et lag af grove materialer (singels/letklinker) under terrændækket, hvor porerne er for store til at vand kan suges op ved kapillarvirkning. Krav fra BR72. Mangler det (ældre huse), bliver gulvet en fugtfælde."},
+  terraendaek:{n:"Terrændæk",t:"Gulv direkte på jorden, opbygget nedefra: jord → kapillarbrydende lag → isolering → fugtspærre → betonplade → belægning. Standard i nyere huse."},
+  stroegulv:{n:"Strøgulv",t:"Trægulv på strøer (bjælker) over et ventileret hulrum/krybekælder. Almindeligt i ældre huse. Fugt håndteres ved at ventilere hulrummet — derfor er blokerede krybekælderventiler en skadekandidat."},
+  termorude:{n:"Termorude",t:"To (eller flere) lag glas med et forseglet, ofte gasfyldt mellemrum og et fugtsugende afstandsprofil i kanten. Punktering = utæt kantforsegling → dug INDE i ruden, der ikke kan tørres væk."},
+  saalbaenk:{n:"Sålbænk & vandnæse",t:"Sålbænken er den skrå flade under vinduet, der leder regnvand væk fra facaden. Vandnæsen er underkantens rille, der får dråberne til at slippe og dryppe fri i stedet for at løbe ind i muren."},
+  vaadrumsmembran:{n:"Vådrumsmembran",t:"Et vandtæt lag påført væg og gulv BAG fliserne. Fliser og fuger er IKKE vandtætte — det er membranen der reelt holder vand ude af konstruktionen. Mangler/utæt membran → fugt i væg og etagedæk."},
+  gulvfald:{n:"Gulvfald",t:"Badeværelsesgulvet skal hælde jævnt og ubrudt mod gulvafløbet, så vandet løber bort. Bagfald (mod væggen) eller fladt gulv giver vandpytter, der belaster fuger og membran."},
+  grundfugt:{n:"Opstigende grundfugt",t:"Vand der suges op fra fugtig jord gennem porøse materialer (mursten, beton) ved kapillarvirkning — som vand i et sugerør. Giver saltudslag, afskallende puds og fugtskjolde forneden på væggen."},
+  saetning:{n:"Sætning",t:"Når huset synker — typisk ujævnt (differenssætning), fordi jordbunden er forskellig under bygningen. Giver skæve gulve, døre der binder og trappeformede revner i murværket ud fra hjørner af vinduer/døre."},
+  frostfri:{n:"Frostfri dybde",t:"Fundamentet skal nå ned under den dybde hvor jorden fryser (ca. 0,9 m i DK), så frost i jorden ikke kan løfte og bevæge huset (frosthævning)."},
+  skimmel:{n:"Skimmel",t:"Kræver tre ting samtidig: fugt (RF over ~75–80 % ved overfladen), organisk næring (støv, papir på gips, tapet, træ) og rumtemperatur. Fjernes fugten, standser væksten — skimmel er altid et symptom på et fugtproblem."},
+  hussvamp:{n:"Ægte hussvamp",t:"Serpula lacrymans — aggressiv trænedbryder, der kan transportere vand gennem sit mycelium og brede sig ind i tørt træ, endda gennem murværk. Langt alvorligere end almindeligt råd."},
+  raad:{n:"Råd",t:"Trænedbrydning der kræver vedvarende høj træfugt; nedbryder træet langsomt og lokalt. Typisk i tagfod, bjælkeender og strøer hvor fugt ikke kan slippe væk."},
+  borebille:{n:"Borebille & husbuk",t:"Borebille (\"træorm\"): 1–2 mm runde flyvehuller og fint boresmuld i tørt træ. Husbuk: større ovale gange i nåletræ i tagkonstruktioner — kan svække bærende tømmer alvorligt."},
+  jernbeton:{n:"Jernbeton",t:"Beton med indstøbte armeringsjern, der optager trækkræfter, så betonen kan bære bøjning (dæk, bjælker, overliggere). Ruster armeringen pga. fugt, sprænger den betonen (armeringskorrosion)."},
+  letbeton:{n:"Letbeton / gasbeton / Leca",t:"Lette betonvarianter til bagmure og fundamentblokke. Gasbeton (Ytong) er luftfyldt, let og isolerende, men sugende over for fugt. Letklinkerbeton (Leca) bruges i blokke og fundamenter."},
+  ventilation:{n:"Mekanisk ventilation m. varmegenvinding",t:"Anlæg der suger fugtig luft ud (bad/køkken) og blæser frisk luft ind, mens en varmeveksler genvinder varmen. I tætte huse den primære måde at fjerne fugt på — svigter det, stiger fugten og skimmelrisikoen."},
+  puds:{n:"Puds",t:"Et tyndt lag mørtel trukket ud på muren som overflade og beskyttelse. Kalkpuds er blød og diffusionsåben (ældre huse); kalkcementpuds (bastard) er stærkere."},
+};
+
+/* Hjælp: byg lag med farve fra L */
+function lay(n,t,c){return {n:n,t:t,c:c};}
+
+/* PARTS — pr. del og pr. periode. _def = standard hvis perioden ikke har egen.   */
+const PARTS = {
+  tag:{navn:"Tag", ikon:"🏠", farve:"var(--c-tag)",
+    _def:{byg:"Skrå tagflade på en spærkonstruktion med tagsten på lægter og (i nyere huse) et undertag som ekstra vandskærm.",
+      lag:[lay("Tagsten","Tegl- eller betontagsten, lagt på lægter.",L.tegl),
+           lay("Lægter","Vandrette lister tagstenene hænges på.",L.laegte),
+           lay("Undertag","Ekstra vandskærm under stenene.",L.undertag),
+           lay("Spær","Skrå hovedbjælker der bærer taget.",L.spaer),
+           lay("Isolering + loft","Isolering mellem/under spær, loft indvendigt.",L.isolering)],
+      skader:[{n:"Utætheder ved inddækninger (skorsten, ovenlys)",h:"tag"}],
+      levetid:"Tegl 60–100 år · beton 40–60 år · banevare-undertag 20–40 år",
+      begreber:["spaer","undertag","inddaekning"]},
+    eras:{
+      foer1930:{byg:"Stejle, <b>høje tegltage</b> med vingetegl (eller skifer på finere huse), lagt på lægter — <b>ofte uden undertag</b> eller med fast bræddeundertag. Den store hældning afleder vandet effektivt.",
+        lag:[lay("Vingetegl","Brændt ler, lagt på lægter.",L.tegl),
+             lay("Lægter","Vandrette lister.",L.laegte),
+             lay("(Evt. bræddeundertag)","Mange tage har slet intet undertag.",L.undertag),
+             lay("Spær","Skrå bærende tømmer.",L.spaer),
+             lay("Uudnyttet loftrum","Typisk koldt, uisoleret tagrum.",L.loft)],
+        skader:[{n:"Utætheder hvor der intet undertag er",h:"tag"},
+                {n:"Råd i spær og tagfod",h:"tag"},
+                {n:"Borebille/husbuk i gammelt tømmer",h:"tag"}],
+        levetid:"Vingetegl 60–100 år; tømmer meget længe hvis tørt",
+        begreber:["spaer","undertag","raad","borebille"]},
+      "1930_1960":{byg:"Tegltage fortsat dominerende, lagt på lægter. <b>Eternit-bølgeplader</b> dukker op som billigt alternativ — vær obs: ældre eternit indeholder <b>asbest</b>.",
+        lag:[lay("Tegl- eller eternitplader","Eternit fra denne tid = ofte asbest.",L.tegl),
+             lay("Lægter","",L.laegte),
+             lay("Fast/intet undertag","Undertag endnu ikke standard.",L.undertag),
+             lay("Spær","",L.spaer),
+             lay("Koldt loftrum","Sparsom eller ingen isolering.",L.loft)],
+        skader:[{n:"Asbest i ældre eternitplader",h:"tag"},
+                {n:"Utætheder uden undertag",h:"tag"}],
+        levetid:"Tegl 60–100 år · eternit 30–50 år",
+        begreber:["eternit","undertag","spaer"]},
+      "1960_1972":{byg:"Parcelhusets tre typiske tagløsninger: <b>fladt/lavt tagpaptag</b> (notorisk skadeskandidat), <b>betontagsten</b> og <b>eternit-bølgeplader</b> (ofte asbest til 1986).",
+        lag:[lay("Tagpap (flade tage)","Armeret bitumen, svejset i baner.",L.tagpap),
+             lay("Underlag (brædder/plader)","",L.loft),
+             lay("Spær / lette gitterspær","",L.spaer),
+             lay("Lidt isolering","Før energikravene — tyndt.",L.isolering)],
+        skader:[{n:"Utætte samlinger/opkanter i tagpap",h:"tag"},
+                {n:"Stående vand på flade tage",h:"tag"},
+                {n:"Asbest i eternit-bølgeplader",h:"tag"}],
+        levetid:"Tagpap 20–30 år · eternit 30–50 år",
+        begreber:["tagpap","eternit","inddaekning"]},
+      "1972_1979":{byg:"Overgangstid: beton- og tegltage på lægter. Undertag begynder at vinde frem, men er <b>endnu ikke standard</b> overalt.",
+        lag:[lay("Beton-/tegltagsten","",L.betontag),
+             lay("Lægter","",L.laegte),
+             lay("Undertag (varierende)","Ikke endnu lovfæstet standard.",L.undertag),
+             lay("Spær","",L.spaer),
+             lay("Isolering + loft","",L.isolering)],
+        skader:[{n:"Manglende/ældet undertag",h:"tag"},
+                {n:"Inddækninger ved skorsten",h:"tag"}],
+        levetid:"Beton 40–60 år · tegl 60–100 år",
+        begreber:["undertag","spaer","inddaekning"]},
+      "1979_1995":{byg:"<b>Undertag bliver standard</b> under tegl/betontagsten, og der isoleres mere i taget. OBS: visse <b>bløde banevare-undertage</b> fra ca. 1980–2000 er kendt for at skørne og revne før tid.",
+        lag:[lay("Tegl-/betontagsten","",L.tegl),
+             lay("Lægter","",L.laegte),
+             lay("Banevare-undertag","Visse fabrikater skørner for tidligt.",L.undertag),
+             lay("Spær","",L.spaer),
+             lay("Tykkere isolering + dampspærre","",L.isolering)],
+        skader:[{n:"Skørnet banevare-undertag → vandrande på loft",h:"tag"},
+                {n:"Hul i dampspærre → kondens i isolering",h:"tag"}],
+        levetid:"Undertag 20–40 år · tagsten 60–100 år",
+        begreber:["undertag","dampspaerre","spaer"]},
+      "1995_2008":{byg:"Tegl/beton med undertag som standard. Det udsatte punkt er fortsat <b>bløde banevare-undertage</b> fra perioden frem til ca. 2000.",
+        lag:[lay("Tagsten","",L.tegl),lay("Lægter","",L.laegte),
+             lay("Undertag","",L.undertag),lay("Spær","",L.spaer),
+             lay("Isolering + tæt dampspærre","",L.isolering)],
+        skader:[{n:"Ældet banevare-undertag (fabrikater ~1980–2000)",h:"tag"}],
+        levetid:"Undertag 25–40 år · tagsten 60–100 år",
+        begreber:["undertag","dampspaerre"]},
+      "2008_nu":{byg:"Moderne tegl/beton med robust undertag og <b>tykke isoleringslag</b>. Fokus på lufttæt dampspærre og undgåelse af kuldebroer ved tagfod.",
+        lag:[lay("Tagsten","",L.tegl),lay("Lægter","",L.laegte),
+             lay("Diffusionsåbent undertag","",L.undertag),lay("Spær","",L.spaer),
+             lay("Tyk isolering + lufttæt dampspærre","",L.isolering)],
+        skader:[{n:"Utæt dampspærre i tæt konstruktion → skjult kondens",h:"tag"}],
+        levetid:"Undertag 30–50 år · tagsten 60–100 år",
+        begreber:["dampspaerre","kuldebro","undertag"]},
+    }},
+
+  ydervaeg:{navn:"Ydervæg & facade", ikon:"🧱", farve:"var(--c-vaeg)",
+    _def:{byg:"Husets ydervæg bærer taget og holder vejret ude. Opbygningen skifter dramatisk gennem tiden — fra massiv mur til isoleret hulmur.",
+      lag:[lay("Formur (tegl)","Ydre vejrskærm.",L.formur),
+           lay("Hulrum + isolering","",L.hulrumIso),
+           lay("Bagmur","Bærende — tegl eller letbeton.",L.bagmur),
+           lay("Indvendig puds/gips","",L.puds)],
+      skader:[{n:"Revner og fugtskjolde",h:"vaeg"}],
+      levetid:"Murværk 100+ år · isolering/bindere kortere",
+      begreber:["hulmur","bindere","puds"]},
+    eras:{
+      foer1930:{byg:"<b>Massivt teglmurværk</b> (1½–2 sten) muret i blød <b>kalkmørtel</b>, uden isolering. Diffusionsåbent, så muren \"ånder\". Hulmuren dukker dog op fra ca. 1900, så mange huse 1900–1930 HAR allerede hulmur.",
+        lag:[lay("Massiv teglmur (1½–2 sten)","Muret i kalkmørtel.",L.massiv),
+             lay("Indvendig kalkpuds","Diffusionsåben overflade.",L.puds)],
+        skader:[{n:"Opstigende grundfugt (ingen fugtspærre)",h:"sokkel"},
+                {n:"Frostsprængning af porøse sten",h:"vaeg"},
+                {n:"Udvaskede/smuldrende kalkfuger",h:"vaeg"}],
+        levetid:"Murværk 100+ år ved vedligehold",
+        begreber:["massivmur","kalkmoertel","grundfugt","puds"]},
+      "1930_1960":{byg:"<b>Hulmur</b> bliver standard: formur, <b>uisoleret hulrum</b>, bagmur og <b>bindere</b>. Funkis og murermestervillaer, blank eller pudset facade. Mange er senere efterisoleret (indblæst granulat).",
+        lag:[lay("Formur (tegl)","Vejrskærm.",L.formur),
+             lay("Hulrum (oprindeligt tomt)","Senere ofte hulmursisoleret.",L.hulrum),
+             lay("Bagmur (tegl)","Bærende.",L.bagmur),
+             lay("Indvendig puds","",L.puds)],
+        skader:[{n:"Rustne stålbindere → bulende formur, revner",h:"vaeg"},
+                {n:"Fugtbroer i fejludført hulmursisolering",h:"vaeg"}],
+        levetid:"Mur 100+ år · galvaniserede bindere 40–80 år",
+        begreber:["hulmur","bindere","kalkmoertel"]},
+      "1960_1972":{byg:"Hulmur med teglformur eller <b>letbeton-bagmur</b>. Stadig FØR isoleringskravene → tyndt isoleret. Store facadepartier og termoruder.",
+        lag:[lay("Formur (tegl)","",L.formur),
+             lay("Hulrum (tynd/ingen isolering)","",L.hulrum),
+             lay("Bagmur (letbeton)","Gasbeton/Leca vinder frem.",L.bagmur),
+             lay("Indvendig overflade","",L.puds)],
+        skader:[{n:"Rustne bindere",h:"vaeg"},
+                {n:"Kuldebroer → kondens og skimmel indvendigt",h:"vaeg"}],
+        levetid:"Mur 100+ år · bindere 40–80 år",
+        begreber:["hulmur","bindere","letbeton","kuldebro"]},
+      "1972_1979":{byg:"<b>Hulmursisolering er nu lovkrav</b> på nybyg (ca. 1970). Hulmur med isoleret hulrum, men stadig før den store energistramning i 1979.",
+        lag:[lay("Formur (tegl)","",L.formur),
+             lay("Isoleret hulrum","Mineraluld/granulat.",L.hulrumIso),
+             lay("Bagmur","Tegl eller letbeton.",L.bagmur),
+             lay("Indvendig overflade","",L.puds)],
+        skader:[{n:"Ældre bindere kan ruste",h:"vaeg"},
+                {n:"Kuldebroer ved samlinger",h:"vaeg"}],
+        levetid:"Mur 100+ år",
+        begreber:["hulmur","bindere","kuldebro"]},
+      "1979_1995":{byg:"Energikravenes mur: tykkere isolering i hulrummet og <b>rustfri bindere</b>. Tættere klimaskærm. Dampspærre indvendigt på lette konstruktioner.",
+        lag:[lay("Formur (tegl)","",L.formur),
+             lay("Tyk isolering i hulrum","",L.hulrumIso),
+             lay("Bagmur","",L.bagmur),
+             lay("Dampspærre + plade indvendigt","På lette vægge.",L.puds)],
+        skader:[{n:"Kuldebroer ved vinduesfalse",h:"vaeg"},
+                {n:"Hul i dampspærre",h:"vaeg"}],
+        levetid:"Mur 100+ år · rustfri bindere ~100 år",
+        begreber:["hulmur","dampspaerre","kuldebro"]},
+      "1995_2008":{byg:"Velisoleret hulmur, skærpede tætheds- og fugtkrav, og målrettet arbejde mod <b>kuldebroer</b>.",
+        lag:[lay("Formur (tegl)","",L.formur),
+             lay("Tyk isolering","",L.hulrumIso),
+             lay("Bagmur","",L.bagmur),
+             lay("Tæt dampspærre","",L.puds)],
+        skader:[{n:"Restkuldebroer",h:"vaeg"}],
+        levetid:"Mur 100+ år",
+        begreber:["hulmur","dampspaerre","kuldebro"]},
+      "2008_nu":{byg:"Højisoleret, <b>lufttæt klimaskærm</b>. Meget tyk isolering og omhyggelige, kuldebro-frie detaljer. Tæthed dokumenteres med blower-door-test.",
+        lag:[lay("Formur (tegl)","",L.formur),
+             lay("Meget tyk isolering","",L.hulrumIso),
+             lay("Bagmur","",L.bagmur),
+             lay("Lufttæt dampspærre","Blower-door-testet.",L.puds)],
+        skader:[{n:"Skjult fugt hvis tæt konstruktion er udført forkert",h:"vaeg"}],
+        levetid:"Mur 100+ år",
+        begreber:["dampspaerre","kuldebro","hulmur"]},
+    }},
+
+  vinduer:{navn:"Vinduer & døre", ikon:"🪟", farve:"var(--c-vindue)",
+    _def:{byg:"Vinduerne er klimaskærmens svageste led for varme — og udsatte for fugt forneden. Sålbænk og vandnæse leder regn væk fra facaden.",
+      lag:[lay("Glas","",L.glas),lay("Ramme/karm","Træ, træ/alu eller plast.",L.ramme),
+           lay("Sålbænk + vandnæse","Leder vand væk fra facaden.",L.sokkel)],
+      skader:[{n:"Råd i bundstykker, manglende vandnæse",h:"vindue"}],
+      levetid:"Vinduer 30–50 år · termorude-forsegling 20–30 år",
+      begreber:["saalbaenk","termorude"]},
+    eras:{
+      foer1930:{byg:"<b>Et-lags glas</b> i trævinduer (ofte dannebrogsvinduer med sprosser), sat i kitfals. Smukke, men dårligt isolerende og kræver løbende maling.",
+        lag:[lay("Et-lags glas","Ingen isoleringsevne.",L.glas),
+             lay("Trækarm + kitfals","Kræver vedligehold.",L.ramme),
+             lay("Sålbænk (tegl/skifer)","",L.sokkel)],
+        skader:[{n:"Råd i karm/bundstykke",h:"vindue"},
+                {n:"Kondens og kuldebro ved et-lags glas",h:"vindue"}],
+        levetid:"Originale trævinduer 50–100 år ved vedligehold",
+        begreber:["saalbaenk","kuldebro","raad"]},
+      "1930_1960":{byg:"Stadig <b>et-lags glas</b>, ofte med <b>koblede rammer</b> (to rammer der lukkes sammen) som tidlig forbedring af isolering og lyd.",
+        lag:[lay("Et-lags glas (koblede rammer)","",L.glas),
+             lay("Trækarm","",L.ramme),
+             lay("Sålbænk","",L.sokkel)],
+        skader:[{n:"Råd i bundrammer",h:"vindue"},
+                {n:"Kondens",h:"vindue"}],
+        levetid:"40–80 år ved vedligehold",
+        begreber:["saalbaenk","raad"]},
+      "1960_1972":{byg:"Store <b>termorude-partier</b> dukker op (to lag glas med forseglet mellemrum). Et stort spring i komfort — men forseglingen kan med årene <b>punktere</b>.",
+        lag:[lay("Termorude (2 lag glas)","Forseglet mellemrum.",L.glas),
+             lay("Afstandsprofil (kant)","Fugtsugende — kritisk forsegling.",L.gas),
+             lay("Ramme/karm","",L.ramme),
+             lay("Sålbænk + vandnæse","",L.sokkel)],
+        skader:[{n:"Punkteret termorude → dug inde i ruden",h:"vindue"},
+                {n:"Manglende vandnæse → fugt i muren",h:"vindue"}],
+        levetid:"Termorude-forsegling 20–30 år",
+        begreber:["termorude","saalbaenk"]},
+      "1972_1979":{byg:"<b>Termoruder</b> er nu udbredte. Forseglingen er fortsat det svage punkt der kan punktere efter 20–30 år.",
+        lag:[lay("Termorude (2 lag)","",L.glas),
+             lay("Afstandsprofil","",L.gas),
+             lay("Ramme/karm","",L.ramme),
+             lay("Sålbænk + vandnæse","",L.sokkel)],
+        skader:[{n:"Punkterede termoruder",h:"vindue"}],
+        levetid:"Forsegling 20–30 år",
+        begreber:["termorude","saalbaenk"]},
+      "1979_1995":{byg:"Termoruder standard, og rammerne isolerer bedre. Stadig risiko for <b>punktering</b> og <b>kuldebro</b> i kanten (\"kold kant\").",
+        lag:[lay("Termorude (2 lag)","",L.glas),
+             lay("Afstandsprofil (alu)","Kold kant = kuldebro.",L.gas),
+             lay("Ramme/karm","",L.ramme),
+             lay("Sålbænk + vandnæse","",L.sokkel)],
+        skader:[{n:"Punktering",h:"vindue"},{n:"Kuldebro/kondens ved rudekant",h:"vindue"}],
+        levetid:"Forsegling 20–30 år",
+        begreber:["termorude","kuldebro","saalbaenk"]},
+      "1995_2008":{byg:"<b>Energiruder</b> (2-lags med lavenergi-coating og gasfyldning) afløser almindelige termoruder — markant bedre isolering og varmere indvendig rudeflade.",
+        lag:[lay("Energirude (2-lags, coating + gas)","Lavenergi-belægning.",L.glas),
+             lay("Varm kant-profil","Mindre kuldebro.",L.gas),
+             lay("Ramme (træ/alu el. plast)","",L.ramme),
+             lay("Sålbænk + vandnæse","",L.sokkel)],
+        skader:[{n:"Punktering (sjældnere)",h:"vindue"}],
+        levetid:"Energirude 25–35 år",
+        begreber:["termorude","kuldebro","saalbaenk"]},
+      "2008_nu":{byg:"<b>3-lags energiruder</b> og højisolerede rammer. Den indvendige rudeflade er næsten rumtemperatur — kondens og kuldebro er stærkt reduceret.",
+        lag:[lay("3-lags energirude","To gasfyldte mellemrum.",L.glas),
+             lay("Varm kant","",L.gas),
+             lay("Højisoleret ramme","",L.ramme),
+             lay("Sålbænk + vandnæse","",L.sokkel)],
+        skader:[{n:"Punktering (sjælden)",h:"vindue"}],
+        levetid:"3-lags rude 30–40 år",
+        begreber:["termorude","saalbaenk"]},
+    }},
+
+  fundament:{navn:"Fundament & sokkel", ikon:"⛰️", farve:"var(--c-fund)",
+    _def:{byg:"Fundamentet overfører husets vægt til bæredygtig bund og skal nå under <b>frostfri dybde</b> (~0,9 m). Soklen er den synlige nederste del over terræn.",
+      lag:[lay("Sokkel (over terræn)","Synlig, ofte pudset beton.",L.sokkel),
+           lay("Fundament (under jord)","Til frostfri dybde.",L.beton),
+           lay("Bæredygtig bund","",L.jord)],
+      skader:[{n:"Sætningsrevner, opstigende grundfugt",h:"sokkel"}],
+      levetid:"Beton-/murfundament 100+ år",
+      begreber:["frostfri","saetning","grundfugt"]},
+    eras:{
+      foer1930:{byg:"Muret eller støbt fundament — men <b>sjældent en effektiv fugtspærre</b> mellem fundament og mur. Jordfugt suges derfor op i den porøse mur ved kapillarvirkning.",
+        lag:[lay("Sokkel (puds/kampesten)","",L.sokkel),
+             lay("Muret/støbt fundament","Ingen/utæt fugtspærre.",L.beton),
+             lay("Bund","",L.jord)],
+        skader:[{n:"Opstigende grundfugt → saltudslag, afskallende puds",h:"sokkel"},
+                {n:"Differenssætning → trappeformede revner",h:"sokkel"}],
+        levetid:"100+ år",
+        begreber:["grundfugt","saetning","frostfri"]},
+      "1930_1960":{byg:"Støbt betonfundament bliver almindeligt. Fugtsikring forbedres gradvist (BR39 skærper fugtisolering ved terræn), men varierer fra hus til hus.",
+        lag:[lay("Sokkel (pudset beton)","",L.sokkel),
+             lay("Betonfundament","",L.beton),
+             lay("Bund","",L.jord)],
+        skader:[{n:"Grundfugt hvor fugtspærre mangler",h:"sokkel"},
+                {n:"Sætninger",h:"sokkel"}],
+        levetid:"100+ år",
+        begreber:["grundfugt","saetning","frostfri"]},
+      "1960_1972":{byg:"Støbte betonfundamenter, ofte med letklinkerblokke. <b>Kapillarbrydende lag er endnu ikke krav</b> (kommer med BR72) — fugtsikringen er derfor svingende.",
+        lag:[lay("Sokkel","",L.sokkel),
+             lay("Betonfundament / Leca-blok","",L.beton),
+             lay("Bund (uden kapillarbrud)","",L.jord)],
+        skader:[{n:"Grundfugt op i sokkel og gulv",h:"sokkel"},
+                {n:"Sætninger i blød bund",h:"sokkel"}],
+        levetid:"100+ år",
+        begreber:["grundfugt","kapillar","letbeton"]},
+      "1972_1979":{byg:"<b>BR72: kapillarbrydende lag bliver krav</b> i fundamenter/terrændæk → markant bedre fugtsikring fra bunden.",
+        lag:[lay("Sokkel","",L.sokkel),
+             lay("Betonfundament","",L.beton),
+             lay("Kapillarbrydende lag","Krav fra BR72.",L.kapillar),
+             lay("Bund","",L.jord)],
+        skader:[{n:"Restrisiko ved terrænfald ind mod huset",h:"sokkel"}],
+        levetid:"100+ år",
+        begreber:["kapillar","frostfri","saetning"]},
+      "1979_1995":{byg:"Velisolerede, fugtsikrede fundamenter med kapillarbrydende lag og ofte randisolering mod kuldebro ved fundament/terrændæk-samlingen.",
+        lag:[lay("Sokkel + randisolering","Mod kuldebro.",L.sokkel),
+             lay("Betonfundament","",L.beton),
+             lay("Kapillarbrydende lag","",L.kapillar),
+             lay("Bund","",L.jord)],
+        skader:[{n:"Kuldebro hvis randisolering mangler",h:"sokkel"}],
+        levetid:"100+ år",
+        begreber:["kapillar","kuldebro","frostfri"]},
+      "1995_2008":{byg:"Fundament med god randisolering og kapillarbrud. Fokus på at bryde kuldebroen mellem den kolde jord og det varme gulv.",
+        lag:[lay("Sokkel + randisolering","",L.sokkel),
+             lay("Betonfundament","",L.beton),
+             lay("Kapillarbrydende lag","",L.kapillar),
+             lay("Bund","",L.jord)],
+        skader:[{n:"Restkuldebro ved sokkel",h:"sokkel"}],
+        levetid:"100+ år",
+        begreber:["kapillar","kuldebro"]},
+      "2008_nu":{byg:"Højisolerede fundamenter (fx Leca-elementer med indbygget isolering) der bryder kuldebroen helt, oven på et kapillarbrydende lag.",
+        lag:[lay("Isoleret sokkelelement","Bryder kuldebro.",L.sokkel),
+             lay("Fundament","",L.beton),
+             lay("Kapillarbrydende lag","",L.kapillar),
+             lay("Bund","",L.jord)],
+        skader:[{n:"Sjældne — ved fejludførelse skjult fugt",h:"sokkel"}],
+        levetid:"100+ år",
+        begreber:["kapillar","kuldebro","frostfri"]},
+    }},
+
+  gulv:{navn:"Gulv & terrændæk", ikon:"🪵", farve:"var(--c-gulv)",
+    _def:{byg:"Gulvet mod jorden er enten et <b>strøgulv</b> over ventileret hulrum eller et <b>terrændæk</b> støbt på jorden. Fugtsikringen er det helt afgørende.",
+      lag:[lay("Gulvbelægning","",L.gulvbr),lay("Betonplade","",L.beton),
+           lay("Fugtspærre","",L.fugtspaerre),lay("Isolering","",L.isolering),
+           lay("Kapillarbrydende lag","",L.kapillar),lay("Jord","",L.jord)],
+      skader:[{n:"Fugt op i gulvet hvis fugtsikring mangler",h:"gulv"}],
+      levetid:"Terrændæk 100+ år · trægulv 40–80 år",
+      begreber:["terraendaek","stroegulv","fugtspaerre","kapillar"]},
+    eras:{
+      foer1930:{byg:"<b>Strøgulv</b>: trægulv på strøer over en <b>ventileret krybekælder</b>. Fugt håndteres ved at lufte hulrummet — ikke ved membraner. (Et terrændæk med fugtspærre hører IKKE til her.)",
+        lag:[lay("Bræddegulv","Fyr/eg på strøer.",L.gulvbr),
+             lay("Strøer (bjælker)","",L.stroe),
+             lay("Ventileret krybekælder","Lufter fugt væk.",L.krybe),
+             lay("Jord","",L.jord)],
+        skader:[{n:"Råd i strøer ved dårlig/blokeret ventilation",h:"gulv"},
+                {n:"Ægte hussvamp i fugtigt krybekælder-træ",h:"gulv"}],
+        levetid:"Strøgulv 50–100 år hvis tørt og ventileret",
+        begreber:["stroegulv","raad","hussvamp"]},
+      "1930_1960":{byg:"Stadig <b>strøgulve og træbjælkelag</b>; parket vinder frem som belægning. Krybekælder med ventilation som fugtstrategi.",
+        lag:[lay("Parket/bræddegulv","",L.gulvbr),
+             lay("Strøer","",L.stroe),
+             lay("Ventileret hulrum","",L.krybe),
+             lay("Jord","",L.jord)],
+        skader:[{n:"Råd i strøer ved blokeret ventilation",h:"gulv"}],
+        levetid:"50–100 år",
+        begreber:["stroegulv","raad"]},
+      "1960_1972":{byg:"<b>Terrændæk af beton</b> bliver almindeligt — men <b>uden kapillarbrydende lag og ofte uden fugtspærre</b> (før BR72). En berygtet fugtfælde, især med tæpper limet direkte på betonen.",
+        lag:[lay("Belægning (ofte tæppe/vinyl)","Limet på beton.",L.gulvbr),
+             lay("Betonplade","",L.beton),
+             lay("(Ingen fugtspærre)","Manglende fugtsikring.",L.spartel),
+             lay("Jord","Fugt suges op.",L.jord)],
+        skader:[{n:"Opstigende fugt i gulvet → lugt og skimmel",h:"gulv"},
+                {n:"Fugt under limet tæppe/vinyl",h:"gulv"}],
+        levetid:"Beton 100+ år, men fugtproblemer fra dag ét",
+        begreber:["terraendaek","fugtspaerre","kapillar","grundfugt"]},
+      "1972_1979":{byg:"<b>BR72: kapillarbrydende lag bliver krav.</b> Terrændæk er nu opbygget rigtigt nedefra — jord → kapillarbrud → isolering → fugtspærre → beton. Et stort fugtteknisk fremskridt.",
+        lag:[lay("Gulvbelægning","",L.gulvbr),
+             lay("Betonplade","",L.beton),
+             lay("Fugtspærre (plast)","",L.fugtspaerre),
+             lay("Isolering","",L.isolering),
+             lay("Kapillarbrydende lag","Krav fra BR72.",L.kapillar),
+             lay("Jord","",L.jord)],
+        skader:[{n:"Få — ved fejl i fugtspærre kan fugt slippe op",h:"gulv"}],
+        levetid:"Terrændæk 100+ år",
+        begreber:["terraendaek","fugtspaerre","kapillar"]},
+      "1979_1995":{byg:"Terrændæk med <b>mere isolering</b> oven på kapillarbrud og fugtspærre. Energikravene gør gulvet både tørt og varmt.",
+        lag:[lay("Gulvbelægning","",L.gulvbr),
+             lay("Betonplade","",L.beton),
+             lay("Fugtspærre","",L.fugtspaerre),
+             lay("Tykkere isolering","",L.isolering),
+             lay("Kapillarbrydende lag","",L.kapillar),
+             lay("Jord","",L.jord)],
+        skader:[{n:"Kuldebro ved fundamentkant",h:"gulv"}],
+        levetid:"100+ år",
+        begreber:["terraendaek","fugtspaerre","kapillar"]},
+      "1995_2008":{byg:"Velisoleret terrændæk; gulvvarme bliver udbredt, støbt ind i betonen oven på isolering og fugtspærre.",
+        lag:[lay("Gulvbelægning","",L.gulvbr),
+             lay("Beton m. gulvvarme","",L.beton),
+             lay("Fugtspærre","",L.fugtspaerre),
+             lay("Tyk isolering","",L.isolering),
+             lay("Kapillarbrydende lag","",L.kapillar),
+             lay("Jord","",L.jord)],
+        skader:[{n:"Revner i klinkegulv over gulvvarme ved fejl",h:"gulv"}],
+        levetid:"100+ år",
+        begreber:["terraendaek","fugtspaerre","kapillar"]},
+      "2008_nu":{byg:"Højisoleret terrændæk med gulvvarme som standard, omhyggelig fugtspærre og randisolering der bryder kuldebroen ved soklen.",
+        lag:[lay("Gulvbelægning","",L.gulvbr),
+             lay("Beton m. gulvvarme","",L.beton),
+             lay("Fugtspærre","",L.fugtspaerre),
+             lay("Meget tyk isolering","",L.isolering),
+             lay("Kapillarbrydende lag","",L.kapillar),
+             lay("Jord","",L.jord)],
+        skader:[{n:"Skjult byggefugt i tæt konstruktion",h:"gulv"}],
+        levetid:"100+ år",
+        begreber:["terraendaek","fugtspaerre","kuldebro"]},
+    }},
+
+  vaadrum:{navn:"Vådrum (bad)", ikon:"🚿", farve:"var(--c-vaadrum)",
+    _def:{byg:"Fliser og fuger er IKKE vandtætte — det er <b>vådrumsmembranen</b> bag fliserne der holder vand ude. Gulvet skal have ubrudt <b>fald mod afløbet</b>.",
+      lag:[lay("Fliser","Ikke vandtætte i sig selv.",L.flise),
+           lay("Fliseklæb","",L.spartel),
+           lay("Vådrumsmembran","Det reelle vandtætte lag.",L.membran),
+           lay("Spartel/underlag","",L.spartel),
+           lay("Væg/gulvkonstruktion","",L.bagmur)],
+      skader:[{n:"Manglende/utæt membran, bagfald mod væg",h:"vaeg"}],
+      levetid:"Vådrum 20–30 år · membran skal være intakt",
+      begreber:["vaadrumsmembran","gulvfald"]},
+    eras:{
+      foer1930:{byg:"Egentlige indendørs badeværelser er sjældne i de ældste huse. Hvor de findes (ofte indrettet senere), er der typisk <b>ingen vådrumsmembran</b> — kun fliser/maling.",
+        lag:[lay("Fliser/maling","Ingen membran bagved.",L.flise),
+             lay("Puds/underlag","",L.spartel),
+             lay("Muret væg","",L.bagmur)],
+        skader:[{n:"Vand gennem fuger → fugt i muren/etagedæk",h:"vaeg"},
+                {n:"Råd i træbjælkelag under badet",h:"gulv"}],
+        levetid:"Ældre bad uden membran: kort — ofte renoveringsmodent",
+        begreber:["vaadrumsmembran","gulvfald","raad"]},
+      "1960_1972":{byg:"Flisebadeværelser bliver almindelige, men <b>moderne membran-krav findes endnu ikke</b>. Tætheden afhænger af fliser og fuger alene — utilstrækkeligt.",
+        lag:[lay("Fliser","",L.flise),
+             lay("Fliseklæb/mørtel","",L.spartel),
+             lay("(Ingen egentlig membran)","",L.spartel),
+             lay("Væg/gulv","",L.bagmur)],
+        skader:[{n:"Gennemsivning ved fuger og hjørner",h:"vaeg"},
+                {n:"Bagfald → vandpytter",h:"gulv"}],
+        levetid:"20–30 år — ofte udskiftningsmodent",
+        begreber:["vaadrumsmembran","gulvfald"]},
+      "1995_2008":{byg:"<b>Moderne vådrumssikring med membran</b> efter strammere regler bliver standard: et vandtæt lag på væg og gulv bag fliserne, med korrekt fald mod afløb.",
+        lag:[lay("Fliser","",L.flise),
+             lay("Fliseklæb","",L.spartel),
+             lay("Vådrumsmembran","Vandtæt — krav.",L.membran),
+             lay("Spartellag","",L.spartel),
+             lay("Væg/gulv","",L.bagmur)],
+        skader:[{n:"Utæt membran ved rør-gennemføringer/afløb",h:"vaeg"}],
+        levetid:"Korrekt vådrum 25–40 år",
+        begreber:["vaadrumsmembran","gulvfald"]},
+      "2008_nu":{byg:"Vådrum efter gældende vådrumsregler: dokumenteret membran på væg og gulv, tæt tilslutning til afløb og ubrudt fald.",
+        lag:[lay("Fliser","",L.flise),
+             lay("Fliseklæb","",L.spartel),
+             lay("Godkendt vådrumsmembran","",L.membran),
+             lay("Spartellag","",L.spartel),
+             lay("Væg/gulv","",L.bagmur)],
+        skader:[{n:"Fejl ved afløbstilslutning",h:"gulv"}],
+        levetid:"25–40 år",
+        begreber:["vaadrumsmembran","gulvfald"]},
+    }},
+};
+const PART_ORDER = ["tag","ydervaeg","vinduer","fundament","gulv","vaadrum"];
+
+const MILEPAELE = [
+  {aar:"1858/71", t:"Byggeloven: krav om fugtstandsende lag i/under fundament og vægge."},
+  {aar:"~1900", t:"Hulmuren begynder at afløse den massive mur."},
+  {aar:"BR39", t:"Skærper fugtisolering ved terræn mod kapillær opstigning."},
+  {aar:"1960", t:"Landsbyggeloven udvider fugtspærre-krav til hele landet."},
+  {aar:"BR61", t:"Første landsdækkende bygningsreglement."},
+  {aar:"~1970", t:"Hulmursisolering bliver lovkrav på nybyggeri."},
+  {aar:"BR72", t:"Krav om kapillarbrydende lag i fundamenter/terrændæk."},
+  {aar:"1.2.1979", t:"Varmeisoleringskravene strammes markant (oliekriserne)."},
+  {aar:"1980", t:"Asbest forbydes — dog med undtagelse for asbestcement (eternit)."},
+  {aar:"1986", t:"Totalforbud mod al asbest."},
+  {aar:"BR95→18", t:"Løbende skærpelser af isolering, tæthed og fugtkrav frem til lavenergihuset."},
+];
+
+/* QUIZ — autoritativt, bygget på samme viden */
+const QUIZ = [
+  {sp:"Hvorfor er et terrændæk fra 1960–1972 ofte en fugtfælde?",
+   valg:["Fordi betonen er for tynd","Fordi kravet om kapillarbrydende lag først kom med BR72","Fordi der blev brugt for meget isolering","Fordi gulvvarme giver kondens"],
+   k:1, f:"BR72 indførte kravet om kapillarbrydende lag. Terrændæk støbt før da har ofte ingen effektiv fugtsikring → jordfugt suges op."},
+  {sp:"Hvad kendetegner ydervæggen i et typisk hus fra FØR 1930?",
+   valg:["Isoleret hulmur med rustfri bindere","Massivt teglmurværk i kalkmørtel, uden isolering","Letbeton-bagmur med termoruder","Lufttæt klimaskærm med dampspærre"],
+   k:1, f:"Det murede håndværkshus: massivt teglmurværk (1½–2 sten) i blød kalkmørtel, uden isolering. Hulmuren kommer dog op fra ca. 1900."},
+  {sp:"Hvornår blev undertag reelt standard under tegl-/betontagsten?",
+   valg:["Allerede før 1930","Med energikravene fra ca. 1979","Først efter 2008","Det har aldrig været standard"],
+   k:1, f:"Undertaget blev standard i forbindelse med energikravene fra ca. 1979. Ældre tage har ofte intet eller kun fast bræddeundertag."},
+  {sp:"Hvad betyder det, at en termorude er 'punkteret'?",
+   valg:["Glasset er knust","Kantforseglingen er utæt, så der kommer dug INDE i ruden","Ruden er for tyk","Rammen er rådden"],
+   k:1, f:"Punktering = utæt kantforsegling → fugt mellem glassene giver dug der ikke kan tørres væk. Typisk efter 20–30 år."},
+  {sp:"Hvad holder reelt vandet ude i et korrekt vådrum?",
+   valg:["Fliserne","Fugerne","Vådrumsmembranen bag fliserne","Malingen"],
+   k:2, f:"Fliser og fuger er ikke vandtætte. Det er vådrumsmembranen — et vandtæt lag bag fliserne — der holder vand ude af konstruktionen."},
+  {sp:"Hvilket tag fra 1960–1972 er en notorisk skadeskandidat?",
+   valg:["Stejlt vingetegltag","Fladt/lavt tagpaptag","Stråtag","3-lags energitag"],
+   k:1, f:"Flade/lavthældende tagpaptage har utætte samlinger, opkanter og gennemføringer, og pappen nedbrydes af UV — klassisk skadekandidat."},
+  {sp:"Hvorfor er opstigende grundfugt så almindelig i huse fra før 1930?",
+   valg:["Fordi de har for meget isolering","Fordi der sjældent blev lagt en effektiv fugtspærre","Fordi de har terrændæk","Fordi taget er for stejlt"],
+   k:1, f:"Datidens byggeskik havde sjældent en effektiv fugtspærre. Jordfugt suges op i den massive, porøse mur ved kapillarvirkning."},
+  {sp:"Hvad sker der typisk når gamle stålbindere i en hulmur ruster?",
+   valg:["Taget bliver utæt","Fugerne sprænges, formuren kan bule ud","Vinduerne punkterer","Gulvet synker"],
+   k:1, f:"Rust fylder mere end stål og kan sprænge de vandrette fuger; i værste fald slipper formuren sin forankring."},
+  {sp:"Hvad er en kuldebro?",
+   valg:["Et hul i taget","Et sted hvor varmen ledes hurtigere ud → kold flade → kondens","En revne i fundamentet","Et frosset vandrør"],
+   k:1, f:"En kuldebro leder varme hurtigere ud (fx en betonsøjle eller vinduesfalse). Den kolde indvendige flade samler kondens → skimmel."},
+  {sp:"Hvilket gulv hører til et autentisk hus fra før 1930?",
+   valg:["Terrændæk med fugtspærre og kapillarbrydende lag","Strøgulv over ventileret krybekælder","Beton med gulvvarme","Klinker på isoleringsbatts"],
+   k:1, f:"Før 1930 er gulvet et strøgulv på strøer over et ventileret hulrum. Det moderne terrændæk med fugtspærre er en senere konstruktion."},
+  {sp:"Hvad gjorde isoleringsstramningen 1. februar 1979 ved husene?",
+   valg:["Indførte asbestforbud","Strammede varmeisoleringskravene markant","Forbød hulmur","Krævede 3-lags ruder"],
+   k:1, f:"Som reaktion på oliekriserne strammedes isoleringskravene markant — det praktiske skel mellem det dårligt og det 'rigtigt' isolerede hus."},
+  {sp:"Hvornår indeholder eternit-tagplader typisk asbest?",
+   valg:["Altid, også i dag","Frem til ca. 1986–88","Kun efter 2000","Aldrig"],
+   k:1, f:"Asbest blev totalforbudt i 1986. Eternit fra før ca. 1986–88 kan indeholde asbest — sundhedsskadeligt ved bearbejdning/nedrivning."},
+  {sp:"Hvad er en sætningsskade?",
+   valg:["Maling der skaller","Huset synker ujævnt → trappeformede revner i muren","Punkteret rude","Rust i tagrenden"],
+   k:1, f:"Differenssætning: huset synker ujævnt pga. forskellig jordbund → skæve gulve, bindende døre og trappeformede revner fra vindues-/dørhjørner."},
+  {sp:"Hvorfor er moderne, meget tætte huse fugtfølsomme på en NY måde?",
+   valg:["De har ingen tagrender","De tørrer dårligt ud hvis der først kommer fugt ind","De mangler fundament","De har for store vinduer"],
+   k:1, f:"Jo tættere og bedre isoleret, jo dårligere tørrer konstruktionen ud hvis fugt slipper ind — skaden bliver skjult og langsom (råd/skimmel inde i konstruktionen)."},
+  {sp:"Hvad er forskellen på råd og ægte hussvamp?",
+   valg:["Ingen, det er det samme","Ægte hussvamp kan transportere vand og brede sig ind i tørt træ","Råd er værst","Hussvamp angriber kun beton"],
+   k:1, f:"Råd kræver vedvarende høj træfugt. Ægte hussvamp (Serpula lacrymans) er aggressiv: den transporterer vand og breder sig ind i tørt træ — endda gennem murværk."},
+];
+
+/* ════════════════════════════════════════════════════════════════════════
+   ISOMETRISK MOTOR
+   ════════════════════════════════════════════════════════════════════════ */
+const ISO_A = Math.cos(Math.PI/6), ISO_B = Math.sin(Math.PI/6);
+function P(x,y,z,S,ox,oy){ return [ox+(x-y)*ISO_A*S, oy+(x+y)*ISO_B*S - z*S]; }
+function ptsStr(a){ return a.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" "); }
+function shade(hex, f){
+  const c=hex.replace("#","");
+  let r=parseInt(c.substr(0,2),16),g=parseInt(c.substr(2,2),16),b=parseInt(c.substr(4,2),16);
+  r=Math.max(0,Math.min(255,Math.round(r*f)));g=Math.max(0,Math.min(255,Math.round(g*f)));b=Math.max(0,Math.min(255,Math.round(b*f)));
+  return "#"+[r,g,b].map(v=>v.toString(16).padStart(2,"0")).join("");
+}
+/* En iso-kasse: top + to synlige sider (front=y+d, højre=x+w). */
+function isoBox(x,y,z,w,d,h, col, S,ox,oy, cls){
+  const F=(X,Y,Z)=>P(x+X,y+Y,z+Z,S,ox,oy);
+  const top=[F(0,0,h),F(w,0,h),F(w,d,h),F(0,d,h)];
+  const front=[F(0,d,0),F(w,d,0),F(w,d,h),F(0,d,h)];
+  const side=[F(w,0,0),F(w,d,0),F(w,d,h),F(w,0,h)];
+  const c=(cls?` class="${cls}"`:"");
+  return `<polygon class="face" points="${ptsStr(front)}" fill="${shade(col,.82)}"${c?'':''}/>`
+       + `<polygon class="face" points="${ptsStr(side)}" fill="${shade(col,.68)}"/>`
+       + `<polygon class="face" points="${ptsStr(top)}" fill="${col}"/>`;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   STATE
+   ════════════════════════════════════════════════════════════════════════ */
+let state = { era:"foer1930", part:null, layer:null, explode:false, defects:false, mode:"udforsk" };
+
+/* ════════════════════════════════════════════════════════════════════════
+   RENDER: tidslinje, banner, hus, dele, panel
+   ════════════════════════════════════════════════════════════════════════ */
+function renderTimeline(){
+  document.getElementById("timeline").innerHTML = ERAS.map(e=>
+    `<div class="gt-era${e.id===state.era?' on':''}" data-era="${e.id}">
+       <div class="yr">${e.kort}</div><div class="nm">${e.navn.replace(/^\d.*$/,'')||e.titel.split(' ')[0]}</div>
+     </div>`).join("");
+  // brug et kort navn under årstal
+  [...document.querySelectorAll('#timeline .gt-era')].forEach((el,i)=>{
+    el.querySelector('.nm').textContent = ERAS[i].titel.split('—')[0].split('(')[0].trim().split(' ').slice(0,2).join(' ');
+    el.onclick=()=>{ state.era=ERAS[i].id; state.layer=null; renderAll(); };
+  });
+}
+function renderBanner(){
+  const e=ERAS[ERA_INDEX[state.era]];
+  document.getElementById("erabanner").innerHTML =
+    `<div class="yr">${e.aar||e.kort} · ${e.navn}</div><div class="ti">${e.titel}</div>`
+    +`<div class="re">${e.resume}</div>`;
+}
+
+function houseSVG(){
+  const e=ERAS[ERA_INDEX[state.era]].hus;
+  const S=20, ox=300, oy=150;
+  const exp = state.explode;
+  // geometri (i "klodser")
+  const W=6, D=6;           // husets fodaftryk
+  const fh=1.0;             // fundament/sokkel højde
+  const wh=4.2;             // væg højde
+  const dz = (n)=> exp? n : 0;  // explode-forskydning op
+  let svg="";
+
+  // skyggegrund
+  svg += `<ellipse cx="${ox}" cy="${oy+ (W+D)*ISO_B*S + 30}" rx="${(W+D)*ISO_A*S*0.62}" ry="${(W+D)*ISO_B*S*0.45}" fill="rgba(35,33,28,.07)"/>`;
+
+  // FUNDAMENT/sokkel
+  const fz = -dz(0);
+  svg += `<g class="zone${state.part&&state.part!=='fundament'?' dim':''}" data-part="fundament">`
+       + `<title>Fundament &amp; sokkel</title>`
+       + isoBox(0,0,fz, W,D,fh, L.sokkel, S,ox,oy)
+       + `</g>`;
+
+  // GULV (tynd plade oven på fundament) — mest synlig ved explode
+  const gz = fh + dz(1.4);
+  svg += `<g class="zone${state.part&&state.part!=='gulv'?' dim':''}" data-part="gulv">`
+       + `<title>Gulv &amp; terrændæk</title>`
+       + isoBox(0.4,0.4,gz-0.35, W-0.8,D-0.8,0.35, (e.gulv==='stroe'?L.stroe:L.gulvbr), S,ox,oy)
+       + `</g>`;
+
+  // YDERVÆG (kasse) — med vinduer/dør tegnet på frontfladen
+  const wz = fh + dz(3.0);
+  svg += `<g class="zone${state.part&&state.part!=='ydervaeg'?' dim':''}" data-part="ydervaeg">`
+       + `<title>Ydervæg &amp; facade</title>`
+       + isoBox(0,0,wz, W,D,wh, e.vaegFarve, S,ox,oy)
+       + `</g>`;
+
+  // VINDUER & DØR på frontfladen (y=D plan), som egen zone
+  svg += `<g class="zone${state.part&&state.part!=='vinduer'?' dim':''}" data-part="vinduer"><title>Vinduer &amp; døre</title>`;
+  svg += faceWindow(1.0,wz+1.4, 1.4,1.6, e, S,ox,oy, D);
+  svg += faceWindow(3.4,wz+1.4, 1.4,1.6, e, S,ox,oy, D);
+  // dør
+  svg += faceDoor(2.45,wz, 1.1,2.4, S,ox,oy, D);
+  svg += `</g>`;
+
+  // TAG (gavl-prisme)
+  const rh = 2.6*e.tagPitch + 0.6;
+  const rz = fh+wh + dz(4.8);
+  svg += `<g class="zone${state.part&&state.part!=='tag'?' dim':''}" data-part="tag"><title>Tag</title>`
+       + roofPrism(-0.5,-0.5,rz, W+1,D+1,rh, e.tagFarve, S,ox,oy)
+       + `</g>`;
+
+  // skadesmarkører
+  if(state.defects){ svg += defectMarkers(S,ox,oy,fh,wh,wz,rz,rh); }
+
+  return `<svg class="gt-house-svg" viewBox="0 -110 600 500" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
+}
+function lblAt(x,y,z,txt,S,ox,oy){
+  const p=P(x,y,z,S,ox,oy);
+  return `<text class="lbl" x="${p[0].toFixed(1)}" y="${p[1].toFixed(1)}" text-anchor="middle">${txt}</text>`;
+}
+function roofPrism(x,y,z,w,d,h, col,S,ox,oy){
+  const F=(X,Y,Z)=>P(x+X,y+Y,z+Z,S,ox,oy);
+  const a=F(0,0,0), b=F(w,0,0), c=F(w,d,0), dd=F(0,d,0);
+  const R0=F(0,d/2,h), R1=F(w,d/2,h);             // rygning langs x
+  const slopeBack=[a,b,R1,R0];                    // y=0 tagflade (væk)
+  const slopeFront=[dd,c,R1,R0];                  // y=d tagflade (mod beskuer)
+  const gableL=[a,dd,R0];                         // x=0 gavl (væk)
+  const gableR=[b,c,R1];                          // x=w gavl (mod beskuer)
+  return `<polygon class="face" points="${ptsStr(slopeBack)}" fill="${shade(col,.64)}"/>`
+       + `<polygon class="face" points="${ptsStr(gableL)}" fill="${shade(col,.56)}"/>`
+       + `<polygon class="face" points="${ptsStr(gableR)}" fill="${shade(col,.8)}"/>`
+       + `<polygon class="face" points="${ptsStr(slopeFront)}" fill="${col}"/>`;
+}
+/* vindue på frontflade (y=D); glaslinjer = antal lag */
+function faceWindow(x,z,w,h, e,S,ox,oy, D){
+  const F=(X,Z)=>P(x+X,D,z+Z,S,ox,oy);
+  const c=[F(0,0),F(w,0),F(w,h),F(0,h)];
+  let s=`<polygon points="${ptsStr(c)}" fill="${L.glas}" stroke="${L.ramme}" stroke-width="2"/>`;
+  // sprosse/lags-indikation
+  const mid=P(x+w/2,D,z+0,S,ox,oy), midT=P(x+w/2,D,z+h,S,ox,oy);
+  s+=`<line x1="${mid[0].toFixed(1)}" y1="${mid[1].toFixed(1)}" x2="${midT[0].toFixed(1)}" y2="${midT[1].toFixed(1)}" stroke="${L.ramme}" stroke-width="1.4"/>`;
+  if(e.vindueLags>=2){const a=P(x,D,z+h*0.5,S,ox,oy),b=P(x+w,D,z+h*0.5,S,ox,oy);
+    s+=`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="#fff" stroke-opacity=".7" stroke-width="1.2"/>`;}
+  if(e.vindueLags>=3){const a=P(x,D,z+h*0.28,S,ox,oy),b=P(x+w,D,z+h*0.28,S,ox,oy);
+    s+=`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="#fff" stroke-opacity=".6" stroke-width="1.1"/>`;}
+  return s;
+}
+function faceDoor(x,zBase,w,h,S,ox,oy,D){
+  const F=(X,Z)=>P(x+X,D,zBase+Z,S,ox,oy);
+  const c=[F(0,0),F(w,0),F(w,h),F(0,h)];
+  return `<polygon points="${ptsStr(c)}" fill="${L.ramme}" stroke="${shade(L.ramme,.7)}" stroke-width="2"/>`;
+}
+function defectMarkers(S,ox,oy,fh,wh,wz,rz,rh){
+  const e=ERAS[ERA_INDEX[state.era]];
+  // find top-skade pr. del fra data
+  const spots=[];
+  function topDef(part){ const pd=getPartEra(part); return pd&&pd.skader&&pd.skader[0]?pd.skader[0].n:null; }
+  const map=[
+    {part:"tag", p:P(3,0,rz+rh*0.5,S,ox,oy)},
+    {part:"ydervaeg", p:P(6,3,wz+wh*0.5,S,ox,oy)},
+    {part:"vinduer", p:P(1.7,6,wz+2.2,S,ox,oy)},
+    {part:"fundament", p:P(3,6,0.5,S,ox,oy)},
+  ];
+  let s="";
+  map.forEach(m=>{ const d=topDef(m.part); if(!d)return;
+    s+=`<g class="gt-defect" data-part="${m.part}"><title>${d}</title>`
+      +`<circle class="pulse" cx="${m.p[0].toFixed(1)}" cy="${m.p[1].toFixed(1)}" r="6"/>`
+      +`<circle class="dot" cx="${m.p[0].toFixed(1)}" cy="${m.p[1].toFixed(1)}" r="6"/>`
+      +`<text x="${m.p[0].toFixed(1)}" y="${(m.p[1]+4).toFixed(1)}" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">!</text></g>`;
+  });
+  return s;
+}
+
+function getPartEra(partId){
+  const p=PARTS[partId]; if(!p) return null;
+  return (p.eras && p.eras[state.era]) ? p.eras[state.era] : p._def;
+}
+
+function renderHouse(){
+  document.getElementById("housebox").innerHTML = houseSVG();
+  // klik på zoner
+  document.querySelectorAll('#housebox .zone, #housebox .gt-defect').forEach(z=>{
+    z.addEventListener('click',()=>{ selectPart(z.getAttribute('data-part')); });
+  });
+}
+
+function renderParts(){
+  document.getElementById("parts").innerHTML = PART_ORDER.map(pid=>{
+    const p=PARTS[pid];
+    return `<button class="gt-chip${state.part===pid?' on':''}" data-part="${pid}">
+      <span class="sw" style="background:${p.farve}"></span>${p.ikon} ${p.navn}</button>`;
+  }).join("");
+  document.querySelectorAll('#parts .gt-chip').forEach(b=>{
+    b.onclick=()=>selectPart(b.getAttribute('data-part'));
+  });
+}
+
+function layerStackSVG(lag){
+  // Eksploderet lodret stak: lag[0] (øverste byggelag) ligger ØVERST, sidste lag nederst.
+  const n=lag.length; if(!n) return "";
+  const S=12, ox=58, gap=1.05, th=0.7, w=4.2, d=4.2;
+  const stackH=((n-1)*(th+gap)+th)*S;
+  const oy=12+stackH;
+  const vbH=oy+(w+d)*ISO_B*S+14;
+  let svg="";
+  // tegn nederste (z=0) lag først, øverste byggelag sidst (oven på)
+  for(let i=n-1;i>=0;i--){
+    const z=(n-1-i)*(th+gap);
+    svg += `<g class="ls-layer" data-i="${i}">`
+         + isoBox(0,0,z, w,d,th, lag[i].c, S,ox,oy)
+         + `</g>`;
+  }
+  return `<svg viewBox="0 0 124 ${vbH.toFixed(0)}" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
+}
+
+function renderPanel(){
+  const panel=document.getElementById("panel");
+  if(!state.part){
+    panel.innerHTML = `<div class="gt-empty"><div class="big">👆</div>
+      <div style="font-weight:700;color:#5d564a;font-size:15px;">Vælg en bygningsdel</div>
+      <div style="font-size:13px;margin-top:6px;line-height:1.6;">Klik på taget, muren, vinduerne, fundamentet eller gulvet i huset —
+      eller på en knap nedenunder — for at folde den ud lag for lag og se, hvordan den blev bygget i <b>${ERAS[ERA_INDEX[state.era]].navn}</b>.</div></div>`;
+    return;
+  }
+  const p=PARTS[state.part], pe=getPartEra(state.part);
+  const lag=pe.lag||[];
+  const layerList = lag.map((lg,i)=>
+    `<div class="gt-layer${state.layer===i?' on':''}" data-i="${i}">
+       <span class="sw" style="background:${lg.c}"></span>
+       <span class="lt"><b>${lg.n}</b>${lg.t?` — <span>${lg.t}</span>`:""}</span></div>`).join("");
+  const defs = (pe.skader||[]).map(s=>
+    `<div class="gt-def"><span class="ic">⚠️</span><span>${s.n}</span></div>`).join("");
+  const begr = (pe.begreber||[]).map(b=>
+    BEGREBER[b]?`<span class="gt-bchip" data-b="${b}">${BEGREBER[b].n}</span>`:"").join("");
+
+  panel.innerHTML = `
+    <div class="gt-panel-head">
+      <div class="gt-panel-eyebrow">${ERAS[ERA_INDEX[state.era]].navn}</div>
+      <div class="gt-panel-title"><span>${p.ikon}</span> ${p.navn}</div>
+    </div>
+    <div class="gt-panel-body">
+      <p class="gt-byg">${pe.byg||p._def.byg}</p>
+
+      <div class="gt-seclbl">Opbygning — klik et lag</div>
+      <div class="gt-layers">
+        <div>${layerStackSVG(lag)}</div>
+        <div class="gt-layerlist">${layerList}</div>
+      </div>
+
+      <div class="gt-seclbl">Typiske skader i denne periode</div>
+      <div class="gt-deflist">${defs||'<div style="font-size:13px;color:var(--ink-soft)">—</div>'}</div>
+
+      <div class="gt-meta">
+        <span class="gt-metapill">⏳ Levetid: ${pe.levetid||"—"}</span>
+      </div>
+
+      ${begr?`<div class="gt-seclbl">Begreber — klik for forklaring</div><div class="gt-begreber">${begr}</div>`:""}
+    </div>`;
+
+  panel.querySelectorAll('.gt-layer').forEach(el=>{
+    el.onclick=()=>{ const i=+el.getAttribute('data-i'); const lg=lag[i];
+      state.layer=i;
+      // åbn begreb hvis laget har et match, ellers vis lagets egen tekst
+      const match=(pe.begreber||[]).find(b=>BEGREBER[b]&&lg.n.toLowerCase().includes(BEGREBER[b].n.toLowerCase().split(' ')[0].toLowerCase()));
+      openModalText(lg.n, lg.t || (match&&BEGREBER[match]?BEGREBER[match].t:"Et lag i konstruktionen."));
+      renderPanel();
+    };
+  });
+  panel.querySelectorAll('.gt-bchip').forEach(el=>{
+    el.onclick=()=>{ const b=el.getAttribute('data-b'); if(BEGREBER[b]) openModalText(BEGREBER[b].n, BEGREBER[b].t); };
+  });
+}
+
+function selectPart(pid){
+  if(!PARTS[pid]) return;
+  state.part = (state.part===pid)? null : pid;
+  state.layer=null;
+  document.getElementById("housecap").textContent = state.part
+    ? `${PARTS[state.part].ikon} ${PARTS[state.part].navn} valgt — se opbygningen til højre`
+    : "Klik på en bygningsdel i huset";
+  renderHouse(); renderParts(); renderPanel();
+}
+
+/* Modal */
+function openModalText(title,text){
+  document.getElementById("modal-title").textContent=title;
+  document.getElementById("modal-text").textContent=text;
+  document.getElementById("modal").classList.add("open");
+}
+function closeModal(){ document.getElementById("modal").classList.remove("open"); }
+document.getElementById("modal").addEventListener("click",e=>{ if(e.target.id==="modal") closeModal(); });
+
+/* Tools */
+function bindTools(){
+  const te=document.getElementById("tool-explode"), td=document.getElementById("tool-defects");
+  te.onclick=()=>{ state.explode=!state.explode; te.classList.toggle("on",state.explode); renderHouse(); };
+  td.onclick=()=>{ state.defects=!state.defects; td.classList.toggle("on",state.defects); renderHouse(); };
+}
+
+/* Modes */
+function bindModes(){
+  document.querySelectorAll('.gt-mode').forEach(b=>{
+    b.onclick=()=>{
+      state.mode=b.getAttribute('data-mode');
+      document.querySelectorAll('.gt-mode').forEach(x=>x.classList.toggle('on',x===b));
+      document.getElementById('view-udforsk').classList.toggle('hide',state.mode!=='udforsk');
+      document.getElementById('view-quiz').classList.toggle('hide',state.mode!=='quiz');
+      if(state.mode==='quiz') startQuiz();
+    };
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   QUIZ
+   ════════════════════════════════════════════════════════════════════════ */
+let qz={order:[],i:0,score:0,answered:null};
+function startQuiz(){
+  qz.order=[...Array(QUIZ.length).keys()];
+  for(let i=qz.order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[qz.order[i],qz.order[j]]=[qz.order[j],qz.order[i]];}
+  qz.order=qz.order.slice(0,10);
+  qz.i=0; qz.score=0; qz.answered=null; renderQuiz();
+}
+function renderQuiz(){
+  const box=document.getElementById("quizbox");
+  if(qz.i>=qz.order.length){
+    const pct=Math.round(100*qz.score/qz.order.length);
+    const msg = pct>=80?"Stærkt! Du kender dine bygninger.":pct>=50?"Godt på vej — kør en runde til.":"Øv videre i Udforsk og prøv igen.";
+    box.innerHTML=`<div class="gt-center">
+      <div class="gt-seclbl">Quiz færdig</div>
+      <div class="gt-score">${qz.score} / ${qz.order.length}</div>
+      <div class="gt-progress" style="max-width:280px;margin:10px auto 14px;"><span style="width:${pct}%"></span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px;">${msg}</p>
+      <button class="gt-btn" onclick="startQuiz()">🔁 Tag quizzen igen</button>
+      <button class="gt-btn ghost" style="margin-left:8px" onclick="document.querySelector('.gt-mode[data-mode=udforsk]').click()">← Tilbage til huset</button>
+    </div>`;
+    return;
+  }
+  const q=QUIZ[qz.order[qz.i]];
+  const a=qz.answered;
+  const opts=q.valg.map((v,idx)=>{
+    let cls="gt-opt";
+    if(a!==null){ if(idx===q.k)cls+=" correct"; else if(idx===a)cls+=" wrong"; }
+    return `<button class="${cls}" data-i="${idx}" ${a!==null?"disabled":""}>${v}${a!==null&&idx===q.k?" ✓":""}${a!==null&&idx===a&&idx!==q.k?" ✗":""}</button>`;
+  }).join("");
+  box.innerHTML=`
+    <div class="gt-seclbl">Spørgsmål ${qz.i+1} af ${qz.order.length} &nbsp;·&nbsp; score ${qz.score}</div>
+    <div class="gt-progress"><span style="width:${100*qz.i/qz.order.length}%"></span></div>
+    <div class="gt-q">${q.sp}</div>
+    <div>${opts}</div>
+    ${a!==null?`<div class="gt-expl ${a===q.k?'ok':'no'}"><b>${a===q.k?'Rigtigt!':'Ikke helt.'}</b> ${q.f}</div>
+      <div style="margin-top:14px"><button class="gt-btn" id="qnext">${qz.i+1>=qz.order.length?'Se resultat':'Næste →'}</button></div>`:""}
+  `;
+  if(a===null){
+    box.querySelectorAll('.gt-opt').forEach(b=>b.onclick=()=>{
+      qz.answered=+b.getAttribute('data-i'); if(qz.answered===q.k)qz.score++; renderQuiz();
+    });
+  }else{
+    document.getElementById("qnext").onclick=()=>{ qz.i++; qz.answered=null; renderQuiz(); };
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════════════════ */
+function renderAll(){ renderTimeline(); renderBanner(); renderHouse(); renderParts(); renderPanel(); }
+function renderFoot(){
+  document.getElementById("foot").innerHTML =
+    `Huset gennem tiden · byggeteknisk læring — ikke juridisk rådgivning · ${PART_ORDER.length} bygningsdele × ${ERAS.length} perioder`;
+}
+bindTools(); bindModes(); renderAll(); renderFoot();
+</script>
+</body>
+</html>
