@@ -366,7 +366,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 16</div>
+    <div class="ver">version 17</div>
   </footer>
 </div>
 
@@ -1414,12 +1414,13 @@ bootSync();
 
 // Gør appen installerbar – og opdaterer automatisk til nyeste version
 if("serviceWorker" in navigator){
-  let reloaded=false;
+  let reloaded=false, swReg=null;
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
     if(reloaded) return; reloaded=true; location.reload();
   });
   window.addEventListener("load",()=>{
     navigator.serviceWorker.register("sw.js").then(reg=>{
+      swReg=reg;
       reg.addEventListener("updatefound",()=>{
         const nw=reg.installing;
         nw && nw.addEventListener("statechange",()=>{
@@ -1428,6 +1429,9 @@ if("serviceWorker" in navigator){
       });
     }).catch(()=>{});
   });
+  // Tjek efter ny version hver gang appen åbnes/får fokus (vigtigt for hjemmeskærms-app)
+  document.addEventListener("visibilitychange",()=>{ if(!document.hidden && swReg) swReg.update().catch(()=>{}); });
+  window.addEventListener("focus",()=>{ if(swReg) swReg.update().catch(()=>{}); });
 }
 </script>
 </body>
