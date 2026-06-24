@@ -55,16 +55,18 @@
   /* ── Header ──────────────────────────────────────────── */
   header.hero{
     background:
-      radial-gradient(600px 200px at 15% 0%, rgba(255,255,255,.14), transparent 70%),
-      linear-gradient(135deg,#4f9aa8 0%, var(--sea) 50%, var(--sea-dark) 100%);
+      linear-gradient(105deg, rgba(63,147,164,.94) 0%, rgba(63,147,164,.82) 52%, rgba(45,112,128,.72) 100%),
+      url('hero-bg.jpg') center 35%/cover no-repeat,
+      var(--sea-dark);
     color:#fff;border-radius:24px;padding:28px 30px;
     box-shadow:0 12px 34px rgba(45,112,128,.22);position:relative;overflow:hidden;
   }
   header.hero::after{
-    content:"🏖️";position:absolute;right:18px;bottom:-14px;font-size:128px;opacity:.16;
+    content:"🏖️";position:absolute;right:18px;bottom:-14px;font-size:128px;opacity:.14;
     transform:rotate(-8deg);
   }
-  .hero h1{font-family:"Fraunces","Georgia",serif}
+  .hero h1{font-family:"Fraunces","Georgia",serif;text-shadow:0 1px 8px rgba(20,60,70,.35)}
+  .hero .sub{text-shadow:0 1px 6px rgba(20,60,70,.3)}
   .sync-pill{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.18);
     border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer;
     display:inline-flex;align-items:center;gap:7px;z-index:2;backdrop-filter:blur(4px)}
@@ -192,19 +194,22 @@
   .legend span{display:inline-flex;align-items:center;gap:5px}
   .legend .dot{width:11px;height:11px;border-radius:50%}
 
-  /* ── Polaroid-billedstrip ────────────────────────────── */
-  .polaroids{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0 4px}
+  /* ── Polaroid-billedstrip (swipe-bar) ────────────────── */
+  .polaroids{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:8px 4px 14px;margin:18px -4px 0;-webkit-overflow-scrolling:touch}
+  .polaroids::-webkit-scrollbar{height:0}
   .polaroid{background:#fff;padding:10px 10px 14px;border-radius:8px;
     box-shadow:0 10px 26px rgba(31,45,61,.16);cursor:pointer;transition:.2s;
-    width:160px;position:relative}
-  .polaroid:nth-child(1){transform:rotate(-3deg)}
-  .polaroid:nth-child(2){transform:rotate(2.5deg)}
+    width:158px;flex:0 0 auto;scroll-snap-align:center;position:relative}
+  .polaroid:nth-child(odd){transform:rotate(-2.5deg)}
+  .polaroid:nth-child(even){transform:rotate(2.5deg)}
   .polaroid:hover{transform:rotate(0) translateY(-4px) scale(1.02);z-index:3}
-  .polaroid img{width:100%;height:190px;object-fit:cover;border-radius:4px;display:block;background:#eee}
+  .polaroid img{width:100%;height:188px;object-fit:cover;border-radius:4px;display:block;background:#eee}
   .polaroid .cap{text-align:center;font-family:"Fraunces","Georgia",serif;font-size:14px;
     color:var(--ink);margin-top:8px}
   .pol-tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-4deg);
     width:60px;height:20px;background:rgba(63,147,164,.28);border-radius:2px}
+  .pol-hint{text-align:center;color:var(--muted);font-size:11.5px;margin:-2px 0 0}
 
   /* ── Spisesteder ─────────────────────────────────────── */
   .places{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px}
@@ -274,8 +279,8 @@
     .hero h1{font-size:27px}
     .event .time{width:46px;flex-basis:46px}
     .row2{flex-direction:column;gap:0}
-    .polaroid{width:44%}
-    .polaroid img{height:38vw}
+    .polaroid{width:150px}
+    .polaroid img{height:180px}
   }
 </style>
 </head>
@@ -297,12 +302,33 @@
       <img src="foto-1.jpg" alt="Os to" loading="lazy" />
       <div class="cap">os to ✨</div>
     </div>
+    <div class="polaroid" onclick="openLightbox('foto-4.jpg')">
+      <div class="pol-tape"></div>
+      <img src="foto-4.jpg" alt="Skål" loading="lazy" />
+      <div class="cap">skål 🍹</div>
+    </div>
+    <div class="polaroid" onclick="openLightbox('foto-6.jpg')">
+      <div class="pol-tape"></div>
+      <img src="foto-6.jpg" alt="Aarhus" loading="lazy" />
+      <div class="cap">Aarhus 💕</div>
+    </div>
+    <div class="polaroid" onclick="openLightbox('foto-5.jpg')">
+      <div class="pol-tape"></div>
+      <img src="foto-5.jpg" alt="Is i solen" loading="lazy" />
+      <div class="cap">is i solen 🍦</div>
+    </div>
+    <div class="polaroid" onclick="openLightbox('foto-3.jpg')">
+      <div class="pol-tape"></div>
+      <img src="foto-3.jpg" alt="Shopping" loading="lazy" />
+      <div class="cap">shopping 🛍️</div>
+    </div>
     <div class="polaroid" onclick="openLightbox('foto-2.jpg')">
       <div class="pol-tape"></div>
-      <img src="foto-2.jpg" alt="På tur" loading="lazy" />
+      <img src="foto-2.jpg" alt="Klar til ferie" loading="lazy" />
       <div class="cap">klar til ferie 🧢</div>
     </div>
   </div>
+  <p class="pol-hint">← swipe for flere minder →</p>
 
   <div class="toolbar">
     <button class="btn btn-primary" onclick="openEvent()">＋ Ny aktivitet</button>
@@ -340,7 +366,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 15</div>
+    <div class="ver">version 16</div>
   </footer>
 </div>
 
