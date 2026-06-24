@@ -72,8 +72,8 @@
     background:url('waves-tile.svg') repeat-x;background-size:auto 20px;
     animation:seadrift 7s linear infinite}
   @keyframes seadrift{from{background-position-x:0}to{background-position-x:-80px}}
-  .hero-dog{position:absolute;right:6px;bottom:12px;width:96px;height:auto;z-index:1;
-    filter:drop-shadow(0 5px 8px rgba(20,60,70,.2))}
+  .hero-dog{position:absolute;right:8px;bottom:8px;width:128px;height:auto;z-index:1;
+    filter:drop-shadow(0 3px 4px rgba(20,60,70,.12))}
   @media(prefers-reduced-motion:reduce){ .sea-waves{animation:none} }
   .hero h1{font-family:"Fredoka","Segoe UI",sans-serif}
   .sync-pill{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.78);
@@ -84,8 +84,8 @@
   .sync-pill.err .led{background:#f87171}
   .hero h1{margin:0;font-size:33px;letter-spacing:.2px;font-weight:600;padding-right:90px;line-height:1.12}
   .hero .sub{opacity:.92;margin-top:4px;font-size:15px}
-  .countdown{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;padding-right:104px}
-  .hero-today{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:14px;padding-right:104px}
+  .countdown{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;padding-right:140px}
+  .hero-today{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:14px;padding-right:140px}
   .hero-today .ht-label{font-weight:800;text-transform:uppercase;letter-spacing:.5px;font-size:10.5px;
     color:var(--sea-dark);background:rgba(31,159,180,.16);border-radius:999px;padding:3px 9px}
   .hero-today .ht-item{display:inline-flex;align-items:center;gap:5px;background:rgba(255,253,248,.94);
@@ -360,11 +360,6 @@
     <button class="btn btn-primary" onclick="openEvent()">＋ Ny aktivitet</button>
     <button class="btn btn-ghost" onclick="document.getElementById('spisesteder').scrollIntoView({behavior:'smooth'})" data-ico="🍽️">Spisesteder</button>
     <button class="btn btn-ghost" onclick="openMap()" data-ico="🗺️">Kort nær mig</button>
-    <div class="spacer"></div>
-    <div class="view-toggle">
-      <button id="vAgenda" class="active" onclick="setView('agenda')" data-ico="📋">Dagsplan</button>
-      <button id="vList" onclick="setView('list')" data-ico="🗒️">Liste</button>
-    </div>
   </div>
 
   <div id="schedule"></div>
@@ -393,7 +388,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 39</div>
+    <div class="ver">version 40</div>
   </footer>
 </div>
 
@@ -696,6 +691,7 @@ function startSync(cfg, isFresh){
       if(sig===JSON.stringify(state)) return;        // ingen reel ændring
       state=migrate(data.state);
       cloud.lastSig=sig;
+      migrateSavedRecs();
       try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
       renderAll();
     }, err=>{
@@ -1299,6 +1295,18 @@ function starRec(idx){
   if(state.starredRecs[r.name]) delete state.starredRecs[r.name]; else state.starredRecs[r.name]=true;
   save(); renderPlaces();
 }
+/* Rydder gamle "gemte" anbefalinger ud af 'dine egne' og stjernemarkerer dem i stedet */
+function migrateSavedRecs(){
+  if(!state.places || !state.places.length) return;
+  const names=new Set(REC_PLACES.map(r=>r.name));
+  state.starredRecs=state.starredRecs||{};
+  let changed=false;
+  state.places=state.places.filter(p=>{
+    if(names.has(p.name)){ state.starredRecs[p.name]=true; changed=true; return false; }
+    return true;
+  });
+  if(changed) save();
+}
 function saveRec(idx){
   const r=REC_PLACES[idx]; if(!r) return;
   state.places=state.places||[];
@@ -1483,6 +1491,7 @@ function fmtDist(m){ return m<1000? Math.round(m)+" m" : (Math.round(m/100)/10).
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); }));
 document.addEventListener('keydown',e=>{ if(e.key==="Escape") document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('show')); });
 
+migrateSavedRecs();
 applyColors();
 renderAll();
 decorateStaticIcons();
