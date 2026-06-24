@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Vores ferie · Korfu 🇬🇷</title>
 <link rel="manifest" href="manifest.webmanifest" />
-<meta name="theme-color" content="#cf8a52" />
+<meta name="theme-color" content="#1aa0b5" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Ferie" />
@@ -19,17 +19,17 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
   :root{
-    --bg:#f4ead6;        /* varm creme */
-    --paper:#fffdf6;     /* varm elfenben */
-    --ink:#473a2b;       /* varm mørkebrun */
-    --muted:#a08c72;     /* varm taupe */
-    --line:#ece0c9;      /* varm linje */
-    --sea:#cf8a52;       /* varm karamel (hovedaccent) */
-    --sea-dark:#b06d39;
-    --olive:#9a8a52;
-    --sun:#e0a64a;       /* blød amber */
-    --terracotta:#c5694a;
-    --shadow:0 8px 26px rgba(96,72,42,.10);
+    --bg:#eef1ec;        /* lys, luftig strand */
+    --paper:#fffdf8;
+    --ink:#22414b;       /* dyb havblågrøn */
+    --muted:#7f9298;
+    --line:#e4e2d6;
+    --sea:#1aa0b5;       /* turkis hav (hovedaccent) */
+    --sea-dark:#137a8c;
+    --olive:#7d8c62;
+    --sun:#eaa53f;       /* sol/sand-accent */
+    --terracotta:#cf6f4a;
+    --shadow:0 8px 26px rgba(25,60,70,.10);
     --radius:18px;
     /* personfarver – overskrives af opsætning */
     --pA:#1d9bb8;
@@ -51,7 +51,7 @@
   body::before{
     content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      linear-gradient(180deg, rgba(244,234,214,.74) 0%, rgba(242,231,209,.84) 100%),
+      linear-gradient(180deg, rgba(238,241,236,.76) 0%, rgba(234,238,232,.86) 100%),
       url('bg-montage.jpg') center center / cover no-repeat;
   }
   .serif{font-family:"Fraunces","Georgia",serif}
@@ -60,7 +60,7 @@
   /* ── Header ──────────────────────────────────────────── */
   header.hero{
     background:
-      linear-gradient(105deg, rgba(203,135,80,.93) 0%, rgba(196,128,74,.82) 52%, rgba(168,103,55,.74) 100%),
+      linear-gradient(105deg, rgba(26,160,181,.92) 0%, rgba(23,148,168,.82) 52%, rgba(19,122,140,.74) 100%),
       url('hero-bg.jpg') center 35%/cover no-repeat,
       var(--sea-dark);
     color:#fff;border-radius:24px;padding:28px 30px;
@@ -80,7 +80,9 @@
   .sync-pill.err .led{background:#f87171}
   .hero h1{margin:0;font-size:33px;letter-spacing:.2px;font-weight:600;padding-right:90px;line-height:1.12}
   .hero .sub{opacity:.92;margin-top:4px;font-size:15px}
-  .countdown{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;padding-right:92px}
+  .countdown{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .beach-scene{display:block;width:100%;max-width:400px;height:auto;margin:14px auto 2px;
+    filter:drop-shadow(0 6px 14px rgba(25,60,70,.12))}
   .cd-box{background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:12px;
     padding:10px 16px;text-align:center;min-width:74px}
   .cd-box b{display:block;font-size:26px;line-height:1.1}
@@ -299,8 +301,9 @@
     <h1 id="tripTitle">Vores ferie på Korfu</h1>
     <div class="sub" id="tripSub">Sol, hav og hinanden 🇬🇷</div>
     <div class="countdown" id="countdown"></div>
-    <img class="hero-puppy" src="puppy.svg" alt="Lille feriehvalp" />
   </header>
+
+  <img class="beach-scene" src="puppy-scene.svg" alt="Hvalp der chiller under en parasol på stranden" />
 
   <div class="polaroids">
     <div class="polaroid" onclick="openLightbox('foto-1.jpg')">
@@ -373,7 +376,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 30</div>
+    <div class="ver">version 31</div>
   </footer>
 </div>
 
