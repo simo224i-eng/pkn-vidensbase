@@ -340,7 +340,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 14</div>
+    <div class="ver">version 15</div>
   </footer>
 </div>
 
@@ -1092,14 +1092,14 @@ const REC_PLACES = [
    note:"Italiensk/middelhavs i hyggelig gyde. Pasta og kødretter i topklasse – fast Reddit-favorit."},
   {name:"Venetian Well", emoji:"🍷", area:"Korfu By, Kremasti-pladsen", meal:"Aftensmad", price:"€€€", rating:4.6, booking:"Påkrævet", noFish:true, lat:39.6241, lng:19.9234,
    note:"Romantisk gårdhave, kreativ middelhavsmenu og kæmpe vinkort. Perfekt til en særlig aften."},
-  {name:"Chrisomalis", emoji:"🥘", area:"Korfu By, N. Theotoki", meal:"Frokost & aften", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6246, lng:19.9224,
-   note:"Ægte familietaverna med 'magirefta' (gryderetter). Billigt, lokalt og altid godt – masser uden fisk."},
+  {name:"Chrisomalis", emoji:"🥘", area:"Korfu By, N. Theotoki", meal:"Frokost & aften", price:"€", rating:4.3, booking:"Ikke nødvendigt", noFish:true, lat:39.6246, lng:19.9224,
+   note:"Beskeden, ægte taverna siden 1864 – 'det de lokale spiser'. Vælg 'magirefta' (gryderetter) ved disken: sofrito, pastitsada. Billigt og uden dikkedarer."},
   {name:"Rex", emoji:"🏛️", area:"Korfu By, bag Liston", meal:"Frokost & aften", price:"€€", rating:4.3, booking:"Anbefales", noFish:true, lat:39.6239, lng:19.9232,
    note:"En institution siden 1932. Prøv korfiotiske klassikere: pastitsada (kød) og sofrito."},
-  {name:"La Cucina", emoji:"🍕", area:"Korfu By, Guilford St.", meal:"Aftensmad", price:"€€", rating:4.6, booking:"Anbefales", noFish:true, lat:39.6256, lng:19.9192,
-   note:"Elsket italiener – håndlavet pasta og pizza. Lille og populær, så book et bord."},
-  {name:"Etrusco", emoji:"⭐", area:"Kato Korakiana (20 min fra byen)", meal:"Aftensmad", price:"€€€€", rating:4.7, booking:"Påkrævet", noFish:true, lat:39.7431, lng:19.8161,
-   note:"Blandt Grækenlands bedste – moderne italiensk gastronomi. Til den helt store aften."},
+  {name:"La Cucina", emoji:"🍕", area:"Korfu By, Guilford St.", meal:"Aftensmad", price:"€€€", rating:4.4, booking:"Anbefales", noFish:true, lat:39.6256, lng:19.9192,
+   note:"Populær italiener med håndlavet pasta og trøffelpizza. Maden er god, men priserne er i den høje ende og value lidt blandet ifølge anmeldelser. Book bord."},
+  {name:"Etrusco", emoji:"⭐", area:"Kato Korakiana (20 min kørsel fra byen)", meal:"Aftensmad", price:"€€€€", rating:4.7, booking:"Påkrævet", noFish:true, lat:39.7431, lng:19.8161,
+   note:"Botrini-familiens køkken – kåret til Grækenlands bedste 11 år i træk. Molekylær gastronomi. Til den helt store aften (ligger udenfor byen)."},
   {name:"Pane & Souvlaki", emoji:"🥙", area:"Korfu By, Guilford St.", meal:"Gyros/souvlaki", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6257, lng:19.9190,
    note:"Frisk, moderne souvlaki/gyros. Hurtigt, billigt og rigtig godt til frokost."},
   {name:"Rouvas", emoji:"🍲", area:"Korfu By, nær San Rocco", meal:"Frokost", price:"€", rating:4.4, booking:"Ikke nødvendigt", noFish:true, lat:39.6228, lng:19.9178,
@@ -1112,8 +1112,8 @@ const REC_PLACES = [
    note:"100+ år gammel familietaverna hvor de lokale spiser. Korfiotiske klassikere (sofrito, bourdeto) og berømt billig gyros (~4 €). Kan ikke bookes – mød bare op."},
   {name:"To Tavernaki tis Marinas", emoji:"🥘", area:"Korfu By, gyde nær Gamle Havn", meal:"Aftensmad", price:"€€", rating:4.4, booking:"Anbefales", noFish:true, lat:39.6234, lng:19.9205,
    note:"Familieejet med hjemmelavet korfiotisk mad af Marina Beska – sofrito og pastitsada (kød). Hyggeligt og populært, så book bord."},
-  {name:"7th Heaven (Café Panorama)", emoji:"🌅", area:"Peroulades, nordvest", meal:"Drinks", price:"€€", rating:4.4, booking:"Anbefales", noFish:true, lat:39.7817, lng:19.6712,
-   note:"Klippe-café med Korfus flotteste solnedgang over Loggas Beach. Kom til drinks/snacks før middag."},
+  {name:"7th Heaven (Café Panorama)", emoji:"🌅", area:"Peroulades, nordvest (ca. 40 min kørsel)", meal:"Drinks", price:"€€", rating:4.3, booking:"Anbefales", noFish:true, lat:39.7817, lng:19.6712,
+   note:"Korfus flotteste solnedgang over Loggas Beach – glasaltan og gynger. Tag derhen for udsigt + drinks/snacks; maden er sekundær. Ligger langt fra byen."},
   {name:"To Tsipouradiko", emoji:"🍶", area:"Korfu By, ved Gamle Havn", meal:"Aftensmad", price:"€€", rating:4.7, booking:"Anbefales", noFish:true, lat:39.6265, lng:19.9180,
    note:"Elsket meze- & tsipouro-sted. Åbner 18:30 og fyldes hurtigt – kom tidligt eller ring og book. Masser af små retter (oste-dip, tzatziki, auberginer, pølse) udover fisk."},
 ];
