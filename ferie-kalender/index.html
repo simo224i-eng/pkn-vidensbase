@@ -363,6 +363,7 @@
   <div class="bottom-bar">
     <button class="btn btn-ghost" onclick="openSettings()">⚙️ Indstillinger</button>
     <button class="btn btn-ghost" onclick="shareTrip()">🔗 Del</button>
+    <button class="btn btn-ghost" onclick="forceUpdate()">🔄 Opdatér</button>
   </div>
 
   <footer>
@@ -371,7 +372,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 18</div>
+    <div class="ver">version 19</div>
   </footer>
 </div>
 
@@ -1416,6 +1417,15 @@ document.addEventListener('keydown',e=>{ if(e.key==="Escape") document.querySele
 applyColors();
 renderAll();
 bootSync();
+
+// Nødudgang: ryd al cache, afregistrér service worker og hent friskt
+async function forceUpdate(){
+  try{
+    if("caches" in window){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }
+    if("serviceWorker" in navigator){ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.unregister())); }
+  }catch(e){}
+  location.reload(true);
+}
 
 // Gør appen installerbar – og opdaterer automatisk til nyeste version
 if("serviceWorker" in navigator){
