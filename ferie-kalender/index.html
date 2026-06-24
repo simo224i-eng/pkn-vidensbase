@@ -48,12 +48,22 @@
     -webkit-font-smoothing:antialiased;
   }
   /* Blød, sløret minde-baggrund bag hele appen (fast pseudo-element = iOS-venligt) */
+  /* Blødt billede af jer som baggrund bag hele appen, med varmt slør så teksten er læsbar */
   body::before{
     content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      linear-gradient(180deg, rgba(244,242,237,.68) 0%, rgba(244,242,237,.78) 100%),
-      url('bg-montage.jpg') center center / cover no-repeat;
+      linear-gradient(180deg, rgba(250,244,241,.60) 0%, rgba(249,242,240,.72) 55%, rgba(248,240,239,.80) 100%),
+      url('bg-couple.jpg') center center / cover no-repeat;
   }
+  /* ── Søde flydende detaljer (hjerter, hvalpe, sol) ───── */
+  .deco{position:fixed;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+  .deco span{position:absolute;opacity:.5;will-change:transform;
+    animation:floaty 8s ease-in-out infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+  @keyframes floaty{
+    0%,100%{transform:translateY(0) rotate(-5deg)}
+    50%{transform:translateY(-13px) rotate(6deg)}
+  }
+  @media(prefers-reduced-motion:reduce){ .deco span{animation:none} }
   .serif{font-family:"Fraunces","Georgia",serif}
   .wrap{max-width:1080px;margin:0 auto;padding:24px 18px 80px}
 
@@ -290,6 +300,21 @@
 </style>
 </head>
 <body>
+<div class="deco" aria-hidden="true">
+  <span style="top:6%;left:4%;font-size:30px">🐶</span>
+  <span style="top:4%;right:5%;font-size:26px;animation-delay:1.2s">💕</span>
+  <span style="top:3%;left:46%;font-size:19px;opacity:.4;animation-delay:.7s">❤️</span>
+  <span style="top:19%;left:2%;font-size:25px;animation-delay:2.4s">😎</span>
+  <span style="top:16%;right:3%;font-size:29px;animation-delay:.5s">👒</span>
+  <span style="top:39%;left:3%;font-size:23px;animation-delay:3s">🩷</span>
+  <span style="top:43%;right:2%;font-size:30px;animation-delay:1.8s">🐕</span>
+  <span style="top:61%;left:2%;font-size:26px;animation-delay:.9s">🌴</span>
+  <span style="top:59%;right:4%;font-size:24px;animation-delay:2.1s">💗</span>
+  <span style="top:79%;left:5%;font-size:28px;animation-delay:1.5s">🐶</span>
+  <span style="top:81%;right:4%;font-size:25px;animation-delay:3.3s">☀️</span>
+  <span style="top:92%;left:6%;font-size:22px;animation-delay:.3s">🍹</span>
+  <span style="top:91%;right:6%;font-size:23px;animation-delay:2.7s">🐚</span>
+</div>
 <div class="wrap">
 
   <header class="hero">
@@ -372,7 +397,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 19</div>
+    <div class="ver">version 20</div>
   </footer>
 </div>
 
