@@ -322,6 +322,7 @@
   <div class="places" id="savedPlaces"></div>
 
   <p class="section-sub" style="margin-top:22px;font-weight:600;color:var(--ink)">Anbefalet — lokale &amp; Reddit-favoritter</p>
+  <div class="who-filter" id="recFilter" style="margin:0 0 12px"></div>
   <div class="places" id="recPlaces"></div>
 
   <div class="section-title">💡 Idéer til Korfu <span style="font-weight:400;color:var(--muted);font-size:15px">— tryk for at lægge i planen</span></div>
@@ -339,7 +340,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 13</div>
+    <div class="ver">version 14</div>
   </footer>
 </div>
 
@@ -535,6 +536,7 @@ let pickEmoji = "📍";
 let pickWho = "both";
 let editingPlaceId = null;
 let pickPEmoji = "🍽️";
+let recFilter = "all";   // all | lunch | dinner
 
 /* Sync-runtime */
 const cloud = {
@@ -1100,6 +1102,12 @@ const REC_PLACES = [
    note:"Blandt Grækenlands bedste – moderne italiensk gastronomi. Til den helt store aften."},
   {name:"Pane & Souvlaki", emoji:"🥙", area:"Korfu By, Guilford St.", meal:"Gyros/souvlaki", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6257, lng:19.9190,
    note:"Frisk, moderne souvlaki/gyros. Hurtigt, billigt og rigtig godt til frokost."},
+  {name:"Rouvas", emoji:"🍲", area:"Korfu By, nær San Rocco", meal:"Frokost", price:"€", rating:4.4, booking:"Ikke nødvendigt", noFish:true, lat:39.6228, lng:19.9178,
+   note:"Ægte frokoststed hvor lokale (og advokater fra retten) spiser hjemmelavet mad – pastitsio, stifado m.m. Kun frokost, lukker sidst på eftermiddagen. Ingen turistmenu."},
+  {name:"Starenio Bakery", emoji:"🥐", area:"Korfu By, Guilford St.", meal:"Café/morgen", price:"€", rating:4.6, booking:"Ikke nødvendigt", noFish:true, lat:39.6255, lng:19.9193,
+   note:"Alt bages in-house – brød, kager, granola og sandwich på eget brød. Perfekt til en let frokost eller morgenmad. Lokal favorit."},
+  {name:"Panetteria", emoji:"🥐", area:"Korfu By, gamle bydel", meal:"Café/morgen", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6250, lng:19.9200,
+   note:"Undervurderet bageri-café med fremragende kaffe, luftige bagværk og lækre sandwich (søde og salte) til rimelig pris. God til morgenmad."},
   {name:"Taverna Ninos", emoji:"🍢", area:"Korfu By (lille sidegade i gamle bydel)", meal:"Frokost & aften", price:"€", rating:4.5, booking:"Ikke nødvendigt", noFish:true, lat:39.6238, lng:19.9215,
    note:"100+ år gammel familietaverna hvor de lokale spiser. Korfiotiske klassikere (sofrito, bourdeto) og berømt billig gyros (~4 €). Kan ikke bookes – mød bare op."},
   {name:"To Tavernaki tis Marinas", emoji:"🥘", area:"Korfu By, gyde nær Gamle Havn", meal:"Aftensmad", price:"€€", rating:4.4, booking:"Anbefales", noFish:true, lat:39.6234, lng:19.9205,
@@ -1167,10 +1175,27 @@ function renderPlaces(){
     sortedSaved.map(p=>placeCard(p,true)).join("") +
     `<div class="add-place-card" onclick="openPlace()">＋ Tilføj spisested</div>` +
     (saved.length?"":`<div class="place-empty">Ingen gemte endnu — tryk på et anbefalet sted nedenfor, eller “Tilføj spisested”.</div>`);
+  renderRecFilter();
   document.getElementById('recPlaces').innerHTML =
-    REC_PLACES.map((p,i)=>({p,i})).filter(o=>!saved.some(s=>s.name===o.p.name))
+    REC_PLACES.map((p,i)=>({p,i}))
+      .filter(o=>!saved.some(s=>s.name===o.p.name) && matchRec(o.p))
       .map(o=>placeCard(o.p,false,o.i)).join("")
-    || `<div class="place-empty">I har gemt alle anbefalingerne 🎉</div>`;
+    || `<div class="place-empty">Ingen anbefalinger i denne kategori (måske er de gemt allerede 🎉).</div>`;
+}
+
+function mealCats(meal){
+  const m=meal||"", cats=[];
+  if(m==="Café/morgen") cats.push("breakfast");
+  if(["Frokost","Frokost & aften","Gyros/souvlaki","Café/morgen"].includes(m)) cats.push("lunch");
+  if(["Aftensmad","Frokost & aften","Drinks"].includes(m)) cats.push("dinner");
+  return cats;
+}
+function matchRec(p){ return recFilter==="all" || mealCats(p.meal).includes(recFilter); }
+function setRecFilter(f){ recFilter=f; renderPlaces(); }
+function renderRecFilter(){
+  const opts=[{k:"all",l:"Alle"},{k:"breakfast",l:"🥐 Morgen"},{k:"lunch",l:"🥪 Frokost"},{k:"dinner",l:"🌙 Aften"}];
+  document.getElementById('recFilter').innerHTML=opts.map(o=>
+    `<div class="chip ${recFilter===o.k?'active':''}" onclick="setRecFilter('${o.k}')">${o.l}</div>`).join("");
 }
 
 function saveRec(idx){
