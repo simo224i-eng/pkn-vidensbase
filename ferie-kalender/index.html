@@ -363,7 +363,7 @@
   <div id="schedule"></div>
 
   <div class="section-title" id="spisesteder" data-ico="🍽️">Spisesteder</div>
-  <p class="section-sub">Jeres gemte favoritter — tryk på ⭐ for at fremhæve, eller på et anbefalet sted for at gemme det.</p>
+  <p class="section-sub">Stjernemarkér ⭐ jeres favoritter blandt anbefalingerne — eller tilføj jeres egne steder.</p>
   <div class="places" id="savedPlaces"></div>
 
   <p class="section-sub" style="margin-top:22px;font-weight:600;color:var(--ink)">Anbefalet — lokale &amp; Reddit-favoritter</p>
@@ -386,7 +386,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 36</div>
+    <div class="ver">version 37</div>
   </footer>
 </div>
 
@@ -571,7 +571,8 @@ const DEFAULT_STATE = {
     B:{name:"Kæreste", color:"#d2603a"},
   },
   events:[],  // {id,title,who:'A'|'B'|'both',date:'YYYY-MM-DD',time:'HH:MM',emoji,loc,notes}
-  places:[]   // {id,name,emoji,meal,price,rating,booking,area,note,link,noFish,fav}
+  places:[],  // {id,name,emoji,meal,price,rating,booking,area,note,link,noFish,fav}
+  starredRecs:{}  // {navn:true} – stjernemarkerede anbefalinger
 };
 
 let state = load();
@@ -1240,14 +1241,15 @@ function placeCard(p, saved, idx){
       </div></div>`;
   }
   // anbefalet kort
+  const _st=(state.starredRecs||{})[p.name];
   return `<div class="place">
+    <button class="pfav ${_st?'on':''}" title="Favorit" onclick="starRec(${idx})">${_st?'⭐':'☆'}</button>
     <div class="ptop"><div class="pico">${eico(p.emoji||"🍽️")}</div>
       <div><h4>${withIcons(p.name)}</h4><div class="parea">📍 ${escapeHtml(p.area)}</div></div></div>
     <div class="pbadges">${badgeHtml}</div>
     <div class="pnote">${withIcons(p.note)}</div>
     <div class="pfoot">
       <a class="plink" href="${escapeHtml(mapsLink(p))}" target="_blank" rel="noopener">${eico("🗺️")} Kort</a>
-      <button class="mini-btn" onclick="saveRec(${idx})">＋ Gem</button>
     </div></div>`;
 }
 
@@ -1258,13 +1260,15 @@ function renderPlaces(){
   savedEl.innerHTML =
     sortedSaved.map(p=>placeCard(p,true)).join("") +
     `<div class="add-place-card" onclick="openPlace()">＋ Tilføj spisested</div>` +
-    (saved.length?"":`<div class="place-empty">Ingen gemte endnu — tryk på et anbefalet sted nedenfor, eller “Tilføj spisested”.</div>`);
+    (saved.length?"":`<div class="place-empty">Tilføj gerne jeres egne steder her — eller stjernemarkér favoritter blandt anbefalingerne nedenfor.</div>`);
   renderRecFilter();
+  const _star=state.starredRecs||{};
   document.getElementById('recPlaces').innerHTML =
     REC_PLACES.map((p,i)=>({p,i}))
       .filter(o=>!saved.some(s=>s.name===o.p.name) && matchRec(o.p))
+      .sort((a,b)=>(_star[b.p.name]?1:0)-(_star[a.p.name]?1:0))
       .map(o=>placeCard(o.p,false,o.i)).join("")
-    || `<div class="place-empty">Ingen anbefalinger i denne kategori (måske er de gemt allerede 🎉).</div>`;
+    || `<div class="place-empty">Ingen anbefalinger i denne kategori.</div>`;
 }
 
 function mealCats(meal){
@@ -1282,6 +1286,12 @@ function renderRecFilter(){
     `<div class="chip ${recFilter===o.k?'active':''}" onclick="setRecFilter('${o.k}')">${o.e?eico(o.e)+' ':''}${o.l}</div>`).join("");
 }
 
+function starRec(idx){
+  const r=REC_PLACES[idx]; if(!r) return;
+  state.starredRecs=state.starredRecs||{};
+  if(state.starredRecs[r.name]) delete state.starredRecs[r.name]; else state.starredRecs[r.name]=true;
+  save(); renderPlaces();
+}
 function saveRec(idx){
   const r=REC_PLACES[idx]; if(!r) return;
   state.places=state.places||[];
