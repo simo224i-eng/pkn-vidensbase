@@ -66,8 +66,8 @@
     color:#fff;border-radius:24px;padding:28px 30px;
     box-shadow:0 12px 34px rgba(120,80,40,.22);position:relative;overflow:hidden;
   }
-  .hero-puppy{position:absolute;right:10px;bottom:8px;width:84px;height:auto;z-index:1;
-    filter:drop-shadow(0 4px 7px rgba(20,60,70,.28));animation:puppybob 4.5s ease-in-out infinite}
+  .hero-puppy{position:absolute;right:4px;bottom:0;width:122px;height:auto;z-index:1;
+    filter:drop-shadow(0 5px 9px rgba(20,60,70,.22))}
   @keyframes puppybob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
   @media(prefers-reduced-motion:reduce){ .hero-puppy{animation:none} }
   .hero h1{font-family:"Fredoka","Segoe UI",sans-serif;text-shadow:0 1px 8px rgba(20,60,70,.35)}
@@ -80,8 +80,8 @@
   .sync-pill.err .led{background:#f87171}
   .hero h1{margin:0;font-size:33px;letter-spacing:.2px;font-weight:600;padding-right:90px;line-height:1.12}
   .hero .sub{opacity:.92;margin-top:4px;font-size:15px}
-  .countdown{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;padding-right:92px}
-  .hero-today{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:14px;padding-right:92px}
+  .countdown{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;padding-right:122px}
+  .hero-today{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:14px;padding-right:122px}
   .hero-today .ht-label{font-weight:800;text-transform:uppercase;letter-spacing:.5px;font-size:10.5px;opacity:.92;
     background:rgba(255,255,255,.18);border-radius:999px;padding:3px 9px}
   .hero-today .ht-item{display:inline-flex;align-items:center;gap:5px;background:rgba(255,253,248,.94);
@@ -311,10 +311,9 @@
     <div class="sub" id="tripSub">Sol, hav og hinanden 🇬🇷</div>
     <div class="hero-today" id="heroToday"></div>
     <div class="countdown" id="countdown"></div>
-    <img class="hero-puppy" src="puppy.svg" alt="Lille feriehvalp" />
+    <img class="hero-puppy" src="hero-pup.svg" alt="Hvalp der chiller under en parasol" />
   </header>
 
-  <img class="beach-scene" src="puppy-scene.svg" alt="Hvalp der chiller under en parasol på stranden" />
 
   <div class="polaroids">
     <div class="polaroid" onclick="openLightbox('foto-1.jpg')">
@@ -387,7 +386,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 32</div>
+    <div class="ver">version 34</div>
   </footer>
 </div>
 
@@ -820,11 +819,11 @@ function renderHeader(){
   const cd = document.getElementById('countdown');
   if(n>0){
     cd.innerHTML = `<div class="cd-box"><b>${n}</b><span>dage til afrejse</span></div>
-      <div class="cd-box"><b>${tripDays().length}</b><span>feriedage</span></div>
-      <div class="cd-box"><b>${state.events.length}</b><span>planlagt</span></div>`;
+      <div class="cd-box"><b>${tripDays().length}</b><span>feriedage</span></div>`;
   }else if(n<=0 && parse(state.end)>=new Date(new Date().setHours(0,0,0,0))){
-    cd.innerHTML = `<div class="cd-box"><b>${eico("🌞")}</b><span>I er på ferie nu!</span></div>
-      <div class="cd-box"><b>${state.events.length}</b><span>planlagt</span></div>`;
+    const _t=tripDays().length;
+    const _d=Math.min(_t, Math.max(1, Math.round((new Date(new Date().setHours(0,0,0,0))-parse(state.start))/86400000)+1));
+    cd.innerHTML = `<div class="cd-box"><b>${_d}</b><span>af ${_t} dage</span></div>`;
   }else{
     cd.innerHTML = `<div class="cd-box"><b>${eico("💛")}</b><span>Minder for livet</span></div>`;
   }
@@ -855,7 +854,7 @@ function renderHeroToday(){
     return;
   }
   const items = list.slice(0,3).map(e=>
-    `<span class="ht-item">${eico(e.emoji||"📍")} ${e.time?`<b>${e.time}</b> `:""}${escapeHtml(e.title)}</span>`).join("");
+    `<span class="ht-item">${eico(e.emoji||"📍")} ${e.time?`<b>${e.time}</b> `:""}${withIcons(e.title)}</span>`).join("");
   const more = list.length>3 ? `<span class="ht-item">+${list.length-3} mere</span>` : "";
   el.innerHTML = `<span class="ht-label">${label}${dateNote}</span>${items}${more}`;
 }
@@ -940,9 +939,9 @@ function eventRow(e, showDate){
     <div class="time">${showDate?dateLbl+"<br>":""}${e.time||"—"}${endBit}</div>
     <div class="bar" style="background:var(--sea)"></div>
     <div class="body">
-      <div class="etitle">${eico(e.emoji||"📍")} ${escapeHtml(e.title)}</div>
+      <div class="etitle">${eico(e.emoji||"📍")} ${withIcons(e.title)}</div>
       ${e.loc?`<div class="eloc">📍 ${escapeHtml(e.loc)}</div>`:""}
-      ${e.notes?`<div class="enotes">${escapeHtml(e.notes)}</div>`:""}
+      ${e.notes?`<div class="enotes">${withIcons(e.notes)}</div>`:""}
       <div class="row-actions">
         <button class="mini-btn" onclick="openEvent('${e.id}')">${eico("✏️")} Redigér</button>
         <button class="mini-btn del" onclick="delEvent('${e.id}')">${eico("🗑️")} Slet</button>
@@ -954,6 +953,10 @@ function eventRow(e, showDate){
 function escapeHtml(s){return (s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 const ICONS={"🍽": "<circle cx=\"12\" cy=\"13\" r=\"8\" fill=\"#1aa0b5\"/><circle cx=\"12\" cy=\"13\" r=\"4.4\" fill=\"#fff3da\"/><rect x=\"4.4\" y=\"4\" width=\"1.7\" height=\"9\" rx=\".8\" fill=\"#eaa53f\"/><path d=\"M18.5 4c-1.2 0-2 1.4-2 3.4 0 1.6 .7 2.4 1.2 2.7V19a.8.8 0 0 0 1.6 0V4.2A.2.2 0 0 0 18.5 4z\" fill=\"#eaa53f\"/>", "🗺": "<path d=\"M3 6.5 9 4.5 15 6.5 21 4.5V17.5L15 19.5 9 17.5 3 19.5Z\" fill=\"#1aa0b5\"/><path d=\"M9 4.5V17.5M15 6.5V19.5\" stroke=\"#fff3da\" stroke-width=\"1.3\"/><circle cx=\"15.6\" cy=\"11\" r=\"2.4\" fill=\"#e07a52\"/>", "📋": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"3\" fill=\"#1aa0b5\"/><rect x=\"4\" y=\"5\" width=\"16\" height=\"4.5\" rx=\"3\" fill=\"#137a8c\"/><circle cx=\"8\" cy=\"13\" r=\"1.3\" fill=\"#eaa53f\"/><circle cx=\"8\" cy=\"16.5\" r=\"1.3\" fill=\"#eaa53f\"/><rect x=\"11\" y=\"12\" width=\"6.5\" height=\"1.6\" rx=\".8\" fill=\"#fff3da\"/><rect x=\"11\" y=\"15.7\" width=\"6.5\" height=\"1.6\" rx=\".8\" fill=\"#fff3da\"/>", "🗒": "<circle cx=\"6\" cy=\"7.5\" r=\"1.5\" fill=\"#eaa53f\"/><circle cx=\"6\" cy=\"12.5\" r=\"1.5\" fill=\"#e07a52\"/><circle cx=\"6\" cy=\"17.5\" r=\"1.5\" fill=\"#1aa0b5\"/><rect x=\"9.5\" y=\"6.6\" width=\"9.5\" height=\"1.8\" rx=\".9\" fill=\"#1aa0b5\"/><rect x=\"9.5\" y=\"11.6\" width=\"9.5\" height=\"1.8\" rx=\".9\" fill=\"#1aa0b5\"/><rect x=\"9.5\" y=\"16.6\" width=\"9.5\" height=\"1.8\" rx=\".9\" fill=\"#1aa0b5\"/>", "⚙": "<circle cx=\"12\" cy=\"12\" r=\"7.5\" fill=\"#1aa0b5\"/><circle cx=\"12\" cy=\"12\" r=\"3\" fill=\"#fff3da\"/><g stroke=\"#1aa0b5\" stroke-width=\"2.4\"><path d=\"M12 3v3M12 18v3M3 12h3M18 12h3M5.5 5.5l2 2M16.5 16.5l2 2M18.5 5.5l-2 2M7.5 16.5l-2 2\"/></g>", "🔗": "<g fill=\"none\" stroke=\"#1aa0b5\" stroke-width=\"2.4\" stroke-linecap=\"round\"><path d=\"M9.5 14.5 14.5 9.5\"/><path d=\"M11 7l1.5-1.5a3.5 3.5 0 0 1 5 5L16 11\"/><path d=\"M13 17l-1.5 1.5a3.5 3.5 0 0 1-5-5L8 12\"/></g>", "🔄": "<g fill=\"none\" stroke=\"#1aa0b5\" stroke-width=\"2.3\" stroke-linecap=\"round\"><path d=\"M19 8a7.5 7.5 0 0 0-13-2.5\"/><path d=\"M5 16a7.5 7.5 0 0 0 13 2.5\"/></g><path d=\"M6 3.5 6.2 7 9.5 6.2Z\" fill=\"#1aa0b5\"/><path d=\"M18 20.5 17.8 17 14.5 17.8Z\" fill=\"#1aa0b5\"/>", "✏": "<path d=\"M4 17 14.5 6.5l3 3L7 20l-4 1z\" fill=\"#eaa53f\"/><path d=\"M14.5 6.5 16.5 4.5a1.4 1.4 0 0 1 2 0l1 1a1.4 1.4 0 0 1 0 2l-2 2z\" fill=\"#137a8c\"/><path d=\"M4 17 3 21l4-1z\" fill=\"#2c4a54\"/>", "🗑": "<rect x=\"6\" y=\"8\" width=\"12\" height=\"12\" rx=\"2.4\" fill=\"#e07a52\"/><rect x=\"4.5\" y=\"5\" width=\"15\" height=\"2.6\" rx=\"1.3\" fill=\"#137a8c\"/><rect x=\"9.5\" y=\"3.2\" width=\"5\" height=\"2.4\" rx=\"1\" fill=\"#137a8c\"/><g stroke=\"#fff3da\" stroke-width=\"1.4\" stroke-linecap=\"round\"><path d=\"M10 11v6M14 11v6\"/></g>", "📍": "<path d=\"M12 3c-3.6 0-6.5 2.8-6.5 6.3 0 4.4 6.5 11.4 6.5 11.4s6.5-7 6.5-11.4C18.5 5.8 15.6 3 12 3z\" fill=\"#e07a52\"/><circle cx=\"12\" cy=\"9.4\" r=\"2.6\" fill=\"#fff3da\"/>", "⭐": "<path d=\"M12 3.5 14.4 8.7 20 9.4 15.9 13.3 17 19 12 16.2 7 19 8.1 13.3 4 9.4 9.6 8.7Z\" fill=\"#eaa53f\"/>", "📞": "<path d=\"M7 4c-1 0-2.5 1-2.7 2.8C4 11 9 17.8 14 19.4c2 .6 3.4-.8 3.6-1.8.1-.6-.2-1.1-.7-1.4l-2.7-1.4c-.5-.3-1.1-.1-1.5.3l-.8.9c-1.8-1-3.2-2.5-4-4.2l1-.7c.5-.3.6-.9.4-1.4L8.4 5.1C8.2 4.4 7.7 4 7 4z\" fill=\"#1aa0b5\"/>", "🧭": "<circle cx=\"12\" cy=\"12\" r=\"8.5\" fill=\"#1aa0b5\"/><circle cx=\"12\" cy=\"12\" r=\"8.5\" fill=\"none\" stroke=\"#137a8c\" stroke-width=\"1.4\"/><path d=\"M12 12 16 8 13 13Z\" fill=\"#e07a52\"/><path d=\"M12 12 8 16 11 11Z\" fill=\"#fff3da\"/><circle cx=\"12\" cy=\"12\" r=\"1.2\" fill=\"#2c4a54\"/>", "🚶": "<circle cx=\"13\" cy=\"5.5\" r=\"2.1\" fill=\"#1aa0b5\"/><path d=\"M13 8 11 13l-2.5 6M13 8l3 3 3 1M11 13l-3 1M13 11l1 8\" stroke=\"#1aa0b5\" stroke-width=\"2.1\" fill=\"none\" stroke-linecap=\"round\"/>", "🥐": "<ellipse cx=\"12\" cy=\"14\" rx=\"8.5\" ry=\"4.5\" fill=\"#eaa53f\"/><path d=\"M4 13c1.5-3 4-4.5 8-4.5s6.5 1.5 8 4.5\" fill=\"none\" stroke=\"#d98e2e\" stroke-width=\"1.4\"/><g stroke=\"#d98e2e\" stroke-width=\"1\" opacity=\".7\"><path d=\"M9 14.5 10 11M12 15V11M15 14.5 14 11\"/></g><ellipse cx=\"12\" cy=\"14\" rx=\"8.5\" ry=\"4.5\" fill=\"none\" stroke=\"#d98e2e\" stroke-width=\"1.1\"/>", "🥪": "<path d=\"M4 9 12 5l8 4-8 3z\" fill=\"#eaa53f\"/><path d=\"M4 11.5 12 15l8-3.5\" fill=\"none\" stroke=\"#7faa5e\" stroke-width=\"2.2\"/><path d=\"M4 13.5 12 17l8-3.5\" fill=\"none\" stroke=\"#e07a52\" stroke-width=\"2.2\"/><path d=\"M4 15.5 12 19l8-3.5\" fill=\"none\" stroke=\"#eaa53f\" stroke-width=\"2.4\"/>", "🌙": "<path d=\"M16.5 14.5A7 7 0 0 1 8.2 5.2 7.2 7.2 0 1 0 16.5 14.5z\" fill=\"#1aa0b5\"/><circle cx=\"18\" cy=\"6\" r=\"1.3\" fill=\"#eaa53f\"/><circle cx=\"20\" cy=\"10\" r=\".9\" fill=\"#eaa53f\"/>", "🍷": "<path d=\"M8 4h8c0 4-1.5 6.5-4 7-2.5-.5-4-3-4-7z\" fill=\"#e07a52\"/><path d=\"M12 11v6\" stroke=\"#2c4a54\" stroke-width=\"1.6\"/><rect x=\"8.5\" y=\"18.5\" width=\"7\" height=\"1.8\" rx=\".9\" fill=\"#2c4a54\"/>", "🍸": "<path d=\"M5 6h14l-7 7z\" fill=\"#1aa0b5\"/><path d=\"M12 13v6\" stroke=\"#2c4a54\" stroke-width=\"1.6\"/><rect x=\"8.5\" y=\"19\" width=\"7\" height=\"1.8\" rx=\".9\" fill=\"#2c4a54\"/><circle cx=\"15.5\" cy=\"8\" r=\"1.6\" fill=\"#e07a52\"/>", "🍹": "<path d=\"M6 7h12l-6 6z\" fill=\"#1aa0b5\"/><path d=\"M12 13v6\" stroke=\"#2c4a54\" stroke-width=\"1.6\"/><rect x=\"9\" y=\"19\" width=\"6\" height=\"1.8\" rx=\".9\" fill=\"#2c4a54\"/><circle cx=\"15.5\" cy=\"8.5\" r=\"1.6\" fill=\"#e07a52\"/><path d=\"M14 7 19 4.5\" stroke=\"#eaa53f\" stroke-width=\"1.4\" stroke-linecap=\"round\"/>", "☕": "<path d=\"M5 8h12v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z\" fill=\"#1aa0b5\"/><path d=\"M17 9h2a2.2 2.2 0 0 1 0 4.4h-2z\" fill=\"none\" stroke=\"#137a8c\" stroke-width=\"1.6\"/><g stroke=\"#fff3da\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\".85\"><path d=\"M8 3.5c-.5 1 .5 1.5 0 2.5M11.5 3.5c-.5 1 .5 1.5 0 2.5\"/></g>", "🍝": "<path d=\"M4 13a8 8 0 0 0 16 0z\" fill=\"#1aa0b5\"/><path d=\"M3.5 19h17\" stroke=\"#137a8c\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><g stroke=\"#eaa53f\" stroke-width=\"1.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M7 13c0-4 2-7 3-3M11 13c-1-5 2-7 2-2M15 13c0-4 2-6 2.5-2\"/></g><circle cx=\"12\" cy=\"11.5\" r=\"1.5\" fill=\"#e07a52\"/>", "🍕": "<path d=\"M12 4 20 19c-5 2.5-11 2.5-16 0z\" fill=\"#eaa53f\"/><path d=\"M12 4c3 0 6 .8 8 2.2L12 8 5 6.2C7 4.8 9.5 4 12 4z\" fill=\"#e07a52\"/><circle cx=\"10\" cy=\"11\" r=\"1.4\" fill=\"#e07a52\"/><circle cx=\"14.5\" cy=\"13\" r=\"1.4\" fill=\"#e07a52\"/><circle cx=\"11\" cy=\"15.5\" r=\"1.3\" fill=\"#e07a52\"/>", "🥙": "<path d=\"M6 20 9 7a3 3 0 0 1 6 0l3 13z\" fill=\"#eaa53f\"/><path d=\"M6 20 9 7a3 3 0 0 1 6 0l3 13\" fill=\"none\" stroke=\"#d98e2e\" stroke-width=\"1.1\"/><circle cx=\"11\" cy=\"9\" r=\"1.2\" fill=\"#7faa5e\"/><circle cx=\"13.5\" cy=\"12\" r=\"1.2\" fill=\"#e07a52\"/><circle cx=\"10.5\" cy=\"14\" r=\"1.2\" fill=\"#e07a52\"/>", "🥘": "<ellipse cx=\"11\" cy=\"14\" rx=\"7.5\" ry=\"5.5\" fill=\"#1aa0b5\"/><ellipse cx=\"11\" cy=\"13\" rx=\"7.5\" ry=\"5\" fill=\"#137a8c\"/><rect x=\"17.5\" y=\"12\" width=\"5\" height=\"2\" rx=\"1\" fill=\"#1aa0b5\"/><circle cx=\"9\" cy=\"12.5\" r=\"1.3\" fill=\"#e07a52\"/><circle cx=\"12.5\" cy=\"13.5\" r=\"1.3\" fill=\"#eaa53f\"/><circle cx=\"11\" cy=\"15\" r=\"1.2\" fill=\"#7faa5e\"/>", "🐙": "<path d=\"M7 12a5 5 0 0 1 10 0v3c0 1-1 1-1.4 0-.3-1-1-1-1.3 0-.3 1-1 1-1.3 0-.3-1-1-1-1.3 0-.3 1-1 1-1.3 0-.4 1-1.4 1-1.4 0z\" fill=\"#e07a52\"/><circle cx=\"10\" cy=\"11\" r=\"1.1\" fill=\"#2c4a54\"/><circle cx=\"14\" cy=\"11\" r=\"1.1\" fill=\"#2c4a54\"/>", "🥩": "<path d=\"M5 11a6 5 0 0 1 12 0 5 4 0 0 1-12 0z\" fill=\"#cf6f4a\"/><path d=\"M6.5 11a4.5 3.5 0 0 1 9 0 3.5 2.5 0 0 1-9 0z\" fill=\"#e07a52\"/><circle cx=\"18\" cy=\"9\" r=\"2\" fill=\"#fff3da\"/>", "🌿": "<path d=\"M12 21V8\" stroke=\"#5f8a45\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><path d=\"M12 12c-1-4-5-5-7-4 0 3 3 5 7 4z\" fill=\"#7faa5e\"/><path d=\"M12 9c1-4 5-5 7-4 0 3-3 5-7 4z\" fill=\"#7faa5e\"/>", "🍤": "<path d=\"M6 8c5-1 9 1 11 5 1.5 3-1 6-4 5-4-1.3-3-5-7-5z\" fill=\"#e07a52\"/><path d=\"M17 13c2 .5 3-1 2.5-2.5\" fill=\"none\" stroke=\"#cf6f4a\" stroke-width=\"1.4\" stroke-linecap=\"round\"/><g stroke=\"#fff3da\" stroke-width=\"1\" opacity=\".8\"><path d=\"M9 9.5 8 12M11.5 10 11 12.5M14 11.5 13.5 14\"/></g>", "🍢": "<line x1=\"4\" y1=\"20\" x2=\"20\" y2=\"4\" stroke=\"#b9784a\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><circle cx=\"9\" cy=\"15\" r=\"2.6\" fill=\"#e07a52\"/><circle cx=\"13\" cy=\"11\" r=\"2.6\" fill=\"#eaa53f\"/><circle cx=\"17\" cy=\"7\" r=\"2.6\" fill=\"#7faa5e\"/>", "🍰": "<path d=\"M5 11 12 8l7 3v7H5z\" fill=\"#fff3da\"/><path d=\"M5 14h14\" stroke=\"#e07a52\" stroke-width=\"2.2\"/><path d=\"M5 11 12 8l7 3-7 2.5z\" fill=\"#ef8f8f\"/><circle cx=\"12\" cy=\"6.5\" r=\"1.6\" fill=\"#e07a52\"/>", "🍶": "<path d=\"M9 4h6v3l1.5 3v9a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-9L8 7V4z\" fill=\"#1aa0b5\"/><path d=\"M7.5 13h9\" stroke=\"#fff3da\" stroke-width=\"1.4\"/><rect x=\"9\" y=\"3.2\" width=\"6\" height=\"1.8\" rx=\".9\" fill=\"#137a8c\"/>", "🏖": "<path d=\"M12 7.5c4 0 7.5 3 8 6.5-2-1-5-1.6-8-1.6s-6 .6-8 1.6c.5-3.5 4-6.5 8-6.5z\" fill=\"#e07a52\"/><path d=\"M12 7.5c2.2 0 4 2.9 4.3 6.4-1.3-.3-2.8-.5-4.3-.5s-3 .2-4.3.5C8 10.4 9.8 7.5 12 7.5z\" fill=\"#fff3da\"/><path d=\"M12 13v7\" stroke=\"#2c4a54\" stroke-width=\"1.6\"/><path d=\"M9 20h6\" stroke=\"#2c4a54\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>", "🏰": "<path d=\"M4 20V9l2 1V7l2 1V6l2 1 2-2 2 2 2-1v2l2-1v3l2-1v11z\" fill=\"#1aa0b5\"/><rect x=\"10\" y=\"14\" width=\"4\" height=\"6\" fill=\"#137a8c\"/><path d=\"M12 3 13 6h-2z\" fill=\"#e07a52\"/>", "🏛": "<path d=\"M12 4 20 8H4z\" fill=\"#1aa0b5\"/><g fill=\"#137a8c\"><rect x=\"6\" y=\"9\" width=\"2\" height=\"8\"/><rect x=\"11\" y=\"9\" width=\"2\" height=\"8\"/><rect x=\"16\" y=\"9\" width=\"2\" height=\"8\"/></g><rect x=\"4\" y=\"17\" width=\"16\" height=\"2.4\" rx=\"1\" fill=\"#1aa0b5\"/>", "⛪": "<path d=\"M6 20V11l6-4 6 4v9z\" fill=\"#1aa0b5\"/><rect x=\"11\" y=\"3\" width=\"2\" height=\"6\" fill=\"#eaa53f\"/><rect x=\"9\" y=\"4.5\" width=\"6\" height=\"2\" fill=\"#eaa53f\"/><rect x=\"10.5\" y=\"14\" width=\"3\" height=\"6\" fill=\"#fff3da\"/>", "🌅": "<circle cx=\"12\" cy=\"11\" r=\"4.5\" fill=\"#eaa53f\"/><g stroke=\"#eaa53f\" stroke-width=\"1.5\" stroke-linecap=\"round\"><path d=\"M12 3v2M5 11H3M21 11h-2M6 6 7.4 7.4M18 6l-1.4 1.4\"/></g><path d=\"M3 16h18M5 19h14\" stroke=\"#1aa0b5\" stroke-width=\"2\" stroke-linecap=\"round\"/>", "🏨": "<rect x=\"5\" y=\"6\" width=\"14\" height=\"14\" rx=\"1.5\" fill=\"#1aa0b5\"/><g fill=\"#fff3da\"><rect x=\"7.5\" y=\"9\" width=\"2.4\" height=\"2.4\" rx=\".5\"/><rect x=\"14.1\" y=\"9\" width=\"2.4\" height=\"2.4\" rx=\".5\"/><rect x=\"7.5\" y=\"13\" width=\"2.4\" height=\"2.4\" rx=\".5\"/><rect x=\"14.1\" y=\"13\" width=\"2.4\" height=\"2.4\" rx=\".5\"/></g><rect x=\"10.5\" y=\"16\" width=\"3\" height=\"4\" fill=\"#eaa53f\"/>", "🛍": "<path d=\"M6 8h12l-1 12H7z\" fill=\"#e07a52\"/><path d=\"M9 9V7a3 3 0 0 1 6 0v2\" fill=\"none\" stroke=\"#137a8c\" stroke-width=\"1.8\"/>", "📸": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2.5\" fill=\"#1aa0b5\"/><path d=\"M8 7 9.5 5h5L16 7z\" fill=\"#137a8c\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.6\" fill=\"#fff3da\"/><circle cx=\"12\" cy=\"13.5\" r=\"1.8\" fill=\"#1aa0b5\"/>", "🧖": "<rect x=\"5\" y=\"14\" width=\"14\" height=\"3\" rx=\"1.5\" fill=\"#1aa0b5\"/><rect x=\"6\" y=\"17\" width=\"12\" height=\"2.4\" rx=\"1.2\" fill=\"#137a8c\"/><circle cx=\"12\" cy=\"11\" r=\"2.4\" fill=\"#eaa53f\"/><g stroke=\"#fff3da\" stroke-width=\"1.3\" stroke-linecap=\"round\" opacity=\".8\"><path d=\"M8 8c-.5 1 .5 1.5 0 2.5M16 8c-.5 1 .5 1.5 0 2.5\"/></g>", "🐠": "<path d=\"M4 12c3-4 8-4 11 0-3 4-8 4-11 0z\" fill=\"#1aa0b5\"/><path d=\"M15 12 20 8v8z\" fill=\"#1aa0b5\"/><circle cx=\"8\" cy=\"11.5\" r=\"1\" fill=\"#fff3da\"/><path d=\"M11 9.5v5M13 10v4\" stroke=\"#fff3da\" stroke-width=\"1\"/>", "🚤": "<path d=\"M4 14h16l-2 4H6z\" fill=\"#e07a52\"/><path d=\"M12 4v9M12 5 18 12 12 12z\" fill=\"#1aa0b5\"/><path d=\"M12 13V4\" stroke=\"#2c4a54\" stroke-width=\"1.2\"/>", "🏊": "<circle cx=\"8\" cy=\"8\" r=\"2\" fill=\"#eaa53f\"/><path d=\"M5 12 9 10l3 1.5 3-1 4 1.5\" stroke=\"#eaa53f\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M3 16c1.5 1.5 3 1.5 4.5 0 1.5-1.5 3-1.5 4.5 0 1.5 1.5 3 1.5 4.5 0 1.5-1.5 3-1.5 4.5 0\" fill=\"none\" stroke=\"#1aa0b5\" stroke-width=\"1.8\"/><path d=\"M3 19c1.5 1.5 3 1.5 4.5 0 1.5-1.5 3-1.5 4.5 0 1.5 1.5 3 1.5 4.5 0 1.5-1.5 3-1.5 4.5 0\" fill=\"none\" stroke=\"#1aa0b5\" stroke-width=\"1.8\" opacity=\".6\"/>", "🥾": "<path d=\"M5 7h4v5l8 3a2 2 0 0 1 1.4 2v1H5z\" fill=\"#b9784a\"/><rect x=\"4\" y=\"18\" width=\"16\" height=\"2.4\" rx=\"1.2\" fill=\"#2c4a54\"/><path d=\"M9 12l3 1M9 14.5l3 1\" stroke=\"#fff3da\" stroke-width=\"1.1\"/>", "🏍": "<circle cx=\"6\" cy=\"16\" r=\"3.2\" fill=\"none\" stroke=\"#2c4a54\" stroke-width=\"1.8\"/><circle cx=\"18\" cy=\"16\" r=\"3.2\" fill=\"none\" stroke=\"#2c4a54\" stroke-width=\"1.8\"/><path d=\"M6 16 10 10h4l2 6M9 10h6\" stroke=\"#1aa0b5\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M14 10l3-2\" stroke=\"#1aa0b5\" stroke-width=\"2\" stroke-linecap=\"round\"/>", "📖": "<path d=\"M12 6c-2-1.5-5-1.5-7 0v12c2-1.5 5-1.5 7 0z\" fill=\"#1aa0b5\"/><path d=\"M12 6c2-1.5 5-1.5 7 0v12c-2-1.5-5-1.5-7 0z\" fill=\"#137a8c\"/><path d=\"M12 6v12\" stroke=\"#fff3da\" stroke-width=\"1.1\"/>", "✈": "<path d=\"M3 13.5 21 9l-2.5 4L11 14l-2 4-1.5-.3.5-3.7-4 .3z\" fill=\"#1aa0b5\"/>", "🧳": "<rect x=\"5\" y=\"8\" width=\"14\" height=\"12\" rx=\"2\" fill=\"#1aa0b5\"/><rect x=\"9\" y=\"5\" width=\"6\" height=\"3.5\" rx=\"1.4\" fill=\"none\" stroke=\"#137a8c\" stroke-width=\"1.6\"/><rect x=\"11\" y=\"8\" width=\"2\" height=\"12\" fill=\"#fff3da\"/>", "🌴": "<path d=\"M11 20c0-6 1-9 2-11\" stroke=\"#b9784a\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M12 8C9 6 6 6 4 8c2.5 0 4 1 5 2.5M12 8c3-2 6-2 8 0-2.5 0-4 1-5 2.5M12 8c-1-3-3-4.5-5.5-4.5C8 5 9 6.5 9.5 9M12 8c1-3 3-4.5 5.5-4.5C16 5 15 6.5 14.5 9\" fill=\"#7faa5e\"/>", "🌞": "<circle cx=\"12\" cy=\"12\" r=\"5\" fill=\"#eaa53f\"/><g stroke=\"#eaa53f\" stroke-width=\"1.8\" stroke-linecap=\"round\"><path d=\"M12 2.5v2.5M12 19v2.5M2.5 12h2.5M19 12h2.5M5 5l1.8 1.8M17.2 17.2 19 19M19 5l-1.8 1.8M6.8 17.2 5 19\"/></g>", "❤": "<path d=\"M12 20S4 14.5 4 9.2A4.2 4.2 0 0 1 12 7a4.2 4.2 0 0 1 8 2.2C20 14.5 12 20 12 20z\" fill=\"#e07a52\"/>", "💛": "<path d=\"M12 20S4 14.5 4 9.2A4.2 4.2 0 0 1 12 7a4.2 4.2 0 0 1 8 2.2C20 14.5 12 20 12 20z\" fill=\"#eaa53f\"/>", "🐾": "<g fill=\"#b9784a\"><ellipse cx=\"8\" cy=\"9\" rx=\"1.8\" ry=\"2.4\"/><ellipse cx=\"12\" cy=\"7.5\" rx=\"1.8\" ry=\"2.4\"/><ellipse cx=\"16\" cy=\"9\" rx=\"1.8\" ry=\"2.4\"/><path d=\"M12 11c3 0 5 2 5 4.5 0 2-2 2.5-5 2.5s-5-.5-5-2.5C7 13 9 11 12 11z\"/></g>"};
 function eico(ch){ if(!ch) return ""; var k=String(ch).replace(/\uFE0F/g,""); var s=ICONS[k]; return s ? '<span class="eico" aria-hidden="true"><svg viewBox="0 0 24 24">'+s+'</svg></span>' : escapeHtml(ch); }
+var _EMK=Object.keys(ICONS).sort(function(a,b){return b.length-a.length;});
+var ICON_RE=new RegExp("("+_EMK.map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}).join("|")+")\\uFE0F?","g");
+function withIcons(t){ return escapeHtml(t||"").replace(ICON_RE,function(m){return eico(m);}); }
+
 function decorateStaticIcons(){ document.querySelectorAll("[data-ico]").forEach(function(el){ if(el._icoDone) return; el._icoDone=1; el.insertAdjacentHTML("afterbegin", eico(el.getAttribute("data-ico"))+" "); }); }
 
 
@@ -1227,9 +1230,9 @@ function placeCard(p, saved, idx){
     return `<div class="place">
       <button class="pfav ${p.fav?'on':''}" title="Favorit" onclick="toggleFav('${p.id}')">${p.fav?'⭐':'☆'}</button>
       <div class="ptop"><div class="pico">${eico(p.emoji||"🍽️")}</div>
-        <div><h4>${escapeHtml(p.name)}</h4>${p.area?`<div class="parea">📍 ${escapeHtml(p.area)}</div>`:""}</div></div>
+        <div><h4>${withIcons(p.name)}</h4>${p.area?`<div class="parea">📍 ${escapeHtml(p.area)}</div>`:""}</div></div>
       <div class="pbadges">${badgeHtml}</div>
-      ${p.note?`<div class="pnote">${escapeHtml(p.note)}</div>`:""}
+      ${p.note?`<div class="pnote">${withIcons(p.note)}</div>`:""}
       <div class="pfoot">
         <a class="plink" href="${escapeHtml(mapsLink(p))}" target="_blank" rel="noopener">${eico("🗺️")} Kort</a>
         <button class="mini-btn" onclick="openPlace('${p.id}')">${eico("✏️")} Redigér</button>
@@ -1239,9 +1242,9 @@ function placeCard(p, saved, idx){
   // anbefalet kort
   return `<div class="place">
     <div class="ptop"><div class="pico">${eico(p.emoji||"🍽️")}</div>
-      <div><h4>${escapeHtml(p.name)}</h4><div class="parea">📍 ${escapeHtml(p.area)}</div></div></div>
+      <div><h4>${withIcons(p.name)}</h4><div class="parea">📍 ${escapeHtml(p.area)}</div></div></div>
     <div class="pbadges">${badgeHtml}</div>
-    <div class="pnote">${escapeHtml(p.note)}</div>
+    <div class="pnote">${withIcons(p.note)}</div>
     <div class="pfoot">
       <a class="plink" href="${escapeHtml(mapsLink(p))}" target="_blank" rel="noopener">${eico("🗺️")} Kort</a>
       <button class="mini-btn" onclick="saveRec(${idx})">＋ Gem</button>
@@ -1402,7 +1405,7 @@ function initMap(){
 function mapPopup(p){
   const badges=[stars(p.rating),escapeHtml(p.price||''),escapeHtml(p.meal||''),bookingBadge(p.booking),p.noFish?eico("🥩")+' uden fisk':''].filter(Boolean);
   return `<div style="min-width:180px">
-    <div style="font-weight:700;font-size:15px">${escapeHtml(p.name)}</div>
+    <div style="font-weight:700;font-size:15px">${withIcons(p.name)}</div>
     <div style="color:#7a8a99;font-size:12px;margin:3px 0">${badges.join(' · ')}</div>
     <div style="font-size:12.5px;margin-bottom:7px">${escapeHtml(p.note||'')}</div>
     <a href="${escapeHtml(dirLink(p))}" target="_blank" rel="noopener" style="font-weight:700;color:#2d7080;text-decoration:none">${eico("🧭")} Rute hertil</a>
@@ -1439,7 +1442,7 @@ function renderMapList(){
       const meta=[stars(r.p.rating),escapeHtml(r.p.price||''),escapeHtml(r.p.meal||''),bookingBadge(r.p.booking)].filter(Boolean).join(' · ');
       return `<div class="map-row" onclick="focusPlace(${r.i})">
         <div class="mpico">${eico(r.p.emoji||'🍽️')}</div>
-        <div class="mbody"><h4>${escapeHtml(r.p.name)}</h4>
+        <div class="mbody"><h4>${withIcons(r.p.name)}</h4>
           <div class="mmeta">${meta}</div></div>
         ${r.d!=null?`<div class="mdist">${fmtDist(r.d)}</div>`:''}
       </div>`;
