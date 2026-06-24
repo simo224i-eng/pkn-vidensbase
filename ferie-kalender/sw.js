@@ -1,6 +1,6 @@
 /* Service worker – gør appen installerbar og brugbar offline.
    App-skallen caches; Firebase/netværkskald får altid lov at gå til nettet. */
-const CACHE = "korfu-ferie-v17";
+const CACHE = "korfu-ferie-v18";
 const ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,7 @@ const ASSETS = [
   "./icon-512.png",
   "./apple-touch-icon.png",
   "./hero-bg.jpg",
+  "./bg-montage.jpg",
   "./foto-1.jpg",
   "./foto-2.jpg",
   "./foto-3.jpg",

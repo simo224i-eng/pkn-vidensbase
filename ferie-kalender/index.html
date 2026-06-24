@@ -38,16 +38,21 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
+  html{background:var(--bg)}
   body{
     font-family:"Poppins","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
-    background:
-      radial-gradient(1200px 500px at 80% -10%, #dcebee 0%, rgba(220,235,238,0) 60%),
-      radial-gradient(900px 400px at -10% 0%, #f1e7d8 0%, rgba(241,231,216,0) 55%),
-      var(--bg);
+    background:transparent;
     color:var(--ink);
     line-height:1.5;
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
+  }
+  /* Blød, sløret minde-baggrund bag hele appen (fast pseudo-element = iOS-venligt) */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(244,242,237,.68) 0%, rgba(244,242,237,.78) 100%),
+      url('bg-montage.jpg') center center / cover no-repeat;
   }
   .serif{font-family:"Fraunces","Georgia",serif}
   .wrap{max-width:1080px;margin:0 auto;padding:24px 18px 80px}
@@ -366,7 +371,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 17</div>
+    <div class="ver">version 18</div>
   </footer>
 </div>
 
