@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Vores ferie · Korfu 🇬🇷</title>
 <link rel="manifest" href="manifest.webmanifest" />
-<meta name="theme-color" content="#3f93a4" />
+<meta name="theme-color" content="#cf8a52" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Ferie" />
@@ -19,17 +19,17 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
   :root{
-    --bg:#f3f1ec;
-    --paper:#fffefb;
-    --ink:#2a343d;
-    --muted:#8a939b;
-    --line:#e8e4db;
-    --sea:#3f93a4;        /* afdæmpet Ionisk hav */
-    --sea-dark:#2d7080;
-    --olive:#7d8c62;
-    --sun:#e0a64a;       /* blød amber – bruges sparsomt */
+    --bg:#f4ead6;        /* varm creme */
+    --paper:#fffdf6;     /* varm elfenben */
+    --ink:#473a2b;       /* varm mørkebrun */
+    --muted:#a08c72;     /* varm taupe */
+    --line:#ece0c9;      /* varm linje */
+    --sea:#cf8a52;       /* varm karamel (hovedaccent) */
+    --sea-dark:#b06d39;
+    --olive:#9a8a52;
+    --sun:#e0a64a;       /* blød amber */
     --terracotta:#c5694a;
-    --shadow:0 8px 26px rgba(42,52,61,.08);
+    --shadow:0 8px 26px rgba(96,72,42,.10);
     --radius:18px;
     /* personfarver – overskrives af opsætning */
     --pA:#1d9bb8;
@@ -51,7 +51,7 @@
   body::before{
     content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      linear-gradient(180deg, rgba(244,242,237,.68) 0%, rgba(244,242,237,.78) 100%),
+      linear-gradient(180deg, rgba(244,234,214,.74) 0%, rgba(242,231,209,.84) 100%),
       url('bg-montage.jpg') center center / cover no-repeat;
   }
   .serif{font-family:"Fraunces","Georgia",serif}
@@ -60,11 +60,11 @@
   /* ── Header ──────────────────────────────────────────── */
   header.hero{
     background:
-      linear-gradient(105deg, rgba(63,147,164,.94) 0%, rgba(63,147,164,.82) 52%, rgba(45,112,128,.72) 100%),
+      linear-gradient(105deg, rgba(203,135,80,.93) 0%, rgba(196,128,74,.82) 52%, rgba(168,103,55,.74) 100%),
       url('hero-bg.jpg') center 35%/cover no-repeat,
       var(--sea-dark);
     color:#fff;border-radius:24px;padding:28px 30px;
-    box-shadow:0 12px 34px rgba(45,112,128,.22);position:relative;overflow:hidden;
+    box-shadow:0 12px 34px rgba(120,80,40,.22);position:relative;overflow:hidden;
   }
   .hero-puppy{position:absolute;right:10px;bottom:8px;width:84px;height:auto;z-index:1;
     filter:drop-shadow(0 4px 7px rgba(20,60,70,.28));animation:puppybob 4.5s ease-in-out infinite}
@@ -373,7 +373,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 24</div>
+    <div class="ver">version 25</div>
   </footer>
 </div>
 
