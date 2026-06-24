@@ -66,10 +66,10 @@
     color:#fff;border-radius:24px;padding:28px 30px;
     box-shadow:0 12px 34px rgba(45,112,128,.22);position:relative;overflow:hidden;
   }
-  header.hero::after{
-    content:"🏖️";position:absolute;right:18px;bottom:-14px;font-size:128px;opacity:.14;
-    transform:rotate(-8deg);
-  }
+  .hero-puppy{position:absolute;right:10px;bottom:8px;width:84px;height:auto;z-index:1;
+    filter:drop-shadow(0 4px 7px rgba(20,60,70,.28));animation:puppybob 4.5s ease-in-out infinite}
+  @keyframes puppybob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+  @media(prefers-reduced-motion:reduce){ .hero-puppy{animation:none} }
   .hero h1{font-family:"Fraunces","Georgia",serif;text-shadow:0 1px 8px rgba(20,60,70,.35)}
   .hero .sub{text-shadow:0 1px 6px rgba(20,60,70,.3)}
   .sync-pill{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.18);
@@ -80,7 +80,7 @@
   .sync-pill.err .led{background:#f87171}
   .hero h1{margin:0;font-size:33px;letter-spacing:.2px;font-weight:600;padding-right:90px;line-height:1.12}
   .hero .sub{opacity:.92;margin-top:4px;font-size:15px}
-  .countdown{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .countdown{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;padding-right:92px}
   .cd-box{background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:12px;
     padding:10px 16px;text-align:center;min-width:74px}
   .cd-box b{display:block;font-size:26px;line-height:1.1}
@@ -299,6 +299,7 @@
     <h1 id="tripTitle">Vores ferie på Korfu</h1>
     <div class="sub" id="tripSub">Sol, hav og hinanden 🇬🇷</div>
     <div class="countdown" id="countdown"></div>
+    <img class="hero-puppy" src="puppy.svg" alt="Lille feriehvalp" />
   </header>
 
   <div class="polaroids">
@@ -372,7 +373,7 @@
     <a href="#" onclick="document.getElementById('importFile').click();return false">Importér</a> ·
     <a href="#" onclick="resetAll();return false">Nulstil</a>
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    <div class="ver">version 21</div>
+    <div class="ver">version 22</div>
   </footer>
 </div>
 

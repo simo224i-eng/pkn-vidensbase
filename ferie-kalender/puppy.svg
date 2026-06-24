@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 168" width="320" height="336">
+  <!-- ground shadow -->
+  <ellipse cx="80" cy="158" rx="40" ry="7" fill="#000" opacity=".10"/>
+  <!-- ears (behind head) -->
+  <ellipse cx="34" cy="96" rx="17" ry="33" fill="#c6884f" transform="rotate(-12 34 96)"/>
+  <ellipse cx="126" cy="96" rx="17" ry="33" fill="#c6884f" transform="rotate(12 126 96)"/>
+  <!-- head -->
+  <circle cx="80" cy="98" r="46" fill="#eac794"/>
+  <!-- muzzle patch -->
+  <ellipse cx="80" cy="116" rx="27" ry="22" fill="#f7e6cd"/>
+  <!-- cheeks blush -->
+  <circle cx="50" cy="114" r="8" fill="#f3ad94" opacity=".5"/>
+  <circle cx="110" cy="114" r="8" fill="#f3ad94" opacity=".5"/>
+  <!-- nose -->
+  <ellipse cx="80" cy="108" rx="8" ry="6" fill="#4e3b2d"/>
+  <ellipse cx="77.5" cy="106" rx="2.4" ry="1.6" fill="#fff" opacity=".6"/>
+  <!-- mouth + tongue -->
+  <path d="M80 114 v6" stroke="#4e3b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M80 120 q-9 7 -15 1" stroke="#4e3b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M80 120 q9 7 15 1" stroke="#4e3b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M73 122 q7 12 14 0 z" fill="#ef9090"/>
+  <!-- sunglasses -->
+  <g fill="#262b32">
+    <rect x="47" y="86" width="28" height="20" rx="10"/>
+    <rect x="85" y="86" width="28" height="20" rx="10"/>
+    <rect x="73" y="92" width="14" height="5" rx="2"/>
+  </g>
+  <circle cx="56" cy="92" r="3.4" fill="#fff" opacity=".55"/>
+  <circle cx="94" cy="92" r="3.4" fill="#fff" opacity=".55"/>
+  <!-- straw sun hat -->
+  <ellipse cx="80" cy="60" rx="66" ry="17" fill="#e7bd74"/>
+  <ellipse cx="80" cy="58" rx="64" ry="14" fill="#f0cd8c"/>
+  <path d="M48 60 q32 -40 64 0 z" fill="#edc784"/>
+  <path d="M48 60 q32 -40 64 0" fill="none" stroke="#dcab63" stroke-width="1.5"/>
+  <!-- hat band in app sea-colour -->
+  <path d="M49 58 q31 14 62 0 l0 -7 q-31 12 -62 0 z" fill="#3f93a4"/>
+  <circle cx="105" cy="52" r="4.5" fill="#f2d98a"/>
+</svg>
