@@ -1,10 +1,10 @@
-"""Bog-/manga-læser til Harald-vidensbasen.
+"""Læsesal – en bog-/manga-læser med eget design.
 
-En selvstændig fane der lader brugeren læse billed-baserede bøger (manga,
-scannede sider), CBZ/ZIP-arkiver og PDF'er med en flydende læseroplevelse:
-bladring (tastatur/swipe/klik), zoom (fit-bredde/-højde/pinch), fuldskærm,
-læseretning (venstre→højre / højre→venstre), og hukommelse for sidst læste
-side pr. bog (gemt i browseren via localStorage).
+Læser billed-baserede bøger (manga, scannede sider), CBZ/ZIP-arkiver og PDF'er
+med en immersiv læseroplevelse: bladring (tastatur/swipe/klik), zoom
+(bredde/højde/pinch), fuldskærm, side-oversigt, læse-temaer, læseretning
+(venstre→højre / højre→venstre) og hukommelse for sidst læste side pr. bog
+(gemt i browseren via localStorage).
 
 Bøger hentes fra to kilder:
   1. Mappen ``boeger/`` i projektet (committede bøger).
@@ -21,14 +21,12 @@ import zipfile
 
 import streamlit as st
 
-from shared import inject_css, logo, sidebar_log_ud
+from shared import sidebar_log_ud
 
 # ── Adgangskontrol ─────────────────────────────────────────────────────────────
 if not st.session_state.get("_autentificeret_v2"):
     st.switch_page("app.py")
     st.stop()
-
-inject_css()
 
 # ── Konstanter ─────────────────────────────────────────────────────────────────
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,7 +36,9 @@ IMG_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".avif", ".bmp"}
 ARCHIVE_EXT = {".cbz", ".zip"}
 PDF_EXT = {".pdf"}
 
-ACCENT = "#8C1C2E"
+# Eget design – ikke Harald. Varm "læsesal" med indigo/rav-accent.
+ACCENT = "#6366f1"      # indigo
+ACCENT_2 = "#d97706"    # rav
 
 
 # ── Hjælpere ───────────────────────────────────────────────────────────────────
@@ -52,10 +52,7 @@ def _natural_key(navn: str):
 def _data_url_from_bytes(raw: bytes, filnavn: str) -> str:
     mime = mimetypes.guess_type(filnavn)[0]
     if mime is None:
-        if filnavn.lower().endswith(".svg"):
-            mime = "image/svg+xml"
-        else:
-            mime = "application/octet-stream"
+        mime = "image/svg+xml" if filnavn.lower().endswith(".svg") else "application/octet-stream"
     b64 = base64.b64encode(raw).decode("ascii")
     return f"data:{mime};base64,{b64}"
 
@@ -196,7 +193,6 @@ def load_cover(sti: str) -> str | None:
 
 
 def load_first_page(bog: dict) -> str | None:
-    """Forsidebillede (første side) til biblioteks-grid. None for PDF."""
     if bog["type"] != "images":
         return None
     return load_cover(bog["path"])
@@ -204,7 +200,6 @@ def load_first_page(bog: dict) -> str | None:
 
 # ── Upload-håndtering (session) ─────────────────────────────────────────────────
 def _process_upload(uploaded) -> dict | None:
-    """Konvertér en uploadet fil til en bog-dict med sider i session_state."""
     navn = uploaded.name
     ext = os.path.splitext(navn)[1].lower()
     titel = os.path.splitext(navn)[0]
@@ -213,48 +208,90 @@ def _process_upload(uploaded) -> dict | None:
 
     if ext in PDF_EXT:
         return {
-            "id": bid,
-            "title": titel,
-            "type": "pdf",
-            "n_pages": None,
-            "kilde": "upload",
-            "_pdf": _data_url_from_bytes(raw, navn),
+            "id": bid, "title": titel, "type": "pdf", "n_pages": None,
+            "kilde": "upload", "_pdf": _data_url_from_bytes(raw, navn),
         }
     if ext in ARCHIVE_EXT:
         sider = []
         with zipfile.ZipFile(io.BytesIO(raw)) as z:
             navne = sorted(
-                (
-                    n
-                    for n in z.namelist()
-                    if os.path.splitext(n)[1].lower() in IMG_EXT and not n.endswith("/")
-                ),
+                (n for n in z.namelist()
+                 if os.path.splitext(n)[1].lower() in IMG_EXT and not n.endswith("/")),
                 key=_natural_key,
             )
             for n in navne:
                 sider.append(_data_url_from_bytes(z.read(n), n))
         if sider:
             return {
-                "id": bid,
-                "title": titel,
-                "type": "images",
-                "n_pages": len(sider),
-                "kilde": "upload",
-                "_pages": sider,
+                "id": bid, "title": titel, "type": "images", "n_pages": len(sider),
+                "kilde": "upload", "_pages": sider,
             }
     if ext in IMG_EXT:
         return {
-            "id": bid,
-            "title": titel,
-            "type": "images",
-            "n_pages": 1,
-            "kilde": "upload",
-            "_pages": [_data_url_from_bytes(raw, navn)],
+            "id": bid, "title": titel, "type": "images", "n_pages": 1,
+            "kilde": "upload", "_pages": [_data_url_from_bytes(raw, navn)],
         }
     return None
 
 
-# ── Læser-komponenten (HTML/JS) ──────────────────────────────────────────────────
+# ── Sideopsætning: eget design, fjern Streamlit-/Harald-chrome ──────────────────
+def inject_reader_css() -> None:
+    st.markdown(
+        f"""
+<style>
+  /* Skjul Streamlit/Harald-chrome på denne side for et rent læser-look */
+  header[data-testid="stHeader"] {{ display:none !important; }}
+  [data-testid="stToolbar"] {{ display:none !important; }}
+  [data-testid="stDecoration"] {{ display:none !important; }}
+  [data-testid="stAppViewContainer"] > .main {{ background:#0d0f14; }}
+  .stApp {{ background:#0d0f14; }}
+  [data-testid="stMainBlockContainer"], .block-container {{
+      padding-top:1.2rem !important; padding-bottom:1rem !important;
+      max-width:1400px !important;
+  }}
+  /* Sidebar: mørk og diskret */
+  section[data-testid="stSidebar"] {{ background:#0a0c10 !important; }}
+  section[data-testid="stSidebar"] * {{ color:#cbd5e1; }}
+
+  /* Komponent-iframe uden hvid kant */
+  iframe {{ border-radius:14px; }}
+
+  /* Upload-felt + expander */
+  [data-testid="stFileUploader"] {{
+      background:#161922; border:1px dashed #2b3140; border-radius:12px; padding:.4rem;
+  }}
+  [data-testid="stFileUploader"] * {{ color:#cbd5e1 !important; }}
+  [data-testid="stExpander"] {{ border:1px solid #232838 !important; border-radius:12px !important;
+      background:#12151c !important; }}
+  [data-testid="stExpander"] summary,
+  [data-testid="stExpander"] summary p,
+  [data-testid="stExpander"] details > summary span {{ color:#e7e9ee !important; font-weight:600; }}
+  [data-testid="stExpander"] svg {{ fill:#cbd5e1 !important; }}
+  [data-testid="stExpander"] [data-testid="stCaptionContainer"],
+  [data-testid="stExpander"] [data-testid="stCaptionContainer"] * {{ color:#9aa3b2 !important; }}
+
+  /* Knapper — overdøv Streamlits egne styles */
+  div[data-testid="stButton"] > button, .stButton > button {{
+      background:{ACCENT} !important; color:#fff !important; border:none !important;
+      border-radius:9px !important; font-weight:600 !important; font-size:13px !important;
+      letter-spacing:.2px !important; transition:filter .15s, transform .1s !important;
+  }}
+  div[data-testid="stButton"] > button:hover, .stButton > button:hover {{
+      filter:brightness(1.12); transform:translateY(-1px);
+  }}
+  div[data-testid="stButton"] > button p {{ color:#fff !important; }}
+
+  .ls-card {{ transition:transform .16s ease, box-shadow .16s ease; }}
+  .ls-card:hover {{ transform:translateY(-4px); }}
+
+  h1,h2,h3 {{ color:#f8fafc; }}
+</style>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+# ── Læser-komponenten (HTML/JS) — nyt, immersivt design ──────────────────────────
 def render_reader(bog: dict, pages: list[str] | None, pdf_url: str | None):
     cfg = {
         "id": bog["id"],
@@ -265,87 +302,134 @@ def render_reader(bog: dict, pages: list[str] | None, pdf_url: str | None):
     }
     cfg_json = json.dumps(cfg)
 
-    html = """
+    html = r"""
 <!DOCTYPE html><html><head><meta charset="utf-8">
 <style>
-  :root { --accent:#8C1C2E; }
+  :root { --accent:#6366f1; }
   * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body { margin:0; padding:0; height:100%; font-family:Inter,system-ui,-apple-system,sans-serif; }
-  #app { position:relative; width:100%; height:100%; background:#0b0f1a; color:#e2e8f0;
-         display:flex; flex-direction:column; overflow:hidden; user-select:none; }
-  #app.fs { position:fixed; inset:0; z-index:99999; }
+  html,body { margin:0; padding:0; height:100%; overflow:hidden;
+              font-family:'Inter',system-ui,-apple-system,sans-serif; }
+  #app { position:relative; width:100%; height:100%; background:#0d0f14; color:#e7e9ee;
+         display:flex; flex-direction:column; overflow:hidden; user-select:none;
+         transition:background .3s; }
+  #app[data-bg="dim"]   { background:#1b1f29; }
+  #app[data-bg="sepia"] { background:#e9dcc3; }
+  #app[data-bg="light"] { background:#dfe3ea; }
 
-  #bar { display:flex; align-items:center; gap:10px; padding:8px 14px; background:rgba(15,23,42,.96);
-         border-bottom:1px solid #1e293b; font-size:12px; flex:0 0 auto; z-index:5;
-         transition:opacity .25s; }
-  #bar .title { font-weight:600; color:#f1f5f9; white-space:nowrap; overflow:hidden;
-                text-overflow:ellipsis; max-width:30%; }
-  #bar .spacer { flex:1; }
-  #bar .ind { font-variant-numeric:tabular-nums; color:#94a3b8; font-weight:600; min-width:74px; text-align:center;}
-  .btn { background:#1e293b; color:#cbd5e1; border:1px solid #334155; border-radius:6px;
-         padding:5px 9px; font-size:12px; cursor:pointer; font-family:inherit; line-height:1;
-         transition:background .12s,color .12s; white-space:nowrap; }
-  .btn:hover { background:#334155; color:#fff; }
-  .btn.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  /* ── Glas-bjælker, auto-skjul ── */
+  .chrome { position:absolute; left:0; right:0; z-index:20; display:flex; align-items:center; gap:8px;
+            padding:11px 16px; background:rgba(13,15,20,.62); backdrop-filter:blur(14px) saturate(1.2);
+            -webkit-backdrop-filter:blur(14px) saturate(1.2);
+            transition:opacity .3s, transform .3s; }
+  #top { top:0; border-bottom:1px solid rgba(255,255,255,.07); }
+  #bot { bottom:0; border-top:1px solid rgba(255,255,255,.07); }
+  #app:not(.show) #top { opacity:0; transform:translateY(-100%); pointer-events:none; }
+  #app:not(.show) #bot { opacity:0; transform:translateY(100%);  pointer-events:none; }
 
+  .title { font-weight:600; color:#f4f5f8; font-size:13.5px; white-space:nowrap; overflow:hidden;
+           text-overflow:ellipsis; max-width:34%; }
+  .grow { flex:1; }
+  .pill { font-variant-numeric:tabular-nums; font-weight:600; font-size:12.5px; color:#e7e9ee;
+          background:rgba(255,255,255,.08); border-radius:20px; padding:5px 13px; }
+  .ico { display:inline-flex; align-items:center; justify-content:center; gap:6px;
+         background:rgba(255,255,255,.07); color:#dfe3ea; border:1px solid rgba(255,255,255,.09);
+         border-radius:9px; height:34px; min-width:34px; padding:0 10px; font-size:13px; cursor:pointer;
+         font-family:inherit; line-height:1; transition:background .12s, color .12s, border-color .12s; }
+  .ico:hover { background:rgba(255,255,255,.16); color:#fff; }
+  .ico.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .lbl { font-size:12.5px; font-weight:500; }
+
+  /* ── Scene ── */
   #stage { position:relative; flex:1; overflow:auto; display:flex; align-items:flex-start;
-           justify-content:center; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; }
+           justify-content:center; -webkit-overflow-scrolling:touch; }
   #stage.center { align-items:center; }
-  #pageimg { display:block; max-width:none; transition:opacity .12s; }
-  #pagecanvas { display:block; }
+  #pageimg { display:block; max-width:none; animation:fade .28s ease; }
+  #pagecanvas { display:block; animation:fade .28s ease; }
+  @keyframes fade { from{opacity:.0; transform:scale(.992);} to{opacity:1; transform:none;} }
 
-  /* tap-zoner til bladring */
-  .nav { position:absolute; top:0; bottom:0; width:22%; z-index:3; cursor:pointer;
+  .nav { position:absolute; top:48px; bottom:56px; width:24%; z-index:10; cursor:pointer;
          display:flex; align-items:center; opacity:0; transition:opacity .2s; }
-  .nav.left { left:0; justify-content:flex-start; }
+  .nav.left  { left:0;  justify-content:flex-start; }
   .nav.right { right:0; justify-content:flex-end; }
   .nav:hover { opacity:1; }
-  .nav .chev { font-size:34px; color:#fff; padding:0 14px; text-shadow:0 1px 6px rgba(0,0,0,.7); }
+  .nav .chev { font-size:30px; color:#fff; margin:0 12px; width:46px; height:46px; border-radius:50%;
+               background:rgba(13,15,20,.55); display:flex; align-items:center; justify-content:center;
+               backdrop-filter:blur(6px); }
 
   #loader { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-            color:#64748b; font-size:13px; z-index:2; }
+            color:#8b92a3; font-size:13px; z-index:5; }
 
-  #foot { display:flex; align-items:center; gap:12px; padding:8px 16px; background:rgba(15,23,42,.96);
-          border-top:1px solid #1e293b; flex:0 0 auto; z-index:5; }
-  #slider { flex:1; -webkit-appearance:none; height:4px; border-radius:4px; background:#334155; outline:none; }
-  #slider::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%;
-            background:var(--accent); cursor:pointer; border:2px solid #fff; }
-  #slider::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:var(--accent);
+  /* ── Slider ── */
+  #slider { flex:1; -webkit-appearance:none; height:5px; border-radius:5px;
+            background:rgba(255,255,255,.16); outline:none; }
+  #slider::-webkit-slider-thumb { -webkit-appearance:none; width:15px; height:15px; border-radius:50%;
+            background:var(--accent); cursor:pointer; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.5); }
+  #slider::-moz-range-thumb { width:15px; height:15px; border-radius:50%; background:var(--accent);
             cursor:pointer; border:2px solid #fff; }
-  #foot .pct { font-size:11px; color:#94a3b8; min-width:38px; text-align:right; font-variant-numeric:tabular-nums; }
 
-  .hint { position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,.92);
-          color:#cbd5e1; font-size:11px; padding:6px 12px; border-radius:20px; border:1px solid #334155;
-          z-index:6; pointer-events:none; transition:opacity .4s; }
+  /* ── Side-oversigt (thumbnails) ── */
+  #overview { position:absolute; inset:0; z-index:40; background:rgba(8,9,13,.96);
+              backdrop-filter:blur(8px); display:none; flex-direction:column; }
+  #overview.open { display:flex; }
+  #ovhead { display:flex; align-items:center; gap:10px; padding:14px 18px;
+            border-bottom:1px solid rgba(255,255,255,.08); }
+  #ovhead .t { font-weight:600; font-size:14px; color:#f4f5f8; }
+  #ovgrid { flex:1; overflow:auto; display:grid; gap:14px; padding:18px;
+            grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); }
+  .thumb { cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid transparent;
+           background:#161922; transition:border-color .12s, transform .12s; position:relative; }
+  .thumb:hover { transform:translateY(-3px); }
+  .thumb.cur { border-color:var(--accent); }
+  .thumb img, .thumb canvas { width:100%; display:block; aspect-ratio:2/3; object-fit:cover; background:#0d0f14; }
+  .thumb .num { position:absolute; bottom:0; left:0; right:0; font-size:11px; text-align:center;
+                background:rgba(8,9,13,.78); color:#cbd5e1; padding:3px 0; font-weight:600; }
+
+  .hint { position:absolute; bottom:74px; left:50%; transform:translateX(-50%);
+          background:rgba(13,15,20,.86); color:#cbd5e1; font-size:11.5px; padding:7px 14px;
+          border-radius:22px; border:1px solid rgba(255,255,255,.1); z-index:15; pointer-events:none;
+          transition:opacity .5s; }
 </style></head>
 <body>
-<div id="app">
-  <div id="bar">
+<div id="app" class="show">
+
+  <div class="chrome" id="top">
     <span class="title" id="t"></span>
-    <button class="btn" id="dir" title="Læseretning">→ V→H</button>
-    <span class="spacer"></span>
-    <button class="btn" id="zfw" title="Tilpas bredde">↔ Bredde</button>
-    <button class="btn" id="zfh" title="Tilpas højde">↕ Højde</button>
-    <button class="btn" id="zout">−</button>
-    <span class="ind" id="zind">100%</span>
-    <button class="btn" id="zin">+</button>
-    <span class="spacer"></span>
-    <span class="ind" id="ind">– / –</span>
-    <button class="btn" id="fs" title="Fuldskærm">⛶</button>
+    <span class="grow"></span>
+    <button class="ico" id="dir" title="Læseretning (d)"><span class="lbl">→ V&rarr;H</span></button>
+    <button class="ico" id="bg"  title="Baggrund / tema (t)">◐</button>
+    <button class="ico" id="grid" title="Side-oversigt (g)">▦</button>
+    <button class="ico" id="fs"  title="Fuldskærm (f)">⛶</button>
   </div>
 
   <div id="stage">
-    <div class="nav left" id="navL"><span class="chev">‹</span></div>
+    <div class="nav left"  id="navL"><span class="chev">‹</span></div>
     <div class="nav right" id="navR"><span class="chev">›</span></div>
     <div id="loader">Indlæser…</div>
     <img id="pageimg" style="display:none">
     <canvas id="pagecanvas" style="display:none"></canvas>
   </div>
-  <div class="hint" id="hint">Bladr med ← →, swipe eller klik i siderne · dobbeltklik zoomer</div>
 
-  <div id="foot">
+  <div class="hint" id="hint">← → bladr · klik i siderne · swipe · dobbeltklik zoomer · g = oversigt</div>
+
+  <div class="chrome" id="bot">
+    <button class="ico" id="prev" title="Forrige">‹</button>
     <input type="range" id="slider" min="0" max="0" value="0">
-    <span class="pct" id="pct">0%</span>
+    <span class="pill" id="ind">– / –</span>
+    <button class="ico" id="next" title="Næste">›</button>
+    <span style="width:8px"></span>
+    <button class="ico" id="zfw" title="Tilpas bredde (w)"><span class="lbl">↔</span></button>
+    <button class="ico" id="zfh" title="Tilpas højde (h)"><span class="lbl">↕</span></button>
+    <button class="ico" id="zout" title="Zoom ud (−)">−</button>
+    <span class="pill" id="zind" style="min-width:62px;text-align:center;">100%</span>
+    <button class="ico" id="zin" title="Zoom ind (+)">+</button>
+  </div>
+
+  <div id="overview">
+    <div id="ovhead">
+      <span class="t">Oversigt</span><span class="grow" style="flex:1"></span>
+      <button class="ico" id="ovclose">Luk ✕</button>
+    </div>
+    <div id="ovgrid"></div>
   </div>
 </div>
 
@@ -353,69 +437,70 @@ def render_reader(bog: dict, pages: list[str] | None, pdf_url: str | None):
 <script>
 const CFG = __CFG__;
 const KEY = "harald_book_" + CFG.id;
-const KEY_DIR = "harald_reader_dir";
-const KEY_ZOOM = "harald_reader_zoom";
+const KEY_DIR = "ls_reader_dir";
+const KEY_ZOOM = "ls_reader_zoom";
+const KEY_BG = "ls_reader_bg";
 
+const app = document.getElementById('app');
 const stage = document.getElementById('stage');
 const img = document.getElementById('pageimg');
 const canvas = document.getElementById('pagecanvas');
 const loader = document.getElementById('loader');
 const indEl = document.getElementById('ind');
 const sliderEl = document.getElementById('slider');
-const pctEl = document.getElementById('pct');
 const zindEl = document.getElementById('zind');
 const hintEl = document.getElementById('hint');
+const ovEl = document.getElementById('overview');
+const ovGrid = document.getElementById('ovgrid');
 document.getElementById('t').textContent = CFG.title;
 
-let total = 0;            // antal sider
-let cur = 0;              // nuværende sideindeks (0-baseret)
-let zoomMode = localStorage.getItem(KEY_ZOOM) || 'width';  // 'width' | 'height' | <number>
-let rtl = localStorage.getItem(KEY_DIR) === 'rtl';         // højre→venstre (manga)
-let pdfDoc = null;
+let total = 0, cur = 0, pdfDoc = null;
+let zoomMode = localStorage.getItem(KEY_ZOOM) || 'width';
+let rtl = localStorage.getItem(KEY_DIR) === 'rtl';
+const BGS = ['dark', 'dim', 'sepia', 'light'];
+let bg = localStorage.getItem(KEY_BG) || 'dark';
+let ovBuilt = false;
 
-// ── PDF eller billeder ──────────────────────────────────────────────────────
 async function init() {
-  // gem-position
+  app.setAttribute('data-bg', bg);
   const saved = parseInt(localStorage.getItem(KEY) || "0", 10);
-
   if (CFG.type === 'pdf') {
     if (!window.pdfjsLib) { loader.textContent = "Kunne ikke indlæse PDF-motor (ingen netværk?)"; return; }
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-    try {
-      pdfDoc = await pdfjsLib.getDocument(CFG.pdf).promise;
-      total = pdfDoc.numPages;
-    } catch (e) { loader.textContent = "Kunne ikke åbne PDF: " + e; return; }
+    try { pdfDoc = await pdfjsLib.getDocument(CFG.pdf).promise; total = pdfDoc.numPages; }
+    catch (e) { loader.textContent = "Kunne ikke åbne PDF: " + e; return; }
     img.style.display = 'none'; canvas.style.display = 'block';
   } else {
     total = CFG.pages.length;
     canvas.style.display = 'none'; img.style.display = 'block';
   }
-
   sliderEl.max = Math.max(0, total - 1);
   applyDir();
   cur = Math.min(Math.max(saved, 0), total - 1);
   await show(cur);
-  setTimeout(() => { hintEl.style.opacity = '0'; }, 4200);
+  poke();
+  setTimeout(() => { hintEl.style.opacity = '0'; }, 4600);
 }
 
-function applyDir() {
-  document.getElementById('dir').textContent = rtl ? "← H→V" : "→ V→H";
-}
+function applyDir() { document.getElementById('dir').innerHTML =
+  rtl ? '<span class="lbl">← H&rarr;V</span>' : '<span class="lbl">→ V&rarr;H</span>'; }
 
-async function renderPdfPage(n) {
+async function renderPdfPage(n, target, scaleOverride) {
   const page = await pdfDoc.getPage(n + 1);
   const base = page.getViewport({ scale: 1 });
-  let scale;
-  if (zoomMode === 'width')      scale = (stage.clientWidth - 4) / base.width;
-  else if (zoomMode === 'height')scale = (stage.clientHeight - 4) / base.height;
-  else                            scale = parseFloat(zoomMode) *
-                                          ((stage.clientWidth - 4) / base.width);
-  const vp = page.getViewport({ scale: scale * (window.devicePixelRatio || 1) });
-  canvas.width = vp.width; canvas.height = vp.height;
-  canvas.style.width = (vp.width / (window.devicePixelRatio || 1)) + 'px';
-  canvas.style.height = (vp.height / (window.devicePixelRatio || 1)) + 'px';
-  await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+  let scale = scaleOverride;
+  if (scale == null) {
+    if (zoomMode === 'width')       scale = (stage.clientWidth - 4) / base.width;
+    else if (zoomMode === 'height') scale = (stage.clientHeight - 4) / base.height;
+    else scale = parseFloat(zoomMode) * ((stage.clientWidth - 4) / base.width);
+  }
+  const dpr = window.devicePixelRatio || 1;
+  const vp = page.getViewport({ scale: scale * dpr });
+  const cnv = target || canvas;
+  cnv.width = vp.width; cnv.height = vp.height;
+  cnv.style.width = (vp.width / dpr) + 'px'; cnv.style.height = (vp.height / dpr) + 'px';
+  await page.render({ canvasContext: cnv.getContext('2d'), viewport: vp }).promise;
 }
 
 function applyImgZoom() {
@@ -426,77 +511,98 @@ function applyImgZoom() {
 
 async function show(n) {
   if (total === 0) { loader.textContent = "Ingen sider"; return; }
-  n = Math.min(Math.max(n, 0), total - 1);
-  cur = n;
+  n = Math.min(Math.max(n, 0), total - 1); cur = n;
   loader.style.display = 'flex';
   if (CFG.type === 'pdf') {
     await renderPdfPage(n);
   } else {
-    await new Promise((res) => {
-      img.onload = res; img.onerror = res; img.src = CFG.pages[n];
-    });
+    img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
+    await new Promise((res) => { img.onload = res; img.onerror = res; img.src = CFG.pages[n]; });
     applyImgZoom();
-    // preload nabo-sider
     [n + 1, n - 1].forEach((k) => { if (k >= 0 && k < total) { const p = new Image(); p.src = CFG.pages[k]; } });
   }
   loader.style.display = 'none';
   stage.scrollTop = 0; stage.scrollLeft = 0;
-  updateHud();
-  localStorage.setItem(KEY, String(n));
+  updateHud(); localStorage.setItem(KEY, String(n));
 }
 
 function updateHud() {
   indEl.textContent = (cur + 1) + " / " + total;
-  sliderEl.value = cur;
-  pctEl.textContent = Math.round(((cur + 1) / total) * 100) + "%";
-  updateZoomInd();
+  sliderEl.value = cur; updateZoomInd();
+  ovGrid.querySelectorAll('.thumb').forEach((t, i) => t.classList.toggle('cur', i === cur));
 }
 function updateZoomInd() {
   zindEl.textContent = (zoomMode === 'width') ? 'Bredde'
-                      : (zoomMode === 'height') ? 'Højde'
-                      : Math.round(parseFloat(zoomMode) * 100) + '%';
+                     : (zoomMode === 'height') ? 'Højde'
+                     : Math.round(parseFloat(zoomMode) * 100) + '%';
 }
 
-// ── Navigation (respekterer læseretning) ─────────────────────────────────────
-function next() { show(cur + 1); }
-function prev() { show(cur - 1); }
-function advance() { rtl ? prev() : next(); }   // "fremad i bogen"
-function back()    { rtl ? next() : prev(); }
+function next() { show(cur + 1); } function prev() { show(cur - 1); }
+function advance() { rtl ? prev() : next(); } function back() { rtl ? next() : prev(); }
 
-// ── Zoom-styring ─────────────────────────────────────────────────────────────
 function setZoom(mode) {
-  zoomMode = mode;
-  localStorage.setItem(KEY_ZOOM, String(mode));
+  zoomMode = mode; localStorage.setItem(KEY_ZOOM, String(mode));
   if (CFG.type === 'pdf') renderPdfPage(cur); else applyImgZoom();
-  stage.classList.toggle('center', mode === 'height');
-  updateZoomInd();
+  stage.classList.toggle('center', mode === 'height'); updateZoomInd();
 }
 function zoomBy(f) {
   let base = (zoomMode === 'width' || zoomMode === 'height') ? 1 : parseFloat(zoomMode);
   setZoom(Math.min(4, Math.max(0.25, +(base * f).toFixed(2))));
 }
 
-// ── Knapper ──────────────────────────────────────────────────────────────────
+// ── Side-oversigt ──
+async function buildOverview() {
+  if (ovBuilt) return; ovBuilt = true;
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div'); d.className = 'thumb'; d.dataset.i = i;
+    if (CFG.type === 'pdf') {
+      const c = document.createElement('canvas'); d.appendChild(c);
+      renderPdfPage(i, c, 0.22).catch(() => {});
+    } else {
+      const im = document.createElement('img'); im.loading = 'lazy'; im.src = CFG.pages[i]; d.appendChild(im);
+    }
+    const num = document.createElement('div'); num.className = 'num'; num.textContent = i + 1; d.appendChild(num);
+    d.onclick = () => { show(i); closeOverview(); };
+    ovGrid.appendChild(d);
+  }
+}
+function openOverview() { buildOverview(); ovEl.classList.add('open'); updateHud();
+  const c = ovGrid.querySelector('.thumb.cur'); if (c) c.scrollIntoView({ block: 'center' }); }
+function closeOverview() { ovEl.classList.remove('open'); }
+
+// ── Auto-skjul af bjælker ──
+let hideTimer = null;
+function poke() {
+  app.classList.add('show');
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(() => { if (!ovEl.classList.contains('open')) app.classList.remove('show'); }, 2600);
+}
+['mousemove', 'touchstart', 'keydown', 'click'].forEach(e => window.addEventListener(e, poke, { passive: true }));
+
+// ── Knapper ──
 document.getElementById('zfw').onclick = () => setZoom('width');
 document.getElementById('zfh').onclick = () => setZoom('height');
 document.getElementById('zin').onclick = () => zoomBy(1.25);
 document.getElementById('zout').onclick = () => zoomBy(0.8);
+document.getElementById('prev').onclick = back;
+document.getElementById('next').onclick = advance;
 document.getElementById('navL').onclick = () => (rtl ? next() : prev());
 document.getElementById('navR').onclick = () => (rtl ? prev() : next());
-document.getElementById('dir').onclick = () => {
-  rtl = !rtl; localStorage.setItem(KEY_DIR, rtl ? 'rtl' : 'ltr'); applyDir();
+document.getElementById('dir').onclick = () => { rtl = !rtl; localStorage.setItem(KEY_DIR, rtl ? 'rtl' : 'ltr'); applyDir(); };
+document.getElementById('bg').onclick = () => {
+  bg = BGS[(BGS.indexOf(bg) + 1) % BGS.length]; app.setAttribute('data-bg', bg); localStorage.setItem(KEY_BG, bg);
 };
+document.getElementById('grid').onclick = openOverview;
+document.getElementById('ovclose').onclick = closeOverview;
 sliderEl.oninput = () => show(parseInt(sliderEl.value, 10));
-
-const app = document.getElementById('app');
 document.getElementById('fs').onclick = () => {
   if (document.fullscreenElement) document.exitFullscreen();
   else if (app.requestFullscreen) app.requestFullscreen();
-  else app.classList.toggle('fs');   // fallback
 };
 
-// ── Tastatur ─────────────────────────────────────────────────────────────────
+// ── Tastatur ──
 window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { closeOverview(); return; }
   if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); advance(); }
   else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); back(); }
   else if (e.key === 'Home') show(0);
@@ -506,34 +612,29 @@ window.addEventListener('keydown', (e) => {
   else if (e.key.toLowerCase() === 'f') document.getElementById('fs').click();
   else if (e.key.toLowerCase() === 'w') setZoom('width');
   else if (e.key.toLowerCase() === 'h') setZoom('height');
+  else if (e.key.toLowerCase() === 'g') openOverview();
+  else if (e.key.toLowerCase() === 'd') document.getElementById('dir').click();
+  else if (e.key.toLowerCase() === 't') document.getElementById('bg').click();
 });
 
-// ── Touch: swipe + dobbelt-tap ───────────────────────────────────────────────
+// ── Touch: swipe + dobbelt-tap ──
 let tx = 0, ty = 0, tt = 0, lastTap = 0;
 stage.addEventListener('touchstart', (e) => {
   if (e.touches.length === 1) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; tt = Date.now(); }
 }, { passive: true });
 stage.addEventListener('touchend', (e) => {
   const dt = Date.now() - tt;
-  const dx = (e.changedTouches[0].clientX - tx);
-  const dy = (e.changedTouches[0].clientY - ty);
-  // dobbelt-tap zoom
+  const dx = (e.changedTouches[0].clientX - tx), dy = (e.changedTouches[0].clientY - ty);
   const now = Date.now();
   if (Math.abs(dx) < 12 && Math.abs(dy) < 12) {
     if (now - lastTap < 320) { setZoom((zoomMode === 'width') ? 1.6 : 'width'); lastTap = 0; return; }
     lastTap = now;
   }
-  // swipe (kun hvis ikke zoomet ud over skærmen vandret)
   if (dt < 600 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-    if (stage.scrollWidth <= stage.clientWidth + 8) {
-      if (dx < 0) advance(); else back();
-    }
+    if (stage.scrollWidth <= stage.clientWidth + 8) { if (dx < 0) advance(); else back(); }
   }
 }, { passive: true });
-
-// dobbeltklik (mus) zoomer
 stage.addEventListener('dblclick', () => setZoom((zoomMode === 'width') ? 1.6 : 'width'));
-
 window.addEventListener('resize', () => { if (CFG.type === 'pdf') renderPdfPage(cur); else applyImgZoom(); });
 
 init();
@@ -541,18 +642,21 @@ init();
 </body></html>
 """
     html = html.replace("__CFG__", cfg_json)
-    st.components.v1.html(html, height=840, scrolling=False)
+    st.components.v1.html(html, height=880, scrolling=False)
 
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────────
+inject_reader_css()
 with st.sidebar:
     st.markdown(
-        f'<div class="h-brand-wrap"><div class="h-logo-box">{logo(120, dark=True)}</div></div>',
+        "<div style='padding:1rem .4rem .6rem;'>"
+        "<div style='font-family:Georgia,serif;font-size:1.25rem;font-weight:700;color:#f8fafc;'>Læsesal</div>"
+        "<div style='font-size:11px;color:#8b92a3;letter-spacing:.4px;'>Bog- &amp; manga-læser</div>"
+        "</div>",
         unsafe_allow_html=True,
     )
 sidebar_log_ud()
 
-# session-uploads
 if "_uploadede_boeger" not in st.session_state:
     st.session_state["_uploadede_boeger"] = {}
 
@@ -561,11 +665,9 @@ if "_uploadede_boeger" not in st.session_state:
 valgt_id = st.session_state.get("_aktiv_bog")
 
 if valgt_id:
-    # ── Læser-visning ──────────────────────────────────────────────────────────
     bog = None
     pages = None
     pdf_url = None
-
     if valgt_id in st.session_state["_uploadede_boeger"]:
         bog = st.session_state["_uploadede_boeger"][valgt_id]
         pages = bog.get("_pages")
@@ -585,43 +687,44 @@ if valgt_id:
         st.session_state.pop("_aktiv_bog", None)
         st.rerun()
 
-    c1, c2 = st.columns([1, 5])
+    c1, c2 = st.columns([1, 6])
     with c1:
         if st.button("← Bibliotek", use_container_width=True):
             st.session_state.pop("_aktiv_bog", None)
             st.rerun()
     with c2:
         st.markdown(
-            f"<div style='font-weight:700;font-size:1.05rem;color:#0f172a;"
-            f"padding-top:.35rem;'>{bog['title']}</div>",
+            f"<div style='font-family:Georgia,serif;font-weight:700;font-size:1.1rem;color:#f8fafc;"
+            f"padding-top:.3rem;'>{bog['title']}</div>",
             unsafe_allow_html=True,
         )
 
     render_reader(bog, pages, pdf_url)
-    st.caption(
-        "Tastatur: ← → bladr · +/− zoom · F fuldskærm · W bredde · H højde. "
-        "Appen husker automatisk hvor du kom til."
-    )
 
 else:
     # ── Biblioteks-visning ───────────────────────────────────────────────────────
     st.markdown(
         f"""
-<div style="padding:2.5rem 0 1.5rem;">
-  <div style="font-family:'Inter',system-ui,sans-serif;font-size:clamp(1.4rem,2.4vw,1.9rem);
-              font-weight:700;color:#0f172a;letter-spacing:-0.5px;">Bibliotek</div>
-  <div style="height:2px;width:30px;background:{ACCENT};border-radius:2px;margin:.7rem 0 1rem;"></div>
-  <div style="font-size:13px;color:#64748b;max-width:60ch;line-height:1.6;">
-    Læs bøger, manga og dokumenter. Vælg en bog for at fortsætte hvor du slap.
-    Tilføj bøger ved at lægge dem i mappen <code>boeger/</code> i projektet, eller upload herunder.
+<div style="padding:1.5rem 0 1.2rem;">
+  <div style="font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.8rem,3vw,2.5rem);
+              font-weight:700;color:#f8fafc;letter-spacing:-0.5px;line-height:1.1;">Læsesal</div>
+  <div style="height:3px;width:46px;background:linear-gradient(90deg,{ACCENT},{ACCENT_2});
+              border-radius:3px;margin:.8rem 0 1rem;"></div>
+  <div style="font-size:13.5px;color:#9aa3b2;max-width:64ch;line-height:1.65;">
+    Dit personlige bibliotek. Vælg en bog og fortsæt præcis hvor du slap.
+    Tilføj bøger i mappen <code style="color:#c7cdd9;background:#1b1f29;padding:1px 6px;border-radius:5px;">boeger/</code>
+    eller upload dem herunder — manga (billeder), CBZ/ZIP og PDF understøttes.
   </div>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
-    # Upload
-    with st.expander("➕ Upload en bog (billeder, CBZ/ZIP eller PDF)", expanded=False):
+    with st.expander("➕  Tilføj en bog  ·  upload billeder, CBZ/ZIP eller PDF", expanded=False):
+        st.caption(
+            "Upload kun materiale du har lov til at bruge. Filer ligger i din session; "
+            "vil du beholde en bog permanent, så læg den i `boeger/`-mappen."
+        )
         up = st.file_uploader(
             "Vælg fil",
             type=["pdf", "cbz", "zip", "jpg", "jpeg", "png", "webp", "gif", "avif", "bmp"],
@@ -630,10 +733,10 @@ else:
         )
         if up is not None:
             try:
-                bog = _process_upload(up)
-                if bog:
-                    st.session_state["_uploadede_boeger"][bog["id"]] = bog
-                    st.success(f"„{bog['title']}” er klar i biblioteket nedenfor.")
+                ny = _process_upload(up)
+                if ny:
+                    st.session_state["_uploadede_boeger"][ny["id"]] = ny
+                    st.success(f"„{ny['title']}” er klar i biblioteket nedenfor.")
                 else:
                     st.warning("Filtypen kunne ikke læses som en bog.")
             except Exception as e:
@@ -645,48 +748,51 @@ else:
 
     if not alle:
         st.info(
-            "Ingen bøger fundet endnu. Læg en mappe med billedsider (eller en .cbz/.pdf-fil) "
+            "Ingen bøger endnu. Læg en mappe med billedsider (eller en .cbz/.pdf-fil) "
             "i `boeger/`-mappen, eller upload en fil ovenfor."
         )
     else:
-        kolonner = st.columns(4, gap="medium")
-        for i, bog in enumerate(alle):
-            with kolonner[i % 4]:
-                cover = bog.get("_pages", [None])[0] if bog["kilde"] == "upload" else load_first_page(bog)
-                badge = {
-                    "pdf": "PDF",
-                    "arkiv": "CBZ",
-                    "mappe": "Manga",
-                    "upload": "Upload",
-                }.get(bog["kilde"], "Bog")
-                sider_txt = f"{bog['n_pages']} sider" if bog.get("n_pages") else "PDF"
+        st.markdown("<div style='height:.4rem'></div>", unsafe_allow_html=True)
+        kolonner = st.columns(5, gap="medium")
+        for i, b in enumerate(alle):
+            with kolonner[i % 5]:
+                cover = b.get("_pages", [None])[0] if b["kilde"] == "upload" else load_first_page(b)
+                badge = {"pdf": "PDF", "arkiv": "CBZ", "mappe": "Serie", "upload": "Upload"}.get(b["kilde"], "Bog")
+                sider_txt = f"{b['n_pages']} sider" if b.get("n_pages") else "PDF"
 
                 if cover:
                     cover_html = (
-                        f"<img src='{cover}' style='width:100%;aspect-ratio:3/4;object-fit:cover;"
-                        f"border-radius:6px 6px 0 0;display:block;background:#0f172a;'/>"
+                        f"<img src='{cover}' style='width:100%;aspect-ratio:2/3;object-fit:cover;"
+                        f"display:block;background:#0d0f14;'/>"
                     )
                 else:
                     cover_html = (
-                        "<div style='width:100%;aspect-ratio:3/4;border-radius:6px 6px 0 0;"
-                        "background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;"
-                        "align-items:center;justify-content:center;font-size:34px;color:#475569;'>📕</div>"
+                        "<div style='width:100%;aspect-ratio:2/3;"
+                        f"background:linear-gradient(150deg,{ACCENT}22,#0d0f14 70%);display:flex;"
+                        "align-items:center;justify-content:center;font-size:40px;color:#475569;'>📕</div>"
                     )
 
                 st.markdown(
                     f"""
-<div style="border:1px solid #eef1f6;border-radius:8px 8px 0 0;border-bottom:none;overflow:hidden;background:#fff;">
-  {cover_html}
-  <div style="padding:.7rem .8rem .2rem;">
-    <div style="font-size:9px;font-weight:700;color:{ACCENT};text-transform:uppercase;
-                letter-spacing:.6px;margin-bottom:3px;">{badge} · {sider_txt}</div>
-    <div style="font-size:12.5px;font-weight:600;color:#0f172a;line-height:1.35;
-                white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="{bog['title']}">{bog['title']}</div>
+<div class="ls-card" style="border-radius:12px;overflow:hidden;background:#161922;
+     border:1px solid #232838;box-shadow:0 6px 18px rgba(0,0,0,.35);">
+  <div style="position:relative;">
+    {cover_html}
+    <span style="position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;
+                 letter-spacing:.6px;text-transform:uppercase;color:#fff;
+                 background:rgba(13,15,20,.7);backdrop-filter:blur(4px);
+                 padding:3px 8px;border-radius:20px;">{badge}</span>
+  </div>
+  <div style="padding:.7rem .8rem .15rem;">
+    <div style="font-size:13px;font-weight:600;color:#f1f3f7;line-height:1.35;min-height:2.6em;
+                display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;"
+         title="{b['title']}">{b['title']}</div>
+    <div style="font-size:10.5px;color:#7c8492;margin-top:3px;">{sider_txt}</div>
   </div>
 </div>
 """,
                     unsafe_allow_html=True,
                 )
-                if st.button("Læs", key=f"open_{bog['id']}", use_container_width=True):
-                    st.session_state["_aktiv_bog"] = bog["id"]
+                if st.button("Læs  ›", key=f"open_{b['id']}", use_container_width=True):
+                    st.session_state["_aktiv_bog"] = b["id"]
                     st.rerun()
