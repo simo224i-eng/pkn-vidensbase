@@ -336,6 +336,10 @@
   .h3dinfo .h3dgo{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;}
   .h3dinfo .h3dgo button{font:600 .8rem Inter,system-ui,sans-serif;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:7px 11px;cursor:pointer;}
   .h3dinfo .h3dclose{position:absolute;top:9px;right:11px;border:none;background:none;font-size:1.15rem;line-height:1;color:var(--ink-soft);cursor:pointer;}
+  .h3dinfo{max-height:min(60vh,520px);overflow:auto;}
+  .h3dfig{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:7px;margin:2px 0 10px;}
+  .h3dfig svg{width:100%;height:auto;display:block;}
+  .h3dfigcap{font-size:.72rem;color:var(--ink-soft);margin-top:5px;line-height:1.4;}
   @media(max-width:560px){.h3dinfo{position:static;width:auto;margin-top:12px;box-shadow:none;}}
 </style>
 </head>
@@ -586,10 +590,11 @@
       </div>
       <div class="h3dhint">Træk · zoom · klik en del</div>
     </div>
+    <div class="chips" id="h3dparts"><span class="chips-lbl">Bygningsdel</span></div>
     <p class="disclaimer">Forenklet principmodel — husets form, vinduer og detaljer skifter med perioden, og teksterne er periodens egne. Ingen internetforbindelse nødvendig.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v19 · juni 2026 · 3D-hus med egen offline motor + periode-morphing</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v20 · juni 2026 · 3D: lag-tegning i info-kort + bygningsdel-knapper</span></footer>
 </div>
 
 <script>
@@ -1482,7 +1487,7 @@ const H3D=(function(){
     W=cv.width; Hh=cv.height;
   }
   return {
-    attach, resize(){ if(cv){ sizeToContainer(); render(); } }, setEra(e2){era=e2;buildHouse();selKey=null;render();},
+    attach, resize(){ if(cv){ sizeToContainer(); render(); } }, selectKey(k){ selKey=k; render(); }, setEra(e2){era=e2;buildHouse();selKey=null;render();},
     setCut(c2){cut=c2;buildHouse();render();},
     reset(){yaw=2.52;pitch=0.42;dist=15.2;vyaw=0.0035;render();},
     onPick(fn){onPick=fn;}, getEra(){return era;}, stopSpin(){vyaw=0;}
@@ -1501,26 +1506,8 @@ function h3dInit(){
   h3dInited=true;
   H3D.attach(cvel);
   renderH3dChips();
-  H3D.onPick(function(key){
-    const box=document.getElementById('h3dinfo'); if(!box) return;
-    if(!key){ box.hidden=true; return; }
-    const era=WIKI.find(function(e){return e.id===H3D.getEra();});
-    let title='', body='', obs='', ord=null, wikiPart=null;
-    if(H3D_FIXED[key]){ const f=H3D_FIXED[key]; title=f.t; body=f.d; obs=f.o; ord=f.ord; }
-    else if(era&&era.dele[key]){ title=partNavn(key)+' · '+era.navn; body=wmd(era.dele[key].b); obs=wmd(era.dele[key].o||''); wikiPart=key; }
-    else return;
-    let go='';
-    if(wikiPart) go='<button data-w="'+wikiPart+'">Se i Byggeteknik →</button>';
-    if(ord) go+='<button data-o="'+ord+'">Slå op i Ordbog →</button>';
-    box.innerHTML='<button class="h3dclose" aria-label="Luk">×</button><h4>'+title+'</h4>'+
-      '<div class="h3drow">'+body+'</div>'+
-      (obs?'<div class="h3drow" style="margin-top:8px"><b>Skadeskandidater:</b> '+obs+'</div>':'')+
-      '<div class="h3dgo">'+go+'</div>';
-    box.hidden=false;
-    box.querySelector('.h3dclose').addEventListener('click',function(){box.hidden=true;});
-    const gw=box.querySelector('[data-w]'); if(gw) gw.addEventListener('click',function(){window.gotoWikiPart(gw.getAttribute('data-w'));});
-    const go2=box.querySelector('[data-o]'); if(go2) go2.addEventListener('click',function(){window.openOrdbogSearch(go2.getAttribute('data-o'));});
-  });
+  renderH3dParts();
+  H3D.onPick(function(key){ h3dShowInfo(key); h3dSyncParts(key); });
   const cb=document.getElementById('h3dcut');
   if(cb) cb.addEventListener('click',function(){
     const on=!cb.classList.contains('on');
@@ -1530,6 +1517,50 @@ function h3dInit(){
   const rb=document.getElementById('h3dreset'); if(rb) rb.addEventListener('click',function(){H3D.reset();});
   if(window.ResizeObserver){ new ResizeObserver(function(){H3D.resize();}).observe(document.getElementById('h3dcanvas')); }
 }
+const H3D_ORDSVG={doer:'yderdoer',skorsten:'inddaekning',spaer:'tagkonstruktion'};
+function h3dShowInfo(key){
+  const box=document.getElementById('h3dinfo'); if(!box) return;
+  if(!key){ box.hidden=true; return; }
+  const era=WIKI.find(function(e){return e.id===H3D.getEra();});
+  let title='', body='', obs='', ord=null, wikiPart=null, figSvg=null, figCap='';
+  if(H3D_FIXED[key]){ const f=H3D_FIXED[key]; title=f.t; body=f.d; obs=f.o; ord=f.ord;
+    const os=H3D_ORDSVG[key]; if(os&&ORD_SVG[os]) figSvg=nsSvg(ORD_SVG[os]);
+  } else if(era&&era.dele[key]){
+    title=partNavn(key)+' · '+era.navn; body=wmd(era.dele[key].b); obs=wmd(era.dele[key].o||''); wikiPart=key;
+    const ill=illusFor(era.id,key);
+    if(ill&&WIKI_SVG[ill]){ figSvg=nsSvg(WIKI_SVG[ill]); figCap=WIKI_CAP[ill]||''; }
+  } else return;
+  let go='';
+  if(wikiPart) go='<button data-w="'+wikiPart+'">Se i Byggeteknik →</button>';
+  if(ord) go+='<button data-o="'+ord+'">Slå op i Ordbog →</button>';
+  box.innerHTML='<button class="h3dclose" aria-label="Luk">×</button><h4>'+title+'</h4>'+
+    (figSvg?'<div class="h3dfig">'+figSvg+(figCap?'<div class="h3dfigcap">'+figCap+'</div>':'')+'</div>':'')+
+    '<div class="h3drow">'+body+'</div>'+
+    (obs?'<div class="h3drow" style="margin-top:8px"><b>Skadeskandidater:</b> '+obs+'</div>':'')+
+    '<div class="h3dgo">'+go+'</div>';
+  box.hidden=false;
+  box.querySelector('.h3dclose').addEventListener('click',function(){box.hidden=true;h3dSyncParts(null);H3D.selectKey(null);});
+  const gw=box.querySelector('[data-w]'); if(gw) gw.addEventListener('click',function(){window.gotoWikiPart(gw.getAttribute('data-w'));});
+  const go2=box.querySelector('[data-o]'); if(go2) go2.addEventListener('click',function(){window.openOrdbogSearch(go2.getAttribute('data-o'));});
+}
+const H3D_PARTBTNS=[['tag','Tag'],['ydervaeg','Ydervæg'],['vinduer','Vinduer'],['doer','Dør'],['skorsten','Skorsten'],['fundament','Sokkel'],['gulv','Gulv (snit)'],['spaer','Spær (snit)']];
+function h3dSyncParts(key){
+  document.querySelectorAll('#h3dparts .chip').forEach(function(c){c.classList.toggle('active',c.dataset.k===key);});
+}
+function renderH3dParts(){
+  const pc=document.getElementById('h3dparts'); if(!pc) return;
+  pc.querySelectorAll('.chip').forEach(function(c){c.remove();});
+  H3D_PARTBTNS.forEach(function(pb){
+    const b=document.createElement('button');
+    b.className='chip part'; b.textContent=pb[1]; b.dataset.k=pb[0];
+    b.addEventListener('click',function(){
+      if(pb[0]==='gulv'||pb[0]==='spaer'){ const cb=document.getElementById('h3dcut');
+        if(cb&&!cb.classList.contains('on')){ H3D.setCut(true); cb.classList.add('on'); cb.textContent='Skjul snit'; } }
+      H3D.selectKey(pb[0]); h3dShowInfo(pb[0]); h3dSyncParts(pb[0]);
+    });
+    pc.appendChild(b);
+  });
+}
 function renderH3dChips(){
   const pc=document.getElementById('h3dperiods'); if(!pc) return;
   pc.querySelectorAll('.chip').forEach(function(c){c.remove();});
@@ -1538,7 +1569,9 @@ function renderH3dChips(){
     b.className='chip'+(H3D.getEra()===era.id?' active':'');
     b.textContent=era.navn;
     b.addEventListener('click',function(){ H3D.setEra(era.id); renderH3dChips();
-      const box=document.getElementById('h3dinfo'); if(box) box.hidden=true; });
+      const open=document.querySelector('#h3dparts .chip.active');
+      if(open){ H3D.selectKey(open.dataset.k); h3dShowInfo(open.dataset.k); }
+      else { const box=document.getElementById('h3dinfo'); if(box) box.hidden=true; } });
     pc.appendChild(b);
   });
 }
