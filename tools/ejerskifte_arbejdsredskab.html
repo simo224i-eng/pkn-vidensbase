@@ -329,7 +329,7 @@
   .h3dbtn:hover{border-color:var(--accent);color:var(--accent);}
   .h3dbtn.on{background:var(--accent);color:#fff;border-color:var(--accent);}
   .h3dhint{position:absolute;right:14px;bottom:16px;font-size:.72rem;color:var(--ink-soft);background:rgba(255,255,255,.8);padding:4px 9px;border-radius:7px;pointer-events:none;}
-  .h3dinfo{position:absolute;top:14px;right:14px;width:min(310px,calc(100% - 28px));background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.22);padding:16px 18px 18px;}
+  .h3dinfo{position:absolute;top:14px;right:14px;width:min(380px,calc(100% - 28px));background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.22);padding:16px 18px 18px;}
   .h3dinfo h4{font-family:"Fraunces",serif;font-weight:500;font-size:1.3rem;margin:0 0 8px;display:flex;align-items:center;gap:8px;}
   .h3dinfo .h3drow{font-size:.9rem;line-height:1.5;margin:6px 0 0;}
   .h3dinfo .h3drow b{color:var(--ink-soft);font-weight:600;}
@@ -337,7 +337,8 @@
   .h3dinfo .h3dgo button{font:600 .8rem Inter,system-ui,sans-serif;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:7px 11px;cursor:pointer;}
   .h3dinfo .h3dclose{position:absolute;top:9px;right:11px;border:none;background:none;font-size:1.15rem;line-height:1;color:var(--ink-soft);cursor:pointer;}
   .h3dinfo{max-height:min(60vh,520px);overflow:auto;}
-  .h3dfig{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:7px;margin:2px 0 10px;}
+  .h3dfig{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:7px;margin:2px 0 10px;cursor:zoom-in;}
+  .h3dfig:hover{border-color:var(--accent);}
   .h3dfig svg{width:100%;height:auto;display:block;}
   .h3dfigcap{font-size:.72rem;color:var(--ink-soft);margin-top:5px;line-height:1.4;}
   .h3dsearchrow{display:flex;align-items:center;gap:12px;margin:2px 0 10px;flex-wrap:wrap;}
@@ -600,7 +601,7 @@
     <p class="disclaimer">Forenklet principmodel — husets form, vinduer og detaljer skifter med perioden, og teksterne er periodens egne. Ingen internetforbindelse nødvendig.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v21 · juni 2026 · 3D: vådrum/krybekælder/tagrende · notat-søgning · skadested-markører</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v22 · juni 2026 · 3D: tryk-for-stor tegning i info-kort</span></footer>
 </div>
 
 <script>
@@ -1593,18 +1594,19 @@ function h3dShowInfo(key){
   if(!key){ box.hidden=true; return; }
   const era=WIKI.find(function(e){return e.id===H3D.getEra();});
   let title='', body='', obs='', ord=null, wikiPart=null, figSvg=null, figCap='';
+  let figSrc=null;
   if(era&&era.dele[key]){
     title=partNavn(key)+' · '+era.navn; body=wmd(era.dele[key].b); obs=wmd(era.dele[key].o||''); wikiPart=key;
     const ill=illusFor(era.id,key);
-    if(ill&&WIKI_SVG[ill]){ figSvg=nsSvg(WIKI_SVG[ill]); figCap=WIKI_CAP[ill]||''; }
+    if(ill&&WIKI_SVG[ill]){ figSrc=WIKI_SVG[ill]; figSvg=nsSvg(figSrc); figCap=WIKI_CAP[ill]||''; }
   } else if(H3D_FIXED[key]){ const f=H3D_FIXED[key]; title=f.t; body=f.d; obs=f.o; ord=f.ord;
-    const os=H3D_ORDSVG[key]; if(os&&ORD_SVG[os]) figSvg=nsSvg(ORD_SVG[os]);
+    const os=H3D_ORDSVG[key]; if(os&&ORD_SVG[os]){ figSrc=ORD_SVG[os]; figSvg=nsSvg(figSrc); }
   } else return;
   let go='';
   if(wikiPart) go='<button data-w="'+wikiPart+'">Se i Byggeteknik →</button>';
   if(ord) go+='<button data-o="'+ord+'">Slå op i Ordbog →</button>';
   box.innerHTML='<button class="h3dclose" aria-label="Luk">×</button><h4>'+title+'</h4>'+
-    (figSvg?'<div class="h3dfig">'+figSvg+(figCap?'<div class="h3dfigcap">'+figCap+'</div>':'')+'</div>':'')+
+    (figSvg?'<div class="h3dfig" role="button" tabindex="0" title="Tryk for at se stort">'+figSvg+'<div class="h3dfigcap">'+(figCap?figCap+' · ':'')+'<b>Tryk for at se stort ⤢</b></div></div>':'')+
     '<div class="h3drow">'+body+'</div>'+
     (obs?'<div class="h3drow" style="margin-top:8px"><b>Skadeskandidater:</b> '+obs+'</div>':'')+
     '<div class="h3dgo">'+go+'</div>';
@@ -1612,6 +1614,16 @@ function h3dShowInfo(key){
   box.querySelector('.h3dclose').addEventListener('click',function(){box.hidden=true;h3dSyncParts(null);H3D.selectKey(null);});
   const gw=box.querySelector('[data-w]'); if(gw) gw.addEventListener('click',function(){window.gotoWikiPart(gw.getAttribute('data-w'));});
   const go2=box.querySelector('[data-o]'); if(go2) go2.addEventListener('click',function(){window.openOrdbogSearch(go2.getAttribute('data-o'));});
+  const fig=box.querySelector('.h3dfig');
+  if(fig&&figSrc) fig.addEventListener('click',function(){ h3dFigZoom(title,figSrc,figCap); });
+}
+function h3dFigZoom(title,src,cap){
+  // genbrug ordbogens store overlay til fuld-bredde visning af tegningen
+  const m=okZoomEnsure();
+  m.querySelector('.okzbody').innerHTML='<div class="okzfig">'+nsSvg(src)+'</div>'+
+    '<h3>'+title+'</h3>'+(cap?'<div class="okzrow">'+cap+'</div>':'');
+  m.hidden=false; document.body.classList.add('noscroll');
+  m.querySelector('.okzbox').scrollTop=0;
 }
 const H3D_PARTBTNS=[['tag','Tag'],['ydervaeg','Ydervæg'],['vinduer','Vinduer'],['doer','Dør'],['skorsten','Skorsten'],['tagrende','Tagrende'],['fundament','Sokkel'],['gulv','Gulv (snit)'],['krybekaelder','Krybekælder (snit)'],['spaer','Spær (snit)'],['vaadrum','Vådrum (snit)']];
 function h3dSyncParts(key){
