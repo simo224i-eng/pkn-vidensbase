@@ -321,7 +321,7 @@
   .wstepnow{font:700 .72rem Inter,system-ui,sans-serif;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;text-align:center;}
   .wlbl{font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);opacity:.7;margin:2px 0 3px;}
   .h3dwrap{position:relative;}
-  #h3dcanvas{width:100%;height:min(64vh,560px);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#dCE9ee 0%,#eef1ea 70%);display:flex;align-items:center;justify-content:center;touch-action:none;}
+  #h3dcanvas{width:100%;height:min(64vh,560px);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#dce6e9;touch-action:none;}
   #h3dcanvas canvas{display:block;}
   .h3dmsg{font-size:.95rem;color:var(--ink-soft);text-align:center;max-width:340px;padding:24px;line-height:1.5;}
   .h3dctrls{position:absolute;left:14px;bottom:14px;display:flex;gap:8px;}
@@ -575,9 +575,10 @@
   <!-- ================= 3D-HUS ================= -->
   <section class="panel" id="house3d">
     <div class="bsec-h">Det interaktive hus — 3D</div>
-    <p class="bsec-sub">Træk for at dreje · scroll eller knib for at zoome · <b>klik på en bygningsdel</b> for at læse om den. Tryk “Vis snit” for at se ind til gulv og spær.</p>
+    <p class="bsec-sub">Træk for at dreje · scroll/knib for at zoome · <b>klik på en bygningsdel</b> for at læse om den — teksten følger den valgte periode. <b>Vælg en periode og se huset ændre sig.</b></p>
+    <div class="chips" id="h3dperiods"><span class="chips-lbl">Periode</span></div>
     <div class="h3dwrap">
-      <div id="h3dcanvas"><div class="h3dmsg">Indlæser 3D-hus…</div></div>
+      <div id="h3dcanvas"><canvas id="h3dcv"></canvas></div>
       <div id="h3dinfo" class="h3dinfo" hidden></div>
       <div class="h3dctrls">
         <button id="h3dcut" class="h3dbtn" type="button">Vis snit</button>
@@ -585,10 +586,10 @@
       </div>
       <div class="h3dhint">Træk · zoom · klik en del</div>
     </div>
-    <p class="disclaimer">Forenklet principmodel af et typisk enfamiliehus — til at lære husets dele og deres skadeskandidater at kende. Kræver internetadgang for at indlæse 3D-motoren.</p>
+    <p class="disclaimer">Forenklet principmodel — husets form, vinduer og detaljer skifter med perioden, og teksterne er periodens egne. Ingen internetforbindelse nødvendig.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v18 · juni 2026 · ny 3D-hus-fane (Three.js)</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v19 · juni 2026 · 3D-hus med egen offline motor + periode-morphing</span></footer>
 </div>
 
 <script>
@@ -1244,145 +1245,304 @@ function okZoomClose(){ const m=document.getElementById('okZoom'); if(m){ m.hidd
 /* ---- 3D-hus: broer til de andre faner + doven init ---- */
 window.gotoWikiPart=function(p){var t=document.querySelector('.tab[data-tab="wiki"]');if(t)t.click();if(p&&p!=='alle'){try{wState.part=p;wState.symptom=null;renderWiki();}catch(e){}}window.scrollTo({top:0,behavior:'smooth'});};
 window.openOrdbogSearch=function(q){var t=document.querySelector('.tab[data-tab="ordbogtab"]');if(t)t.click();var si=document.getElementById('okSearch');if(si){si.value=q;try{okState.q=q;renderOk();}catch(e){}}window.scrollTo({top:0,behavior:'smooth'});};
-(function(){var btn=document.querySelector('.tab[data-tab="house3d"]');if(!btn)return;btn.addEventListener('click',function(){window.__house3dWanted=true;if(window.__house3d&&window.__house3d.init){window.__house3d.init();}setTimeout(function(){if(!window.__house3dInited){var m=document.querySelector('#h3dcanvas .h3dmsg');if(m)m.innerHTML='Kunne ikke indlæse 3D-motoren (Three.js). 3D-huset kræver internetadgang — åbn siden online, så virker det.';}},5000);});})();
-</script>
-<script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
-</script>
-<script type="module">
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const H3D=(function(){
+  const P={ // palette
+    brick:'#c98a62', brickD:'#b06a45', roofTile:'#a85638', roofFlat:'#4a4742',
+    wood:'#8a6b42', woodL:'#c9a06b', glass:'#bcd8e6', glassD:'#8fb3c6',
+    plinth:'#b0a894', door:'#7a5a35', ground:'#cbbd9e', floor:'#c9a06b',
+    ins:'#e8d492', chim:'#b9714f', paper:'#fbf9f3'
+  };
+  function hex(c){const n=parseInt(c.slice(1),16);return [n>>16&255,n>>8&255,n&255];}
+  function shade(c,f,warm){const [r,g,b]=hex(c);
+    const rr=Math.min(255,r*f+warm*18), gg=Math.min(255,g*f+warm*10), bb=Math.min(255,b*f);
+    return `rgb(${rr|0},${gg|0},${bb|0})`;}
+  // state
+  let cv,ctx,W,Hh, yaw=2.52, pitch=0.42, dist=15.2, tx=0,ty=1.9,tz=0;
+  let faces=[], era='1979_1995', cut=false, hoverKey=null, selKey=null, onPick=null;
+  let vyaw=0.0035; // idle spin
+  const LIGHT=norm([0.55,0.85,0.38]);
+  function norm(v){const l=Math.hypot(v[0],v[1],v[2]);return [v[0]/l,v[1]/l,v[2]/l];}
 
-const INFO = {
-  tag:{n:'Tag',w:'tag',d:'Tagdækning (tegl, beton, tagpap eller eternit) på lægter, båret af spær. Tage efter ca. 1979 har undertag som ekstra vandskærm.',s:'Utætheder ved inddækninger og gennemføringer · skørnet undertag · råd i tagfod og spær.'},
-  ydervaeg:{n:'Ydervæg & facade',w:'ydervaeg',d:'Husets klimaskærm. Før ca. 1930: massiv mur. Efter: hulmur — formur, isoleret hulrum og bærende bagmur, holdt sammen af bindere.',s:'Rustne bindere (vandrette revner) · frostskader · kuldebroer · revner over vinduer.'},
-  vinduer:{n:'Vinduer',w:'vinduer',d:'Glas-udviklingen: enkeltlags koblede rammer → 2-lags termorude → energi- og 3-lagsruder.',s:'Råd i bundstykker · punkterede termoruder (dug mellem glassene).'},
-  doer:{n:'Yderdør',o:'yderdør',d:'Indgangsdøre. Bundstykke og karm er mest udsat for slagregn og fugt.',s:'Råd i bundstykke · utætheder og træk.'},
-  skorsten:{n:'Skorsten',o:'skorsten',d:'Muret pibe med inddækning, hvor den bryder tagfladen. Piben over taget belastes af frost og slagregn.',s:'Frostskader i pibe · tærede eller utætte inddækninger.'},
-  fundament:{n:'Sokkel & fundament',w:'fundament',d:'Soklen er husets synlige fod; fundamentet står under jorden, ført til frostfri dybde (~0,9 m). Ældre fundamenter mangler ofte fugtspærre.',s:'Opstigende grundfugt og saltudslag · sætningsrevner.'},
-  gulv:{n:'Gulv & terrændæk',w:'gulv',d:'Ældre huse: bræddegulv på strøer over ventileret krybekælder. Nyere: terrændæk med isolering, fugtspærre og kapillarbrydende lag (krav fra BR72).',s:'Råd i strøer (ældre) · opstigende fugt i terrændæk uden fugtsikring (1960–72).'},
-  spaer:{n:'Tagkonstruktion (spær)',o:'tagkonstruktion',d:'Tagets bærende tømmer: spær, lægter, rem og hanebånd — ses her indvendigt.',s:'Råd og svamp ved fugt · borebille og husbuk i tømmeret.'}
-};
-
-let inited=false, renderer, scene, camera, controls, ray, ndc, parts=[], cut=false;
-let shell, interior, selected=null, down=null, cont, raf;
-
-function init(){
-  if(inited) return; cont=document.getElementById('h3dcanvas'); if(!cont) return;
-  let w=cont.clientWidth||640, hh=cont.clientHeight||460;
-  try{ renderer=new THREE.WebGLRenderer({antialias:true}); }
-  catch(e){ cont.innerHTML='<div class="h3dmsg">Din browser understøtter ikke WebGL/3D.</div>'; return; }
-  inited=true; window.__house3dInited=true;
-  cont.innerHTML='';
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-  renderer.setSize(w,hh); renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  cont.appendChild(renderer.domElement);
-  scene=new THREE.Scene();
-  camera=new THREE.PerspectiveCamera(45,w/hh,0.1,200); camera.position.set(10,8,13);
-  controls=new OrbitControls(camera,renderer.domElement);
-  controls.enableDamping=true; controls.dampingFactor=0.08; controls.target.set(0,2.2,0);
-  controls.maxPolarAngle=Math.PI/2-0.03; controls.minDistance=7; controls.maxDistance=32;
-  controls.autoRotate=true; controls.autoRotateSpeed=0.7;
-  controls.addEventListener('start',function(){controls.autoRotate=false;});
-  scene.add(new THREE.HemisphereLight(0xffffff,0xb8a888,0.9));
-  const sun=new THREE.DirectionalLight(0xfff2dd,1.05); sun.position.set(9,16,8); sun.castShadow=true;
-  sun.shadow.mapSize.set(2048,2048); const sc=sun.shadow.camera; sc.left=-14;sc.right=14;sc.top=14;sc.bottom=-14;sc.near=1;sc.far=48; scene.add(sun);
-  const ground=new THREE.Mesh(new THREE.CircleGeometry(22,64), new THREE.MeshStandardMaterial({color:0xccbe9f,roughness:1}));
-  ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
-  buildHouse();
-  ray=new THREE.Raycaster(); ndc=new THREE.Vector2();
-  const el=renderer.domElement;
-  el.addEventListener('pointerdown',function(e){down={x:e.clientX,y:e.clientY};});
-  el.addEventListener('pointerup',function(e){ if(!down) return; var dx=e.clientX-down.x, dy=e.clientY-down.y; down=null; if(Math.hypot(dx,dy)<6) pick(e); });
-  el.addEventListener('pointermove',hover);
-  window.addEventListener('resize',onResize);
-  if(window.ResizeObserver){ new ResizeObserver(onResize).observe(cont); }
-  var cb=document.getElementById('h3dcut'); if(cb) cb.addEventListener('click',toggleCut);
-  var rb=document.getElementById('h3dreset'); if(rb) rb.addEventListener('click',resetView);
-  animate();
-}
-function M(color,extra){ return new THREE.MeshStandardMaterial(Object.assign({color:color,roughness:0.92,metalness:0},extra||{})); }
-function add(geo,material,x,y,z,key,grp){ var m=new THREE.Mesh(geo,material); m.position.set(x,y,z); m.castShadow=true; m.receiveShadow=true; if(key){m.userData.key=key; parts.push(m);} (grp||scene).add(m); return m; }
-function gableGeo(){ var s=new THREE.Shape(); s.moveTo(-2.3,0); s.lineTo(2.3,0); s.lineTo(0,1.7); s.lineTo(-2.3,0); var g=new THREE.ExtrudeGeometry(s,{depth:0.16,bevelEnabled:false}); g.translate(0,0,-0.08); return g; }
-function buildHouse(){
-  shell=new THREE.Group(); scene.add(shell);
-  interior=new THREE.Group(); interior.visible=false; scene.add(interior);
-  var brick=M(0xc9895f), wood=M(0x8a6b42), glass=M(0xbcd8e6,{roughness:0.25,metalness:0.1,emissive:0x223344,emissiveIntensity:0.18});
-  add(new THREE.BoxGeometry(6.4,0.6,4.4), M(0xb9b2a4), 0,0.3,0, 'fundament');
-  var wy=2.1;
-  // bagvæg + venstre væg (bliver stående i snit)
-  add(new THREE.BoxGeometry(6,3,0.2), brick.clone(), 0,wy,-2, 'ydervaeg');
-  add(new THREE.BoxGeometry(0.2,3,4), brick.clone(), -3,wy,0, 'ydervaeg');
-  add(gableGeo(), brick.clone(), -3,3.6,0, 'ydervaeg').rotation.y=Math.PI/2; // venstre gavl
-  add(new THREE.BoxGeometry(0.12,1.1,1), glass.clone(), -3.06,2.3,1, 'vinduer');
-  add(new THREE.BoxGeometry(0.12,1.1,1), glass.clone(), -3.06,2.3,-1, 'vinduer');
-  // front + højre væg (skjules i snit -> i shell)
-  add(new THREE.BoxGeometry(6,3,0.2), brick.clone(), 0,wy,2, 'ydervaeg', shell);
-  add(new THREE.BoxGeometry(0.2,3,4), brick.clone(), 3,wy,0, 'ydervaeg', shell);
-  add(gableGeo(), brick.clone(), 3,3.6,0, 'ydervaeg', shell).rotation.y=Math.PI/2; // højre gavl
-  add(new THREE.BoxGeometry(1,1.2,0.12), glass.clone(), -1.6,2.3,2.06, 'vinduer', shell);
-  add(new THREE.BoxGeometry(1,1.2,0.12), glass.clone(), 1.6,2.3,2.06, 'vinduer', shell);
-  add(new THREE.BoxGeometry(0.95,1.9,0.14), wood.clone(), 0,1.55,2.06, 'doer', shell);
-  // tag
-  var ang=Math.atan2(1.7,2.3), sl=Math.hypot(1.7,2.3), roofMat=M(0xa85638);
-  var fs=add(new THREE.BoxGeometry(6.8,0.18,sl), roofMat.clone(), 0,4.45,1.15, 'tag', shell); fs.rotation.x=ang;
-  var bs=add(new THREE.BoxGeometry(6.8,0.18,sl), roofMat.clone(), 0,4.45,-1.15, 'tag'); bs.rotation.x=-ang;
-  add(new THREE.BoxGeometry(6.9,0.2,0.34), M(0x8f4630), 0,5.32,0, 'tag');
-  // skorsten
-  add(new THREE.BoxGeometry(0.55,1.9,0.55), M(0xb9714f), 1.5,4.95,-0.7, 'skorsten');
-  // interiør (snit): gulv + spær
-  add(new THREE.BoxGeometry(5.6,0.16,3.6), M(0xcaa06b), 0,0.72,0, 'gulv', interior);
-  for(var i=-2;i<=2;i++){
-    var r1=add(new THREE.BoxGeometry(0.09,0.12,sl), wood.clone(), i*1.35,4.45,1.15,'spaer',interior); r1.rotation.x=ang;
-    var r2=add(new THREE.BoxGeometry(0.09,0.12,sl), wood.clone(), i*1.35,4.45,-1.15,'spaer',interior); r2.rotation.x=-ang;
+  /* ---------- geometri-byggeri ---------- */
+  function quad(a,b,c,d,col,key,opts){faces.push(Object.assign({pts:[a,b,c,d],col,key},opts||{}));}
+  function tri(a,b,c,col,key,opts){faces.push(Object.assign({pts:[a,b,c],col,key},opts||{}));}
+  // box: min-hjørne + størrelse. flags: hvilke sider (px,nx,py,ny,pz,nz)
+  function box(x,y,z,w,h,d,col,key,opts){
+    const o=opts||{}, s=o.sides||{};
+    const A=[x,y,z],B=[x+w,y,z],C=[x+w,y,z+d],D=[x,y,z+d],
+          E=[x,y+h,z],F=[x+w,y+h,z],G=[x+w,y+h,z+d],Hp=[x,y+h,z+d];
+    if(s.pz!==false) quad(D,C,G,Hp,col,key,o); // front (+z)
+    if(s.nz!==false) quad(B,A,E,F,col,key,o);  // bag
+    if(s.px!==false) quad(C,B,F,G,col,key,o);  // højre
+    if(s.nx!==false) quad(A,D,Hp,E,col,key,o); // venstre
+    if(s.py!==false) quad(E,Hp,G,F,col,key,o); // top
+    if(s.ny!==false) quad(A,B,C,D,col,key,o);  // bund
   }
-}
-function pick(e){
-  var r=renderer.domElement.getBoundingClientRect();
-  ndc.x=((e.clientX-r.left)/r.width)*2-1; ndc.y=-((e.clientY-r.top)/r.height)*2+1;
-  ray.setFromCamera(ndc,camera);
-  var hits=ray.intersectObjects(parts,false);
-  if(hits.length){ select(hits[0].object); showInfo(hits[0].object.userData.key); }
-}
-function hover(e){
-  if(!ray) return;
-  var r=renderer.domElement.getBoundingClientRect();
-  ndc.x=((e.clientX-r.left)/r.width)*2-1; ndc.y=-((e.clientY-r.top)/r.height)*2+1;
-  ray.setFromCamera(ndc,camera);
-  renderer.domElement.style.cursor=ray.intersectObjects(parts,false).length?'pointer':'grab';
-}
-function select(mesh){
-  if(selected){ selected.material.emissive.setHex(selected.userData._e); selected.material.emissiveIntensity=selected.userData._ei; }
-  selected=mesh;
-  if(mesh){ mesh.userData._e=mesh.material.emissive.getHex(); mesh.userData._ei=mesh.material.emissiveIntensity; mesh.material.emissive.setHex(0x2f7d4e); mesh.material.emissiveIntensity=0.55; }
-}
-function showInfo(key){
-  var info=INFO[key]; if(!info) return;
-  var box=document.getElementById('h3dinfo'); if(!box) return;
-  var go='';
-  if(info.w) go='<button data-w="'+info.w+'">Se i Byggeteknik →</button>';
-  else if(info.o) go='<button data-o="'+info.o+'">Slå op i Ordbog →</button>';
-  box.innerHTML='<button class="h3dclose" aria-label="Luk">×</button>'+
-    '<h4>'+info.n+'</h4>'+
-    '<div class="h3drow"><b>Hvad:</b> '+info.d+'</div>'+
-    '<div class="h3drow"><b>Typiske skader:</b> '+info.s+'</div>'+
-    '<div class="h3dgo">'+go+'</div>';
-  box.hidden=false;
-  box.querySelector('.h3dclose').addEventListener('click',function(){box.hidden=true;select(null);});
-  var gw=box.querySelector('[data-w]'); if(gw) gw.addEventListener('click',function(){ if(window.gotoWikiPart) window.gotoWikiPart(gw.getAttribute('data-w')); });
-  var go2=box.querySelector('[data-o]'); if(go2) go2.addEventListener('click',function(){ if(window.openOrdbogSearch) window.openOrdbogSearch(go2.getAttribute('data-o')); });
-}
-function toggleCut(){
-  cut=!cut; shell.visible=!cut; interior.visible=cut;
-  var b=document.getElementById('h3dcut'); if(b){ b.textContent=cut?'Skjul snit':'Vis snit'; b.classList.toggle('on',cut); }
-  if(cut && selected && selected.parent===shell){ select(null); var bx=document.getElementById('h3dinfo'); if(bx) bx.hidden=true; }
-}
-function resetView(){ if(!camera) return; camera.position.set(10,8,13); controls.target.set(0,2.2,0); controls.update(); controls.autoRotate=true; }
-function onResize(){ if(!cont||!renderer) return; var w=cont.clientWidth, hh=cont.clientHeight; if(!w||!hh) return; camera.aspect=w/hh; camera.updateProjectionMatrix(); renderer.setSize(w,hh); }
-function animate(){ raf=requestAnimationFrame(animate); if(controls) controls.update(); if(renderer&&scene&&camera) renderer.render(scene,camera); }
+  // slab: plade defineret af 4 punkter (top-fladen, mod uret set udefra) + tykkelse nedad langs normalen
+  function slab(a,b,c,d,t,col,key,opts){
+    const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2], vx=d[0]-a[0],vy=d[1]-a[1],vz=d[2]-a[2];
+    let nx2=uy*vz-uz*vy, ny2=uz*vx-ux*vz, nz2=ux*vy-uy*vx;
+    const l=Math.hypot(nx2,ny2,nz2)||1; nx2/=l;ny2/=l;nz2/=l;
+    const off=p2=>[p2[0]-nx2*t,p2[1]-ny2*t,p2[2]-nz2*t];
+    const a2=off(a),b2=off(b),c2=off(c),d2=off(d);
+    quad(a,b,c,d,col,key,opts);                                  // top
+    quad(b2,a2,d2,c2,shade(col,0.75,0),key,opts);                // bund
+    quad(a2,b2,b,a,shade(col,0.85,0),key,opts);                  // kant ab
+    quad(b2,c2,c,b,shade(col,0.85,0),key,opts);                  // kant bc
+    quad(c2,d2,d,c,shade(col,0.85,0),key,opts);                  // kant cd
+    quad(d2,a2,a,d,shade(col,0.85,0),key,opts);                  // kant da
+  }
+  function buildHouse(){
+    faces=[];
+    const HW=3.3, HD=2.3, WH=3.0, plinthH=0.55;
+    const flat = era==='1960_1972';
+    const steep = era==='foer1930';
+    const RH = steep?2.6 : 1.75;             // tagrejsning
+    const OV = 0.42;                          // udhæng
+    const wallCol = steep? '#c1795a' : P.brick;
+    const roofCol = flat? P.roofFlat : (steep? '#9c4c34' : P.roofTile);
+    // jordskygge håndteres i render
+    // sokkel
+    box(-HW-0.15,0,-HD-0.15, 2*HW+0.3, plinthH, 2*HD+0.3, P.plinth,'fundament');
+    // vægge (4 bokse så snit kan skjule front/højre)
+    const wt=0.22, y0=plinthH, cutHide={cutHide:true};
+    box(-HW,y0,-HD, 2*HW, WH, wt, wallCol,'ydervaeg');                         // bagvæg
+    box(-HW,y0,-HD+wt, wt, WH, 2*HD-2*wt, wallCol,'ydervaeg');                 // venstre
+    box(-HW,y0, HD-wt, 2*HW, WH, wt, wallCol,'ydervaeg',cutHide);              // FRONT
+    box(HW-wt,y0,-HD+wt, wt, WH, 2*HD-2*wt, wallCol,'ydervaeg',cutHide);       // HØJRE
+    const topY=y0+WH;
+    if(!flat){
+      // gavltrekanter
+      tri([-HW,topY,-HD],[-HW,topY,HD],[-HW,topY+RH,0], wallCol,'ydervaeg');
+      tri([HW,topY,HD],[HW,topY,-HD],[HW,topY+RH,0], wallCol,'ydervaeg',cutHide);
+      // tagflader som plader med tykkelse (front skjules i snit)
+      const rx=HW+OV, rzF=HD+OV;
+      slab([-rx,topY-0.12,rzF],[rx,topY-0.12,rzF],[rx,topY+RH,0.02],[-rx,topY+RH,0.02],0.16, roofCol,'tag',{cutHide:true});
+      slab([rx,topY-0.12,-rzF],[-rx,topY-0.12,-rzF],[-rx,topY+RH,-0.02],[rx,topY+RH,-0.02],0.16, roofCol,'tag');
+      // rygning
+      box(-rx-0.02,topY+RH+0.02,-0.16, 2*rx+0.04, 0.15, 0.32, shade(roofCol,0.7,0),'tag');
+      // skorsten
+      if(era!=='2008_nu') box(1.6,topY+RH*0.45,-0.85, 0.5, RH*0.62+0.75, 0.5, P.chim,'skorsten');
+      if(era==='2008_nu'){ // ovenlys + solceller
+        quad([-1.9,topY+RH*0.55+0.03,rzF*0.42],[-0.9,topY+RH*0.55+0.03,rzF*0.42],[-0.9,topY+RH*0.88+0.03,rzF*0.12],[-1.9,topY+RH*0.88+0.03,rzF*0.12],'#20313c','tag',{cutHide:true, zb:0.9});
+        quad([0.6,topY+RH*0.35+0.03,rzF*0.58],[2.4,topY+RH*0.35+0.03,rzF*0.58],[2.4,topY+RH*0.8+0.03,rzF*0.18],[0.6,topY+RH*0.8+0.03,rzF*0.18],'#26404f','tag',{cutHide:true, zb:0.9});
+      }
+    }else{
+      // fladt tag med lav parapet — 60'er-typehus
+      box(-HW,topY,-HD, 2*HW, 0.22, 2*HD, wallCol,'ydervaeg');
+      box(-HW-0.08,topY+0.2,-HD-0.08, 2*HW+0.16, 0.1, 2*HD+0.16, shade(wallCol,0.85,0),'ydervaeg');
+      quad([-HW+0.06,topY+0.34,HD-0.06],[HW-0.06,topY+0.34,HD-0.06],[HW-0.06,topY+0.34,-HD+0.06],[-HW+0.06,topY+0.34,-HD+0.06], P.roofFlat,'tag');
+      box(1.7,topY+0.3,-0.8, 0.45, 1.0, 0.45, P.chim,'skorsten');
+    }
+    /* vinduer og dør — periodeafhængige, med hvid karm */
+    const winY=y0+1.05, FR='#efe9dc';
+    function frontWin(x,w,h){
+      box(x-0.07,winY-0.07,HD-0.02, w+0.14, h+0.14, 0.1, FR,'vinduer',{cutHide:true, zb:1.0});
+      box(x,winY,HD+0.02, w, h, 0.08, P.glass,'vinduer',{cutHide:true, zb:1.15});
+      if(!flat && era!=='1995_2008' && era!=='2008_nu')
+        box(x-0.03,winY+h/2-0.03,HD+0.04, w+0.06, 0.07, 0.08, FR,'vinduer',{cutHide:true, zb:1.3}); // sprosse
+      box(x-0.1,winY-0.16,HD+0.02, w+0.2, 0.1, 0.14, shade(FR,0.82,0),'vinduer',{cutHide:true, zb:1.1}); // sålbænk
+    }
+    function gableWin(z,w,h){
+      box(-HW-0.08,winY-0.07,z-0.07, 0.1, h+0.14, w+0.14, FR,'vinduer',{zb:1.0});
+      box(-HW-0.12,winY,z, 0.08, h, w, P.glass,'vinduer',{zb:1.15});
+    }
+    if(steep){ frontWin(-2.45,0.85,1.15); frontWin(-1.75,0.85,1.15); frontWin(1.55,0.85,1.15); gableWin(-0.95,0.85,1.1); gableWin(0.25,0.85,1.1); }
+    else if(flat){ frontWin(-2.65,1.9,1.3); frontWin(1.25,1.6,1.3); gableWin(-0.8,1.6,1.25); }
+    else { frontWin(-2.5,1.3,1.25); frontWin(1.4,1.3,1.25); gableWin(-0.6,1.2,1.2); }
+    // dør med karm
+    box(-0.58,y0,HD-0.02, 1.16, 2.03, 0.1, FR,'doer',{cutHide:true, zb:1.0});
+    box(-0.5,y0,HD+0.02, 1.0, 1.95, 0.08, P.door,'doer',{cutHide:true, zb:1.15});
+    /* interiør — kun i snit */
+    const floorCol = (era==='foer1930'||era==='1930_1960') ? P.woodL : (era==='1960_1972' ? '#b9b2a4' : '#c4b48e');
+    box(-HW+wt,y0+0.12,-HD+wt, 2*HW-2*wt, 0.16, 2*HD-2*wt, floorCol,'gulv',{cutOnly:true});
+    if(!flat){ for(let i=-2;i<=2;i++){ const sx=i*1.25;
+        // spær som tynde skrå kasser (front + bag)
+        rafter(sx, topY, RH, HD, true); rafter(sx, topY, RH, HD, false);
+    }}
+    function rafter(x,ty2,rh,hd,front){
+      const z1=front? hd-0.1 : -hd+0.1, z2=0;
+      const y1=ty2, y2=ty2+rh-0.12, w=0.09;
+      quad([x-w,y1,z1],[x+w,y1,z1],[x+w,y2,z2],[x-w,y2,z2], P.wood,'spaer',{cutOnly:true});
+    }
+  }
 
-window.__house3d={init:init};
-if(window.__house3dWanted) init();
+  /* ---------- projektion og rendering ---------- */
+  function project(v, cy,sy,cp,sp){
+    let x=v[0]-tx, y=v[1]-ty, z=v[2]-tz;
+    let x1=cy*x+sy*z, z1=-sy*x+cy*z;
+    let y2=cp*y+sp*z1, z2=-sp*y+cp*z1;
+    z2+=dist;
+    if(z2<0.4) return null;
+    const f=Hh*1.18/z2;
+    return [W/2+x1*f, Hh*0.56-y2*f, z2];
+  }
+  function render(){
+    ctx.clearRect(0,0,W,Hh);
+    // himmel
+    const g=ctx.createLinearGradient(0,0,0,Hh);
+    g.addColorStop(0,'#d7e6ec'); g.addColorStop(0.72,'#eef0e6'); g.addColorStop(1,'#e6e0cd');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,Hh);
+    const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+    // jord-ellipse + blød skygge
+    const c0=project([0,0,0],cy,sy,cp,sp);
+    if(c0){
+      const f=Hh*1.18/c0[2];
+      ctx.fillStyle='#cbbd9e';
+      ctx.beginPath(); ctx.ellipse(c0[0],c0[1],f*7.6,f*7.6*Math.max(0.18,sp*0.92),0,0,7); ctx.fill();
+      ctx.fillStyle='rgba(90,80,60,0.18)';
+      ctx.beginPath(); ctx.ellipse(c0[0],c0[1]+f*0.05,f*4.6,f*4.6*Math.max(0.15,sp*0.85),0,0,7); ctx.fill();
+    }
+    // klargør flader
+    const drawn=[];
+    for(const F of faces){
+      if(cut && F.cutHide) continue;
+      if(!cut && F.cutOnly) continue;
+      const pp=[]; let zsum=0, ok=true;
+      for(const v of F.pts){ const q=project(v,cy,sy,cp,sp); if(!q){ok=false;break;} pp.push(q); zsum+=q[2]; }
+      if(!ok) continue;
+      // backface-cull (skru af for tynde detaljer med frame)
+      const ax=pp[1][0]-pp[0][0], ay=pp[1][1]-pp[0][1], bx=pp[2][0]-pp[0][0], by=pp[2][1]-pp[0][1];
+      const area=ax*by-ay*bx;
+      if(area<=0) continue;
+      // normal i world-space for lys
+      const A=F.pts[0],B=F.pts[1],C=F.pts[2];
+      const ux=B[0]-A[0],uy=B[1]-A[1],uz=B[2]-A[2], vx=C[0]-A[0],vy2=C[1]-A[1],vz=C[2]-A[2];
+      let nx=uy*vz-uz*vy2, ny=uz*vx-ux*vz, nz=ux*vy2-uy*vx;
+      const nl=Math.hypot(nx,ny,nz)||1; nx/=nl;ny/=nl;nz/=nl;
+      const d=Math.max(0,nx*LIGHT[0]+ny*LIGHT[1]+nz*LIGHT[2]);
+      drawn.push({pp, z:zsum/F.pts.length-(F.zb||0), col:F.col, key:F.key, lum:0.62+0.5*d, sel:F.key&&(F.key===selKey), hov:F.key&&(F.key===hoverKey)});
+    }
+    drawn.sort((a,b)=>b.z-a.z);
+    for(const D of drawn){
+      let fill = D.col.startsWith('rgb')? D.col : shade(D.col, D.lum, D.lum>0.9?1:0);
+      ctx.beginPath();
+      ctx.moveTo(D.pp[0][0],D.pp[0][1]);
+      for(let i=1;i<D.pp.length;i++) ctx.lineTo(D.pp[i][0],D.pp[i][1]);
+      ctx.closePath();
+      ctx.fillStyle=fill; ctx.fill();
+      if(D.sel){ ctx.fillStyle='rgba(23,94,74,0.42)'; ctx.fill(); }
+      else if(D.hov){ ctx.fillStyle='rgba(23,94,74,0.16)'; ctx.fill(); }
+      ctx.strokeStyle='rgba(60,45,30,0.30)'; ctx.lineWidth=1; ctx.stroke();
+    }
+    window.__drawn=drawn; // til picking
+  }
+  /* ---------- interaktion ---------- */
+  function pickAt(mx,my){
+    const drawn=window.__drawn||[];
+    for(let i=drawn.length-1;i>=0;i--){
+      const D=drawn[i]; if(!D.key) continue;
+      if(pointIn(D.pp,mx,my)) return D.key;
+    }
+    return null;
+  }
+  function pointIn(pp,x,y){
+    let inside=false;
+    for(let i=0,j=pp.length-1;i<pp.length;j=i++){
+      const xi=pp[i][0],yi=pp[i][1],xj=pp[j][0],yj=pp[j][1];
+      if(((yi>y)!=(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=true;
+    }
+    return inside;
+  }
+  function attach(canvas){
+    cv=canvas; ctx=cv.getContext('2d');
+    sizeToContainer();
+    let dragging=false,lx=0,ly=0,moved=0,pinch=null;
+    cv.addEventListener('pointerdown',e=>{dragging=true;moved=0;lx=e.clientX;ly=e.clientY;vyaw=0;cv.setPointerCapture(e.pointerId);});
+    cv.addEventListener('pointermove',e=>{
+      const r=cv.getBoundingClientRect(), sx=cv.width/r.width, sy2=cv.height/r.height;
+      if(dragging){
+        const dx=e.clientX-lx, dy=e.clientY-ly; moved+=Math.abs(dx)+Math.abs(dy);
+        yaw-=dx*0.0075; pitch=Math.min(1.25,Math.max(0.08,pitch+dy*0.006));
+        lx=e.clientX; ly=e.clientY; render();
+      } else {
+        const k=pickAt((e.clientX-r.left)*sx,(e.clientY-r.top)*sy2);
+        if(k!==hoverKey){hoverKey=k;cv.style.cursor=k?'pointer':'grab';render();}
+      }
+    });
+    cv.addEventListener('pointerup',e=>{
+      dragging=false;
+      if(moved<7){ const r=cv.getBoundingClientRect();
+        const k=pickAt((e.clientX-r.left)*(cv.width/r.width),(e.clientY-r.top)*(cv.height/r.height));
+        selKey=k; render(); if(k&&onPick) onPick(k);
+        if(!k){selKey=null;render(); if(onPick) onPick(null);}
+      }
+    });
+    cv.addEventListener('wheel',e=>{e.preventDefault();dist=Math.min(30,Math.max(8,dist*(1+e.deltaY*0.001)));render();},{passive:false});
+    // idle spin
+    (function spin(){ if(vyaw){ yaw+=vyaw; render(); } requestAnimationFrame(spin); })();
+    buildHouse(); render();
+  }
+  function sizeToContainer(){
+    const box=cv.parentElement; if(!box) return;
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    const w=box.clientWidth||640, hh=box.clientHeight||460;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(hh*dpr);
+    cv.style.width=w+'px'; cv.style.height=hh+'px';
+    W=cv.width; Hh=cv.height;
+  }
+  return {
+    attach, resize(){ if(cv){ sizeToContainer(); render(); } }, setEra(e2){era=e2;buildHouse();selKey=null;render();},
+    setCut(c2){cut=c2;buildHouse();render();},
+    reset(){yaw=2.52;pitch=0.42;dist=15.2;vyaw=0.0035;render();},
+    onPick(fn){onPick=fn;}, getEra(){return era;}, stopSpin(){vyaw=0;}
+  };
+})();
+/* ---- 3D-hus UI: era-chips, info-kort med periodens WIKI-tekst ---- */
+const H3D_FIXED={
+  doer:{t:'Yderdør',d:'Udvendige døre. Bundstykke og karm er mest udsat for slagregn og fugt — og tætheden påvirker træk og energi.',o:'Råd i bundstykke og karm · utætheder.',ord:'yderdør'},
+  skorsten:{t:'Skorsten',d:'Muret pibe med inddækning, hvor den bryder tagfladen. Piben over taget belastes hårdt af frost og slagregn.',o:'Frostskader i piben · tærede/utætte inddækninger.',ord:'skorsten'},
+  spaer:{t:'Tagkonstruktion (spær)',d:'Tagets bærende tømmer: spær, lægter, rem og hanebånd — her set indvendigt i snittet.',o:'Råd og svamp ved fugt · borebille/husbuk i tømmeret.',ord:'tagkonstruktion'}
+};
+let h3dInited=false;
+function h3dInit(){
+  if(h3dInited){ H3D.resize(); return; }
+  const cvel=document.getElementById('h3dcv'); if(!cvel) return;
+  h3dInited=true;
+  H3D.attach(cvel);
+  renderH3dChips();
+  H3D.onPick(function(key){
+    const box=document.getElementById('h3dinfo'); if(!box) return;
+    if(!key){ box.hidden=true; return; }
+    const era=WIKI.find(function(e){return e.id===H3D.getEra();});
+    let title='', body='', obs='', ord=null, wikiPart=null;
+    if(H3D_FIXED[key]){ const f=H3D_FIXED[key]; title=f.t; body=f.d; obs=f.o; ord=f.ord; }
+    else if(era&&era.dele[key]){ title=partNavn(key)+' · '+era.navn; body=wmd(era.dele[key].b); obs=wmd(era.dele[key].o||''); wikiPart=key; }
+    else return;
+    let go='';
+    if(wikiPart) go='<button data-w="'+wikiPart+'">Se i Byggeteknik →</button>';
+    if(ord) go+='<button data-o="'+ord+'">Slå op i Ordbog →</button>';
+    box.innerHTML='<button class="h3dclose" aria-label="Luk">×</button><h4>'+title+'</h4>'+
+      '<div class="h3drow">'+body+'</div>'+
+      (obs?'<div class="h3drow" style="margin-top:8px"><b>Skadeskandidater:</b> '+obs+'</div>':'')+
+      '<div class="h3dgo">'+go+'</div>';
+    box.hidden=false;
+    box.querySelector('.h3dclose').addEventListener('click',function(){box.hidden=true;});
+    const gw=box.querySelector('[data-w]'); if(gw) gw.addEventListener('click',function(){window.gotoWikiPart(gw.getAttribute('data-w'));});
+    const go2=box.querySelector('[data-o]'); if(go2) go2.addEventListener('click',function(){window.openOrdbogSearch(go2.getAttribute('data-o'));});
+  });
+  const cb=document.getElementById('h3dcut');
+  if(cb) cb.addEventListener('click',function(){
+    const on=!cb.classList.contains('on');
+    H3D.setCut(on); cb.classList.toggle('on',on);
+    cb.textContent=on?'Skjul snit':'Vis snit';
+  });
+  const rb=document.getElementById('h3dreset'); if(rb) rb.addEventListener('click',function(){H3D.reset();});
+  if(window.ResizeObserver){ new ResizeObserver(function(){H3D.resize();}).observe(document.getElementById('h3dcanvas')); }
+}
+function renderH3dChips(){
+  const pc=document.getElementById('h3dperiods'); if(!pc) return;
+  pc.querySelectorAll('.chip').forEach(function(c){c.remove();});
+  WIKI.forEach(function(era){
+    const b=document.createElement('button');
+    b.className='chip'+(H3D.getEra()===era.id?' active':'');
+    b.textContent=era.navn;
+    b.addEventListener('click',function(){ H3D.setEra(era.id); renderH3dChips();
+      const box=document.getElementById('h3dinfo'); if(box) box.hidden=true; });
+    pc.appendChild(b);
+  });
+}
+(function(){var btn=document.querySelector('.tab[data-tab="house3d"]');if(btn)btn.addEventListener('click',function(){setTimeout(h3dInit,30);});})();
 </script>
 
 </body>
