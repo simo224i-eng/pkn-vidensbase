@@ -329,7 +329,7 @@
   .h3dbtn:hover{border-color:var(--accent);color:var(--accent);}
   .h3dbtn.on{background:var(--accent);color:#fff;border-color:var(--accent);}
   .h3dhint{position:absolute;right:14px;bottom:16px;font-size:.72rem;color:var(--ink-soft);background:rgba(255,255,255,.8);padding:4px 9px;border-radius:7px;pointer-events:none;}
-  .h3dinfo{position:absolute;top:14px;right:14px;width:min(310px,calc(100% - 28px));background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.22);padding:16px 18px 18px;}
+  .h3dinfo{position:absolute;top:14px;right:14px;width:min(380px,calc(100% - 28px));background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.22);padding:16px 18px 18px;}
   .h3dinfo h4{font-family:"Fraunces",serif;font-weight:500;font-size:1.3rem;margin:0 0 8px;display:flex;align-items:center;gap:8px;}
   .h3dinfo .h3drow{font-size:.9rem;line-height:1.5;margin:6px 0 0;}
   .h3dinfo .h3drow b{color:var(--ink-soft);font-weight:600;}
@@ -337,9 +337,14 @@
   .h3dinfo .h3dgo button{font:600 .8rem Inter,system-ui,sans-serif;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:7px 11px;cursor:pointer;}
   .h3dinfo .h3dclose{position:absolute;top:9px;right:11px;border:none;background:none;font-size:1.15rem;line-height:1;color:var(--ink-soft);cursor:pointer;}
   .h3dinfo{max-height:min(60vh,520px);overflow:auto;}
-  .h3dfig{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:7px;margin:2px 0 10px;}
+  .h3dfig{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:7px;margin:2px 0 10px;cursor:zoom-in;}
+  .h3dfig:hover{border-color:var(--accent);}
   .h3dfig svg{width:100%;height:auto;display:block;}
   .h3dfigcap{font-size:.72rem;color:var(--ink-soft);margin-top:5px;line-height:1.4;}
+  .h3dsearchrow{display:flex;align-items:center;gap:12px;margin:2px 0 10px;flex-wrap:wrap;}
+  .h3dsearchrow input{flex:1;min-width:240px;font:inherit;font-size:.95rem;padding:9px 13px;border:1px solid var(--line-strong);border-radius:10px;background:#fff;color:var(--ink);}
+  .h3dsearchrow input:focus{outline:none;border-color:var(--accent);}
+  #h3dsearchhint{font-size:.8rem;color:var(--ink-soft);}
   @media(max-width:560px){.h3dinfo{position:static;width:auto;margin-top:12px;box-shadow:none;}}
 </style>
 </head>
@@ -581,11 +586,13 @@
     <div class="bsec-h">Det interaktive hus — 3D</div>
     <p class="bsec-sub">Træk for at dreje · scroll/knib for at zoome · <b>klik på en bygningsdel</b> for at læse om den — teksten følger den valgte periode. <b>Vælg en periode og se huset ændre sig.</b></p>
     <div class="chips" id="h3dperiods"><span class="chips-lbl">Periode</span></div>
+    <div class="h3dsearchrow"><input id="h3dsearch" type="text" placeholder="Find del fra notatet — fx skotrende, membran, murbinder, krybekælder…" autocomplete="off"><span id="h3dsearchhint"></span></div>
     <div class="h3dwrap">
       <div id="h3dcanvas"><canvas id="h3dcv"></canvas></div>
       <div id="h3dinfo" class="h3dinfo" hidden></div>
       <div class="h3dctrls">
         <button id="h3dcut" class="h3dbtn" type="button">Vis snit</button>
+        <button id="h3dmarks" class="h3dbtn" type="button">⚠ Skadesteder</button>
         <button id="h3dreset" class="h3dbtn" type="button">Nulstil visning</button>
       </div>
       <div class="h3dhint">Træk · zoom · klik en del</div>
@@ -594,7 +601,7 @@
     <p class="disclaimer">Forenklet principmodel — husets form, vinduer og detaljer skifter med perioden, og teksterne er periodens egne. Ingen internetforbindelse nødvendig.</p>
   </section>
 
-  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v20 · juni 2026 · 3D: lag-tegning i info-kort + bygningsdel-knapper</span></footer>
+  <footer>Vejledende arbejdsredskab · ikke en udtømmende retskilde · tjek nyeste lov og bekendtgørelse på retsinformation.dk<br><span style="opacity:.7">v22 · juni 2026 · 3D: tryk-for-stor tegning i info-kort</span></footer>
 </div>
 
 <script>
@@ -1251,102 +1258,81 @@ function okZoomClose(){ const m=document.getElementById('okZoom'); if(m){ m.hidd
 window.gotoWikiPart=function(p){var t=document.querySelector('.tab[data-tab="wiki"]');if(t)t.click();if(p&&p!=='alle'){try{wState.part=p;wState.symptom=null;renderWiki();}catch(e){}}window.scrollTo({top:0,behavior:'smooth'});};
 window.openOrdbogSearch=function(q){var t=document.querySelector('.tab[data-tab="ordbogtab"]');if(t)t.click();var si=document.getElementById('okSearch');if(si){si.value=q;try{okState.q=q;renderOk();}catch(e){}}window.scrollTo({top:0,behavior:'smooth'});};
 const H3D=(function(){
-  const P={ // palette
-    brick:'#c98a62', brickD:'#b06a45', roofTile:'#a85638', roofFlat:'#4a4742',
-    wood:'#8a6b42', woodL:'#c9a06b', glass:'#bcd8e6', glassD:'#8fb3c6',
-    plinth:'#b0a894', door:'#7a5a35', ground:'#cbbd9e', floor:'#c9a06b',
-    ins:'#e8d492', chim:'#b9714f', paper:'#fbf9f3'
-  };
+  const P={brick:'#c98a62',roofTile:'#a85638',roofFlat:'#4a4742',wood:'#8a6b42',woodL:'#c9a06b',
+    glass:'#bcd8e6',plinth:'#b0a894',door:'#7a5a35',chim:'#b9714f',tile:'#cfe0e2',tileF:'#bfd3d6',
+    soil:'#cdbfa2',gutter:'#9aa4a8'};
   function hex(c){const n=parseInt(c.slice(1),16);return [n>>16&255,n>>8&255,n&255];}
   function shade(c,f,warm){const [r,g,b]=hex(c);
-    const rr=Math.min(255,r*f+warm*18), gg=Math.min(255,g*f+warm*10), bb=Math.min(255,b*f);
-    return `rgb(${rr|0},${gg|0},${bb|0})`;}
-  // state
+    return `rgb(${Math.min(255,r*f+warm*18)|0},${Math.min(255,g*f+warm*10)|0},${Math.min(255,b*f)|0})`;}
   let cv,ctx,W,Hh, yaw=2.52, pitch=0.42, dist=15.2, tx=0,ty=1.9,tz=0;
-  let faces=[], era='1979_1995', cut=false, hoverKey=null, selKey=null, onPick=null;
-  let vyaw=0.0035; // idle spin
+  let faces=[], marks=[], era='1979_1995', cut=false, showMarks=false;
+  let hoverKey=null, hoverMark=-1, selKey=null, onPick=null, vyaw=0.0035;
   const LIGHT=norm([0.55,0.85,0.38]);
   function norm(v){const l=Math.hypot(v[0],v[1],v[2]);return [v[0]/l,v[1]/l,v[2]/l];}
-
-  /* ---------- geometri-byggeri ---------- */
   function quad(a,b,c,d,col,key,opts){faces.push(Object.assign({pts:[a,b,c,d],col,key},opts||{}));}
   function tri(a,b,c,col,key,opts){faces.push(Object.assign({pts:[a,b,c],col,key},opts||{}));}
-  // box: min-hjørne + størrelse. flags: hvilke sider (px,nx,py,ny,pz,nz)
   function box(x,y,z,w,h,d,col,key,opts){
-    const o=opts||{}, s=o.sides||{};
+    const o=opts||{};
     const A=[x,y,z],B=[x+w,y,z],C=[x+w,y,z+d],D=[x,y,z+d],
           E=[x,y+h,z],F=[x+w,y+h,z],G=[x+w,y+h,z+d],Hp=[x,y+h,z+d];
-    if(s.pz!==false) quad(D,C,G,Hp,col,key,o); // front (+z)
-    if(s.nz!==false) quad(B,A,E,F,col,key,o);  // bag
-    if(s.px!==false) quad(C,B,F,G,col,key,o);  // højre
-    if(s.nx!==false) quad(A,D,Hp,E,col,key,o); // venstre
-    if(s.py!==false) quad(E,Hp,G,F,col,key,o); // top
-    if(s.ny!==false) quad(A,B,C,D,col,key,o);  // bund
+    quad(D,C,G,Hp,col,key,o); quad(B,A,E,F,col,key,o); quad(C,B,F,G,col,key,o);
+    quad(A,D,Hp,E,col,key,o); quad(E,Hp,G,F,col,key,o); quad(A,B,C,D,col,key,o);
   }
-  // slab: plade defineret af 4 punkter (top-fladen, mod uret set udefra) + tykkelse nedad langs normalen
   function slab(a,b,c,d,t,col,key,opts){
     const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2], vx=d[0]-a[0],vy=d[1]-a[1],vz=d[2]-a[2];
     let nx2=uy*vz-uz*vy, ny2=uz*vx-ux*vz, nz2=ux*vy-uy*vx;
     const l=Math.hypot(nx2,ny2,nz2)||1; nx2/=l;ny2/=l;nz2/=l;
     const off=p2=>[p2[0]-nx2*t,p2[1]-ny2*t,p2[2]-nz2*t];
     const a2=off(a),b2=off(b),c2=off(c),d2=off(d);
-    quad(a,b,c,d,col,key,opts);                                  // top
-    quad(b2,a2,d2,c2,shade(col,0.75,0),key,opts);                // bund
-    quad(a2,b2,b,a,shade(col,0.85,0),key,opts);                  // kant ab
-    quad(b2,c2,c,b,shade(col,0.85,0),key,opts);                  // kant bc
-    quad(c2,d2,d,c,shade(col,0.85,0),key,opts);                  // kant cd
-    quad(d2,a2,a,d,shade(col,0.85,0),key,opts);                  // kant da
+    quad(a,b,c,d,col,key,opts); quad(b2,a2,d2,c2,shade(col,0.75,0),key,opts);
+    quad(a2,b2,b,a,shade(col,0.85,0),key,opts); quad(b2,c2,c,b,shade(col,0.85,0),key,opts);
+    quad(c2,d2,d,c,shade(col,0.85,0),key,opts); quad(d2,a2,a,d,shade(col,0.85,0),key,opts);
   }
+  /* ---------- huset ---------- */
   function buildHouse(){
-    faces=[];
-    const HW=3.3, HD=2.3, WH=3.0, plinthH=0.55;
+    faces=[]; marks=[];
+    const HW=3.3, HD=2.3, WH=3.0, y0=0.55;
     const flat = era==='1960_1972';
     const steep = era==='foer1930';
-    const RH = steep?2.6 : 1.75;             // tagrejsning
-    const OV = 0.42;                          // udhæng
+    const old = steep||era==='1930_1960';
+    const RH = steep?2.6:1.75, OV=0.42;
     const wallCol = steep? '#c1795a' : P.brick;
     const roofCol = flat? P.roofFlat : (steep? '#9c4c34' : P.roofTile);
-    // jordskygge håndteres i render
-    // sokkel
-    box(-HW-0.15,0,-HD-0.15, 2*HW+0.3, plinthH, 2*HD+0.3, P.plinth,'fundament');
-    // vægge (4 bokse så snit kan skjule front/højre)
-    const wt=0.22, y0=plinthH, cutHide={cutHide:true};
-    box(-HW,y0,-HD, 2*HW, WH, wt, wallCol,'ydervaeg');                         // bagvæg
-    box(-HW,y0,-HD+wt, wt, WH, 2*HD-2*wt, wallCol,'ydervaeg');                 // venstre
-    box(-HW,y0, HD-wt, 2*HW, WH, wt, wallCol,'ydervaeg',cutHide);              // FRONT
-    box(HW-wt,y0,-HD+wt, wt, WH, 2*HD-2*wt, wallCol,'ydervaeg',cutHide);       // HØJRE
-    const topY=y0+WH;
+    const wt=0.22, cutHide={cutHide:true}, topY=y0+WH;
+    box(-HW-0.15,0,-HD-0.15, 2*HW+0.3, y0, 2*HD+0.3, P.plinth,'fundament');
+    box(-HW,y0,-HD, 2*HW, WH, wt, wallCol,'ydervaeg');
+    box(-HW,y0,-HD+wt, wt, WH, 2*HD-2*wt, wallCol,'ydervaeg');
+    box(-HW,y0, HD-wt, 2*HW, WH, wt, wallCol,'ydervaeg',cutHide);
+    box(HW-wt,y0,-HD+wt, wt, WH, 2*HD-2*wt, wallCol,'ydervaeg',cutHide);
     if(!flat){
-      // gavltrekanter
       tri([-HW,topY,-HD],[-HW,topY,HD],[-HW,topY+RH,0], wallCol,'ydervaeg');
       tri([HW,topY,HD],[HW,topY,-HD],[HW,topY+RH,0], wallCol,'ydervaeg',cutHide);
-      // tagflader som plader med tykkelse (front skjules i snit)
       const rx=HW+OV, rzF=HD+OV;
       slab([-rx,topY-0.12,rzF],[rx,topY-0.12,rzF],[rx,topY+RH,0.02],[-rx,topY+RH,0.02],0.16, roofCol,'tag',{cutHide:true});
       slab([rx,topY-0.12,-rzF],[-rx,topY-0.12,-rzF],[-rx,topY+RH,-0.02],[rx,topY+RH,-0.02],0.16, roofCol,'tag');
-      // rygning
       box(-rx-0.02,topY+RH+0.02,-0.16, 2*rx+0.04, 0.15, 0.32, shade(roofCol,0.7,0),'tag');
-      // skorsten
       if(era!=='2008_nu') box(1.6,topY+RH*0.45,-0.85, 0.5, RH*0.62+0.75, 0.5, P.chim,'skorsten');
-      if(era==='2008_nu'){ // ovenlys + solceller
+      if(era==='2008_nu'){
         quad([-1.9,topY+RH*0.55+0.03,rzF*0.42],[-0.9,topY+RH*0.55+0.03,rzF*0.42],[-0.9,topY+RH*0.88+0.03,rzF*0.12],[-1.9,topY+RH*0.88+0.03,rzF*0.12],'#20313c','tag',{cutHide:true, zb:0.9});
         quad([0.6,topY+RH*0.35+0.03,rzF*0.58],[2.4,topY+RH*0.35+0.03,rzF*0.58],[2.4,topY+RH*0.8+0.03,rzF*0.18],[0.6,topY+RH*0.8+0.03,rzF*0.18],'#26404f','tag',{cutHide:true, zb:0.9});
       }
+      /* tagrende + nedløb langs fronttagfod */
+      box(-rx,topY-0.34,rzF-0.02, 2*rx, 0.14, 0.2, P.gutter,'tagrende',cutHide);
+      box(rx-0.35,y0,rzF-0.26, 0.14, topY-0.34-y0, 0.14, P.gutter,'tagrende',cutHide);
     }else{
-      // fladt tag med lav parapet — 60'er-typehus
       box(-HW,topY,-HD, 2*HW, 0.22, 2*HD, wallCol,'ydervaeg');
       box(-HW-0.08,topY+0.2,-HD-0.08, 2*HW+0.16, 0.1, 2*HD+0.16, shade(wallCol,0.85,0),'ydervaeg');
       quad([-HW+0.06,topY+0.34,HD-0.06],[HW-0.06,topY+0.34,HD-0.06],[HW-0.06,topY+0.34,-HD+0.06],[-HW+0.06,topY+0.34,-HD+0.06], P.roofFlat,'tag');
       box(1.7,topY+0.3,-0.8, 0.45, 1.0, 0.45, P.chim,'skorsten');
     }
-    /* vinduer og dør — periodeafhængige, med hvid karm */
+    /* vinduer + dør */
     const winY=y0+1.05, FR='#efe9dc';
     function frontWin(x,w,h){
       box(x-0.07,winY-0.07,HD-0.02, w+0.14, h+0.14, 0.1, FR,'vinduer',{cutHide:true, zb:1.0});
       box(x,winY,HD+0.02, w, h, 0.08, P.glass,'vinduer',{cutHide:true, zb:1.15});
       if(!flat && era!=='1995_2008' && era!=='2008_nu')
-        box(x-0.03,winY+h/2-0.03,HD+0.04, w+0.06, 0.07, 0.08, FR,'vinduer',{cutHide:true, zb:1.3}); // sprosse
-      box(x-0.1,winY-0.16,HD+0.02, w+0.2, 0.1, 0.14, shade(FR,0.82,0),'vinduer',{cutHide:true, zb:1.1}); // sålbænk
+        box(x-0.03,winY+h/2-0.03,HD+0.04, w+0.06, 0.07, 0.08, FR,'vinduer',{cutHide:true, zb:1.3});
+      box(x-0.1,winY-0.16,HD+0.02, w+0.2, 0.1, 0.14, shade(FR,0.82,0),'vinduer',{cutHide:true, zb:1.1});
     }
     function gableWin(z,w,h){
       box(-HW-0.08,winY-0.07,z-0.07, 0.1, h+0.14, w+0.14, FR,'vinduer',{zb:1.0});
@@ -1355,25 +1341,64 @@ const H3D=(function(){
     if(steep){ frontWin(-2.45,0.85,1.15); frontWin(-1.75,0.85,1.15); frontWin(1.55,0.85,1.15); gableWin(-0.95,0.85,1.1); gableWin(0.25,0.85,1.1); }
     else if(flat){ frontWin(-2.65,1.9,1.3); frontWin(1.25,1.6,1.3); gableWin(-0.8,1.6,1.25); }
     else { frontWin(-2.5,1.3,1.25); frontWin(1.4,1.3,1.25); gableWin(-0.6,1.2,1.2); }
-    // dør med karm
     box(-0.58,y0,HD-0.02, 1.16, 2.03, 0.1, FR,'doer',{cutHide:true, zb:1.0});
     box(-0.5,y0,HD+0.02, 1.0, 1.95, 0.08, P.door,'doer',{cutHide:true, zb:1.15});
-    /* interiør — kun i snit */
-    const floorCol = (era==='foer1930'||era==='1930_1960') ? P.woodL : (era==='1960_1972' ? '#b9b2a4' : '#c4b48e');
-    box(-HW+wt,y0+0.12,-HD+wt, 2*HW-2*wt, 0.16, 2*HD-2*wt, floorCol,'gulv',{cutOnly:true});
-    if(!flat){ for(let i=-2;i<=2;i++){ const sx=i*1.25;
-        // spær som tynde skrå kasser (front + bag)
-        rafter(sx, topY, RH, HD, true); rafter(sx, topY, RH, HD, false);
-    }}
-    function rafter(x,ty2,rh,hd,front){
-      const z1=front? hd-0.1 : -hd+0.1, z2=0;
-      const y1=ty2, y2=ty2+rh-0.12, w=0.09;
-      quad([x-w,y1,z1],[x+w,y1,z1],[x+w,y2,z2],[x-w,y2,z2], P.wood,'spaer',{cutOnly:true});
+    /* interiør (snit) — gulv pr. periode */
+    let floorTop;
+    if(old){ // strøgulv over krybekælder
+      box(-HW+wt,y0-0.15,-HD+wt, 2*HW-2*wt, 0.15, 2*HD-2*wt, P.soil,'krybekaelder',{cutOnly:true, zb:0.1});
+      for(const sx of [-2.1,-0.7,0.7,2.1])
+        box(sx,y0+0.24,-HD+wt, 0.16, 0.14, 2*HD-2*wt, shade(P.wood,0.9,0),'gulv',{cutOnly:true, zb:0.3});
+      box(-HW+wt,y0+0.38,-HD+wt, 2*HW-2*wt, 0.1, 2*HD-2*wt, P.woodL,'gulv',{cutOnly:true, zb:0.5});
+      floorTop=y0+0.48;
+    } else {
+      const fc = flat? '#b9b2a4' : '#c4b48e';
+      box(-HW+wt,y0+0.12,-HD+wt, 2*HW-2*wt, 0.16, 2*HD-2*wt, fc,'gulv',{cutOnly:true});
+      floorTop=y0+0.28;
+    }
+    /* vådrum i bageste venstre hjørne (snit) */
+    const bx1=-HW+wt, bx2=-1.35, bz1=-HD+wt, bz2=-0.75, bh=2.05;
+    box(bx2-0.12,floorTop,bz1, 0.12, bh, bz2-bz1, P.tile,'vaadrum',{cutOnly:true, zb:0.65});
+    box(bx1,floorTop,bz2, bx2-bx1-0.12, bh, 0.12, P.tile,'vaadrum',{cutOnly:true, zb:0.65});
+    box(bx1,floorTop,bz1, bx2-bx1, 0.05, bz2-bz1, P.tileF,'vaadrum',{cutOnly:true, zb:0.7});
+    box((bx1+bx2)/2-0.08,floorTop+0.05,(bz1+bz2)/2-0.08, 0.16, 0.015, 0.16, '#6c7a7d','vaadrum',{cutOnly:true, zb:0.5});
+    if(!flat){ for(let i=-2;i<=2;i++){ const sx=i*1.25; rafter(sx,true); rafter(sx,false); } }
+    function rafter(x,front){
+      const z1=front? HD-0.1 : -HD+0.1;
+      quad([x-0.09,topY,z1],[x+0.09,topY,z1],[x+0.09,topY+RH-0.12,0],[x-0.09,topY+RH-0.12,0], P.wood,'spaer',{cutOnly:true});
+    }
+    /* ---- skadested-markører pr. periode ---- */
+    function mk(p,key,lab,o){marks.push(Object.assign({p,key,lab},o||{}));}
+    if(steep){
+      mk([0.6,topY+RH*0.5,1.45],'tag','Intet undertag — fygesne/slagregn',{cutHide:true}); mk([0.6,topY+RH*0.5,-1.45],'tag','Intet undertag — fygesne/slagregn',{cutOnly:true});
+      mk([1.85,topY+RH*1.07+0.85,-0.6],'skorsten','Inddækning + frost i pibe');
+      mk([-2.2,y0+0.28,HD+0.25],'fundament','Opstigende grundfugt');
+      mk([0,y0+0.2,0],'krybekaelder','Råd i strøer ved dårlig ventilation',{cutOnly:true});
+    } else if(era==='1930_1960'){
+      mk([0.6,topY+RH*0.5,1.45],'tag','Eternit kan være asbestholdig · intet undertag',{cutHide:true}); mk([0.6,topY+RH*0.5,-1.45],'tag','Eternit kan være asbestholdig · intet undertag',{cutOnly:true});
+      mk([1.02,y0+2.35,HD+0.25],'ydervaeg','Rustne murbindere → vandrette revner');
+      mk([-2.2,y0+0.28,HD+0.25],'fundament','Grundfugt i ældste del af perioden');
+    } else if(flat){
+      mk([0,topY+0.5,0.4],'tag','Fladt pap-tag: samlinger, opkanter, UV');
+      mk([-1.7,winY+0.7,HD+0.25],'vinduer','Tidlige termoruder punkterer');
+      mk([0.6,y0+0.45,0.3],'gulv','Terrændæk ofte UDEN fugtsikring (før BR72)',{cutOnly:true});
+    } else if(era==='1972_1979'){
+      mk([0.6,topY+RH*0.5,1.45],'tag','Undertag endnu ikke universelt',{cutHide:true}); mk([0.6,topY+RH*0.5,-1.45],'tag','Undertag endnu ikke universelt',{cutOnly:true});
+      mk([1.02,y0+2.35,HD+0.25],'ydervaeg','Beskeden isolering → kuldebroer');
+    } else if(era==='1979_1995'){
+      mk([0.6,topY+RH*0.5,1.45],'tag','Visse undertage 1980–2000 skørner før tid',{cutHide:true}); mk([0.6,topY+RH*0.5,-1.45],'tag','Visse undertage 1980–2000 skørner før tid',{cutOnly:true});
+      mk([-1.9,winY+0.7,HD+0.25],'vinduer','Termoruder punkterer med alderen');
+      mk([-2.3,floorTop+1.4,-0.7],'vaadrum','Membran ikke sikker i ældre del',{cutOnly:true});
+    } else if(era==='1995_2008'){
+      mk([0.6,topY+RH*0.5,1.45],'tag','Undertagsfabrikater fra sen-90erne kan svigte',{cutHide:true}); mk([0.6,topY+RH*0.5,-1.45],'tag','Undertagsfabrikater fra sen-90erne kan svigte',{cutOnly:true});
+      mk([-2.3,floorTop+1.4,-0.7],'vaadrum','Udførelsesfejl ved membran/afløb',{cutOnly:true});
+    } else {
+      mk([-1.4,topY+RH*0.72,1.0],'tag','Utætheder ved gennemføringer (ovenlys/solceller)',{cutHide:true}); mk([-1.4,topY+RH*0.72,-1.0],'tag','Utætheder ved gennemføringer',{cutOnly:true});
+      mk([1.02,y0+2.35,HD+0.25],'ydervaeg','Dampspærrens udførelse er afgørende');
     }
   }
-
-  /* ---------- projektion og rendering ---------- */
-  function project(v, cy,sy,cp,sp){
+  /* ---------- projektion + rendering ---------- */
+  function project(v,cy,sy,cp,sp){
     let x=v[0]-tx, y=v[1]-ty, z=v[2]-tz;
     let x1=cy*x+sy*z, z1=-sy*x+cy*z;
     let y2=cp*y+sp*z1, z2=-sp*y+cp*z1;
@@ -1382,14 +1407,14 @@ const H3D=(function(){
     const f=Hh*1.18/z2;
     return [W/2+x1*f, Hh*0.56-y2*f, z2];
   }
+  let markScreen=[];
   function render(){
+    if(!ctx) return;
     ctx.clearRect(0,0,W,Hh);
-    // himmel
     const g=ctx.createLinearGradient(0,0,0,Hh);
     g.addColorStop(0,'#d7e6ec'); g.addColorStop(0.72,'#eef0e6'); g.addColorStop(1,'#e6e0cd');
     ctx.fillStyle=g; ctx.fillRect(0,0,W,Hh);
     const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
-    // jord-ellipse + blød skygge
     const c0=project([0,0,0],cy,sy,cp,sp);
     if(c0){
       const f=Hh*1.18/c0[2];
@@ -1398,7 +1423,6 @@ const H3D=(function(){
       ctx.fillStyle='rgba(90,80,60,0.18)';
       ctx.beginPath(); ctx.ellipse(c0[0],c0[1]+f*0.05,f*4.6,f*4.6*Math.max(0.15,sp*0.85),0,0,7); ctx.fill();
     }
-    // klargør flader
     const drawn=[];
     for(const F of faces){
       if(cut && F.cutHide) continue;
@@ -1406,23 +1430,20 @@ const H3D=(function(){
       const pp=[]; let zsum=0, ok=true;
       for(const v of F.pts){ const q=project(v,cy,sy,cp,sp); if(!q){ok=false;break;} pp.push(q); zsum+=q[2]; }
       if(!ok) continue;
-      // backface-cull (skru af for tynde detaljer med frame)
       const ax=pp[1][0]-pp[0][0], ay=pp[1][1]-pp[0][1], bx=pp[2][0]-pp[0][0], by=pp[2][1]-pp[0][1];
-      const area=ax*by-ay*bx;
-      if(area<=0) continue;
-      // normal i world-space for lys
+      if(ax*by-ay*bx<=0) continue;
       const A=F.pts[0],B=F.pts[1],C=F.pts[2];
       const ux=B[0]-A[0],uy=B[1]-A[1],uz=B[2]-A[2], vx=C[0]-A[0],vy2=C[1]-A[1],vz=C[2]-A[2];
       let nx=uy*vz-uz*vy2, ny=uz*vx-ux*vz, nz=ux*vy2-uy*vx;
-      const nl=Math.hypot(nx,ny,nz)||1; nx/=nl;ny/=nl;nz/=nl;
-      const d=Math.max(0,nx*LIGHT[0]+ny*LIGHT[1]+nz*LIGHT[2]);
-      drawn.push({pp, z:zsum/F.pts.length-(F.zb||0), col:F.col, key:F.key, lum:0.62+0.5*d, sel:F.key&&(F.key===selKey), hov:F.key&&(F.key===hoverKey)});
+      const nl=Math.hypot(nx,ny,nz)||1;
+      const d=Math.max(0,(nx*LIGHT[0]+ny*LIGHT[1]+nz*LIGHT[2])/nl);
+      drawn.push({pp, z:zsum/F.pts.length-(F.zb||0), col:F.col, key:F.key, lum:0.62+0.5*d,
+        sel:F.key&&(F.key===selKey), hov:F.key&&(F.key===hoverKey)});
     }
     drawn.sort((a,b)=>b.z-a.z);
     for(const D of drawn){
-      let fill = D.col.startsWith('rgb')? D.col : shade(D.col, D.lum, D.lum>0.9?1:0);
-      ctx.beginPath();
-      ctx.moveTo(D.pp[0][0],D.pp[0][1]);
+      const fill=D.col.startsWith('rgb')?D.col:shade(D.col,D.lum,D.lum>0.9?1:0);
+      ctx.beginPath(); ctx.moveTo(D.pp[0][0],D.pp[0][1]);
       for(let i=1;i<D.pp.length;i++) ctx.lineTo(D.pp[i][0],D.pp[i][1]);
       ctx.closePath();
       ctx.fillStyle=fill; ctx.fill();
@@ -1430,10 +1451,43 @@ const H3D=(function(){
       else if(D.hov){ ctx.fillStyle='rgba(23,94,74,0.16)'; ctx.fill(); }
       ctx.strokeStyle='rgba(60,45,30,0.30)'; ctx.lineWidth=1; ctx.stroke();
     }
-    window.__drawn=drawn; // til picking
+    window.__drawn=drawn;
+    /* markører */
+    markScreen=[];
+    if(showMarks){
+      const r=Math.max(11,Hh*0.017);
+      marks.forEach(function(M,i){
+        if(cut&&M.cutHide) return; if(!cut&&M.cutOnly) return;
+        const q=project(M.p,cy,sy,cp,sp); if(!q) return;
+        markScreen.push({x:q[0],y:q[1],r,i,key:M.key,lab:M.lab});
+      });
+      markScreen.forEach(function(m){
+        ctx.beginPath(); ctx.arc(m.x,m.y,m.r,0,7);
+        ctx.fillStyle='#fff'; ctx.fill();
+        ctx.lineWidth=2.5; ctx.strokeStyle='#D97B29'; ctx.stroke();
+        ctx.fillStyle='#C0392B'; ctx.font='700 '+(m.r*1.15)+'px Inter,system-ui,sans-serif';
+        ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('!',m.x,m.y+1);
+      });
+      const hm=markScreen.find(function(m){return m.i===hoverMark;});
+      if(hm){
+        ctx.font='600 '+Math.max(12,Hh*0.019)+'px Inter,system-ui,sans-serif';
+        const tw=ctx.measureText(hm.lab).width, pad=9;
+        let lx=hm.x+hm.r+10, ly=hm.y;
+        if(lx+tw+2*pad>W) lx=hm.x-hm.r-10-tw-2*pad;
+        ctx.fillStyle='rgba(35,33,28,0.92)';
+        const bh2=Math.max(24,Hh*0.036);
+        ctx.beginPath(); ctx.roundRect(lx,ly-bh2/2,tw+2*pad,bh2,7); ctx.fill();
+        ctx.fillStyle='#fff'; ctx.textAlign='left'; ctx.fillText(hm.lab,lx+pad,ly+1);
+      }
+    }
   }
   /* ---------- interaktion ---------- */
+  function markAt(mx,my){
+    for(const m of markScreen){ if(Math.hypot(mx-m.x,my-m.y)<=m.r+4) return m; }
+    return null;
+  }
   function pickAt(mx,my){
+    const m=markAt(mx,my); if(m) return m.key;
     const drawn=window.__drawn||[];
     for(let i=drawn.length-1;i>=0;i--){
       const D=drawn[i]; if(!D.key) continue;
@@ -1449,10 +1503,18 @@ const H3D=(function(){
     }
     return inside;
   }
+  function sizeToContainer(){
+    const box2=cv.parentElement; if(!box2) return;
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    const w=box2.clientWidth||640, hh=box2.clientHeight||460;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(hh*dpr);
+    cv.style.width=w+'px'; cv.style.height=hh+'px';
+    W=cv.width; Hh=cv.height;
+  }
   function attach(canvas){
     cv=canvas; ctx=cv.getContext('2d');
     sizeToContainer();
-    let dragging=false,lx=0,ly=0,moved=0,pinch=null;
+    let dragging=false,lx=0,ly=0,moved=0;
     cv.addEventListener('pointerdown',e=>{dragging=true;moved=0;lx=e.clientX;ly=e.clientY;vyaw=0;cv.setPointerCapture(e.pointerId);});
     cv.addEventListener('pointermove',e=>{
       const r=cv.getBoundingClientRect(), sx=cv.width/r.width, sy2=cv.height/r.height;
@@ -1461,80 +1523,90 @@ const H3D=(function(){
         yaw-=dx*0.0075; pitch=Math.min(1.25,Math.max(0.08,pitch+dy*0.006));
         lx=e.clientX; ly=e.clientY; render();
       } else {
-        const k=pickAt((e.clientX-r.left)*sx,(e.clientY-r.top)*sy2);
-        if(k!==hoverKey){hoverKey=k;cv.style.cursor=k?'pointer':'grab';render();}
+        const mx=(e.clientX-r.left)*sx, my=(e.clientY-r.top)*sy2;
+        const m=markAt(mx,my); const nm=m?m.i:-1;
+        const k=m?m.key:pickAt(mx,my);
+        if(k!==hoverKey||nm!==hoverMark){hoverKey=k;hoverMark=nm;cv.style.cursor=k?'pointer':'grab';render();}
       }
     });
     cv.addEventListener('pointerup',e=>{
       dragging=false;
-      if(moved<7){ const r=cv.getBoundingClientRect();
+      if(moved<7){
+        const r=cv.getBoundingClientRect();
         const k=pickAt((e.clientX-r.left)*(cv.width/r.width),(e.clientY-r.top)*(cv.height/r.height));
-        selKey=k; render(); if(k&&onPick) onPick(k);
-        if(!k){selKey=null;render(); if(onPick) onPick(null);}
+        selKey=k; render(); if(onPick) onPick(k);
       }
     });
     cv.addEventListener('wheel',e=>{e.preventDefault();dist=Math.min(30,Math.max(8,dist*(1+e.deltaY*0.001)));render();},{passive:false});
-    // idle spin
     (function spin(){ if(vyaw){ yaw+=vyaw; render(); } requestAnimationFrame(spin); })();
     buildHouse(); render();
   }
-  function sizeToContainer(){
-    const box=cv.parentElement; if(!box) return;
-    const dpr=Math.min(window.devicePixelRatio||1,2);
-    const w=box.clientWidth||640, hh=box.clientHeight||460;
-    cv.width=Math.round(w*dpr); cv.height=Math.round(hh*dpr);
-    cv.style.width=w+'px'; cv.style.height=hh+'px';
-    W=cv.width; Hh=cv.height;
-  }
   return {
-    attach, resize(){ if(cv){ sizeToContainer(); render(); } }, selectKey(k){ selKey=k; render(); }, setEra(e2){era=e2;buildHouse();selKey=null;render();},
-    setCut(c2){cut=c2;buildHouse();render();},
-    reset(){yaw=2.52;pitch=0.42;dist=15.2;vyaw=0.0035;render();},
-    onPick(fn){onPick=fn;}, getEra(){return era;}, stopSpin(){vyaw=0;}
+    attach,
+    resize(){ if(cv){ sizeToContainer(); render(); } },
+    selectKey(k){ selKey=k; render(); },
+    setEra(e2){ era=e2; buildHouse(); selKey=null; render(); },
+    setCut(c2){ cut=c2; render(); },
+    setMarks(b){ showMarks=!!b; render(); },
+    getMarks(){ return showMarks; },
+    reset(){ yaw=2.52; pitch=0.42; dist=15.2; vyaw=0.0035; render(); },
+    onPick(fn){ onPick=fn; },
+    getEra(){ return era; },
+    hasPart(k){ return faces.some(function(F){return F.key===k;}) },
+    stopSpin(){ vyaw=0; }
   };
 })();
-/* ---- 3D-hus UI: era-chips, info-kort med periodens WIKI-tekst ---- */
+/* ---- 3D-hus UI v3: søgning, markører, dynamiske del-knapper, WIKI-info ---- */
 const H3D_FIXED={
   doer:{t:'Yderdør',d:'Udvendige døre. Bundstykke og karm er mest udsat for slagregn og fugt — og tætheden påvirker træk og energi.',o:'Råd i bundstykke og karm · utætheder.',ord:'yderdør'},
   skorsten:{t:'Skorsten',d:'Muret pibe med inddækning, hvor den bryder tagfladen. Piben over taget belastes hårdt af frost og slagregn.',o:'Frostskader i piben · tærede/utætte inddækninger.',ord:'skorsten'},
-  spaer:{t:'Tagkonstruktion (spær)',d:'Tagets bærende tømmer: spær, lægter, rem og hanebånd — her set indvendigt i snittet.',o:'Råd og svamp ved fugt · borebille/husbuk i tømmeret.',ord:'tagkonstruktion'}
+  spaer:{t:'Tagkonstruktion (spær)',d:'Tagets bærende tømmer: spær, lægter, rem og hanebånd — her set indvendigt i snittet.',o:'Råd og svamp ved fugt · borebille/husbuk i tømmeret.',ord:'tagkonstruktion'},
+  tagrende:{t:'Tagrende & nedløb',d:'Leder regnvandet fra taget væk fra huset. Tilstoppede eller utætte render lader vandet løbe ned ad facaden og ind mod soklen.',o:'Fugt i facade og sokkel · grønne spor på muren under utæt rende.',ord:'tagrende'},
+  krybekaelder:{t:'Krybekælder',d:'Det lave, ventilerede hulrum under strøgulvet i ældre huse. Ventilationen holder træet tørt — lukkes riste eller hulrum, stiger fugten.',o:'Råd i strøer og bjælker · muggen lugt · lukkede ventilationsriste.',ord:'krybekælder'}
 };
+const H3D_ORDSVG={doer:'yderdoer',skorsten:'inddaekning',spaer:'tagkonstruktion',tagrende:'tagrende_nedloeb',krybekaelder:'terraendaek_stroegulv'};
+const H3D_SEARCH=[
+ [['tag','tegl','tagsten','undertag','tagpap','skifer','eternit','rygning','mønning','skotrende','inddækning','ovenlys','solcelle','fygesne','tagflade'],'tag'],
+ [['tagrende','nedløb','zink','render'],'tagrende'],
+ [['spær','lægte','hanebånd','rem','tømmer','tagkonstruktion'],'spaer'],
+ [['mur','facade','fuge','binder','gavl','puds','hulmur','formur','bagmur','revne','væg'],'ydervaeg'],
+ [['vindue','rude','termorude','karm','sålbænk','glas','sprosse'],'vinduer'],
+ [['dør','hoveddør','yderdør'],'doer'],
+ [['skorsten','pibe'],'skorsten'],
+ [['sokkel','fundament','sætning','grundfugt','syld'],'fundament'],
+ [['gulv','terrændæk','strøgulv','strøer','kapillar','fugtspærre','betondæk'],'gulv'],
+ [['krybekælder','krybekaelder','ventilationsrist'],'krybekaelder'],
+ [['bad','vådrum','membran','flise','afløb','bruser','badeværelse','vandskade'],'vaadrum']
+];
+const H3D_CUTKEYS={gulv:1,spaer:1,vaadrum:1,krybekaelder:1};
 let h3dInited=false;
-function h3dInit(){
-  if(h3dInited){ H3D.resize(); return; }
-  const cvel=document.getElementById('h3dcv'); if(!cvel) return;
-  h3dInited=true;
-  H3D.attach(cvel);
-  renderH3dChips();
-  renderH3dParts();
-  H3D.onPick(function(key){ h3dShowInfo(key); h3dSyncParts(key); });
+function h3dEnsureCut(key){
+  if(!H3D_CUTKEYS[key]) return;
   const cb=document.getElementById('h3dcut');
-  if(cb) cb.addEventListener('click',function(){
-    const on=!cb.classList.contains('on');
-    H3D.setCut(on); cb.classList.toggle('on',on);
-    cb.textContent=on?'Skjul snit':'Vis snit';
-  });
-  const rb=document.getElementById('h3dreset'); if(rb) rb.addEventListener('click',function(){H3D.reset();});
-  if(window.ResizeObserver){ new ResizeObserver(function(){H3D.resize();}).observe(document.getElementById('h3dcanvas')); }
+  if(cb&&!cb.classList.contains('on')){ H3D.setCut(true); cb.classList.add('on'); cb.textContent='Skjul snit'; }
 }
-const H3D_ORDSVG={doer:'yderdoer',skorsten:'inddaekning',spaer:'tagkonstruktion'};
+function h3dActivate(key){
+  h3dEnsureCut(key);
+  H3D.selectKey(key); h3dShowInfo(key); h3dSyncParts(key);
+}
 function h3dShowInfo(key){
   const box=document.getElementById('h3dinfo'); if(!box) return;
   if(!key){ box.hidden=true; return; }
   const era=WIKI.find(function(e){return e.id===H3D.getEra();});
   let title='', body='', obs='', ord=null, wikiPart=null, figSvg=null, figCap='';
-  if(H3D_FIXED[key]){ const f=H3D_FIXED[key]; title=f.t; body=f.d; obs=f.o; ord=f.ord;
-    const os=H3D_ORDSVG[key]; if(os&&ORD_SVG[os]) figSvg=nsSvg(ORD_SVG[os]);
-  } else if(era&&era.dele[key]){
+  let figSrc=null;
+  if(era&&era.dele[key]){
     title=partNavn(key)+' · '+era.navn; body=wmd(era.dele[key].b); obs=wmd(era.dele[key].o||''); wikiPart=key;
     const ill=illusFor(era.id,key);
-    if(ill&&WIKI_SVG[ill]){ figSvg=nsSvg(WIKI_SVG[ill]); figCap=WIKI_CAP[ill]||''; }
+    if(ill&&WIKI_SVG[ill]){ figSrc=WIKI_SVG[ill]; figSvg=nsSvg(figSrc); figCap=WIKI_CAP[ill]||''; }
+  } else if(H3D_FIXED[key]){ const f=H3D_FIXED[key]; title=f.t; body=f.d; obs=f.o; ord=f.ord;
+    const os=H3D_ORDSVG[key]; if(os&&ORD_SVG[os]){ figSrc=ORD_SVG[os]; figSvg=nsSvg(figSrc); }
   } else return;
   let go='';
   if(wikiPart) go='<button data-w="'+wikiPart+'">Se i Byggeteknik →</button>';
   if(ord) go+='<button data-o="'+ord+'">Slå op i Ordbog →</button>';
   box.innerHTML='<button class="h3dclose" aria-label="Luk">×</button><h4>'+title+'</h4>'+
-    (figSvg?'<div class="h3dfig">'+figSvg+(figCap?'<div class="h3dfigcap">'+figCap+'</div>':'')+'</div>':'')+
+    (figSvg?'<div class="h3dfig" role="button" tabindex="0" title="Tryk for at se stort">'+figSvg+'<div class="h3dfigcap">'+(figCap?figCap+' · ':'')+'<b>Tryk for at se stort ⤢</b></div></div>':'')+
     '<div class="h3drow">'+body+'</div>'+
     (obs?'<div class="h3drow" style="margin-top:8px"><b>Skadeskandidater:</b> '+obs+'</div>':'')+
     '<div class="h3dgo">'+go+'</div>';
@@ -1542,8 +1614,18 @@ function h3dShowInfo(key){
   box.querySelector('.h3dclose').addEventListener('click',function(){box.hidden=true;h3dSyncParts(null);H3D.selectKey(null);});
   const gw=box.querySelector('[data-w]'); if(gw) gw.addEventListener('click',function(){window.gotoWikiPart(gw.getAttribute('data-w'));});
   const go2=box.querySelector('[data-o]'); if(go2) go2.addEventListener('click',function(){window.openOrdbogSearch(go2.getAttribute('data-o'));});
+  const fig=box.querySelector('.h3dfig');
+  if(fig&&figSrc) fig.addEventListener('click',function(){ h3dFigZoom(title,figSrc,figCap); });
 }
-const H3D_PARTBTNS=[['tag','Tag'],['ydervaeg','Ydervæg'],['vinduer','Vinduer'],['doer','Dør'],['skorsten','Skorsten'],['fundament','Sokkel'],['gulv','Gulv (snit)'],['spaer','Spær (snit)']];
+function h3dFigZoom(title,src,cap){
+  // genbrug ordbogens store overlay til fuld-bredde visning af tegningen
+  const m=okZoomEnsure();
+  m.querySelector('.okzbody').innerHTML='<div class="okzfig">'+nsSvg(src)+'</div>'+
+    '<h3>'+title+'</h3>'+(cap?'<div class="okzrow">'+cap+'</div>':'');
+  m.hidden=false; document.body.classList.add('noscroll');
+  m.querySelector('.okzbox').scrollTop=0;
+}
+const H3D_PARTBTNS=[['tag','Tag'],['ydervaeg','Ydervæg'],['vinduer','Vinduer'],['doer','Dør'],['skorsten','Skorsten'],['tagrende','Tagrende'],['fundament','Sokkel'],['gulv','Gulv (snit)'],['krybekaelder','Krybekælder (snit)'],['spaer','Spær (snit)'],['vaadrum','Vådrum (snit)']];
 function h3dSyncParts(key){
   document.querySelectorAll('#h3dparts .chip').forEach(function(c){c.classList.toggle('active',c.dataset.k===key);});
 }
@@ -1551,15 +1633,58 @@ function renderH3dParts(){
   const pc=document.getElementById('h3dparts'); if(!pc) return;
   pc.querySelectorAll('.chip').forEach(function(c){c.remove();});
   H3D_PARTBTNS.forEach(function(pb){
+    if(!H3D.hasPart(pb[0])) return;               // kun dele der findes i den valgte periode
     const b=document.createElement('button');
     b.className='chip part'; b.textContent=pb[1]; b.dataset.k=pb[0];
-    b.addEventListener('click',function(){
-      if(pb[0]==='gulv'||pb[0]==='spaer'){ const cb=document.getElementById('h3dcut');
-        if(cb&&!cb.classList.contains('on')){ H3D.setCut(true); cb.classList.add('on'); cb.textContent='Skjul snit'; } }
-      H3D.selectKey(pb[0]); h3dShowInfo(pb[0]); h3dSyncParts(pb[0]);
-    });
+    b.addEventListener('click',function(){ h3dActivate(pb[0]); });
     pc.appendChild(b);
   });
+}
+function h3dDoSearch(q){
+  const hint=document.getElementById('h3dsearchhint');
+  const t=(q||'').trim().toLowerCase();
+  if(t.length<2){ if(hint) hint.textContent=''; return; }
+  // scoring: eksakt match vinder; 'søgeord starter med nøgleord' (tagrenden→tagrende)
+  // foretrækker længste nøgleord; 'nøgleord starter med søgeord' (memb→membran) er svagest
+  let best=null, bestScore=0;
+  for(const pair of H3D_SEARCH){
+    for(const k of pair[0]){
+      let s=0;
+      if(k===t) s=1000;
+      else if(t.indexOf(k)===0) s=500+k.length;
+      else if(k.indexOf(t)===0) s=100-k.length;
+      if(s>bestScore){ best=pair[1]; bestScore=s; }
+    }
+  }
+  if(best){
+    if(!H3D.hasPart(best)){ if(hint) hint.textContent='Findes ikke i denne periode — prøv en anden.'; return; }
+    if(hint) hint.textContent='';
+    h3dActivate(best); return;
+  }
+  if(hint) hint.textContent='Ingen del matcher — prøv fx “undertag”, “membran” eller “murbinder”. Ellers: brug Ordbogen.';
+}
+function h3dInit(){
+  if(h3dInited){ H3D.resize(); return; }
+  const cvel=document.getElementById('h3dcv'); if(!cvel) return;
+  h3dInited=true;
+  H3D.attach(cvel);
+  renderH3dChips(); renderH3dParts();
+  H3D.onPick(function(key){ h3dShowInfo(key); h3dSyncParts(key); });
+  const cb=document.getElementById('h3dcut');
+  if(cb) cb.addEventListener('click',function(){
+    const on=!cb.classList.contains('on');
+    H3D.setCut(on); cb.classList.toggle('on',on);
+    cb.textContent=on?'Skjul snit':'Vis snit';
+  });
+  const mb=document.getElementById('h3dmarks');
+  if(mb) mb.addEventListener('click',function(){
+    const on=!H3D.getMarks(); H3D.setMarks(on); mb.classList.toggle('on',on);
+  });
+  const rb=document.getElementById('h3dreset'); if(rb) rb.addEventListener('click',function(){H3D.reset();});
+  const si=document.getElementById('h3dsearch');
+  if(si){ si.addEventListener('input',function(){h3dDoSearch(si.value);});
+          si.addEventListener('keydown',function(e){ if(e.key==='Enter') h3dDoSearch(si.value); }); }
+  if(window.ResizeObserver){ new ResizeObserver(function(){H3D.resize();}).observe(document.getElementById('h3dcanvas')); }
 }
 function renderH3dChips(){
   const pc=document.getElementById('h3dperiods'); if(!pc) return;
@@ -1568,10 +1693,11 @@ function renderH3dChips(){
     const b=document.createElement('button');
     b.className='chip'+(H3D.getEra()===era.id?' active':'');
     b.textContent=era.navn;
-    b.addEventListener('click',function(){ H3D.setEra(era.id); renderH3dChips();
-      const open=document.querySelector('#h3dparts .chip.active');
-      if(open){ H3D.selectKey(open.dataset.k); h3dShowInfo(open.dataset.k); }
-      else { const box=document.getElementById('h3dinfo'); if(box) box.hidden=true; } });
+    b.addEventListener('click',function(){ H3D.setEra(era.id); renderH3dChips(); renderH3dParts();
+      const open=document.querySelector('#h3dinfo:not([hidden])');
+      const act=document.querySelector('#h3dparts .chip.active');
+      if(open&&act&&H3D.hasPart(act.dataset.k)){ h3dActivate(act.dataset.k); }
+      else { const box=document.getElementById('h3dinfo'); if(box) box.hidden=true; h3dSyncParts(null); } });
     pc.appendChild(b);
   });
 }
