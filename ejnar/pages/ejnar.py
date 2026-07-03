@@ -24,7 +24,9 @@ from shared import (
     valider_citationer, dansk_tokenizer, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
     auto_filter_query, apply_auto_filters,
-    md_til_html, byg_lækker_afgørelse, citater_for_kilde,
+    md_til_html, byg_lækker_afgørelse, citater_for_kilde, byg_notat_html,
+    init_sagsmapper, opret_mappe, slet_mappe, omdøb_mappe,
+    gem_afgørelse, fjern_afgørelse, opdater_note, find_mappe_for_link,
 )
 
 
@@ -609,7 +611,26 @@ def _render_assistent_svar(msg_idx, msg):
     with col_svar:
         st.markdown(f'<div class="chat-assistant">{vist}</div>', unsafe_allow_html=True)
         ren = strip_html(msg.get("tekst", ""))
-        copy_button(ren, label="Kopiér svar", key=f"cp_{msg_idx}")
+        ac1, ac2 = st.columns([1, 1.4])
+        with ac1:
+            copy_button(ren, label="Kopiér svar", key=f"cp_{msg_idx}")
+        with ac2:
+            # find det spørgsmål der udløste svaret (nærmeste bruger-besked før)
+            _sp = ""
+            for _m in reversed(st.session_state.chat_historik[:msg_idx]):
+                if _m.get("rolle") == "bruger":
+                    _sp = _m.get("tekst", "")
+                    break
+            try:
+                _notat = byg_notat_html(_sp, msg.get("tekst", ""), kilder)
+                st.download_button(
+                    "📄 Download som notat", data=_notat.encode("utf-8"),
+                    file_name=f"ejnar-notat-{pd.Timestamp.now().strftime('%Y%m%d')}.html",
+                    mime="text/html", key=f"notat_{msg_idx}",
+                    help="Åbn filen og tryk Ctrl+P → 'Gem som PDF' for et printklart praksisnotat med kilder.",
+                )
+            except Exception:
+                pass
 
         # Klikbare citat-chips → åbn kilden i ruden til højre m. fremhævet citat
         if ref_kilder:
@@ -665,6 +686,44 @@ embeds = build_embeddings(len(df))
 if embeds is None and embeddings_tilgængelige():
     build_embeddings.clear()
     embeds = build_embeddings(len(df))
+
+
+# ── Permalinks (?sag=…) ───────────────────────────────────────────────────────
+def _kendelse_id(row) -> str:
+    """Stabilt, URL-venligt id: sagsnummer hvis muligt, ellers halen af linket."""
+    sag = str(row.get("Sagsnummer") or "").strip()
+    if sag:
+        return sag
+    return str(row.get("Link") or "").rstrip("/").rsplit("/", 1)[-1][-40:]
+
+
+def _sæt_permalink(row):
+    try:
+        st.query_params["sag"] = _kendelse_id(row)
+    except Exception:
+        pass
+
+
+def _ryd_permalink():
+    try:
+        st.query_params.pop("sag", None)
+    except Exception:
+        pass
+
+
+# Konsumér deeplink én gang pr. session (så "← Alle kendelser" ikke genåbner den)
+if not st.session_state.get("_ejnar_deeplink_done"):
+    st.session_state["_ejnar_deeplink_done"] = True
+    try:
+        _dl = str(st.query_params.get("sag", "") or "").strip()
+    except Exception:
+        _dl = ""
+    if _dl and not df.empty and st.session_state.valgt_kendelse is None:
+        _hit = df[df["Sagsnummer"].astype(str).str.strip() == _dl]
+        if _hit.empty:
+            _hit = df[df["Link"].astype(str).str.rstrip("/").str.endswith(_dl)]
+        if not _hit.empty:
+            st.session_state.valgt_kendelse = _hit.iloc[0].to_dict()
 
 _alle_mangeltyper = sorted({m for ms in df.get("Mangeltype", []) for m in ms}) \
                     if not df.empty else []
@@ -844,7 +903,11 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-tab_søg, tab_stat, tab_ai = st.tabs(["  Kendelser  ", "  Statistik  ", "  AI Assistent  "])
+init_sagsmapper()
+_n_gemte = sum(len(m["afgørelser"]) for m in st.session_state["sagsmapper"]["mapper"].values())
+_mappe_label = f"  Sagsmapper ({_n_gemte})  " if _n_gemte else "  Sagsmapper  "
+tab_søg, tab_stat, tab_ai, tab_mapper = st.tabs(
+    ["  Kendelser  ", "  Statistik  ", "  AI Assistent  ", _mappe_label])
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -855,7 +918,9 @@ with tab_søg:
         row = st.session_state.valgt_kendelse
         if st.button("← Alle kendelser"):
             st.session_state.valgt_kendelse = None
+            _ryd_permalink()
             st.rerun()
+        _sæt_permalink(row)
 
         dato_str = pd.Timestamp(row["Dato"]).strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
         udfald = row.get("Udfald") or "Ukendt"
@@ -884,6 +949,36 @@ with tab_søg:
             ),
             unsafe_allow_html=True,
         )
+
+        # Handlingsrække: delbart link + sagsmappe
+        init_sagsmapper()
+        _i_mappe = find_mappe_for_link(row["Link"])
+        hc1, hc2, _sp = st.columns([1.1, 1.3, 3])
+        with hc1:
+            try:
+                _base = str(st.context.url).split("?")[0]
+            except Exception:
+                _base = ""
+            copy_button(f"{_base}?sag={_kendelse_id(row)}",
+                        label="🔗 Kopiér link", key="perma_cp")
+        with hc2:
+            if _i_mappe:
+                if st.button("✓ Gemt i sagsmappe — fjern", key="sm_fjern"):
+                    fjern_afgørelse(_i_mappe, row["Link"])
+                    st.rerun()
+            else:
+                if st.button("📁 Gem i sagsmappe", key="sm_gem"):
+                    _mapper = st.session_state["sagsmapper"]["mapper"]
+                    _mid = st.session_state["sagsmapper"]["standard_mappe"]
+                    if not _mapper:
+                        _mid = opret_mappe("Min sagsmappe")
+                    gem_afgørelse(
+                        _mid, row["Link"], row["Titel"],
+                        str(row.get("Dato") or ""), row.get("Udfald") or "",
+                        "AKF", " / ".join(row.get("Mangeltype") or []),
+                        row.get("Selskab") or "", row.get("Excerpt") or "",
+                    )
+                    st.rerun()
 
         toc_html, body_html = byg_lækker_afgørelse(row["Tekst"], anchor_prefix="detail")
         if toc_html:
@@ -1232,3 +1327,99 @@ with tab_ai:
                 _render_bruger(bruger[1])
             if assistent is not None:
                 _render_assistent_svar(assistent[0], assistent[1])
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# TAB 4 – SAGSMAPPER
+# ════════════════════════════════════════════════════════════════════════════
+with tab_mapper:
+    _mapper = st.session_state["sagsmapper"]["mapper"]
+
+    st.markdown(
+        '<div style="font-size:12px;color:#64748b;margin-bottom:14px;">'
+        'Saml kendelser til en konkret sag, skriv noter og download det hele som én fil. '
+        '<strong>Bemærk:</strong> mapper gemmes kun i denne browser-session — download inden du lukker.</div>',
+        unsafe_allow_html=True,
+    )
+
+    nc1, nc2 = st.columns([2, 1])
+    with nc1:
+        _nyt_navn = st.text_input("Ny mappe", placeholder="Navn på ny sagsmappe — fx »Skimmelsag, Fyrrevej 12«",
+                                  label_visibility="collapsed", key="sm_nyt_navn")
+    with nc2:
+        if st.button("＋ Opret mappe", use_container_width=True, key="sm_opret"):
+            if _nyt_navn.strip():
+                opret_mappe(_nyt_navn.strip())
+                st.rerun()
+
+    if not _mapper:
+        st.markdown(
+            '<div style="text-align:center;padding:2.6rem 1rem;color:#94a3b8;">'
+            '<div style="font-size:1.7rem;margin-bottom:.4rem;">📁</div>'
+            '<div style="font-size:14px;font-weight:600;color:#475569;">Ingen sagsmapper endnu</div>'
+            '<div style="font-size:12.5px;margin-top:.3rem;line-height:1.6;">Opret en mappe ovenfor, '
+            'eller tryk »Gem i sagsmappe« inde på en kendelse.</div></div>',
+            unsafe_allow_html=True,
+        )
+    else:
+        for _mid, _mappe in list(_mapper.items()):
+            _afg = _mappe["afgørelser"]
+            with st.expander(f"📁 {_mappe['navn']} · {len(_afg)} kendelse{'r' if len(_afg) != 1 else ''}",
+                             expanded=len(_mapper) == 1):
+                mc1, mc2, mc3 = st.columns([2, 1, 1])
+                with mc1:
+                    _omdøb = st.text_input("Omdøb", value=_mappe["navn"],
+                                           label_visibility="collapsed", key=f"sm_navn_{_mid}")
+                    if _omdøb != _mappe["navn"] and _omdøb.strip():
+                        omdøb_mappe(_mid, _omdøb.strip())
+                with mc2:
+                    if _afg:
+                        _links = {a["link"] for a in _afg}
+                        _rows = df[df["Link"].isin(_links)]
+                        _noter = {a["link"]: (a.get("note") or "") for a in _afg}
+                        _tekst = build_download_text(_rows, søgeord=f"Sagsmappe: {_mappe['navn']}")
+                        _note_blok = "\n".join(
+                            f"NOTE ({l[-30:]}): {n}" for l, n in _noter.items() if n.strip())
+                        if _note_blok:
+                            _tekst += "\n\nEGNE NOTER\n" + "=" * 72 + "\n" + _note_blok
+                        st.download_button("⬇️ Download mappe", data=_tekst.encode("utf-8"),
+                                           file_name=f"sagsmappe_{_mappe['navn'][:30]}.txt",
+                                           mime="text/plain", key=f"sm_dl_{_mid}",
+                                           use_container_width=True)
+                with mc3:
+                    if st.button("🗑 Slet mappe", key=f"sm_slet_{_mid}", use_container_width=True):
+                        slet_mappe(_mid)
+                        st.rerun()
+
+                if not _afg:
+                    st.caption("Mappen er tom — gem kendelser fra detaljevisningen.")
+                for _a in list(_afg):
+                    st.markdown(
+                        f'<div style="border-top:1px solid #eef1f6;padding-top:10px;margin-top:10px;">'
+                        f'<div style="font-size:13px;font-weight:600;color:#0f172a;line-height:1.45;">{_a["titel"]}</div>'
+                        f'<div style="font-size:11px;color:#64748b;margin:2px 0 6px;">'
+                        f'{_a.get("udfald") or "–"} &nbsp;·&nbsp; {_a.get("kommune") or "–"} &nbsp;·&nbsp; '
+                        f'{_a.get("kategori") or "–"}</div></div>',
+                        unsafe_allow_html=True,
+                    )
+                    ac1, ac2 = st.columns([4, 1])
+                    with ac1:
+                        _ny_note = st.text_area(
+                            "Note", value=_a.get("note") or "", height=68,
+                            placeholder="Egne noter til denne kendelse…",
+                            label_visibility="collapsed", key=f"sm_note_{_mid}_{_a['link'][-20:]}")
+                        if _ny_note != (_a.get("note") or ""):
+                            opdater_note(_mid, _a["link"], _ny_note)
+                    with ac2:
+                        _row_hit = df[df["Link"] == _a["link"]]
+                        if not _row_hit.empty and st.button(
+                                "Åbn →", key=f"sm_open_{_mid}_{_a['link'][-20:]}",
+                                use_container_width=True):
+                            st.session_state.valgt_kendelse = _row_hit.iloc[0].to_dict()
+                            if "_resumé" in st.session_state:
+                                del st.session_state["_resumé"]
+                            st.rerun()
+                        if st.button("Fjern", key=f"sm_rm_{_mid}_{_a['link'][-20:]}",
+                                     use_container_width=True):
+                            fjern_afgørelse(_mid, _a["link"])
+                            st.rerun()

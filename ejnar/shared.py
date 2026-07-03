@@ -1140,6 +1140,113 @@ def md_til_html(md: str) -> str:
     return "".join(out)
 
 
+# ── Notat-eksport (printbart HTML → PDF via browserens print) ─────────────────
+def byg_notat_html(spørgsmål: str, svar_md: str, kilder: list) -> str:
+    """Byg et selvstændigt, printvenligt HTML-notat af et AI-svar med kildeliste.
+
+    Dependency-frit alternativ til PDF-generering: filen åbnes i browseren og
+    skrives ud som PDF (Ctrl+P) med korrekt A4-opsætning. Al styling er inline
+    i dokumentet, så filen kan deles som den er."""
+    import html as _html
+    import datetime as _d
+
+    svar_html = md_til_html(svar_md)
+
+    # [Kilde N] → [Sagsnr År] med diskret accent
+    def _ref(m):
+        dele = []
+        for n in re.findall(r"\d+", m.group(1)):
+            i = int(n) - 1
+            if 0 <= i < len(kilder):
+                k = kilder[i]
+                sag = k.get("Sagsnummer") or f"Kilde {n}"
+                try:
+                    år = str(pd.Timestamp(k["Dato"]).year)
+                except Exception:
+                    år = ""
+                dele.append(f'<span class="ref">[{sag} {år}]</span>'.replace(" ]", "]"))
+        return " ".join(dele) if dele else m.group(0)
+
+    svar_html = re.sub(r"\[Kilde\s+([\d,\s]+)\]", _ref, svar_html)
+
+    kilde_rows = ""
+    for i, k in enumerate(kilder):
+        try:
+            ds = pd.Timestamp(k["Dato"]).strftime("%d.%m.%Y")
+        except Exception:
+            ds = "–"
+        kilde_rows += (
+            f'<tr><td class="knum">{i+1}</td>'
+            f'<td><div class="ktitel">{_html.escape(k.get("Titel") or "")}</div>'
+            f'<div class="kmeta">{ds} &nbsp;·&nbsp; {_html.escape(k.get("Udfald") or "–")}'
+            f' &nbsp;·&nbsp; {_html.escape(k.get("Selskab") or "–")}'
+            f' &nbsp;·&nbsp; sag {_html.escape(k.get("Sagsnummer") or "–")}</div>'
+            f'<div class="klink">{_html.escape(k.get("Link") or "")}</div></td></tr>'
+        )
+
+    dato = _d.date.today().strftime("%d.%m.%Y")
+    return f"""<!DOCTYPE html>
+<html lang="da"><head><meta charset="utf-8">
+<title>Ejnar-notat · {dato}</title>
+<style>
+  @page {{ size: A4; margin: 22mm 20mm; }}
+  * {{ box-sizing: border-box; }}
+  body {{ font-family: Georgia, 'Times New Roman', serif; color: #1a2332; margin: 0;
+          -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
+  .sheet {{ max-width: 720px; margin: 0 auto; padding: 40px 34px 60px; }}
+  .head {{ display: flex; justify-content: space-between; align-items: baseline;
+           border-bottom: 2.5px solid #1a2332; padding-bottom: 10px; margin-bottom: 6px; }}
+  .brand {{ font-family: Inter, system-ui, sans-serif; font-weight: 800; font-size: 17px;
+            letter-spacing: 3px; }}
+  .brand span {{ color: #2563eb; }}
+  .doctype {{ font-family: Inter, system-ui, sans-serif; font-size: 10.5px; color: #64748b;
+              text-transform: uppercase; letter-spacing: 1.6px; }}
+  .meta {{ font-family: Inter, system-ui, sans-serif; font-size: 11px; color: #64748b;
+           margin-bottom: 26px; }}
+  .sp-label {{ font-family: Inter, system-ui, sans-serif; font-size: 10px; font-weight: 700;
+               text-transform: uppercase; letter-spacing: 1.4px; color: #2563eb; margin: 22px 0 6px; }}
+  .spørgsmål {{ font-size: 15.5px; font-weight: 700; line-height: 1.5; margin: 0 0 4px; }}
+  .svar {{ font-size: 13.5px; line-height: 1.75; }}
+  .svar h2 {{ font-family: Inter, system-ui, sans-serif; font-size: 13px; margin: 1.5em 0 .5em;
+              border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }}
+  .svar h3 {{ font-family: Inter, system-ui, sans-serif; font-size: 12px; margin: 1.2em 0 .4em; }}
+  .svar p {{ margin: 0 0 .8em; }}
+  .svar ul, .svar ol {{ margin: .4em 0 .9em 1.4em; padding: 0; }}
+  .svar li {{ margin-bottom: .25em; }}
+  .svar hr {{ border: none; border-top: 1px solid #e2e8f0; margin: 1.2em 0; }}
+  .ref {{ font-family: Inter, system-ui, sans-serif; font-size: 11px; font-weight: 600;
+          color: #2563eb; white-space: nowrap; }}
+  .kilder-h {{ font-family: Inter, system-ui, sans-serif; font-size: 10px; font-weight: 700;
+               text-transform: uppercase; letter-spacing: 1.4px; color: #64748b;
+               border-top: 1.5px solid #1a2332; padding-top: 12px; margin-top: 34px; }}
+  table {{ width: 100%; border-collapse: collapse; margin-top: 8px; }}
+  td {{ vertical-align: top; padding: 7px 0; border-bottom: 1px solid #eef1f6; }}
+  .knum {{ font-family: Inter, system-ui, sans-serif; font-weight: 700; font-size: 11px;
+           color: #2563eb; width: 26px; }}
+  .ktitel {{ font-size: 12px; font-weight: 700; line-height: 1.45; }}
+  .kmeta {{ font-family: Inter, system-ui, sans-serif; font-size: 10.5px; color: #64748b; margin-top: 2px; }}
+  .klink {{ font-family: Inter, system-ui, sans-serif; font-size: 9.5px; color: #94a3b8;
+            word-break: break-all; margin-top: 2px; }}
+  .foot {{ font-family: Inter, system-ui, sans-serif; font-size: 9.5px; color: #94a3b8;
+           margin-top: 30px; border-top: 1px solid #eef1f6; padding-top: 10px; line-height: 1.6; }}
+  .printhint {{ font-family: Inter, system-ui, sans-serif; background: #eff6ff; border: 1px solid #bfdbfe;
+                color: #1d4ed8; font-size: 12px; border-radius: 8px; padding: 10px 14px; margin-bottom: 22px; }}
+  @media print {{ .printhint {{ display: none; }} .sheet {{ padding: 0; max-width: none; }} }}
+</style></head><body><div class="sheet">
+  <div class="printhint">💡 Gem som PDF: tryk <b>Ctrl+P</b> (Mac: ⌘P) og vælg "Gem som PDF". Denne boks kommer ikke med i udskriften.</div>
+  <div class="head"><div class="brand">EJNAR<span>.</span></div><div class="doctype">Praksisnotat</div></div>
+  <div class="meta">Genereret {dato} · Ankenævnet for Forsikring — ejerskifteforsikring · {len(kilder)} kilder</div>
+  <div class="sp-label">Spørgsmål</div>
+  <div class="spørgsmål">{_html.escape(spørgsmål or "")}</div>
+  <div class="sp-label">Vurdering på baggrund af praksis</div>
+  <div class="svar">{svar_html}</div>
+  <div class="kilder-h">Kilder ({len(kilder)})</div>
+  <table>{kilde_rows}</table>
+  <div class="foot">Notatet er genereret med AI på baggrund af de anførte kendelser og er ikke juridisk rådgivning.
+  Citater bør efterprøves mod originalkendelserne før brug.</div>
+</div></body></html>"""
+
+
 # ── Citat-udtræk + lækker læservisning med indholdsfortegnelse ─────────────────
 def _flex_pattern(quote: str):
     """Byg et fleksibelt regex-mønster af et citat: matcher på tværs af
