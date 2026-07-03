@@ -24,13 +24,13 @@ from shared import (
     valider_citationer, dansk_tokenizer, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
     auto_filter_query, apply_auto_filters,
-    md_til_html, byg_lækker_afgørelse, citater_for_kilde, byg_notat_html,
+    md_til_html, byg_lækker_afgørelse, citater_for_kilde, byg_notat_html, hent_nøgle,
     init_sagsmapper, opret_mappe, slet_mappe, omdøb_mappe,
     gem_afgørelse, fjern_afgørelse, opdater_note, find_mappe_for_link,
 )
 
 
-ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
+ANTHROPIC_API_KEY = hent_nøgle("ANTHROPIC_API_KEY")
 
 
 # ── Mangeltype-detektion (samme liste som scrape_ejnar.py) ───────────────────
@@ -284,21 +284,21 @@ def tfidf_søg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander=False):
     return res.reset_index(drop=True)
 
 
-def _saml_kilder(historik, nye_hits, max_total=12):
-    seen, merged = set(), []
-    for rec in (nye_hits.to_dict("records") if hasattr(nye_hits, "to_dict") else nye_hits):
-        lnk = rec.get("Link", "")
-        if lnk and lnk not in seen:
-            seen.add(lnk)
-            merged.append(rec)
+def _hist_kilder(historik, seen, max_n=10):
+    """Kilder fra tidligere svar (nyeste først, dedup på Link). De føjes til
+    kandidat-puljen FØR rerank, så rerankeren vurderer dem mod det NYE spørgsmål —
+    tidligere blev de appendet efter reranken og forurenede opfølgningssvar."""
+    out = []
     for msg in reversed(historik or []):
         if msg.get("rolle") == "assistent":
             for k in msg.get("kilder", []) or []:
                 lnk = k.get("Link", "")
-                if lnk and lnk not in seen and len(merged) < max_total:
+                if lnk and lnk not in seen:
                     seen.add(lnk)
-                    merged.append(k)
-    return merged[:max_total]
+                    out.append(k)
+                    if len(out) >= max_n:
+                        return out
+    return out
 
 
 def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
@@ -347,18 +347,24 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
 
     hits = _do(eff_sub)
     kand = hits.to_dict("records") if len(hits) > 0 else []
+    seen = {r.get("Link", "") for r in kand}
+    kand = kand + _hist_kilder(historik, seen)
     rerankede = llm_rerank(standalone, kand, top_n=top_final)
     if len(rerankede) < 3 and prefiltered:
         hits = _do(ai_sub_idx)
         kand = hits.to_dict("records") if len(hits) > 0 else []
+        seen = {r.get("Link", "") for r in kand}
+        kand = kand + _hist_kilder(historik, seen)
         rerankede = llm_rerank(standalone, kand, top_n=top_final)
-
-    alle = _saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
-    return standalone, alle
+    return standalone, rerankede
 
 
 def _byg_prompt(spørgsmål, docs, historik=None):
-    kontekst = byg_fokuseret_kontekst(spørgsmål, docs, max_chunks_per_doc=3)
+    # Større kontekst-budget (60k tegn ≈ 17k tokens) + semantisk chunk-udvælgelse
+    # via chunk-indekset — modellen så tidligere kun ~24k tegn valgt med ord-overlap.
+    kontekst = byg_fokuseret_kontekst(
+        spørgsmål, docs, max_chunks_per_doc=5, max_total_chars=60_000,
+        embeds=globals().get("embeds"), link_til_idx=globals().get("_LINK_TIL_IDX"))
     historik_tekst = ""
     if historik:
         for msg in historik[:-1]:
@@ -406,13 +412,14 @@ def _byg_prompt(spørgsmål, docs, historik=None):
 def claude_svar(spørgsmål, docs, historik=None):
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    return _llm(_byg_prompt(spørgsmål, docs, historik))
+    return _llm(_byg_prompt(spørgsmål, docs, historik), max_tokens=3000)
 
 
 def claude_svar_stream(spørgsmål, docs, historik=None, placeholder=None):
     if not ANTHROPIC_API_KEY:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
-    return _llm_stream(_byg_prompt(spørgsmål, docs, historik), placeholder=placeholder)
+    return _llm_stream(_byg_prompt(spørgsmål, docs, historik), max_tokens=3000,
+                       placeholder=placeholder)
 
 
 def claude_resumé(titel, tekst):
@@ -712,6 +719,9 @@ if embeds is None and embeddings_tilgængelige():
     build_embeddings.clear()
     embeds = build_embeddings(len(df))
 
+# Link → df-rækkeindeks (bruges af semantisk chunk-udvælgelse i _byg_prompt)
+_LINK_TIL_IDX = ({str(l): i for i, l in enumerate(df["Link"])} if not df.empty else {})
+
 
 # ── Permalinks (?sag=…) ───────────────────────────────────────────────────────
 def _kendelse_id(row) -> str:
@@ -760,7 +770,7 @@ _filter_options = {
     "Selskab":    _alle_selskaber,
 }
 
-_voyage_key_sat = bool(st.secrets.get("VOYAGE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", ""))
+_voyage_key_sat = bool(hent_nøgle("VOYAGE_API_KEY") or hent_nøgle("OPENAI_API_KEY"))
 _embeds_ok = embeds is not None
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -1271,6 +1281,11 @@ with tab_ai:
     antal_tekst = f"{n_ai:,}" if filtreret else f"{len(df):,}"
     filtreret_label = " (filtreret)" if filtreret else ""
     søge_mode = "Hybrid (TF-IDF + semantisk)" if embeds is not None else "TF-IDF"
+    if isinstance(embeds, dict) and embeds.get("dækning"):
+        _dk, _dn = embeds["dækning"]
+        if _dk < _dn:
+            søge_mode += (f" · semantisk indeks dækker {_dk:,} af {_dn:,} kendelser "
+                          f"(kør build_embeddings.py for fuld dækning)")
 
     st.markdown(f"""
 <div class="ai-hero">

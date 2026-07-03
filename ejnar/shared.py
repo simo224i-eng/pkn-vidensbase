@@ -8,6 +8,19 @@ import pandas as pd
 import requests
 import streamlit as st
 
+def hent_nøgle(navn: str) -> str:
+    """API-nøgle/token: miljøvariabel først (headless scripts som eval/klassifikation),
+    derefter st.secrets (Streamlit-appen). Tåler at køre uden secrets-fil."""
+    import os as _os
+    val = _os.environ.get(navn, "")
+    if val:
+        return val
+    try:
+        return st.secrets.get(navn, "") or ""
+    except Exception:
+        return ""
+
+
 # ── Styling ───────────────────────────────────────────────────────────────────
 # Design tokens (Ejnar — samme look-and-feel som Harald):
 #   Background:  #ffffff (main)  #f8fafc (panel)
@@ -719,7 +732,7 @@ import json as _json
 
 
 def _api_headers(use_cache: bool = False) -> dict:
-    key = st.secrets.get("ANTHROPIC_API_KEY", "")
+    key = hent_nøgle("ANTHROPIC_API_KEY")
     if not key:
         return {}
     headers = {
@@ -747,7 +760,7 @@ def _llm(prompt, max_tokens: int = 2000, model: str = "claude-sonnet-4-6") -> st
     """Send en prompt til Claude (blokerende, med retry).
     prompt kan være en str eller en liste af content-blokke (til prompt caching).
     """
-    key = st.secrets.get("ANTHROPIC_API_KEY", "")
+    key = hent_nøgle("ANTHROPIC_API_KEY")
     if not key:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
 
@@ -789,7 +802,7 @@ def _llm_stream(prompt, max_tokens: int = 2000, placeholder=None):
     if placeholder is None:
         return _llm(prompt, max_tokens)
 
-    key = st.secrets.get("ANTHROPIC_API_KEY", "")
+    key = hent_nøgle("ANTHROPIC_API_KEY")
     if not key:
         return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
 
@@ -1518,63 +1531,127 @@ def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int
     return chunks
 
 
-def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
-                            chunk_size: int = 400, max_total_chars: int = 24000) -> str:
-    """Chunk-level kontekst-udvælgelse: i stedet for at sende hele kerneafsnit til LLM'en,
-    chunker vi hvert dokument og scorer chunks mod query med simpel TF-IDF.
-    Returnerer formateret kontekst-streng med [Kilde N] headers bevaret.
+_QV_MEMO: dict = {}
 
-    Dette giver LLM'en mere fokuseret, relevant kontekst og reducerer støj.
-    Falder tilbage til udtræk_kerneafsnit ved fejl."""
+
+def _embed_query_memo(query: str):
+    """Embed query til chunk-udvælgelse — memoiseret så retrieval og
+    kontekst-bygning i samme tur ikke koster to API-kald."""
+    if query in _QV_MEMO:
+        return _QV_MEMO[query]
+    try:
+        qv = _embed_query(query)
+    except Exception:
+        qv = None
+    if qv is not None:
+        if len(_QV_MEMO) > 8:
+            _QV_MEMO.clear()
+        _QV_MEMO[query] = qv
+    return qv
+
+
+# Geometri fra build_embeddings.py: CHUNK_SIZE=1000 tokens ≈ 770 ord,
+# CHUNK_OVERLAP=150 tokens ≈ 115 ord → stride 655 ord pr. chunk.
+_BUILD_CHUNK_ORD = 770
+_BUILD_STRIDE = 655
+
+
+def _chunk_span_tekst(tekst: str, ordinal: int) -> str:
+    """Rekonstruér (tilnærmet) teksten for chunk nr. `ordinal` med build-geometrien.
+    Build og app renser HTML let forskelligt, så spans kan være forskudt få ord —
+    acceptabelt til LLM-kontekst, hvor vi blot skal ramme det rigtige afsnit."""
+    ord_liste = (tekst or "").split()
+    if len(ord_liste) <= _BUILD_CHUNK_ORD:
+        return tekst or ""
+    start = ordinal * _BUILD_STRIDE
+    if start >= len(ord_liste):
+        start = max(0, len(ord_liste) - _BUILD_CHUNK_ORD)
+    return " ".join(ord_liste[start:start + _BUILD_CHUNK_ORD])
+
+
+def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
+                            chunk_size: int = 400, max_total_chars: int = 24000,
+                            embeds=None, link_til_idx=None) -> str:
+    """Chunk-level kontekst-udvælgelse til LLM-svaret.
+
+    Foretrukket: SEMANTISK udvælgelse — scorer dokumentets chunk-vektorer fra
+    embedding-indekset mod query-vektoren, så pointer der ikke deler ord med
+    spørgsmålet også kommer med i konteksten. Kræver embeds (chunk-dict),
+    link_til_idx (Link→df-række) og en Voyage-nøgle.
+
+    Fallback (pr. dokument og globalt): mini-TF-IDF over on-the-fly chunks som
+    hidtil. Returnerer formateret kontekst med [Kilde N]-headers bevaret."""
     if not docs:
         return ""
-    try:
-        from sklearn.feature_extraction.text import TfidfVectorizer
-        from sklearn.metrics.pairwise import cosine_similarity as _cos
-    except ImportError:
-        # Fallback: brug kerneafsnit som hidtil
-        return "\n\n".join(
-            f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n"
-            f"{udtræk_kerneafsnit(d.get('Tekst') or '', max_tegn=4000)}"
-            for i, d in enumerate(docs)
-        )
 
-    # 1. Chunk hvert dokument og hold styr på kilde-nummer
-    all_chunks = []     # (kilde_idx, chunk_text)
-    for i, d in enumerate(docs):
-        kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=6000)
-        chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=80)
-        if not chunks:
-            chunks = [kerne[:3000]] if kerne else [d.get("Titel", "")]
-        for c in chunks:
-            all_chunks.append((i, c))
+    # ── Semantisk udvælgelse hvor muligt ─────────────────────────────────────
+    sem_content: dict = {}
+    if isinstance(embeds, dict) and "chunk_to_doc" in embeds and link_til_idx:
+        qv = _embed_query_memo(query)
+        if qv is not None:
+            vectors = embeds["vectors"]
+            ctd = embeds["chunk_to_doc"]
+            for i, d in enumerate(docs):
+                gidx = link_til_idx.get(str(d.get("Link", "")))
+                if gidx is None:
+                    continue
+                vec_idx = np.where(ctd == gidx)[0]
+                if vec_idx.size == 0:
+                    continue
+                scores = vectors[vec_idx] @ qv
+                orden = np.argsort(-scores)[:max_chunks_per_doc]
+                # ordinal = chunkens plads i dokumentet (vec_idx er i build-rækkefølge)
+                ordinaler = sorted(int(o) for o in orden)
+                tekst = d.get("Tekst") or ""
+                spans = [_chunk_span_tekst(tekst, o) for o in ordinaler]
+                spans = [s for s in spans if s.strip()]
+                if spans:
+                    sem_content[i] = "\n[…]\n".join(dict.fromkeys(spans))
 
-    if not all_chunks:
-        return ""
+    # ── TF-IDF-fallback for resten ───────────────────────────────────────────
+    mangler = [i for i in range(len(docs)) if i not in sem_content]
+    tfidf_content: dict = {}
+    if mangler:
+        try:
+            from sklearn.feature_extraction.text import TfidfVectorizer
+            from sklearn.metrics.pairwise import cosine_similarity as _cos
+            all_chunks = []     # (kilde_idx, chunk_text)
+            for i in mangler:
+                d = docs[i]
+                kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=6000)
+                chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=80)
+                if not chunks:
+                    chunks = [kerne[:3000]] if kerne else [d.get("Titel", "")]
+                for c in chunks:
+                    all_chunks.append((i, c))
+            if all_chunks:
+                chunk_texts = [c for _, c in all_chunks]
+                try:
+                    mini_vec = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2),
+                                               sublinear_tf=True)
+                    chunk_mat = mini_vec.fit_transform(chunk_texts)
+                    qv2 = mini_vec.transform([query])
+                    scores = _cos(qv2, chunk_mat).flatten()
+                except Exception:
+                    scores = np.ones(len(all_chunks))
+                from collections import defaultdict
+                kilde_chunks = defaultdict(list)
+                for idx, (kilde_i, chunk) in enumerate(all_chunks):
+                    kilde_chunks[kilde_i].append((float(scores[idx]), chunk))
+                for i in mangler:
+                    best = sorted(kilde_chunks.get(i, []), key=lambda x: -x[0])[:max_chunks_per_doc]
+                    if best:
+                        tfidf_content[i] = "\n[…]\n".join(c for _, c in best)
+        except ImportError:
+            pass
 
-    # 2. Scorer chunks mod query
-    chunk_texts = [c for _, c in all_chunks]
-    try:
-        mini_vec = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
-        chunk_mat = mini_vec.fit_transform(chunk_texts)
-        qv = mini_vec.transform([query])
-        scores = _cos(qv, chunk_mat).flatten()
-    except Exception:
-        scores = np.ones(len(all_chunks))
-
-    # 3. Vælg bedste chunks per kilde (bevar kilde-rækkefølge)
-    from collections import defaultdict
-    kilde_chunks = defaultdict(list)
-    for idx, (kilde_i, chunk) in enumerate(all_chunks):
-        kilde_chunks[kilde_i].append((float(scores[idx]), chunk))
-
+    # ── Saml i kilde-rækkefølge med budget ───────────────────────────────────
     dele = []
     total_chars = 0
     for i, d in enumerate(docs):
         header = f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}"
-        best = sorted(kilde_chunks.get(i, []), key=lambda x: -x[0])[:max_chunks_per_doc]
-        best_texts = [c for _, c in best]
-        content = "\n[…]\n".join(best_texts) if best_texts else udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=2000)
+        content = sem_content.get(i) or tfidf_content.get(i) \
+            or udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=2000)
         entry = f"{header}\n{content}"
         if total_chars + len(entry) > max_total_chars:
             # Afkort sidste kilde
@@ -1776,10 +1853,10 @@ def _embedding_provider() -> tuple:
     """Returnerer (provider_navn, api_key, model, dim) baseret på tilgængelige secrets.
     Preferer Voyage 3-large (bedst til dansk + chunk-niveau retrieval),
     falder tilbage til OpenAI."""
-    voyage_key = st.secrets.get("VOYAGE_API_KEY", "")
+    voyage_key = hent_nøgle("VOYAGE_API_KEY")
     if voyage_key:
         return ("voyage", voyage_key, "voyage-3-large", 1024)
-    openai_key = st.secrets.get("OPENAI_API_KEY", "")
+    openai_key = hent_nøgle("OPENAI_API_KEY")
     if openai_key:
         return ("openai", openai_key, "text-embedding-3-small", 1536)
     return (None, None, None, 0)
@@ -1870,7 +1947,7 @@ def _hyde_embed(query: str) -> "np.ndarray | None":
 
 def _delete_embedding_from_github(fname: str) -> bool:
     """Slet en embedding-fil fra GitHub (bruges til at fjerne partial efter komplet build)."""
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = hent_nøgle("GITHUB_TOKEN").strip()
     if not token:
         return False
     repo = "simo224i-eng/pkn-vidensbase"
@@ -1894,7 +1971,7 @@ def _delete_embedding_from_github(fname: str) -> bool:
 def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = False) -> str:
     """Push embedding-fil til GitHub. Returnerer status-streng for debug."""
     import os as _os
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = hent_nøgle("GITHUB_TOKEN").strip()
     if not token:
         return "SKIP: ingen GITHUB_TOKEN"
     if not _os.path.exists(local_path):
@@ -1939,7 +2016,7 @@ def _download_embedding_from_github(fname: str, save_dir: str) -> str | None:
     """Hent embedding-fil fra GitHub repo hvis den eksisterer.
     Returnerer lokal sti til filen, eller None."""
     import os as _os
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = hent_nøgle("GITHUB_TOKEN").strip()
     if not token:
         return None
     repo = "simo224i-eng/pkn-vidensbase"
@@ -1966,12 +2043,33 @@ def _download_embedding_from_github(fname: str, save_dir: str) -> str | None:
         return None
 
 
-def _load_chunked_embeds(cache_key: str, n_docs: int):
-    """Find og indlæs chunk-niveau embeddings (nyt format med chunk_to_doc-mapping).
+def _remap_chunk_docs(vectors, chunk_to_doc, doc_links, link_til_idx):
+    """Remap chunk→doc-indekser fra build'ets egen dokumentliste til appens df-rækker
+    via kendelses-links. Returnerer (vectors, ny_chunk_to_doc, antal_mappede_docs).
 
-    Returnér dict {"vectors": ndarray (N_chunks, D), "chunk_to_doc": ndarray (N_chunks,),
-                   "n_docs": int, "model": str} eller None hvis ikke fundet.
-    Filer matches på mønstret: {cache_key}__voyage__voyage-3-large__{n_docs}d_*c.npz"""
+    Nødvendigt fordi build og app kan deduplikere/ordne forskelligt — links er
+    den eneste stabile nøgle på tværs. Chunks hvis kendelse ikke findes i df
+    (fjernet/omdøbt) droppes."""
+    arr_map = np.array([link_til_idx.get(l, -1) for l in doc_links], dtype=np.int64)
+    ny_ctd = arr_map[chunk_to_doc]
+    keep = ny_ctd >= 0
+    n_mapped = int((arr_map >= 0).sum())
+    if keep.all():
+        return vectors, ny_ctd.astype(np.int32), n_mapped
+    return vectors[keep], ny_ctd[keep].astype(np.int32), n_mapped
+
+
+def _load_chunked_embeds(cache_key: str, n_docs: int, df=None):
+    """Find og indlæs chunk-niveau embeddings (chunk_to_doc-mapping).
+
+    Robust link-baseret indlæsning: hvis .npz'en (eller en `…__links.npz`-sidecar)
+    indeholder `doc_links`, remappes chunk→doc via kendelses-links til den AKTUELLE
+    df — så indekset virker selv når datasættet er vokset eller build/app
+    deduplikerer forskelligt. (Tidligere krævedes eksakt n_docs-match i filnavnet,
+    hvilket forkastede hele indekset når CSV'en fik nye rækker — og build'ets
+    titel-dedup matchede aldrig appens link-dedup.)
+
+    Returnér dict {"vectors", "chunk_to_doc", "n_docs", "model", "dækning"} eller None."""
     import os as _os, glob as _glob
     provider, _key, model, dim = _embedding_provider()
     if not provider:
@@ -1979,6 +2077,47 @@ def _load_chunked_embeds(cache_key: str, n_docs: int):
     _app_root = _os.path.dirname(_os.path.abspath(__file__))
     _git_dir = _os.path.join(_app_root, "embeds")
     _tmp_dir = "/tmp/ejnar_data/embeds"
+
+    # Link-baseret sti (foretrukket): alle chunk-builds uanset doc-antal i navnet
+    if df is not None and len(df) > 0 and "Link" in df.columns:
+        link_til_idx = {str(l): i for i, l in enumerate(df["Link"])}
+        alle = []
+        for d in (_git_dir, _tmp_dir):
+            alle.extend(p for p in _glob.glob(_os.path.join(d, f"{cache_key}__{provider}__{model}__*d_*c.npz"))
+                        if "__links" not in _os.path.basename(p))
+        for path in sorted(alle):
+            try:
+                data = np.load(path, allow_pickle=True)
+                if "embeddings" not in data.files or "chunk_to_doc" not in data.files:
+                    continue
+                if "doc_links" in data.files:
+                    doc_links = [str(x) for x in data["doc_links"]]
+                else:
+                    sidecar = path[:-4] + "__links.npz"
+                    if not _os.path.exists(sidecar):
+                        continue
+                    doc_links = [str(x) for x in np.load(sidecar, allow_pickle=True)["doc_links"]]
+                vectors = data["embeddings"]
+                if vectors.dtype == np.float16:
+                    vectors = vectors.astype(np.float32)
+                ctd = data["chunk_to_doc"].astype(np.int64)
+                if len(doc_links) <= int(ctd.max()):
+                    continue
+                vectors, ny_ctd, n_mapped = _remap_chunk_docs(vectors, ctd, doc_links, link_til_idx)
+                # Kræv at mindst halvdelen af df er dækket — ellers er indekset for gammelt
+                if n_mapped < max(1, len(df) // 2):
+                    continue
+                return {
+                    "vectors": vectors,
+                    "chunk_to_doc": ny_ctd,
+                    "n_docs": len(df),
+                    "model": model,
+                    "dækning": (n_mapped, len(df)),
+                }
+            except Exception:
+                continue
+
+    # Legacy-sti: eksakt n_docs-match uden links
     pattern = f"{cache_key}__{provider}__{model}__{n_docs}d_*c.npz"
 
     candidates = []
@@ -1990,7 +2129,7 @@ def _load_chunked_embeds(cache_key: str, n_docs: int):
         try:
             # GitHub: liste ejnar/embeds/ og find matching navn
             import requests as _req
-            token = st.secrets.get("GITHUB_TOKEN", "").strip()
+            token = hent_nøgle("GITHUB_TOKEN").strip()
             if token:
                 repo = "simo224i-eng/pkn-vidensbase"
                 url = f"https://api.github.com/repos/{repo}/contents/ejnar/embeds"
@@ -2043,8 +2182,8 @@ def byg_embeddings_indeks(df, cache_key: str, tekst_bygger=None, batch_size: int
       - ndarray for doc-niveau (gammelt format),
       - None hvis intet kunne loades/bygges.
     embedding_soeg() håndterer begge typer."""
-    # 1. Forsøg at indlæse chunk-niveau (nyt format)
-    chunked = _load_chunked_embeds(cache_key, len(df) if df is not None else 0)
+    # 1. Forsøg at indlæse chunk-niveau (nyt format) — link-remappet til df
+    chunked = _load_chunked_embeds(cache_key, len(df) if df is not None else 0, df=df)
     if chunked is not None:
         return chunked
     # 2. Fald tilbage til gammelt doc-niveau format (eller byg fra API)
@@ -2230,7 +2369,7 @@ def sync_embeddings_to_github():
     """Push alle lokale embedding-filer til GitHub.
     Returnerer liste af (filnavn, status) for debug-visning."""
     import os as _os, glob as _g
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = hent_nøgle("GITHUB_TOKEN").strip()
     if not token:
         return [("—", "Ingen GITHUB_TOKEN konfigureret")]
     _tmp_dir = "/tmp/ejnar_data/embeds"
@@ -2414,7 +2553,7 @@ def omformuler_opfoelgning(spoergsmaal: str, historik: list) -> str:
 def _voyage_rerank(query: str, documents: list, top_n: int = 8) -> "list | None":
     """Voyage Rerank 2: dedikeret neural reranker. Returnerer liste af (orig_index, score)
     eller None ved fejl / manglende nøgle. Bruger samme VOYAGE_API_KEY som embeddings."""
-    key = st.secrets.get("VOYAGE_API_KEY", "")
+    key = hent_nøgle("VOYAGE_API_KEY")
     if not key or not documents:
         return None
     try:
