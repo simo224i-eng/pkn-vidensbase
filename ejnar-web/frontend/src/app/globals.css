@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #ffffff;
+  --surface: #f8fafc;
+  --ink: #0f172a;
+  --ink-2: #334155;
+  --ink-3: #64748b;
+  --line: #e2e8f0;
+  --line-soft: #eef1f6;
+  --accent: #2563eb;
+  --accent-700: #1d4ed8;
+  --accent-50: #eff6ff;
+  --ok: #15803d;
+  --ok-bg: #f0fdf4;
+  --warn: #a16207;
+  --warn-bg: #fffbeb;
+  --bad: #b91c1c;
+  --bad-bg: #fef2f2;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+:root[data-theme="dark"] {
+  --paper: #0b1220;
+  --surface: #111a2c;
+  --ink: #f1f5f9;
+  --ink-2: #cbd5e1;
+  --ink-3: #94a3b8;
+  --line: #1e293b;
+  --line-soft: #172032;
+  --accent: #3b82f6;
+  --accent-700: #60a5fa;
+  --accent-50: #12233f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0b1220;
+    --surface: #111a2c;
+    --ink: #f1f5f9;
+    --ink-2: #cbd5e1;
+    --ink-3: #94a3b8;
+    --line: #1e293b;
+    --line-soft: #172032;
+    --accent: #3b82f6;
+    --accent-700: #60a5fa;
+    --accent-50: #12233f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 20px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-accent: var(--accent);
+  --color-accent-700: var(--accent-700);
+  --color-accent-50: var(--accent-50);
+  --color-ok: var(--ok);
+  --color-ok-bg: var(--ok-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-bad: var(--bad);
+  --color-bad-bg: var(--bad-bg);
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 0.875rem;
+  box-shadow: var(--shadow);
+}
+
+.mark-cite {
+  background: #fef08a;
+  color: #1e293b;
+  padding: 0 2px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #fde68a;
+}
+
+.prose-svar h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 1.4em 0 0.5em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.prose-svar h3 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 1.1em 0 0.4em;
+  color: var(--ink-2);
+}
+.prose-svar p {
+  margin: 0 0 0.7em;
+  line-height: 1.7;
+}
+.prose-svar ul,
+.prose-svar ol {
+  margin: 0.3em 0 0.7em 1.3em;
+}
+.prose-svar li {
+  margin-bottom: 0.2em;
+}
+.prose-svar hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 1em 0;
+}
+.prose-svar strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.prose-svar code {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.85em;
+}
+
+.rd-h2 {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.6em 0 0.6em;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+}
+.rd-h3 {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.3em 0 0.4em;
+  padding: 5px 10px;
+  background: var(--surface);
+  border-left: 2px solid var(--line);
+  border-radius: 0 4px 4px 0;
+}
+.rd-h4 {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 1em 0 0.3em;
+  padding-left: 8px;
+  border-left: 2px dotted var(--line);
+}
