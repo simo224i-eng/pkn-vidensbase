@@ -35,6 +35,11 @@ class Store:
     mangeltyper: list = field(default_factory=list)
     selskaber: list = field(default_factory=list)
     udfald: list = field(default_factory=list)
+    # Link → række-position i df. Bruges til at re-hydrere kilder der har været
+    # en tur i browseren (chat-historik, notat-eksport): frontenden ser den
+    # slanke Kendelse-form (uden Tekst), men den porterede RAG/notat-logik skal
+    # bruge den fulde række med Tekst — vi slår den op igen på Link.
+    link_index: dict = field(default_factory=dict)
 
 
 def _find_csv(data_dir: str) -> str:
@@ -124,8 +129,12 @@ def _build() -> Store:
     selskaber = sorted({s for s in df["Selskab"] if s})
     udfald = ["Medhold", "Delvis medhold", "Ikke medhold", "Afvist", "Ukendt"]
 
+    # df er reset_index(drop=True), så positionen == label-index. Sidste vinder
+    # ved dublet-links (skulle ikke ske efter Link-dedup i _load_rows).
+    link_index = {lnk: i for i, lnk in enumerate(df["Link"]) if lnk}
+
     return Store(df=df, vec=vec, mat=mat, mangeltyper=mangeltyper,
-                 selskaber=selskaber, udfald=udfald)
+                 selskaber=selskaber, udfald=udfald, link_index=link_index)
 
 
 def get_store() -> Store:

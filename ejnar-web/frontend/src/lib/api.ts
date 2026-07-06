@@ -106,13 +106,21 @@ export async function askStream(
   onEvent: (ev: AskEvent) => void,
   signal?: AbortSignal,
 ): Promise<void> {
-  const r = await fetch("/api/ask", {
-    method: "POST",
-    credentials: "same-origin",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ spørgsmål, historik, filtre: filters }),
-    signal,
-  });
+  let r: Response;
+  try {
+    r = await fetch("/api/ask", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ spørgsmål, historik, filtre: filters }),
+      signal,
+    });
+  } catch (e) {
+    // Brugeren afbrød (Ryd chat) inden svaret kom — ikke en fejl at vise.
+    if (e instanceof DOMException && e.name === "AbortError") return;
+    onEvent({ type: "error", message: "Netværksfejl — kunne ikke nå serveren." });
+    return;
+  }
   if (!r.ok || !r.body) {
     onEvent({ type: "error", message: `Serverfejl (${r.status})` });
     return;
@@ -121,20 +129,26 @@ export async function askStream(
   const reader = r.body.getReader();
   const decoder = new TextDecoder();
   let buf = "";
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    buf += decoder.decode(value, { stream: true });
-    const parts = buf.split("\n\n");
-    buf = parts.pop() ?? "";
-    for (const part of parts) {
-      const line = part.split("\n").find((l) => l.startsWith("data: "));
-      if (!line) continue;
-      try {
-        onEvent(JSON.parse(line.slice(6)) as AskEvent);
-      } catch {
-        /* ufuldstændigt/ugyldigt event — spring over */
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const parts = buf.split("\n\n");
+      buf = parts.pop() ?? "";
+      for (const part of parts) {
+        const line = part.split("\n").find((l) => l.startsWith("data: "));
+        if (!line) continue;
+        try {
+          onEvent(JSON.parse(line.slice(6)) as AskEvent);
+        } catch {
+          /* ufuldstændigt/ugyldigt event — spring over */
+        }
       }
     }
+  } catch (e) {
+    // Afbrudt midt i streamen (Ryd chat / navigation) — stop stille.
+    if (e instanceof DOMException && e.name === "AbortError") return;
+    onEvent({ type: "error", message: "Forbindelsen blev afbrudt undervejs." });
   }
 }

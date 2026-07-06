@@ -82,10 +82,33 @@ def _apply_filters(df: pd.DataFrame, mangeltype: list[str] | None, selskab: list
 
 
 def find_kendelse(df: pd.DataFrame, kid: str) -> Optional[pd.Series]:
+    kid = (kid or "").strip()
+    if not kid:
+        # Tom id må ALDRIG matche: Link.endswith("") er sandt for alle rækker og
+        # ville ellers returnere en tilfældig (første) kendelse.
+        return None
     hit = df[df["Sagsnummer"].astype(str).str.strip() == kid]
     if hit.empty:
         hit = df[df["Link"].astype(str).str.rstrip("/").str.endswith(kid)]
     return hit.iloc[0] if not hit.empty else None
+
+
+def _rehydrate_kilder(store, kilder_in: list | None) -> list:
+    """Slå kilder op igen i datalageret på deres Link og returnér de fulde
+    DataFrame-rækker (med Tekst, kapitaliserede nøgler) — samme form som
+    ejnar/shared.py-porten forventer.
+
+    Kilder der har været i browseren (chat-historik, notat-eksport) ankommer i
+    den slanke Kendelse-form (små nøgler, ingen Tekst). Den porterede RAG/notat/
+    citat-logik læser 'Titel'/'Dato'/'Tekst' osv., så vi genskaber den fulde
+    række her i stedet for at stole på det browseren sendte tilbage. Ukendte
+    links (fx efter en data-opdatering) beholdes as-is (best effort)."""
+    out = []
+    for k in kilder_in or []:
+        lnk = k.get("link") or k.get("Link") or ""
+        pos = store.link_index.get(lnk)
+        out.append(store.df.iloc[pos].to_dict() if pos is not None else k)
+    return out
 
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
@@ -97,13 +120,15 @@ def login(body: LoginRequest, response: Response):
         raise HTTPException(401, "Forkert adgangskode.")
     token = issue_token()
     response.set_cookie(COOKIE_NAME, token, httponly=True, samesite="lax",
-                        max_age=60 * 60 * 24 * 14)
+                        secure=settings.cookie_secure, max_age=60 * 60 * 24 * 14)
     return {"ok": True}
 
 
 @app.post("/api/logout")
 def logout(response: Response):
-    response.delete_cookie(COOKIE_NAME)
+    # Samme attributter som ved set_cookie, ellers rydder browseren den ikke.
+    response.delete_cookie(COOKIE_NAME, httponly=True, samesite="lax",
+                           secure=settings.cookie_secure)
     return {"ok": True}
 
 
@@ -245,6 +270,11 @@ def ask(body: AskRequest):
     )
     sub_idx = df_filter.index.tolist()
     historik = [m.model_dump() for m in body.historik]
+    # Re-hydrér kilder fra tidligere svar (de kom fra browseren i slank form) så
+    # smart_retrieval/_hist_kilder ser fulde rækker med Tekst og 'Link'-nøgle.
+    for msg in historik:
+        if msg.get("kilder"):
+            msg["kilder"] = _rehydrate_kilder(store, msg["kilder"])
     filter_options = {"Mangeltype": store.mangeltyper}
 
     def gen():
@@ -255,7 +285,12 @@ def ask(body: AskRequest):
             yield _sse({"type": "error", "message": f"Søgning fejlede: {e}"})
             return
 
-        yield _sse({"type": "kilder", "kilder": kilder, "auto_filter": af_info})
+        # Kilder ud til browseren mappes til den slanke Kendelse-form (små nøgler,
+        # uden Tekst) som frontendens typer/komponenter forventer. Den fulde
+        # 'kilder' (kapitaliserede nøgler, med Tekst) beholdes internt til
+        # byg_prompt() og valider_citationer() nedenfor.
+        kilder_ud = [row_to_kendelse(k) for k in kilder]
+        yield _sse({"type": "kilder", "kilder": kilder_ud, "auto_filter": af_info})
 
         if not kilder:
             msg = "Jeg fandt ingen kendelser der matcher spørgsmålet inden for de valgte filtre."
@@ -304,7 +339,10 @@ def kilde_citat(body: dict):
 # ── Notat-eksport ─────────────────────────────────────────────────────────────
 @app.post("/api/notat", dependencies=[Depends(require_auth)])
 def notat(body: NotatRequest):
-    html = byg_notat_html(body.spørgsmål, body.svar, body.kilder)
+    # body.kilder kommer fra browseren i slank form; byg_notat_html (porteret)
+    # læser kapitaliserede nøgler ('Titel','Dato','Sagsnummer'...) → re-hydrér.
+    kilder = _rehydrate_kilder(get_store(), body.kilder)
+    html = byg_notat_html(body.spørgsmål, body.svar, kilder)
     return Response(content=html, media_type="text/html", headers={
         "Content-Disposition": 'attachment; filename="ejnar-notat.html"',
     })

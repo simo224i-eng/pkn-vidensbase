@@ -39,6 +39,10 @@ class Settings:
     # når I er klar til at betale for embeddings.
     enable_semantic: bool = os.environ.get("ENABLE_SEMANTIC", "0") == "1"
     session_secret: str = os.environ.get("SESSION_SECRET", "") or "dev-only-insecure-secret"
+    # Sæt COOKIE_SECURE=1 i produktion (HTTPS) så session-cookien kun sendes over
+    # https. Slået FRA som udgangspunkt, ellers virker login ikke på http://localhost
+    # i lokal udvikling.
+    cookie_secure: bool = os.environ.get("COOKIE_SECURE", "0") == "1"
     cors_origins: list[str] = [
         o.strip() for o in os.environ.get("CORS_ORIGINS", "http://localhost:3000").split(",")
         if o.strip()
