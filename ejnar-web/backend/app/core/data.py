@@ -40,6 +40,9 @@ class Store:
     # slanke Kendelse-form (uden Tekst), men den porterede RAG/notat-logik skal
     # bruge den fulde række med Tekst — vi slår den op igen på Link.
     link_index: dict = field(default_factory=dict)
+    # Chunk-embeddings (dict fra semantic.load_chunk_embeds) — kun indlæst når
+    # ENABLE_SEMANTIC=1 og .npz-filerne findes; ellers None (keyword-only).
+    embeds: "dict | None" = None
 
 
 def _find_csv(data_dir: str) -> str:
@@ -137,8 +140,21 @@ def _build() -> Store:
     # ved dublet-links (skulle ikke ske efter Link-dedup i _load_rows).
     link_index = {lnk: i for i, lnk in enumerate(df["Link"]) if lnk}
 
+    embeds = None
+    if settings.enable_semantic:
+        from .semantic import load_chunk_embeds
+        embeds = load_chunk_embeds(df, settings.data_dir)
+        if embeds:
+            n_mapped, n_total = embeds["dækning"]
+            print(f"[ejnar] Semantisk indeks indlæst: {len(embeds['chunk_to_doc'])} chunks, "
+                  f"dækning {n_mapped}/{n_total} kendelser.")
+        else:
+            print("[ejnar] ENABLE_SEMANTIC=1, men intet brugbart embeddings-indeks "
+                  f"fundet i {settings.data_dir}/embeds — kører keyword-only.")
+
     return Store(df=df, vec=vec, mat=mat, mangeltyper=mangeltyper,
-                 selskaber=selskaber, udfald=udfald, link_index=link_index)
+                 selskaber=selskaber, udfald=udfald, link_index=link_index,
+                 embeds=embeds)
 
 
 def store_klar() -> bool:

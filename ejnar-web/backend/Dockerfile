@@ -15,6 +15,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ejnar-web/backend/app ./app
 # Kun zip'en — CSV'en pakkes ud til /tmp ved første opstart (app/core/data.py).
 COPY ejnar/ejnar_ejerskifteforsikring.csv.zip /data/
+# Chunk-embeddings (~57 MB) — sovende indtil ENABLE_SEMANTIC=1 + VOYAGE_API_KEY.
+COPY ejnar/embeds /data/embeds
 ENV EJNAR_DATA_DIR=/data
 
 EXPOSE 8000

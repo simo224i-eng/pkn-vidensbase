@@ -326,7 +326,8 @@ def ask(body: AskRequest):
     def gen():
         try:
             standalone, kilder, af_info = smart_retrieval(
-                body.spørgsmål, df, store.vec, store.mat, sub_idx, historik, filter_options)
+                body.spørgsmål, df, store.vec, store.mat, sub_idx, historik,
+                filter_options, embeds=store.embeds)
         except Exception as e:  # retrieval-fejl skal stadig give brugeren besked
             yield _sse({"type": "error", "message": f"Søgning fejlede: {e}"})
             return
@@ -344,7 +345,8 @@ def ask(body: AskRequest):
             yield _sse({"type": "done", "text": msg, "suspekte": []})
             return
 
-        prompt = byg_prompt(body.spørgsmål, kilder, historik)
+        prompt = byg_prompt(body.spørgsmål, kilder, historik,
+                            embeds=store.embeds, link_til_idx=store.link_index)
         full = ""
         try:
             for chunk in stream_claude(prompt, max_tokens=3000):

@@ -185,12 +185,24 @@ def omformuler_opfoelgning(spoergsmaal: str, historik: list) -> str:
 
 
 def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
-    """Rerank kandidater med Haiku-scoring (v1 har ingen Voyage Rerank — se
-    modul-docstring). kandidater = liste af dicts med mindst 'Titel','Dato','Tekst'.
+    """Rerank kandidater: Voyage Rerank 2 (neural) når nøglen findes, ellers
+    Haiku-scoring. kandidater = liste af dicts med mindst 'Titel','Dato','Tekst'.
     Returnerer top_n sorteret bedst-først."""
     if not kandidater or len(kandidater) <= top_n:
         return kandidater[:top_n]
 
+    # 1. Voyage Rerank 2 — kun aktiv med VOYAGE_API_KEY; returnerer None ellers.
+    from .semantic import voyage_rerank
+    docs_for_rerank = []
+    for k in kandidater:
+        titel = (k.get("Titel") or "")[:150]
+        kerne = udtræk_kerneafsnit(k.get("Tekst") or "", max_tegn=800).replace("\n", " ")[:700]
+        docs_for_rerank.append(f"{titel}\n{kerne}")
+    voyage_result = voyage_rerank(query, docs_for_rerank, top_n=top_n)
+    if voyage_result:
+        return [kandidater[idx] for idx, _ in voyage_result]
+
+    # 2. Fallback: Haiku LLM-rerank
     linjer = []
     for i, k in enumerate(kandidater):
         try:
@@ -233,12 +245,20 @@ def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
 
 
 def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 5,
-                           chunk_size: int = 400, max_total_chars: int = 60_000) -> str:
-    """Chunk hvert dokument og vælg de mest relevante afsnit vha. mini-TF-IDF
-    mod query (keyword-baseret — v1 har ingen embedding-vektorer at score
-    chunks med). Returnerer formateret kontekst med [Kilde N]-headers."""
+                           chunk_size: int = 400, max_total_chars: int = 60_000,
+                           embeds=None, link_til_idx=None) -> str:
+    """Chunk hvert dokument og vælg de mest relevante afsnit. Med semantik slået
+    til (embeds + link_til_idx) vælges chunks via embedding-scoring — pointer
+    der ikke deler ord med spørgsmålet kommer så også med. Ellers/for resten:
+    mini-TF-IDF mod query som hidtil. Returnerer kontekst med [Kilde N]-headers."""
     if not docs:
         return ""
+
+    sem_content: dict = {}
+    if embeds is not None and link_til_idx:
+        from .semantic import semantisk_chunk_udvalg
+        sem_content = semantisk_chunk_udvalg(
+            query, docs, embeds, link_til_idx, max_chunks_per_doc=max_chunks_per_doc)
     try:
         from sklearn.feature_extraction.text import TfidfVectorizer
         from sklearn.metrics.pairwise import cosine_similarity as _cos
@@ -249,25 +269,31 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 5,
             for i, d in enumerate(docs)
         )
 
+    # Keyword-udvælgelse for de dokumenter semantikken ikke dækkede
+    mangler = [i for i in range(len(docs)) if i not in sem_content]
     all_chunks: list[tuple[int, str]] = []
-    for i, d in enumerate(docs):
+    for i in mangler:
+        d = docs[i]
         kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=8000)
         chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=80)
         if not chunks:
             chunks = [kerne[:3000]] if kerne else [d.get("Titel", "")]
         for c in chunks:
             all_chunks.append((i, c))
-    if not all_chunks:
+    if not all_chunks and not sem_content:
         return ""
 
-    chunk_texts = [c for _, c in all_chunks]
-    try:
-        mini_vec = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
-        chunk_mat = mini_vec.fit_transform(chunk_texts)
-        qv = mini_vec.transform([query])
-        scores = _cos(qv, chunk_mat).flatten()
-    except Exception:
-        scores = [1.0] * len(all_chunks)
+    if all_chunks:
+        chunk_texts = [c for _, c in all_chunks]
+        try:
+            mini_vec = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
+            chunk_mat = mini_vec.fit_transform(chunk_texts)
+            qv = mini_vec.transform([query])
+            scores = _cos(qv, chunk_mat).flatten()
+        except Exception:
+            scores = [1.0] * len(all_chunks)
+    else:
+        scores = []
 
     from collections import defaultdict
     kilde_chunks: dict[int, list] = defaultdict(list)
@@ -280,8 +306,8 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 5,
         header = f"[Kilde {i+1}] {_datostr(d['Dato'])} – {d['Titel']}"
         best = sorted(kilde_chunks.get(i, []), key=lambda x: -x[0])[:max_chunks_per_doc]
         best_texts = [c for _, c in best]
-        content = "\n[…]\n".join(best_texts) if best_texts \
-            else udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=2000)
+        content = sem_content.get(i) or ("\n[…]\n".join(best_texts) if best_texts
+            else udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=2000))
         entry = f"{header}\n{content}"
         if total_chars + len(entry) > max_total_chars:
             remaining = max_total_chars - total_chars
@@ -312,7 +338,8 @@ SYSTEM_PROMPT = (
 )
 
 
-def byg_prompt(spørgsmål: str, docs: list, historik: list | None = None) -> list:
+def byg_prompt(spørgsmål: str, docs: list, historik: list | None = None,
+               embeds=None, link_til_idx=None) -> list:
     """Byg content-blok-listen der sendes til Claude — struktur og prompt-caching
     som i ejnar/pages/ejnar.py::_byg_prompt.
 
@@ -321,7 +348,8 @@ def byg_prompt(spørgsmål: str, docs: list, historik: list | None = None) -> li
     kun afsluttede ture (spørgsmålet kommer separat), så her bruges HELE
     historikken — et [:-1] ville smide det seneste assistent-svar væk, netop
     dét et opfølgningsspørgsmål typisk refererer til."""
-    kontekst = byg_fokuseret_kontekst(spørgsmål, docs)
+    kontekst = byg_fokuseret_kontekst(spørgsmål, docs, embeds=embeds,
+                                      link_til_idx=link_til_idx)
     historik_tekst = ""
     if historik:
         for msg in historik:
@@ -340,10 +368,14 @@ def byg_prompt(spørgsmål: str, docs: list, historik: list | None = None) -> li
 
 
 def smart_retrieval(spørgsmål: str, df, vec, mat, sub_idx: list | None,
-                    historik: list | None, filter_options: dict | None = None):
-    """Orkestrering: klassificér query → filtrér → TF-IDF-søg → Haiku-rerank.
-    Returnerer (standalone_spørgsmål, kilder). Ingen Voyage/embeds i v1 —
-    se hybrid_retrieval i ejnar/shared.py for hvordan semantik lægges til senere."""
+                    historik: list | None, filter_options: dict | None = None,
+                    embeds=None):
+    """Orkestrering: klassificér query → filtrér → søg → rerank.
+
+    Med embeds (ENABLE_SEMANTIC=1 + indeks indlæst) er søgningen HYBRID:
+    TF-IDF + chunk-embeddings fusioneret med RRF, og reranken opgraderer sig
+    selv til Voyage Rerank 2 når nøglen findes. Uden embeds: ren TF-IDF +
+    Haiku-rerank som hidtil — samme kald, nul ekstra omkostning."""
     from concurrent.futures import ThreadPoolExecutor
 
     with ThreadPoolExecutor(max_workers=3 if filter_options else 2) as pool:
@@ -364,6 +396,11 @@ def smart_retrieval(spørgsmål: str, df, vec, mat, sub_idx: list | None,
     eff_sub, prefiltered = apply_auto_filters(df, sub_idx, auto_filters)
 
     def _do(sub):
+        if embeds is not None:
+            from .semantic import hybrid_retrieval
+            idxs = hybrid_retrieval(standalone, df, vec, mat, embeds, sub_idx=sub,
+                                    top_retrieve=top_retrieve, top_final=top_retrieve)
+            return df.loc[idxs] if idxs else df.iloc[0:0]
         return tfidf_søg(standalone, df, vec, mat, sub_idx=sub, top_n=top_retrieve, ekspander=False)
 
     hits = _do(eff_sub)
