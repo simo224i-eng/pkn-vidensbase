@@ -34,6 +34,19 @@ def test_health(client):
     assert client.get("/api/health").json() == {"ok": True}
 
 
+def test_ready_503_før_indekset_er_bygget(client):
+    # I tests er det rigtige datalager aldrig bygget (kun det syntetiske,
+    # injiceret udenom cachen) — readiness skal derfor sige 503.
+    r = client.get("/api/ready")
+    assert r.status_code == 503 and r.json()["ready"] is False
+
+
+def test_ready_200_når_indekset_er_varmt(client, monkeypatch):
+    monkeypatch.setattr(main, "store_klar", lambda: True)
+    r = client.get("/api/ready")
+    assert r.status_code == 200 and r.json() == {"ready": True}
+
+
 def test_filters(client):
     d = client.get("/api/filters").json()
     assert d["år_min"] == 2016 and d["år_max"] == 2024

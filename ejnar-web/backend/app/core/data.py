@@ -141,6 +141,12 @@ def _build() -> Store:
                  selskaber=selskaber, udfald=udfald, link_index=link_index)
 
 
+def store_klar() -> bool:
+    """Ikke-blokerende probe: er datalageret bygget? Bruges af /api/ready så
+    deploy-platformen først sender trafik når TF-IDF-indekset er varmt."""
+    return _cache is not None
+
+
 def get_store() -> Store:
     """Hent (og cache) det indlæste datasæt. Trådsikker første-kald-init —
     matcher Streamlit-appens @st.cache_resource-adfærd uden Streamlit."""

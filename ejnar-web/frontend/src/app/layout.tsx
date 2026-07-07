@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ejnar — Ejerskifteforsikring",
+  title: { default: "Ejnar — Ejerskifteforsikring", template: "%s · Ejnar" },
   description: "Praksisdatabase for Ankenævnet for Forsikrings afgørelser om ejerskifteforsikring.",
+  // Internt, adgangskodebeskyttet jurist-værktøj — skal ikke i søgemaskiner.
+  robots: { index: false, follow: false },
 };
 
 const FONT_STACK =

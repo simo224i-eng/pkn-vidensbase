@@ -6,6 +6,9 @@ import type { NextConfig } from "next";
 const BACKEND_URL = process.env.BACKEND_URL || "http://127.0.0.1:8000";
 
 const nextConfig: NextConfig = {
+  // Standalone: `next build` lægger en selvbærende server i .next/standalone
+  // (bruges af Dockerfile). Ændrer intet ved Vercel-deploy eller `next dev`.
+  output: "standalone",
   async rewrites() {
     return [{ source: "/api/:path*", destination: `${BACKEND_URL}/api/:path*` }];
   },

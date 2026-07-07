@@ -20,8 +20,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (status === "anonymous") router.replace("/login");
-  }, [status, router]);
+    if (status === "anonymous") {
+      // Tag den ønskede side med til login, så delte links (fx en kendelse)
+      // lander rigtigt EFTER login i stedet for på forsiden.
+      const next = pathname && pathname !== "/" ? `?next=${encodeURIComponent(pathname)}` : "";
+      router.replace(`/login${next}`);
+    }
+  }, [status, router, pathname]);
 
   if (status !== "authenticated") {
     return (

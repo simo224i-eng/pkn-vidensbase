@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from .auth import (
     COOKIE_NAME, issue_token, klient_ip, login_tilladt, nulstil_login_forsøg,
@@ -22,7 +22,7 @@ from .auth import (
 )
 from .config import get_settings, tjek_produktionskonfig
 from .core.claude import LLMFejl, stream_claude
-from .core.data import get_store
+from .core.data import get_store, store_klar
 from .core.rag import byg_prompt, smart_retrieval
 from .core.search import tfidf_søg
 from .core.text import byg_lækker_afgørelse, byg_notat_html, citater_for_kilde, valider_citationer
@@ -170,7 +170,17 @@ def logout(response: Response):
 
 @app.get("/api/health")
 def health():
+    """Liveness: processen kører. Svarer også under den ~90 sek warmup."""
     return {"ok": True}
+
+
+@app.get("/api/ready")
+def ready():
+    """Readiness: 200 først når TF-IDF-indekset er bygget, ellers 503 — så
+    deploy-platformens healthcheck holder trafik tilbage til processen er varm."""
+    if store_klar():
+        return {"ready": True}
+    return JSONResponse({"ready": False, "note": "Bygger indeks…"}, status_code=503)
 
 
 @app.get("/api/me", dependencies=[Depends(require_auth)])
