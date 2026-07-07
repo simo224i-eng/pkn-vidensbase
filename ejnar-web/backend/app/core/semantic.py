@@ -218,12 +218,14 @@ def embedding_soeg(query: str, df, embeds, sub_idx=None, top_n: int = 30,
 
 
 def hybrid_retrieval(query: str, df, vec, mat, embeds, sub_idx=None,
-                     top_retrieve: int = 40, top_final: int = 20) -> list:
+                     top_retrieve: int = 40, top_final: int = 20,
+                     tfidf_query: str | None = None) -> list:
     """TF-IDF + embeddings via Reciprocal Rank Fusion → globale indekser
     bedst-først. Falder tilbage til ren TF-IDF-rangering hvis embeds mangler
-    eller embedding-kaldet fejler."""
+    eller embedding-kaldet fejler. tfidf_query: evt. synonym-udvidet variant
+    til keyword-benet (embedding-benet skal have det RÅ spørgsmål)."""
     from sklearn.metrics.pairwise import cosine_similarity as _cos
-    qv = vec.transform([query])
+    qv = vec.transform([tfidf_query or query])
     if sub_idx is not None and len(sub_idx) > 0:
         tfidf_scores = _cos(qv, mat[sub_idx]).flatten()
         order = np.argsort(-tfidf_scores)[:top_retrieve]

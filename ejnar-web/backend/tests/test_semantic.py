@@ -169,6 +169,44 @@ def test_semantisk_chunk_udvalg_uden_nøgle_er_tomt(store):
                                   {str(store.df.iloc[0]["Link"]): 0}) == {}
 
 
+# ── Dansk synonym-udvidelse ───────────────────────────────────────────────────
+def test_udvid_query_dansk_tilføjer_fagtermer():
+    from app.core.synonymer import udvid_query_dansk
+    ud = udvid_query_dansk("Mug i kælderen")
+    assert "skimmel" in ud and ud.startswith("Mug i kælderen")
+    ud2 = udvid_query_dansk("dækkes MgO-plader?")
+    assert "magnesiumoxid" in ud2
+
+
+def test_udvid_query_dansk_uændret_uden_match():
+    from app.core.synonymer import udvid_query_dansk
+    q = "Hvad er selskabets frist for genoptagelse?"
+    assert udvid_query_dansk(q) == q
+    assert udvid_query_dansk("") == ""
+
+
+def test_udvid_query_dansk_ingen_dubletter_og_ordgrænser():
+    from app.core.synonymer import udvid_query_dansk
+    # "skimmelsvamp" i query må ikke tilføjes igen af "skimmel"-nøglen …
+    ud = udvid_query_dansk("skimmel og skimmelsvamp")
+    assert ud.lower().split().count("skimmelsvamp") == 1
+    # … og "eltavle" må ikke trigge "el"-nøglen (ordgrænse)
+    assert udvid_query_dansk("fejl i eltavlen") == "fejl i eltavlen"
+
+
+def test_udvid_query_dansk_hjælper_søgningen(store):
+    # Hverdagssprog ("mug") rammer nu skimmel-kendelserne i det rigtige indeks
+    from app.core.synonymer import udvid_query_dansk
+    from app.core.search import tfidf_søg
+    rå = tfidf_søg("mug bag væggen i stuen", store.df, store.vec, store.mat, top_n=5)
+    udvidet = tfidf_søg(udvid_query_dansk("mug bag væggen i stuen"),
+                        store.df, store.vec, store.mat, top_n=5)
+    rå_titler = set(rå["Titel"]) if len(rå) else set()
+    ud_titler = set(udvidet["Titel"]) if len(udvidet) else set()
+    assert "Skimmel bag vægbeklædning" in ud_titler
+    assert len(ud_titler) >= len(rå_titler)
+
+
 # ── Ende-til-ende: smart_retrieval med semantik ──────────────────────────────
 def test_smart_retrieval_hybrid_sti(monkeypatch, store):
     # Semantikken skyder kloak-sagen (idx 4) ind — keyword-only ville aldrig

@@ -220,8 +220,10 @@ def list_kendelser(
 
     q = q.strip()
     if q and søgetype == "intelligent":
+        from .core.synonymer import udvid_query_dansk
         sub_idx = df_filter.index.tolist()
-        df_vis = tfidf_søg(q, store.df, store.vec, store.mat, sub_idx=sub_idx, top_n=500)
+        df_vis = tfidf_søg(udvid_query_dansk(q), store.df, store.vec, store.mat,
+                           sub_idx=sub_idx, top_n=500)
     elif q:
         mask = (df_filter["Titel"].str.contains(q, case=False, na=False, regex=False) |
                 df_filter["Tekst"].str.contains(q, case=False, na=False, regex=False))

@@ -1,0 +1,25 @@
+{
+  "_note": "Retrieval-guldsæt: hvert spørgsmål er forankret i en konkret kendelse (forventet = CN-id i linket) udvalgt som den kendelse i korpusset hvor scenariets fagterm optræder flest gange. Metrikken er KOMPARATIV (keyword vs +synonymer vs semantik) — flere kendelser kan være fagligt relevante for et spørgsmål, så absolutte recall-tal skal læses med det forbehold. Spørgsmålene er formuleret som jurister/sagsbehandlere spørger, med bevidst blanding af fagtermer og hverdagssprog.",
+  "spørgsmål": [
+    {"q": "Dækker forsikringen udskiftning af MgO-plader i facaden?", "cn": "98058"},
+    {"q": "Hvornår gives der medhold ved angreb af ægte hussvamp?", "cn": "100446"},
+    {"q": "Utæt olietank nedgravet under huset — er det omfattet af dækningen?", "cn": "99166"},
+    {"q": "Rotteangreb i ældre ejendom fra 1907", "cn": "96914"},
+    {"q": "Manglende kapillarbrydende lag og intet omfangsdræn — fugt i kælderen", "cn": "99966"},
+    {"q": "Punkterede termoruder opdaget kort efter overtagelsen", "cn": "96881"},
+    {"q": "Fugt og råd i krybekælderen på grund af manglende ventilation", "cn": "103955"},
+    {"q": "Fejlkonstrueret tag med asbestholdige plader", "cn": "100163"},
+    {"q": "Tæret faldstamme — uenighed om erstatningens størrelse", "cn": "103141"},
+    {"q": "Opstigende grundfugt i vægge i ældre ejendom", "cn": "102328"},
+    {"q": "Utæt stråtag på nedlagt landbrugsejendom", "cn": "103319"},
+    {"q": "Kemisk bekæmpelse af borebiller i tagkonstruktionen", "cn": "100661"},
+    {"q": "Manglende vådrumsmembran i badeværelset — ulovligt vådrum", "cn": "98751"},
+    {"q": "Sætningsskader og revner i fundamentet", "cn": "101376"},
+    {"q": "Defekt skorsten med løse lipper", "cn": "95677"},
+    {"q": "Udskiftning af varmepumpe til jordvarmeanlæg afvist", "cn": "94818"},
+    {"q": "Råd i bindingsværket på bevaringsværdigt hus", "cn": "102430"},
+    {"q": "Utilstrækkelig gulvvarme og ulovlige kloakledninger", "cn": "97538"},
+    {"q": "Svævende terrændæk uden bæreevne", "cn": "98227"},
+    {"q": "Mug i kælderen efter vandskade", "cn": "102328"}
+  ]
+}
