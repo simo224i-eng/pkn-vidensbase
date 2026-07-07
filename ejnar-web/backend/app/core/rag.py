@@ -19,6 +19,18 @@ from .claude import llm_haiku
 from .search import apply_auto_filters, tfidf_søg
 from .text import chunk_tekst, udtræk_kerneafsnit
 
+
+def _datostr(dato) -> str:
+    """dd.mm.yyyy — men crash-frit: en enkelt kendelse uden dato (NaT) må
+    aldrig vælte hele prompt-bygningen og dermed svaret."""
+    try:
+        ts = pd.Timestamp(dato)
+        if pd.isna(ts):
+            return "ukendt dato"
+        return ts.strftime("%d.%m.%Y")
+    except Exception:
+        return "ukendt dato"
+
 def klassificer_query(query: str) -> dict:
     """Klassificér query-type med Haiku for at tilpasse retrieval-parametre.
     Returnerer dict med 'type' (faktuel/sammenligning/procedure/åben) og
@@ -232,7 +244,7 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 5,
         from sklearn.metrics.pairwise import cosine_similarity as _cos
     except ImportError:
         return "\n\n".join(
-            f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}\n"
+            f"[Kilde {i+1}] {_datostr(d['Dato'])} – {d['Titel']}\n"
             f"{udtræk_kerneafsnit(d.get('Tekst') or '', max_tegn=4000)}"
             for i, d in enumerate(docs)
         )
@@ -265,7 +277,7 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 5,
     dele = []
     total_chars = 0
     for i, d in enumerate(docs):
-        header = f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}"
+        header = f"[Kilde {i+1}] {_datostr(d['Dato'])} – {d['Titel']}"
         best = sorted(kilde_chunks.get(i, []), key=lambda x: -x[0])[:max_chunks_per_doc]
         best_texts = [c for _, c in best]
         content = "\n[…]\n".join(best_texts) if best_texts \
@@ -302,16 +314,22 @@ SYSTEM_PROMPT = (
 
 def byg_prompt(spørgsmål: str, docs: list, historik: list | None = None) -> list:
     """Byg content-blok-listen der sendes til Claude — struktur og prompt-caching
-    som i ejnar/pages/ejnar.py::_byg_prompt."""
+    som i ejnar/pages/ejnar.py::_byg_prompt.
+
+    NB på historik: Streamlit-appen appender det aktuelle spørgsmål til
+    historikken FØR kaldet og skærer det fra med [:-1]. Web-frontenden sender
+    kun afsluttede ture (spørgsmålet kommer separat), så her bruges HELE
+    historikken — et [:-1] ville smide det seneste assistent-svar væk, netop
+    dét et opfølgningsspørgsmål typisk refererer til."""
     kontekst = byg_fokuseret_kontekst(spørgsmål, docs)
     historik_tekst = ""
     if historik:
-        for msg in historik[:-1]:
+        for msg in historik:
             rolle = "Bruger" if msg.get("rolle") == "bruger" else "Assistent"
             historik_tekst += f"\n{rolle}: {msg.get('tekst', '')}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
     kilde_liste = "\n".join(
-        f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
+        f"[Kilde {i+1}] = {_datostr(d['Dato'])} – {d['Titel'][:80]}"
         for i, d in enumerate(docs)
     )
     return [

@@ -53,10 +53,14 @@ def _find_csv(data_dir: str) -> str:
         os.makedirs(tmp_dir, exist_ok=True)
         dest = os.path.join(tmp_dir, navn)
         if not os.path.exists(dest):
+            # Skriv til en pid-unik tmp-fil og os.replace (atomisk) — to
+            # samtidige processer må aldrig kunne læse en halvskrevet CSV.
+            tmp = f"{dest}.tmp-{os.getpid()}"
             with zipfile.ZipFile(zsti) as z:
                 m = next(n for n in z.namelist() if n.endswith(".csv"))
-                with z.open(m) as src, open(dest, "wb") as dst:
+                with z.open(m) as src, open(tmp, "wb") as dst:
                     dst.write(src.read())
+            os.replace(tmp, dest)
         return dest
     raise FileNotFoundError(
         f"Fandt hverken {navn} eller {navn}.zip i {data_dir}. "

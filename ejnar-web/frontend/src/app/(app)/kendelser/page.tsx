@@ -15,6 +15,10 @@ export default function KendelserPage() {
   const [q, setQ] = useState("");
   const [søgetype, setSøgetype] = useState<"ordret" | "intelligent">("ordret");
   const debouncedQ = useDebounced(q, 350);
+  // Debounce også filtrene: et træk hen over års-slideren affyrer ellers ét
+  // API-kald pr. hak. UI'et reagerer stadig øjeblikkeligt ("Søger…" og
+  // side-nulstilling sker på rå filters nedenfor) — kun selve kaldet venter.
+  const debouncedFilters = useDebounced(filters, 300);
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<Kendelse[]>([]);
   const [total, setTotal] = useState(0);
@@ -36,7 +40,7 @@ export default function KendelserPage() {
   useEffect(() => {
     if (filtersLoading) return;
     let cancelled = false;
-    searchKendelser({ q: debouncedQ, søgetype, filters, page, page_size: PAGE_SIZE })
+    searchKendelser({ q: debouncedQ, søgetype, filters: debouncedFilters, page, page_size: PAGE_SIZE })
       .then((res) => {
         if (cancelled) return;
         setItems(res.items);
@@ -48,7 +52,7 @@ export default function KendelserPage() {
     return () => {
       cancelled = true;
     };
-  }, [debouncedQ, søgetype, filters, page, filtersLoading]);
+  }, [debouncedQ, søgetype, debouncedFilters, page, filtersLoading]);
 
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 

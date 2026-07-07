@@ -8,14 +8,52 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import threading
 import time
 
-from fastapi import Cookie, HTTPException, status
+from fastapi import Cookie, HTTPException, Request, status
 
 from .config import get_settings
 
 COOKIE_NAME = "ejnar_session"
 _TTL_SECONDS = 60 * 60 * 24 * 14  # 14 dage
+
+# ── Rate limiting af login (in-memory, per proces) ───────────────────────────
+# Én delt adgangskode gør brute force til DEN relevante trussel — en simpel
+# glidende-vindue-tæller pr. IP er nok i denne skala (én proces, få brugere).
+_LOGIN_MAX_FORSØG = 10
+_LOGIN_VINDUE_SEK = 15 * 60
+_login_forsøg: dict[str, list[float]] = {}
+_login_lock = threading.Lock()
+
+
+def klient_ip(request: Request) -> str:
+    """Klientens IP — første hop i X-Forwarded-For når vi står bag Next-proxyen
+    (ellers ville alle klienter dele proxyens IP og rate-limite hinanden).
+    XFF kan spoofes hvis backend'en eksponeres direkte uden betroet proxy —
+    acceptabelt her: konsekvensen er blot at en angriber rammer sit eget vindue."""
+    xff = request.headers.get("x-forwarded-for", "")
+    if xff:
+        return xff.split(",")[0].strip()
+    return request.client.host if request.client else "ukendt"
+
+
+def login_tilladt(ip: str) -> bool:
+    nu = time.time()
+    with _login_lock:
+        forsøg = [t for t in _login_forsøg.get(ip, []) if nu - t < _LOGIN_VINDUE_SEK]
+        _login_forsøg[ip] = forsøg
+        return len(forsøg) < _LOGIN_MAX_FORSØG
+
+
+def registrer_login_fejl(ip: str) -> None:
+    with _login_lock:
+        _login_forsøg.setdefault(ip, []).append(time.time())
+
+
+def nulstil_login_forsøg(ip: str) -> None:
+    with _login_lock:
+        _login_forsøg.pop(ip, None)
 
 
 def _sign(payload: str, secret: str) -> str:
@@ -33,9 +71,11 @@ def _token_valid(token: str) -> bool:
     settings = get_settings()
     try:
         expires_str, sig = token.split(".", 1)
+        expires = int(expires_str)
     except ValueError:
+        # Manipuleret/malformet cookie ("abc.def") skal give 401, ikke 500.
         return False
-    if int(expires_str) < time.time():
+    if expires < time.time():
         return False
     expected = _sign(expires_str, settings.session_secret)
     return hmac.compare_digest(sig, expected)

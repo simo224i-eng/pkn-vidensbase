@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useFilters } from "@/lib/FilterContext";
+import { useDebounced } from "@/lib/useDebounced";
 import { getStats, ApiError } from "@/lib/api";
 import type { StatsResponse } from "@/lib/types";
 import { HorizontalBarList, StatTile, VerticalBarChart } from "@/components/BarList";
@@ -15,19 +16,21 @@ function medholdColor(pct: number): string {
 
 export default function StatistikPage() {
   const { filters, loading: filtersLoading } = useFilters();
+  // Ét stats-kald pr. "færdigt" filtervalg — ikke ét pr. slider-hak.
+  const debouncedFilters = useDebounced(filters, 300);
   const [stats, setStats] = useState<StatsResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (filtersLoading) return;
     let cancelled = false;
-    getStats(filters)
+    getStats(debouncedFilters)
       .then((s) => !cancelled && setStats(s))
       .catch((e) => !cancelled && setError(e instanceof ApiError ? e.message : "Kunne ikke hente statistik."));
     return () => {
       cancelled = true;
     };
-  }, [filters, filtersLoading]);
+  }, [debouncedFilters, filtersLoading]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-6">

@@ -62,6 +62,15 @@ export default function AssistentPage() {
       },
       controller.signal,
     );
+
+    // Backend-kontrakten er at strømmen altid slutter med done eller error —
+    // men dør forbindelsen uden nogen af dem, må turen ikke hænge i
+    // "svarer…" for evigt (busy ville så blokere al videre chat).
+    update((t) =>
+      t.streaming
+        ? { ...t, streaming: false, fejl: t.fejl ?? "Forbindelsen blev afbrudt — svaret kan være ufuldstændigt." }
+        : t,
+    );
   }
 
   function setOpenSource(turnIdx: number, srcIdx: number | null) {

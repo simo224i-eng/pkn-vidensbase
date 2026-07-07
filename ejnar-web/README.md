@@ -52,10 +52,10 @@ cp .env.example .env   # udfyld APP_PASSWORD, ANTHROPIC_API_KEY, SESSION_SECRET
 uvicorn app.main:app --reload --port 8000
 ```
 
-Første kald til `/api/filters` (eller enhver dataafhængig endpoint) bygger et
-TF-IDF-indeks over alle kendelser — tager ~90 sekunder på 5.600+ kendelser.
-Det caches i processens levetid derefter (samme engangsomkostning som Streamlit-
-appens `@st.cache_resource`).
+TF-IDF-indekset over alle kendelser (~90 sekunder på 5.600+) bygges i en
+baggrundstråd ved opstart (`EJNAR_WARMUP=1`, standard), så første bruger ikke
+venter på koldstarten. Det caches i processens levetid derefter (samme
+engangsomkostning som Streamlit-appens `@st.cache_resource`).
 
 **Frontend** (i et andet terminalvindue):
 ```bash
@@ -68,6 +68,25 @@ BACKEND_URL=http://127.0.0.1:8000 npm run dev
 browseren kun ser ét oprindelsessted — auth-cookien fungerer uden cross-origin-
 fiskeri, og opsætningen er identisk i dev og produktion.
 
+## Tests
+
+Backend'en har en pytest-suite (`backend/tests/`, kører på ~1 sekund): den
+bygger et lille syntetisk datalager (ægte TF-IDF-indeks over 10 kunstige
+kendelser) i stedet for det ~90 sek tunge rigtige, og patcher alle LLM-kald
+væk — suiten tester dermed præcis den adfærd systemet skal have når
+Haiku-boosts fejler, og rører aldrig netværket.
+
+```bash
+cd backend
+pip install -r requirements.txt -r requirements-dev.txt
+python -m pytest tests/ -q
+```
+
+CI (`.github/workflows/ejnar-web-ci.yml`) kører suiten + frontend'ens
+`tsc`/`eslint`/`next build` på hver PR der rører `ejnar-web/`. CI installerer
+de pinnede versioner fra `requirements.txt` (fx pandas 2.3.x) — med vilje, så
+versionsafhængige fejl fanges før deploy.
+
 ## Deploy
 
 - **Backend**: kør som en always-on service (Railway, Fly.io, Render, eller en
@@ -76,6 +95,10 @@ fiskeri, og opsætningen er identisk i dev og produktion.
   "app is sleeping"-problem der plagede Streamlit Cloud.
 - **Frontend**: Vercel (eller enhver Next.js-host). Sæt `BACKEND_URL` til
   backend'ens URL.
+- **Produktions-env**: sæt `SESSION_SECRET` (backend'en **nægter at starte**
+  med adgangskode men uden rigtig secret — forfalskelige sessions-tokens ville
+  ellers omgå login) og `COOKIE_SECURE=1` når backend'en kører bag HTTPS.
+  Login er rate-limited (10 forsøg/15 min pr. IP).
 - Data: backend'en læser `ejnar_*.csv(.zip)` fra `EJNAR_DATA_DIR` — som udgangspunkt
   den eksisterende `ejnar/`-mappe. Ved data-opdateringer: samme workflow som i
   `ejnar/README.md` (scrape → evt. `build_embeddings.py` senere → commit).
@@ -85,7 +108,8 @@ fiskeri, og opsætningen er identisk i dev og produktion.
 - **Voyage/semantisk søgning** — bevidst udskudt, se ovenfor.
 - **Sagsmapper er browser-lokal** (localStorage) — deles ikke på tværs af enheder
   eller brugere. Kræver en lille database hvis det skal ændres.
-- **Automatiserede tests** (kun manuel/scriptet verifikation kørt under udvikling —
-  se commit-historikken for hvad der er valideret).
+- **Frontend-komponenttests** — backend'en er dækket af pytest-suiten (se
+  Tests ovenfor), og frontend'en af `tsc`/`eslint`/`next build` i CI, men der
+  er ingen React-komponenttests endnu.
 - **Fuld feature-paritet** med Streamlit-versionen kan mangle enkelte detaljer —
   begge apps deler samme underliggende data, så de kan køre side om side imens.

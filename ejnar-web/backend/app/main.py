@@ -5,16 +5,22 @@ from __future__ import annotations
 
 import json
 import re
+import secrets
+import threading
+from contextlib import asynccontextmanager
 from typing import Optional
 
 import numpy as np
 import pandas as pd
-from fastapi import Depends, FastAPI, HTTPException, Query, Response
+from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
-from .auth import COOKIE_NAME, issue_token, require_auth
-from .config import get_settings
+from .auth import (
+    COOKIE_NAME, issue_token, klient_ip, login_tilladt, nulstil_login_forsøg,
+    registrer_login_fejl, require_auth,
+)
+from .config import get_settings, tjek_produktionskonfig
 from .core.claude import LLMFejl, stream_claude
 from .core.data import get_store
 from .core.rag import byg_prompt, smart_retrieval
@@ -22,10 +28,31 @@ from .core.search import tfidf_søg
 from .core.text import byg_lækker_afgørelse, byg_notat_html, citater_for_kilde, valider_citationer
 from .models import (
     AskRequest, FilterOptions, Kendelse, KendelseDetalje, KendelserResponse,
-    LoginRequest, NotatRequest, StatsResponse,
+    KildeCitatRequest, LoginRequest, NotatRequest, StatsResponse,
 )
 
-app = FastAPI(title="Ejnar API", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    tjek_produktionskonfig(get_settings())
+    if get_settings().warmup:
+        # Byg TF-IDF-indekset (~90 sek) i baggrunden med det samme, så første
+        # bruger ikke betaler koldstarten. /api/health svarer imens (liveness);
+        # dataafhængige endpoints venter blot på get_store()-låsen som hidtil.
+        threading.Thread(target=_warm_store, daemon=True, name="ejnar-warmup").start()
+    yield
+
+
+def _warm_store() -> None:
+    try:
+        get_store()
+    except Exception as e:
+        # Fejl her må ikke vælte processen — første rigtige kald rapporterer
+        # samme fejl til brugeren via normal exception-håndtering.
+        print(f"[ejnar] Warmup fejlede: {e}")
+
+
+app = FastAPI(title="Ejnar API", version="0.1.0", lifespan=lifespan)
 
 settings = get_settings()
 app.add_middleware(
@@ -65,11 +92,13 @@ def row_to_kendelse(row) -> dict:
 def _apply_filters(df: pd.DataFrame, mangeltype: list[str] | None, selskab: list[str] | None,
                    udfald: list[str] | None, år_min: int | None, år_max: int | None,
                    opførelsesår_min: int | None, opførelsesår_max: int | None) -> pd.DataFrame:
+    # NB: .fillna(False) på alle Int64-sammenligninger — rækker uden dato/år har
+    # NA, og NA i en boolsk maske rejser under pandas 2.x (deploy-pinnen).
     mask = pd.Series(True, index=df.index)
     if år_min is not None:
-        mask &= df["År"] >= år_min
+        mask &= (df["År"] >= år_min).fillna(False).astype(bool)
     if år_max is not None:
-        mask &= df["År"] <= år_max
+        mask &= (df["År"] <= år_max).fillna(False).astype(bool)
     if opførelsesår_min is not None and opførelsesår_max is not None:
         mask &= df["Opførelsesår"].between(opførelsesår_min, opførelsesår_max).fillna(False).astype(bool)
     if mangeltype:
@@ -113,11 +142,18 @@ def _rehydrate_kilder(store, kilder_in: list | None) -> list:
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
 @app.post("/api/login")
-def login(body: LoginRequest, response: Response):
+def login(body: LoginRequest, request: Request, response: Response):
     if not settings.app_password:
         return {"ok": True, "note": "Ingen adgangskode konfigureret — auth er slået fra."}
-    if body.password != settings.app_password:
+    ip = klient_ip(request)
+    if not login_tilladt(ip):
+        raise HTTPException(429, "For mange loginforsøg — prøv igen om et kvarter.")
+    # compare_digest: konstant-tids-sammenligning, så svartiden ikke lækker
+    # hvor mange tegn af adgangskoden der var rigtige.
+    if not secrets.compare_digest(body.password.encode(), settings.app_password.encode()):
+        registrer_login_fejl(ip)
         raise HTTPException(401, "Forkert adgangskode.")
+    nulstil_login_forsøg(ip)
     token = issue_token()
     response.set_cookie(COOKIE_NAME, token, httponly=True, samesite="lax",
                         secure=settings.cookie_secure, max_age=60 * 60 * 24 * 14)
@@ -307,6 +343,11 @@ def ask(body: AskRequest):
         except LLMFejl as e:
             yield _sse({"type": "error", "message": str(e)})
             return
+        except Exception as e:
+            # SSE-kontrakt: klienten skal ALTID få done eller error — ellers
+            # hænger chatten i "svarer…" for evigt hvis noget uventet vælter.
+            yield _sse({"type": "error", "message": f"Uventet fejl under svaret: {e}"})
+            return
 
         try:
             suspekte = valider_citationer(full, kilder)
@@ -320,12 +361,12 @@ def ask(body: AskRequest):
 
 
 @app.post("/api/kilde-citat", dependencies=[Depends(require_auth)])
-def kilde_citat(body: dict):
+def kilde_citat(body: KildeCitatRequest):
     """Find citater fra et givet svar i én bestemt kilde + fremhæv dem i
     den lækre læsevisning — bruges når brugeren klikker en citat-chip."""
     store = get_store()
-    kid = body.get("kendelse_id", "")
-    svar = body.get("svar", "")
+    kid = body.kendelse_id
+    svar = body.svar
     row = find_kendelse(store.df, kid)
     if row is None:
         raise HTTPException(404, "Kendelse ikke fundet.")

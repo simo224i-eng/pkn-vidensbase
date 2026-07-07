@@ -60,6 +60,11 @@ class NotatRequest(BaseModel):
     kilder: list[dict]
 
 
+class KildeCitatRequest(BaseModel):
+    kendelse_id: str
+    svar: str = ""
+
+
 class StatsResponse(BaseModel):
     total: int
     medhold_pct: float

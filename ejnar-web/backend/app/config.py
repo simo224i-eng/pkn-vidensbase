@@ -51,6 +51,24 @@ class Settings:
         "EJNAR_DATA_DIR",
         os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "ejnar")),
     )
+    # Forvarm datalageret (TF-IDF-indekset, ~90 sek) i en baggrundstråd ved
+    # opstart, så første bruger ikke venter. Sæt 0 for at slå fra (fx i tests).
+    warmup: bool = os.environ.get("EJNAR_WARMUP", "1") == "1"
+
+
+_DEFAULT_SECRET = "dev-only-insecure-secret"
+
+
+def tjek_produktionskonfig(settings: "Settings") -> None:
+    """Fail-fast ved opstart: adgangskodebeskyttelse uden rigtig SESSION_SECRET
+    er en falsk tryghed — enhver der kender default-hemmeligheden (den står i
+    kildekoden) kan forfalske et gyldigt sessions-token og omgå login helt."""
+    if settings.app_password and settings.session_secret == _DEFAULT_SECRET:
+        raise RuntimeError(
+            "APP_PASSWORD er sat, men SESSION_SECRET mangler. Sæt SESSION_SECRET "
+            "til en lang, tilfældig streng (fx `openssl rand -hex 32`) — ellers "
+            "kan sessions-tokens forfalskes og login omgås."
+        )
 
 
 @lru_cache

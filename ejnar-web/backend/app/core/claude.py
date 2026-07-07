@@ -57,16 +57,16 @@ def llm(prompt, max_tokens: int = 2000, model: str = DEFAULT_MODEL) -> str:
             r = requests.post(_API_URL, headers=headers, json=body, timeout=300)
             if r.status_code == 529 or r.status_code >= 500:
                 last_err = f"{r.status_code} {r.reason}: {r.text[:300]}"
-                time.sleep(2 ** attempt)
-                continue
-            if not r.ok:
+            elif not r.ok:
                 raise LLMFejl(f"{r.status_code} {r.reason}: {r.text[:500]}")
-            return r.json()["content"][0]["text"]
+            else:
+                return r.json()["content"][0]["text"]
         except requests.exceptions.Timeout:
             last_err = "Timeout – Claude svarede ikke inden for 5 minutter."
-            time.sleep(2 ** attempt)
-        except requests.exceptions.ConnectionError:
+        except requests.exceptions.RequestException:
+            # Dækker ConnectionError, ChunkedEncodingError m.fl. — alt netværk.
             last_err = "Netværksfejl – kunne ikke nå Claude API."
+        if attempt < 2:
             time.sleep(2 ** attempt)
     raise LLMFejl(last_err or "Ukendt fejl efter 3 forsøg.")
 
@@ -96,34 +96,40 @@ def stream_claude(prompt, max_tokens: int = 3000, model: str = DEFAULT_MODEL) ->
 
     last_err = None
     for attempt in range(3):
+        yielded = False
         try:
             r = requests.post(_API_URL, headers=headers, json=body, timeout=300, stream=True)
             if r.status_code == 529 or r.status_code >= 500:
                 last_err = f"{r.status_code} {r.reason}"
-                time.sleep(2 ** attempt)
-                continue
-            if not r.ok:
+            elif not r.ok:
                 raise LLMFejl(f"{r.status_code} {r.reason}: {r.text[:500]}")
-
-            for line in r.iter_lines(decode_unicode=True):
-                if not line or not line.startswith("data: "):
-                    continue
-                data_str = line[6:]
-                if data_str.strip() == "[DONE]":
-                    break
-                try:
-                    evt = json.loads(data_str)
-                except json.JSONDecodeError:
-                    continue
-                if evt.get("type") == "content_block_delta":
-                    chunk = evt.get("delta", {}).get("text", "")
-                    if chunk:
-                        yield chunk
-            return
+            else:
+                for line in r.iter_lines(decode_unicode=True):
+                    if not line or not line.startswith("data: "):
+                        continue
+                    data_str = line[6:]
+                    if data_str.strip() == "[DONE]":
+                        break
+                    try:
+                        evt = json.loads(data_str)
+                    except json.JSONDecodeError:
+                        continue
+                    if evt.get("type") == "content_block_delta":
+                        chunk = evt.get("delta", {}).get("text", "")
+                        if chunk:
+                            yielded = True
+                            yield chunk
+                return
         except requests.exceptions.Timeout:
             last_err = "Timeout – Claude svarede ikke inden for 5 minutter."
-            time.sleep(2 ** attempt)
-        except requests.exceptions.ConnectionError:
-            last_err = "Netværksfejl – kunne ikke nå Claude API."
+        except requests.exceptions.RequestException:
+            # Dækker ConnectionError, ChunkedEncodingError m.fl. — også når
+            # forbindelsen dør MIDT i streamen (iter_lines).
+            last_err = "Netværksfejl – forbindelsen til Claude blev afbrudt."
+        if yielded:
+            # Der er allerede sendt tekst til klienten — et nyt forsøg ville
+            # streame hele svaret forfra og duplikere det viste. Fejl ærligt.
+            raise LLMFejl("Forbindelsen blev afbrudt midt i svaret — svaret er ufuldstændigt. Stil evt. spørgsmålet igen.")
+        if attempt < 2:
             time.sleep(2 ** attempt)
     raise LLMFejl(last_err or "Ukendt fejl efter 3 forsøg.")
