@@ -1,43 +1,67 @@
-"""Runtime-lag for paragraph-BM25 ved præcise indholdssøgninger."""
+"""Runtime-lag for hurtig paragraph-BM25 ved præcise indholdssøgninger.
+
+Paragraph-rangeringen bygges kun over de kandidater, som den eksisterende hybrid-
+retrieval allerede har fundet. Det fjerner den dyre cold-start på hele korpusset og
+bevarer den eksisterende retrieval som recall-sikkerhedsnet.
+"""
 from __future__ import annotations
 
-import threading
 from typing import Any
 
 try:
-    from paragraph_bm25 import ParagraphBM25Index, aggregate_decisions, decision_order_for_dataframe
+    from paragraph_bm25 import ParagraphBM25Index, aggregate_decisions
     from paragraph_retrieval import build_corpus
     from query_intent import QueryIntent, classify_query
 except ImportError:
-    from ejnar.paragraph_bm25 import ParagraphBM25Index, aggregate_decisions, decision_order_for_dataframe
+    from ejnar.paragraph_bm25 import ParagraphBM25Index, aggregate_decisions
     from ejnar.paragraph_retrieval import build_corpus
     from ejnar.query_intent import QueryIntent, classify_query
 
-_CACHE_LOCK = threading.Lock()
-_CACHE: dict[tuple[int, int], ParagraphBM25Index] = {}
-
-
-def _index_for_dataframe(df: Any) -> ParagraphBM25Index:
-    key = (id(df), len(df))
-    with _CACHE_LOCK:
-        cached = _CACHE.get(key)
-        if cached is not None:
-            return cached
-    documents = df.to_dict("records")
-    index = ParagraphBM25Index(build_corpus(documents))
-    with _CACHE_LOCK:
-        _CACHE.clear()
-        _CACHE[key] = index
-    return index
-
 
 def clear_paragraph_index_cache() -> None:
-    with _CACHE_LOCK:
-        _CACHE.clear()
+    """Behold kompatibilitet med tidligere runtime; der er ikke længere en global cache."""
+    return None
+
+
+def _candidate_documents(df: Any, indices: list[int]) -> list[dict[str, Any]]:
+    documents: list[dict[str, Any]] = []
+    for idx in indices:
+        try:
+            documents.append(dict(df.iloc[int(idx)]))
+        except (IndexError, TypeError, ValueError):
+            continue
+    return documents
+
+
+def _decision_order_for_candidates(decision_hits: Any, documents: list[dict[str, Any]], indices: list[int]) -> list[int]:
+    by_case: dict[str, int] = {}
+    by_link: dict[str, int] = {}
+    for original_idx, document in zip(indices, documents):
+        case_number = str(document.get("Sagsnummer", "") or "").strip().lower()
+        link = str(document.get("Link", "") or "").strip().lower()
+        if case_number:
+            by_case.setdefault(case_number, int(original_idx))
+        if link:
+            by_link.setdefault(link, int(original_idx))
+
+    ordered: list[int] = []
+    seen: set[int] = set()
+    for hit in decision_hits:
+        idx = None
+        case_key = str(hit.case_number or "").strip().lower()
+        link_key = str(hit.link or "").strip().lower()
+        if case_key:
+            idx = by_case.get(case_key)
+        if idx is None and link_key:
+            idx = by_link.get(link_key)
+        if idx is not None and idx not in seen:
+            seen.add(idx)
+            ordered.append(idx)
+    return ordered
 
 
 def install_paragraph_runtime(shared_module: Any | None = None) -> bool:
-    """Tilføj paragraph-BM25 som ekstra RRF-stemme for exact-content-søgninger."""
+    """Tilføj kandidatbaseret paragraph-BM25 ved exact-content-søgninger."""
     if shared_module is None:
         import shared as shared_module  # type: ignore
     if getattr(shared_module, "_EJNAR_PARAGRAPH_RUNTIME_INSTALLED", False):
@@ -66,25 +90,32 @@ def install_paragraph_runtime(shared_module: Any | None = None) -> bool:
             top_final=top_final,
         )
         plan = classify_query(query)
-        if plan.intent != QueryIntent.EXACT_CONTENT_SEARCH:
+        if plan.intent != QueryIntent.EXACT_CONTENT_SEARCH or not base:
             return base
 
         try:
-            index = _index_for_dataframe(df)
-            paragraph_hits = index.search(query, limit=max(80, top_retrieve * 3))
+            # Den underliggende exact/TF-IDF/hybrid-søgning leverer kandidatfeltet.
+            # Paragraph-BM25 raffinerer kun dette felt og bygger derfor på højst de
+            # kandidater, som allerede er returneret — ikke alle 5.000+ kendelser.
+            candidate_indices = [int(idx) for idx in base]
+            documents = _candidate_documents(df, candidate_indices)
+            if not documents:
+                return base
+
+            index = ParagraphBM25Index(build_corpus(documents))
+            paragraph_hits = index.search(query, limit=max(40, len(documents) * 3))
             decision_hits = aggregate_decisions(
                 paragraph_hits,
-                limit=max(top_retrieve, top_final),
+                limit=len(documents),
             )
-            paragraph_order = decision_order_for_dataframe(decision_hits, df)
-            if sub_idx is not None:
-                allowed = {int(i) for i in sub_idx}
-                paragraph_order = [idx for idx in paragraph_order if idx in allowed]
+            paragraph_order = _decision_order_for_candidates(
+                decision_hits,
+                documents,
+                candidate_indices,
+            )
             if not paragraph_order:
                 return base
 
-            # Paragraph-rangeringen får to stemmer; eksisterende hybrid retrieval
-            # forbliver recall-sikkerhedsnet og afgør stadig resultater uden BM25-hit.
             fused = shared_module.rrf_merge(
                 [paragraph_order, paragraph_order, base],
                 k=20,
