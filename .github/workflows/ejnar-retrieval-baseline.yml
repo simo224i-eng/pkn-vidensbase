@@ -4,8 +4,11 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - "ejnar/app.py"
+      - "ejnar/shared.py"
       - "ejnar/query_intent.py"
       - "ejnar/retrieval_runtime.py"
+      - "ejnar/specific_decision_runtime.py"
       - "ejnar/paragraph_*.py"
       - "ejnar/metadata_*.py"
       - "ejnar/evaluation/**"
