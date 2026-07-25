@@ -1,0 +1,81 @@
+name: Ejnar legal graph
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "ejnar/legal_graph.py"
+      - "ejnar/build_legal_graph.py"
+      - "ejnar/metadata_schema.py"
+      - "ejnar/ejnar_*.csv.zip"
+      - ".github/workflows/ejnar-legal-graph.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ejnar-graph-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-graph:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ejnar/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r ejnar/requirements.txt
+
+      - name: Build legal graph
+        run: |
+          mkdir -p artifacts/ejnar-graph
+          python -m ejnar.build_legal_graph \
+            --compact \
+            --output artifacts/ejnar-graph/legal_graph.json
+
+      - name: Publish graph summary
+        if: always()
+        run: |
+          if [ -f artifacts/ejnar-graph/legal_graph.json ]; then
+            python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          payload = json.loads(Path("artifacts/ejnar-graph/legal_graph.json").read_text())
+          stats = payload.get("statistics", {})
+          kinds = stats.get("node_kinds", {})
+          lines = [
+              "## Ejnar legal graph",
+              f"- Schema: {payload.get('schema_version')}",
+              f"- Kendelser: {stats.get('decisions')}",
+              f"- Feature-noder: {stats.get('feature_nodes')}",
+              f"- Noder i alt: {stats.get('nodes')}",
+              f"- Edges: {stats.get('edges')}",
+              f"- Isolerede kendelser: {stats.get('isolated_decisions')}",
+              "",
+              "### Node-typer",
+          ]
+          lines.extend(f"- {name}: {count}" for name, count in sorted(kinds.items()))
+          with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+          fi
+
+      - name: Upload legal graph artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ejnar-legal-graph
+          path: artifacts/ejnar-graph/legal_graph.json
+          if-no-files-found: error
+          retention-days: 30
