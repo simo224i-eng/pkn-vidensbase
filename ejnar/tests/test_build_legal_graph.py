@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from ejnar.evaluation.build_legal_graph import graph_payload, graph_statistics, write_graph
+from ejnar.build_legal_graph import graph_payload, graph_statistics, write_graph
 from ejnar.legal_graph import build_decision_graph
 
 
