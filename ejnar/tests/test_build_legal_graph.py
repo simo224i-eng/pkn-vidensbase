@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from ejnar.build_legal_graph import graph_payload, graph_statistics, write_graph
+from ejnar.build_legal_graph import EJNAR_DIR, graph_payload, graph_statistics, write_graph
 from ejnar.legal_graph import build_decision_graph
 
 
@@ -39,6 +39,10 @@ class BuildLegalGraphTests(unittest.TestCase):
             ],
             metadata_extractor=fake_extract,
         )
+
+    def test_cli_resolves_ejnar_directory_after_move(self):
+        self.assertEqual(EJNAR_DIR.name, "ejnar")
+        self.assertTrue((EJNAR_DIR / "evaluation").is_dir())
 
     def test_statistics_count_decisions_features_and_isolated(self):
         stats = graph_statistics(self.graph)
