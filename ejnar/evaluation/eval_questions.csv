@@ -1,0 +1,11 @@
+question_id,query,intent,expected_decision_ids,expected_terms,expected_phrase,notes
+EJ-001,"Find afgørelser hvor der står ""undertaget er ikke ført sammen over kip""",exact_content_search,,undertag|kip,undertaget er ikke ført sammen over kip,Eksempel – sagsnummer skal udfyldes efter manuel verifikation
+EJ-002,Find afgørelser hvor der både var skimmel på undertaget og manglende ventilation ved kip,exact_content_search,,skimmel|undertag|ventilation|kip,,Kombination af faktiske forhold
+EJ-003,Find kendelse nr. 100123,specific_decision_search,,,,Erstat nummeret med en kendt kendelse
+EJ-004,Hvad er Ankenævnets praksis om manglende ventilation i tagrum?,practice_overview,,ventilation|tagrum,,Bred praksissyntese
+EJ-005,Hvilke momenter lægger nævnet typisk vægt på ved skimmel?,practice_overview,,skimmel,,Momentsøgning
+EJ-006,I min sag er et gulv fra 1974 lokalt hævet men fortsat fast. Vil forholdet være dækket?,concrete_case_assessment,,gulv|hævet|funktion,,Konkret sag
+EJ-007,Hvilken frist gælder for at klage til Ankenævnet?,factual_lookup,,frist|klage,,Faktuelt opslag
+EJ-008,Find afgørelser der omtaler aluminiumtape på tagrender,exact_content_search,,aluminiumtape|tagrende,,Sjældent konkret materiale
+EJ-009,Hvornår får klager medhold i sager om råd i vinduer?,practice_overview,,råd|vindue|medhold,,Udfald på tværs
+EJ-010,Undersøg relationen mellem restlevetid og sædvanligt slid,exploratory_research,,restlevetid|slid,,Eksplorativ research
