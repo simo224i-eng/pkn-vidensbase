@@ -1,14 +1,12 @@
 """Konservativ metadata-boost oven på Ejnars eksisterende retrieval.
 
-Laget filtrerer aldrig resultater væk. Det kan kun flytte allerede fundne kandidater en
-smule, når både forespørgsel og kendelse har deterministisk udtrukket metadata til fælles.
-Ved fejl returneres den oprindelige rangering uændret.
+Laget filtrerer aldrig resultater væk. Det udtrækker kun metadata for de kandidater,
+som retrieval allerede har fundet, og undgår dermed en dyr full-corpus cold-start.
 """
 from __future__ import annotations
 
 from dataclasses import fields
 import logging
-import threading
 from typing import Any
 
 try:
@@ -19,11 +17,7 @@ except ImportError:  # package-import i tests/værktøjer
     from ejnar.query_intent import QueryIntent, classify_query
 
 _LOG = logging.getLogger("ejnar.metadata")
-_CACHE_LOCK = threading.Lock()
-_METADATA_CACHE: dict[tuple[int, int], list[DecisionMetadata]] = {}
 
-# Bygningsdel, årsag og materiale er stærkere faktuelle signaler end fx generelle
-# ord om udbedring. Vægtene er bevidst små og bruges kun som tie-break/let boost.
 _FIELD_WEIGHTS = {
     "building_parts": 3.0,
     "causes": 2.5,
@@ -61,33 +55,17 @@ def _row_text(row: Any) -> str:
     )
 
 
-def _metadata_for_df(df: Any) -> list[DecisionMetadata]:
-    key = (id(df), len(df))
-    with _CACHE_LOCK:
-        cached = _METADATA_CACHE.get(key)
-    if cached is not None:
-        return cached
-
-    built = [extract_metadata(_row_text(df.iloc[idx])) for idx in range(len(df))]
-    with _CACHE_LOCK:
-        # Hold cachen begrænset; Streamlit genbruger normalt samme DataFrame-instans.
-        if len(_METADATA_CACHE) >= 4:
-            _METADATA_CACHE.clear()
-        _METADATA_CACHE[key] = built
-    return built
-
-
 def rerank_with_metadata(query: str, ranked_indices: list[int], df: Any) -> list[int]:
     """Flyt kun eksisterende kandidater; bevar stabil rækkefølge ved samme score."""
     query_meta = extract_metadata(query)
     if not _metadata_has_signal(query_meta) or len(ranked_indices) < 2:
         return list(ranked_indices)
 
-    metadata = _metadata_for_df(df)
     scored: list[tuple[float, int, int]] = []
     for original_rank, idx in enumerate(ranked_indices):
         try:
-            overlap = metadata_overlap_score(query_meta, metadata[int(idx)])
+            document_meta = extract_metadata(_row_text(df.iloc[int(idx)]))
+            overlap = metadata_overlap_score(query_meta, document_meta)
         except (IndexError, TypeError, ValueError):
             overlap = 0.0
         # Den oprindelige rangering er fortsat hovedsignalet. Metadata må højst
@@ -101,7 +79,7 @@ def rerank_with_metadata(query: str, ranked_indices: list[int], df: Any) -> list
 
 
 def install_metadata_runtime(shared_module: Any | None = None) -> bool:
-    """Installér metadata-boost efter intent- og paragraph-runtime."""
+    """Installér kandidatbaseret metadata-boost efter de øvrige retrieval-lag."""
     if shared_module is None:
         import shared as shared_module  # type: ignore
 
