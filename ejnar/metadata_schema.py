@@ -48,7 +48,14 @@ _TERMS = {
         ),
         "undertag": ("undertag", "undertaget"),
         "tagrende": ("tagrende", "tagrender", "tagrenden"),
-        "vindue": ("vindue", "vinduer", "vinduet", "vinduerne"),
+        "vindue": (
+            "vindue",
+            "vinduer",
+            "vinduet",
+            "vinduerne",
+            "trævindue",
+            "trævinduer",
+        ),
         "gulv": ("gulv", "gulvet", "parketgulv", "trægulv", "klinkegulv"),
         "fundament/sokkel": ("fundament", "fundamentet", "sokkel", "soklen"),
         "badeværelse/vådrum": (
