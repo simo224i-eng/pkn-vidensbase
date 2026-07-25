@@ -20,12 +20,13 @@ class FakeMetadata:
 
 def fake_extract(text: str) -> FakeMetadata:
     blob = text.lower()
+    building_parts = (
+        ("tag",)
+        if "tag" in blob
+        else (("vindue",) if "vindue" in blob else (("gulv",) if "gulv" in blob else ()))
+    )
     return FakeMetadata(
-        building_parts=(
-            ("vindue",)
-            if "vindue" in blob
-            else (("gulv",) if "gulv" in blob else ())
-        ),
+        building_parts=building_parts,
         causes=("fugt/vand",) if "fugt" in blob else (),
         consequences=(
             ("råd",)
@@ -75,6 +76,25 @@ class LegalGraphTests(unittest.TestCase):
             any(node.kind == "building_parts" for node in self.graph.nodes.values())
         )
         self.assertGreater(len(self.graph.edges), 0)
+
+    def test_derived_mangeltype_does_not_create_graph_features(self):
+        graph = build_decision_graph(
+            [{
+                "Sagsnummer": "400",
+                "Titel": "Gulv",
+                "Tekst": "Gulvet var ujævnt.",
+                "Mangeltype": "Tag/tagdækning, Skimmel/fugt, Gulv",
+                "Link": "d",
+            }],
+            metadata_extractor=fake_extract,
+        )
+        feature_labels = {
+            node.label
+            for node in graph.nodes.values()
+            if node.kind != "decision"
+        }
+        self.assertIn("gulv", feature_labels)
+        self.assertNotIn("tag", feature_labels)
 
     def test_related_decisions_share_explainable_features(self):
         decision_id = next(
