@@ -239,10 +239,12 @@ def evaluate(
     results_by_id: dict[str, list[dict[str, Any]]],
 ) -> dict[str, Any]:
     grouped = group_qrels(qrels)
-    question_ids = sorted(set(grouped) | set(results_by_id))
+    benchmarked_ids = sorted(grouped)
+    result_ids = set(results_by_id)
+    qrel_ids = set(grouped)
     per_case = [
-        evaluate_case(question_id, grouped.get(question_id, []), results_by_id.get(question_id, []))
-        for question_id in question_ids
+        evaluate_case(question_id, grouped[question_id], results_by_id.get(question_id, []))
+        for question_id in benchmarked_ids
     ]
     return {
         "summary": aggregate(per_case),
@@ -250,6 +252,10 @@ def evaluate(
         "qrels": {
             "judgments": len(qrels),
             "sources": sorted({qrel.source for qrel in qrels if qrel.source}),
+            "benchmarked_questions": len(qrel_ids),
+            "result_questions": len(result_ids),
+            "unbenchmarked_result_questions": sorted(result_ids - qrel_ids),
+            "missing_result_questions": sorted(qrel_ids - result_ids),
         },
     }
 
