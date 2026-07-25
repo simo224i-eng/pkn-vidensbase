@@ -33,91 +33,46 @@ class DecisionMetadata:
 _TERMS = {
     "building_parts": {
         "tag": (
-            "tag",
-            "tagdækning",
-            "tagsten",
-            "tagkonstruktion",
-            "tagkonstruktionen",
-            "tagrum",
-            "tagrummet",
-            "tagflade",
-            "tagflader",
-            "tagbeklædning",
-            "tagplade",
-            "tagplader",
+            "tag", "tagdækning", "tagsten", "tagkonstruktion",
+            "tagkonstruktionen", "tagrum", "tagrummet", "tagflade",
+            "tagflader", "tagbeklædning", "tagplade", "tagplader",
         ),
         "undertag": ("undertag", "undertaget"),
         "tagrende": ("tagrende", "tagrender", "tagrenden"),
         "vindue": (
-            "vindue",
-            "vinduer",
-            "vinduet",
-            "vinduerne",
-            "trævindue",
-            "trævinduer",
+            "vindue", "vinduer", "vinduet", "vinduerne",
+            "trævindue", "trævinduer",
         ),
         "gulv": ("gulv", "gulvet", "parketgulv", "trægulv", "klinkegulv"),
         "fundament/sokkel": ("fundament", "fundamentet", "sokkel", "soklen"),
         "badeværelse/vådrum": (
-            "badeværelse",
-            "badeværelset",
-            "vådrum",
-            "bruseniche",
-            "brusenichen",
+            "badeværelse", "badeværelset", "vådrum", "bruseniche", "brusenichen",
         ),
         "kloak/afløb": (
-            "kloak",
-            "kloakken",
-            "afløb",
-            "afløbet",
-            "faldstamme",
-            "dræn",
+            "kloak", "kloakken", "afløb", "afløbet", "faldstamme", "dræn",
         ),
-        "murværk/facade": (
-            "murværk",
-            "facade",
-            "facaden",
-            "mursten",
-            "puds",
-        ),
+        "murværk/facade": ("murværk", "facade", "facaden", "mursten", "puds"),
     },
     "causes": {
         "slid og ælde": ("slid og ælde", "sædvanligt slid", "almindeligt slid"),
         "udløbet levetid": ("udløbet levetid", "udtjent levetid", "restlevetid"),
         "manglende vedligeholdelse": (
-            "manglende vedligeholdelse",
-            "vedligeholdelsesmangel",
+            "manglende vedligeholdelse", "vedligeholdelsesmangel",
         ),
         "fejludførelse": (
-            "fejludført",
-            "fejludførelse",
-            "forkert udført",
-            "mangelfuldt udført",
+            "fejludført", "fejludførelse", "forkert udført", "mangelfuldt udført",
         ),
         "fugt/vand": (
-            "fugt",
-            "fugtskade",
-            "fugtskader",
-            "vandindtrængning",
-            "utæthed",
-            "utætheder",
-            "opfugtning",
+            "fugt", "fugtskade", "fugtskader", "vandindtrængning",
+            "utæthed", "utætheder", "opfugtning",
         ),
     },
     "consequences": {
         "skimmel": ("skimmel", "skimmelsvamp"),
-        "råd": (
-            "råd",
-            "rådskade",
-            "rådskader",
-            "rådskadet",
-            "rådskadede",
-        ),
+        "råd": ("råd", "rådskade", "rådskader", "rådskadet", "rådskadede"),
         "utæthed": ("utæthed", "utætheder", "utæt", "utætte"),
         "funktionsnedsættelse": (
-            "nedsat funktion",
-            "funktionssvigt",
-            "ikke funktionsdygtig",
+            "nedsat funktion", "funktionssvigt", "ikke funktionsdygtig",
         ),
         "kosmetisk": ("kosmetisk", "æstetisk"),
     },
@@ -136,13 +91,7 @@ _TERMS = {
         "zink": ("zink",),
         "aluminium": ("aluminium", "aluminiumtape"),
         "beton": ("beton",),
-        "træ": (
-            "træ",
-            "trækonstruktion",
-            "træværk",
-            "trævindue",
-            "trævinduer",
-        ),
+        "træ": ("træ", "trækonstruktion", "træværk", "trævindue", "trævinduer"),
         "vinyl": ("vinyl",),
         "klinker": ("klinker", "klinkegulv"),
         "tagpap": ("tagpap",),
@@ -159,6 +108,15 @@ _TERMS = {
         "nyværdi": ("nyværdi",),
     },
 }
+
+_TOKEN_RE = re.compile(r"[a-zæøå0-9]+", re.I)
+_PHRASE_LENGTHS = tuple(sorted({
+    len(_TOKEN_RE.findall(needle.lower()))
+    for mapping in _TERMS.values()
+    for needles in mapping.values()
+    for needle in needles
+    if len(_TOKEN_RE.findall(needle.lower())) > 1
+}))
 
 _YEAR = r"(?P<year>(?:18|19|20)\d{2})"
 _CONSTRUCTION_YEAR_PATTERNS = (
@@ -200,22 +158,44 @@ def _normalise(text: str) -> str:
 
 
 @lru_cache(maxsize=1024)
-def _term_pattern(needle: str) -> re.Pattern[str]:
-    normalised = _normalise(needle)
-    tokens = [re.escape(token) for token in normalised.split() if token]
-    body = r"\s+".join(tokens)
-    return re.compile(rf"(?<!\w){body}(?!\w)", re.I)
+def _needle_tokens(needle: str) -> tuple[str, ...]:
+    return tuple(match.group(0).lower() for match in _TOKEN_RE.finditer(needle or ""))
 
 
-def _contains_term(text: str, needle: str) -> bool:
-    normalised = _normalise(needle)
-    return bool(normalised and _term_pattern(normalised).search(text))
+def _build_term_index(text: str) -> tuple[set[str], dict[int, set[tuple[str, ...]]]]:
+    tokens = tuple(match.group(0).lower() for match in _TOKEN_RE.finditer(text or ""))
+    token_set = set(tokens)
+    ngrams = {
+        length: {
+            tokens[index:index + length]
+            for index in range(max(0, len(tokens) - length + 1))
+        }
+        for length in _PHRASE_LENGTHS
+    }
+    return token_set, ngrams
 
 
-def _match_labels(text: str, mapping: dict[str, Iterable[str]]) -> tuple[str, ...]:
+def _contains_term(
+    token_set: set[str],
+    ngrams: dict[int, set[tuple[str, ...]]],
+    needle: str,
+) -> bool:
+    tokens = _needle_tokens(needle)
+    if not tokens:
+        return False
+    if len(tokens) == 1:
+        return tokens[0] in token_set
+    return tokens in ngrams.get(len(tokens), set())
+
+
+def _match_labels(
+    token_set: set[str],
+    ngrams: dict[int, set[tuple[str, ...]]],
+    mapping: dict[str, Iterable[str]],
+) -> tuple[str, ...]:
     found = []
     for label, needles in mapping.items():
-        if any(_contains_term(text, needle) for needle in needles):
+        if any(_contains_term(token_set, ngrams, needle) for needle in needles):
             found.append(label)
     return tuple(found)
 
@@ -243,8 +223,9 @@ def _extract_laws(text: str) -> tuple[str, ...]:
 
 def extract_metadata(text: str) -> DecisionMetadata:
     blob = _normalise(text)
+    token_set, ngrams = _build_term_index(blob)
     values = {
-        field: _match_labels(blob, mapping)
+        field: _match_labels(token_set, ngrams, mapping)
         for field, mapping in _TERMS.items()
     }
     return DecisionMetadata(
