@@ -59,7 +59,13 @@ def compare_reports(
             if base_value is not None and candidate_value is not None
             else None
         )
-        regression = delta is not None and delta < -abs(float(threshold))
+        # Flydende-komma kan repræsentere fx -0,02 som -0,020000000000000018.
+        # Et fald præcis på den tilladte grænse skal ikke markeres som regression.
+        tolerance = 1e-12
+        regression = (
+            delta is not None
+            and delta < (-abs(float(threshold)) - tolerance)
+        )
         deltas.append(
             MetricDelta(
                 metric=metric,
