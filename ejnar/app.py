@@ -8,6 +8,9 @@ st.set_page_config(
 )
 
 from shared import inject_css, logo
+from retrieval_runtime import install_retrieval_runtime
+
+install_retrieval_runtime()
 inject_css()
 
 # ── Global adgangskodegate ────────────────────────────────────────────────────
