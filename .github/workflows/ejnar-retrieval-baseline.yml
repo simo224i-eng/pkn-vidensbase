@@ -45,13 +45,22 @@ jobs:
             --results artifacts/ejnar-retrieval/results.jsonl \
             --report artifacts/ejnar-retrieval/report.json
 
+      - name: Generate auditable bootstrap qrels
+        run: |
+          python -m ejnar.evaluation.bootstrap_gold \
+            --questions ejnar/evaluation/eval_questions.csv \
+            --results artifacts/ejnar-retrieval/results.jsonl \
+            --output artifacts/ejnar-retrieval/bootstrap_qrels.csv
+
       - name: Publish summary
         if: always()
         run: |
           if [ -f artifacts/ejnar-retrieval/report.json ]; then
             python - <<'PY'
+          import csv
           import json
           import os
+          from collections import Counter
           from pathlib import Path
 
           report = json.loads(Path("artifacts/ejnar-retrieval/report.json").read_text())
@@ -71,6 +80,18 @@ jobs:
               f"- Phrase hit rate: {summary.get('exact_phrase_hit_rate')}",
               f"- Term coverage: {summary.get('mean_expected_term_coverage')}",
           ]
+          qrels_path = Path("artifacts/ejnar-retrieval/bootstrap_qrels.csv")
+          if qrels_path.exists():
+              with qrels_path.open(newline="", encoding="utf-8-sig") as handle:
+                  counts = Counter(int(row["relevance"]) for row in csv.DictReader(handle))
+              lines.extend([
+                  "",
+                  "### Bootstrap relevance judgments",
+                  f"- Meget relevante (2): {counts[2]}",
+                  f"- Relevante (1): {counts[1]}",
+                  f"- Irrelevante (0): {counts[0]}",
+                  f"- Usikre (-1): {counts[-1]}",
+              ])
           with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
               handle.write("\n".join(lines) + "\n")
           PY
