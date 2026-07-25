@@ -51,7 +51,9 @@ jobs:
           if [ -f artifacts/ejnar-retrieval/report.json ]; then
             python - <<'PY'
           import json
+          import os
           from pathlib import Path
+
           report = json.loads(Path("artifacts/ejnar-retrieval/report.json").read_text())
           summary = report.get("summary", {})
           run = report.get("run", {})
@@ -69,7 +71,7 @@ jobs:
               f"- Phrase hit rate: {summary.get('exact_phrase_hit_rate')}",
               f"- Term coverage: {summary.get('mean_expected_term_coverage')}",
           ]
-          with Path("$GITHUB_STEP_SUMMARY").open("a", encoding="utf-8") as handle:
+          with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
               handle.write("\n".join(lines) + "\n")
           PY
           fi
