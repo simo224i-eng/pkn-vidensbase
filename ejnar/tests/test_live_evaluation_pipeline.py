@@ -12,10 +12,14 @@ class LiveEvaluationPipelineTests(unittest.TestCase):
         retrieval = types.ModuleType("retrieval_runtime")
         paragraph = types.ModuleType("paragraph_runtime")
         metadata = types.ModuleType("metadata_runtime")
+        query_feature = types.ModuleType("query_feature_runtime")
         specific = types.ModuleType("specific_decision_runtime")
         retrieval.install_retrieval_runtime = lambda shared: calls.append(("intent", shared))
         paragraph.install_paragraph_runtime = lambda shared: calls.append(("paragraph", shared))
         metadata.install_metadata_runtime = lambda shared: calls.append(("metadata", shared))
+        query_feature.install_query_feature_runtime = lambda shared: calls.append(
+            ("query_feature", shared)
+        )
         specific.install_specific_decision_runtime = lambda shared: calls.append(("specific", shared))
         shared = object()
 
@@ -25,6 +29,7 @@ class LiveEvaluationPipelineTests(unittest.TestCase):
                 "retrieval_runtime": retrieval,
                 "paragraph_runtime": paragraph,
                 "metadata_runtime": metadata,
+                "query_feature_runtime": query_feature,
                 "specific_decision_runtime": specific,
             },
         ):
@@ -32,7 +37,7 @@ class LiveEvaluationPipelineTests(unittest.TestCase):
 
         self.assertEqual(
             [name for name, _ in calls],
-            ["intent", "paragraph", "metadata", "specific"],
+            ["intent", "paragraph", "metadata", "query_feature", "specific"],
         )
         self.assertTrue(all(value is shared for _, value in calls))
 
