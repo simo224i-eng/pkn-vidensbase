@@ -95,30 +95,36 @@ GitHub-workflowet `Ejnar retrieval baseline` genererer automatisk
 
 ## Fastfrosset qrels-benchmark
 
-`bootstrap_qrels_v1.csv` er en kompakt, fastfrosset relevance-pool fra den første
-vellykkede bootstrap-kørsel. Provenance og label-fordeling er dokumenteret i
-`bootstrap_qrels_v1.meta.json`. Fordi facittet er fast, kan senere retrieval-
-versioner sammenlignes mod de samme domme.
+Det aktive benchmark er `bootstrap_qrels_v2.csv`. Det indeholder 429 sikre domme
+på tværs af 30 af de 31 stabile evalueringsspørgsmål. De 191 usikre domme fra
+bootstrap-kørslen er ikke gemt som ground truth. Provenance, den fulde
+label-fordeling og SHA-256 for alle 31 querytekster ligger i
+`bootstrap_qrels_v2.meta.json`.
 
-Kør qrels-metrikkerne sådan:
+Query-hashene betyder, at et eksisterende `question_id` ikke kan få en ny
+betydning uden at tests fejler. `bootstrap_qrels_v1.csv` og dets manifest
+bevares som historisk baseline, men bruges ikke længere af standardworkflowet.
+
+Kør det aktive qrels-benchmark sådan:
 
 ```bash
 python -m ejnar.evaluation.qrels_metrics \
-  --qrels ejnar/evaluation/bootstrap_qrels_v1.csv \
+  --qrels ejnar/evaluation/bootstrap_qrels_v2.csv \
   --results ejnar/evaluation/retrieval_results.jsonl \
   --output ejnar/evaluation/qrels_report.json
 ```
 
 Qrels-poolen er ufuldstændig. En kendelse uden dom behandles derfor som
-`unjudged` – ikke automatisk som irrelevant. Rapporten viser derfor både:
+`unjudged` – ikke automatisk som irrelevant. Rapporten viser både:
 
 - Recall@5, @10 og @20 mod kendte relevante kendelser;
 - MRR og graded NDCG@10;
 - judged precision@5 og @10;
-- judged coverage@5, @10 og @20.
+- judged coverage@5, @10 og @20;
+- benchmarkede spørgsmål, aktuelle spørgsmål uden facit og manglende resultater.
 
 Høj Recall@20 skal fortolkes forsigtigt, fordi bootstrap-poolen oprindeligt blev
-bygget fra top-20-resultater. Judged coverage viser, hvor stor en del af den nye
+bygget fra top-20-resultater. Judged coverage viser, hvor stor en del af en ny
 resultatliste der faktisk er dækket af facittet.
 
 ## Resultatformat
