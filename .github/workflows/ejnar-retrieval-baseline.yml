@@ -87,9 +87,13 @@ jobs:
           if frozen_path.exists():
               frozen = json.loads(frozen_path.read_text())
               qsummary = frozen.get("summary", {})
+              qmeta = frozen.get("qrels", {})
               lines.extend([
                   "",
                   "### Frozen qrels v1",
+                  f"- Benchmarked questions: {qmeta.get('benchmarked_questions')}",
+                  f"- Unbenchmarked current questions: {len(qmeta.get('unbenchmarked_result_questions') or [])}",
+                  f"- Missing benchmark results: {len(qmeta.get('missing_result_questions') or [])}",
                   f"- Recall@5: {qsummary.get('mean_recall_at_5')}",
                   f"- Recall@10: {qsummary.get('mean_recall_at_10')}",
                   f"- Recall@20: {qsummary.get('mean_recall_at_20')}",

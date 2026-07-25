@@ -54,7 +54,7 @@ class QrelsMetricsTests(unittest.TestCase):
         self.assertAlmostEqual(metrics.judged_coverage_at_5, 1 / 3)
         self.assertEqual(metrics.judged_precision_at_5, 1.0)
 
-    def test_evaluate_aggregates_multiple_questions(self):
+    def test_evaluate_aggregates_multiple_benchmarked_questions(self):
         report = evaluate(
             [Qrel("Q1", "A", 1, 0.9), Qrel("Q2", "B", 2, 0.9)],
             {"Q1": [{"Sagsnummer": "A"}], "Q2": [{"Sagsnummer": "B"}]},
@@ -62,6 +62,33 @@ class QrelsMetricsTests(unittest.TestCase):
         self.assertEqual(report["summary"]["questions"], 2)
         self.assertEqual(report["summary"]["mrr"], 1.0)
         self.assertEqual(report["summary"]["mean_recall_at_5"], 1.0)
+
+    def test_unbenchmarked_questions_do_not_dilute_coverage(self):
+        report = evaluate(
+            [Qrel("Q1", "A", 1, 0.9)],
+            {
+                "Q1": [{"Sagsnummer": "A"}],
+                "Q2": [{"Sagsnummer": "X"}],
+                "Q3": [{"Sagsnummer": "Y"}],
+            },
+        )
+        self.assertEqual(report["summary"]["questions"], 1)
+        self.assertEqual(report["summary"]["mean_judged_coverage_at_5"], 1.0)
+        self.assertEqual(report["qrels"]["benchmarked_questions"], 1)
+        self.assertEqual(report["qrels"]["result_questions"], 3)
+        self.assertEqual(
+            report["qrels"]["unbenchmarked_result_questions"],
+            ["Q2", "Q3"],
+        )
+
+    def test_missing_benchmark_result_is_reported(self):
+        report = evaluate(
+            [Qrel("Q1", "A", 1, 0.9), Qrel("Q2", "B", 1, 0.9)],
+            {"Q1": [{"Sagsnummer": "A"}]},
+        )
+        self.assertEqual(report["qrels"]["missing_result_questions"], ["Q2"])
+        self.assertEqual(report["summary"]["questions"], 2)
+        self.assertEqual(report["summary"]["mrr"], 0.5)
 
     def test_link_can_match_when_case_number_differs(self):
         metrics = evaluate_case(
