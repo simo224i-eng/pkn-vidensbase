@@ -11,10 +11,12 @@ from shared import inject_css, logo
 from retrieval_runtime import install_retrieval_runtime
 from paragraph_runtime import install_paragraph_runtime
 from metadata_runtime import install_metadata_runtime
+from citation_runtime import install_citation_runtime
 
 install_retrieval_runtime()
 install_paragraph_runtime()
 install_metadata_runtime()
+install_citation_runtime()
 inject_css()
 
 # ── Global adgangskodegate ────────────────────────────────────────────────────
