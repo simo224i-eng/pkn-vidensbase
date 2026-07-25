@@ -1,31 +1,32 @@
 question_id,query,intent,expected_decision_ids,expected_terms,expected_phrase,notes
 EJ-001,"Find afgørelser hvor der står ""undertaget er ikke ført sammen over kip""",exact_content_search,,undertag|kip,undertaget er ikke ført sammen over kip,Ordret søgning efter konstruktionsbeskrivelse
 EJ-002,Find afgørelser hvor der både var skimmel på undertaget og manglende ventilation ved kip,exact_content_search,,skimmel|undertag|ventilation|kip,,Kombination af faktiske forhold
-EJ-003,Find afgørelser der omtaler aluminiumtape på tagrender,exact_content_search,,aluminiumtape|tagrende,,Sjældent konkret materiale
-EJ-004,Find afgørelser hvor undertaget var repareret med gaffatape,exact_content_search,,undertag|gaffatape|reparation,,Konkret tidligere reparationsmetode
-EJ-005,Find afgørelser om manglende fodblik og afstandslister ved taget,exact_content_search,,fodblik|afstandslister|tag,,Flere konkrete tagdetaljer
-EJ-006,Find afgørelser hvor gulvet var lokalt hævet men fortsat fast og stabilt,exact_content_search,,gulv|hævet|fast|stabilt,fast og stabilt,Funktion kontra kosmetisk forhold
-EJ-007,Find afgørelser om vinyl under klinker i en bruseniche,exact_content_search,,vinyl|klinker|bruseniche,,Konkret vådrumskonstruktion
-EJ-008,Find afgørelser der omtaler manglende vådrumsmembran uden følgeskader,exact_content_search,,vådrumsmembran|følgeskader,,Kombination af udførelsesfejl og skadefølge
-EJ-009,Find afgørelser om skotrender hvor selskabet kun ville betale tætning ved kip,exact_content_search,,skotrende|tætning|kip,,Præcis udbedringsdiskussion
-EJ-010,Find afgørelser hvor der var normale fugtværdier trods anmeldt skimmel,exact_content_search,,normale fugtværdier|skimmel,,Negativt bevismoment
+EJ-003,Find kendelse nr. 100123,specific_decision_search,,,,Legacy benchmark-spørgsmål; beholdes uændret alene for sammenlignelighed med qrels v1
+EJ-004,Hvad er Ankenævnets praksis om manglende ventilation i tagrum?,practice_overview,,ventilation|tagrum,,Bred praksissyntese
+EJ-005,Hvilke momenter lægger nævnet typisk vægt på ved skimmel?,practice_overview,,skimmel,,Momentsøgning
+EJ-006,I min sag er et gulv fra 1974 lokalt hævet men fortsat fast. Vil forholdet være dækket?,concrete_case_assessment,,gulv|hævet|funktion,,Konkret sag
+EJ-007,Hvilken frist gælder for at klage til Ankenævnet?,factual_lookup,,frist|klage,,Faktuelt opslag
+EJ-008,Find afgørelser der omtaler aluminiumtape på tagrender,exact_content_search,,aluminiumtape|tagrende,,Sjældent konkret materiale
+EJ-009,Hvornår får klager medhold i sager om råd i vinduer?,practice_overview,,råd|vindue|medhold,,Udfald på tværs
+EJ-010,Undersøg relationen mellem restlevetid og sædvanligt slid,exploratory_research,,restlevetid|slid,,Eksplorativ research
 EJ-011,Find kendelse nr. 98097,specific_decision_search,98097,,,Verificerbart kendelsesopslag
 EJ-012,Find kendelse nr. 89036,specific_decision_search,89036,,,Verificerbart kendelsesopslag
 EJ-013,Find kendelse nr. 72700,specific_decision_search,72700,,,Verificerbart kendelsesopslag
 EJ-014,Find kendelse nr. 103047,specific_decision_search,103047,,,Verificerbart kendelsesopslag
 EJ-015,Find kendelse nr. 98676,specific_decision_search,98676,,,Verificerbart kendelsesopslag
-EJ-016,Hvad er Ankenævnets praksis om manglende ventilation i tagrum?,practice_overview,,ventilation|tagrum,,Bred praksissyntese
-EJ-017,Hvilke momenter lægger nævnet typisk vægt på ved skimmel?,practice_overview,,skimmel|fugt,,Momentsøgning
-EJ-018,Hvornår får klager medhold i sager om råd i vinduer?,practice_overview,,råd|vindue|medhold,,Udfald på tværs
-EJ-019,Hvordan indgår restlevetid og sædvanligt slid i nævnets praksis?,practice_overview,,restlevetid|slid,,Alder og forventelighed
-EJ-020,Hvordan behandler nævnet forhold der allerede er omtalt med K3 i tilstandsrapporten?,practice_overview,,K3|tilstandsrapport,,Kendskab og rapportoplysninger
-EJ-021,Et gulv fra 1974 er lokalt hævet men fortsat fast og stabilt. Er forholdet typisk dækket?,concrete_case_assessment,,gulv|1974|hævet|funktion,,Konkret funktionsvurdering
-EJ-022,"Et ældre undertag har små flænger og tidligere reparationer med tape, men har fungeret i flere år. Er det en skade?",concrete_case_assessment,,undertag|flænger|tape|funktion,,Levetid og faktisk funktion
-EJ-023,"Der er mangelfuld ventilation i et tagrum, men normale fugtværdier og ingen usædvanlig skimmel. Er det dækket?",concrete_case_assessment,,ventilation|normale fugtværdier|skimmel,,Fejl uden dokumenteret skadefølge
-EJ-024,Vinduerne har råd og fugerne er utætte. Hvilke forhold taler for eller imod dækning?,concrete_case_assessment,,vinduer|råd|fuger|levetid,,Årsag og alderssammenligning
-EJ-025,"En bruseniche mangler vådrumsmembran, men der er endnu ingen følgeskade. Hvordan behandles det?",concrete_case_assessment,,bruseniche|vådrumsmembran|følgeskade,,Nærliggende risiko kontra udførelsesfejl
-EJ-026,Hvilken frist gælder for at klage til Ankenævnet?,factual_lookup,,frist|klage,,Faktuelt opslag; kan afsløre manglende kildegrundlag
-EJ-027,Hvem har bevisbyrden for at skaden var til stede ved overtagelsen?,factual_lookup,,bevisbyrde|overtagelse|skade,,Centralt juridisk princip
-EJ-028,Hvordan håndteres et forhold der også kan være dækket af husforsikringen?,factual_lookup,,anden forsikring|husforsikring|dobbeltforsikring,,Sammenfald med anden forsikring
-EJ-029,Hvornår anvender nævnet afskrivning eller restlevetid i erstatningsopgørelsen?,exploratory_research,,afskrivning|restlevetid|erstatning,,Erstatningsopgørelse
-EJ-030,Hvornår accepterer nævnet reparation frem for fuld udskiftning?,exploratory_research,,reparation|udskiftning|udbedring,,Udbedringsmetode og tabsbegrænsning
+EJ-016,Find afgørelser hvor undertaget var repareret med gaffatape,exact_content_search,,undertag|gaffatape|reparation,,Konkret tidligere reparationsmetode
+EJ-017,Find afgørelser om manglende fodblik og afstandslister ved taget,exact_content_search,,fodblik|afstandslister|tag,,Flere konkrete tagdetaljer
+EJ-018,Find afgørelser hvor gulvet var lokalt hævet men fortsat fast og stabilt,exact_content_search,,gulv|hævet|fast|stabilt,fast og stabilt,Funktion kontra kosmetisk forhold
+EJ-019,Find afgørelser om vinyl under klinker i en bruseniche,exact_content_search,,vinyl|klinker|bruseniche,,Konkret vådrumskonstruktion
+EJ-020,Find afgørelser der omtaler manglende vådrumsmembran uden følgeskader,exact_content_search,,vådrumsmembran|følgeskader,,Kombination af udførelsesfejl og skadefølge
+EJ-021,Find afgørelser om skotrender hvor selskabet kun ville betale tætning ved kip,exact_content_search,,skotrende|tætning|kip,,Præcis udbedringsdiskussion
+EJ-022,Find afgørelser hvor der var normale fugtværdier trods anmeldt skimmel,exact_content_search,,normale fugtværdier|skimmel,,Negativt bevismoment
+EJ-023,Hvordan behandler nævnet forhold der allerede er omtalt med K3 i tilstandsrapporten?,practice_overview,,K3|tilstandsrapport,,Kendskab og rapportoplysninger
+EJ-024,Hvornår accepterer nævnet reparation frem for fuld udskiftning?,practice_overview,,reparation|udskiftning|udbedring,,Udbedringsmetode og tabsbegrænsning
+EJ-025,"Et ældre undertag har små flænger og tidligere reparationer med tape, men har fungeret i flere år. Er det en skade?",concrete_case_assessment,,undertag|flænger|tape|funktion,,Levetid og faktisk funktion
+EJ-026,"Der er mangelfuld ventilation i et tagrum, men normale fugtværdier og ingen usædvanlig skimmel. Er det dækket?",concrete_case_assessment,,ventilation|normale fugtværdier|skimmel,,Fejl uden dokumenteret skadefølge
+EJ-027,Vinduerne har råd og fugerne er utætte. Hvilke forhold taler for eller imod dækning?,concrete_case_assessment,,vinduer|råd|fuger|levetid,,Årsag og alderssammenligning
+EJ-028,"En bruseniche mangler vådrumsmembran, men der er endnu ingen følgeskade. Hvordan behandles det?",concrete_case_assessment,,bruseniche|vådrumsmembran|følgeskade,,Nærliggende risiko kontra udførelsesfejl
+EJ-029,Hvem har bevisbyrden for at skaden var til stede ved overtagelsen?,factual_lookup,,bevisbyrde|overtagelse|skade,,Centralt juridisk princip
+EJ-030,Hvordan håndteres et forhold der også kan være dækket af husforsikringen?,factual_lookup,,anden forsikring|husforsikring|dobbeltforsikring,,Sammenfald med anden forsikring
+EJ-031,Hvornår anvender nævnet afskrivning eller restlevetid i erstatningsopgørelsen?,exploratory_research,,afskrivning|restlevetid|erstatning,,Erstatningsopgørelse
