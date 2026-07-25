@@ -62,16 +62,38 @@ def _candidate_indices(df: Any, sub_idx: Any) -> list[int]:
     return list(range(len(df)))
 
 
-def _normalise_exact(value: str) -> str:
-    return re.sub(r"\s+", " ", (value or "").strip()).lower()
+def _normalise_identifier(value: str) -> str:
+    return (value or "").strip().casefold().rstrip(".,;)")
+
+
+def _phrase_match(phrase: str, haystack: str) -> bool:
+    """Match ordret først og tillad kun whitespace-variation som fallback."""
+    needle = re.sub(r"\s+", " ", (phrase or "").strip()).casefold()
+    if not needle:
+        return False
+    if needle in haystack:
+        return True
+    tokens = [re.escape(token) for token in needle.split() if token]
+    if not tokens:
+        return False
+    return re.search(r"\s+".join(tokens), haystack, flags=re.IGNORECASE) is not None
 
 
 def _exact_match_ranking(query: str, df: Any, sub_idx: Any, limit: int) -> list[int]:
-    """Rangér dokumenter med direkte frase-/ID-match før den normale hybridrangering."""
+    """Rangér direkte frase-/ID-match uden at normalisere hele korpusset per søgning.
+
+    Sagsnumre og links kontrolleres kun i de små metadatafelter. Fuld kendelsestekst
+    læses kun, når forespørgslen faktisk indeholder en ordret frase. Det fjerner den
+    tidligere dyre ``re.sub`` over samtlige kendelser ved hvert opslag.
+    """
     plan = classify_query(query)
-    needles = [*plan.exact_phrases, *plan.decision_identifiers]
-    needles = [_normalise_exact(str(n)) for n in needles if _normalise_exact(str(n))]
-    if not needles:
+    phrases = tuple(value for value in plan.exact_phrases if str(value).strip())
+    identifiers = tuple(
+        _normalise_identifier(str(value))
+        for value in plan.decision_identifiers
+        if _normalise_identifier(str(value))
+    )
+    if not phrases and not identifiers:
         return []
 
     scored: list[tuple[float, int]] = []
@@ -80,22 +102,29 @@ def _exact_match_ranking(query: str, df: Any, sub_idx: Any, limit: int) -> list[
             row = df.iloc[idx]
         except Exception:
             continue
-        fields = [
-            row.get("Sagsnummer", ""),
-            row.get("Titel", ""),
-            row.get("Tekst", ""),
-            row.get("Link", ""),
-        ]
-        blob = _normalise_exact("\n".join(str(v or "") for v in fields))
+
         score = 0.0
-        for needle in needles:
-            occurrences = blob.count(needle)
-            if occurrences:
-                score += 100.0 + min(occurrences, 10)
-                if _normalise_exact(str(row.get("Sagsnummer", ""))) == needle:
-                    score += 200.0
+        case_number = _normalise_identifier(str(row.get("Sagsnummer", "") or ""))
+        link = _normalise_identifier(str(row.get("Link", "") or ""))
+        title = str(row.get("Titel", "") or "")
+        title_folded = title.casefold()
+
+        for identifier in identifiers:
+            if case_number == identifier:
+                score += 400.0
+            elif identifier and (identifier in case_number or identifier in link or identifier in title_folded):
+                score += 180.0
+
+        if phrases:
+            text = str(row.get("Tekst", "") or "")
+            haystack = f"{title}\n{text}".casefold()
+            matched_phrases = sum(_phrase_match(phrase, haystack) for phrase in phrases)
+            if matched_phrases:
+                score += 120.0 * matched_phrases
+
         if score:
             scored.append((score, idx))
+
     scored.sort(key=lambda item: (-item[0], item[1]))
     return [idx for _, idx in scored[:limit]]
 
