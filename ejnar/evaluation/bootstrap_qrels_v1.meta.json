@@ -1,0 +1,24 @@
+{
+  "version": "bootstrap_qrels_v1",
+  "created_from": {
+    "workflow_run_id": 30156759106,
+    "head_sha": "a5f392ee8be3e7869de0d8b0c1f090dc32151d7c",
+    "pipeline": "intent+paragraph_bm25+metadata",
+    "questions": 10,
+    "candidates_per_question": 20
+  },
+  "judgments": 200,
+  "distribution": {
+    "-1": 43,
+    "0": 33,
+    "1": 117,
+    "2": 7
+  },
+  "policy": {
+    "2": "highly relevant",
+    "1": "relevant",
+    "0": "irrelevant",
+    "-1": "uncertain; excluded by default from metrics"
+  },
+  "notes": "AI-bootstrap v1. Auditable development benchmark; not an independent external validation."
+}

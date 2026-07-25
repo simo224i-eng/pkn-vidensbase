@@ -93,6 +93,34 @@ ikke som eneste dokumentation over for eksterne brugere.
 GitHub-workflowet `Ejnar retrieval baseline` genererer automatisk
 `bootstrap_qrels.csv` og uploader det sammen med rapport og rå resultater.
 
+## Fastfrosset qrels-benchmark
+
+`bootstrap_qrels_v1.csv` er en kompakt, fastfrosset relevance-pool fra den første
+vellykkede bootstrap-kørsel. Provenance og label-fordeling er dokumenteret i
+`bootstrap_qrels_v1.meta.json`. Fordi facittet er fast, kan senere retrieval-
+versioner sammenlignes mod de samme domme.
+
+Kør qrels-metrikkerne sådan:
+
+```bash
+python -m ejnar.evaluation.qrels_metrics \
+  --qrels ejnar/evaluation/bootstrap_qrels_v1.csv \
+  --results ejnar/evaluation/retrieval_results.jsonl \
+  --output ejnar/evaluation/qrels_report.json
+```
+
+Qrels-poolen er ufuldstændig. En kendelse uden dom behandles derfor som
+`unjudged` – ikke automatisk som irrelevant. Rapporten viser derfor både:
+
+- Recall@5, @10 og @20 mod kendte relevante kendelser;
+- MRR og graded NDCG@10;
+- judged precision@5 og @10;
+- judged coverage@5, @10 og @20.
+
+Høj Recall@20 skal fortolkes forsigtigt, fordi bootstrap-poolen oprindeligt blev
+bygget fra top-20-resultater. Judged coverage viser, hvor stor en del af den nye
+resultatliste der faktisk er dækket af facittet.
+
 ## Resultatformat
 
 Runneren skriver JSONL med én linje per spørgsmål:
@@ -105,7 +133,7 @@ Runneren skriver JSONL med én linje per spørgsmål:
 uafhængigt af Streamlit og modelleverandør, så samme facit kan bruges til at
 sammenligne lexical baseline, hybrid retrieval og senere versioner.
 
-## Kør kun metrikkerne igen
+## Kør kun de oprindelige metrikker igen
 
 ```bash
 python -m ejnar.evaluation.metrics \
@@ -122,6 +150,7 @@ NDCG. De kan stadig måles på forventede termer og ordrette fraser.
 - Recall@5, @10 og @20
 - Mean Reciprocal Rank (MRR)
 - NDCG@10
+- judged precision og judged coverage
 - exact-phrase hit rate
 - expected-term coverage
 - antal unikke kendelser
