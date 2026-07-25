@@ -66,6 +66,33 @@ python -m ejnar.evaluation.run_retrieval \
 Rapporten indeholder også antal dokumenter, antal spørgsmål, gennemsnitlig
 retrieval-tid og den detekterede søgehensigt for hver forespørgsel.
 
+## Automatisk bootstrap-facit
+
+`bootstrap_gold.py` kan oprette et foreløbigt og auditerbart relevance-facit
+ud fra de kendelser, retrieval allerede har fundet:
+
+```bash
+python -m ejnar.evaluation.bootstrap_gold \
+  --questions ejnar/evaluation/eval_questions.csv \
+  --results ejnar/evaluation/retrieval_results.jsonl \
+  --output ejnar/evaluation/bootstrap_qrels.csv
+```
+
+Hver kandidat får én af følgende labels:
+
+- `2`: meget relevant;
+- `1`: relevant;
+- `0`: irrelevant;
+- `-1`: usikker og egnet til senere stikprøvekontrol.
+
+CSV-filen indeholder også confidence, anvendte signaler, begrundelse og kilde.
+Den kan derfor revideres, og AI-dommene kan holdes adskilt fra senere manuelt
+verificerede domme. Bootstrap-facittet bør bruges til udvikling og prioritering,
+ikke som eneste dokumentation over for eksterne brugere.
+
+GitHub-workflowet `Ejnar retrieval baseline` genererer automatisk
+`bootstrap_qrels.csv` og uploader det sammen med rapport og rå resultater.
+
 ## Resultatformat
 
 Runneren skriver JSONL med én linje per spørgsmål:
