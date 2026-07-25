@@ -1,11 +1,14 @@
 """Normaliseret metadata til Ejnars kendelser.
 
-Første version er deterministisk og konservativ. Den må hellere returnere tomme felter
-end opfinde metadata. Senere LLM-udtræk kan skrive til samme schema.
+Udtrækket er deterministisk og konservativt. Ord og fraser skal stå som selvstændige
+begreber, byggeår kræver konstruktionskontekst, og love genkendes kun gennem afgrænsede
+navne eller nummerhenvisninger. Modulet må hellere returnere tomme felter end opfinde
+metadata. Senere LLM-udtræk kan skrive til samme schema.
 """
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 import re
 from typing import Iterable
 
@@ -29,28 +32,48 @@ class DecisionMetadata:
 
 _TERMS = {
     "building_parts": {
-        "tag": ("tag", "tagdækning", "tagsten"),
-        "undertag": ("undertag",),
-        "tagrende": ("tagrende",),
-        "vindue": ("vindue", "vinduer"),
-        "gulv": ("gulv", "parketgulv", "trægulv", "klinkegulv"),
-        "fundament/sokkel": ("fundament", "sokkel"),
-        "badeværelse/vådrum": ("badeværelse", "vådrum", "bruseniche"),
-        "kloak/afløb": ("kloak", "afløb", "faldstamme", "dræn"),
-        "murværk/facade": ("murværk", "facade", "mursten", "puds"),
+        "tag": (
+            "tag", "tagdækning", "tagsten", "tagkonstruktion",
+            "tagkonstruktionen", "tagrum", "tagrummet", "tagflade",
+            "tagflader", "tagbeklædning", "tagplade", "tagplader",
+        ),
+        "undertag": ("undertag", "undertaget"),
+        "tagrende": ("tagrende", "tagrender", "tagrenden"),
+        "vindue": (
+            "vindue", "vinduer", "vinduet", "vinduerne",
+            "trævindue", "trævinduer",
+        ),
+        "gulv": ("gulv", "gulvet", "parketgulv", "trægulv", "klinkegulv"),
+        "fundament/sokkel": ("fundament", "fundamentet", "sokkel", "soklen"),
+        "badeværelse/vådrum": (
+            "badeværelse", "badeværelset", "vådrum", "bruseniche", "brusenichen",
+        ),
+        "kloak/afløb": (
+            "kloak", "kloakken", "afløb", "afløbet", "faldstamme", "dræn",
+        ),
+        "murværk/facade": ("murværk", "facade", "facaden", "mursten", "puds"),
     },
     "causes": {
         "slid og ælde": ("slid og ælde", "sædvanligt slid", "almindeligt slid"),
         "udløbet levetid": ("udløbet levetid", "udtjent levetid", "restlevetid"),
-        "manglende vedligeholdelse": ("manglende vedligeholdelse", "vedligeholdelsesmangel"),
-        "fejludførelse": ("fejludført", "fejludførelse", "forkert udført", "mangelfuldt udført"),
-        "fugt/vand": ("fugt", "vandindtrængning", "utæthed", "opfugtning"),
+        "manglende vedligeholdelse": (
+            "manglende vedligeholdelse", "vedligeholdelsesmangel",
+        ),
+        "fejludførelse": (
+            "fejludført", "fejludførelse", "forkert udført", "mangelfuldt udført",
+        ),
+        "fugt/vand": (
+            "fugt", "fugtskade", "fugtskader", "vandindtrængning",
+            "utæthed", "utætheder", "opfugtning",
+        ),
     },
     "consequences": {
-        "skimmel": ("skimmel",),
-        "råd": ("råd", "rådskade"),
-        "utæthed": ("utæthed", "utæt"),
-        "funktionsnedsættelse": ("nedsat funktion", "funktionssvigt", "ikke funktionsdygtig"),
+        "skimmel": ("skimmel", "skimmelsvamp"),
+        "råd": ("råd", "rådskade", "rådskader", "rådskadet", "rådskadede"),
+        "utæthed": ("utæthed", "utætheder", "utæt", "utætte"),
+        "funktionsnedsættelse": (
+            "nedsat funktion", "funktionssvigt", "ikke funktionsdygtig",
+        ),
         "kosmetisk": ("kosmetisk", "æstetisk"),
     },
     "coverage_outcomes": {
@@ -68,7 +91,7 @@ _TERMS = {
         "zink": ("zink",),
         "aluminium": ("aluminium", "aluminiumtape"),
         "beton": ("beton",),
-        "træ": ("træ", "trækonstruktion"),
+        "træ": ("træ", "trækonstruktion", "træværk", "trævindue", "trævinduer"),
         "vinyl": ("vinyl",),
         "klinker": ("klinker", "klinkegulv"),
         "tagpap": ("tagpap",),
@@ -86,38 +109,133 @@ _TERMS = {
     },
 }
 
-_YEAR_RE = re.compile(r"\b(?:18|19|20)\d{2}\b")
-_LAW_RE = re.compile(r"\b(?:lov|bekendtgørelse|forsikringsaftaleloven|fal)\s*(?:nr\.?\s*)?\d*[a-zæøå-]*", re.I)
+_TOKEN_RE = re.compile(r"[a-zæøå0-9]+", re.I)
+_PHRASE_LENGTHS = tuple(sorted({
+    len(_TOKEN_RE.findall(needle.lower()))
+    for mapping in _TERMS.values()
+    for needles in mapping.values()
+    for needle in needles
+    if len(_TOKEN_RE.findall(needle.lower())) > 1
+}))
+
+_YEAR = r"(?P<year>(?:18|19|20)\d{2})"
+_CONSTRUCTION_YEAR_PATTERNS = (
+    re.compile(rf"\b(?:opført|bygget)\s+(?:i\s+)?{_YEAR}\b", re.I),
+    re.compile(
+        rf"\b(?:opførelsesår(?:et)?|byggeår(?:et)?)\s*(?:er|var|:)?\s*{_YEAR}\b",
+        re.I,
+    ),
+    re.compile(rf"\b(?:stammer|daterer\s+sig)\s+fra\s+{_YEAR}\b", re.I),
+    re.compile(
+        rf"\b(?:huset|ejendommen|bygningen|gulvet|taget|undertaget|vinduerne?|"
+        rf"badeværelset|tilbygningen|carporten)\b[^.;:]{{0,55}}?"
+        rf"\b(?:fra|opført\s+i|bygget\s+i)\s+{_YEAR}\b",
+        re.I,
+    ),
+)
+
+_KNOWN_LAW_PATTERNS = (
+    (
+        "forsikringsaftaleloven",
+        re.compile(r"\bforsikringsaftaleloven\b|\bfal\b", re.I),
+    ),
+    (
+        "lov om forbrugerbeskyttelse ved erhvervelse af fast ejendom",
+        re.compile(
+            r"\blov\s+om\s+forbrugerbeskyttelse\s+ved\s+erhvervelse\s+af\s+fast\s+ejendom\b",
+            re.I,
+        ),
+    ),
+)
+_NUMBERED_LAW_RE = re.compile(
+    r"\b(?:lov|bekendtgørelse)\s+nr\.?\s*\d+[a-z]?\b",
+    re.I,
+)
 
 
 def _normalise(text: str) -> str:
     return re.sub(r"\s+", " ", (text or "").lower()).strip()
 
 
-def _match_labels(text: str, mapping: dict[str, Iterable[str]]) -> tuple[str, ...]:
+@lru_cache(maxsize=1024)
+def _needle_tokens(needle: str) -> tuple[str, ...]:
+    return tuple(match.group(0).lower() for match in _TOKEN_RE.finditer(needle or ""))
+
+
+def _build_term_index(text: str) -> tuple[set[str], dict[int, set[tuple[str, ...]]]]:
+    tokens = tuple(match.group(0).lower() for match in _TOKEN_RE.finditer(text or ""))
+    token_set = set(tokens)
+    ngrams = {
+        length: {
+            tokens[index:index + length]
+            for index in range(max(0, len(tokens) - length + 1))
+        }
+        for length in _PHRASE_LENGTHS
+    }
+    return token_set, ngrams
+
+
+def _contains_term(
+    token_set: set[str],
+    ngrams: dict[int, set[tuple[str, ...]]],
+    needle: str,
+) -> bool:
+    tokens = _needle_tokens(needle)
+    if not tokens:
+        return False
+    if len(tokens) == 1:
+        return tokens[0] in token_set
+    return tokens in ngrams.get(len(tokens), set())
+
+
+def _match_labels(
+    token_set: set[str],
+    ngrams: dict[int, set[tuple[str, ...]]],
+    mapping: dict[str, Iterable[str]],
+) -> tuple[str, ...]:
     found = []
     for label, needles in mapping.items():
-        if any(_normalise(needle) in text for needle in needles):
+        if any(_contains_term(token_set, ngrams, needle) for needle in needles):
             found.append(label)
     return tuple(found)
 
 
+def _extract_construction_years(text: str) -> tuple[int, ...]:
+    positioned: list[tuple[int, int]] = []
+    for pattern in _CONSTRUCTION_YEAR_PATTERNS:
+        for match in pattern.finditer(text):
+            positioned.append((match.start("year"), int(match.group("year"))))
+    positioned.sort()
+    return tuple(dict.fromkeys(year for _, year in positioned))
+
+
+def _extract_laws(text: str) -> tuple[str, ...]:
+    found: list[tuple[int, str]] = []
+    for label, pattern in _KNOWN_LAW_PATTERNS:
+        match = pattern.search(text)
+        if match:
+            found.append((match.start(), label))
+    for match in _NUMBERED_LAW_RE.finditer(text):
+        found.append((match.start(), _normalise(match.group(0))))
+    found.sort(key=lambda item: (item[0], item[1]))
+    return tuple(dict.fromkeys(label for _, label in found))
+
+
 def extract_metadata(text: str) -> DecisionMetadata:
     blob = _normalise(text)
+    token_set, ngrams = _build_term_index(blob)
     values = {
-        field: _match_labels(blob, mapping)
+        field: _match_labels(token_set, ngrams, mapping)
         for field, mapping in _TERMS.items()
     }
-    years = tuple(dict.fromkeys(int(value) for value in _YEAR_RE.findall(blob)))
-    laws = tuple(dict.fromkeys(match.group(0).strip() for match in _LAW_RE.finditer(blob)))
     return DecisionMetadata(
         building_parts=values["building_parts"],
         causes=values["causes"],
         consequences=values["consequences"],
         coverage_outcomes=values["coverage_outcomes"],
         exclusions=values["exclusions"],
-        laws=laws,
-        construction_years=years,
+        laws=_extract_laws(text or ""),
+        construction_years=_extract_construction_years(blob),
         materials=values["materials"],
         remedies=values["remedies"],
         depreciation=values["depreciation"],

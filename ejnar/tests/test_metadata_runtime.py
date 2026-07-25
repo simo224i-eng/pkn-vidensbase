@@ -46,6 +46,24 @@ class MetadataRuntimeTests(unittest.TestCase):
         self.assertEqual(ranked[0], 1)
         self.assertEqual(set(ranked), {0, 1, 2})
 
+    def test_derived_mangeltype_cannot_create_metadata_boost(self):
+        df = _Frame([
+            _Row(
+                Titel="Gulv",
+                Excerpt="Gulvet var stabilt.",
+                Tekst="Sagen angik alene et gulv.",
+                Mangeltype="Tag/tagdækning, Skimmel/fugt, Gulv",
+            ),
+            _Row(
+                Titel="Tag",
+                Excerpt="Sagen angik taget.",
+                Tekst="Tagkonstruktionen var utæt.",
+                Mangeltype="Gulv",
+            ),
+        ])
+        ranked = rerank_with_metadata("tag", [0, 1], df)
+        self.assertEqual(ranked[0], 1)
+
     def test_no_signal_preserves_order(self):
         df = _Frame([
             _Row(Titel="A", Tekst="tekst"),

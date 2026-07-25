@@ -2,6 +2,8 @@
 
 Laget filtrerer aldrig resultater væk. Det udtrækker kun metadata for de kandidater,
 som retrieval allerede har fundet, og undgår dermed en dyr full-corpus cold-start.
+Afledte labels som ``Mangeltype`` bruges ikke som input, fordi de ellers kan forstærke
+eksisterende klassifikationsstøj cirkulært.
 """
 from __future__ import annotations
 
@@ -49,9 +51,10 @@ def metadata_overlap_score(query_meta: DecisionMetadata, document_meta: Decision
 
 
 def _row_text(row: Any) -> str:
+    """Brug kun original/nær-original kendelsestekst, ikke afledte labels."""
     return "\n".join(
         str(row.get(key, "") or "")
-        for key in ("Titel", "Tekst", "Mangeltype", "Udfald", "Selskab")
+        for key in ("Titel", "Excerpt", "Tekst")
     )
 
 

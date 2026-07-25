@@ -173,9 +173,10 @@ def _decision_node_id(
 
 
 def _row_text(document: dict[str, Any]) -> str:
+    """Byg featuretekst fra originale felter, ikke tidligere afledte labels."""
     return "\n".join(
         str(document.get(key, "") or "")
-        for key in ("Titel", "Tekst", "Mangeltype", "Udfald", "Selskab")
+        for key in ("Titel", "Excerpt", "Tekst")
     )
 
 
