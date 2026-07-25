@@ -1,0 +1,59 @@
+name: Ejnar tests
+
+on:
+  pull_request:
+    paths:
+      - "ejnar/**"
+      - ".github/workflows/ejnar-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "ejnar/**"
+      - ".github/workflows/ejnar-tests.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ejnar-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ejnar/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ejnar/requirements.txt
+
+      - name: Compile retrieval modules
+        run: |
+          python -m py_compile \
+            ejnar/query_intent.py \
+            ejnar/retrieval_runtime.py \
+            ejnar/paragraph_retrieval.py \
+            ejnar/paragraph_bm25.py \
+            ejnar/paragraph_runtime.py \
+            ejnar/evaluation/metrics.py \
+            ejnar/evaluation/run_retrieval.py
+
+      - name: Run Ejnar unit tests
+        env:
+          PYTHONPATH: .
+        run: python -m unittest discover -s ejnar/tests -v
