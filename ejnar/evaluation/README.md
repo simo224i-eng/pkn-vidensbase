@@ -26,21 +26,59 @@ Start med mindst 30 virkelige spørgsmål:
 For præcise indholdssøgninger bør mindst én kendelse verificeres manuelt i den
 officielle database. Udfyld ikke et forventet sagsnummer ved gæt.
 
-## Resultatformat
-
-Evalueringsværktøjet læser JSONL med én linje per spørgsmål:
-
-```json
-{"question_id":"EJ-001","results":[{"Sagsnummer":"100123","Titel":"...","Tekst":"...","Link":"..."}]}
-```
-
-`results` skal stå i den rækkefølge, retrieval-versionen returnerede dem. Formatet
-er bevidst uafhængigt af Streamlit og modelleverandør, så samme facit kan bruges
-til at sammenligne lexical baseline, hybrid retrieval og senere versioner.
-
-## Kør metrikkerne
+## Kør den faktiske retrieval
 
 Fra repoets rod:
+
+```bash
+python -m ejnar.evaluation.run_retrieval
+```
+
+Runneren:
+
+1. finder alle `ejnar_*.csv` og `ejnar_*.csv.zip`;
+2. bygger samme TF-IDF-indeks som appen;
+3. installerer den intent-aware retrieval-runtime;
+4. kører alle spørgsmål fra `eval_questions.csv`;
+5. skriver rå resultater til `retrieval_results.jsonl`;
+6. skriver den samlede rapport til `retrieval_report.json`.
+
+Standardkørslen er reproducerbar og kræver ingen API-nøgler. Den bruger den
+levende routing og hybridfunktion med lexical fallback. Voyage/Haiku-rerank kan
+slås til eksplicit:
+
+```bash
+python -m ejnar.evaluation.run_retrieval --rerank
+```
+
+Det kræver, at de relevante Streamlit-secrets er tilgængelige i miljøet.
+Andre nyttige argumenter:
+
+```bash
+python -m ejnar.evaluation.run_retrieval \
+  --top-k 20 \
+  --questions ejnar/evaluation/eval_questions.csv \
+  --data-dir ejnar \
+  --results /tmp/ejnar-results.jsonl \
+  --report /tmp/ejnar-report.json
+```
+
+Rapporten indeholder også antal dokumenter, antal spørgsmål, gennemsnitlig
+retrieval-tid og den detekterede søgehensigt for hver forespørgsel.
+
+## Resultatformat
+
+Runneren skriver JSONL med én linje per spørgsmål:
+
+```json
+{"question_id":"EJ-001","detected_intent":"exact_content_search","latency_ms":42.1,"results":[{"Sagsnummer":"100123","Titel":"...","Tekst":"...","Link":"..."}]}
+```
+
+`results` står i den rækkefølge, retrieval-versionen returnerede dem. Formatet er
+uafhængigt af Streamlit og modelleverandør, så samme facit kan bruges til at
+sammenligne lexical baseline, hybrid retrieval og senere versioner.
+
+## Kør kun metrikkerne igen
 
 ```bash
 python -m ejnar.evaluation.metrics \
@@ -49,7 +87,6 @@ python -m ejnar.evaluation.metrics \
   --output ejnar/evaluation/report.json
 ```
 
-Rapporten indeholder både samlet score og resultatet for hvert spørgsmål.
 Spørgsmål uden `expected_decision_ids` tæller ikke som fejl i Recall, MRR eller
 NDCG. De kan stadig måles på forventede termer og ordrette fraser.
 
@@ -61,6 +98,4 @@ NDCG. De kan stadig måles på forventede termer og ordrette fraser.
 - exact-phrase hit rate
 - expected-term coverage
 - antal unikke kendelser
-
-Næste integrationstrin er at eksportere de faktiske rå resultater fra Ejnars
-retrieval-pipeline i JSONL-formatet, så metrikkerne kan køres efter hver ændring.
+- gennemsnitlig retrieval-tid
