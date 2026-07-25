@@ -45,12 +45,14 @@ jobs:
             --results artifacts/ejnar-retrieval/results.jsonl \
             --report artifacts/ejnar-retrieval/report.json
 
-      - name: Evaluate against frozen qrels v1
+      - name: Evaluate against frozen qrels v2
         run: |
           python -m ejnar.evaluation.qrels_metrics \
-            --qrels ejnar/evaluation/bootstrap_qrels_v1.csv \
+            --qrels ejnar/evaluation/bootstrap_qrels_v2.csv \
             --results artifacts/ejnar-retrieval/results.jsonl \
             --output artifacts/ejnar-retrieval/qrels_report.json
+          cp ejnar/evaluation/bootstrap_qrels_v2.meta.json \
+            artifacts/ejnar-retrieval/qrels_meta.json
 
       - name: Generate auditable bootstrap qrels
         run: |
@@ -90,7 +92,7 @@ jobs:
               qmeta = frozen.get("qrels", {})
               lines.extend([
                   "",
-                  "### Frozen qrels v1",
+                  "### Frozen qrels v2",
                   f"- Benchmarked questions: {qmeta.get('benchmarked_questions')}",
                   f"- Unbenchmarked current questions: {len(qmeta.get('unbenchmarked_result_questions') or [])}",
                   f"- Missing benchmark results: {len(qmeta.get('missing_result_questions') or [])}",
