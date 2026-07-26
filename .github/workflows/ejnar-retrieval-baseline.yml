@@ -7,6 +7,8 @@ on:
       - "ejnar/app.py"
       - "ejnar/shared.py"
       - "ejnar/query_intent.py"
+      - "ejnar/query_planner.py"
+      - "ejnar/query_planner_runtime.py"
       - "ejnar/retrieval_runtime.py"
       - "ejnar/specific_decision_runtime.py"
       - "ejnar/paragraph_*.py"

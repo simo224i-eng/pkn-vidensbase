@@ -127,6 +127,27 @@ Høj Recall@20 skal fortolkes forsigtigt, fordi bootstrap-poolen oprindeligt ble
 bygget fra top-20-resultater. Judged coverage viser, hvor stor en del af en ny
 resultatliste der faktisk er dækket af facittet.
 
+## Query Planner v1-eksperiment
+
+Query Planner v1 udvider kun korte, søgefelt-lignende forespørgsler med en lille
+auditerbar liste af nært beslægtede termer. Ordrette indholdssøgninger, konkrete
+kendelsesopslag og allerede informationsrige spørgsmål bevares uændret.
+Ukendte begreber bruger den eksisterende fallback.
+
+Kør den isolerede kontrol/kandidat-sammenligning sådan:
+
+```bash
+python -m ejnar.evaluation.run_query_planner_experiment \
+  --top-k 20 \
+  --output-dir artifacts/ejnar-query-planner
+```
+
+Runneren bruger samme corpus og TF-IDF-matrice til begge kørsler. Den fejler ved
+et fald på mere end ét procentpoint i Recall, MRR, NDCG eller judged precision,
+eller hvis kandidatens gennemsnitlige latency overstiger 1,25 gange kontrollen.
+Planneren tilføjer kun retrieval-termer; den tager aldrig stilling til dækning i
+en konkret forsikringssag.
+
 ## Resultatformat
 
 Runneren skriver JSONL med én linje per spørgsmål:

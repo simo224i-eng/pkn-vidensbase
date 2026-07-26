@@ -46,12 +46,15 @@ jobs:
         run: |
           python -m py_compile \
             ejnar/query_intent.py \
+            ejnar/query_planner.py \
+            ejnar/query_planner_runtime.py \
             ejnar/retrieval_runtime.py \
             ejnar/paragraph_retrieval.py \
             ejnar/paragraph_bm25.py \
             ejnar/paragraph_runtime.py \
             ejnar/evaluation/metrics.py \
-            ejnar/evaluation/run_retrieval.py
+            ejnar/evaluation/run_retrieval.py \
+            ejnar/evaluation/run_query_planner_experiment.py
 
       - name: Run Ejnar unit tests
         env:

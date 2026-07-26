@@ -1,9 +1,9 @@
 """Kør evaluering mod samme retrieval-lag som den levende Ejnar-app.
 
 Den oprindelige runner bevares som lexical/intention-baseline. Denne runner installerer
-intent-, paragraph-, metadata-, query-feature- og specific-decision-runtime i samme
-rækkefølge som ``ejnar/app.py``. Citation-runtime ændrer kun LLM-kontekst og indgår
-ikke i retrieval-metrikkerne.
+intent-, query-planner-, paragraph-, metadata-, query-feature- og
+specific-decision-runtime i samme rækkefølge som ``ejnar/app.py``. Citation-runtime
+ændrer kun LLM-kontekst og indgår ikke i retrieval-metrikkerne.
 """
 from __future__ import annotations
 
@@ -23,22 +23,30 @@ from .run_retrieval import (
 )
 
 
-def install_live_retrieval_pipeline(shared_module: Any) -> None:
+def install_live_retrieval_pipeline(
+    shared_module: Any,
+    *,
+    include_query_planner: bool = True,
+) -> None:
     """Installér produktionslagene i samme rækkefølge som Streamlit-appen."""
     try:
         from retrieval_runtime import install_retrieval_runtime
+        from query_planner_runtime import install_query_planner_runtime
         from paragraph_runtime import install_paragraph_runtime
         from metadata_runtime import install_metadata_runtime
         from query_feature_runtime import install_query_feature_runtime
         from specific_decision_runtime import install_specific_decision_runtime
     except ImportError:
         from ejnar.retrieval_runtime import install_retrieval_runtime
+        from ejnar.query_planner_runtime import install_query_planner_runtime
         from ejnar.paragraph_runtime import install_paragraph_runtime
         from ejnar.metadata_runtime import install_metadata_runtime
         from ejnar.query_feature_runtime import install_query_feature_runtime
         from ejnar.specific_decision_runtime import install_specific_decision_runtime
 
     install_retrieval_runtime(shared_module)
+    if include_query_planner:
+        install_query_planner_runtime(shared_module)
     install_paragraph_runtime(shared_module)
     install_metadata_runtime(shared_module)
     install_query_feature_runtime(shared_module)
@@ -91,7 +99,10 @@ def main() -> int:
     write_jsonl(results_path, payloads)
     report = evaluate(cases, _metrics_input(payloads))
     report["run"] = {
-        "pipeline": "intent+paragraph_bm25+metadata+query_feature_0.12+specific_decision",
+        "pipeline": (
+            "intent+query_planner_v1+paragraph_bm25+metadata+"
+            "query_feature_0.12+specific_decision"
+        ),
         "documents": len(frame),
         "questions": len(cases),
         "top_k": max(1, args.top_k),
