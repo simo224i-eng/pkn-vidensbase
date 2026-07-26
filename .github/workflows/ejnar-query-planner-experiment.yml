@@ -7,10 +7,20 @@ on:
       - "ejnar/query_planner.py"
       - "ejnar/query_planner_runtime.py"
       - "ejnar/query_intent.py"
+      - "ejnar/retrieval_runtime.py"
+      - "ejnar/paragraph_*.py"
+      - "ejnar/metadata_*.py"
+      - "ejnar/query_feature_*.py"
+      - "ejnar/specific_decision_runtime.py"
       - "ejnar/evaluation/run_query_planner_experiment.py"
+      - "ejnar/evaluation/run_live_retrieval.py"
+      - "ejnar/evaluation/run_retrieval.py"
+      - "ejnar/evaluation/qrels_metrics.py"
+      - "ejnar/evaluation/metrics.py"
       - "ejnar/evaluation/bootstrap_qrels_v2.csv"
       - "ejnar/evaluation/eval_questions.csv"
       - "ejnar/ejnar_*.csv.zip"
+      - "ejnar/requirements.txt"
       - ".github/workflows/ejnar-query-planner-experiment.yml"
 
 permissions:
@@ -69,6 +79,9 @@ jobs:
               "- The planner only adds retrieval terms; it never decides claim coverage.",
               f"- Baseline latency: {(baseline.get('run') or {}).get('mean_latency_ms')} ms",
               f"- Candidate latency: {(candidate.get('run') or {}).get('mean_latency_ms')} ms",
+              f"- Effective queries changed: {(comparison.get('planner_effect') or {}).get('treated_queries')}",
+              f"- Result lists changed: {(comparison.get('planner_effect') or {}).get('changed_result_lists')}",
+              "- The frozen 31-query suite is a global regression guard, not evidence of short-query gain.",
           ]
           with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
               handle.write("\n".join(lines) + "\n")
