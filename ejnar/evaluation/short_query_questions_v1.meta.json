@@ -1,0 +1,83 @@
+{
+  "version": "short_query_questions_v1",
+  "created_at": "2026-07-26",
+  "quality_status": "unjudged_pool",
+  "authorship": {
+    "method": "Two independent agents authored topics from the 5,641-decision corpus without inspecting Query Planner concepts or retrieval results.",
+    "planner_blind": true,
+    "retrieval_result_blind": true,
+    "source_records": [
+      {
+        "task": "short_query_topics_a",
+        "used_topics": "SQ-001 through SQ-010 and SQ-016 through SQ-020 plus SQ-022 through SQ-027"
+      },
+      {
+        "task": "short_query_topics_b",
+        "used_topics": "SQ-011 through SQ-015 plus SQ-021 and SQ-028 through SQ-030"
+      },
+      {
+        "task": "planner_guardrails",
+        "used_topics": "SQ-OOV-01 through SQ-OOV-12 and SQ-G-01 through SQ-G-12"
+      }
+    ],
+    "editorial_review": "A/B variants were normalized for semantic equivalence and intents were aligned to deterministic runtime before any retrieval result was inspected."
+  },
+  "counts": {
+    "questions": 84,
+    "topics": 54,
+    "treated_queries": 60,
+    "treated_topics": 30,
+    "fallback_queries": 12,
+    "guardrail_queries": 12
+  },
+  "treated_splits": {
+    "development": 30,
+    "validation": 16,
+    "holdout": 14
+  },
+  "treated_topic_splits": {
+    "development": 15,
+    "validation": 8,
+    "holdout": 7
+  },
+  "treated_categories": {
+    "common_defect": 14,
+    "legal_practice": 14,
+    "multi_fact": 10,
+    "rare_long_tail": 12,
+    "technical_morphology": 10
+  },
+  "planner_activation": {
+    "queries": 12,
+    "topics": 9,
+    "by_split": {
+      "development": {
+        "queries": 5,
+        "topics": 3
+      },
+      "validation": {
+        "queries": 2,
+        "topics": 1
+      },
+      "holdout": {
+        "queries": 5,
+        "topics": 5
+      }
+    }
+  },
+  "hashes": {
+    "canonical_specs_sha256": "1119201f3bc2b8a3a31f5c3c821e23f632efaca33264c0a8f9d20765182e27ad",
+    "csv_bytes_sha256": "7ef3a40182cb6c3846353a470c5be48df2e442a9361b7516beba0c6f8f46b35b"
+  },
+  "policy": {
+    "scope": "Find and explain administrative practice; never decide a concrete insurance claim.",
+    "treated_query_length_tokens": "1-5",
+    "topic_variants": "Exactly A and B for every treated topic.",
+    "development_may_inform_changes": true,
+    "validation_and_holdout_must_not_inform_planner_terms": true,
+    "planner_activation_is_frozen_before_pool_generation": true,
+    "fallback_and_guardrail_queries_must_remain_unchanged": true,
+    "gold_requires_human_legal_validation": true,
+    "ai_only_judgments_are_labelled_silver": true
+  }
+}

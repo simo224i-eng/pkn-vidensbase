@@ -148,6 +148,72 @@ eller hvis kandidatens gennemsnitlige latency overstiger 1,25 gange kontrollen.
 Planneren tilføjer kun retrieval-termer; den tager aldrig stilling til dækning i
 en konkret forsikringssag.
 
+Det frosne sæt med 31 spørgsmål indeholder primært lange eller
+præcisionsfølsomme spørgsmål. I den første Query Planner v1-måling ændrede
+planneren derfor **0 af 31** effektive queries og **0 af 31** resultatlister.
+Denne måling er et globalt regressionsværn, ikke dokumentation for gevinst på
+korte søgninger. Runneren rapporterer nu eksplicit antal behandlede queries og
+ændrede resultatlister, og den kan konfigureres til at afvise no-op-forsøg.
+
+## Frosset benchmark for korte søgninger
+
+`short_query_questions_v1.csv` er skrevet og frosset, før retrieval-resultater
+blev vist. Det indeholder:
+
+- 30 selvstændige emner med to naturlige varianter (60 korte søgninger);
+- 12 sjældne, corpus-attesterede fallback-søgninger;
+- 12 guardrails for ordrette fraser, kendelsesnumre og allerede informative
+  spørgsmål.
+
+Emnerne er fordelt i development, validation og holdout. De to forfattere
+arbejdede ud fra afgørelseskorpusset uden at se plannerens begrebsordbog eller
+retrieval-resultater. Manifestet `short_query_questions_v1.meta.json` fryser
+datasættets hash, fordeling og produktgrænse.
+
+Byg en deterministisk blind kandidatpulje sådan:
+
+```bash
+python -m ejnar.evaluation.run_short_query_experiment \
+  --pool-only \
+  --minimum-treated-cohort-size 60 \
+  --minimum-planner-applications 12 \
+  --minimum-holdout-planner-applications 5 \
+  --minimum-holdout-active-topics 5 \
+  --top-k 30 \
+  --pool-depth 30 \
+  --output-dir artifacts/ejnar-short-query-pool
+```
+
+Puljen deduplikerer kandidater fra ren original-query lexical retrieval, den
+levende baseline og planner-kandidaten. Filen `blind-pool.jsonl` skjuler system
+og rang; disse oplysninger ligger separat i `pool-provenance.jsonl`. Dermed kan
+relevans bedømmes uden at favorisere et system. En senere gold-pulje bør også
+medtage en reproducerbar semantisk retrieval og eventuelle kendte officielle
+databasefund.
+
+CI publicerer to separate artifacts. `ejnar-short-query-adjudication`
+indeholder kun den blinde pulje og neutral integritetsinformation.
+`ejnar-short-query-diagnostics` indeholder systemnavne, rangeringer og
+provenance og må ikke deles med bedømmeren, før relevansdommene er frosset.
+
+Det frosne v1-sæt aktiverer den nuværende planner for 12 af 60 behandlede
+søgninger. Holdout indeholder fem aktiverede søgninger på fem selvstændige
+emner. CI afviser forsøget, hvis disse minimumstal ikke længere er opfyldt.
+Sættet kan derfor dokumentere den aktuelle planners adfærd, men det er endnu
+ikke bred dokumentation for alle typer korte ejerskiftesøgninger.
+
+Der offentliggøres ikke en kvalitetsdom, før topresultaterne er bedømt.
+AI-bedømmelser kaldes **silver** og er kun et udviklingssignal. Betegnelsen
+**gold** kræver juridisk menneskevalidering. Det eksisterende qrels v2 bevares
+som globalt regressionsværn, men bruges ikke som bevis for kortsøgningsgevinst,
+fordi det er pool-biast mod en ældre pipelines top-20.
+
+Når et blindbedømt qrels-sæt findes, måler den nye runner makro-NDCG@10 pr.
+emne, Recall@20, MRR, judged precision@5, kategoriresultater,
+win/tie/loss og en parret bootstrap-grænse. Validation og holdout må ikke bruges
+til at vælge plannertermer. Fallback- og guardrail-rangeringer skal være
+identiske.
+
 ## Resultatformat
 
 Runneren skriver JSONL med én linje per spørgsmål:
