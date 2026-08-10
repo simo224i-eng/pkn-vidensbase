@@ -1,0 +1,96 @@
+name: Ejnar decision grounding
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "ejnar/decision_grounding.py"
+      - "ejnar/decision_grounding_runtime.py"
+      - "ejnar/evaluation/decision_grounding_*.py"
+      - "ejnar/evaluation/decision_grounding_*.json"
+      - "ejnar/tests/test_decision_grounding*.py"
+      - ".github/workflows/ejnar-decision-grounding.yml"
+  push:
+    branches: [main]
+    paths:
+      - "ejnar/decision_grounding.py"
+      - "ejnar/decision_grounding_runtime.py"
+      - "ejnar/evaluation/decision_grounding_*.py"
+      - "ejnar/evaluation/decision_grounding_*.json"
+      - "ejnar/tests/test_decision_grounding*.py"
+      - ".github/workflows/ejnar-decision-grounding.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ejnar-decision-grounding-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  adversarial-grounding:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run adversarial grounding benchmark
+        run: |
+          mkdir -p artifacts/ejnar-decision-grounding
+          python -m ejnar.evaluation.decision_grounding_metrics \
+            --output artifacts/ejnar-decision-grounding/report.json
+
+      - name: Publish summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("artifacts/ejnar-decision-grounding/report.json")
+          lines = ["## Ejnar decision-grounding benchmark"]
+          if not path.exists():
+              lines.append("Benchmark report was not produced.")
+          else:
+              report = json.loads(path.read_text(encoding="utf-8"))
+              summary = report["summary"]
+              lines.extend([
+                  f"- Cases: {summary['cases']}",
+                  f"- Passed: {summary['passed_cases']}",
+                  f"- Failed: {summary['failed_cases']}",
+                  f"- Case pass rate: {summary['case_pass_rate']:.1%}",
+                  f"- Expected-term recall: {summary['expected_term_recall']:.1%}",
+                  f"- Forbidden-term leakage: {summary['forbidden_term_leakage_rate']:.1%}",
+                  f"- Section accuracy: {summary['section_accuracy']:.1%}",
+                  f"- Fallback accuracy: {summary['fallback_accuracy']:.1%}",
+                  "",
+                  "> Synthetic/adversarial extraction regression suite; not a gold benchmark of Ankenævnet practice.",
+              ])
+              failures = [item for item in report["results"] if not item["passed"]]
+              if failures:
+                  lines.extend(["", "### Failures"])
+                  for item in failures:
+                      lines.append(
+                          f"- {item['case_id']}: missing={item['missing_expected_terms']}; "
+                          f"leaked={item['leaked_forbidden_terms']}; "
+                          f"section_ok={item['section_ok']}; fallback_ok={item['fallback_ok']}"
+                      )
+          with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+
+      - name: Upload benchmark artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ejnar-decision-grounding
+          path: artifacts/ejnar-decision-grounding
+          if-no-files-found: error
+          retention-days: 30
