@@ -6,9 +6,9 @@ from ejnar.decision_grounding_runtime import install_decision_grounding_runtime
 
 
 class DecisionGroundingRuntimeTests(unittest.TestCase):
-    def _shared(self):
+    def _shared(self, base_context="BASE CONTEXT"):
         def builder(query, documents, *args, **kwargs):
-            return "BASE CONTEXT"
+            return base_context
 
         def llm(prompt, max_tokens=2000, model="claude-sonnet-4-6"):
             return prompt
@@ -45,6 +45,27 @@ Forholdet var anmærket i tilstandsrapporten. Klageren får derfor ikke medhold.
         self.assertIn("tilstandsrapporten", context)
         self.assertIn("SPØRGSMÅLSRELEVANTE UDDRAG", context)
         self.assertIn("BASE CONTEXT", context)
+
+    def test_lower_ranked_source_in_answer_context_is_also_grounded(self):
+        shared = self._shared(base_context="[Kilde 8] relevant udsagn om bæreevne")
+        install_decision_grounding_runtime(shared)
+        docs = [
+            {
+                "Sagsnummer": str(number),
+                "Titel": f"Kendelse {number}",
+                "Tekst": (
+                    "## Nævnets bemærkninger\n"
+                    f"Nævnet finder grundlag {number}. Klageren får ikke medhold."
+                ),
+            }
+            for number in range(1, 9)
+        ]
+
+        context = shared.byg_fokuseret_kontekst("bæreevne", docs)
+
+        self.assertIn("[AFGØRELSESKERNE Kilde 8]", context)
+        self.assertIn("grundlag 8", context)
+        self.assertIn("[Kilde 8] relevant udsagn om bæreevne", context)
 
     def test_llm_wrapper_injects_decision_basis_policy(self):
         shared = self._shared()
