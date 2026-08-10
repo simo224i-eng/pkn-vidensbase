@@ -5,11 +5,16 @@ that decision was ultimately resolved on a different ground. This module extract
 compact decision-core so answer generation can distinguish a useful passage from the
 Board's dispositive reasoning.
 
+For multi-issue decisions, the Board section is selected first and paragraph selection is
+then made query-aware inside that section. This prevents reasoning about another issue in
+the same decision from being presented as the basis for the user's question.
+
 The module is deterministic and does not decide coverage.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 import re
 from typing import Any, Iterable
 
@@ -68,6 +73,18 @@ _DECISION_SIGNALS = (
     "foræld",
     "frist",
 )
+_CONCLUSION_SIGNALS = (
+    "får ikke medhold",
+    "får medhold",
+    "kan derfor ikke kritisere",
+    "kan ikke kritisere",
+    "selskabet skal",
+    "selskabet er berettiget",
+    "ikke grundlag for at kritisere",
+    "kan ikke føre til andet resultat",
+    "kan ikke i sig selv føre til et krav",
+    "afvises fra nævnsbehandling",
+)
 # Older decisions are not always structurally marked up. A generic "Kendelse" or
 # "Afgørelse" section may contain policy wording followed later by the Board's own
 # reasoning. Strong inline markers let us trim that preamble without guessing from a
@@ -87,6 +104,21 @@ _BOARD_INLINE_MARKERS = (
     "efter en samlet vurdering finder nævnet",
 )
 _SPACE_RE = re.compile(r"\s+")
+_TOKEN_RE = re.compile(r"[a-zæøå0-9]+", flags=re.IGNORECASE)
+# These terms are useful for routing a legal query but do not distinguish one issue from
+# another inside a multi-issue Board section. Excluding them makes terms such as
+# "ventilation", "tagrum", "vinduer" and "bjælke" dominate local grounding.
+_QUERY_STOPWORDS = {
+    "af", "afgørelse", "afgørelser", "afvist", "at", "de", "den", "der", "det",
+    "dække", "dækket", "dækning", "dækningsberettigende", "ejerskifteforsikring",
+    "en", "er", "et", "find", "for", "forhold", "forholdet", "fra", "har", "hvad",
+    "hvilke", "hvilken", "hvordan", "hvornår", "i", "ikke", "imod", "kan", "klager",
+    "med", "medhold", "nævnet", "om", "og", "på", "praksis", "sag", "sager", "skade",
+    "skader", "som", "taler", "til", "ved", "eller", "typisk", "resultat", "resultater",
+}
+_QUERY_SUFFIXES = (
+    "ernes", "ende", "erne", "ene", "ets", "ers", "er", "en", "et", "es", "e", "s",
+)
 
 
 def _normalise(value: str) -> str:
@@ -99,12 +131,7 @@ def _has_explicit_board_heading(title: str) -> bool:
 
 
 def _section_score(title: str, position: int, total: int) -> float:
-    """Score explicit Board/decision headings; position is only a tie-breaker.
-
-    An unrecognised late heading must not become a false positive merely because it is
-    close to the end of the decision. Unknown headings therefore stay at score zero and
-    are handled by the explicit final-section fallback in ``extract_decision_grounding``.
-    """
+    """Score explicit Board/decision headings; position is only a tie-breaker."""
     normalised = _normalise(title)
     if any(phrase in normalised for phrase in _PARTY_SECTION_PHRASES):
         return -100.0
@@ -118,6 +145,8 @@ def _section_score(title: str, position: int, total: int) -> float:
     if "bemærk" in normalised or "vurder" in normalised:
         score += 15.0
 
+    # Position may choose between recognised decision sections, but may never turn an
+    # unknown heading into a recognised decision section.
     if score > 0 and total > 1:
         score += 4.0 * (position / (total - 1))
     return score
@@ -148,11 +177,7 @@ def _inline_board_start(paragraph: str) -> int | None:
 
 
 def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
-    """Drop policy/party preamble before an inline Board reasoning marker.
-
-    This is deliberately conservative: trimming occurs only when a strong marker is
-    found. If none is found, the section is returned unchanged.
-    """
+    """Drop policy/party preamble before an inline Board reasoning marker."""
     cleaned = [re.sub(r"\s+", " ", str(paragraph or "")).strip() for paragraph in paragraphs]
     cleaned = [paragraph for paragraph in cleaned if paragraph]
     for index, paragraph in enumerate(cleaned):
@@ -176,21 +201,143 @@ def _clean_paragraphs(paragraphs: Iterable[str]) -> list[str]:
     ]
 
 
-def _choose_paragraphs(
-    paragraphs: Iterable[str],
+def _stem_query_token(token: str) -> str:
+    token = token.casefold()
+    for suffix in _QUERY_SUFFIXES:
+        if token.endswith(suffix) and len(token) - len(suffix) >= 4:
+            return token[: -len(suffix)]
+    return token
+
+
+def _query_terms(query: str) -> tuple[str, ...]:
+    terms: list[str] = []
+    seen: set[str] = set()
+    for match in _TOKEN_RE.finditer(query or ""):
+        token = match.group(0).casefold()
+        if len(token) < 3 or token in _QUERY_STOPWORDS or token.isdigit():
+            continue
+        stem = _stem_query_token(token)
+        if len(stem) < 3 or stem in seen:
+            continue
+        seen.add(stem)
+        terms.append(stem)
+    return tuple(terms)
+
+
+def _paragraph_stems(text: str) -> set[str]:
+    return {
+        _stem_query_token(match.group(0).casefold())
+        for match in _TOKEN_RE.finditer(text or "")
+        if len(match.group(0)) >= 3
+    }
+
+
+def _query_scores(paragraphs: list[str], query: str) -> list[float]:
+    """Return discriminative lexical scores within the selected Board section.
+
+    IDF is calculated only across paragraphs in this decision. A term occurring in one
+    paragraph therefore contributes more than a generic term repeated through the whole
+    Board section. This is a local selector, not a new retrieval system.
+    """
+    terms = _query_terms(query)
+    if not terms or not paragraphs:
+        return [0.0] * len(paragraphs)
+
+    stems = [_paragraph_stems(paragraph) for paragraph in paragraphs]
+    document_frequency = {
+        term: sum(term in paragraph_stems for paragraph_stems in stems)
+        for term in terms
+    }
+    scores: list[float] = []
+    for paragraph_stems in stems:
+        matched = [term for term in terms if term in paragraph_stems]
+        if not matched:
+            scores.append(0.0)
+            continue
+        score = sum(
+            1.0 + math.log((len(paragraphs) + 1.0) / (document_frequency[term] + 1.0))
+            for term in matched
+        )
+        # Coverage of multiple distinct issue terms is more useful than repeated use of
+        # one token. Keep the boost bounded so Board-reasoning signals remain relevant.
+        score *= 1.0 + min(0.6, 0.15 * max(0, len(matched) - 1))
+        scores.append(score)
+    return scores
+
+
+def _has_conclusion_signal(text: str) -> bool:
+    normalised = _normalise(text)
+    return any(signal in normalised for signal in _CONCLUSION_SIGNALS)
+
+
+def _query_local_indices(
+    cleaned: list[str],
+    query: str,
     *,
     max_paragraphs: int,
-    max_chars: int,
-    trim_inline_board_preamble: bool = False,
-) -> tuple[str, int]:
-    cleaned = (
-        _trim_to_board_reasoning(paragraphs)
-        if trim_inline_board_preamble
-        else _clean_paragraphs(paragraphs)
-    )
-    if not cleaned or max_paragraphs <= 0 or max_chars <= 0:
-        return "", 0
+) -> list[int]:
+    """Select a local issue window inside a multi-issue Board section.
 
+    The strongest query paragraph is the anchor. We then walk forward because the Board's
+    actual reason/result commonly follows the issue-specific paragraph. We stop once a
+    conclusion signal is reached. Additional query-matching paragraphs can fill remaining
+    slots, but unrelated global concluding paragraphs are not pulled in.
+    """
+    if max_paragraphs <= 0:
+        return []
+    query_scores = _query_scores(cleaned, query)
+    if not query_scores or max(query_scores, default=0.0) <= 0:
+        return []
+
+    decision_scores = [
+        _paragraph_score(text, idx, len(cleaned))
+        for idx, text in enumerate(cleaned)
+    ]
+    anchor = max(
+        range(len(cleaned)),
+        key=lambda idx: (query_scores[idx], decision_scores[idx], -idx),
+    )
+
+    selected: list[int] = [anchor]
+    if not _has_conclusion_signal(cleaned[anchor]):
+        for idx in range(anchor + 1, min(len(cleaned), anchor + max_paragraphs)):
+            selected.append(idx)
+            if _has_conclusion_signal(cleaned[idx]):
+                break
+            if len(selected) >= max_paragraphs:
+                break
+
+    if len(selected) < max_paragraphs:
+        additional = sorted(
+            (
+                (query_scores[idx], decision_scores[idx], idx)
+                for idx in range(len(cleaned))
+                if query_scores[idx] > 0 and idx not in selected
+            ),
+            key=lambda item: (-item[0], -item[1], item[2]),
+        )
+        for _, _, idx in additional:
+            selected.append(idx)
+            if len(selected) >= max_paragraphs:
+                break
+
+    # Previous paragraph can contain the issue introduction, but only include it when it
+    # shares a query term; this avoids pulling the prior issue into the window.
+    previous = anchor - 1
+    if (
+        len(selected) < max_paragraphs
+        and previous >= 0
+        and query_scores[previous] > 0
+        and previous not in selected
+    ):
+        selected.append(previous)
+
+    return sorted(set(selected))[:max_paragraphs]
+
+
+def _default_indices(cleaned: list[str], *, max_paragraphs: int) -> list[int]:
+    if not cleaned or max_paragraphs <= 0:
+        return []
     total = len(cleaned)
     scored = [(_paragraph_score(text, idx, total), idx) for idx, text in enumerate(cleaned)]
     _, best_idx = max(scored, key=lambda item: (item[0], item[1]))
@@ -200,17 +347,28 @@ def _choose_paragraphs(
         desired.add(best_idx - 1)
     if best_idx + 1 < total:
         desired.add(best_idx + 1)
-
     if total <= max_paragraphs:
-        ordered = list(range(total))
-    else:
-        ordered = sorted(desired)
-        if len(ordered) > max_paragraphs:
-            ordered = ordered[-max_paragraphs:]
+        return list(range(total))
 
+    ranked = [best_idx, best_idx + 1, total - 1, best_idx - 1]
+    output: list[int] = []
+    for idx in ranked:
+        if 0 <= idx < total and idx not in output:
+            output.append(idx)
+        if len(output) >= max_paragraphs:
+            break
+    return sorted(output)
+
+
+def _render_selected(
+    cleaned: list[str],
+    indices: Iterable[int],
+    *,
+    max_chars: int,
+) -> tuple[str, int]:
     selected: list[str] = []
     used = 0
-    for idx in ordered:
+    for idx in indices:
         paragraph = cleaned[idx]
         separator = 2 if selected else 0
         remaining = max_chars - used - separator
@@ -222,23 +380,45 @@ def _choose_paragraphs(
             break
         selected.append(paragraph)
         used += separator + len(paragraph)
-
     return "\n\n".join(selected), len(selected)
+
+
+def _choose_paragraphs(
+    paragraphs: Iterable[str],
+    *,
+    max_paragraphs: int,
+    max_chars: int,
+    trim_inline_board_preamble: bool = False,
+    query: str = "",
+) -> tuple[str, int]:
+    cleaned = (
+        _trim_to_board_reasoning(paragraphs)
+        if trim_inline_board_preamble
+        else _clean_paragraphs(paragraphs)
+    )
+    if not cleaned or max_paragraphs <= 0 or max_chars <= 0:
+        return "", 0
+
+    indices = _query_local_indices(cleaned, query, max_paragraphs=max_paragraphs)
+    if not indices:
+        indices = _default_indices(cleaned, max_paragraphs=max_paragraphs)
+    return _render_selected(cleaned, indices, max_chars=max_chars)
 
 
 def extract_decision_grounding(
     document: dict[str, Any],
     *,
+    query: str = "",
     max_chars: int = 1800,
     max_paragraphs: int = 4,
 ) -> DecisionGrounding:
-    """Extract a compact representation of the Board's dispositive reasoning.
+    """Extract a compact, optionally query-specific representation of Board reasoning.
 
-    Formal Board/decision sections are preferred. If the source has no recognisable
-    decision heading, the final section is used as a conservative fallback. Within a
-    generic/legacy decision section, policy text before a strong inline Board marker is
-    trimmed away. Explicit Board-labelled sections are preserved verbatim before normal
-    paragraph selection so their introductory reasoning is not lost.
+    Formal Board/decision sections are selected before query relevance is considered.
+    Query-aware selection happens only *within* that Board section, so party arguments or
+    factual sections cannot replace the Board's own reasoning. When a decision contains
+    several issues in the same Board section, the selected core stays around the issue
+    matching the user's question and follows it forward to its conclusion/other ground.
     """
     text = str(document.get("Tekst") or document.get("text") or "")
     sections = split_sections(text)
@@ -261,6 +441,7 @@ def extract_decision_grounding(
         max_paragraphs=max_paragraphs,
         max_chars=max_chars,
         trim_inline_board_preamble=not _has_explicit_board_heading(str(title or "")),
+        query=query,
     )
     return DecisionGrounding(
         section_title=str(title or "Kendelse"),
@@ -273,6 +454,7 @@ def extract_decision_grounding(
 def build_decision_grounding_context(
     documents: list[dict[str, Any]],
     *,
+    query: str = "",
     max_documents: int = 6,
     per_document_chars: int = 1400,
     char_budget: int = 7000,
@@ -290,7 +472,11 @@ def build_decision_grounding_context(
     used = len(intro)
 
     for source_number, document in enumerate(documents[:max_documents], start=1):
-        grounding = extract_decision_grounding(document, max_chars=per_document_chars)
+        grounding = extract_decision_grounding(
+            document,
+            query=query,
+            max_chars=per_document_chars,
+        )
         if not grounding.text:
             continue
         case_number = str(document.get("Sagsnummer") or "").strip()
