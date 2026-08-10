@@ -25,6 +25,28 @@ def _normalise(value: Any) -> str:
     return " ".join(str(value or "").casefold().split())
 
 
+def _term_variants(value: Any) -> tuple[str, ...]:
+    """Return a tiny set of conservative surface variants for benchmark matching.
+
+    The benchmark is about whether the decisive concept survived extraction, not whether
+    a fixture happens to use Danish definite or indefinite form. We therefore allow the
+    bare form of a *single* expected token ending in ``-en`` or ``-et``. Multi-word legal
+    phrases and all forbidden phrases still require literal normalised containment.
+    """
+    term = _normalise(value)
+    variants = [term] if term else []
+    if term and " " not in term and len(term) >= 6:
+        if term.endswith("en") or term.endswith("et"):
+            stem = term[:-2]
+            if len(stem) >= 4:
+                variants.append(stem)
+    return tuple(dict.fromkeys(variants))
+
+
+def _expected_term_present(term: Any, text: str) -> bool:
+    return any(variant in text for variant in _term_variants(term))
+
+
 def load_cases(path: Path = DEFAULT_CASES) -> list[dict[str, Any]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, list):
@@ -52,19 +74,16 @@ def evaluate_case(case: dict[str, Any]) -> dict[str, Any]:
     expected_section = _normalise(case.get("expected_section_contains"))
     expected_fallback = bool(case.get("expected_fallback", False))
 
-    found_expected = [term for term in expected_terms if _normalise(term) in text]
-    missing_expected = [term for term in expected_terms if _normalise(term) not in text]
+    found_expected = [term for term in expected_terms if _expected_term_present(term, text)]
+    missing_expected = [term for term in expected_terms if not _expected_term_present(term, text)]
+    # Forbidden terms intentionally remain literal. Loosening a leakage rule would hide
+    # the exact distractor text the benchmark is designed to catch.
     leaked_forbidden = [term for term in forbidden_terms if _normalise(term) in text]
     section_ok = not expected_section or expected_section in section
     fallback_ok = grounding.used_fallback == expected_fallback
     term_recall = (len(found_expected) / len(expected_terms)) if expected_terms else 1.0
 
-    passed = (
-        not missing_expected
-        and not leaked_forbidden
-        and section_ok
-        and fallback_ok
-    )
+    passed = not missing_expected and not leaked_forbidden and section_ok and fallback_ok
     return {
         "case_id": case["case_id"],
         "category": case.get("category", ""),
