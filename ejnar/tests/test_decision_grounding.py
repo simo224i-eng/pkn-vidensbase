@@ -49,7 +49,9 @@ Nævnet finder, at det ikke er godtgjort, at forholdet var til stede ved overtag
 
         grounding = extract_decision_grounding(document)
 
-        self.assertIn("ikke godtgjort", grounding.text)
+        self.assertIn("Nævnet finder", grounding.text)
+        self.assertIn("godtgjort", grounding.text)
+        self.assertIn("ikke medhold", grounding.text)
         self.assertNotIn("enhver nedbrydning", grounding.text)
 
     def test_falls_back_to_final_section_when_no_board_heading_exists(self):
