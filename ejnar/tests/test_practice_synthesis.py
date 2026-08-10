@@ -36,6 +36,23 @@ class PracticeSynthesisPolicyTests(unittest.TestCase):
         self.assertIn("To direkte kendelser", text)
         self.assertIn("ikke i sig selv 'fast praksis'", text)
 
+    def test_practice_questions_must_surface_source_roles(self):
+        grounded = inject_practice_synthesis_policy(self._prompt())
+        text = grounded[0]["text"]
+        self.assertIn("kildegrundlaget være synligt i svaret", text)
+        self.assertIn("overskriften 'Direkte praksis'", text)
+        self.assertIn("under 'Indirekte støtte'", text)
+        self.assertIn("Opret ikke tomme kategorier", text)
+        self.assertIn("ikke er tilstrækkelig direkte praksis", text)
+
+    def test_indirect_section_must_name_other_decision_ground(self):
+        grounded = inject_practice_synthesis_policy(self._prompt())
+        text = grounded[0]["text"]
+        self.assertIn("angiv kort dette andet afgørelsesgrund", text)
+        self.assertIn("tilstandsrapport", text)
+        self.assertIn("bevis ved overtagelsen", text)
+        self.assertIn("frist", text)
+
     def test_policy_is_idempotent_and_does_not_mutate_input(self):
         original = self._prompt()
         once = inject_practice_synthesis_policy(original)
