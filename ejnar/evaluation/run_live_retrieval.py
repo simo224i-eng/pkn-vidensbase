@@ -1,9 +1,10 @@
 """Kør evaluering mod samme retrieval-lag som den levende Ejnar-app.
 
 Den oprindelige runner bevares som lexical/intention-baseline. Denne runner installerer
-intent-, query-planner-, paragraph-, metadata-, query-feature- og
-specific-decision-runtime i samme rækkefølge som ``ejnar/app.py``. Citation-runtime
-ændrer kun LLM-kontekst og indgår ikke i retrieval-metrikkerne.
+deterministic-, intent-, query-planner-, paragraph-, metadata-, query-feature- og
+specific-decision-runtime i samme rækkefølge som ``ejnar/app.py``. Citation/grounding/
+practice-synthesis runtimes ændrer kun LLM-kontekst/svar og indgår derfor ikke i
+retrieval-metrikkerne.
 """
 from __future__ import annotations
 
@@ -30,6 +31,7 @@ def install_live_retrieval_pipeline(
 ) -> None:
     """Installér produktionslagene i samme rækkefølge som Streamlit-appen."""
     try:
+        from deterministic_retrieval_runtime import install_deterministic_retrieval_runtime
         from retrieval_runtime import install_retrieval_runtime
         from query_planner_runtime import install_query_planner_runtime
         from paragraph_runtime import install_paragraph_runtime
@@ -37,6 +39,7 @@ def install_live_retrieval_pipeline(
         from query_feature_runtime import install_query_feature_runtime
         from specific_decision_runtime import install_specific_decision_runtime
     except ImportError:
+        from ejnar.deterministic_retrieval_runtime import install_deterministic_retrieval_runtime
         from ejnar.retrieval_runtime import install_retrieval_runtime
         from ejnar.query_planner_runtime import install_query_planner_runtime
         from ejnar.paragraph_runtime import install_paragraph_runtime
@@ -44,6 +47,7 @@ def install_live_retrieval_pipeline(
         from ejnar.query_feature_runtime import install_query_feature_runtime
         from ejnar.specific_decision_runtime import install_specific_decision_runtime
 
+    install_deterministic_retrieval_runtime(shared_module)
     install_retrieval_runtime(shared_module)
     if include_query_planner:
         install_query_planner_runtime(shared_module)
@@ -100,7 +104,7 @@ def main() -> int:
     report = evaluate(cases, _metrics_input(payloads))
     report["run"] = {
         "pipeline": (
-            "intent+query_planner_v1+paragraph_bm25+metadata+"
+            "deterministic_score_1e-10+intent+query_planner_v1+paragraph_bm25+metadata+"
             "query_feature_0.12+specific_decision"
         ),
         "documents": len(frame),
