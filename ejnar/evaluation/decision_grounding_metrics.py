@@ -61,7 +61,11 @@ def load_cases(path: Path = DEFAULT_CASES) -> list[dict[str, Any]]:
 
 
 def evaluate_case(case: dict[str, Any]) -> dict[str, Any]:
-    grounding = extract_decision_grounding({"Tekst": str(case.get("text") or "")})
+    query = str(case.get("query") or "").strip()
+    grounding = extract_decision_grounding(
+        {"Tekst": str(case.get("text") or "")},
+        query=query,
+    )
     text = _normalise(grounding.text)
     section = _normalise(grounding.section_title)
 
@@ -87,7 +91,7 @@ def evaluate_case(case: dict[str, Any]) -> dict[str, Any]:
     return {
         "case_id": case["case_id"],
         "category": case.get("category", ""),
-        "query": case.get("query", ""),
+        "query": query,
         "passed": passed,
         "section_title": grounding.section_title,
         "section_ok": section_ok,
@@ -126,6 +130,7 @@ def evaluate(cases: list[dict[str, Any]]) -> dict[str, Any]:
         "benchmark": "decision_grounding_adversarial_v1",
         "scope": (
             "Synthetic/adversarial extraction regression suite. "
+            "Each fixture is evaluated with its own user query. "
             "Not a gold benchmark of Ankenævnet practice and not a claim-decision evaluator."
         ),
         "summary": {
