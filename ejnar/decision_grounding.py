@@ -68,10 +68,10 @@ _DECISION_SIGNALS = (
     "foræld",
     "frist",
 )
-# Older decisions are not always structurally marked up.  A generic "Kendelse"
-# section may contain policy wording followed later by the Board's own reasoning.
-# These strong inline markers let us trim the preamble without guessing from a mere
-# occurrence of the word "nævnet".
+# Older decisions are not always structurally marked up. A generic "Kendelse" or
+# "Afgørelse" section may contain policy wording followed later by the Board's own
+# reasoning. Strong inline markers let us trim that preamble without guessing from a
+# mere occurrence of the word "nævnet".
 _BOARD_INLINE_MARKERS = (
     "nævnet udtaler:",
     "nævnet udtaler",
@@ -91,6 +91,11 @@ _SPACE_RE = re.compile(r"\s+")
 
 def _normalise(value: str) -> str:
     return _SPACE_RE.sub(" ", (value or "").strip().casefold())
+
+
+def _has_explicit_board_heading(title: str) -> bool:
+    normalised = _normalise(title)
+    return "nævn" in normalised or "ankenævn" in normalised
 
 
 def _section_score(title: str, position: int, total: int) -> float:
@@ -113,8 +118,6 @@ def _section_score(title: str, position: int, total: int) -> float:
     if "bemærk" in normalised or "vurder" in normalised:
         score += 15.0
 
-    # Position may choose between recognised decision sections, but may never turn an
-    # unknown heading into a recognised decision section.
     if score > 0 and total > 1:
         score += 4.0 * (position / (total - 1))
     return score
@@ -131,12 +134,7 @@ def _paragraph_score(text: str, position: int, total: int) -> float:
 
 
 def _inline_board_start(paragraph: str) -> int | None:
-    """Locate the first strong Board-reasoning marker in a paragraph.
-
-    Matching runs against whitespace-normalised text.  The returned offset is then
-    resolved against the original paragraph by a case-insensitive regex, so we preserve
-    the source wording instead of rebuilding it from normalised text.
-    """
+    """Locate the first strong Board-reasoning marker in a paragraph."""
     if not paragraph:
         return None
     best: int | None = None
@@ -152,8 +150,8 @@ def _inline_board_start(paragraph: str) -> int | None:
 def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
     """Drop policy/party preamble before an inline Board reasoning marker.
 
-    This is deliberately conservative: trimming occurs only when one of the strong
-    markers above is found.  If none is found, the section is returned unchanged.
+    This is deliberately conservative: trimming occurs only when a strong marker is
+    found. If none is found, the section is returned unchanged.
     """
     cleaned = [re.sub(r"\s+", " ", str(paragraph or "")).strip() for paragraph in paragraphs]
     cleaned = [paragraph for paragraph in cleaned if paragraph]
@@ -167,13 +165,29 @@ def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
     return cleaned
 
 
+def _clean_paragraphs(paragraphs: Iterable[str]) -> list[str]:
+    return [
+        value
+        for value in (
+            re.sub(r"\s+", " ", str(paragraph or "")).strip()
+            for paragraph in paragraphs
+        )
+        if value
+    ]
+
+
 def _choose_paragraphs(
     paragraphs: Iterable[str],
     *,
     max_paragraphs: int,
     max_chars: int,
+    trim_inline_board_preamble: bool = False,
 ) -> tuple[str, int]:
-    cleaned = _trim_to_board_reasoning(paragraphs)
+    cleaned = (
+        _trim_to_board_reasoning(paragraphs)
+        if trim_inline_board_preamble
+        else _clean_paragraphs(paragraphs)
+    )
     if not cleaned or max_paragraphs <= 0 or max_chars <= 0:
         return "", 0
 
@@ -221,9 +235,10 @@ def extract_decision_grounding(
     """Extract a compact representation of the Board's dispositive reasoning.
 
     Formal Board/decision sections are preferred. If the source has no recognisable
-    decision heading, the final section is used as a conservative fallback because the
-    conclusion normally appears near the end.  Within a generic/legacy decision section,
-    policy text before a strong inline Board marker is trimmed away.
+    decision heading, the final section is used as a conservative fallback. Within a
+    generic/legacy decision section, policy text before a strong inline Board marker is
+    trimmed away. Explicit Board-labelled sections are preserved verbatim before normal
+    paragraph selection so their introductory reasoning is not lost.
     """
     text = str(document.get("Tekst") or document.get("text") or "")
     sections = split_sections(text)
@@ -245,6 +260,7 @@ def extract_decision_grounding(
         paragraphs,
         max_paragraphs=max_paragraphs,
         max_chars=max_chars,
+        trim_inline_board_preamble=not _has_explicit_board_heading(str(title or "")),
     )
     return DecisionGrounding(
         section_title=str(title or "Kendelse"),
