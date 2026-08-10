@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import Any
 
 try:
@@ -11,15 +12,38 @@ except ImportError:  # package import in tests/tools
 
 
 _LOG = logging.getLogger("ejnar.decision_grounding")
+_SOURCE_RE = re.compile(r"\[Kilde\s+(\d+)\]", flags=re.IGNORECASE)
+
+
+def _context_document_count(base_context: str, documents: list[dict[str, Any]]) -> int:
+    """Return how many leading documents are needed to cover sources in base context.
+
+    The normal context builder emits sources in document order. Exact citation context can
+    skip a source but keeps its original number; using the maximum cited number therefore
+    safely covers every source the model can quote without renumbering anything.
+    """
+    if not documents:
+        return 0
+    numbers = [int(value) for value in _SOURCE_RE.findall(base_context or "")]
+    valid = [number for number in numbers if 1 <= number <= len(documents)]
+    return max(valid) if valid else len(documents)
+
+
+def _grounding_budget(document_count: int) -> tuple[int, int]:
+    """Give every used source a decision-core while keeping prompt growth bounded."""
+    if document_count <= 0:
+        return 0, 0
+    per_document = max(550, min(1400, 12_000 // document_count))
+    total = min(18_000, 500 + document_count * (per_document + 180))
+    return per_document, total
 
 
 def install_decision_grounding_runtime(shared_module: Any | None = None) -> bool:
     """Wrap final context building and Ejnar answer prompts, fail-open.
 
     Install this after citation_runtime so exact-content and normal practice questions both
-    receive a decision-core.  Retrieval rankings are not changed.
+    receive a decision-core. Retrieval rankings are not changed.
     """
-
     if shared_module is None:
         import shared as shared_module  # type: ignore
 
@@ -38,7 +62,14 @@ def install_decision_grounding_runtime(shared_module: Any | None = None) -> bool
     ) -> str:
         base = original_builder(query, documents, *args, **kwargs)
         try:
-            grounding = build_decision_grounding_context(documents)
+            document_count = _context_document_count(base, documents)
+            per_document_chars, char_budget = _grounding_budget(document_count)
+            grounding = build_decision_grounding_context(
+                documents,
+                max_documents=document_count,
+                per_document_chars=per_document_chars,
+                char_budget=char_budget,
+            )
             if not grounding:
                 return base
             if base:
