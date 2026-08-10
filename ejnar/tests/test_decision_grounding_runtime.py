@@ -46,6 +46,21 @@ Forholdet var anmærket i tilstandsrapporten. Klageren får derfor ikke medhold.
         self.assertIn("SPØRGSMÅLSRELEVANTE UDDRAG", context)
         self.assertIn("BASE CONTEXT", context)
 
+    def test_runtime_forwards_current_query_to_grounding_builder(self):
+        shared = self._shared(base_context="[Kilde 1] relevant")
+        install_decision_grounding_runtime(shared)
+        docs = [{"Sagsnummer": "1", "Titel": "Sag", "Tekst": "tekst"}]
+
+        with patch(
+            "ejnar.decision_grounding_runtime.build_decision_grounding_context",
+            return_value="GROUNDING",
+        ) as build:
+            context = shared.byg_fokuseret_kontekst("manglende ventilation tagrum", docs)
+
+        self.assertIn("GROUNDING", context)
+        self.assertEqual(build.call_args.kwargs["query"], "manglende ventilation tagrum")
+        self.assertEqual(build.call_args.kwargs["max_documents"], 1)
+
     def test_lower_ranked_source_in_answer_context_is_also_grounded(self):
         shared = self._shared(base_context="[Kilde 8] relevant udsagn om bæreevne")
         install_decision_grounding_runtime(shared)

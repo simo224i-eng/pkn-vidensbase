@@ -1,11 +1,11 @@
 """Build a human-review pool for decision-grounding risks in real retrieval results.
 
-The pool juxtaposes the paragraph that best matches the user's question with the compact
-Board decision-core.  It prioritises cases where the decision-core contains a potentially
-dispositive ground that is absent from the query-relevant excerpt — exactly the pattern
-behind misleading-but-correct citations.
+The pool juxtaposes the paragraph that best matches the user's question with the compact,
+query-specific Board decision-core. It prioritises cases where that decision-core contains
+a potentially dispositive ground that is absent from the query-relevant excerpt — exactly
+the pattern behind misleading-but-correct citations.
 
-This is a diagnostic/adjudication tool, not an automatic legal classifier.  The blind
+This is a diagnostic/adjudication tool, not an automatic legal classifier. The blind
 artifact hides retrieval rank and heuristic scores from the human reviewer; those live in
 a separate diagnostics file.
 """
@@ -128,9 +128,6 @@ def _contrast(excerpt: dict[str, Any], core_text: str, core_section: str) -> dic
     exclusive = tuple(tag for tag in core_tags if tag not in excerpt_tags)
     section_differs = _normalise(excerpt.get("section_title")) != _normalise(core_section)
 
-    # A dispositive ground missing from the query excerpt is the primary audit signal.
-    # Section difference is only a small secondary signal and cannot create a high-priority
-    # candidate on its own.
     score = 2.0 * len(exclusive) + (0.5 if section_differs else 0.0)
     if len(exclusive) >= 2:
         priority = "high"
@@ -173,7 +170,7 @@ def build_candidates(
             seen.add(audit_id)
 
             excerpt = best_query_excerpt(query, document)
-            grounding = extract_decision_grounding(document)
+            grounding = extract_decision_grounding(document, query=query)
             if not excerpt["text"] or not grounding.text:
                 continue
             contrast = _contrast(excerpt, grounding.text, grounding.section_title)
@@ -222,7 +219,6 @@ def select_pool(
 
 
 def blind_rows(selected: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Remove heuristic/ranking signals before human adjudication and sort by stable ID."""
     rows = [
         {
             "audit_id": item["audit_id"],
