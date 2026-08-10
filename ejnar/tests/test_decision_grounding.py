@@ -25,12 +25,88 @@ Klageren får derfor ikke medhold.
 """,
         }
 
-        grounding = extract_decision_grounding(document)
+        grounding = extract_decision_grounding(
+            document,
+            query="Hvornår udgør nedbrydning af en bjælke en skade?",
+        )
 
         self.assertFalse(grounding.used_fallback)
         self.assertIn("Nævnets bemærkninger", grounding.section_title)
         self.assertIn("bæreevnen", grounding.text)
         self.assertIn("tilstandsrapporten", grounding.text)
+        self.assertIn("berettiget til at afvise", grounding.text)
+
+    def test_query_aware_grounding_stays_on_requested_issue_in_multi_issue_board_section(self):
+        document = {
+            "Tekst": """
+## Nævnets bemærkninger og afgørelse
+Nævnet finder, at revnerne i murværket var beskrevet i tilstandsrapporten. Nævnet kan derfor ikke kritisere selskabets afvisning af murværksforholdet.
+
+For så vidt angår ventilationen i tagrummet finder nævnet, at der er normale fugtværdier og ikke konstateret usædvanlig skimmel. Den mangelfulde ventilation udgør derfor ikke i sig selv en skade eller nærliggende risiko for skade. Nævnet kan derfor ikke kritisere selskabets afvisning af ventilationsforholdet.
+
+Vedrørende vinduerne finder nævnet, at fugerne var udtjente som følge af almindelig vedligeholdelse. Klageren får ikke medhold for vinduesforholdet.
+""",
+        }
+
+        grounding = extract_decision_grounding(
+            document,
+            query="Der er mangelfuld ventilation i et tagrum, men normale fugtværdier og ingen usædvanlig skimmel. Er det dækket?",
+        )
+
+        self.assertIn("ventilationen i tagrummet", grounding.text)
+        self.assertIn("normale fugtværdier", grounding.text)
+        self.assertIn("ikke i sig selv en skade", grounding.text)
+        self.assertNotIn("revnerne i murværket", grounding.text)
+        self.assertNotIn("vinduerne", grounding.text)
+        self.assertEqual(grounding.paragraph_count, 1)
+
+    def test_query_aware_grounding_can_select_different_issue_from_same_decision(self):
+        document = {
+            "Tekst": """
+## Nævnets vurdering
+Nævnet finder, at den manglende ventilation ikke har medført fugt eller skimmel. Ventilationsforholdet udgør ikke skade.
+
+For vinduerne lægger nævnet vægt på, at der er konstateret råd i bundstykket, og at nedbrydningen var til stede ved overtagelsen. Selskabet skal derfor anerkende vinduesforholdet.
+""",
+        }
+
+        ventilation = extract_decision_grounding(document, query="manglende ventilation tagrum")
+        windows = extract_decision_grounding(document, query="råd i vinduer ved overtagelsen")
+
+        self.assertIn("manglende ventilation", ventilation.text)
+        self.assertNotIn("råd i bundstykket", ventilation.text)
+        self.assertIn("råd i bundstykket", windows.text)
+        self.assertIn("Selskabet skal", windows.text)
+        self.assertNotIn("manglende ventilation", windows.text)
+
+    def test_query_anchor_follows_forward_to_other_decisive_ground(self):
+        document = {
+            "Tekst": """
+## Nævnets bemærkninger
+Nævnet bemærker, at bjælken har omfattende nedbrydning og mulig påvirkning af bæreevnen.
+
+Det fremgår imidlertid af tilstandsrapporten, at samme nedbrydning var anmærket før købet. Nævnet finder derfor, at selskabet er berettiget til at afvise forholdet.
+
+Nævnet behandler herefter et særskilt spørgsmål om et vindue.
+""",
+        }
+
+        grounding = extract_decision_grounding(document, query="nedbrydning bjælke bæreevne")
+
+        self.assertIn("bjælken", grounding.text)
+        self.assertIn("tilstandsrapporten", grounding.text)
+        self.assertIn("berettiget til at afvise", grounding.text)
+        self.assertNotIn("særskilt spørgsmål om et vindue", grounding.text)
+
+    def test_without_query_preserves_general_decision_core_behaviour(self):
+        document = {
+            "Tekst": """
+## Nævnets bemærkninger
+Nævnet finder, at forholdet ikke var godtgjort ved overtagelsen. Klageren får derfor ikke medhold.
+""",
+        }
+        grounding = extract_decision_grounding(document)
+        self.assertIn("ikke var godtgjort", grounding.text)
         self.assertIn("ikke medhold", grounding.text)
 
     def test_prefers_board_section_over_party_argument(self):
@@ -47,7 +123,7 @@ Nævnet finder, at det ikke er godtgjort, at forholdet var til stede ved overtag
 """,
         }
 
-        grounding = extract_decision_grounding(document)
+        grounding = extract_decision_grounding(document, query="nedbrydning bjælke")
 
         self.assertIn("Nævnet finder", grounding.text)
         self.assertIn("godtgjort", grounding.text)
@@ -68,11 +144,10 @@ Klageren får ikke medhold.
 """,
         }
 
-        grounding = extract_decision_grounding(document)
+        grounding = extract_decision_grounding(document, query="vinduet tilstandsrapport")
 
         self.assertIn("Nævnet udtaler", grounding.text)
         self.assertIn("tilstandsrapporten", grounding.text)
-        self.assertIn("ikke medhold", grounding.text)
         self.assertNotIn("Ved skade forstås", grounding.text)
         self.assertNotIn("Undtagelser fra dækning", grounding.text)
         self.assertNotIn("erstatningsopgørelse", grounding.text)
@@ -100,7 +175,7 @@ Det fremgår af billederne, at bjælken har lokal nedbrydning, men der ses ikke 
 """,
         }
 
-        grounding = extract_decision_grounding(document)
+        grounding = extract_decision_grounding(document, query="bjælke bæreevne")
 
         self.assertIn("Det fremgår af billederne", grounding.text)
         self.assertIn("Nævnet finder", grounding.text)
@@ -117,26 +192,32 @@ Det er ikke sandsynliggjort, at fugten var til stede ved overtagelsen.
 """,
         }
 
-        grounding = extract_decision_grounding(document)
+        grounding = extract_decision_grounding(document, query="fugt overtagelsen")
 
         self.assertTrue(grounding.used_fallback)
         self.assertIn("ikke sandsynliggjort", grounding.text)
 
-    def test_context_preserves_source_number_and_explains_purpose(self):
+    def test_context_preserves_source_number_and_uses_query(self):
         document = {
             "Sagsnummer": "12345",
-            "Titel": "Bjælkesag",
+            "Titel": "Flere forhold",
             "Tekst": """
 ## Nævnets bemærkninger
-Nævnet finder, at forholdet var beskrevet i tilstandsrapporten. Klageren får ikke medhold.
+Nævnet finder, at revnen i muren var beskrevet i tilstandsrapporten. Nævnet kan ikke kritisere afvisningen.
+
+Nævnet finder, at ventilationen i tagrummet ikke har medført fugt. Ventilationsforholdet udgør derfor ikke skade.
 """,
         }
 
-        context = build_decision_grounding_context([document])
+        context = build_decision_grounding_context(
+            [document],
+            query="manglende ventilation i tagrum",
+        )
 
         self.assertIn("AFGØRELSESKERNE", context)
         self.assertIn("[AFGØRELSESKERNE Kilde 1]", context)
-        self.assertIn("tilstandsrapporten", context)
+        self.assertIn("ventilationen i tagrummet", context)
+        self.assertNotIn("revnen i muren", context)
 
     def test_prompt_policy_requires_decisive_ground_and_party_attribution(self):
         prompt = [
