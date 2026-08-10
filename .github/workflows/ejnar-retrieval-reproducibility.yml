@@ -1,0 +1,127 @@
+name: Ejnar retrieval reproducibility
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "shared.py"
+      - "ejnar/shared.py"
+      - "ejnar/retrieval_runtime.py"
+      - "ejnar/query_planner.py"
+      - "ejnar/query_planner_runtime.py"
+      - "ejnar/paragraph_runtime.py"
+      - "ejnar/metadata_runtime.py"
+      - "ejnar/query_feature_runtime.py"
+      - "ejnar/specific_decision_runtime.py"
+      - "ejnar/evaluation/run_live_retrieval.py"
+      - "ejnar/evaluation/run_retrieval.py"
+      - "ejnar/evaluation/retrieval_reproducibility.py"
+      - "ejnar/tests/test_retrieval_reproducibility.py"
+      - ".github/workflows/ejnar-retrieval-reproducibility.yml"
+      - "ejnar/ejnar_*.csv"
+      - "ejnar/ejnar_*.csv.zip"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ejnar-retrieval-reproducibility-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compare-processes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ejnar/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r ejnar/requirements.txt
+
+      - name: Run independent retrieval process with hash seed 1
+        env:
+          PYTHONHASHSEED: "1"
+        run: |
+          mkdir -p artifacts/reproducibility
+          python -m ejnar.evaluation.run_live_retrieval \
+            --top-k 20 \
+            --results artifacts/reproducibility/seed-1.jsonl \
+            --report artifacts/reproducibility/seed-1-report.json
+
+      - name: Run independent retrieval process with hash seed 2
+        env:
+          PYTHONHASHSEED: "2"
+        run: |
+          python -m ejnar.evaluation.run_live_retrieval \
+            --top-k 20 \
+            --results artifacts/reproducibility/seed-2.jsonl \
+            --report artifacts/reproducibility/seed-2-report.json
+
+      - name: Run independent retrieval process with hash seed 3
+        env:
+          PYTHONHASHSEED: "3"
+        run: |
+          python -m ejnar.evaluation.run_live_retrieval \
+            --top-k 20 \
+            --results artifacts/reproducibility/seed-3.jsonl \
+            --report artifacts/reproducibility/seed-3-report.json
+
+      - name: Compare ordered decision results
+        id: compare
+        continue-on-error: true
+        run: |
+          python -m ejnar.evaluation.retrieval_reproducibility \
+            --run seed1=artifacts/reproducibility/seed-1.jsonl \
+            --run seed2=artifacts/reproducibility/seed-2.jsonl \
+            --run seed3=artifacts/reproducibility/seed-3.jsonl \
+            --output artifacts/reproducibility/comparison.json
+
+      - name: Publish summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("artifacts/reproducibility/comparison.json")
+          lines = ["## Ejnar retrieval reproducibility"]
+          if path.exists():
+              report = json.loads(path.read_text(encoding="utf-8"))
+              summary = report["summary"]
+              lines.extend([
+                  f"- Exact reproducibility: **{report['exact_reproducibility']}**",
+                  f"- Independent processes: {summary['runs']}",
+                  f"- Questions: {summary['questions']}",
+                  f"- Affected unique questions: {summary['affected_unique_questions']}",
+                  f"- Ordered mismatches: {summary['ordered_mismatches_across_comparisons']}",
+                  f"- Candidate-set mismatches: {summary['set_mismatches_across_comparisons']}",
+              ])
+          else:
+              lines.append("Comparison report was not produced.")
+          with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+
+      - name: Upload reproducibility diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ejnar-retrieval-reproducibility
+          path: artifacts/reproducibility
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Fail if retrieval is not exactly reproducible
+        if: steps.compare.outcome == 'failure'
+        run: |
+          echo "Independent retrieval processes produced different ordered result lists."
+          exit 1
