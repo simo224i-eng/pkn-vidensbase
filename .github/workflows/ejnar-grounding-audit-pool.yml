@@ -8,10 +8,12 @@ on:
       - "ejnar/decision_grounding_runtime.py"
       - "ejnar/evaluation/grounding_audit_pool.py"
       - "ejnar/evaluation/grounding_review.py"
+      - "ejnar/evaluation/grounding_review_batches.py"
       - "ejnar/evaluation/GROUNDING_REVIEW_PROTOCOL.md"
       - "ejnar/tests/test_decision_grounding*.py"
       - "ejnar/tests/test_grounding_audit_pool.py"
       - "ejnar/tests/test_grounding_review.py"
+      - "ejnar/tests/test_grounding_review_batches.py"
       - ".github/workflows/ejnar-grounding-audit-pool.yml"
   push:
     branches: [main]
@@ -20,10 +22,12 @@ on:
       - "ejnar/decision_grounding_runtime.py"
       - "ejnar/evaluation/grounding_audit_pool.py"
       - "ejnar/evaluation/grounding_review.py"
+      - "ejnar/evaluation/grounding_review_batches.py"
       - "ejnar/evaluation/GROUNDING_REVIEW_PROTOCOL.md"
       - "ejnar/tests/test_decision_grounding*.py"
       - "ejnar/tests/test_grounding_audit_pool.py"
       - "ejnar/tests/test_grounding_review.py"
+      - "ejnar/tests/test_grounding_review_batches.py"
       - ".github/workflows/ejnar-grounding-audit-pool.yml"
 
 permissions:
@@ -80,6 +84,14 @@ jobs:
           cp ejnar/evaluation/GROUNDING_REVIEW_PROTOCOL.md \
             artifacts/grounding-audit/adjudication/REVIEW_PROTOCOL.md
 
+      - name: Split review into manageable blind batches
+        run: |
+          python -m ejnar.evaluation.grounding_review_batches split \
+            --csv artifacts/grounding-audit/adjudication/grounding-review.csv \
+            --output-dir artifacts/grounding-audit/adjudication/review-batches \
+            --manifest artifacts/grounding-audit/adjudication/review-batches-manifest.json \
+            --batch-size 15
+
       - name: Validate blank review package structure
         run: |
           python -m ejnar.evaluation.grounding_review validate \
@@ -97,6 +109,7 @@ jobs:
           from pathlib import Path
 
           path = Path("artifacts/grounding-audit/diagnostics/summary.json")
+          batch_path = Path("artifacts/grounding-audit/adjudication/review-batches-manifest.json")
           lines = ["## Ejnar grounding audit pool"]
           if path.exists():
               summary = json.loads(path.read_text(encoding="utf-8"))
@@ -106,9 +119,16 @@ jobs:
                   f"- Selected for blind review: {summary['selected_pairs']}",
                   f"- High priority: {summary['priority_counts'].get('high', 0)}",
                   f"- Medium priority: {summary['priority_counts'].get('medium', 0)}",
+              ])
+              if batch_path.exists():
+                  batches = json.loads(batch_path.read_text(encoding="utf-8"))
+                  lines.append(
+                      f"- Human review batches: {batches['batches']} × up to {batches['batch_size']} rows"
+                  )
+              lines.extend([
                   "",
                   "> Heuristic selection only. Human review labels are not inferred by the tool.",
-                  "> The adjudication artifact contains a CSV review sheet and protocol with diagnostics kept separate.",
+                  "> The adjudication artifact contains the master CSV, small blind review batches and protocol; diagnostics stay separate.",
               ])
           else:
               lines.append("Audit summary was not produced.")
