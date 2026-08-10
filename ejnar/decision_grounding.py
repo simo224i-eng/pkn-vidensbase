@@ -84,9 +84,6 @@ _CONCLUSION_SIGNALS = (
     "kan ikke føre til andet resultat",
     "kan ikke i sig selv føre til et krav",
     "afvises fra nævnsbehandling",
-    # Materielle konklusioner kan afslutte et enkelt forhold uden den mere formelle
-    # 'kan ikke kritisere'-formulering. De skal stoppe den lokale vandring, ellers kan
-    # næste anmeldte forhold i samme nævnsafsnit blive blandet ind i afgørelseskernen.
     "udgør ikke skade",
     "udgør ikke en skade",
     "udgør derfor ikke skade",
@@ -103,10 +100,15 @@ _CONCLUSION_SIGNALS = (
     "er omfattet af forsikringen",
     "anerkende dækning",
 )
-# Older decisions are not always structurally marked up. A generic "Kendelse" or
-# "Afgørelse" section may contain policy wording followed later by the Board's own
-# reasoning. Strong inline markers let us trim that preamble without guessing from a
-# mere occurrence of the word "nævnet".
+# A short paragraph immediately following the substantive reasoning is often the formal
+# outcome for that same issue. It may safely be retained. The prefix requirement prevents
+# a new issue paragraph such as "For vinduet finder nævnet ..." from reopening the window.
+_TRAILING_RESULT_PREFIXES = (
+    "klageren får",
+    "klagen afvises",
+    "selskabet skal betale",
+    "selskabet skal anerkende",
+)
 _BOARD_INLINE_MARKERS = (
     "nævnet udtaler:",
     "nævnet udtaler",
@@ -123,9 +125,6 @@ _BOARD_INLINE_MARKERS = (
 )
 _SPACE_RE = re.compile(r"\s+")
 _TOKEN_RE = re.compile(r"[a-zæøå0-9]+", flags=re.IGNORECASE)
-# These terms are useful for routing a legal query but do not distinguish one issue from
-# another inside a multi-issue Board section. Excluding them makes terms such as
-# "ventilation", "tagrum", "vinduer" and "bjælke" dominate local grounding.
 _QUERY_STOPWORDS = {
     "af", "afgørelse", "afgørelser", "afvist", "at", "de", "den", "der", "det",
     "dække", "dækket", "dækning", "dækningsberettigende", "ejerskifteforsikring",
@@ -162,9 +161,6 @@ def _section_score(title: str, position: int, total: int) -> float:
         score += 25.0
     if "bemærk" in normalised or "vurder" in normalised:
         score += 15.0
-
-    # Position may choose between recognised decision sections, but may never turn an
-    # unknown heading into a recognised decision section.
     if score > 0 and total > 1:
         score += 4.0 * (position / (total - 1))
     return score
@@ -181,7 +177,6 @@ def _paragraph_score(text: str, position: int, total: int) -> float:
 
 
 def _inline_board_start(paragraph: str) -> int | None:
-    """Locate the first strong Board-reasoning marker in a paragraph."""
     if not paragraph:
         return None
     best: int | None = None
@@ -195,7 +190,6 @@ def _inline_board_start(paragraph: str) -> int | None:
 
 
 def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
-    """Drop policy/party preamble before an inline Board reasoning marker."""
     cleaned = [re.sub(r"\s+", " ", str(paragraph or "")).strip() for paragraph in paragraphs]
     cleaned = [paragraph for paragraph in cleaned if paragraph]
     for index, paragraph in enumerate(cleaned):
@@ -251,12 +245,6 @@ def _paragraph_stems(text: str) -> set[str]:
 
 
 def _query_scores(paragraphs: list[str], query: str) -> list[float]:
-    """Return discriminative lexical scores within the selected Board section.
-
-    IDF is calculated only across paragraphs in this decision. A term occurring in one
-    paragraph therefore contributes more than a generic term repeated through the whole
-    Board section. This is a local selector, not a new retrieval system.
-    """
     terms = _query_terms(query)
     if not terms or not paragraphs:
         return [0.0] * len(paragraphs)
@@ -276,8 +264,6 @@ def _query_scores(paragraphs: list[str], query: str) -> list[float]:
             1.0 + math.log((len(paragraphs) + 1.0) / (document_frequency[term] + 1.0))
             for term in matched
         )
-        # Coverage of multiple distinct issue terms is more useful than repeated use of
-        # one token. Keep the boost bounded so Board-reasoning signals remain relevant.
         score *= 1.0 + min(0.6, 0.15 * max(0, len(matched) - 1))
         scores.append(score)
     return scores
@@ -288,20 +274,20 @@ def _has_conclusion_signal(text: str) -> bool:
     return any(signal in normalised for signal in _CONCLUSION_SIGNALS)
 
 
+def _is_trailing_result_paragraph(text: str) -> bool:
+    normalised = _normalise(text)
+    if not normalised or len(normalised) > 320:
+        return False
+    return any(normalised.startswith(prefix) for prefix in _TRAILING_RESULT_PREFIXES)
+
+
 def _query_local_indices(
     cleaned: list[str],
     query: str,
     *,
     max_paragraphs: int,
 ) -> list[int]:
-    """Select a local issue window inside a multi-issue Board section.
-
-    The strongest query paragraph is the anchor. We then walk forward because the Board's
-    actual reason/result commonly follows the issue-specific paragraph. Once a conclusion
-    signal is reached, the issue window is closed: later paragraphs are never re-added
-    merely because they share a generic query term such as ``fugt``. If no conclusion is
-    reached, additional query-matching paragraphs may fill the remaining slots.
-    """
+    """Select a local issue window inside a multi-issue Board section."""
     if max_paragraphs <= 0:
         return []
     query_scores = _query_scores(cleaned, query)
@@ -329,9 +315,11 @@ def _query_local_indices(
             if len(selected) >= max_paragraphs:
                 break
 
-    # Only broaden beyond the contiguous local window when the Board did not state a
-    # detectable conclusion there. Once the issue has concluded, later query-term matches
-    # are more likely to belong to another claim in the same decision.
+    if reached_conclusion and len(selected) < max_paragraphs:
+        trailing = max(selected) + 1
+        if trailing < len(cleaned) and _is_trailing_result_paragraph(cleaned[trailing]):
+            selected.append(trailing)
+
     if not reached_conclusion and len(selected) < max_paragraphs:
         additional = sorted(
             (
@@ -346,9 +334,6 @@ def _query_local_indices(
             if len(selected) >= max_paragraphs:
                 break
 
-    # A preceding paragraph can contain the issue introduction when the anchor is a later
-    # factual/reasoning paragraph. Do not walk backwards from a self-contained concluding
-    # anchor, because that can reopen the previous issue in a multi-issue decision.
     previous = anchor - 1
     if (
         not anchor_concludes
@@ -368,15 +353,8 @@ def _default_indices(cleaned: list[str], *, max_paragraphs: int) -> list[int]:
     total = len(cleaned)
     scored = [(_paragraph_score(text, idx, total), idx) for idx, text in enumerate(cleaned)]
     _, best_idx = max(scored, key=lambda item: (item[0], item[1]))
-
-    desired = {best_idx, total - 1}
-    if best_idx > 0:
-        desired.add(best_idx - 1)
-    if best_idx + 1 < total:
-        desired.add(best_idx + 1)
     if total <= max_paragraphs:
         return list(range(total))
-
     ranked = [best_idx, best_idx + 1, total - 1, best_idx - 1]
     output: list[int] = []
     for idx in ranked:
@@ -439,14 +417,7 @@ def extract_decision_grounding(
     max_chars: int = 1800,
     max_paragraphs: int = 4,
 ) -> DecisionGrounding:
-    """Extract a compact, optionally query-specific representation of Board reasoning.
-
-    Formal Board/decision sections are selected before query relevance is considered.
-    Query-aware selection happens only *within* that Board section, so party arguments or
-    factual sections cannot replace the Board's own reasoning. When a decision contains
-    several issues in the same Board section, the selected core stays around the issue
-    matching the user's question and follows it forward to its conclusion/other ground.
-    """
+    """Extract a compact, optionally query-specific representation of Board reasoning."""
     text = str(document.get("Tekst") or document.get("text") or "")
     sections = split_sections(text)
     if not sections:
