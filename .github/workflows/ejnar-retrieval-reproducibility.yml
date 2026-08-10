@@ -29,9 +29,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  compare-processes:
+  retrieval-run:
+    name: retrieval-host-seed-${{ matrix.seed }}
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [1, 2, 3]
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -46,42 +51,63 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r ejnar/requirements.txt
 
-      - name: Run independent retrieval process with hash seed 1
+      - name: Run live retrieval on independent host
         env:
-          PYTHONHASHSEED: "1"
+          PYTHONHASHSEED: ${{ matrix.seed }}
         run: |
           mkdir -p artifacts/reproducibility
           python -m ejnar.evaluation.run_live_retrieval \
             --top-k 20 \
-            --results artifacts/reproducibility/seed-1.jsonl \
-            --report artifacts/reproducibility/seed-1-report.json
+            --results artifacts/reproducibility/seed-${{ matrix.seed }}.jsonl \
+            --report artifacts/reproducibility/seed-${{ matrix.seed }}-report.json
 
-      - name: Run independent retrieval process with hash seed 2
-        env:
-          PYTHONHASHSEED: "2"
-        run: |
-          python -m ejnar.evaluation.run_live_retrieval \
-            --top-k 20 \
-            --results artifacts/reproducibility/seed-2.jsonl \
-            --report artifacts/reproducibility/seed-2-report.json
+      - name: Upload host result
+        uses: actions/upload-artifact@v4
+        with:
+          name: ejnar-repro-seed-${{ matrix.seed }}
+          path: artifacts/reproducibility
+          if-no-files-found: error
+          retention-days: 30
 
-      - name: Run independent retrieval process with hash seed 3
-        env:
-          PYTHONHASHSEED: "3"
-        run: |
-          python -m ejnar.evaluation.run_live_retrieval \
-            --top-k 20 \
-            --results artifacts/reproducibility/seed-3.jsonl \
-            --report artifacts/reproducibility/seed-3-report.json
+  compare-hosts:
+    needs: retrieval-run
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - name: Compare ordered decision results
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download host 1 result
+        uses: actions/download-artifact@v4
+        with:
+          name: ejnar-repro-seed-1
+          path: artifacts/reproducibility/host-1
+
+      - name: Download host 2 result
+        uses: actions/download-artifact@v4
+        with:
+          name: ejnar-repro-seed-2
+          path: artifacts/reproducibility/host-2
+
+      - name: Download host 3 result
+        uses: actions/download-artifact@v4
+        with:
+          name: ejnar-repro-seed-3
+          path: artifacts/reproducibility/host-3
+
+      - name: Compare ordered decision results across hosts
         id: compare
         continue-on-error: true
         run: |
           python -m ejnar.evaluation.retrieval_reproducibility \
-            --run seed1=artifacts/reproducibility/seed-1.jsonl \
-            --run seed2=artifacts/reproducibility/seed-2.jsonl \
-            --run seed3=artifacts/reproducibility/seed-3.jsonl \
+            --run host1=artifacts/reproducibility/host-1/seed-1.jsonl \
+            --run host2=artifacts/reproducibility/host-2/seed-2.jsonl \
+            --run host3=artifacts/reproducibility/host-3/seed-3.jsonl \
             --output artifacts/reproducibility/comparison.json
 
       - name: Publish summary
@@ -93,13 +119,13 @@ jobs:
           from pathlib import Path
 
           path = Path("artifacts/reproducibility/comparison.json")
-          lines = ["## Ejnar retrieval reproducibility"]
+          lines = ["## Ejnar retrieval reproducibility — separate runners"]
           if path.exists():
               report = json.loads(path.read_text(encoding="utf-8"))
               summary = report["summary"]
               lines.extend([
                   f"- Exact reproducibility: **{report['exact_reproducibility']}**",
-                  f"- Independent processes: {summary['runs']}",
+                  f"- Independent GitHub runners: {summary['runs']}",
                   f"- Questions: {summary['questions']}",
                   f"- Affected unique questions: {summary['affected_unique_questions']}",
                   f"- Ordered mismatches: {summary['ordered_mismatches_across_comparisons']}",
@@ -111,7 +137,7 @@ jobs:
               handle.write("\n".join(lines) + "\n")
           PY
 
-      - name: Upload reproducibility diagnostics
+      - name: Upload cross-host comparison
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -123,5 +149,5 @@ jobs:
       - name: Fail if retrieval is not exactly reproducible
         if: steps.compare.outcome == 'failure'
         run: |
-          echo "Independent retrieval processes produced different ordered result lists."
+          echo "Independent GitHub runners produced different ordered retrieval results."
           exit 1
