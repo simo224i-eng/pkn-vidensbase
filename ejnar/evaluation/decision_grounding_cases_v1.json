@@ -1,0 +1,200 @@
+[
+  {
+    "case_id": "DG-001",
+    "category": "condition_report",
+    "query": "Hvornår udgør nedbrydning af en bjælke en skade?",
+    "text": "## Selskabets opfattelse\nSelskabet anfører, at bjælkens bæreevne ikke var væsentligt nedsat.\n\n## Nævnets bemærkninger og afgørelse\nNævnet bemærker, at der er konstateret nedbrydning i bjælken, som kan have betydning for bæreevnen.\n\nDet fremgår imidlertid af tilstandsrapporten, at nedbrydningen var anmærket før købet. Nævnet finder på den baggrund, at selskabet er berettiget til at afvise forholdet med henvisning til tilstandsrapporten.\n\nKlageren får derfor ikke medhold.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["bæreevnen", "tilstandsrapporten", "ikke medhold"],
+    "forbidden_grounding_terms": ["ikke var væsentligt nedsat"],
+    "expected_fallback": false,
+    "notes": "Regression for the reported beam/condition-report failure mode."
+  },
+  {
+    "case_id": "DG-002",
+    "category": "known_condition",
+    "query": "Hvilken praksis gælder for en utæt kældervæg?",
+    "text": "## Klagerens opfattelse\nKlageren anfører, at væggen er utæt og ubrugelig.\n\n## Nævnets vurdering\nNævnet finder, at fugtindtrængningen var omtalt i købsmaterialet, og at klageren derfor var bekendt med forholdet før overtagelsen. Selskabet er derfor berettiget til at afvise dækning.",
+    "expected_section_contains": "nævnets vurdering",
+    "expected_grounding_terms": ["bekendt med forholdet", "før overtagelsen", "berettiget"],
+    "forbidden_grounding_terms": ["utæt og ubrugelig"],
+    "expected_fallback": false,
+    "notes": "Known condition must be preserved as the decisive ground."
+  },
+  {
+    "case_id": "DG-003",
+    "category": "takeover_proof",
+    "query": "Er revner i gulvet en skade?",
+    "text": "## Sagens oplysninger\nEn rådgiver beskriver markante revner og eftergivenhed i gulvet.\n\n## Nævnets bemærkninger\nNævnet finder, at det ikke er godtgjort, at revnerne og eftergivenheden var til stede ved overtagelsen. Klageren får derfor ikke medhold.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["ikke er godtgjort", "ved overtagelsen", "ikke medhold"],
+    "forbidden_grounding_terms": ["rådgiver beskriver"],
+    "expected_fallback": false,
+    "notes": "Proof at takeover is distinct from the physical severity of the condition."
+  },
+  {
+    "case_id": "DG-004",
+    "category": "amount_threshold",
+    "query": "Hvornår er en lokal tagutæthed dækket?",
+    "text": "## Selskabets opfattelse\nSelskabet er enig i, at der er en lokal utæthed ved tagstenen.\n\n## Nævnets afgørelse\nNævnet lægger til grund, at den nødvendige lokale reparation kan udføres for mindre end 5.000 kr. Nævnet finder derfor ikke grundlag for at pålægge selskabet at betale erstatning.",
+    "expected_section_contains": "nævnets afgørelse",
+    "expected_grounding_terms": ["mindre end 5.000 kr", "ikke grundlag", "erstatning"],
+    "forbidden_grounding_terms": ["enig i, at der er en lokal utæthed"],
+    "expected_fallback": false,
+    "notes": "A physical defect can exist while the result turns on the monetary threshold."
+  },
+  {
+    "case_id": "DG-005",
+    "category": "limitation",
+    "query": "Hvad siger praksis om råd i vinduer?",
+    "text": "## Klagerens opfattelse\nVinduerne er rådskadede og kan ikke længere lukke tæt.\n\n## Nævnets bemærkninger og afgørelse\nNævnet finder, at kravet er anmeldt efter udløbet af den relevante frist. Allerede derfor kan klagen ikke føre til et andet resultat.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["efter udløbet", "fristen", "allerede derfor"],
+    "forbidden_grounding_terms": ["kan ikke længere lukke tæt"],
+    "expected_fallback": false,
+    "notes": "A merits-looking fact pattern is procedurally resolved."
+  },
+  {
+    "case_id": "DG-006",
+    "category": "exclusion",
+    "query": "Hvad er praksis for skimmel efter oversvømmelse?",
+    "text": "## Sagens oplysninger\nDer er konstateret omfattende skimmel i gulvkonstruktionen.\n\n## Nævnets vurdering\nNævnet finder, at fugtpåvirkningen skyldes en hændelse, som efter forsikringsbetingelserne er undtaget fra dækning. Selskabet er derfor berettiget til at afvise forholdet.",
+    "expected_section_contains": "nævnets vurdering",
+    "expected_grounding_terms": ["undtaget fra dækning", "berettiget", "afvise"],
+    "forbidden_grounding_terms": ["omfattende skimmel"],
+    "expected_fallback": false,
+    "notes": "The exclusion, not severity, controls the outcome."
+  },
+  {
+    "case_id": "DG-007",
+    "category": "maintenance",
+    "query": "Hvornår dækkes utætte fuger i bad?",
+    "text": "## Klagerens opfattelse\nDer trænger vand gennem fugerne ved brusenichen.\n\n## Nævnets bemærkninger\nNævnet finder, at de konstaterede forhold skyldes manglende løbende vedligeholdelse af de elastiske fuger. Nævnet kan derfor ikke kritisere selskabets afvisning.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["manglende løbende vedligeholdelse", "derfor", "afvisning"],
+    "forbidden_grounding_terms": ["trænger vand gennem fugerne"],
+    "expected_fallback": false,
+    "notes": "Maintenance basis must not be flattened into a generic water-ingress rule."
+  },
+  {
+    "case_id": "DG-008",
+    "category": "wear_and_tear",
+    "query": "Er en utæt gammel taghætte en skade?",
+    "text": "## Sagens oplysninger\nDer ses fugt på lægten under taghætten.\n\n## Ankenævnets vurdering\nAnkenævnet finder, at utætheden skyldes aldersbetinget slid og udløbet levetid. På den baggrund finder nævnet ikke grundlag for at tilsidesætte selskabets afgørelse.",
+    "expected_section_contains": "ankenævnets vurdering",
+    "expected_grounding_terms": ["aldersbetinget slid", "udløbet levetid", "på den baggrund"],
+    "forbidden_grounding_terms": ["fugt på lægten"],
+    "expected_fallback": false,
+    "notes": "Cause and exclusionary reasoning are decisive."
+  },
+  {
+    "case_id": "DG-009",
+    "category": "party_attribution",
+    "query": "Kræver skadebegrebet væsentligt nedsat bæreevne?",
+    "text": "## Selskabets opfattelse\nSelskabet anfører, at der kun foreligger en skade, hvis bæreevnen er væsentligt nedsat.\n\n## Nævnets bemærkninger\nNævnet finder, at det anmeldte forhold var tydeligt beskrevet i tilstandsrapporten, og at selskabet derfor er berettiget til at afvise dækning.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["tilstandsrapporten", "berettiget", "afvise"],
+    "forbidden_grounding_terms": ["kun foreligger en skade"],
+    "expected_fallback": false,
+    "notes": "A party's legal proposition must never become a Board rule."
+  },
+  {
+    "case_id": "DG-010",
+    "category": "expert_attribution",
+    "query": "Er 20 procent nedbrydning af et spær en skade?",
+    "text": "## Den sagkyndiges erklæring\nDen sagkyndige vurderer, at 20 procent nedbrydning altid er konstruktivt væsentlig.\n\n## Nævnets bemærkninger og afgørelse\nNævnet finder efter en samlet bevisvurdering, at omfanget ved overtagelsen ikke er dokumenteret. Klageren får derfor ikke medhold.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["samlet bevisvurdering", "ikke er dokumenteret", "ikke medhold"],
+    "forbidden_grounding_terms": ["altid er konstruktivt væsentlig"],
+    "expected_fallback": false,
+    "notes": "Expert evidence is not itself the Board's legal rule."
+  },
+  {
+    "case_id": "DG-011",
+    "category": "direct_merits_positive",
+    "query": "Hvornår er nedbrydning af en bjælke en skade?",
+    "text": "## Nævnets vurdering\nNævnet lægger efter de tekniske oplysninger til grund, at bjælkens bæreevne er væsentligt nedsat, og at gulvkonstruktionen har tydelig eftergivenhed. Nævnet finder derfor, at der foreligger et dækningsberettiget forhold.",
+    "expected_section_contains": "nævnets vurdering",
+    "expected_grounding_terms": ["bæreevne er væsentligt nedsat", "eftergivenhed", "dækningsberettiget"],
+    "forbidden_grounding_terms": [],
+    "expected_fallback": false,
+    "notes": "Control: when the Board really decides the merits, the technical reasoning must remain."
+  },
+  {
+    "case_id": "DG-012",
+    "category": "direct_merits_negative",
+    "query": "Hvornår er ældre nedbrydning ikke en skade?",
+    "text": "## Nævnets bemærkninger\nNævnet finder, at nedbrydningen er lokal og inaktiv, at konstruktionen ikke er eftergivende, og at bæreevnen ikke er påvirket. Nævnet finder herefter ikke, at forholdet har medført en aktuel funktionsnedsættelse.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["lokal og inaktiv", "bæreevnen ikke er påvirket", "funktionsnedsættelse"],
+    "forbidden_grounding_terms": [],
+    "expected_fallback": false,
+    "notes": "Control for a merits-based no-damage analysis."
+  },
+  {
+    "case_id": "DG-013",
+    "category": "multiple_grounds",
+    "query": "Hvad er praksis for fugt i kælder ved overtagelsen?",
+    "text": "## Nævnets bemærkninger og afgørelse\nNævnet finder for det første, at fugtforholdet var omtalt i tilstandsrapporten. Nævnet finder desuden, at klageren ikke har godtgjort, at den nu konstaterede opfugtning havde samme omfang ved overtagelsen.\n\nNævnet kan allerede af disse grunde ikke pålægge selskabet at anerkende dækning.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["tilstandsrapporten", "ikke har godtgjort", "disse grunde"],
+    "forbidden_grounding_terms": [],
+    "expected_fallback": false,
+    "notes": "Multiple dispositive grounds should be kept together."
+  },
+  {
+    "case_id": "DG-014",
+    "category": "fallback_conclusion",
+    "query": "Var fugten til stede ved overtagelsen?",
+    "text": "## Sagens oplysninger\nDer blev efter købet målt forhøjet fugt.\n\n## Konklusion\nDet er ikke sandsynliggjort, at fugtpåvirkningen var til stede ved overtagelsen.",
+    "expected_section_contains": "konklusion",
+    "expected_grounding_terms": ["ikke sandsynliggjort", "ved overtagelsen"],
+    "forbidden_grounding_terms": ["efter købet målt"],
+    "expected_fallback": true,
+    "notes": "Conservative fallback when no Board-labelled heading exists."
+  },
+  {
+    "case_id": "DG-015",
+    "category": "board_section_before_appendix",
+    "query": "Hvad blev sagen afgjort på?",
+    "text": "## Nævnets afgørelse\nNævnet finder, at forholdet var anmærket i tilstandsrapporten. Klageren får derfor ikke medhold.\n\n## Bilag\nBilaget indeholder en teknisk tabel om træets reststyrke.",
+    "expected_section_contains": "nævnets afgørelse",
+    "expected_grounding_terms": ["tilstandsrapporten", "ikke medhold"],
+    "forbidden_grounding_terms": ["teknisk tabel"],
+    "expected_fallback": false,
+    "notes": "A trailing appendix must not displace an explicit Board section."
+  },
+  {
+    "case_id": "DG-016",
+    "category": "pure_procedural_dismissal",
+    "query": "Hvad siger sagen om revnedannelse?",
+    "text": "## Klagerens opfattelse\nKlageren beskriver omfattende revner i murværket.\n\n## Nævnets afgørelse\nNævnet finder, at sagen ikke kan afgøres uden en egentlig bevisførelse, som ikke kan ske for nævnet. Klagen afvises derfor fra nævnsbehandling.",
+    "expected_section_contains": "nævnets afgørelse",
+    "expected_grounding_terms": ["bevisførelse", "klagen afvises"],
+    "forbidden_grounding_terms": ["omfattende revner"],
+    "expected_fallback": false,
+    "notes": "Procedural dismissal should not be used as merits practice."
+  },
+  {
+    "case_id": "DG-017",
+    "category": "causation",
+    "query": "Er fugt under tagpladerne en dækningsberettiget skade?",
+    "text": "## Sagens oplysninger\nDer er målt fugt under flere tagplader.\n\n## Nævnets bemærkninger\nNævnet finder, at vandindtrængningen blev fremkaldt ved den efterfølgende afrensning med højtryksspuler. Forholdet kan derfor ikke henføres til ejendommens tilstand ved overtagelsen.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["efterfølgende afrensning", "ikke henføres", "ved overtagelsen"],
+    "forbidden_grounding_terms": ["målt fugt under"],
+    "expected_fallback": false,
+    "notes": "Post-takeover cause is dispositive even though physical moisture exists."
+  },
+  {
+    "case_id": "DG-018",
+    "category": "legal_compliance_only",
+    "query": "Er manglende vådrumsmembran i sig selv en skade?",
+    "text": "## Sagens oplysninger\nDer er ikke udført vådrumsmembran bag fliserne.\n\n## Nævnets bemærkninger og afgørelse\nNævnet finder, at der ikke er dokumenteret vandindtrængning eller funktionssvigt. Det forhold, at konstruktionen eventuelt ikke opfylder gældende forskrifter, kan ikke i sig selv føre til dækning.",
+    "expected_section_contains": "nævnets bemærkninger",
+    "expected_grounding_terms": ["ikke er dokumenteret", "funktionssvigt", "ikke i sig selv"],
+    "forbidden_grounding_terms": [],
+    "expected_fallback": false,
+    "notes": "Merits reasoning distinguishes code compliance from insured damage."
+  }
+]
