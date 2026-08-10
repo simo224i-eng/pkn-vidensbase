@@ -142,8 +142,11 @@ class PracticeSynthesisMetricsTests(unittest.TestCase):
         }]
         report = evaluate(labels, predictions)
         self.assertEqual(report["violations"]["fixed_practice_minimum_evidence"], [])
-        self.assertIn("necessary, not sufficient", report["interpretation"]["fixed_practice_guardrail"])
-        self.assertIn("does not", report["scope"])
+        guardrail = report["interpretation"]["fixed_practice_guardrail"]
+        self.assertIn("At least three", guardrail)
+        self.assertIn("does not test", guardrail)
+        self.assertIn("substantively consistent", guardrail)
+        self.assertIn("does not determine substantive consistency", report["scope"])
 
 
 if __name__ == "__main__":
