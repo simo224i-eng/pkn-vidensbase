@@ -39,7 +39,16 @@ _PRACTICE_POLICY = (
     "fremlagte kilder ikke viser væsentlige modgående direkte afgørelser.\n"
     "17. Hvis du ikke sikkert kan afgøre, om en kilde er direkte praksis eller indirekte "
     "støtte ud fra afgørelseskernen, så medregn den ikke i en generalisering. Beskriv "
-    "usikkerheden i stedet."
+    "usikkerheden i stedet.\n"
+    "18. Når brugerens spørgsmål efterspørger praksis, tendens, afgørende momenter eller "
+    "hvornår nævnet når et bestemt resultat, skal kildegrundlaget være synligt i svaret: "
+    "Brug overskriften 'Direkte praksis' for kendelser, hvor nævnets bærende begrundelse "
+    "tager stilling til spørgsmålet. Hvis du også anvender kendelser, der blev afgjort på "
+    "et andet grundlag, placér dem særskilt under 'Indirekte støtte' og angiv kort dette "
+    "andet afgørelsesgrund, fx tilstandsrapport, bevis ved overtagelsen eller frist. "
+    "Opret ikke tomme kategorier. Hvis der ikke er tilstrækkelig direkte praksis til en "
+    "generalisering, sig det tydeligt i stedet for at få indirekte kilder til at ligne "
+    "direkte praksis."
 )
 
 
