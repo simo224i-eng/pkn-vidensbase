@@ -54,6 +54,58 @@ Nævnet finder, at det ikke er godtgjort, at forholdet var til stede ved overtag
         self.assertIn("ikke medhold", grounding.text)
         self.assertNotIn("enhver nedbrydning", grounding.text)
 
+    def test_generic_legacy_section_drops_policy_preamble_before_inline_board_marker(self):
+        document = {
+            "Tekst": """
+## Kendelse
+Ved skade forstås brud, lækage og andre fysiske forhold. Undtagelser fra dækning omfatter kendte forhold og almindeligt slid.
+
+Forsikringsbetingelserne indeholder desuden en række bestemmelser om erstatningsopgørelse.
+
+Nævnet udtaler: Nævnet finder, at forholdet med vinduet var klart beskrevet i tilstandsrapporten. Selskabet er derfor berettiget til at afvise forholdet.
+
+Klageren får ikke medhold.
+""",
+        }
+
+        grounding = extract_decision_grounding(document)
+
+        self.assertIn("Nævnet udtaler", grounding.text)
+        self.assertIn("tilstandsrapporten", grounding.text)
+        self.assertIn("ikke medhold", grounding.text)
+        self.assertNotIn("Ved skade forstås", grounding.text)
+        self.assertNotIn("Undtagelser fra dækning", grounding.text)
+        self.assertNotIn("erstatningsopgørelse", grounding.text)
+
+    def test_inline_marker_can_trim_prefix_inside_same_paragraph(self):
+        document = {
+            "Tekst": """
+## Afgørelse
+Forsikringsbetingelserne angiver flere generelle begrænsninger. Nævnet udtaler: Nævnet finder efter de konkrete oplysninger, at klageren ikke har godtgjort forholdets tilstedeværelse ved overtagelsen.
+""",
+        }
+
+        grounding = extract_decision_grounding(document)
+
+        self.assertTrue(grounding.text.startswith("Nævnet udtaler:"))
+        self.assertIn("ikke har godtgjort", grounding.text)
+        self.assertNotIn("generelle begrænsninger", grounding.text)
+        self.assertEqual(grounding.paragraph_count, 1)
+
+    def test_explicit_board_section_preserves_intro_before_find_marker(self):
+        document = {
+            "Tekst": """
+## Nævnets vurdering
+Det fremgår af billederne, at bjælken har lokal nedbrydning, men der ses ikke eftergivenhed. Nævnet finder på den baggrund, at bæreevnen ikke er påvirket.
+""",
+        }
+
+        grounding = extract_decision_grounding(document)
+
+        self.assertIn("Det fremgår af billederne", grounding.text)
+        self.assertIn("Nævnet finder", grounding.text)
+        self.assertIn("bæreevnen ikke er påvirket", grounding.text)
+
     def test_falls_back_to_final_section_when_no_board_heading_exists(self):
         document = {
             "Tekst": """
