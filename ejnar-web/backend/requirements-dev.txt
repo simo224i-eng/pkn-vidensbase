@@ -1,0 +1,3 @@
+# Test-afhængigheder — `pip install -r requirements-dev.txt` (oveni requirements.txt).
+pytest>=8
+httpx>=0.27

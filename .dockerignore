@@ -1,0 +1,19 @@
+# Holder backend-imagens build-kontekst slank (bygges fra repo-roden, se
+# ejnar-web/backend/Dockerfile). Frontenden har sin egen kontekst + ignore.
+.git
+.github
+**/__pycache__
+**/*.pyc
+**/.venv
+**/venv
+**/.env
+ejnar-web/frontend/node_modules
+ejnar-web/frontend/.next
+ejnar-web/frontend/out
+# Store filer backend-imagen ikke bruger (den kopierer kun csv.zip'en eksplicit)
+ejnar/ejnar_ejerskifteforsikring.csv
+*.npz
+# …men chunk-embeddings-indekset SKAL med (semantisk søgning, ENABLE_SEMANTIC=1)
+!ejnar/embeds/*.npz
+tools/
+docs/

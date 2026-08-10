@@ -43,6 +43,23 @@ VOYAGE_API_KEY     = "..."     # valgfri – aktiverer hybrid semantisk søgning
 GITHUB_TOKEN       = "..."     # valgfri – auto-pusher byggede embeddings til repoet
 ```
 
+## Jurist-features
+
+- **Notat-eksport:** hvert AI-svar kan downloades som printklart praksisnotat
+  (HTML → åbn → Ctrl+P → "Gem som PDF") med spørgsmål, svar og fuld kildeliste.
+- **Permalinks:** detaljevisningen sætter `?sag=<sagsnr>` i URL'en og har en
+  "Kopiér link"-knap — del et direkte link til en kendelse med kolleger.
+- **Sagsmapper:** saml kendelser til en konkret sag (fanen "Sagsmapper"),
+  skriv noter og download mappen som én fil. Gemmes kun i browser-sessionen.
+- **LLM-klassifikation:** `klassificer_kendelser.py` klassificerer udfald og
+  mangeltype med Claude (Haiku) og skriver tilbage i CSV'en, så statistikken
+  bliver troværdig i stedet for keyword-"cirka" (pt. mangler ~3.100 af 5.641):
+  ```bash
+  export ANTHROPIC_API_KEY=sk-ant-...
+  python3 klassificer_kendelser.py --dry-run   # status: hvor meget mangler?
+  python3 klassificer_kendelser.py             # klassificér de manglende
+  ```
+
 ## Workflow ved data-opdatering
 
 1. **Scrape data fra AKF** (kør lokalt — sandbox må ikke ramme ankeforsikring.dk):

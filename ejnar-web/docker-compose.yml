@@ -1,0 +1,35 @@
+# Hele Ejnar-stakken med én kommando (kør fra ejnar-web/):
+#
+#   cp backend/.env.example backend/.env   # udfyld APP_PASSWORD, ANTHROPIC_API_KEY, SESSION_SECRET
+#   docker compose up --build
+#
+# Frontend: http://localhost:3000 — backend'en er kun tilgængelig internt.
+# Første opstart bygger TF-IDF-indekset (~90 sek); healthchecket på /api/ready
+# holder frontenden tilbage til backend'en er varm.
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: ejnar-web/backend/Dockerfile
+    env_file:
+      - ./backend/.env
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/ready')"]
+      interval: 15s
+      timeout: 5s
+      retries: 40        # rigelig margen til de ~90 sek indeksbygning
+      start_period: 20s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        BACKEND_URL: http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

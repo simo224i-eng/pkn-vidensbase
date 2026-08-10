@@ -145,18 +145,18 @@ def embed_batch(texts, retries: int = 4):
 
 
 # ── Data load ───────────────────────────────────────────────────────────────
-def load_csv_or_zip(name: str) -> list[tuple[str, str]]:
-    """Returnér liste af (titel, renset_tekst) fra ejnar_*.csv eller .csv.zip."""
+def load_csv_or_zip(name: str) -> list[tuple[str, str, str]]:
+    """Returnér liste af (titel, renset_tekst, link) fra ejnar_*.csv eller .csv.zip."""
     csv.field_size_limit(10_000_000)
     csv_path = os.path.join(ROOT, name)
     zip_path = csv_path + ".zip"
 
-    rows: list[tuple[str, str]] = []
+    rows: list[tuple[str, str, str]] = []
 
     def _read_reader(reader):
         for r in reader:
             tekst = strip_html(r.get("Tekst", ""))
-            rows.append((r.get("Titel", ""), tekst))
+            rows.append((r.get("Titel", ""), tekst, r.get("Link", "")))
 
     if os.path.exists(csv_path):
         with open(csv_path, newline="", encoding="utf-8") as f:
@@ -172,16 +172,18 @@ def load_csv_or_zip(name: str) -> list[tuple[str, str]]:
     return rows
 
 
-def load_all() -> list[tuple[str, str]]:
-    seen_titles: set[str] = set()
-    out: list[tuple[str, str]] = []
+def load_all() -> list[tuple[str, str, str]]:
+    """Dedup på LINK — SKAL matche appens load_data (dedup på Link), ellers
+    forskydes chunk→doc-mappingen. (Tidligere titel-dedup droppede kendelser
+    med enslydende titler og gjorde indekset ubrugeligt uden link-remap.)"""
+    seen_links: set[str] = set()
+    out: list[tuple[str, str, str]] = []
     for name in CSV_NAMES:
-        for t, tx in load_csv_or_zip(name):
-            key = (t or "")[:200]
-            if key in seen_titles:
+        for t, tx, l in load_csv_or_zip(name):
+            if l in seen_links:
                 continue
-            seen_titles.add(key)
-            out.append((t, tx))
+            seen_links.add(l)
+            out.append((t, tx, l))
     return out
 
 
@@ -196,7 +198,8 @@ def build(cache_key: str, data) -> bool:
     print(f"  Chunker {n_docs} dokumenter (chunk_size={CHUNK_SIZE}, overlap={CHUNK_OVERLAP})…")
     all_chunks: list[str] = []
     chunk_to_doc: list[int] = []
-    for doc_idx, (titel, tekst) in enumerate(data):
+    doc_links = [l for _, _, l in data]
+    for doc_idx, (titel, tekst, _l) in enumerate(data):
         for c in chunk_text(titel, tekst):
             all_chunks.append(c)
             chunk_to_doc.append(doc_idx)
@@ -262,7 +265,8 @@ def build(cache_key: str, data) -> bool:
     np.savez_compressed(out_path,
                         embeddings=out.astype(np.float16),
                         chunk_to_doc=np.array(chunk_to_doc, dtype=np.int32),
-                        n_docs=np.array(n_docs, dtype=np.int32))
+                        n_docs=np.array(n_docs, dtype=np.int32),
+                        doc_links=np.array(doc_links, dtype=object))
     print(f"  DONE {cache_key}: {n_chunks} chunks fra {n_docs} docs — "
           f"{os.path.getsize(out_path) // 1024}KB")
 
