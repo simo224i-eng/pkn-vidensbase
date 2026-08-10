@@ -289,9 +289,10 @@ def _query_local_indices(
     """Select a local issue window inside a multi-issue Board section.
 
     The strongest query paragraph is the anchor. We then walk forward because the Board's
-    actual reason/result commonly follows the issue-specific paragraph. We stop once a
-    conclusion signal is reached. Additional query-matching paragraphs can fill remaining
-    slots, but unrelated global concluding paragraphs are not pulled in.
+    actual reason/result commonly follows the issue-specific paragraph. Once a conclusion
+    signal is reached, the issue window is closed: later paragraphs are never re-added
+    merely because they share a generic query term such as ``fugt``. If no conclusion is
+    reached, additional query-matching paragraphs may fill the remaining slots.
     """
     if max_paragraphs <= 0:
         return []
@@ -309,15 +310,21 @@ def _query_local_indices(
     )
 
     selected: list[int] = [anchor]
-    if not _has_conclusion_signal(cleaned[anchor]):
+    anchor_concludes = _has_conclusion_signal(cleaned[anchor])
+    reached_conclusion = anchor_concludes
+    if not reached_conclusion:
         for idx in range(anchor + 1, min(len(cleaned), anchor + max_paragraphs)):
             selected.append(idx)
             if _has_conclusion_signal(cleaned[idx]):
+                reached_conclusion = True
                 break
             if len(selected) >= max_paragraphs:
                 break
 
-    if len(selected) < max_paragraphs:
+    # Only broaden beyond the contiguous local window when the Board did not state a
+    # detectable conclusion there. Once the issue has concluded, later query-term matches
+    # are more likely to belong to another claim in the same decision.
+    if not reached_conclusion and len(selected) < max_paragraphs:
         additional = sorted(
             (
                 (query_scores[idx], decision_scores[idx], idx)
@@ -331,11 +338,13 @@ def _query_local_indices(
             if len(selected) >= max_paragraphs:
                 break
 
-    # Previous paragraph can contain the issue introduction, but only include it when it
-    # shares a query term; this avoids pulling the prior issue into the window.
+    # A preceding paragraph can contain the issue introduction when the anchor is a later
+    # factual/reasoning paragraph. Do not walk backwards from a self-contained concluding
+    # anchor, because that can reopen the previous issue in a multi-issue decision.
     previous = anchor - 1
     if (
-        len(selected) < max_paragraphs
+        not anchor_concludes
+        and len(selected) < max_paragraphs
         and previous >= 0
         and query_scores[previous] > 0
         and previous not in selected
