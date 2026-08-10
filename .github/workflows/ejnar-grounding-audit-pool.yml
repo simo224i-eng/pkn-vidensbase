@@ -1,0 +1,120 @@
+name: Ejnar grounding audit pool
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "ejnar/evaluation/grounding_audit_pool.py"
+      - "ejnar/tests/test_grounding_audit_pool.py"
+      - ".github/workflows/ejnar-grounding-audit-pool.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ejnar-grounding-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-audit-pool:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ejnar/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r ejnar/requirements.txt
+
+      - name: Run current live retrieval
+        run: |
+          mkdir -p artifacts/grounding-audit/diagnostics
+          python -m ejnar.evaluation.run_live_retrieval \
+            --top-k 12 \
+            --results artifacts/grounding-audit/diagnostics/retrieval-results.jsonl \
+            --report artifacts/grounding-audit/diagnostics/retrieval-report.json
+
+      - name: Build blind adjudication pool
+        run: |
+          mkdir -p artifacts/grounding-audit/adjudication
+          python -m ejnar.evaluation.grounding_audit_pool \
+            --results artifacts/grounding-audit/diagnostics/retrieval-results.jsonl \
+            --blind-output artifacts/grounding-audit/adjudication/blind-pool.jsonl \
+            --diagnostics-output artifacts/grounding-audit/diagnostics/pool-diagnostics.jsonl \
+            --summary-output artifacts/grounding-audit/diagnostics/summary.json \
+            --top-results-per-query 10 \
+            --max-pool 120 \
+            --min-contrast 2.0
+
+      - name: Add neutral adjudication manifest
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          pool = Path("artifacts/grounding-audit/adjudication/blind-pool.jsonl")
+          rows = [line for line in pool.read_text(encoding="utf-8").splitlines() if line.strip()]
+          manifest = {
+              "schema_version": 1,
+              "rows": len(rows),
+              "purpose": "Human review of whether a query-relevant excerpt is direct practice, indirect support, or misleading without the decision basis.",
+              "labels": ["direct_practice", "indirect_support", "not_useful", "uncertain"],
+              "warning": "No retrieval rank, heuristic score or automatic legal label is included in this artifact."
+          }
+          Path("artifacts/grounding-audit/adjudication/manifest.json").write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Publish diagnostic summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("artifacts/grounding-audit/diagnostics/summary.json")
+          lines = ["## Ejnar grounding audit pool"]
+          if path.exists():
+              summary = json.loads(path.read_text(encoding="utf-8"))
+              lines.extend([
+                  f"- Retrieval queries: {summary['retrieval_queries']}",
+                  f"- Candidate pairs: {summary['candidate_pairs']}",
+                  f"- Selected for blind review: {summary['selected_pairs']}",
+                  f"- High priority: {summary['priority_counts'].get('high', 0)}",
+                  f"- Medium priority: {summary['priority_counts'].get('medium', 0)}",
+                  "",
+                  "> Heuristic selection only. Human review labels are not inferred by the tool.",
+              ])
+          else:
+              lines.append("Audit summary was not produced.")
+          with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+
+      - name: Upload blind adjudication artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ejnar-grounding-audit-adjudication
+          path: artifacts/grounding-audit/adjudication
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload diagnostics separately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ejnar-grounding-audit-diagnostics
+          path: artifacts/grounding-audit/diagnostics
+          if-no-files-found: error
+          retention-days: 30
