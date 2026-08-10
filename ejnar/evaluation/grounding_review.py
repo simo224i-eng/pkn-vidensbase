@@ -1,10 +1,10 @@
 """Prepare, validate and freeze human review of Ejnar grounding audit cases.
 
-The input is the blind adjudication pool produced by ``grounding_audit_pool``.  This
+The input is the blind adjudication pool produced by ``grounding_audit_pool``. This
 module deliberately never reads the diagnostics artifact: retrieval rank, contrast score
 and heuristic tags must not leak into the human review surface.
 
-A completed review can be frozen as a provenance-rich human label set.  The tool does
+A completed review can be frozen as a provenance-rich human label set. The tool does
 not itself decide what a decision means and never upgrades unreviewed or uncertain rows
 to ground truth.
 """
@@ -64,6 +64,17 @@ _REVIEW_FIELDS = (
     "review_label",
     "reviewer",
     "review_notes",
+)
+_IMMUTABLE_REVIEW_FIELDS = (
+    "query",
+    "case_number",
+    "title",
+    "date",
+    "link",
+    "query_excerpt_section",
+    "query_excerpt",
+    "decision_core_section",
+    "decision_core",
 )
 
 
@@ -253,14 +264,37 @@ def validate_review(
     source_count = None
     if source_rows is not None:
         _validate_blind_source(source_rows)
-        source_ids = {_normalise(row.get("audit_id")) for row in source_rows}
-        review_ids = {_normalise(row.get("audit_id")) for row in review_rows if _normalise(row.get("audit_id"))}
+        source_by_id = {
+            _normalise(row.get("audit_id")): _canonical_source_row(row)
+            for row in source_rows
+        }
+        source_ids = set(source_by_id)
+        review_by_id = {
+            _normalise(row.get("audit_id")): row
+            for row in review_rows
+            if _normalise(row.get("audit_id"))
+        }
+        review_ids = set(review_by_id)
         missing = sorted(source_ids - review_ids)
         extra = sorted(review_ids - source_ids)
         if missing:
             errors.append(f"review is missing {len(missing)} source audit_ids")
         if extra:
             errors.append(f"review contains {len(extra)} unknown audit_ids")
+
+        for audit_id in sorted(source_ids & review_ids):
+            source = source_by_id[audit_id]
+            review = review_by_id[audit_id]
+            changed = [
+                field
+                for field in _IMMUTABLE_REVIEW_FIELDS
+                if _normalise(review.get(field)) != source[field]
+            ]
+            if changed:
+                errors.append(
+                    f"{audit_id}: review evidence fields were edited: {', '.join(changed)}"
+                )
+
         source_hash = source_digest(source_rows)
         source_count = len(source_rows)
 
