@@ -16,6 +16,7 @@ from specific_decision_runtime import install_specific_decision_runtime
 from query_feature_runtime import install_query_feature_runtime
 from citation_runtime import install_citation_runtime
 from decision_grounding_runtime import install_decision_grounding_runtime
+from practice_synthesis_runtime import install_practice_synthesis_runtime
 
 install_retrieval_runtime()
 install_query_planner_runtime()
@@ -25,6 +26,7 @@ install_query_feature_runtime()
 install_specific_decision_runtime()
 install_citation_runtime()
 install_decision_grounding_runtime()
+install_practice_synthesis_runtime()
 inject_css()
 
 # ── Global adgangskodegate ────────────────────────────────────────────────────
