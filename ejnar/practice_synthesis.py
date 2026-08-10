@@ -1,11 +1,11 @@
 """Guardrails for synthesising Ankenævnet practice from retrieved decisions.
 
 Decision grounding ensures that the model sees what each decision was actually decided
-on.  This module adds the next distinction: a decision that is useful as an analogy must
+on. This module adds the next distinction: a decision that is useful as an analogy must
 not silently enter counts or generalisations as if it were direct practice on the user's
 question.
 
-The policy changes answer generation only.  It does not label decisions automatically,
+The policy changes answer generation only. It does not label decisions automatically,
 change retrieval or decide concrete insurance claims.
 """
 from __future__ import annotations
@@ -16,6 +16,8 @@ from typing import Any
 _POLICY_MARKER = "PRAKSISSYNTESE (OBLIGATORISK)"
 _PRACTICE_POLICY = (
     "\n\nPRAKSISSYNTESE (OBLIGATORISK):\n"
+    "Disse regler har forrang for tidligere generelle instrukser om at identificere "
+    "mønstre, praksislinjer eller fordelinger.\n"
     "13. Før du beskriver en praksislinje, tendens, et mønster eller en fordeling, skal "
     "du for hver anvendt kendelse kontrollere afgørelseskernen og skelne mellem DIREKTE "
     "PRAKSIS og INDIREKTE STØTTE. En kendelse er kun direkte praksis, når nævnets egen "
