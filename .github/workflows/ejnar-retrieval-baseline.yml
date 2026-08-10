@@ -4,16 +4,20 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - "shared.py"
       - "ejnar/app.py"
       - "ejnar/shared.py"
       - "ejnar/query_intent.py"
       - "ejnar/query_planner.py"
       - "ejnar/query_planner_runtime.py"
+      - "ejnar/deterministic_retrieval_runtime.py"
       - "ejnar/retrieval_runtime.py"
       - "ejnar/specific_decision_runtime.py"
+      - "ejnar/query_feature_*.py"
       - "ejnar/paragraph_*.py"
       - "ejnar/metadata_*.py"
       - "ejnar/evaluation/**"
+      - "ejnar/ejnar_*.csv"
       - "ejnar/ejnar_*.csv.zip"
       - ".github/workflows/ejnar-retrieval-baseline.yml"
 
