@@ -1,12 +1,11 @@
 """Ground Ejnar answers in what the Board actually decided.
 
 Retrieval can legitimately surface a highly relevant sentence from a decision even when
-that decision was ultimately resolved on a different ground.  This module extracts a
-compact decision-core from each retrieved decision so answer generation can distinguish
-between a useful factual passage and the Board's dispositive reasoning.
+that decision was ultimately resolved on a different ground. This module extracts a
+compact decision-core so answer generation can distinguish a useful passage from the
+Board's dispositive reasoning.
 
-The module is deterministic and does not decide coverage.  It only preserves decision
-context that is already present in the source document.
+The module is deterministic and does not decide coverage.
 """
 from __future__ import annotations
 
@@ -69,14 +68,20 @@ _DECISION_SIGNALS = (
     "foræld",
     "frist",
 )
-_TOKEN_RE = re.compile(r"\s+")
+_SPACE_RE = re.compile(r"\s+")
 
 
 def _normalise(value: str) -> str:
-    return _TOKEN_RE.sub(" ", (value or "").strip().casefold())
+    return _SPACE_RE.sub(" ", (value or "").strip().casefold())
 
 
 def _section_score(title: str, position: int, total: int) -> float:
+    """Score explicit Board/decision headings; position is only a tie-breaker.
+
+    An unrecognised late heading must not become a false positive merely because it is
+    close to the end of the decision. Unknown headings therefore stay at score zero and
+    are handled by the explicit final-section fallback in ``extract_decision_grounding``.
+    """
     normalised = _normalise(title)
     if any(phrase in normalised for phrase in _PARTY_SECTION_PHRASES):
         return -100.0
@@ -89,17 +94,17 @@ def _section_score(title: str, position: int, total: int) -> float:
         score += 25.0
     if "bemærk" in normalised or "vurder" in normalised:
         score += 15.0
-    if total > 1:
+
+    # Position may choose between recognised decision sections, but may never turn an
+    # unknown heading into a recognised decision section.
+    if score > 0 and total > 1:
         score += 4.0 * (position / (total - 1))
     return score
 
 
 def _paragraph_score(text: str, position: int, total: int) -> float:
     normalised = _normalise(text)
-    score = 0.0
-    for phrase in _DECISION_SIGNALS:
-        if phrase in normalised:
-            score += 4.0
+    score = sum(4.0 for phrase in _DECISION_SIGNALS if phrase in normalised)
     if "nævnet" in normalised:
         score += 5.0
     if total > 1:
@@ -128,8 +133,6 @@ def _choose_paragraphs(
     if best_idx + 1 < total:
         desired.add(best_idx + 1)
 
-    # If the decisive section is very short, preserve it in full. Otherwise keep the
-    # strongest paragraph plus its immediate context and the concluding paragraph.
     if total <= max_paragraphs:
         ordered = list(range(total))
     else:
@@ -148,7 +151,6 @@ def _choose_paragraphs(
         if len(paragraph) > remaining:
             if remaining >= 180:
                 selected.append(paragraph[: remaining - 1].rstrip() + "…")
-                used = max_chars
             break
         selected.append(paragraph)
         used += separator + len(paragraph)
@@ -164,11 +166,10 @@ def extract_decision_grounding(
 ) -> DecisionGrounding:
     """Extract a compact representation of the Board's dispositive reasoning.
 
-    Formal Board/decision sections are preferred.  If the source has no recognisable
-    heading, the final section is used as a conservative fallback because Ankenævnet
-    decisions normally place the conclusion near the end.
+    Formal Board/decision sections are preferred. If the source has no recognisable
+    decision heading, the final section is used as a conservative fallback because the
+    conclusion normally appears near the end.
     """
-
     text = str(document.get("Tekst") or document.get("text") or "")
     sections = split_sections(text)
     if not sections:
@@ -206,7 +207,6 @@ def build_decision_grounding_context(
     char_budget: int = 7000,
 ) -> str:
     """Build numbered decision-core blocks aligned with Ejnar's [Kilde X] register."""
-
     if not documents or max_documents <= 0 or char_budget <= 0:
         return ""
 
@@ -219,10 +219,7 @@ def build_decision_grounding_context(
     used = len(intro)
 
     for source_number, document in enumerate(documents[:max_documents], start=1):
-        grounding = extract_decision_grounding(
-            document,
-            max_chars=per_document_chars,
-        )
+        grounding = extract_decision_grounding(document, max_chars=per_document_chars)
         if not grounding.text:
             continue
         case_number = str(document.get("Sagsnummer") or "").strip()
@@ -259,7 +256,6 @@ _GROUNDING_POLICY = (
 
 def inject_grounding_policy(prompt: Any) -> Any:
     """Add decision-basis safeguards to Ejnar answer prompts without mutating input."""
-
     if not isinstance(prompt, list):
         return prompt
 
