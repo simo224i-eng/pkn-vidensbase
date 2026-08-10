@@ -1,5 +1,3 @@
-import csv
-import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -92,6 +90,21 @@ class GroundingReviewTests(unittest.TestCase):
         self.assertEqual(report["label_counts"]["direct_practice"], 1)
         self.assertEqual(report["label_counts"]["indirect_support"], 1)
         self.assertEqual(report["reviewers"], ["Jurist A"])
+
+    def test_review_cannot_edit_evidence_fields(self):
+        rows = prepare_review_rows(self._source())
+        for row in rows:
+            row["review_label"] = "not_useful"
+            row["reviewer"] = "Jurist A"
+        rows[0]["decision_core"] = "Ændret tekst, som ikke stod i reviewpakken."
+
+        report = validate_review(rows, source_rows=self._source())
+
+        self.assertFalse(report["valid"])
+        self.assertTrue(
+            any("review evidence fields were edited" in error for error in report["errors"])
+        )
+        self.assertTrue(any("decision_core" in error for error in report["errors"]))
 
     def test_uncertain_requires_notes(self):
         rows = prepare_review_rows(self._source())
