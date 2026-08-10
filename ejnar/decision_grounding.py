@@ -68,6 +68,24 @@ _DECISION_SIGNALS = (
     "foræld",
     "frist",
 )
+# Older decisions are not always structurally marked up.  A generic "Kendelse"
+# section may contain policy wording followed later by the Board's own reasoning.
+# These strong inline markers let us trim the preamble without guessing from a mere
+# occurrence of the word "nævnet".
+_BOARD_INLINE_MARKERS = (
+    "nævnet udtaler:",
+    "nævnet udtaler",
+    "ankenævnet udtaler:",
+    "ankenævnet udtaler",
+    "nævnet finder",
+    "ankenævnet finder",
+    "nævnet bemærker",
+    "ankenævnet bemærker",
+    "nævnet lægger",
+    "ankenævnet lægger",
+    "efter en gennemgang af sagen finder nævnet",
+    "efter en samlet vurdering finder nævnet",
+)
 _SPACE_RE = re.compile(r"\s+")
 
 
@@ -112,14 +130,50 @@ def _paragraph_score(text: str, position: int, total: int) -> float:
     return score
 
 
+def _inline_board_start(paragraph: str) -> int | None:
+    """Locate the first strong Board-reasoning marker in a paragraph.
+
+    Matching runs against whitespace-normalised text.  The returned offset is then
+    resolved against the original paragraph by a case-insensitive regex, so we preserve
+    the source wording instead of rebuilding it from normalised text.
+    """
+    if not paragraph:
+        return None
+    best: int | None = None
+    for marker in _BOARD_INLINE_MARKERS:
+        tokens = [re.escape(token) for token in marker.split()]
+        pattern = r"\s+".join(tokens)
+        match = re.search(pattern, paragraph, flags=re.IGNORECASE)
+        if match is not None and (best is None or match.start() < best):
+            best = match.start()
+    return best
+
+
+def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
+    """Drop policy/party preamble before an inline Board reasoning marker.
+
+    This is deliberately conservative: trimming occurs only when one of the strong
+    markers above is found.  If none is found, the section is returned unchanged.
+    """
+    cleaned = [re.sub(r"\s+", " ", str(paragraph or "")).strip() for paragraph in paragraphs]
+    cleaned = [paragraph for paragraph in cleaned if paragraph]
+    for index, paragraph in enumerate(cleaned):
+        start = _inline_board_start(paragraph)
+        if start is None:
+            continue
+        trimmed_first = paragraph[start:].strip()
+        output = ([trimmed_first] if trimmed_first else []) + cleaned[index + 1 :]
+        return output or cleaned
+    return cleaned
+
+
 def _choose_paragraphs(
     paragraphs: Iterable[str],
     *,
     max_paragraphs: int,
     max_chars: int,
 ) -> tuple[str, int]:
-    cleaned = [re.sub(r"\s+", " ", str(p or "")).strip() for p in paragraphs]
-    cleaned = [p for p in cleaned if p]
+    cleaned = _trim_to_board_reasoning(paragraphs)
     if not cleaned or max_paragraphs <= 0 or max_chars <= 0:
         return "", 0
 
@@ -168,7 +222,8 @@ def extract_decision_grounding(
 
     Formal Board/decision sections are preferred. If the source has no recognisable
     decision heading, the final section is used as a conservative fallback because the
-    conclusion normally appears near the end.
+    conclusion normally appears near the end.  Within a generic/legacy decision section,
+    policy text before a strong inline Board marker is trimmed away.
     """
     text = str(document.get("Tekst") or document.get("text") or "")
     sections = split_sections(text)
