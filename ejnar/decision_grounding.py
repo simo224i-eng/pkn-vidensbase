@@ -84,6 +84,16 @@ _CONCLUSION_SIGNALS = (
     "kan ikke føre til andet resultat",
     "kan ikke i sig selv føre til et krav",
     "afvises fra nævnsbehandling",
+    # Materielle konklusioner kan afslutte et enkelt forhold uden den mere formelle
+    # 'kan ikke kritisere'-formulering. De skal stoppe den lokale vandring, ellers kan
+    # næste anmeldte forhold i samme nævnsafsnit blive blandet ind i afgørelseskernen.
+    "udgør ikke skade",
+    "udgør ikke en skade",
+    "udgør skade",
+    "udgør en skade",
+    "ikke omfattet af forsikringen",
+    "er omfattet af forsikringen",
+    "anerkende dækning",
 )
 # Older decisions are not always structurally marked up. A generic "Kendelse" or
 # "Afgørelse" section may contain policy wording followed later by the Board's own
