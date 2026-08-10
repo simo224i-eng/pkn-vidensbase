@@ -17,6 +17,7 @@ class PracticeSynthesisPolicyTests(unittest.TestCase):
         grounded = inject_practice_synthesis_policy(self._prompt())
         text = grounded[0]["text"]
         self.assertIn("PRAKSISSYNTESE (OBLIGATORISK)", text)
+        self.assertIn("har forrang", text)
         self.assertIn("DIREKTE PRAKSIS", text)
         self.assertIn("INDIREKTE STØTTE", text)
         self.assertIn("andet grundlag", text)
