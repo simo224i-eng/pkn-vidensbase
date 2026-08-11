@@ -32,21 +32,22 @@ def main() -> int:
         "source explainability import",
     )
 
-    assistant_append = (
+    suggested_append = (
         '                st.session_state.chat_historik.append(\n'
         '                    {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})\n'
     )
-    suggested_append = (
+    suggested_replacement = (
         '                st.session_state.chat_historik.append(\n'
         '                    {"rolle": "assistent", "tekst": svar, "kilder": kilder,\n'
         '                     "auto_filters": af, "spørgsmål": f})\n'
     )
-    # The first identical append belongs to the suggested-question path.
-    if text.count(assistant_append) != 2:
-        raise RuntimeError(
-            f"assistant append: expected exactly two original matches, found {text.count(assistant_append)}"
-        )
-    text = text.replace(assistant_append, suggested_append, 1)
+    text = replace_once(
+        text,
+        suggested_append,
+        suggested_replacement,
+        "suggested-question assistant append",
+    )
+
     typed_append = (
         '            st.session_state.chat_historik.append(\n'
         '                {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})\n'
