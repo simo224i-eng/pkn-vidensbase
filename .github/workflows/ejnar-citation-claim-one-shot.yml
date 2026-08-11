@@ -1,0 +1,44 @@
+name: Ejnar citation-claim one-shot patch
+
+on:
+  push:
+    branches:
+      - agent/ejnar-citation-claim-explainability
+    paths:
+      - "ejnar/answer_citation_explainability.py"
+      - "ejnar/tools/patch_citation_claim_ui.py"
+      - ".github/workflows/ejnar-citation-claim-one-shot.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ejnar-citation-claim-one-shot
+  cancel-in-progress: false
+
+jobs:
+  patch-page:
+    if: ${{ !contains(github.event.head_commit.message, '[citation-claim-patch]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/ejnar-citation-claim-explainability
+          fetch-depth: 0
+
+      - name: Apply asserted UI patch
+        run: python ejnar/tools/patch_citation_claim_ui.py
+
+      - name: Commit patched page
+        run: |
+          if git diff --quiet -- ejnar/pages/ejnar.py; then
+            echo "No UI patch needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ejnar/pages/ejnar.py
+          git commit -m "Wire cited answer claims into source cards [citation-claim-patch]"
+          git push origin HEAD:agent/ejnar-citation-claim-explainability
