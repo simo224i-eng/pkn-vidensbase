@@ -4,6 +4,17 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - "shared.py"
+      - "ejnar/shared.py"
+      - "ejnar/deterministic_retrieval_runtime.py"
+      - "ejnar/retrieval_runtime.py"
+      - "ejnar/query_planner.py"
+      - "ejnar/query_planner_runtime.py"
+      - "ejnar/paragraph_*.py"
+      - "ejnar/metadata_*.py"
+      - "ejnar/query_feature_*.py"
+      - "ejnar/specific_decision_runtime.py"
+      - "ejnar/evaluation/run_live_retrieval.py"
       - "ejnar/decision_grounding.py"
       - "ejnar/decision_grounding_runtime.py"
       - "ejnar/evaluation/grounding_audit_pool.py"
@@ -15,9 +26,22 @@ on:
       - "ejnar/tests/test_grounding_review.py"
       - "ejnar/tests/test_grounding_review_batches.py"
       - ".github/workflows/ejnar-grounding-audit-pool.yml"
+      - "ejnar/ejnar_*.csv"
+      - "ejnar/ejnar_*.csv.zip"
   push:
     branches: [main]
     paths:
+      - "shared.py"
+      - "ejnar/shared.py"
+      - "ejnar/deterministic_retrieval_runtime.py"
+      - "ejnar/retrieval_runtime.py"
+      - "ejnar/query_planner.py"
+      - "ejnar/query_planner_runtime.py"
+      - "ejnar/paragraph_*.py"
+      - "ejnar/metadata_*.py"
+      - "ejnar/query_feature_*.py"
+      - "ejnar/specific_decision_runtime.py"
+      - "ejnar/evaluation/run_live_retrieval.py"
       - "ejnar/decision_grounding.py"
       - "ejnar/decision_grounding_runtime.py"
       - "ejnar/evaluation/grounding_audit_pool.py"
@@ -29,6 +53,8 @@ on:
       - "ejnar/tests/test_grounding_review.py"
       - "ejnar/tests/test_grounding_review_batches.py"
       - ".github/workflows/ejnar-grounding-audit-pool.yml"
+      - "ejnar/ejnar_*.csv"
+      - "ejnar/ejnar_*.csv.zip"
 
 permissions:
   contents: read
