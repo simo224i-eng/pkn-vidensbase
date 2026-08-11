@@ -62,7 +62,8 @@ def render_source_decision_core_html(document: dict[str, Any], query: str) -> st
     body = html.escape(core.text).replace("\n\n", "</p><p>").replace("\n", "<br>")
     fallback = (
         '<div style="font-size:10.5px;color:#92400e;margin:3px 0 8px;">'
-        'Uddraget er fundet i et generisk kendelsesafsnit; kontrollér originalen ved tvivl.'</n        '</div>'
+        'Uddraget er fundet i et generisk kendelsesafsnit; kontrollér originalen ved tvivl.'
+        '</div>'
         if core.used_fallback
         else ""
     )
