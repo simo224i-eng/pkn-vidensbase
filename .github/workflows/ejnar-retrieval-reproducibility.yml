@@ -6,16 +6,20 @@ on:
     paths:
       - "shared.py"
       - "ejnar/shared.py"
+      - "ejnar/deterministic_retrieval_runtime.py"
       - "ejnar/retrieval_runtime.py"
       - "ejnar/query_planner.py"
       - "ejnar/query_planner_runtime.py"
       - "ejnar/paragraph_runtime.py"
       - "ejnar/metadata_runtime.py"
       - "ejnar/query_feature_runtime.py"
+      - "ejnar/query_feature_rerank.py"
       - "ejnar/specific_decision_runtime.py"
       - "ejnar/evaluation/run_live_retrieval.py"
       - "ejnar/evaluation/run_retrieval.py"
+      - "ejnar/evaluation/run_pipeline_stage_trace.py"
       - "ejnar/evaluation/retrieval_reproducibility.py"
+      - "ejnar/evaluation/pipeline_stage_reproducibility.py"
       - "ejnar/tests/test_retrieval_reproducibility.py"
       - ".github/workflows/ejnar-retrieval-reproducibility.yml"
       - "ejnar/ejnar_*.csv"
@@ -36,7 +40,7 @@ jobs:
       matrix:
         seed: [1, 2, 3]
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -60,6 +64,14 @@ jobs:
             --top-k 20 \
             --results artifacts/reproducibility/seed-${{ matrix.seed }}.jsonl \
             --report artifacts/reproducibility/seed-${{ matrix.seed }}-report.json
+
+      - name: Trace retrieval layers on independent host
+        env:
+          PYTHONHASHSEED: ${{ matrix.seed }}
+        run: |
+          python -m ejnar.evaluation.run_pipeline_stage_trace \
+            --top-k 20 \
+            --output artifacts/reproducibility/stage-${{ matrix.seed }}.jsonl
 
       - name: Upload host result
         uses: actions/upload-artifact@v4
@@ -110,6 +122,15 @@ jobs:
             --run host3=artifacts/reproducibility/host-3/seed-3.jsonl \
             --output artifacts/reproducibility/comparison.json
 
+      - name: Locate first divergent runtime layer
+        if: always()
+        run: |
+          python -m ejnar.evaluation.pipeline_stage_reproducibility \
+            --run host1=artifacts/reproducibility/host-1/stage-1.jsonl \
+            --run host2=artifacts/reproducibility/host-2/stage-2.jsonl \
+            --run host3=artifacts/reproducibility/host-3/stage-3.jsonl \
+            --output artifacts/reproducibility/stage-comparison.json
+
       - name: Publish summary
         if: always()
         run: |
@@ -119,6 +140,7 @@ jobs:
           from pathlib import Path
 
           path = Path("artifacts/reproducibility/comparison.json")
+          stage_path = Path("artifacts/reproducibility/stage-comparison.json")
           lines = ["## Ejnar retrieval reproducibility — separate runners"]
           if path.exists():
               report = json.loads(path.read_text(encoding="utf-8"))
@@ -133,6 +155,14 @@ jobs:
               ])
           else:
               lines.append("Comparison report was not produced.")
+          if stage_path.exists():
+              stage = json.loads(stage_path.read_text(encoding="utf-8"))
+              lines.extend([
+                  "",
+                  "### First divergent layer",
+                  f"- Affected questions: {stage['affected_questions']}",
+                  f"- First-stage counts: {stage['first_divergent_stage_counts']}",
+              ])
           with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
               handle.write("\n".join(lines) + "\n")
           PY
