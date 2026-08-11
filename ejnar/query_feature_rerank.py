@@ -90,9 +90,12 @@ def rerank_by_query_features(
         zip(candidates, candidate_features)
     ):
         common = set(query_features) & set(features_for_document)
-        metadata_score = sum(
+        # A Python set has hash-dependent iteration order. Use a stable order plus
+        # math.fsum so equal feature sets produce bit-stable scores across processes.
+        ordered_common = sorted(common)
+        metadata_score = math.fsum(
             query_features[key][1] * _idf(total, frequencies.get(key, 0))
-            for key in common
+            for key in ordered_common
         )
         # Reciprocal-rank-lignende basisscore holder retrieval som hovedsignal.
         base_score = 1.0 / (index + 1.0)

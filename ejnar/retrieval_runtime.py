@@ -225,9 +225,15 @@ def install_retrieval_runtime(shared_module: Any | None = None) -> bool:
             return base
 
         # Direkte tekst-/ID-match får to stemmer i RRF; den normale hybridrangering
-        # bevares som recall-sikkerhedsnet.
+        # bevares som recall-sikkerhedsnet. Globalt indeks er sekundær tie-breaker.
         fused = shared_module.rrf_merge([direct, direct, base], k=20)
-        ranked = [idx for idx, _ in sorted(fused.items(), key=lambda item: -item[1])]
+        ranked = [
+            idx
+            for idx, _ in sorted(
+                fused.items(),
+                key=lambda item: (-item[1], int(item[0])),
+            )
+        ]
         _record(
             "exact_match_boost",
             query,

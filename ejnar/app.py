@@ -8,6 +8,7 @@ st.set_page_config(
 )
 
 from shared import inject_css, logo
+from deterministic_retrieval_runtime import install_deterministic_retrieval_runtime
 from retrieval_runtime import install_retrieval_runtime
 from query_planner_runtime import install_query_planner_runtime
 from paragraph_runtime import install_paragraph_runtime
@@ -18,6 +19,7 @@ from citation_runtime import install_citation_runtime
 from decision_grounding_runtime import install_decision_grounding_runtime
 from practice_synthesis_runtime import install_practice_synthesis_runtime
 
+install_deterministic_retrieval_runtime()
 install_retrieval_runtime()
 install_query_planner_runtime()
 install_paragraph_runtime()
