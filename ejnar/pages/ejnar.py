@@ -16,6 +16,7 @@ import plotly.express as px
 import requests
 
 from source_explainability import render_source_decision_core_html
+from answer_citation_explainability import render_source_claims_html
 
 from shared import (
     logo, _llm, _llm_stream, strip_html, BADGE,
@@ -1157,6 +1158,11 @@ with tab_ai:
                                     f'{k.get("Selskab", "") or "–"}</div>',
                                     unsafe_allow_html=True,
                                 )
+                                claim_html = render_source_claims_html(
+                                    msg.get("tekst", ""), i + 1, source_count=len(kilder)
+                                )
+                                if claim_html:
+                                    st.markdown(claim_html, unsafe_allow_html=True)
                                 core_html = render_source_decision_core_html(k, source_query)
                                 if core_html:
                                     st.markdown(core_html, unsafe_allow_html=True)
