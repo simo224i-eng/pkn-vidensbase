@@ -15,6 +15,8 @@ import numpy as np
 import plotly.express as px
 import requests
 
+from source_explainability import render_source_decision_core_html
+
 from shared import (
     logo, _llm, _llm_stream, strip_html, BADGE,
     format_afgørelse_tekst, render_detail_header,
@@ -989,7 +991,8 @@ with tab_ai:
                     kilder = []
                 af = st.session_state.pop("_ejnar_last_auto_filters", None)
                 st.session_state.chat_historik.append(
-                    {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})
+                    {"rolle": "assistent", "tekst": svar, "kilder": kilder,
+                     "auto_filters": af, "spørgsmål": f})
                 st.rerun()
 
         with st.form("chat_form", clear_on_submit=True):
@@ -1043,7 +1046,8 @@ with tab_ai:
                 kilder = []
             af = st.session_state.pop("_ejnar_last_auto_filters", None)
             st.session_state.chat_historik.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": kilder, "auto_filters": af})
+                {"rolle": "assistent", "tekst": svar, "kilder": kilder,
+                 "auto_filters": af, "spørgsmål": spørgsmål.strip()})
             st.rerun()
 
         st.divider()
@@ -1089,6 +1093,12 @@ with tab_ai:
                     vist, ref_kilder = erstat_kilde_refs(msg["tekst"], kilder)
                 else:
                     vist, ref_kilder = msg["tekst"], []
+
+                source_query = str(msg.get("spørgsmål") or "").strip()
+                if not source_query and msg_idx > 0:
+                    previous = st.session_state.chat_historik[msg_idx - 1]
+                    if previous.get("rolle") == "bruger":
+                        source_query = str(previous.get("tekst") or "").strip()
 
                 col_svar, col_kld = st.columns([3, 2])
                 with col_svar:
@@ -1147,6 +1157,9 @@ with tab_ai:
                                     f'{k.get("Selskab", "") or "–"}</div>',
                                     unsafe_allow_html=True,
                                 )
+                                core_html = render_source_decision_core_html(k, source_query)
+                                if core_html:
+                                    st.markdown(core_html, unsafe_allow_html=True)
                                 rå = k.get("Tekst", "")
                                 fmt = re.sub(r'\. ([A-ZÆØÅ])', r'.</p><p>\1', rå)
                                 st.markdown(
