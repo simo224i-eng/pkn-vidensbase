@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import html
 import re
-from typing import Iterable
 
 
 _SOURCE_RE = re.compile(r"\[Kilde\s+([\d,\s]+)\]", flags=re.IGNORECASE)
@@ -152,5 +151,6 @@ def render_source_claims_html(
         f'{items}'
         '<div style="font-size:9.5px;color:#94a3b8;margin-top:5px;">'
         'Viser kun hvor Ejnar citerede kilden; det er ikke en automatisk vurdering af, '
-        'om påstanden er juridisk understøttet.'</n        '</div></div>'
+        'om påstanden er juridisk understøttet.'
+        '</div></div>'
     )
