@@ -104,7 +104,7 @@ def main() -> int:
     report = evaluate(cases, _metrics_input(payloads))
     report["run"] = {
         "pipeline": (
-            "deterministic_score_1e-10+intent+query_planner_v1+paragraph_bm25+metadata+"
+            "deterministic_fixed_tfidf_1e7+intent+query_planner_v1+paragraph_bm25+metadata+"
             "query_feature_0.12+specific_decision"
         ),
         "documents": len(frame),
