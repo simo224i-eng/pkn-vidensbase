@@ -21,6 +21,7 @@ on:
       - "ejnar/evaluation/grounding_review.py"
       - "ejnar/evaluation/grounding_review_batches.py"
       - "ejnar/evaluation/grounding_audit_reproducibility.py"
+      - "ejnar/evaluation/grounding_audit_candidate_dump.py"
       - "ejnar/evaluation/GROUNDING_REVIEW_PROTOCOL.md"
       - "ejnar/tests/test_grounding_*.py"
       - ".github/workflows/ejnar-grounding-audit-reproducibility.yml"
@@ -76,6 +77,13 @@ jobs:
             --top-results-per-query 10 \
             --max-pool 120 \
             --min-contrast 2.0
+
+      - name: Dump all pre-threshold audit candidates
+        run: |
+          python -m ejnar.evaluation.grounding_audit_candidate_dump \
+            --results /tmp/ejnar-grounding-${{ matrix.host }}/retrieval.jsonl \
+            --output artifacts/grounding-repro/diagnostics/all-candidates.jsonl \
+            --top-results-per-query 10
 
       - name: Prepare blind human review package
         run: |
