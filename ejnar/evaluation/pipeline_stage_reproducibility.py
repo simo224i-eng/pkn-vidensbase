@@ -6,7 +6,17 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from .run_pipeline_stage_trace import STAGE_ORDER
+
+# Keep this comparator dependency-free: it runs on the lightweight comparison host,
+# which intentionally does not install the full pandas/scikit-learn application stack.
+STAGE_ORDER = (
+    "deterministic_base",
+    "intent",
+    "paragraph",
+    "metadata",
+    "query_feature",
+    "specific_decision",
+)
 
 
 def _load(path: Path) -> dict[str, dict]:
@@ -29,14 +39,23 @@ def compare_stage_traces(runs: dict[str, dict[str, dict]]) -> dict:
     for question_id in all_questions:
         missing = [name for name in names if question_id not in runs[name]]
         if missing:
-            details.append({"question_id": question_id, "first_divergent_stage": "missing_question", "missing_runs": missing})
+            details.append(
+                {
+                    "question_id": question_id,
+                    "first_divergent_stage": "missing_question",
+                    "missing_runs": missing,
+                }
+            )
             first_counts["missing_question"] += 1
             continue
 
         first = None
         stage_matches: dict[str, bool] = {}
         for stage in STAGE_ORDER:
-            values = [tuple(runs[name][question_id].get("stages", {}).get(stage, [])) for name in names]
+            values = [
+                tuple(runs[name][question_id].get("stages", {}).get(stage, []))
+                for name in names
+            ]
             same = all(value == values[0] for value in values[1:])
             stage_matches[stage] = same
             if first is None and not same:
@@ -51,7 +70,10 @@ def compare_stage_traces(runs: dict[str, dict[str, dict]]) -> dict:
                     "first_divergent_stage": first,
                     "stage_matches": stage_matches,
                     "stage_results": {
-                        stage: {name: runs[name][question_id].get("stages", {}).get(stage, []) for name in names}
+                        stage: {
+                            name: runs[name][question_id].get("stages", {}).get(stage, [])
+                            for name in names
+                        }
                         for stage in STAGE_ORDER
                         if not stage_matches.get(stage, True)
                     },
@@ -81,7 +103,10 @@ def main() -> int:
         runs[name] = _load(Path(raw_path))
 
     report = compare_stage_traces(runs)
-    Path(args.output).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    Path(args.output).write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     print(
         "Stage reproducibility: "
         f"exact={report['exact_reproducibility']} "
