@@ -1,0 +1,44 @@
+name: Ejnar source-core one-shot patch
+
+on:
+  push:
+    branches:
+      - agent/ejnar-source-decision-core
+    paths:
+      - "ejnar/source_explainability.py"
+      - "ejnar/tools/patch_source_decision_core_ui.py"
+      - ".github/workflows/ejnar-source-core-one-shot.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ejnar-source-core-one-shot
+  cancel-in-progress: false
+
+jobs:
+  patch-page:
+    if: ${{ !contains(github.event.head_commit.message, '[source-core-patch]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/ejnar-source-decision-core
+          fetch-depth: 0
+
+      - name: Apply asserted UI patch
+        run: python ejnar/tools/patch_source_decision_core_ui.py
+
+      - name: Commit patched page
+        run: |
+          if git diff --quiet -- ejnar/pages/ejnar.py; then
+            echo "No UI patch needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ejnar/pages/ejnar.py
+          git commit -m "Wire decision core into Ejnar source cards [source-core-patch]"
+          git push origin HEAD:agent/ejnar-source-decision-core
