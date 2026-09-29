@@ -40,6 +40,8 @@ const ICONS = {
   doc: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
   retry: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
   chart: '<path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-9"/>',
+  thumbUp: '<path d="M7 10v11H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3zM7 10l4-7a2 2 0 0 1 3 2l-1 5h5.5a2 2 0 0 1 2 2.4l-1.6 7A2 2 0 0 1 16.9 21H7"/>',
+  thumbDown: '<path d="M17 14V3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-3zM17 14l-4 7a2 2 0 0 1-3-2l1-5H5.5a2 2 0 0 1-2-2.4l1.6-7A2 2 0 0 1 7.1 3H17"/>',
   quote: '<path d="M7 7h4v4c0 3-1 5-4 6M15 7h4v4c0 3-1 5-4 6"/>',
 };
 const icon = (n, cls = "") => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n] || ""}</svg>`;
@@ -366,7 +368,8 @@ function renderTurn({ q, a, idx }) {
         <button class="btn ghost sm" data-act="copy-answer" data-i="${idx}">${icon("copy")}Kopiér med referencer</button>
         <button class="btn ghost sm" data-act="print">${icon("doc")}Print / PDF</button>
         <button class="btn ghost sm" data-act="retry" data-i="${idx}">${icon("retry")}Generér igen</button>
-      </div>` : "";
+        <span class="fb">${feedbackButtons(a, idx)}</span>
+      </div>${a.feedback === "form" ? feedbackForm(idx) : ""}` : "";
     const conflicts = a.conflicts?.length ? `
       <div class="warn-box">${icon("alert")}<div><strong>Udfaldskontrol:</strong> svaret gengiver udfaldet af ${a.conflicts.length > 1 ? "disse kendelser" : "denne kendelse"} anderledes end nævnets afgørelse. Læs kendelsen.
         <ul>${a.conflicts.slice(0, 4).map((c) => `<li>[Kilde ${c.source}]: svaret siger „${esc(c.claimed)}“, kendelsen er „${esc(c.actual)}“</li>`).join("")}</ul></div></div>` : "";
@@ -543,6 +546,38 @@ async function ask(question, { reuseIdx } = {}) {
 
 function scrollToTurn(idx) {
   requestAnimationFrame(() => $(`[data-turn="${idx}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+}
+
+// ── Feedback (pilot) ─────────────────────────────────────────────────────────
+const FB_REASONS = [
+  ["forkert_gengivelse", "En kendelse er gengivet forkert"],
+  ["mangler_kendelse", "En vigtig kendelse mangler"],
+  ["irrelevante_kilder", "Kilderne passer ikke til spørgsmålet"],
+  ["for_generelt", "For generelt / for meget almen viden"],
+  ["for_langt", "For langt"],
+  ["andet", "Andet"],
+];
+function feedbackButtons(a, idx) {
+  if (a.feedback === "up" || a.feedback === "sent") return `<span class="fb-thanks">${icon("check")}Tak for feedback</span>`;
+  return `<button class="btn ghost sm icon-only" data-act="fb-up" data-i="${idx}" title="Brugbart" aria-label="Brugbart">${icon("thumbUp")}</button>` +
+    `<button class="btn ghost sm icon-only ${a.feedback === "form" ? "on" : ""}" data-act="fb-down" data-i="${idx}" title="Ikke brugbart" aria-label="Ikke brugbart">${icon("thumbDown")}</button>`;
+}
+function feedbackForm(idx) {
+  return `<form class="fb-form" data-act="fb-send" data-i="${idx}">
+    <strong>Hvad var galt?</strong>
+    <div class="fb-reasons">${FB_REASONS.map(([k, l]) => `<label><input type="checkbox" name="r" value="${k}"> ${l}</label>`).join("")}</div>
+    <textarea name="comment" rows="2" maxlength="2000" placeholder="Evt. kommentar – fx hvilken kendelse der mangler, eller hvad der er forkert (undgå personoplysninger)"></textarea>
+    <div class="fb-bar"><button class="btn ghost sm" type="button" data-act="fb-cancel" data-i="${idx}">Annullér</button><button class="btn primary sm" type="submit">Send</button></div>
+  </form>`;
+}
+async function sendFeedback(idx, rating, reasons = [], comment = "") {
+  const t = activeThread(); const a = t?.messages[idx]; if (!a) return;
+  const question = t.messages[idx - 1]?.content || "";
+  try {
+    await apiJson("/v1/feedback", { method: "POST", body: {
+      rating, question, answer: a.content || "", source_ids: (a.sources || []).map((x) => x.id), reasons, comment } });
+    a.feedback = rating === "up" ? "up" : "sent"; saveThreads(); render(); toast("Tak – feedbacken er gemt");
+  } catch (e) { toast("Feedback kunne ikke sendes: " + e.message); }
 }
 
 function copyAnswer(idx) {
@@ -1086,6 +1121,9 @@ app.addEventListener("click", (e) => {
       return copy(`Ankenævnet for Forsikring, kendelse af ${fmtD(d)}, sag nr. ${d.case_number || "—"} (${d.company || "ukendt selskab"}). ${d.link}`, "Reference kopieret");
     }
     case "copy-answer": return copyAnswer(+el.dataset.i);
+    case "fb-up": return sendFeedback(+el.dataset.i, "up");
+    case "fb-down": { const a = activeThread()?.messages[+el.dataset.i]; if (a) { a.feedback = a.feedback === "form" ? "" : "form"; render(); } return; }
+    case "fb-cancel": { const a = activeThread()?.messages[+el.dataset.i]; if (a) { a.feedback = ""; render(); } return; }
     case "retry": {
       const t = activeThread(); const i = +el.dataset.i;
       return ask(t.messages[i - 1].content, { reuseIdx: i });
@@ -1145,6 +1183,10 @@ app.addEventListener("submit", (e) => {
   if (act === "ask") return ask(state.draft);
   if (act === "search") { state.search.q = $('[data-focus="search"]').value; return runSearch(); }
   if (act === "assess") return runAssess();
+  if (act === "fb-send") {
+    const fd = new FormData(e.target);
+    return sendFeedback(+e.target.dataset.i, "down", fd.getAll("r"), String(fd.get("comment") || "").trim());
+  }
   if (act === "stats") { state.insight.q = $('[data-focus="stats"]').value; return runStats(); }
 });
 

@@ -227,6 +227,20 @@ class AnswerRequest(BaseModel):
     stream: bool = Field(False, description="true = Server-Sent Events (sources → delta* → done).")
 
 
+FeedbackReason = Literal["forkert_gengivelse", "mangler_kendelse", "irrelevante_kilder",
+                         "for_generelt", "for_langt", "andet"]
+
+
+class FeedbackRequest(BaseModel):
+    rating: Literal["up", "down"]
+    question: str = Field(..., min_length=1, max_length=4000)
+    answer: str = Field("", max_length=30000)
+    source_ids: list[str] = Field(default_factory=list, max_length=40,
+                                  description="Kildernes id i rækkefølge ([Kilde 1] først).")
+    reasons: list[FeedbackReason] = Field(default_factory=list, max_length=6)
+    comment: str = Field("", max_length=2000)
+
+
 class Source(Decision):
     n: int = Field(..., description="Kildenummer som svaret henviser til med [Kilde n].")
     cited: bool
@@ -297,6 +311,21 @@ def _sources(kilder: list, cited: list[int]) -> list[dict]:
 def _require_llm() -> None:
     if not shared.llm_tilgaengelig():
         raise HTTPException(503, "Ingen LLM konfigureret (LLM_PROVIDER/LLM_API_KEY eller ANTHROPIC_API_KEY).")
+
+
+# ── Feedback (pilot: opsamling af fagfolks vurderinger → facitsæt) ─────────────
+_FEEDBACK_LOCK = threading.Lock()
+
+
+def _feedback_file() -> str:
+    return os.environ.get("EJNAR_FEEDBACK_FILE") or os.path.join(engine.CACHE_DIR, "feedback.jsonl")
+
+
+def _key_fingerprint(request: Request) -> str:
+    """Kort, ikke-reversibelt fingeraftryk af API-nøglen, så feedback kan grupperes
+    pr. bruger/team uden at gemme selve nøglen."""
+    supplied = request.headers.get("x-api-key", "") or request.headers.get("authorization", "")[7:]
+    return hashlib.sha256(supplied.encode()).hexdigest()[:10]
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
@@ -542,6 +571,44 @@ def answer(req: AnswerRequest):
 
 def _jsonable(obj):
     return json.loads(json.dumps(obj, default=str, ensure_ascii=False))
+
+
+@app.post("/v1/feedback", tags=["assistent"], dependencies=[Depends(require_api_key)])
+def feedback(req: FeedbackRequest, request: Request):
+    """Gem en brugers vurdering af et svar (brugbart / ikke brugbart + årsager).
+
+    Gemmes som JSON-linjer i ``EJNAR_FEEDBACK_FILE`` (standard: cache-mappen). Spørgsmål
+    og svar gemmes, så fagfolkenes vurderinger kan blive til et facitsæt."""
+    post = {
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "user": _key_fingerprint(request),
+        "model": shared.llm_label(),
+        **req.model_dump(),
+    }
+    path = _feedback_file()
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with _FEEDBACK_LOCK, open(path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(post, ensure_ascii=False) + "\n")
+    return {"ok": True}
+
+
+@app.get("/v1/feedback/summary", tags=["assistent"], dependencies=[Depends(require_api_key)])
+def feedback_summary():
+    """Optælling af feedback: brugbart/ikke brugbart og de hyppigste årsager."""
+    from collections import Counter
+
+    ratings, reasons = Counter(), Counter()
+    path = _feedback_file()
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                try:
+                    post = json.loads(line)
+                except ValueError:
+                    continue
+                ratings[post.get("rating", "?")] += 1
+                reasons.update(post.get("reasons", []))
+    return {"total": sum(ratings.values()), "ratings": dict(ratings), "reasons": dict(reasons.most_common())}
 
 
 # ── Webapp ────────────────────────────────────────────────────────────────────

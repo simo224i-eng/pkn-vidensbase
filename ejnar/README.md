@@ -93,7 +93,17 @@ Alle `/v1`-kald kræver headeren `X-API-Key: <nøgle>` (eller `Authorization: Be
   træning på jeres data og helst med EU-databehandling. `claude_cli` (personligt
   abonnement) er ikke egnet til kundedata.
 
-### Datakvalitet
+### Feedback fra brugere (pilot)
+
+Under hvert svar kan brugeren markere **Brugbart** eller **Ikke brugbart** og vælge,
+hvad der var galt (fx forkert gengivet kendelse, manglende kendelse eller for generelt).
+Feedbacken gemmes via `POST /v1/feedback` som JSON-linjer i `EJNAR_FEEDBACK_FILE`
+(standard: `feedback.jsonl` i cache-mappen) sammen med spørgsmål, svar og kildernes id.
+`GET /v1/feedback/summary` giver en optælling. API-nøglen gemmes ikke, kun et kort
+fingeraftryk. Brugerens spørgsmål gemmes, så gør piloten opmærksom på, at de ikke
+må indeholde personoplysninger.
+
+## Datakvalitet
 
 `engine.prepare_frame` genberegner **udfald** og **mangeltype** ved indlæsning:
 

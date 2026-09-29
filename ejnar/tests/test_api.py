@@ -118,6 +118,26 @@ class APITests(unittest.TestCase):
         else:
             self.assertEqual(body["outcome_conflicts"], [])
 
+    def test_feedback_is_stored_and_summarised(self):
+        import json
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as d, mock.patch.dict(os.environ, {"EJNAR_FEEDBACK_FILE": f"{d}/fb.jsonl"}):
+            r = self.client.post("/v1/feedback", headers=KEY, json={
+                "rating": "down", "question": "Dækkes skimmel?", "answer": "Nej [Kilde 1].",
+                "source_ids": ["abc"], "reasons": ["mangler_kendelse", "for_generelt"], "comment": "Mangler 12345"})
+            self.assertEqual(r.status_code, 200, r.text)
+            self.client.post("/v1/feedback", headers=KEY, json={"rating": "up", "question": "Q"})
+            with open(f"{d}/fb.jsonl", encoding="utf-8") as f:
+                post = json.loads(f.readline())
+            self.assertEqual(post["reasons"], ["mangler_kendelse", "for_generelt"])
+            self.assertNotIn("demo", json.dumps(post))          # API-nøglen gemmes ikke
+            summary = self.client.get("/v1/feedback/summary", headers=KEY).json()
+            self.assertEqual(summary["ratings"], {"down": 1, "up": 1})
+            self.assertEqual(self.client.post("/v1/feedback", headers=KEY, json={
+                "rating": "meh", "question": "Q"}).status_code, 422)
+            self.assertEqual(self.client.post("/v1/feedback", json={"rating": "up", "question": "Q"}).status_code, 401)
+
     def test_answer_stream(self):
         def fake_stream(prompt, max_tokens=2000, placeholder=None):
             placeholder.markdown("Hej ▌")
