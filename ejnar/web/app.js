@@ -93,6 +93,8 @@ const state = {
   pop: null,
   popQuery: "",
   insight: { q: "", data: null, loading: false, error: "", ran: false },
+  assess: { facts: "", data: null, loading: false, error: "" }, // bevidst ikke i localStorage
+
   search: { q: "", mode: "keyword", results: [], total: 0, counts: {}, loading: false, error: "", ran: false },
   reader: null,
   saved: store.get("saved", {}),
@@ -153,7 +155,7 @@ function render() {
           <button class="icon-btn" data-act="nav" aria-label="Menu">${icon("menu")}</button>
           <span class="brand-name">Ejnar</span>
         </div>
-        ${({ search: renderSearch, saved: renderSaved, insight: renderInsight }[state.view] || renderAssistant)()}
+        ${({ search: renderSearch, saved: renderSaved, insight: renderInsight, assess: renderAssess }[state.view] || renderAssistant)()}
       </main>
     </div>
     ${state.reader ? renderReader() : ""}`;
@@ -192,6 +194,7 @@ function renderSidebar() {
       <nav class="nav">
         ${nav("assistant", "chat", "Assistent")}
         ${nav("search", "search", "Praksissøgning", fmtNum(state.meta.decisions))}
+        ${nav("assess", "scale", "Sagsvurdering")}
         ${nav("insight", "chart", "Indsigt")}
         ${nav("saved", "bookmark", "Gemte kendelser", nSaved || null)}
       </nav>
@@ -267,6 +270,7 @@ function filtersChanged() {
   store.set("filters", state.filters);
   if (state.view === "search") runSearch();
   else if (state.view === "insight") runStats();
+  else if (state.view === "assess" && state.assess.data) runAssess();
   else render();
 }
 
@@ -340,12 +344,13 @@ function renderTurn({ q, a, idx }) {
     const actions = a.status === "done" ? `
       <div class="turn-actions">
         <button class="btn ghost sm" data-act="copy-answer" data-i="${idx}">${icon("copy")}Kopiér med referencer</button>
+        <button class="btn ghost sm" data-act="print">${icon("doc")}Print / PDF</button>
         <button class="btn ghost sm" data-act="retry" data-i="${idx}">${icon("retry")}Generér igen</button>
       </div>` : "";
     body = `${steps}<div class="answer" data-answer="${idx}">${a.content ? md(a.content) : ""}${a.status === "streaming" && a.content ? '<span class="caret"></span>' : ""}</div>${suspect}${actions}`;
   }
   return `<article class="turn" data-turn="${idx}">
-      <h2 class="q">${esc(q.content)}</h2>${filterChips(q.filters)}
+      <h2 class="q ${q.content.length > 160 ? "long" : ""}">${esc(q.content)}</h2>${filterChips(q.filters)}
       ${body}
     </article>`;
 }
@@ -538,14 +543,14 @@ async function runSearch({ more = false } = {}) {
 
 function renderDist(counts, total, clickable, label = "kendelser") {
   if (!total) return "";
-  const klager = (counts["Medhold"] || 0) + (counts["Delvis medhold"] || 0);
+
   const seg = OUTCOMES.filter((o) => counts[o]).map((o) => `<div class="c-${OUT_KEY[o]}" style="flex-grow:${counts[o]}" title="${o}: ${counts[o]}"></div>`).join("");
   const legend = OUTCOMES.filter((o) => counts[o]).map((o) => {
     const inner = `<i class="c-${OUT_KEY[o]}"></i>${o} <span class="pct num">${Math.round((100 * counts[o]) / total)}%</span>`;
     return clickable ? `<button data-act="only-outcome" data-v="${o}" title="Vis kun ${o.toLowerCase()}">${inner}</button>` : `<span>${inner}</span>`;
   }).join("");
   return `<div class="dist">
-    <div class="dist-h"><span><strong class="num">${fmtNum(total)}</strong> ${label}</span><span>Klager fik helt eller delvist medhold i <strong class="num">${Math.round((100 * klager) / total)}%</strong></span></div>
+    <div class="dist-h"><span><strong class="num">${fmtNum(total)}</strong> ${label}</span><span>Klager fik helt eller delvist medhold i <strong class="num">${klagerRate(counts, total)}%</strong> af de realitetsbehandlede</span></div>
     <div class="bar">${seg}</div>
     <div class="legend">${legend}</div>
   </div>`;
@@ -614,7 +619,10 @@ async function runStats() {
 }
 
 const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
-const klagerRate = (c, total) => pct((c["Medhold"] || 0) + (c["Delvis medhold"] || 0), total);
+// Medholdsrate regnes af realitetsbehandlede sager: afviste (nævnet tog ikke
+// stilling) og ukendte tæller hverken som tab eller gevinst for klager.
+const decidedCount = (c, total) => total - (c["Afvist"] || 0) - (c["Ukendt"] || 0);
+const klagerRate = (c, total) => pct((c["Medhold"] || 0) + (c["Delvis medhold"] || 0), decidedCount(c, total));
 const OUT_CHART = OUTCOMES.slice(0, 4);
 
 function niceMax(v) {
@@ -676,7 +684,7 @@ function renderInsight() {
     body = `
       <div class="kpis ${s.loading ? "busy" : ""}">
         ${kpi("Kendelser i udsnittet", fmtNum(d.total), `${Math.min(...years)}–${Math.max(...years)}`)}
-        ${kpi("Klager helt/delvist medhold", `${klagerRate(c, d.total)}%`, `${fmtNum((c["Medhold"] || 0) + (c["Delvis medhold"] || 0))} sager`)}
+        ${kpi("Klager helt/delvist medhold", `${klagerRate(c, d.total)}%`, `af ${fmtNum(decidedCount(c, d.total))} realitetsbehandlede sager`)}
         ${kpi("Seneste 5 år", `${klagerRate(rC, rTot)}%`, `klager medhold i ${fmtNum(rTot)} sager`)}
         ${kpi("Afvist af nævnet", `${pct(c["Afvist"] || 0, d.total)}%`, "typisk pga. bevisførelse")}
       </div>
@@ -697,6 +705,62 @@ function renderInsight() {
     </form>
     <div class="search-tools">${renderFilters()}<span class="mode-hint">Udfald ses fra klagers side.</span></div>
     ${body}
+  </section>`;
+}
+
+// ── Sagsvurdering ────────────────────────────────────────────────────────────
+let assessSeq = 0;
+async function runAssess() {
+  const a = state.assess, seq = ++assessSeq;
+  if (a.facts.trim().length < 20) { a.error = "Beskriv sagen med mindst et par sætninger."; return render(); }
+  a.loading = true; a.error = ""; render();
+  try {
+    const d = await apiJson("/v1/assess", { method: "POST", body: { facts: a.facts, filters: filtersBody(), limit: 25 } });
+    if (seq === assessSeq) a.data = d;
+  } catch (e) { if (seq === assessSeq) a.error = e.message; }
+  if (seq === assessSeq) { a.loading = false; render(); }
+}
+
+function assessQuestion(facts) {
+  return "Vurdér denne konkrete sag i lyset af Ankenævnet for Forsikrings praksis om ejerskifteforsikring. " +
+    "Angiv de momenter nævnet typisk lægger vægt på, hvilke kendelser der ligner mest, og det sandsynlige udfald med begrundelse.\n\n" +
+    `Sagens faktum:\n${facts.trim()}`;
+}
+
+function renderAssess() {
+  const a = state.assess, d = a.data;
+  let result = "";
+  if (a.error) result = `<div class="err-box">${esc(a.error)}</div>`;
+  else if (a.loading && !d) result = '<div class="kpis">' + '<div class="skel" style="height:92px"></div>'.repeat(3) + '</div><div class="skel" style="height:240px"></div>';
+  else if (d && !d.total) result = `<div class="empty">${icon("search")}<h3>Ingen lignende kendelser</h3><p>Prøv at beskrive skaden mere konkret eller fjern et filter.</p></div>`;
+  else if (d) {
+    const decided = d.total - (d.outcome_counts["Afvist"] || 0) - (d.outcome_counts["Ukendt"] || 0);
+    const kpi = (label, value, sub) => `<div class="kpi"><div class="kpi-l">${label}</div><div class="kpi-v num">${value}</div><div class="kpi-s">${sub}</div></div>`;
+    result = `
+      <div class="kpis three ${a.loading ? "busy" : ""}">
+        ${kpi("Klager fik helt/delvist medhold", `${d.claimant_success_rate}%`, `af ${fmtNum(decided)} realitetsbehandlede lignende sager`)}
+        ${kpi("Lignende kendelser", fmtNum(d.total), "rangeret efter lighed med faktum")}
+        ${kpi("Typiske mangeltyper", "", d.defect_types.slice(0, 3).map((t) => esc(t.label)).join(" · ") || "–")}
+      </div>
+      ${renderDist(d.outcome_counts, d.total, false, "mest lignende kendelser")}
+      <div class="assess-cta">
+        <div><strong>Vil du have en juridisk vurdering?</strong><span>Assistenten analyserer sagen mod praksis og citerer de kendelser, den bygger på.</span></div>
+        <button class="btn primary" data-act="assess-ai" ${state.health?.llm ? "" : "disabled"}>${icon("spark")}Få AI-vurdering</button>
+      </div>
+      <div class="results">${d.similar.map((x) => renderResult(x, a.facts)).join("")}</div>`;
+  }
+  return `<section class="page wide">
+    <div class="page-h"><div><h1 class="h2">Sagsvurdering</h1><p class="page-sub">Beskriv sagens faktum. Ejnar finder de kendelser, der ligner mest, og viser hvordan de faldt ud.</p></div></div>
+    <form class="composer assess-box" data-act="assess">
+      <label class="sr" for="facts">Sagens faktum</label>
+      <textarea id="facts" data-focus="facts" rows="6" placeholder="Fx: Villa fra 1968 købt i 2021. Efter overtagelsen konstateres fugt og skimmel i krybekælderen. Tilstandsrapporten angav K1 for 'fugt i krybekælder'. Selskabet afviser med henvisning til alder og tilstandsrapport.">${esc(a.facts)}</textarea>
+      <div class="composer-bar">
+        ${renderFilters()}
+        <span class="hint">Gemmes ikke</span>
+        <button class="btn primary" type="submit" ${a.loading ? "disabled" : ""}>${a.loading ? '<span class="spinner"></span>' : icon("search")}Find lignende sager</button>
+      </div>
+    </form>
+    ${result}
   </section>`;
 }
 
@@ -808,6 +872,7 @@ function renderReader() {
         ${d ? `
           <button class="btn ghost sm" data-act="summary" ${r.sumLoading || r.summary || !state.health?.llm ? "disabled" : ""}>${icon("spark")}Resumé</button>
           <button class="btn ghost sm" data-act="copy-ref">${icon("copy")}Reference</button>
+          <button class="btn ghost sm" data-act="print">${icon("doc")}Print</button>
           <button class="btn ghost sm ${saved ? "on" : ""}" data-act="save">${icon("bookmark")}${saved ? "Gemt" : "Gem"}</button>
           <a class="btn sm" href="${esc(safeUrl(d.link))}" target="_blank" rel="noopener noreferrer">${icon("ext")}Original</a>` : ""}
       </div>
@@ -886,7 +951,7 @@ async function copy(text, msg = "Kopieret") {
   try { await navigator.clipboard.writeText(text); toast(msg); } catch { toast("Kunne ikke kopiere"); }
 }
 function autosize() {
-  for (const ta of $$(".composer textarea")) { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 240) + "px"; }
+  for (const ta of $$(".composer textarea:not(#facts)")) { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 240) + "px"; }
 }
 function newThread() {
   state.activeId = null; state.focusTurn = null; state.view = "assistant"; state.navOpen = false; store.set("view", "assistant");
@@ -979,6 +1044,8 @@ app.addEventListener("click", (e) => {
       if (state.search.q.trim()) return runSearch();
       return render();
     case "more": return runSearch({ more: true });
+    case "assess-ai": state.activeId = null; return ask(assessQuestion(state.assess.facts));
+    case "print": return window.print();
     case "bd-filter": {
       const arr = f[el.dataset.k];
       if (!arr.includes(el.dataset.v)) arr.push(el.dataset.v);
@@ -1026,12 +1093,15 @@ app.addEventListener("submit", (e) => {
   }
   if (act === "ask") return ask(state.draft);
   if (act === "search") { state.search.q = $('[data-focus="search"]').value; return runSearch(); }
+  if (act === "assess") return runAssess();
   if (act === "stats") { state.insight.q = $('[data-focus="stats"]').value; return runStats(); }
 });
 
 app.addEventListener("input", (e) => {
   const t = e.target;
-  if (t.matches(".composer textarea")) {
+  if (t.matches("#facts")) {
+    state.assess.facts = t.value;
+  } else if (t.matches(".composer textarea")) {
     state.draft = t.value; autosize();
     $$(".send").forEach((b) => (b.disabled = !state.draft.trim() || activeThread()?.messages.some((m) => m.status === "streaming")));
   } else if (t.matches("[data-popq]")) {
@@ -1042,7 +1112,7 @@ app.addEventListener("input", (e) => {
 });
 
 app.addEventListener("keydown", (e) => {
-  if (e.target.matches(".composer textarea") && e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+  if (e.target.matches(".composer textarea:not(#facts)") && e.key === "Enter" && !e.shiftKey && !e.isComposing) {
     e.preventDefault(); if (state.draft.trim()) ask(state.draft);
   }
   if (e.target.matches(".thread-item") && e.key === "Enter") e.target.click();

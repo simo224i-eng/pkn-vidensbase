@@ -385,6 +385,42 @@ def stats(req: StatsRequest):
     }
 
 
+class AssessRequest(BaseModel):
+    facts: str = Field(..., min_length=20, max_length=8000,
+                       description="Sagens faktum med egne ord: skaden, bygningens alder, tilstandsrapport m.v.")
+    filters: Filters = Field(default_factory=Filters)
+    limit: int = Field(25, ge=5, le=60)
+
+
+class AssessResponse(BaseModel):
+    total: int
+    outcome_counts: dict[str, int]
+    claimant_success_rate: int = Field(..., description="Andel (%) med helt/delvist medhold til klager.")
+    defect_types: list[dict]
+    similar: list[Decision]
+
+
+@app.post("/v1/assess", response_model=AssessResponse, tags=["assistent"],
+          dependencies=[Depends(require_api_key)])
+def assess(req: AssessRequest):
+    """Sagsvurdering uden LLM: de kendelser der ligner sagens faktum mest og
+    hvordan de faldt ud. Godt udgangspunkt før en AI-vurdering via /v1/answer."""
+    c = corpus()
+    idx = engine.relevans_søg(req.facts, c.df, c.vec, c.mat, c.embeds,
+                              sub_idx=req.filters.sub_idx(c), top_n=req.limit)
+    hits = c.df.iloc[idx] if idx else c.df.iloc[0:0]
+    counts = {k: int(v) for k, v in hits["Udfald"].value_counts().items()}
+    decided = len(hits) - counts.get("Afvist", 0) - counts.get("Ukendt", 0)
+    success = counts.get("Medhold", 0) + counts.get("Delvis medhold", 0)
+    return {
+        "total": int(len(hits)),
+        "outcome_counts": counts,
+        "claimant_success_rate": round(100 * success / decided) if decided else 0,
+        "defect_types": _group(hits, "Mangeltype", explode=True)[:6] if len(hits) else [],
+        "similar": [_to_decision(r, req.facts) for r in hits.to_dict("records")],
+    }
+
+
 @app.get("/v1/decisions/{key}", response_model=DecisionFull, tags=["kendelser"],
          dependencies=[Depends(require_api_key)])
 def get_decision(key: str, q: str = Query("", description="Valgfri søgetekst til uddraget.")):

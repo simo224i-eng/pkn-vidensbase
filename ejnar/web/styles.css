@@ -435,6 +435,19 @@ button.bd-row:hover { background: var(--hover); }
 .bd .strong { font-weight: 500; color: var(--ink); }
 .bd .bar { height: 8px; }
 
+/* ── Sagsvurdering ─────────────────────────────────────────────────────── */
+.assess-box { margin-bottom: 20px; }
+.assess-box textarea { min-height: 140px; font-size: 15px; line-height: 1.6; }
+.assess-box .hint { font-size: 12px; color: var(--ink-3); margin-left: auto; white-space: nowrap; }
+.kpis.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.kpis.three .kpi:last-child .kpi-v { display: none; }
+.kpis.three .kpi:last-child .kpi-s { font-size: 14px; color: var(--ink); margin-top: 10px; line-height: 1.5; }
+.assess-cta { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 20px;
+  padding: 16px 18px; border-radius: var(--r); background: var(--accent-soft); border: 1px solid var(--accent-line); }
+.assess-cta strong { display: block; font-size: 14px; margin-bottom: 2px; }
+.assess-cta span { font-size: 13px; color: var(--ink-2); }
+.q.long { font: 500 17px/1.55 var(--sans); white-space: pre-line; letter-spacing: 0; }
+
 /* ── Læser (drawer) ────────────────────────────────────────────────────── */
 .scrim { position: fixed; inset: 0; background: rgba(20, 19, 17, .28); z-index: 50; animation: fade .18s ease-out; backdrop-filter: blur(1px); }
 @keyframes fade { from { opacity: 0; } }
@@ -534,9 +547,36 @@ button.bd-row:hover { background: var(--hover); }
   .grid2 { grid-template-columns: 1fr; }
   .kpi-v { font-size: 26px; }
   .bd-row { grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr) 44px; gap: 8px; }
+  .kpis.three { grid-template-columns: 1fr; }
+  .assess-cta { flex-direction: column; align-items: flex-start; }
+  .assess-box .composer-bar { flex-wrap: wrap; }
   .searchbar { height: auto; flex-wrap: wrap; padding: 8px 8px 8px 14px; }
   .searchbar input { height: 34px; flex-basis: 60%; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* ── Print: svar og kendelser som rent notat ───────────────────────────── */
+@media print {
+  :root { --bg: #fff; --panel: #fff; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .sidebar, .mobile-bar, .dock, .turn-actions, .composer, .suggest, .filters, .search-tools,
+  .drawer-bar, .scrim, #toast, .more, .assess-cta, .similar, .skel { display: none !important; }
+  .shell { display: block; height: auto; }
+  .main { overflow: visible; }
+  .thread { display: block; }
+  .thread-main { padding: 0; }
+  .aside { position: static; height: auto; border: 0; padding: 12pt 0 0; break-before: avoid; }
+  .src { break-inside: avoid; box-shadow: none; opacity: 1 !important; }
+  .src.dim { display: none; }
+  .answer, .doc-text { font-size: 11.5pt; line-height: 1.55; }
+  .cite { border: 0; background: none; color: #000; font-weight: 600; }
+  .cite::before { content: "["; } .cite::after { content: "]"; }
+  body:has(.drawer) .shell { display: none; }
+  .drawer { position: static; width: auto; box-shadow: none; animation: none; }
+  .drawer-body { overflow: visible; padding: 0; }
+  .preamble { display: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+  .page { padding: 0; max-width: none; }
 }

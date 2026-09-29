@@ -116,6 +116,16 @@ class APITests(unittest.TestCase):
         self.assertNotIn("93497", [d["case_number"] for d in r.json()])
         self.assertEqual(self.client.get("/v1/decisions/nope/similar", headers=KEY).status_code, 404)
 
+    def test_assess_returns_similar_with_outcomes(self):
+        r = self.client.post("/v1/assess", headers=KEY, json={
+            "facts": "Klager fandt skimmelsvamp i kælderen efter overtagelsen, huset er fra 1971.", "limit": 5})
+        self.assertEqual(r.status_code, 200, r.text)
+        body = r.json()
+        self.assertEqual(body["total"], len(body["similar"]))
+        self.assertEqual(sum(body["outcome_counts"].values()), body["total"])
+        self.assertLessEqual(body["claimant_success_rate"], 100)
+        self.assertEqual(self.client.post("/v1/assess", headers=KEY, json={"facts": "kort"}).status_code, 422)
+
     def test_stats(self):
         r = self.client.post("/v1/stats", headers=KEY, json={"filters": {"companies": ["Tryg"]}})
         body = r.json()
