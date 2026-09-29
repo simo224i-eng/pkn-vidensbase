@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -183,6 +184,24 @@ class CorpusTests(unittest.TestCase):
             self.assertEqual(len(engine.del_spørgsmål(long_q)), 2)       # fallback: spørgsmålstegn
         with mock.patch.object(engine.shared, "_llm_haiku", return_value="ET LED"):
             self.assertEqual(engine.del_spørgsmål("Hvornår dækkes skimmel?"), [])
+
+    def test_llm_rerank_batches_and_orders_by_score(self):
+        from unittest import mock
+        import shared
+        cands = [{"Titel": f"Sag {i}", "Tekst": "tekst", "Dato": "2020-01-01", "Link": str(i)} for i in range(30)]
+        seen_batches = []
+
+        def fake(prompt, max_tokens=400):
+            idx = [int(x) for x in re.findall(r"^\[(\d+)\]", prompt, flags=re.M)]
+            seen_batches.append(idx)
+            return "\n".join(f"{i}:{9 if i == 25 else (7 if i == 3 else 1)}" for i in idx)
+
+        with mock.patch.object(shared, "_llm_haiku", side_effect=fake), \
+             mock.patch.object(shared, "_voyage_rerank", return_value=None):
+            top = shared.llm_rerank("q", cands, top_n=3)
+        self.assertEqual([c["Link"] for c in top], ["25", "3", "0"])
+        self.assertGreaterEqual(len(seen_batches), 2)                 # parallelle portioner
+        self.assertEqual(sorted(i for b in seen_batches for i in b), list(range(30)))
 
     def test_cited_sources(self):
         self.assertEqual(engine.citerede_kilder("A [Kilde 2] B [Kilde 1, 2, 9]", 3), [2, 1])

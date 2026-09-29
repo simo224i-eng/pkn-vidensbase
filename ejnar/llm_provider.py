@@ -136,6 +136,23 @@ def is_configured(get_secret: Callable[[str], str] = _default_secret) -> bool:
     return bool(cfg.api_key and cfg.main_model and cfg.base_url)
 
 
+def helpers_enabled(get_secret: Callable[[str], str] = _default_secret) -> bool:
+    """Må der bruges LLM-hjælpekald (query-udvidelse, omskrivning, rerank …)?
+
+    ``LLM_HELPERS=0/1`` styrer det eksplicit. Standard er til, undtagen for
+    claude_cli: hvert CLI-kald starter en proces og tager 20–60 s, så retrieval
+    kører deterministisk og kun selve svaret bruger modellen."""
+    raw = (get_secret("LLM_HELPERS") or "").strip().lower()
+    if raw in ("0", "false", "nej", "off"):
+        return False
+    if raw in ("1", "true", "ja", "on"):
+        return True
+    try:
+        return not load_config(get_secret).is_cli
+    except ValueError:
+        return False
+
+
 def missing_key_message(get_secret: Callable[[str], str] = _default_secret) -> str:
     try:
         cfg = load_config(get_secret)

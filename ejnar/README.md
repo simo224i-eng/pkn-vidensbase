@@ -163,6 +163,9 @@ LLM_PROVIDER=claude_cli EJNAR_API_KEYS=lokal uvicorn api:app --port 8000
 Udbyderen kalder `claude -p` uden værktøjer og fjerner `ANTHROPIC_API_KEY` fra
 miljøet, så abonnements-login'et bruges. Standardmodeller er `sonnet` (svar) og
 `haiku` (hjælpekald). De kan ændres med `LLM_MODEL` og `LLM_FAST_MODEL`.
+Hjælpekald (query-udvidelse, AI-rerank m.m.) er som standard slået fra for
+`claude_cli`, fordi hvert CLI-kald tager 20–60 s. Retrieval kører så
+deterministisk på under et sekund. Sæt `LLM_HELPERS=1` for at slå dem til.
 **Abonnementet er personligt.** Det må ikke bruges som backend for en tjeneste,
 som kolleger eller kunder bruger. Til det skal du bruge en API-nøgle (se ovenfor).
 Forbruget tæller med i abonnementets brugsgrænser.

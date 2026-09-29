@@ -98,6 +98,14 @@ class ClaudeCliProviderTest(unittest.TestCase):
         self.assertEqual(seen, ["Hej ", "Hej verden"])
 
 
+class HelpersEnabledTest(unittest.TestCase):
+    def test_defaults_and_override(self):
+        self.assertTrue(lp.helpers_enabled(secrets(LLM_PROVIDER="gemini", LLM_API_KEY="k")))
+        self.assertFalse(lp.helpers_enabled(secrets(LLM_PROVIDER="claude_cli")))
+        self.assertTrue(lp.helpers_enabled(secrets(LLM_PROVIDER="claude_cli", LLM_HELPERS="1")))
+        self.assertFalse(lp.helpers_enabled(secrets(LLM_PROVIDER="gemini", LLM_API_KEY="k", LLM_HELPERS="0")))
+
+
 class SharedHelperTest(unittest.TestCase):
     def test_helper_calls_get_empty_string_without_llm(self):
         # Fejlteksten til brugeren må aldrig ende i query-udvidelse/HyDE/rerank.

@@ -1329,7 +1329,7 @@ def _llm_haiku(prompt: str, max_tokens: int = 400) -> str:
     Returnerer tom streng ved fejl – kalderen falder tilbage til original adfærd."""
     # Uden konfigureret LLM må hjælpekald ikke få _llm's brugerrettede fejltekst
     # tilbage – den ville ellers blive brugt som query-udvidelse, HyDE-tekst osv.
-    if not _llm_provider.is_configured():
+    if not _llm_provider.is_configured() or not _llm_provider.helpers_enabled():
         return ""
     try:
         return _llm(prompt, max_tokens=max_tokens, model="claude-haiku-4-5-20251001")
@@ -2029,47 +2029,46 @@ def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
     if voyage_result:
         return [kandidater[idx] for idx, _ in voyage_result]
 
-    # 2. Fallback: Haiku LLM-rerank
-    linjer = []
-    for i, k in enumerate(kandidater):
-        try:
-            dato = pd.Timestamp(k.get("Dato")).strftime("%d.%m.%Y")
-        except Exception:
-            dato = "-"
-        titel = (k.get("Titel") or "")[:120]
-        kerne = udtræk_kerneafsnit(k.get("Tekst") or "", max_tegn=500).replace("\n", " ")[:400]
-        linjer.append(f"[{i}] {dato} – {titel}\n    {kerne}")
-    oversigt = "\n\n".join(linjer)
-    prompt = (
-        f"Du vurderer relevansen af juridiske afgørelser for dette spørgsmål:\n"
-        f"SPØRGSMÅL: {query}\n\n"
-        f"KANDIDATER ({len(kandidater)} stk):\n{oversigt}\n\n"
-        f"Vurder hver kandidat 0-10 for direkte relevans for spørgsmålet. "
-        f"Returnér KUN de {top_n} mest relevante indekser (0-baserede), komma-separeret, bedste først. "
-        f"Ingen forklaring – kun tal.\n\n"
-        f"TOP {top_n}:"
-    )
-    svar = _llm_haiku(prompt, max_tokens=100)
-    if not svar or "apinøgle" in svar.lower():
+    # 2. Fallback: LLM-rerank. Kun de 40 bedste fra den hybride rangering vurderes, og
+    # AKF-resuméet (titlen: faktum + resultat) er det primære indhold. Kandidaterne
+    # deles i portioner, der vurderes parallelt – ét stort kald var flaskehalsen
+    # (målt: ~120 s af 150 s retrieval med 100 kandidater i én prompt).
+    kandidater = kandidater[:40]
+    portion = 14
+    grupper = [list(range(i, min(i + portion, len(kandidater)))) for i in range(0, len(kandidater), portion)]
+
+    def _vurder(indekser: list) -> list:
+        linjer = []
+        for i in indekser:
+            k = kandidater[i]
+            try:
+                dato = pd.Timestamp(k.get("Dato")).strftime("%Y")
+            except Exception:
+                dato = "-"
+            titel = re.sub(r"\s+", " ", (k.get("Titel") or ""))[:320]
+            kerne = udtræk_kerneafsnit(k.get("Tekst") or "", max_tegn=300).replace("\n", " ")[:160]
+            linjer.append(f"[{i}] {dato} – {titel}\n    {kerne}")
+        svar = _llm_haiku(
+            f"Du vurderer relevansen af juridiske afgørelser for dette spørgsmål:\n"
+            f"SPØRGSMÅL: {query}\n\nKANDIDATER:\n" + "\n\n".join(linjer) + "\n\n"
+            "Giv hver kandidat en relevansscore 0-10 for, hvor direkte den belyser spørgsmålet. "
+            "Svar KUN med linjer på formen 'indeks:score', fx '3:8'. Ingen forklaring.",
+            max_tokens=200,
+        )
+        return [(int(a), float(b)) for a, b in re.findall(r"(\d+)\s*:\s*(\d+(?:[.,]\d+)?)", (svar or "").replace(",", "."))
+                if int(a) in indekser]
+
+    from concurrent.futures import ThreadPoolExecutor as _TPE
+    with _TPE(max_workers=len(grupper)) as pool:
+        resultater = [r for rs in pool.map(_vurder, grupper) for r in rs]
+    if not resultater:
         return kandidater[:top_n]
-    import re as _re
-    tal = [int(x) for x in _re.findall(r'\d+', svar) if int(x) < len(kandidater)]
-    seen = set()
-    valgte = []
-    for t in tal:
-        if t not in seen:
-            seen.add(t)
-            valgte.append(t)
-        if len(valgte) >= top_n:
-            break
-    if not valgte:
-        return kandidater[:top_n]
-    for i in range(len(kandidater)):
-        if len(valgte) >= top_n:
-            break
-        if i not in seen:
-            valgte.append(i)
-    return [kandidater[i] for i in valgte[:top_n]]
+    score = {}
+    for i, sc in resultater:
+        score[i] = max(score.get(i, 0.0), sc)
+    # Uvurderede beholder den hybride rækkefølge bag de vurderede; lige score → hybrid rang.
+    orden = sorted(range(len(kandidater)), key=lambda i: (-score.get(i, -1.0), i))
+    return [kandidater[i] for i in orden[:top_n]]
 
 
 def _normaliser_citat(s: str) -> str:
