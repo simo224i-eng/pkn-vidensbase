@@ -42,9 +42,9 @@ def pack(base: Path, new: Path, out: Path, seed: int = 20260929) -> None:
     print(f"{len(key)} sager pakket i {out}")
 
 
-def score(out: Path) -> dict:
+def score(out: Path, verdict_file: str = "verdicts.json") -> dict:
     key = json.loads((out / ".key.json").read_text(encoding="utf-8"))
-    verdicts = json.loads((out / "verdicts.json").read_text(encoding="utf-8"))
+    verdicts = json.loads((out / verdict_file).read_text(encoding="utf-8"))
     tally = {"new": 0, "base": 0, "lige": 0}
     rows = []
     for v in verdicts:
@@ -53,7 +53,7 @@ def score(out: Path) -> dict:
         tally[who] += 1
         rows.append({"id": v["id"], "winner": who, "reason": v.get("reason", "")})
     result = {"tally": tally, "cases": rows}
-    (out / "ab-result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / f"ab-result-{Path(verdict_file).stem}.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return result
 
@@ -67,11 +67,12 @@ def main() -> int:
     p.add_argument("--out", required=True)
     s = sub.add_parser("score")
     s.add_argument("--out", required=True)
+    s.add_argument("--file", default="verdicts.json")
     args = ap.parse_args()
     if args.cmd == "pack":
         pack(Path(args.base), Path(args.new), Path(args.out))
     else:
-        score(Path(args.out))
+        score(Path(args.out), args.file)
     return 0
 
 
