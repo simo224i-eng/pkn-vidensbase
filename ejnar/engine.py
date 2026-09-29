@@ -196,7 +196,6 @@ DAEKNING = ["Udvidet", "Basis", "Ikke angivet"]
 _DAEKNING_NEG = re.compile(
     r"ikke\s+(?:har\s+|havde\s+)?(?:tegnet|købt|valgt)\s+(?:en\s+|den\s+)?(?:udvidet|tillægs)|"
     r"uden\s+(?:den\s+)?udvidet\w*\s+(?:dækning|ejerskifte|forsikring)|"
-    r"ikke\s+(?:var\s+)?omfattet\s+af\s+(?:den\s+)?udvide|"
     r"(?:kun|alene)\s+(?:havde\s+)?(?:tegnet\s+)?(?:en\s+)?basis",
     re.IGNORECASE,
 )
@@ -209,13 +208,39 @@ _DAEKNING_POS = re.compile(
 )
 
 
-def detect_daekning(tekst: str) -> str:
-    t = (tekst or "")[:20000]
+# Nævnets faste sagsfremstilling: "Forsikringstageren har (tegnet) 5-årig basis
+# ejerskifteforsikring" / "… ejerskifteforsikring med udvidet dækning". Den første
+# sådanne oplysning om policen vejer tungest; senere omtale af "udvidet dækning" er
+# ofte klagers argument eller en gengivelse af betingelserne.
+# Tolerér PDF-mellemrum inde i ordet ("ejerskift eforsikri ng")
+_EJF = "".join(ch + r"\s?-?\s?" for ch in "ejerskifteforsikri") + r"n\s?g\w*"
+_NIVEAU_UDV = r"(?:udvide(?:t|de)|ekstrasikring)"
+_NIVEAU_BAS = r"(?:basis|standard|grund)"
+_DAEKNING_STÆRK = re.compile(
+    rf"(?:har|havde|tegnede|tegner|tegnet|med)\s+(?:tegnet\s+|købt\s+)?(?:en\s+|den\s+)?(?:\d+\s*-?\s*årig\s+)?"
+    rf"(?P<a>{_NIVEAU_UDV}|{_NIVEAU_BAS})\s*-?\s*{_EJF}|"
+    rf"{_EJF}\s+(?:\(\w+\)\s+)?med\s+(?:en\s+)?(?:\d+\s*-?\s*årig\s+)?(?P<b>{_NIVEAU_UDV}|{_NIVEAU_BAS})\s*-?\s*(?:dækning)?\b|"
+    rf"forsikringen\s+er\s+tegnet\s+som\s+en\s+(?P<c>{_NIVEAU_UDV}|{_NIVEAU_BAS})|"
+    rf"(?:tegnet|tegnede)\s+(?:forsikringen|policen)\s+med\s+(?:en\s+)?(?P<d>{_NIVEAU_UDV}|{_NIVEAU_BAS})",
+    re.IGNORECASE,
+)
+
+
+def detect_daekning(tekst: str, titel: str = "") -> str:
+    # AKF-resuméet (titlen) først: det gengiver policens niveau kort og præcist
+    t = re.sub(r"-\s*\n\s*", "", f"{titel or ''}\n{(tekst or '')[:20000]}")
+    t = re.sub(r"\s+", " ", t)
+    m = _DAEKNING_STÆRK.search(t)
+    if m:
+        niveau = (m.group("a") or m.group("b") or m.group("c") or m.group("d") or "").lower()
+        # "klager ikke har tegnet en udvidet …" / "… uden udvidet dækning"
+        nægtet = re.search(r"\b(?:ikke|uden)\b", t[max(0, m.start() - 30):m.start()] + m.group(0), re.I)
+        return "Udvidet" if niveau.startswith(("udvide", "ekstra")) and not nægtet else "Basis"
+    # Svage signaler: en nægtelse ("ikke tegnet udvidet") vejer tungere end omtale
+    # af den udvidede dæknings betingelser
     if _DAEKNING_NEG.search(t):
         return "Basis"
-    if _DAEKNING_POS.search(t):
-        return "Udvidet"
-    return "Ikke angivet"
+    return "Udvidet" if _DAEKNING_POS.search(t) else "Ikke angivet"
 
 
 # ── Data ──────────────────────────────────────────────────────────────────────
@@ -362,7 +387,7 @@ def prepare_frame(rows: list) -> pd.DataFrame:
         for t, tx, u in zip(df["Titel"], df["Tekst"], df["Udfald"])
     ]
 
-    df["Dækning"] = [detect_daekning(tx) for tx in df["Tekst"]]
+    df["Dækning"] = [detect_daekning(tx, t) for t, tx in zip(df["Titel"], df["Tekst"])]
     df["Selskab"] = df["Selskab"].fillna("").astype(str)
     return df
 
@@ -628,7 +653,11 @@ def del_spørgsmål(spørgsmål: str, max_dele: int = 3) -> list[str]:
     if svar and "ET LED" not in svar.upper():
         dele = [re.sub(r"^[\s\-\*\d\.\)]+", "", linje).strip() for linje in svar.splitlines()]
     else:
-        dele = [d.strip() + "?" for d in re.split(r"\?", q) if len(d.strip()) > 25]
+        # Uden LLM: del på spørgsmålstegn og på et nyt spørgsmålsled ("… – og hvilken
+        # betydning har …"), så hvert led får sin egen søgning
+        led = re.split(r"\?|\s[–—-]\s(?:og\s+)?(?=(?:hvilk\w*|hvad|hvordan|hvornår|hvem|om|er|kan)\b)|"
+                       r";\s+(?:og\s+)?", q, flags=re.I)
+        dele = [d.strip(" ,.–—-") + "?" for d in led if len(d.strip()) > 25]
         if len(dele) < 2:
             return []
     dele = [d for d in dele if 10 <= len(d) <= 400]
@@ -762,12 +791,18 @@ def byg_prompt(spørgsmål, docs, historik=None):
                 "4. Understøt påstande med ordret citat i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3]. "
                 "Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat. Gengiv hver "
                 "kendelses udfald præcis som angivet i kildeoverskriften.\n"
+                "4b. Passager mærket '(Sagsfremstilling og parternes synspunkter)' gengiver klagers eller "
+                "selskabets synspunkter – tilskriv dem aldrig nævnet. Hvad nævnet lagde vægt på, fremgår af "
+                "passager mærket '(Nævnets begrundelse og afgørelse)'. Nævn kun dækningsniveau (basis/udvidet), "
+                "når det fremgår af kilden.\n"
                 "5. Identificér mønstre på tværs af kendelserne — fast praksis vs. variation. "
                 "Angiv evt. fordelingen (fx \"3 af 5 kendelser giver klager medhold\"), men tæl kun "
                 "kendelser med samme juridiske spørgsmål og sammenlignelige forsikringsvilkår/dækning "
                 "(fx basis vs. udvidet dækning) i samme nævner, og angiv årsspændet. Bygger en "
                 "praksislinje overvejende på kendelser, der er mere end 10 år gamle, så sig det. "
-                "Fremhæv kendelser, der går imod hovedlinjen, og hvad der adskilte dem.\n"
+                "Fremhæv kendelser, der går imod hovedlinjen, og hvad der adskilte dem. Byg kun en generel "
+                "regel på flere kendelser; hviler et synspunkt på én kendelse, så skriv det (\"i én kendelse "
+                "[Kilde n] …\").\n"
                 "6. Nævn relevant lovhjemmel (lov om forbrugerbeskyttelse §§, forsikringsaftaleloven mv.) når det fremgår.\n"
                 "7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
                 "8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n"
@@ -818,7 +853,7 @@ def mistænkelige_citater(svar: str, kilder: list, spørgsmål: str = "") -> lis
 # Udsagn om en bestemt kendelses udfald (datid: "fik", "gav", "blev" – ikke generelle "får typisk")
 _PARTER = r"(?:klage(?:r|ren|rne)|forsikringstage(?:r|ren)|købe(?:r|ren|rne)|kunde(?:n|rne))"
 _PÅSTAND_RX = [
-    ("Delvis medhold", re.compile(r"\bdelvis(?:t)?\s+medhold\b", re.I)),
+    ("Delvis medhold", re.compile(r"\b(?:fik|gav)\b[^.\[\]\n]{0,30}?\bdelvis(?:t)?\s+medhold\b", re.I)),
     ("Ikke medhold", re.compile(
         rf"\b{_PARTER}\s+fik\s+ikke\s+medhold|\bfik\s+{_PARTER}\s+ikke\s+medhold|\bgav\s+ikke\s+(?:\d+\s+|en\s+)?{_PARTER}\s+medhold|"
         r"\bselskabet\s+fik\s+medhold|\bgav\s+selskabet\s+medhold|"
@@ -830,6 +865,8 @@ _PÅSTAND_RX = [
 _KLAUSUL_RX = re.compile(r"(?<=[.!?;:])\s+|\n+|,\s+(?=(?:men|mens|hvorimod|hvor|og\s+i)\b)|\s+(?=(?:mens|hvorimod)\b)")
 # Påstand → faktiske udfald, der er uforenelige med den. "Delvis medhold" i kilden er
 # foreneligt med alt, fordi svaret kan tale om ét af sagens led.
+_ETIKET_RX = re.compile(
+    r"\[Kilde\s+(\d+)\]\s*(?:\(\s*|:\s*)(delvis(?:t)?\s+medhold|ikke\s+medhold|medhold)\b(?!\s+til\s+selskab)\)?", re.I)
 _UFORENELIG = {"Medhold": {"Ikke medhold"}, "Ikke medhold": {"Medhold"}, "Delvis medhold": {"Ikke medhold", "Medhold"}}
 
 
@@ -840,7 +877,24 @@ def udfaldskonflikter(svar: str, kilder: list) -> list[dict]:
     Kun udsagn i datid om de kilder, der citeres i samme sætningsled, kontrolleres.
     """
     konflikter, set_ = [], set()
-    for klausul in _KLAUSUL_RX.split(svar or ""):
+
+    def tjek(n: int, påstand: str, tekst: str) -> None:
+        if not 1 <= n <= len(kilder) or (n, påstand) in set_:
+            return
+        faktisk = str(kilder[n - 1].get("Udfald") or "")
+        if faktisk in _UFORENELIG[påstand]:
+            set_.add((n, påstand))
+            konflikter.append({"kilde": n, "påstand": påstand, "faktisk": faktisk,
+                               "tekst": re.sub(r"\s+", " ", tekst).strip()[:240]})
+
+    # Eksplicitte etiketter: "[Kilde 8] (Medhold)" / "[Kilde 8]: ikke medhold"
+    for m in _ETIKET_RX.finditer(svar or ""):
+        label = m.group(2).lower()
+        påstand = "Delvis medhold" if label.startswith("delvis") else (
+            "Ikke medhold" if label.startswith("ikke") else "Medhold")
+        tjek(int(m.group(1)), påstand, m.group(0))
+    rest = _ETIKET_RX.sub(" ", svar or "")
+    for klausul in _KLAUSUL_RX.split(rest):
         påstande = sorted((m.start(), label) for label, rx in _PÅSTAND_RX for m in rx.finditer(klausul))
         # "delvis medhold" indeholder "medhold": behold kun det længste match pr. position
         påstande = [p for i, p in enumerate(påstande) if i == 0 or p[0] != påstande[i - 1][0]]
@@ -851,13 +905,7 @@ def udfaldskonflikter(svar: str, kilder: list) -> list[dict]:
             før = [label for pos, label in påstande if pos < ref.start()]
             påstand = før[-1] if før else påstande[0][1]
             for n in (int(x) for x in re.findall(r"\d+", ref.group(1))):
-                if not 1 <= n <= len(kilder) or (n, påstand) in set_:
-                    continue
-                faktisk = str(kilder[n - 1].get("Udfald") or "")
-                if faktisk in _UFORENELIG[påstand]:
-                    set_.add((n, påstand))
-                    konflikter.append({"kilde": n, "påstand": påstand, "faktisk": faktisk,
-                                       "tekst": re.sub(r"\s+", " ", klausul).strip()[:240]})
+                tjek(n, påstand, klausul)
     return konflikter
 
 

@@ -988,12 +988,23 @@ def _get_dk_stemmer():
 
 _TOKEN_RE = re.compile(r"[a-zæøåA-ZÆØÅ][a-zæøåA-ZÆØÅ\-]{1,}")
 
+# Fagtermer, som brugere skriver, men nævnet ikke bruger: oversæt til nævnets ordvalg
+# før stemming, så søgningen rammer kendelserne ("rodindvækst" står i 0 kendelser,
+# "rødder" i 56).
+_FAGLEKSIKON = {
+    "rodindvækst": ("rødder", "indvækst"),
+    "rodindtrængning": ("rødder", "indtrængning"),
+    "rodindtrængninger": ("rødder", "indtrængning"),
+    "rodvækst": ("rødder",),
+}
+
+
 def dansk_tokenizer(text: str) -> list:
     """Tokenisér og stem dansk tekst med Snowball Danish stemmer.
     Bruges som custom analyzer i TfidfVectorizer for bedre matching
     af bøjningsformer (afgørelser→afgør, planloven→planlov osv.)."""
     stemmer = _get_dk_stemmer()
-    tokens = _TOKEN_RE.findall(text.lower())
+    tokens = [x for t in _TOKEN_RE.findall(text.lower()) for x in _FAGLEKSIKON.get(t, (t,))]
     if stemmer is None:
         return tokens
     return [stemmer.stem(t) for t in tokens]
@@ -1057,6 +1068,24 @@ def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int
     return chunks
 
 
+_NÆVNET_UDTALER_RX = re.compile(r"\b(?:anke)?nævnet\s+udtaler\b", re.IGNORECASE)
+ROLLE_PARTER = "Sagsfremstilling og parternes synspunkter"
+ROLLE_NÆVNET = "Nævnets begrundelse og afgørelse"
+
+
+def _del_efter_rolle(kerne: str) -> list:
+    """Del kendelsesteksten i parternes del og nævnets del ved sidste "Nævnet udtaler".
+
+    Den sidste forekomst bruges, fordi lange kendelser kan citere en tidligere
+    kendelse ("Nævnet udtaler …") midt i sagsfremstillingen."""
+    matches = list(_NÆVNET_UDTALER_RX.finditer(kerne or ""))
+    if not matches:
+        return [("", kerne)]
+    b = matches[-1].start()
+    dele = [(ROLLE_PARTER, kerne[:b]), (ROLLE_NÆVNET, kerne[b:])]
+    return [(r, t) for r, t in dele if t.strip()]
+
+
 def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
                             chunk_size: int = 120, max_total_chars: int = 26000) -> str:
     """Byg AI-konteksten: hver kilde får sit AKF-resumé (titlen) plus de mest
@@ -1087,12 +1116,14 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
         return f"ca. {txt}" if d.get("DatoEstimeret") is True else txt
 
     # 1. Chunk hvert dokument (små chunks → præcise passager)
+    # Hver passage mærkes med, hvem der taler: modellen tilskrev ellers selskabets
+    # eller klagers argumenter til nævnet (fundet ved udsagnsrevision).
     all_chunks = []     # (kilde_idx, chunk_text)
     for i, d in enumerate(docs):
         kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=8000)
-        chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=25)
-        for c in chunks:
-            all_chunks.append((i, c))
+        for rolle, del_ in _del_efter_rolle(kerne):
+            for c in chunk_tekst(del_, titel="", chunk_size=chunk_size, overlap=25):
+                all_chunks.append((i, f"({rolle}) {c}" if rolle else c))
 
     # 2. Scor chunks mod spørgsmålet
     scores = np.ones(len(all_chunks))

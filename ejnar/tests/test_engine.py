@@ -25,6 +25,43 @@ def rows():
     ]
 
 
+class SpeakerLabelTests(unittest.TestCase):
+    def test_context_labels_party_and_board_passages(self):
+        import shared
+
+        tekst = ("Selskabet har anført, at rørene var udtjente. Klager har anført, at skaden var skjult. "
+                 "Nævnet udtaler, at en tidligere kendelse er uden betydning. "
+                 "Selskabet har supplerende anført, at rørene var gamle. "
+                 "Nævnet udtaler: Rørene var ikke udtjente, og skaden var dækket.")
+        dele = shared._del_efter_rolle(tekst)
+        # Sidste "Nævnet udtaler" markerer nævnets egen del
+        self.assertEqual([r for r, _ in dele], [shared.ROLLE_PARTER, shared.ROLLE_NÆVNET])
+        self.assertTrue(dele[1][1].startswith("Nævnet udtaler: Rørene"))
+        ctx = shared.byg_fokuseret_kontekst("rør udtjente", [{"Titel": "T", "Tekst": tekst, "Udfald": "Medhold"}])
+        self.assertIn(f"({shared.ROLLE_NÆVNET})", ctx)
+        self.assertEqual(shared._del_efter_rolle("Ingen markør her."), [("", "Ingen markør her.")])
+
+
+class CoverageDetectionTests(unittest.TestCase):
+    def test_board_statement_of_policy_wins(self):
+        self.assertEqual(engine.detect_daekning("Forsikringstageren har 5-årig ejerskifteforsikring med udvidet dækning."), "Udvidet")
+        self.assertEqual(engine.detect_daekning("Forsikringstageren har basis ejerskifte-\nforsikring."), "Basis")
+        # Klagers senere argument om udvidet dækning ændrer ikke policens niveau
+        self.assertEqual(engine.detect_daekning(
+            "tegnede ejerskifteforsikring med 5-årig standarddækning. Klager anfører, at man har tegnet udvidet dækning."), "Basis")
+
+    def test_negated_extended_cover_is_basis(self):
+        self.assertEqual(engine.detect_daekning("Klager har ikke tegnet en udvidet ejerskifteforsikring."), "Basis")
+        self.assertEqual(engine.detect_daekning("da klagerne ikke har tegnet udvidet ejerskifteforsikring"), "Basis")
+        self.assertEqual(engine.detect_daekning(
+            "og at klageren ikke har tegnet ejerskifteforsikring med udvidet dækning."), "Basis")
+
+    def test_pdf_spacing_and_brand_names(self):
+        self.assertEqual(engine.detect_daekning("ejendom tegnet udvidet ejerskift eforsikri ng i Dansk Boligforsikring"), "Udvidet")
+        self.assertEqual(engine.detect_daekning("har tegnet ejerskifteforsikring med ekstrasikring i Tryg."), "Udvidet")
+        self.assertEqual(engine.detect_daekning("ejerskifteforsikring med basistilstandsrapport"), "Ikke angivet")
+
+
 class OutcomeConflictTests(unittest.TestCase):
     kilder = [{"Udfald": "Ikke medhold"}, {"Udfald": "Medhold"}, {"Udfald": "Delvis medhold"}]
 
@@ -36,6 +73,7 @@ class OutcomeConflictTests(unittest.TestCase):
         self.assertEqual(self.check("I [Kilde 2] fik klageren ikke medhold."), [(2, "Ikke medhold")])
         self.assertEqual(self.check("Nævnet gav selskabet medhold [Kilde 1, 2]."), [(2, "Ikke medhold")])
         self.assertEqual(self.check("Køber fik delvis medhold [Kilde 1]."), [(1, "Delvis medhold")])
+        self.assertEqual(self.check("Se [Kilde 1] (Medhold) og [Kilde 2] (Medhold)."), [(1, "Medhold")])
 
     def test_correct_and_generic_statements_pass(self):
         self.assertEqual(self.check("Klager fik medhold i [Kilde 2], men ikke i [Kilde 1]."), [])
@@ -46,6 +84,9 @@ class OutcomeConflictTests(unittest.TestCase):
         # Hver henvisning knyttes til den nærmeste påstand
         svar = ("Af 5 kendelser gav 1 klager medhold ([Kilde 2]), og 2 gav selskabet medhold "
                 "([Kilde 1], [Kilde 3]).")
+        self.assertEqual(self.check(svar), [])
+        # Opremsning med etiketter pr. kilde (fundet i praksissimulationen)
+        svar = "- **Medhold eller delvis medhold:** [Kilde 3] (Delvis medhold), [Kilde 2] (Medhold)."
         self.assertEqual(self.check(svar), [])
 
 

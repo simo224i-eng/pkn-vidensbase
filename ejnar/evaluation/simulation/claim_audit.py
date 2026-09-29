@@ -75,7 +75,9 @@ def pack(run: Path) -> None:
 
 
 def score(run: Path) -> dict:
-    claims = json.loads((run / "audit" / "claims.json").read_text(encoding="utf-8"))
+    # claims.json eller flere revisorfiler (claims-a.json, claims-b.json, …)
+    claims = [item for path in sorted((run / "audit").glob("claims*.json"))
+              for item in json.loads(path.read_text(encoding="utf-8"))]
     total = Counter()
     rows = []
     for item in claims:
