@@ -5,7 +5,8 @@ bedømmer er subjektive; her efterprøves i stedet hvert enkelt udsagn i svaret 
 den kendelse, det henviser til:
 
 1. ``pack``   For hvert besvaret spørgsmål skrives ``audit/<ID>.md`` med svaret og –
-              for hver citeret kilde – kendelsens faktum og nævnets begrundelse.
+              for hver citeret kilde – de uddrag, modellen fik, sagens begyndelse og
+              nævnets egen vurdering (efter nævnets gengivelse af parterne).
 2.            En revisor-agent læser filerne og skriver ``audit/claims.json``::
 
                   [{"id": "P01", "claims": [{"claim": "...", "sources": [3],
@@ -41,15 +42,32 @@ def _verdict(value: str) -> str:
     return v if v in VERDICTS else "ikke_understøttet"
 
 
-def _source_text(tekst: str, facts_chars: int = 3000, core_chars: int = 9000) -> str:
-    import shared
+def _source_text(tekst: str, facts_chars: int = 2500, core_chars: int = 10000) -> str:
+    """Sagens begyndelse + nævnets egen vurdering (efter gengivelsen af parterne)."""
+    import board_reasoning
 
-    tekst = re.sub(r"[ \t]+", " ", str(tekst or ""))
-    kerne = shared.udtræk_kerneafsnit(tekst, max_tegn=core_chars)
-    start = tekst[:facts_chars]
-    if kerne and kerne[:200] in start:
-        return start
-    return f"{start}\n\n[…]\n\nNÆVNETS BEGRUNDELSE OG RESULTAT (uddrag):\n{kerne}"
+    rå = str(tekst or "")
+    delt = board_reasoning.del_kendelse(rå)
+    kerne = rå[delt[1]:] if delt else rå[-core_chars:]
+    rens = lambda t: re.sub(r"[ \t]+", " ", t).strip()
+    return (f"SAGENS BEGYNDELSE:\n{rens(rå[:facts_chars])}\n\n[…]\n\n"
+            f"NÆVNETS VURDERING OG RESULTAT:\n{rens(kerne[:core_chars])}")
+
+
+_BLOK_START = re.compile(r"^\[(?:AFGØRELSESKERNE )?Kilde (\d+)\]", re.M)
+
+
+def _prompt_uddrag(prompt: str) -> dict[int, list[str]]:
+    """Uddragene pr. kilde, præcis som modellen så dem i promptens KENDELSER-afsnit."""
+    krop = prompt.split("KENDELSER:", 1)[-1].split("\nSPØRGSMÅL:", 1)[0]
+    starts = list(_BLOK_START.finditer(krop))
+    out: dict[int, list[str]] = {}
+    for i, m in enumerate(starts):
+        slut = starts[i + 1].start() if i + 1 < len(starts) else len(krop)
+        blok = krop[m.start():slut]
+        blok = re.split(r"\n(?=[A-ZÆØÅ ]{8,}:?\n)", blok)[0].strip()   # stop ved næste afsnitsoverskrift
+        out.setdefault(int(m.group(1)), []).append(blok)
+    return out
 
 
 def pack(run: Path) -> None:
@@ -67,6 +85,8 @@ def pack(run: Path) -> None:
             continue
         answer = answer_path.read_text(encoding="utf-8")
         cited = engine.citerede_kilder(answer, len(case["sources"]))
+        prompt_path = run / case.get("prompt_file", f"{case['id']}.prompt.txt")
+        uddrag = _prompt_uddrag(prompt_path.read_text(encoding="utf-8")) if prompt_path.exists() else {}
         parts = [f"# {case['id']}\n\n## Spørgsmål\n\n{case['question']}\n\n## Svar\n\n{answer}\n\n"
                  f"## Citerede kendelser ({len(cited)})\n"]
         for s in case["sources"]:
@@ -75,6 +95,7 @@ def pack(run: Path) -> None:
             parts.append(
                 f"\n### [Kilde {s['n']}] AKF {s.get('case_number', '')} · {s.get('date', '')} · "
                 f"udfald for klager: {s.get('outcome', '')}\n\n{s.get('title', '')}\n\n"
+                "UDDRAG SOM MODELLEN FIK:\n" + "\n\n".join(uddrag.get(s["n"], ["(ingen)"])) + "\n\n"
                 f"{_source_text(texts.get(s['id'], ''))}\n")
         (audit / f"{case['id']}.md").write_text("".join(parts), encoding="utf-8")
         n_cases += 1

@@ -42,6 +42,34 @@ class SpeakerLabelTests(unittest.TestCase):
         self.assertEqual(shared._del_efter_rolle("Ingen markør her."), [("", "Ingen markør her.")])
 
 
+class SourceRegisterTests(unittest.TestCase):
+    def test_register_lists_outcome_coverage_and_tally(self):
+        docs = [{"Dato": "2020-01-02", "Titel": "A", "Udfald": "Medhold", "Dækning": "Basis"},
+                {"Dato": "2021-01-02", "Titel": "B", "Udfald": "Ikke medhold", "Dækning": "Ikke angivet"},
+                {"Dato": "2022-01-02", "Titel": "C", "Udfald": "Ikke medhold"}]
+        reg = engine.kilderegister(docs)
+        self.assertIn("[Kilde 1] = 02.01.2020 – A (udfald: Medhold · dækning: basis)", reg)
+        self.assertIn("[Kilde 2] = 02.01.2021 – B (udfald: Ikke medhold)", reg)
+        self.assertIn("Udfald blandt alle 3 kilder: Medhold 1 (1); Ikke medhold 2 (2, 3)", reg)
+
+
+class BoardReasoningTests(unittest.TestCase):
+    def test_board_restatement_of_party_arguments_is_not_reasoning(self):
+        import board_reasoning as br
+        import shared
+
+        tekst = ("Klageren har anført, at taget var utæt. Nævnet udtaler: Klageren overtog ejendommen i 2019. "
+                 "Klagerne har til støtte for deres krav blandt andet henvist til en rapport. "
+                 "Selskabet har anført, at skaden skyldes alder. "
+                 "Nævnet lægger til grund, at undertaget var intakt. "
+                 "Det, klageren i øvrigt har anført, kan ikke føre til andet resultat.")
+        b, a = br.del_kendelse(tekst)
+        self.assertTrue(tekst[a:].strip().startswith("Nævnet lægger til grund"))
+        roller = shared._del_efter_rolle(tekst)
+        self.assertEqual(roller[1][0], shared.ROLLE_NÆVNET)
+        self.assertNotIn("til støtte for deres krav", roller[1][1])
+
+
 class DomainLexiconTests(unittest.TestCase):
     def test_user_terms_map_to_board_wording(self):
         import shared
@@ -285,6 +313,9 @@ class CorpusTests(unittest.TestCase):
         self.assertNotIn("Anbefaling", text)
         self.assertNotIn("sandsynligt udfald", text)
         self.assertIn("for hvert led for sig", text)
+        # Grundprincipper fylder højst én sætning; pladsen går til skillelinjerne
+        self.assertIn("højst én sætning", text)
+        self.assertIn("skillelinjerne", text)
         self.assertIn("årsspændet", text)
 
     def test_context_headers_show_outcome(self):

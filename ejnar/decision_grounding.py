@@ -20,8 +20,10 @@ from typing import Any, Iterable
 
 try:
     from paragraph_retrieval import split_sections
+    import board_reasoning as _board
 except ImportError:  # package import in tests/tools
     from ejnar.paragraph_retrieval import split_sections
+    from ejnar import board_reasoning as _board
 
 
 @dataclass(frozen=True)
@@ -207,11 +209,16 @@ def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
     # midt i sagsfremstillingen. Nævnets egentlige begrundelse kommer efter parternes
     # sidste indlæg, så start derfra, når der findes nævnsformuleringer efter det.
     # 1) En eksplicit "Nævnet udtaler:" markerer starten på nævnets egen del.
+    #    Derefter gengiver nævnet sagen og parternes anbringender; selve vurderingen
+    #    ("Nævnet lægger til grund …") begynder først efter den gengivelse.
     udtaler = [i for i, p in enumerate(cleaned) if _BOARD_STATES_RE.search(p)]
     if udtaler:
         index = udtaler[-1]
         start = _BOARD_STATES_RE.search(cleaned[index]).start()
-        return [cleaned[index][start:].strip()] + cleaned[index + 1:]
+        del_ = [cleaned[index][start:].strip()] + cleaned[index + 1:]
+        samlet = "\n\n".join(del_)
+        vurdering = samlet[_board.vurdering_offset(samlet):].strip()
+        return [p for p in vurdering.split("\n\n") if p.strip()] or del_
     # 2) Ellers: første nævnsformulering efter parternes sidste indlæg. Afsnit, der
     #    selv nævner nævnet, er nævnets tekst (som ofte refererer parterne), ikke indlæg.
     last_party = max(
@@ -473,6 +480,11 @@ def extract_decision_grounding(
         trim_inline_board_preamble=not _has_explicit_board_heading(str(title or "")),
         query=query,
     )
+    # En ikke-nævnsoverskrift (fx en falsk PDF-"sektion" som "SÆLGEROPLYSNINGER") må ikke
+    # mærke nævnets vurdering, når teksten er fundet via "Nævnet udtaler"
+    if (not _has_explicit_board_heading(str(title or "")) and core
+            and _BOARD_STATES_RE.search("\n".join(str(p) for p in paragraphs))):
+        title = "Nævnets vurdering"
     return DecisionGrounding(
         section_title=str(title or "Kendelse"),
         text=core,

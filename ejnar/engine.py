@@ -762,6 +762,29 @@ def _fmt_dato(value) -> str:
         return "–"
 
 
+def kilderegister(docs: list) -> str:
+    """Kildeliste med dato, udfald og dækning pr. kilde og en færdig optælling.
+
+    Modellen talte forkert, når den selv skulle opgøre udfald på tværs af 15–18
+    kilder ("13 kendelser", hvor der var 12). Optællingen her er deterministisk."""
+    linjer = []
+    grupper: dict[str, list[int]] = {}
+    for i, d in enumerate(docs, start=1):
+        udfald = str(d.get("Udfald") or "").strip() or "Ukendt"
+        dk = str(d.get("Dækning") or "").strip()
+        tags = [f"udfald: {udfald}"] + ([f"dækning: {dk.lower()}"] if dk in ("Udvidet", "Basis") else [])
+        dato = ("ca. " if d.get("DatoEstimeret") is True else "") + _fmt_dato(d.get("Dato"))
+        linjer.append(f"[Kilde {i}] = {dato} – {str(d.get('Titel', ''))[:80]} ({' · '.join(tags)})")
+        grupper.setdefault(udfald, []).append(i)
+    if docs:
+        rækkefølge = ["Medhold", "Delvis medhold", "Ikke medhold", "Afvist", "Ukendt"]
+        dele = [f"{label} {len(grupper[label])} ({', '.join(map(str, grupper[label]))})"
+                for label in rækkefølge + sorted(set(grupper) - set(rækkefølge)) if label in grupper]
+        linjer.append(f"Udfald blandt alle {len(docs)} kilder: " + "; ".join(dele) +
+                      ". Brug tallene som kontrol; en praksisfordeling skal kun tælle de sammenlignelige kilder.")
+    return "\n".join(linjer)
+
+
 def byg_prompt(spørgsmål, docs, historik=None):
     kontekst = shared.byg_fokuseret_kontekst(spørgsmål, docs, max_chunks_per_doc=3)
     historik_tekst = ""
@@ -770,10 +793,7 @@ def byg_prompt(spørgsmål, docs, historik=None):
             rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
             historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
-    kilde_liste = "\n".join(
-        f"[Kilde {i+1}] = {'ca. ' if d.get('DatoEstimeret') is True else ''}{_fmt_dato(d.get('Dato'))} – {str(d.get('Titel', ''))[:80]}"
-        for i, d in enumerate(docs)
-    )
+    kilde_liste = kilderegister(docs)
     return [
         {
             "type": "text",
@@ -785,10 +805,17 @@ def byg_prompt(spørgsmål, docs, historik=None):
                 "REGLER:\n"
                 f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte kendelser. Opfind ikke fakta.\n"
                 "2. Brug kildeformatet [Kilde X] konsekvent – ALDRIG sagsnumre eller datoer som reference.\n"
-                "3. Svar på dansk. Begynd med afsnittet '## Kort svar' på 2–4 sætninger, der opsummerer "
-                "praksis: hovedlinjen i nævnets kendelser og de momenter, udfaldet typisk afhænger af. "
+                "3. Svar på dansk. Begynd med afsnittet '## Kort svar' på 2–4 sætninger om, hvor nævnet har "
+                "trukket grænsen: hvad der konkret har ført til medhold, og hvad der har ført til afslag. "
                 "Uddyb derefter under overskrifter. Hold svaret fokuseret – typisk 350–750 ord; "
                 "skriv hellere præcist end udtømmende.\n"
+                "3b. Brugerne er erfarne skadesbehandlere og jurister, der kender de almindelige principper "
+                "(fx at klager bærer bevisbyrden, at der skal foreligge en skade, og at alder, slid eller en "
+                "karakter i tilstandsrapporten ikke i sig selv er afgørende). Nævn sådanne principper kort – "
+                "højst én sætning – og brug pladsen på skillelinjerne i netop denne type sag: hvilke konkrete "
+                "forhold (fx omfang, målinger og undersøgelser, byggeår og alder, tilstandsrapportens ordlyd, "
+                "årsag, dækningsniveau, beløb og fradrag) der har fået nævnet til at give medhold eller afslag, "
+                "med konkrete eksempler fra kendelserne i begge retninger.\n"
                 "4. Understøt påstande med ordret citat i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3]. "
                 "Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat. Gengiv hver "
                 "kendelses udfald præcis som angivet i kildeoverskriften.\n"
@@ -805,7 +832,9 @@ def byg_prompt(spørgsmål, docs, historik=None):
                 "regel på flere kendelser; hviler et synspunkt på én kendelse, så skriv det (\"i én kendelse "
                 "[Kilde n] …\").\n"
                 "6. Nævn relevant lovhjemmel (lov om forbrugerbeskyttelse §§, forsikringsaftaleloven mv.) når det fremgår.\n"
-                "7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
+                "7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig. Kendelserne "
+                "er vedlagt som uddrag; skriv derfor \"uddragene nævner ikke …\" frem for \"kendelserne "
+                "nævner ikke …\", og brug kun \"kun\"/\"ingen\" om kilderne, når det gælder alle uddrag.\n"
                 "8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n"
                 "9. Indeholder spørgsmålet flere led (fx dækning, følgeskader, fradrag, hvem betaler "
                 "undersøgelser), så beskriv praksis for hvert led for sig med kilder; sig tydeligt, "

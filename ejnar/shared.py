@@ -1081,21 +1081,25 @@ def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int
     return chunks
 
 
-_NÆVNET_UDTALER_RX = re.compile(r"\b(?:anke)?nævnet\s+udtaler\b", re.IGNORECASE)
+try:
+    import board_reasoning as _board
+except ImportError:  # pakke-import i tests/værktøjer
+    from ejnar import board_reasoning as _board
+
 ROLLE_PARTER = "Sagsfremstilling og parternes synspunkter"
 ROLLE_NÆVNET = "Nævnets begrundelse og afgørelse"
 
 
 def _del_efter_rolle(kerne: str) -> list:
-    """Del kendelsesteksten i parternes del og nævnets del ved sidste "Nævnet udtaler".
+    """Del kendelsesteksten i parternes del og nævnets egen vurdering.
 
-    Den sidste forekomst bruges, fordi lange kendelser kan citere en tidligere
-    kendelse ("Nævnet udtaler …") midt i sagsfremstillingen."""
-    matches = list(_NÆVNET_UDTALER_RX.finditer(kerne or ""))
-    if not matches:
+    Efter "Nævnet udtaler" gengiver nævnet først sagen og parternes anbringender;
+    den del mærkes som parternes, så kun selve vurderingen tilskrives nævnet."""
+    delt = _board.del_kendelse(kerne or "")
+    if delt is None:
         return [("", kerne)]
-    b = matches[-1].start()
-    dele = [(ROLLE_PARTER, kerne[:b]), (ROLLE_NÆVNET, kerne[b:])]
+    _, a = delt
+    dele = [(ROLLE_PARTER, kerne[:a]), (ROLLE_NÆVNET, kerne[a:])]
     return [(r, t) for r, t in dele if t.strip()]
 
 
