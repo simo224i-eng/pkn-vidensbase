@@ -999,6 +999,43 @@ def dansk_tokenizer(text: str) -> list:
     return [stemmer.stem(t) for t in tokens]
 
 
+from sklearn.feature_extraction.text import TfidfVectorizer as _SkTfidfVectorizer
+
+
+class DeterministicTfidfVectorizer(_SkTfidfVectorizer):
+    """TfidfVectorizer hvis ``max_features``-udvælgelse er uafhængig af CPU'en.
+
+    sklearn vælger de ``max_features`` hyppigste termer med numpy's ustabile
+    standard-argsort. Den er SIMD-dispatchet (AVX-512/AVX2/SSE), så *hvilke* termer
+    med samme hyppighed der kommer med ved grænsen afhænger af CPU'en – og dermed
+    ordforrådet, scorerne og rangeringen på tværs af CI-værter. Her brydes
+    uafgjort alfabetisk på termen, så udvælgelsen er ens overalt. Når der ikke er
+    uafgjort ved grænsen, er resultatet identisk med sklearn's."""
+
+    def _limit_features(self, X, vocabulary, high=None, low=None, limit=None):
+        # sklearn < 1.? returnerer (X, fjernede_termer); nyere kun X. Bevar formen.
+        result = super()._limit_features(X, vocabulary, high=high, low=low, limit=None)
+        as_tuple = isinstance(result, tuple)
+        X, removed = result if as_tuple else (result, None)
+        if limit is not None and X.shape[1] > limit:
+            terms = np.empty(len(vocabulary), dtype=object)
+            for term, idx in vocabulary.items():
+                terms[idx] = term
+            tfs = np.asarray(X.sum(axis=0)).ravel()
+            # np.lexsort er stabil: primærnøgle -tfs, sekundær termen selv.
+            keep = np.sort(np.lexsort((terms, -tfs))[:limit])
+            new_index = {int(old): new for new, old in enumerate(keep)}
+            for term, old in list(vocabulary.items()):
+                if old in new_index:
+                    vocabulary[term] = new_index[old]
+                else:
+                    del vocabulary[term]
+                    if removed is not None:
+                        removed.add(term)
+            X = X[:, keep]
+        return (X, removed) if as_tuple else X
+
+
 def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int = 80) -> list:
     """Del en afgørelsestekst i overlappende chunks à ~chunk_size tokens.
     Hvert chunk bærer titel-kontekst for bedre retrieval.
@@ -1031,7 +1068,6 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
     if not docs:
         return ""
     try:
-        from sklearn.feature_extraction.text import TfidfVectorizer
         from sklearn.metrics.pairwise import cosine_similarity as _cos
     except ImportError:
         # Fallback: brug kerneafsnit som hidtil
@@ -1057,7 +1093,7 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
     # 2. Scorer chunks mod query
     chunk_texts = [c for _, c in all_chunks]
     try:
-        mini_vec = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
+        mini_vec = DeterministicTfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
         chunk_mat = mini_vec.fit_transform(chunk_texts)
         qv = mini_vec.transform([query])
         scores = _cos(qv, chunk_mat).flatten()

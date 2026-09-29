@@ -295,13 +295,12 @@ def decision_id(link: str, fallback: int = 0) -> str:
 
 
 def build_index(df: pd.DataFrame):
-    from sklearn.feature_extraction.text import TfidfVectorizer
     if df.empty:
         return None, None
     # generator (ikke liste): undgår at materialisere en hel ekstra kopi af teksten i RAM
     texts = (shared.byg_indeks_tekst(t, tx) for t, tx in
              zip(df["Titel"].astype(str), df["Tekst"].astype(str)))
-    vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
+    vec = shared.DeterministicTfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
                           min_df=2, sublinear_tf=True, tokenizer=shared.dansk_tokenizer,
                           token_pattern=None)
     return vec, vec.fit_transform(texts)

@@ -105,13 +105,13 @@ def load_corpus(data_dir: Path, shared_module: Any) -> pd.DataFrame:
 
 
 def build_tfidf(frame: pd.DataFrame, shared_module: Any):
-    from sklearn.feature_extraction.text import TfidfVectorizer
-
     texts = (
         shared_module.byg_indeks_tekst(title, text)
         for title, text in zip(frame["Titel"].astype(str), frame["Tekst"].astype(str))
     )
-    vectorizer = TfidfVectorizer(
+    # Deterministisk max_features-udvælgelse: sklearn's egen afhænger af CPU'ens
+    # SIMD-sortering ved uafgjorte termhyppigheder (se shared.DeterministicTfidfVectorizer).
+    vectorizer = shared_module.DeterministicTfidfVectorizer(
         max_features=60_000,
         ngram_range=(1, 2),
         min_df=2,
