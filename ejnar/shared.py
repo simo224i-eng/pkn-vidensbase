@@ -1194,13 +1194,19 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
     # Udfaldet står eksplicit i overskriften: nyere AKF-resuméer nævner det ikke altid.
     headers = [f"[Kilde {i+1}] {_dato(d)} – {_udfald(d)}{d.get('Titel', '')}" for i, d in enumerate(docs)]
     header_total = sum(len(h) + 2 for h in headers)
-    fair = max(400, (max_total_chars - header_total) // max(1, len(docs)))
+    # Relevansvægtet andel: kilde 1 får 3×, kilde 2–3 2× en almindelig kildes plads
+    vægte = [3.0, 2.0, 2.0] + [1.0] * max(0, len(docs) - 3)
+    vægte = vægte[:len(docs)]
+    rådighed = max_total_chars - header_total
+    andele = [max(400, int(rådighed * v / sum(vægte))) for v in vægte]
+    fair = max(400, rådighed // max(1, len(docs)))
+    loft = [max_chunks_per_doc * (3 if i == 0 else 2 if i < 3 else 1) for i in range(len(docs))]
     chosen = defaultdict(list)          # kilde → [(pos, text)]
 
     def _take(i, budget):
         """Tilføj kildens bedste endnu ikke valgte passager inden for budget."""
         used = 0
-        while ranked[i] and len(chosen[i]) < max_chunks_per_doc:
+        while ranked[i] and len(chosen[i]) < loft[i]:
             score, pos, chunk = ranked[i][0]
             if chosen[i] and score <= 0:
                 break
@@ -1214,7 +1220,7 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
         return used
 
     # 3a. Ligelig andel til alle kilder
-    used_total = header_total + sum(_take(i, fair) for i in range(len(docs)))
+    used_total = header_total + sum(_take(i, andele[i]) for i in range(len(docs)))
     # 3b. Resten til de højest rangerede kilder
     for i in range(len(docs)):
         spare = max_total_chars - used_total

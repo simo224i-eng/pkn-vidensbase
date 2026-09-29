@@ -52,12 +52,14 @@ def install_decision_grounding_runtime(shared_module: Any | None = None) -> bool
         try:
             document_count = _context_document_count(base, documents)
             per_document_chars, char_budget = _grounding_budget(document_count)
+            lead = (4000, 2200, 2200)
             grounding = build_decision_grounding_context(
                 documents,
                 query=query,
                 max_documents=document_count,
                 per_document_chars=per_document_chars,
-                char_budget=char_budget,
+                char_budget=char_budget + sum(max(0, c - per_document_chars) for c in lead),
+                lead_chars=lead,
             )
             if not grounding:
                 return base

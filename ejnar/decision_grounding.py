@@ -434,6 +434,7 @@ def _choose_paragraphs(
     max_chars: int,
     trim_inline_board_preamble: bool = False,
     query: str = "",
+    whole_if_fits: bool = False,
 ) -> tuple[str, int]:
     cleaned = (
         _trim_to_board_reasoning(paragraphs)
@@ -442,6 +443,9 @@ def _choose_paragraphs(
     )
     if not cleaned or max_paragraphs <= 0 or max_chars <= 0:
         return "", 0
+    # Kan hele nævnets vurdering være der (ledende kilder), tages den med i sin helhed
+    if whole_if_fits and sum(len(p) + 2 for p in cleaned) <= max_chars:
+        return "\n\n".join(cleaned), len(cleaned)
 
     indices = _query_local_indices(cleaned, query, max_paragraphs=max_paragraphs)
     if not indices:
@@ -455,6 +459,7 @@ def extract_decision_grounding(
     query: str = "",
     max_chars: int = 1800,
     max_paragraphs: int = 4,
+    whole_if_fits: bool = False,
 ) -> DecisionGrounding:
     """Extract a compact, optionally query-specific representation of Board reasoning."""
     text = str(document.get("Tekst") or document.get("text") or "")
@@ -479,6 +484,7 @@ def extract_decision_grounding(
         max_chars=max_chars,
         trim_inline_board_preamble=not _has_explicit_board_heading(str(title or "")),
         query=query,
+        whole_if_fits=whole_if_fits,
     )
     # En ikke-nævnsoverskrift (fx en falsk PDF-"sektion" som "SÆLGEROPLYSNINGER") må ikke
     # mærke nævnets vurdering, når teksten er fundet via "Nævnet udtaler"
@@ -500,6 +506,7 @@ def build_decision_grounding_context(
     max_documents: int = 6,
     per_document_chars: int = 1400,
     char_budget: int = 7000,
+    lead_chars: tuple[int, ...] = (),
 ) -> str:
     """Build numbered decision-core blocks aligned with Ejnar's [Kilde X] register."""
     if not documents or max_documents <= 0 or char_budget <= 0:
@@ -514,10 +521,15 @@ def build_decision_grounding_context(
     used = len(intro)
 
     for source_number, document in enumerate(documents[:max_documents], start=1):
+        # De højest rangerede kilder får mere af nævnets vurdering: facittesten viste,
+        # at den vigtigste kendelse ellers fik lige så lidt plads som den 15. bedste
+        lead = lead_chars[source_number - 1] if source_number <= len(lead_chars) else 0
         grounding = extract_decision_grounding(
             document,
             query=query,
-            max_chars=per_document_chars,
+            max_chars=max(per_document_chars, lead),
+            max_paragraphs=8 if lead > per_document_chars else 4,
+            whole_if_fits=lead > per_document_chars,
         )
         if not grounding.text:
             continue

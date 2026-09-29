@@ -1,0 +1,23 @@
+{
+ "gid": "F36",
+ "question": "Hvornår dækker ejerskifteforsikringen et nedbrudt eller revnet undertag, som først opdages år efter overtagelsen (fx ved efterisolering), når tilstandsrapporten angiver en lang forventet restlevetid for taget, og selskabet henviser til slid og ælde, udløb af levetid og at skaden først er opstået efter overtagelsen?",
+ "issue": "Om et nedbrudt undertag med manglende undertagsstrammere udgjorde en skade, der var til stede på overtagelsestidspunktet, eller skyldtes udløb af normal levetid, og hvilken betydning tilstandsrapportens restlevetidsangivelse har.",
+ "key_points": [
+  {
+   "point": "Tilstandsrapportens forventede restlevetid beror på et tabelopslag, og fejlagtig restlevetidsangivelse er undtaget i betingelserne; at taget ikke holder så længe som angivet, giver ikke i sig selv krav på dækning.",
+   "quote": "derfor ikke i sig selv føre til et krav på forsikringsdækning, at ejendommens tag ikke måtte ho l-"
+  },
+  {
+   "point": "Der var på overtagelsestidspunktet forhold ved undertaget, der udgjorde skade eller nærliggende risiko for skade; selskabet skal dække. Klager fik medhold.",
+   "quote": "Efter en gennemgang af sagen finder nævnet, at der på overtagelsestidspunktet var forhold ved"
+  },
+  {
+   "point": "Undertaget var nedbrudt i et omfang, så det havde mistet sin funktion, og besigtigelsesrapporter viste, at det skyldtes manglende undertagsstrammere, så forholdet var til stede ved overtagelsen.",
+   "quote": "undertagsstrammere, hvilket har ført til, at undertaget har kunne blafre og blive ødelagt, og at"
+  },
+  {
+   "point": "Tagkonstruktionen og undertaget var kun 15 år gamle, så der var ikke grundlag for at anse skaden som udløb af normal levetid.",
+   "quote": "anmeldelsestidspunktet. Der er således ikke grundlag for at statuere, at der er tale om udløb af"
+  }
+ ]
+}

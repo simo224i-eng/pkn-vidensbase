@@ -1,0 +1,23 @@
+{
+ "gid": "F57",
+ "question": "Hvordan opgør nævnet erstatningen for et skadet ovenlysvindue, når der både skal fradrages for slid og ælde og for udgiften til udskiftning af en punkteret rude, som tilstandsrapporten allerede havde anmærket, og i hvilken rækkefølge skal fradragene foretages?",
+ "issue": "Om selskabet kunne fradrage 58 % for slid og ælde samt udgiften til en i tilstandsrapporten anmærket rudeudskiftning, og om sidstnævnte fradrag skulle ske før eller efter afskrivningen.",
+ "key_points": [
+  {
+   "point": "Vinduet var så nedslidt, at et fradrag på 58 % for slid og ælde var berettiget.",
+   "quote": "Efter det oplyste finder nævnet det godtgjort, at vinduet var nedslidt i en sådan grad, at"
+  },
+  {
+   "point": "Selskabet kunne med henvisning til K2-anmærkningen i tilstandsrapporten fradrage udgiften til udskiftning af ruden.",
+   "quote": "Nævnet finder heller ikke grundlag for at krit isere, at selskabet med henvisning til"
+  },
+  {
+   "point": "Rudeudgiften var dog fejlagtigt fratrukket i det nedskrevne beløb; den skulle fratrækkes før afskrivningen for slid og ælde.",
+   "quote": "har fradraget udgiften på 1. 886 kr. i det nedskrevne beløb, idet dette rettelig burde"
+  },
+  {
+   "point": "Erstatningen blev genberegnet (fradrag først, derefter 58 % afskrivning), og da beløbet ikke oversteg selvrisikoen, skulle selvrisikoen nedsættes tilsvarende (delvis medhold).",
+   "quote": "således: 17.050 kr. - 1.886 kr. = 15.164 kr., der nedskrives med 58 % pga. slid og ælde."
+  }
+ ]
+}
