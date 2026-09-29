@@ -150,6 +150,7 @@ class CorpusTests(unittest.TestCase):
     def test_prompt_asks_for_short_answer_first(self):
         text = engine.byg_prompt("Dækkes skimmel?", [])[0]["text"]
         self.assertIn("## Kort svar", text)
+        self.assertIn("## Anbefaling", text)
 
     def test_cited_sources(self):
         self.assertEqual(engine.citerede_kilder("A [Kilde 2] B [Kilde 1, 2, 9]", 3), [2, 1])

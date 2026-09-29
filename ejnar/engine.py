@@ -575,7 +575,10 @@ def byg_prompt(spørgsmål, docs, historik=None):
                 "Angiv evt. fordelingen (fx \"3 af 5 kendelser giver klager medhold\").\n"
                 "6. Nævn relevant lovhjemmel (lov om forbrugerbeskyttelse §§, forsikringsaftaleloven mv.) når det fremgår.\n"
                 "7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
-                "8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n\n"
+                "8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n"
+                "9. Handler spørgsmålet om en konkret sag eller en afgørelse, selskabet har truffet eller "
+                "overvejer, så slut med '## Anbefaling': om afgørelsen efter praksis holder, bør justeres "
+                "eller ændres, og hvilke oplysninger/dokumentation der evt. mangler for at afgøre det.\n\n"
                 f"KILDEREGISTER:\n{kilde_liste}"
             ),
         },

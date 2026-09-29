@@ -347,7 +347,7 @@ function renderTurn({ q, a, idx }) {
         <button class="btn ghost sm" data-act="print">${icon("doc")}Print / PDF</button>
         <button class="btn ghost sm" data-act="retry" data-i="${idx}">${icon("retry")}Generér igen</button>
       </div>` : "";
-    body = `${steps}<div class="answer" data-answer="${idx}">${a.content ? md(a.content) : ""}${a.status === "streaming" && a.content ? '<span class="caret"></span>' : ""}</div>${suspect}${actions}`;
+    body = `${steps}<div class="answer" data-answer="${idx}">${a.content ? withCiteTitles(md(a.content), a.sources) : ""}${a.status === "streaming" && a.content ? '<span class="caret"></span>' : ""}</div>${suspect}${actions}`;
   }
   return `<article class="turn" data-turn="${idx}">
       <h2 class="q ${q.content.length > 160 ? "long" : ""}">${esc(q.content)}</h2>${filterChips(q.filters)}
@@ -384,6 +384,16 @@ function renderSources(msg, idx) {
         <div class="meta"><span>${fmtDate(s.date)}</span>${s.company ? `<span class="sep"></span><span>${esc(s.company.replace(/,.*$/, ""))}</span>` : ""}</div>
       </button>`;
     }).join("")}`;
+}
+
+// Kildechips viser AKF-journalnummer og dato ved hover, så de kan citeres i breve.
+function withCiteTitles(html, sources) {
+  if (!sources?.length) return html;
+  const byN = Object.fromEntries(sources.map((s) => [String(s.n), s]));
+  return html.replace(/data-n="(\d+)" aria-label="Kilde \d+"/g, (m, n) => {
+    const s = byN[n];
+    return s ? `data-n="${n}" aria-label="Kilde ${n}: AKF ${esc(s.case_number || "")}" title="AKF ${esc(s.case_number || "u.nr.")} · ${fmtDate(s.date)} · ${esc(s.outcome || "")}"` : m;
+  });
 }
 
 function citedNumbers(text) {
