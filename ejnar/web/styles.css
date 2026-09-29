@@ -435,6 +435,11 @@ button.bd-row:hover { background: var(--hover); }
 .bd .strong { font-weight: 500; color: var(--ink); }
 .bd .bar { height: 8px; }
 
+.pii { display: flex; gap: 8px; align-items: flex-start; margin: 0 12px 10px; padding: 8px 10px; border-radius: 8px;
+  background: var(--warn-soft); color: var(--ink-2); font-size: 12.5px; line-height: 1.45; }
+.pii svg { color: var(--warn); flex: none; margin-top: 1px; }
+.pii-slot:empty { display: none; }
+
 /* ── Sagsvurdering ─────────────────────────────────────────────────────── */
 .assess-box { margin-bottom: 20px; }
 .assess-box textarea { min-height: 140px; font-size: 15px; line-height: 1.6; }

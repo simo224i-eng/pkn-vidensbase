@@ -591,14 +591,23 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
     """Fuld RAG-retrieval. Returnerer (selvstændigt spørgsmål, kilder).
 
     ``debug`` udfyldes med de automatisk foreslåede/anvendte metadatafiltre."""
-    n_workers = 3 if filter_options else 2
-    with ThreadPoolExecutor(max_workers=n_workers) as pool:
+    # Første spørgsmål i en samtale kræver ingen omskrivning, så query-udvidelse og
+    # opdeling i delspørgsmål kan køre parallelt med de øvrige hjælpekald i stedet
+    # for bagefter (hvert hjælpekald er en separat LLM-rundtur).
+    første = not any(m.get("rolle") == "assistent" for m in (historik or []))
+    with ThreadPoolExecutor(max_workers=5) as pool:
         f1 = pool.submit(shared.klassificer_query, spørgsmål)
         f2 = pool.submit(shared.omformuler_opfoelgning, spørgsmål, historik or [])
         f3 = pool.submit(shared.auto_filter_query, spørgsmål, filter_options) if filter_options else None
+        f4 = pool.submit(shared.udvid_query, spørgsmål) if første else None
+        f5 = pool.submit(del_spørgsmål, spørgsmål) if første else None
         qtype = f1.result()
         standalone = f2.result()
         auto_filters = f3.result() if f3 else {}
+        forhånd_udvidet = f4.result() if f4 else None
+        forhånd_dele = f5.result() if f5 else None
+    if standalone.strip() != spørgsmål.strip():
+        forhånd_udvidet = forhånd_dele = None       # omskrevet: beregn på den nye tekst
 
     top_retrieve = qtype["top_retrieve"]
     top_final = qtype["top_final"]
@@ -619,7 +628,7 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
             "standalone": standalone,
         })
 
-    udvidet = shared.udvid_query(standalone)
+    udvidet = forhånd_udvidet if forhånd_udvidet is not None else shared.udvid_query(standalone)
     tfidf_query = udvidet if udvidet else standalone
 
     def _do(sub):
@@ -642,7 +651,7 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
     kand = alle_hits.to_dict("records") if len(alle_hits) > 0 else []
     # Spørgsmål med flere led: søg også på hvert led, så kilderne dækker alle led
     # og ikke kun det, der dominerer den samlede forespørgsel.
-    dele = del_spørgsmål(standalone)
+    dele = forhånd_dele if forhånd_dele is not None else del_spørgsmål(standalone)
     if dele:
         del_rangeringer = []
         for del_q in dele:

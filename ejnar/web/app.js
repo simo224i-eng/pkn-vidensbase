@@ -53,6 +53,21 @@ const SUGGESTIONS = [
   { k: "Ulovlige forhold", q: "Hvad kræves der for dækning af ulovlige forhold uden byggetilladelse?" },
 ];
 
+// Advarsel om personoplysninger: spørgsmål sendes til den valgte AI-udbyder.
+const PII = [
+  ["CPR-nummer", /\b[0-3]\d[01]\d\d{2}[-\s]?\d{4}\b/],
+  ["e-mailadresse", /\b[\w.+-]+@[\w-]+\.[\w.]{2,}\b/],
+  ["telefonnummer", /(?:\+45\s?)?\b\d{2}\s?\d{2}\s?\d{2}\s?\d{2}\b/],
+  ["adresse", /\b[A-ZÆØÅ][a-zæøå]+(?:vej|gade|allé|alle|vænge|parken|stræde|plads|boulevard|toften)\s+\d+/],
+];
+function piiHits(text) {
+  return PII.filter(([, rx]) => rx.test(text || "")).map(([label]) => label);
+}
+function piiWarning(text) {
+  const hits = piiHits(text);
+  return hits.length ? `<div class="pii">${icon("alert")}<span>Teksten ser ud til at indeholde ${hits.join(" og ")}. Spørgsmål sendes til en AI-udbyder – anonymisér navne, adresser og numre.</span></div>` : "";
+}
+
 // AKF-titler er et resumé af sagen. Første sætning bliver overskrift, men den
 // stereotype indledning ("Klager over afslag på dækning for …") skæres af, så
 // overskriften siger hvad sagen handler om.
@@ -287,6 +302,7 @@ function composer(dock) {
         ${renderFilters()}
         <button class="send" type="submit" aria-label="Send" ${!state.draft.trim() || busy ? "disabled" : ""}>${icon("up")}</button>
       </div>
+      <div class="pii-slot">${piiWarning(state.draft)}</div>
     </form>`;
 }
 
@@ -772,6 +788,7 @@ function renderAssess() {
         <span class="hint">Gemmes ikke</span>
         <button class="btn primary" type="submit" ${a.loading ? "disabled" : ""}>${a.loading ? '<span class="spinner"></span>' : icon("search")}Find lignende sager</button>
       </div>
+      <div class="pii-slot">${piiWarning(a.facts)}</div>
     </form>
     ${result}
   </section>`;
@@ -1113,6 +1130,8 @@ app.addEventListener("submit", (e) => {
 
 app.addEventListener("input", (e) => {
   const t = e.target;
+  const slot = t.closest("form")?.querySelector(".pii-slot");
+  if (slot) slot.innerHTML = piiWarning(t.value);
   if (t.matches("#facts")) {
     state.assess.facts = t.value;
   } else if (t.matches(".composer textarea")) {

@@ -76,6 +76,17 @@ Opstarten tager 1–2 minutter, mens kendelserne indlæses. Imens svarer
 
 Alle `/v1`-kald kræver headeren `X-API-Key: <nøgle>` (eller `Authorization: Bearer <nøgle>`).
 
+### Persondata
+
+- Webappen gemmer ingen samtaler på serveren. Samtaler og gemte kendelser ligger
+  kun i brugerens browser, og tekst indtastet i Sagsvurdering gemmes ikke.
+- **Spørgsmål sendes til den valgte AI-udbyder.** Skriv faktum uden navne,
+  adresser, CPR- og policenumre. Appen advarer, hvis teksten ligner CPR-nummer,
+  e-mail, telefonnummer eller adresse.
+- Til rigtige kundesager: brug en API-udbyder med databehandleraftale, uden
+  træning på jeres data og helst med EU-databehandling. `claude_cli` (personligt
+  abonnement) er ikke egnet til kundedata.
+
 ### Datakvalitet
 
 `engine.prepare_frame` genberegner **udfald** og **mangeltype** ved indlæsning:
