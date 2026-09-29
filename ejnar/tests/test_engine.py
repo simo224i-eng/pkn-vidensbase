@@ -172,6 +172,18 @@ class CorpusTests(unittest.TestCase):
         self.assertIn("[Kilde 1] 01.03.2021 – [Udfald for klager: Ikke medhold]", ctx)
         self.assertIn("[Kilde 3]", ctx)
 
+    def test_question_decomposition(self):
+        from unittest import mock
+        long_q = ("Køber har konstateret manglende vådrumsmembran i badeværelset, og vi giver fradrag for "
+                  "forbedring. Er fradraget i tråd med praksis? Og skal vi dække følgeskader på gangens trægulv?")
+        with mock.patch.object(engine.shared, "_llm_haiku", return_value="- Fradrag for forbedring ved vådrum\n- Følgeskader på trægulv ved vådrumsskade"):
+            self.assertEqual(engine.del_spørgsmål(long_q),
+                             ["Fradrag for forbedring ved vådrum", "Følgeskader på trægulv ved vådrumsskade"])
+        with mock.patch.object(engine.shared, "_llm_haiku", return_value=""):
+            self.assertEqual(len(engine.del_spørgsmål(long_q)), 2)       # fallback: spørgsmålstegn
+        with mock.patch.object(engine.shared, "_llm_haiku", return_value="ET LED"):
+            self.assertEqual(engine.del_spørgsmål("Hvornår dækkes skimmel?"), [])
+
     def test_cited_sources(self):
         self.assertEqual(engine.citerede_kilder("A [Kilde 2] B [Kilde 1, 2, 9]", 3), [2, 1])
 

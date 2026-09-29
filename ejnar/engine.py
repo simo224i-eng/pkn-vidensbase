@@ -559,6 +559,32 @@ def fuse_rankings(rankings: list[list[dict]], limit: int, k: int = 60) -> list[d
     return [first[x] for x in order[:limit]]
 
 
+def del_spørgsmål(spørgsmål: str, max_dele: int = 3) -> list[str]:
+    """Del et langt spørgsmål med flere led op i selvstændige søgeforespørgsler.
+
+    Med konfigureret LLM bruges et billigt hjælpekald; ellers deles der på
+    spørgsmålstegn. Korte spørgsmål returneres uopdelt (tom liste)."""
+    q = (spørgsmål or "").strip()
+    if len(q) < 140:
+        return []
+    svar = shared._llm_haiku(
+        "Del dette spørgsmål fra en skadesbehandler om ejerskifteforsikring op i de "
+        f"selvstændige juridiske delspørgsmål, det indeholder (højst {max_dele}). Hvert "
+        "delspørgsmål skal være en kort, selvstændig søgeforespørgsel med sagens relevante "
+        "faktum (bygningsdel, skadetype). Har spørgsmålet kun ét led, skriv: ET LED\n\n"
+        f"SPØRGSMÅL: {q}\n\nDELSPØRGSMÅL (ét pr. linje, ingen nummerering):",
+        max_tokens=200,
+    )
+    if svar and "ET LED" not in svar.upper():
+        dele = [re.sub(r"^[\s\-\*\d\.\)]+", "", linje).strip() for linje in svar.splitlines()]
+    else:
+        dele = [d.strip() + "?" for d in re.split(r"\?", q) if len(d.strip()) > 25]
+        if len(dele) < 2:
+            return []
+    dele = [d for d in dele if 10 <= len(d) <= 400]
+    return dele[:max_dele] if len(dele) >= 2 else []
+
+
 def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
                     top_retrieve=40, top_final=8, embeds=None, filter_options=None,
                     debug: dict | None = None):
@@ -614,6 +640,21 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
     # (fx en fugtsag med en generisk titel) kan stadig komme med.
     alle_hits = _do(ai_sub_idx)
     kand = alle_hits.to_dict("records") if len(alle_hits) > 0 else []
+    # Spørgsmål med flere led: søg også på hvert led, så kilderne dækker alle led
+    # og ikke kun det, der dominerer den samlede forespørgsel.
+    dele = del_spørgsmål(standalone)
+    if dele:
+        del_rangeringer = []
+        for del_q in dele:
+            idx = shared.hybrid_retrieval(del_q, df, vec, mat, embeds, sub_idx=ai_sub_idx,
+                                          top_retrieve=max(20, top_retrieve // 2),
+                                          top_final=max(10, top_retrieve // 3))
+            if idx:
+                del_rangeringer.append(df.iloc[idx].to_dict("records"))
+        if del_rangeringer:
+            kand = fuse_rankings([kand] + del_rangeringer, limit=top_retrieve)
+        if debug is not None:
+            debug["sub_questions"] = dele
     if prefiltered:
         filt_hits = _do(eff_sub)
         kand = fuse_rankings([filt_hits.to_dict("records") if len(filt_hits) else [], kand],
