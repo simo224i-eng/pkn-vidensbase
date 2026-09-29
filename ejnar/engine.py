@@ -856,11 +856,12 @@ _PÅSTAND_RX = [
     ("Delvis medhold", re.compile(r"\b(?:fik|gav)\b[^.\[\]\n]{0,30}?\bdelvis(?:t)?\s+medhold\b", re.I)),
     ("Ikke medhold", re.compile(
         rf"\b{_PARTER}\s+fik\s+ikke\s+medhold|\bfik\s+{_PARTER}\s+ikke\s+medhold|\bgav\s+ikke\s+(?:\d+\s+|en\s+)?{_PARTER}\s+medhold|"
-        r"\bselskabet\s+fik\s+medhold|\bgav\s+selskabet\s+medhold|"
+        r"\bselskabet\s+fik\s+medhold|\bgav\s+selskabet\s+medhold|\bgav\s+ikke\s+medhold|"
+        r"\bgav\s+medhold\s+til\s+selskabet|"
         r"\bklagen\s+blev\s+ikke\s+taget\s+til\s+følge|\bselskabet\s+blev\s+frifundet", re.I)),
     ("Medhold", re.compile(
         rf"\b{_PARTER}\s+fik\s+(?:fuldt\s+|fuld\s+|helt\s+)?medhold|\bfik\s+{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|\bgav\s+(?:\d+\s+|en\s+)?{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|"
-        r"\bklagen\s+blev\s+taget\s+til\s+følge", re.I)),
+        r"\bklagen\s+blev\s+taget\s+til\s+følge|\bgav\s+(?:fuldt\s+|helt\s+)?medhold\b(?!\s+til\s+selskab)", re.I)),
 ]
 _KLAUSUL_RX = re.compile(r"(?<=[.!?;:])\s+|\n+|,\s+(?=(?:men|mens|hvorimod|hvor|og\s+i)\b)|\s+(?=(?:mens|hvorimod)\b)")
 # Påstand → faktiske udfald, der er uforenelige med den. "Delvis medhold" i kilden er

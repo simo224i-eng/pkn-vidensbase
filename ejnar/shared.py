@@ -1086,6 +1086,22 @@ def _del_efter_rolle(kerne: str) -> list:
     return [(r, t) for r, t in dele if t.strip()]
 
 
+def _kendelsesdele(tekst: str, max_parter: int = 40_000, max_nævnet: int = 12_000) -> list:
+    """Kendelsens tekst delt i (rolle, tekst) til kontekstbyggeren.
+
+    Uden markør for nævnets del bruges kerneafsnittet (slutningen af teksten)."""
+    dele = _del_efter_rolle(tekst)
+    if len(dele) == 1 and not dele[0][0]:
+        return [("", udtræk_kerneafsnit(tekst, max_tegn=8000))]
+    out = []
+    for rolle, del_ in dele:
+        if rolle == ROLLE_NÆVNET:
+            out.append((rolle, del_[:max_nævnet]))
+        else:
+            out.append((rolle, del_[-max_parter:] if len(del_) > max_parter else del_))
+    return out
+
+
 def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
                             chunk_size: int = 120, max_total_chars: int = 26000) -> str:
     """Byg AI-konteksten: hver kilde får sit AKF-resumé (titlen) plus de mest
@@ -1118,22 +1134,30 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
     # 1. Chunk hvert dokument (små chunks → præcise passager)
     # Hver passage mærkes med, hvem der taler: modellen tilskrev ellers selskabets
     # eller klagers argumenter til nævnet (fundet ved udsagnsrevision).
+    # Hele kendelsen kan bidrage: tidligere kom kun de sidste 8.000 tegn med, så
+    # relevante passager tidligt i lange kendelser aldrig nåede modellen.
     all_chunks = []     # (kilde_idx, chunk_text)
+    bonus = []          # nævnets begrundelse foretrækkes ved lige relevans
     for i, d in enumerate(docs):
-        kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=8000)
-        for rolle, del_ in _del_efter_rolle(kerne):
+        for rolle, del_ in _kendelsesdele(d.get("Tekst") or ""):
             for c in chunk_tekst(del_, titel="", chunk_size=chunk_size, overlap=25):
                 all_chunks.append((i, f"({rolle}) {c}" if rolle else c))
+                bonus.append(0.05 if rolle == ROLLE_NÆVNET else 0.0)
 
     # 2. Scor chunks mod spørgsmålet
     scores = np.ones(len(all_chunks))
     if all_chunks:
         try:
-            mini_vec = DeterministicTfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
+            # Samme danske tokenizer (stemming + fagleksikon) som søgningen, så fx
+            # "rodindvækst" i spørgsmålet rammer "rødder" i kendelsen
+            mini_vec = DeterministicTfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True,
+                                                    tokenizer=dansk_tokenizer, token_pattern=None,
+                                                    lowercase=False)
             chunk_mat = mini_vec.fit_transform([c for _, c in all_chunks])
             scores = _cos(mini_vec.transform([query]), chunk_mat).flatten()
         except Exception:
             pass
+        scores = scores + np.asarray(bonus)
 
     from collections import defaultdict
     ranked = defaultdict(list)          # kilde → [(score, pos, chunk)] bedst først

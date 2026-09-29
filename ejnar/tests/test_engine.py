@@ -85,6 +85,10 @@ class OutcomeConflictTests(unittest.TestCase):
         svar = ("Af 5 kendelser gav 1 klager medhold ([Kilde 2]), og 2 gav selskabet medhold "
                 "([Kilde 1], [Kilde 3]).")
         self.assertEqual(self.check(svar), [])
+        svar = ("Én kendelse gav medhold [Kilde 2], én gav delvis medhold ([Kilde 3]) og én gav "
+                "ikke medhold ([Kilde 1]).")
+        self.assertEqual(self.check(svar), [])
+        self.assertEqual(self.check("To kendelser gav medhold ([Kilde 1], [Kilde 2])."), [(1, "Medhold")])
         # Opremsning med etiketter pr. kilde (fundet i praksissimulationen)
         svar = "- **Medhold eller delvis medhold:** [Kilde 3] (Delvis medhold), [Kilde 2] (Medhold)."
         self.assertEqual(self.check(svar), [])

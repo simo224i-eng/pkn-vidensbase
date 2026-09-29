@@ -33,9 +33,35 @@ python -m ejnar.evaluation.simulation.postprocess --run ejnar/evaluation/simulat
 - Bedømmerne er også modeller. Brug rapporten til at finde systematiske svagheder,
   ikke som endelig juridisk kvalitetssikring.
 
-## Objektiv kvalitetssikring: omvendt facit (`reverse_gold.py`)
+## Udsagnsrevision: holder hvert udsagn? (`claim_audit.py`)
 
-Her er facit nævnets egen afgørelse og ikke en models vurdering:
+Ejnar er et praksisværktøj, og kvaliteten afhænger af, om praksis gengives
+korrekt. Derfor efterprøves svar på rene praksisspørgsmål (`practice_cases.json`)
+udsagn for udsagn mod de kendelser, de henviser til. Det er mere objektivt end
+at give karakterer:
+
+1. `build_prompts` med `--cases practice_cases.json` bygger prompterne gennem den
+   rigtige pipeline, og en agent besvarer dem.
+2. `postprocess` kører de automatiske kontroller: citater, udfaldskonflikter og
+   ugyldige kildehenvisninger.
+3. `claim_audit pack` lægger svaret og hver citeret kendelses faktum og begrundelse
+   i `audit/<ID>.md`. En revisor-agent klassificerer hvert udsagn som
+   understøttet, delvist, ikke understøttet eller modsagt → `audit/claims*.json`.
+4. `claim_audit score` opgør andelen af understøttede og modsagte udsagn.
+
+```bash
+python -m ejnar.evaluation.simulation.build_prompts --cases ejnar/evaluation/simulation/practice_cases.json --out ejnar/evaluation/simulation/runs/p1
+python -m ejnar.evaluation.simulation.postprocess --run ejnar/evaluation/simulation/runs/p1
+python -m ejnar.evaluation.simulation.claim_audit pack  --run ejnar/evaluation/simulation/runs/p1
+python -m ejnar.evaluation.simulation.claim_audit score --run ejnar/evaluation/simulation/runs/p1
+```
+
+## Omvendt facit (`reverse_gold.py`)
+
+Denne test viser, om den fundne praksis peger i samme retning som nævnets
+afgørelse. Ejnar forudsiger ikke udfald i sine svar. Instruktionen om en
+udfaldslinje findes kun i testen. Her er facit nævnets egen afgørelse og ikke
+en models vurdering:
 
 1. `sample` udtrækker kendelser, stratificeret på udfald, og viser kun sagens
    faktum. Udfald og nævnets begrundelse fjernes automatisk.
