@@ -32,6 +32,13 @@ if str(EJNAR) not in sys.path:
     sys.path.insert(0, str(EJNAR))
 
 VERDICTS = ["understøttet", "delvist", "ikke_understøttet", "modsagt"]
+_ALIAS = {"delvis": "delvist", "ikke understøttet": "ikke_understøttet", "ikke_understottet": "ikke_understøttet"}
+
+
+def _verdict(value: str) -> str:
+    v = str(value or "").strip().lower()
+    v = _ALIAS.get(v, v)
+    return v if v in VERDICTS else "ikke_understøttet"
 
 
 def _source_text(tekst: str, facts_chars: int = 3000, core_chars: int = 9000) -> str:
@@ -81,7 +88,7 @@ def score(run: Path) -> dict:
     total = Counter()
     rows = []
     for item in claims:
-        c = Counter(cl.get("verdict", "ikke_understøttet") for cl in item.get("claims", []))
+        c = Counter(_verdict(cl.get("verdict")) for cl in item.get("claims", []))
         total.update(c)
         checks_path = run / f"{item['id']}.checks.json"
         checks = json.loads(checks_path.read_text(encoding="utf-8")) if checks_path.exists() else {}

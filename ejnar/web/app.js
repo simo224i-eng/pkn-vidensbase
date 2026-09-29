@@ -419,18 +419,33 @@ function withCiteTitles(html, sources) {
   });
 }
 
-function citedNumbers(text) {
+// Kildenumre i en henvisning: "3", "3, 5 og 7", "2–8" (interval) og "14, basisdækning"
+function refNumbers(g) {
   const out = [];
-  for (const m of text.matchAll(/\[Kilde[r]?\s+([^\]]+)\]/gi)) for (const n of m[1].match(/\d+/g) || []) if (!out.includes(+n)) out.push(+n);
+  for (const m of String(g).matchAll(/(\d+)\s*[–—-]\s*(\d+)|\d+/g)) {
+    const a = +(m[1] || m[0]), b = +(m[2] || m[0]);
+    for (let n = a; n <= Math.min(b, a + 30); n++) if (!out.includes(n)) out.push(n);
+  }
   return out;
 }
+const REF_RE = /\[Kilde[r]?\s+(\d[^\]]{0,80})\]/gi;
+function citedNumbers(text) {
+  const out = [];
+  for (const m of text.matchAll(REF_RE)) for (const n of refNumbers(m[1])) if (!out.includes(n)) out.push(n);
+  return out;
+}
+// Tekst i en henvisning ud over numrene, fx "basisdækning" i "[Kilde 14, basisdækning]"
+const refNote = (g) => String(g).replace(/\d+\s*[–—-]\s*\d+|\d+|,|\bog\b|\bKilde[r]?\b/gi, " ").replace(/\s+/g, " ").trim();
 
 // Lille, sikker markdown-renderer: escaper først og tillader kun et fast sæt elementer.
 function inline(s) {
   s = esc(s);
   s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[\s(])\*(?!\s)([^*]+?)\*(?=[\s).,;:!?]|$)/g, "$1<em>$2</em>");
-  s = s.replace(/\[Kilde[r]?\s+((?:\d+|,|\s|og|Kilde)+)\]/gi, (_, g) =>
-    (g.match(/\d+/g) || []).map((n) => `<button class="cite" data-act="cite" data-n="${n}" aria-label="Kilde ${n}">${n}</button>`).join(""));
+  s = s.replace(REF_RE, (_, g) => {
+    const note = refNote(g);
+    return refNumbers(g).map((n) => `<button class="cite" data-act="cite" data-n="${n}" aria-label="Kilde ${n}">${n}</button>`).join("") +
+      (note ? ` <span class="cite-note">(${note})</span>` : "");
+  });
   return s;
 }
 function md(src) {
@@ -534,8 +549,8 @@ function copyAnswer(idx) {
   const a = activeThread()?.messages[idx];
   if (!a) return;
   const byN = Object.fromEntries((a.sources || []).map((s) => [s.n, s]));
-  const text = a.content.replace(/\[Kilde[r]?\s+((?:\d+|,|\s|og|Kilde)+)\]/gi, (_, g) => {
-    const refs = (g.match(/\d+/g) || []).map((n) => byN[n]).filter(Boolean).map((s) => `AKF ${s.case_number || "u.nr."}, ${fmtD(s)}`);
+  const text = a.content.replace(REF_RE, (_, g) => {
+    const refs = refNumbers(g).map((n) => byN[n]).filter(Boolean).map((s) => `AKF ${s.case_number || "u.nr."}, ${fmtD(s)}`);
     return refs.length ? `(${refs.join("; ")})` : "";
   });
   const cited = citedNumbers(a.content).map((n) => byN[n]).filter(Boolean);

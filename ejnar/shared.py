@@ -997,6 +997,19 @@ _FAGLEKSIKON = {
     "rodindtrængninger": ("rødder", "indtrængning"),
     "rodvækst": ("rødder",),
 }
+# Ord, som stemmeren ellers slår sammen med et andet ord ("rødder" → "rød" som i farven)
+_STEM_BESKYTTET = {"rødder": "rødder", "rødderne": "rødder"}
+
+
+def udvid_fagtermer(query: str) -> str:
+    """Tilføj nævnets ordvalg for fagtermer i forespørgslen ("rodindvækst" → "rødder"),
+    så alle søgekomponenter (TF-IDF, afsnits-BM25, embeddings) rammer kendelserne."""
+    ekstra = []
+    for ord_ in _TOKEN_RE.findall((query or "").lower()):
+        for x in _FAGLEKSIKON.get(ord_, ()):
+            if x != ord_ and x not in ekstra and x not in query.lower():
+                ekstra.append(x)
+    return f"{query} {' '.join(ekstra)}" if ekstra else query
 
 
 def dansk_tokenizer(text: str) -> list:
@@ -1007,7 +1020,7 @@ def dansk_tokenizer(text: str) -> list:
     tokens = [x for t in _TOKEN_RE.findall(text.lower()) for x in _FAGLEKSIKON.get(t, (t,))]
     if stemmer is None:
         return tokens
-    return [stemmer.stem(t) for t in tokens]
+    return [_STEM_BESKYTTET[t] if t in _STEM_BESKYTTET else stemmer.stem(t) for t in tokens]
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer as _SkTfidfVectorizer

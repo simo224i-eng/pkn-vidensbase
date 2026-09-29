@@ -549,6 +549,7 @@ def relevans_søg(query: str, df: pd.DataFrame, vec, mat, embeds=None, sub_idx=N
     if vec is None or mat is None or not (query or "").strip():
         return []
     sub = sub_idx if sub_idx is not None else list(range(len(df)))
+    query = shared.udvid_fagtermer(query)
     lex = shared.hybrid_retrieval(query, df, vec, mat, None, sub_idx=sub,
                                   top_retrieve=max(60, top_n), top_final=top_n)
     if embeds is None:
@@ -712,7 +713,7 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
 
     def _do(sub):
         if embeds is not None:
-            fused = shared.hybrid_retrieval(tfidf_query, df, vec, mat, embeds, sub_idx=sub,
+            fused = shared.hybrid_retrieval(shared.udvid_fagtermer(tfidf_query), df, vec, mat, embeds, sub_idx=sub,
                                             top_retrieve=top_retrieve, top_final=top_retrieve)
             if fused:
                 h = df.iloc[fused].copy()
@@ -734,7 +735,7 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
     if dele:
         del_rangeringer = []
         for del_q in dele:
-            idx = shared.hybrid_retrieval(del_q, df, vec, mat, embeds, sub_idx=ai_sub_idx,
+            idx = shared.hybrid_retrieval(shared.udvid_fagtermer(del_q), df, vec, mat, embeds, sub_idx=ai_sub_idx,
                                           top_retrieve=max(20, top_retrieve // 2),
                                           top_final=max(10, top_retrieve // 3))
             if idx:
@@ -901,21 +902,34 @@ def udfaldskonflikter(svar: str, kilder: list) -> list[dict]:
         påstande = [p for i, p in enumerate(påstande) if i == 0 or p[0] != påstande[i - 1][0]]
         if not påstande:
             continue
-        for ref in re.finditer(r"\[Kilde[r]?\s+([\d,\s]+)\]", klausul, flags=re.I):
+        for ref in KILDE_REF_RX.finditer(klausul):
             # Henvisningen hører til den nærmeste påstand før den (ellers den første efter)
             før = [label for pos, label in påstande if pos < ref.start()]
             påstand = før[-1] if før else påstande[0][1]
-            for n in (int(x) for x in re.findall(r"\d+", ref.group(1))):
+            for n in kildenumre(ref.group(1)):
                 tjek(n, påstand, klausul)
     return konflikter
+
+
+KILDE_REF_RX = re.compile(r"\[Kilde[r]?\s+(\d[^\]]{0,80})\]", re.IGNORECASE)
+
+
+def kildenumre(henvisning: str) -> list[int]:
+    """Numrene i en henvisning: "3", "3, 5 og 7", "2–8" og "14, basisdækning"."""
+    out: list[int] = []
+    for a, b, enkelt in re.findall(r"(\d+)\s*[–—-]\s*(\d+)|(\d+)", henvisning or ""):
+        start, slut = (int(a), int(b)) if a else (int(enkelt), int(enkelt))
+        for n in range(start, min(slut, start + 30) + 1):
+            if n not in out:
+                out.append(n)
+    return out
 
 
 def citerede_kilder(svar: str, antal: int) -> list[int]:
     """1-baserede kildenumre, som svaret faktisk henviser til, i rækkefølge."""
     set_: list[int] = []
-    for grp in re.findall(r"\[Kilde\s+([\d,\s]+)\]", svar or "", flags=re.IGNORECASE):
-        for n in re.findall(r"\d+", grp):
-            i = int(n)
+    for grp in KILDE_REF_RX.findall(svar or ""):
+        for i in kildenumre(grp):
             if 1 <= i <= antal and i not in set_:
                 set_.append(i)
     return set_

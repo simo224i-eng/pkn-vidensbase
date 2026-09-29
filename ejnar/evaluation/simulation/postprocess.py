@@ -29,8 +29,7 @@ def auto_checks(answer: str, sources: list[dict], texts_by_n: dict[int, str] | N
                 question: str = "") -> dict:
     import engine
 
-    refs = [int(n) for g in re.findall(r"\[Kilde[r]?\s+([^\]]+)\]", answer, flags=re.I)
-            for n in re.findall(r"\d+", g)]
+    refs = [n for g in engine.KILDE_REF_RX.findall(answer) for n in engine.kildenumre(g)]
     cited = engine.citerede_kilder(answer, len(sources))
     suspect = []
     conflicts = engine.udfaldskonflikter(answer, [{"Udfald": s.get("outcome", "")} for s in sources])

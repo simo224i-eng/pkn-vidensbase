@@ -42,6 +42,26 @@ class SpeakerLabelTests(unittest.TestCase):
         self.assertEqual(shared._del_efter_rolle("Ingen markør her."), [("", "Ingen markør her.")])
 
 
+class DomainLexiconTests(unittest.TestCase):
+    def test_user_terms_map_to_board_wording(self):
+        import shared
+
+        self.assertEqual(shared.udvid_fagtermer("rodindvækst i kloak"), "rodindvækst i kloak rødder")
+        self.assertEqual(shared.udvid_fagtermer("skimmel på loft"), "skimmel på loft")
+        # "rødder" må ikke stemmes sammen med farven "rød"
+        toks = shared.dansk_tokenizer("rødder røde rodindvækst")
+        self.assertEqual(toks[0], "rødder")
+        self.assertNotEqual(toks[0], toks[1])
+        self.assertIn("rødder", toks[2:])
+
+
+class CitationParsingTests(unittest.TestCase):
+    def test_ranges_and_annotated_references(self):
+        svar = "Se [Kilde 2–4], [Kilde 14, basisdækning] og [Kilder 6 og 8]."
+        self.assertEqual(engine.citerede_kilder(svar, 20), [2, 3, 4, 14, 6, 8])
+        self.assertEqual(engine.kildenumre("1-3, 5"), [1, 2, 3, 5])
+
+
 class CoverageDetectionTests(unittest.TestCase):
     def test_board_statement_of_policy_wins(self):
         self.assertEqual(engine.detect_daekning("Forsikringstageren har 5-årig ejerskifteforsikring med udvidet dækning."), "Udvidet")

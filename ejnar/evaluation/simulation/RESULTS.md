@@ -37,7 +37,52 @@ Begge bedømmere fremhævede, at forskellen skyldes kildegrundlaget og ikke
 formuleringerne. Når begge svar havde alle kilder (S07, S08), var de næsten
 lige gode.
 
-## Omvendt facit: kan Ejnar forudsige nævnets afgørelse?
+## Udsagnsrevision: gengives praksis korrekt?
+
+Ejnar er et praksisværktøj. Derfor er det vigtigste mål, om svarene gengiver
+kendelserne korrekt. 12 rene praksisspørgsmål (`practice_cases.json`) blev
+besvaret gennem den rigtige pipeline. Fire revisor-agenter efterprøvede derefter
+hvert udsagn mod den kendelse, det henviser til (`claim_audit.py`).
+
+| | Runde 1 | Runde 2 |
+|---|---|---|
+| Udsagn efterprøvet | 276 | 284 |
+| Fuldt understøttet | 73,2 % | **79,6 %** |
+| Mindst delvist understøttet | 94,6 % | 94,4 % |
+| Modsagt af kilden | 6 | **4** |
+| Forkert gengivet udfald (automatisk kontrol) | 0 | 0 |
+
+**Fejl fundet i runde 1 og rettet før runde 2:**
+- *Dækningsniveau (basis/udvidet):* detektoren fandt kun niveauet i 30 % af
+  kendelserne og tog i nogle tilfælde fejl, fx når klager argumenterede ud fra
+  udvidet dækning. Den læser nu først nævnets faste formulering om policen,
+  inkl. resuméet, orddelte PDF-ord og nægtelser. Niveauet kendes nu i 51 %.
+  Præcision i en blind stikprøve: Basis 15/15, Udvidet 14/15.
+- *Parternes argumenter tilskrevet nævnet:* hver passage i konteksten er nu
+  mærket som enten "Sagsfremstilling og parternes synspunkter" eller "Nævnets
+  begrundelse og afgørelse". Prompten forbyder at tilskrive nævnet parternes
+  synspunkter.
+- *Én kendelse gjort til fast praksis:* prompten kræver nu flere kendelser bag
+  en generel regel. Ellers skal svaret skrive "i én kendelse …".
+- *Fagtermer:* "rodindvækst" står i 0 kendelser, mens nævnet skriver "rødder"
+  (56 kendelser). Et lille fagleksikon oversætter termen, og "rødder" stemmes ikke
+  længere sammen med farven "rød". Søgningen "rodindvækst kloak" gav før 1 og nu
+  10 af 10 relevante kendelser i top-10.
+
+**Fundet i runde 2 og rettet efterfølgende (ikke målt endnu):**
+- Konteksten brugte kun de sidste 8.000 tegn af hver kendelse. Relevante
+  passager tidligt i lange kendelser nåede derfor aldrig modellen. Nu kan hele
+  kendelsen bidrage, og nævnets begrundelse prioriteres.
+- Henvisninger som "[Kilde 2–8]" og "[Kilde 14, basisdækning]" blev ikke
+  genkendt, hverken i appen eller i revisionen.
+
+**Tilbageværende fejltyper:** svar, der tillægger nævnet et citat fra en del af
+kendelsen, der ikke er med i uddraget, og for brede "kun/ingen"-udsagn om
+kilderne. Metodeforbehold: revisorerne så et uddrag (faktum + nævnets
+begrundelse), ikke hele kendelsen. Nogle "ikke understøttet" kan derfor stå i
+den udeladte del.
+
+## Omvendt facit: peger praksis i den rigtige retning?
 
 Her er facit nævnets egen afgørelse og ikke en models vurdering (`reverse_gold.py`).
 Testen brugte 20 tilfældige kendelser fra 2012 og frem, udtrukket stratificeret:
