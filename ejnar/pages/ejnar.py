@@ -20,7 +20,6 @@ from shared import (
     get_embed_error, llm_tilgaengelig, llm_label,
 )
 import engine
-from engine import tfidf_søg
 
 
 LLM_AKTIV = llm_tilgaengelig()
@@ -229,7 +228,9 @@ if st.session_state.get("_filter_sig") != _filter_sig:
 _vis_antal = st.session_state.get("vis_antal", 25)
 
 if søg_input.strip() and søge_type == "Intelligent":
-    df_vis = tfidf_søg(søg_input.strip(), df, vec, mat, sub_idx=sub_idx)
+    # Samme LLM-frie hybrid-relevans som API'et (TF-IDF + paragraf-BM25 + embeddings)
+    _idx = engine.relevans_søg(søg_input.strip(), df, vec, mat, embeds, sub_idx=sub_idx, top_n=200)
+    df_vis = df.iloc[_idx].reset_index(drop=True) if _idx else df.iloc[0:0]
     ai_sub_idx = sub_idx
 elif søg_input.strip():
     _q = søg_input.strip()

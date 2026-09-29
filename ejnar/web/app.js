@@ -4,6 +4,7 @@
 const $ = (sel, el = document) => el.querySelector(sel);
 const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const safeUrl = (u) => (/^https?:\/\//i.test(String(u || "")) ? String(u) : "#");
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
 const fmtNum = (n) => new Intl.NumberFormat("da-DK").format(n ?? 0);
 const _df = new Intl.DateTimeFormat("da-DK", { day: "numeric", month: "short", year: "numeric" });
@@ -808,7 +809,7 @@ function renderReader() {
           <button class="btn ghost sm" data-act="summary" ${r.sumLoading || r.summary || !state.health?.llm ? "disabled" : ""}>${icon("spark")}Resumé</button>
           <button class="btn ghost sm" data-act="copy-ref">${icon("copy")}Reference</button>
           <button class="btn ghost sm ${saved ? "on" : ""}" data-act="save">${icon("bookmark")}${saved ? "Gemt" : "Gem"}</button>
-          <a class="btn sm" href="${esc(d.link)}" target="_blank" rel="noopener">${icon("ext")}Original</a>` : ""}
+          <a class="btn sm" href="${esc(safeUrl(d.link))}" target="_blank" rel="noopener noreferrer">${icon("ext")}Original</a>` : ""}
       </div>
       <div class="drawer-body">${body}</div>
     </div>`;
