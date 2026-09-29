@@ -11,3 +11,4 @@ pkn_udkast/.streamlit/secrets.toml
 ejnar/ejnar_ejerskifteforsikring.csv
 ejnar/.evaluation_tmp/
 ejnar/evaluation/simulation/__pycache__/
+ejnar/evaluation/simulation/runs/
