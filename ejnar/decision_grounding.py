@@ -189,9 +189,41 @@ def _inline_board_start(paragraph: str) -> int | None:
     return best
 
 
+# Parternes indlæg ("Selskabet har anført ...") kommer før nævnets egen begrundelse.
+_PARTY_ARGUMENT_RE = re.compile(
+    r"\b(?:klageren|klager|selskabet|forsikringsselskabet)\s+(?:har\s+)?"
+    r"(?:anført|anfører|gjort\s+gældende|gør\s+gældende|bestrider|bestridt)",
+    flags=re.IGNORECASE,
+)
+
+
+_BOARD_STATES_RE = re.compile(r"\b(?:anke)?nævnet\s+udtaler\b", flags=re.IGNORECASE)
+
+
 def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
     cleaned = [re.sub(r"\s+", " ", str(paragraph or "")).strip() for paragraph in paragraphs]
     cleaned = [paragraph for paragraph in cleaned if paragraph]
+    # Lange kendelser kan citere en TIDLIGERE kendelse (med dens "Nævnet finder ...")
+    # midt i sagsfremstillingen. Nævnets egentlige begrundelse kommer efter parternes
+    # sidste indlæg, så start derfra, når der findes nævnsformuleringer efter det.
+    # 1) En eksplicit "Nævnet udtaler:" markerer starten på nævnets egen del.
+    udtaler = [i for i, p in enumerate(cleaned) if _BOARD_STATES_RE.search(p)]
+    if udtaler:
+        index = udtaler[-1]
+        start = _BOARD_STATES_RE.search(cleaned[index]).start()
+        return [cleaned[index][start:].strip()] + cleaned[index + 1:]
+    # 2) Ellers: første nævnsformulering efter parternes sidste indlæg. Afsnit, der
+    #    selv nævner nævnet, er nævnets tekst (som ofte refererer parterne), ikke indlæg.
+    last_party = max(
+        (i for i, p in enumerate(cleaned)
+         if _PARTY_ARGUMENT_RE.search(p) and "nævn" not in p.lower()),
+        default=-1,
+    )
+    if last_party >= 0:
+        for index in range(last_party + 1, len(cleaned)):
+            start = _inline_board_start(cleaned[index])
+            if start is not None:
+                return [cleaned[index][start:].strip()] + cleaned[index + 1:]
     for index, paragraph in enumerate(cleaned):
         start = _inline_board_start(paragraph)
         if start is None:
