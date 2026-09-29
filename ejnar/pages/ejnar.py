@@ -26,11 +26,11 @@ from shared import (
     byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
     valider_citationer, dansk_tokenizer, byg_fokuseret_kontekst,
     klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
-    auto_filter_query, apply_auto_filters,
+    auto_filter_query, apply_auto_filters, llm_tilgaengelig, llm_label,
 )
 
 
-ANTHROPIC_API_KEY = st.secrets.get("ANTHROPIC_API_KEY", "")
+LLM_AKTIV = llm_tilgaengelig()
 
 
 # ── Mangeltype-detektion (samme liste som scrape_ejnar.py) ───────────────────
@@ -379,19 +379,19 @@ def _byg_prompt(spørgsmål, docs, historik=None):
 
 
 def claude_svar(spørgsmål, docs, historik=None):
-    if not ANTHROPIC_API_KEY:
-        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
+    if not LLM_AKTIV:
+        return "Ingen LLM konfigureret – se LLM_PROVIDER/LLM_API_KEY i Streamlit secrets."
     return _llm(_byg_prompt(spørgsmål, docs, historik))
 
 
 def claude_svar_stream(spørgsmål, docs, historik=None, placeholder=None):
-    if not ANTHROPIC_API_KEY:
-        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets."
+    if not LLM_AKTIV:
+        return "Ingen LLM konfigureret – se LLM_PROVIDER/LLM_API_KEY i Streamlit secrets."
     return _llm_stream(_byg_prompt(spørgsmål, docs, historik), placeholder=placeholder)
 
 
 def claude_resumé(titel, tekst):
-    if not ANTHROPIC_API_KEY:
+    if not LLM_AKTIV:
         return "Ingen API-nøgle."
     kerne = udtræk_kerneafsnit(tekst, max_tegn=6000)
     prompt = f"""Lav et kort, struktureret resumé af denne kendelse fra Ankenævnet for Forsikring
@@ -923,9 +923,11 @@ with tab_ai:
                 icon="ℹ️",
             )
 
-    if not ANTHROPIC_API_KEY:
-        st.error("Tilføj `ANTHROPIC_API_KEY` i Streamlit secrets.")
+    if not LLM_AKTIV:
+        st.error("Ingen LLM konfigureret. Tilføj `ANTHROPIC_API_KEY` eller `LLM_PROVIDER` + "
+                 "`LLM_API_KEY` i Streamlit secrets (se ejnar/README.md).")
     else:
+        st.caption(f"Model: {llm_label()}")
         if mangel_valg and len(mangel_valg) == 1:
             ctx = mangel_valg[0].lower()
             forslag = [

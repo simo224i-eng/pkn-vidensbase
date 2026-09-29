@@ -43,6 +43,24 @@ VOYAGE_API_KEY     = "..."     # valgfri – aktiverer hybrid semantisk søgning
 GITHUB_TOKEN       = "..."     # valgfri – auto-pusher byggede embeddings til repoet
 ```
 
+### Billig LLM i stedet for Claude (valgfrit)
+
+Alle LLM-kald går gennem `llm_provider.py`. Uden ekstra secrets bruges Claude
+som hidtil. Vil du bruge en billigere model, skal du tilføje fx:
+
+```toml
+LLM_PROVIDER = "gemini"        # deepseek | gemini | openai | openrouter | groq | mistral | openai_compatible
+LLM_API_KEY  = "..."
+# LLM_MODEL      = "..."       # hovedmodel til svar (valgfri, preset-default bruges ellers)
+# LLM_FAST_MODEL = "..."       # hurtig model til omskrivning/rerank/HyDE (valgfri)
+# LLM_BASE_URL   = "..."       # kun til openai_compatible (fx Ollama/vLLM)
+```
+
+Kald der i koden beder om Haiku, går til `LLM_FAST_MODEL`. Alle andre kald går
+til `LLM_MODEL`. Embeddings og rerank bruger stadig Voyage, fordi den gemte
+embedding-cache er bygget med `voyage-3-large`. Det koster næsten intet pr. søgning.
+Du kan også blive på Claude og spare ved at sætte `LLM_MODEL = "claude-haiku-4-5-20251001"`.
+
 ## Workflow ved data-opdatering
 
 1. **Scrape data fra AKF** (kør lokalt — sandbox må ikke ramme ankeforsikring.dk):
