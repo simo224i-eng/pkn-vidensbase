@@ -163,11 +163,13 @@ class Filters(BaseModel):
     defect_types: list[str] = Field(default_factory=list, description="Mangeltyper, fx 'Skimmel/fugt'.")
     companies: list[str] = Field(default_factory=list, description="Forsikringsselskaber.")
     outcomes: list[Udfald] = Field(default_factory=list)
+    coverage: list[Literal["Udvidet", "Basis", "Ikke angivet"]] = Field(
+        default_factory=list, description="Dækningstype: basis- eller udvidet ejerskifteforsikring.")
 
     def sub_idx(self, c: engine.Corpus):
         return c.sub_idx(år_fra=self.year_from, år_til=self.year_to,
                          mangeltyper=self.defect_types, selskaber=self.companies,
-                         udfald=self.outcomes)
+                         udfald=self.outcomes, daekning=self.coverage)
 
 
 class SearchRequest(BaseModel):
@@ -191,6 +193,7 @@ class Decision(BaseModel):
     company: str
     outcome: str
     defect_types: list[str]
+    coverage: str = "Ikke angivet"
     link: str
     snippet: str
     score: float | None = None
@@ -249,6 +252,7 @@ def _to_decision(rec: dict, query: str = "", score=None, full: bool = False) -> 
         "company": str(rec.get("Selskab") or ""),
         "outcome": str(rec.get("Udfald") or "Ukendt"),
         "defect_types": list(rec.get("Mangeltype") or []),
+        "coverage": str(rec.get("Dækning") or "Ikke angivet"),
         "link": str(rec.get("Link") or ""),
         "snippet": engine.snippet(rec.get("Tekst", ""), query),
         "score": None if score is None or pd.isna(score) else round(float(score), 4),
@@ -308,6 +312,8 @@ def meta():
         "companies": c.options.get("Selskab", []),
         "outcomes": engine.UDFALD,
         "outcome_counts": {k: int(v) for k, v in df["Udfald"].value_counts().items()},
+        "coverage": engine.DAEKNING,
+        "coverage_counts": {k: int(v) for k, v in df["Dækning"].value_counts().items()} if "Dækning" in df else {},
     }
 
 
@@ -382,6 +388,7 @@ def stats(req: StatsRequest):
         "by_year": by_year,
         "by_defect": _group(base, "Mangeltype", explode=True) if len(base) else [],
         "by_company": _group(base, "Selskab", limit=15) if len(base) else [],
+        "by_coverage": _group(base, "Dækning") if len(base) and "Dækning" in base else [],
     }
 
 

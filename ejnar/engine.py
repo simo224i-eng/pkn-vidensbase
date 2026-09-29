@@ -190,10 +190,38 @@ def detect_udfald_ejnar(titel: str, tekst: str, csv_udfald: str = "") -> str:
     return "Ukendt"
 
 
+# Dækningstype: basis vs. udvidet ejerskifteforsikring. Negationer ("uden udvidet
+# dækning", "ikke tegnet udvidet") vurderes før positive formuleringer.
+DAEKNING = ["Udvidet", "Basis", "Ikke angivet"]
+_DAEKNING_NEG = re.compile(
+    r"ikke\s+(?:har\s+|havde\s+)?(?:tegnet|købt|valgt)\s+(?:en\s+|den\s+)?(?:udvidet|tillægs)|"
+    r"uden\s+(?:den\s+)?udvidet\w*\s+(?:dækning|ejerskifte|forsikring)|"
+    r"ikke\s+(?:var\s+)?omfattet\s+af\s+(?:den\s+)?udvide|"
+    r"(?:kun|alene)\s+(?:havde\s+)?(?:tegnet\s+)?(?:en\s+)?basis",
+    re.IGNORECASE,
+)
+_DAEKNING_POS = re.compile(
+    r"(?:har|havde|var)\s+(?:også\s+)?(?:tegnet|købt|valgt)\s+(?:en\s+|den\s+)?(?:udvidet|tillægs)|"
+    r"(?:med|omfattet\s+af)\s+(?:den\s+|en\s+)?udvidet\w*\s+(?:dækning|ejerskifte|forsikring)|"
+    r"udvidet\s+(?:ejerskifte)?(?:forsikring|dækning)\w*\s+(?:var|er)\s+tegnet|"
+    r"udvidede\s+dækning|udvidet\s+dækning\s+(?:omfatter|dækker)",
+    re.IGNORECASE,
+)
+
+
+def detect_daekning(tekst: str) -> str:
+    t = (tekst or "")[:20000]
+    if _DAEKNING_NEG.search(t):
+        return "Basis"
+    if _DAEKNING_POS.search(t):
+        return "Udvidet"
+    return "Ikke angivet"
+
+
 # ── Data ──────────────────────────────────────────────────────────────────────
 COLUMNS = [
     "Id", "Dato", "Titel", "Link", "Tekst", "Excerpt", "Sagsnummer",
-    "Selskab", "Udfald", "Mangeltype", "Forsikringstype", "År",
+    "Selskab", "Udfald", "Mangeltype", "Forsikringstype", "År", "Dækning",
 ]
 
 
@@ -284,6 +312,7 @@ def prepare_frame(rows: list) -> pd.DataFrame:
         for t, tx, u in zip(df["Titel"], df["Tekst"], df["Udfald"])
     ]
 
+    df["Dækning"] = [detect_daekning(tx) for tx in df["Tekst"]]
     df["Selskab"] = df["Selskab"].fillna("").astype(str)
     return df
 
@@ -381,7 +410,7 @@ def filter_options(df: pd.DataFrame) -> dict:
 
 
 def filter_mask(df: pd.DataFrame, år_fra=None, år_til=None, mangeltyper=None,
-                selskaber=None, udfald=None) -> pd.Series:
+                selskaber=None, udfald=None, daekning=None) -> pd.Series:
     mask = pd.Series(True, index=df.index)
     if år_fra is not None:
         mask &= df["År"].fillna(0) >= int(år_fra)
@@ -394,6 +423,8 @@ def filter_mask(df: pd.DataFrame, år_fra=None, år_til=None, mangeltyper=None,
         mask &= df["Selskab"].isin(list(selskaber))
     if udfald:
         mask &= df["Udfald"].isin(list(udfald))
+    if daekning and "Dækning" in df.columns:
+        mask &= df["Dækning"].isin(list(daekning))
     return mask
 
 

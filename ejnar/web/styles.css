@@ -462,7 +462,7 @@ button.bd-row:hover { background: var(--hover); }
 .drawer-body { overflow-y: auto; padding: 32px 48px 72px; }
 .doc-h { font: 400 26px/1.25 var(--serif); letter-spacing: -.01em; margin: 12px 0 14px; }
 .doc-sum { font: 400 16px/1.6 var(--serif); color: var(--ink-2); margin: 0 0 18px; }
-.doc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; margin-bottom: 22px; }
+.doc-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; margin-bottom: 22px; }
 .doc-grid > div { background: var(--panel); padding: 10px 12px; }
 .doc-grid dt { font-size: 11px; color: var(--ink-3); margin-bottom: 2px; }
 .doc-grid dd { margin: 0; font-size: 13px; overflow: hidden; text-overflow: ellipsis; }
@@ -542,6 +542,7 @@ button.bd-row:hover { background: var(--hover); }
   .res-side { grid-column: 1; grid-row: auto; flex-direction: row; align-items: center; order: -1; }
   .drawer-body { padding: 24px 18px 56px; }
   .doc-grid { grid-template-columns: 1fr 1fr; }
+  .doc-grid > div:last-child { grid-column: 1 / -1; }
   .seg button { padding: 0 8px; }
   .kpis { grid-template-columns: 1fr 1fr; }
   .grid2 { grid-template-columns: 1fr; }

@@ -89,7 +89,7 @@ const state = {
   focusTurn: null,
   hotCite: null,
   draft: "",
-  filters: store.get("filters", { outcomes: [], defect_types: [], companies: [], year_from: null, year_to: null }),
+  filters: { outcomes: [], defect_types: [], companies: [], coverage: [], year_from: null, year_to: null, ...store.get("filters", {}) },
   pop: null,
   popQuery: "",
   insight: { q: "", data: null, loading: false, error: "", ran: false },
@@ -126,13 +126,13 @@ const apiJson = async (path, opts) => (await api(path, opts)).json();
 
 function filtersBody(f = state.filters) {
   return {
-    outcomes: f.outcomes, defect_types: f.defect_types, companies: f.companies,
+    outcomes: f.outcomes, defect_types: f.defect_types, companies: f.companies, coverage: f.coverage || [],
     year_from: f.year_from || null, year_to: f.year_to || null,
   };
 }
 const activeFilterCount = () => {
   const f = state.filters;
-  return f.outcomes.length + f.defect_types.length + f.companies.length + (f.year_from || f.year_to ? 1 : 0);
+  return f.outcomes.length + f.defect_types.length + f.companies.length + (f.coverage || []).length + (f.year_from || f.year_to ? 1 : 0);
 };
 
 // ── Render: skal og navigation ───────────────────────────────────────────────
@@ -231,6 +231,7 @@ function renderFilters() {
     ${pill("outcomes", "Udfald", f.outcomes, (x) => x)}
     ${pill("defect_types", "Mangeltype", f.defect_types, (x) => x)}
     ${pill("companies", "Selskab", f.companies, (x) => x.replace(/,.*$/, ""))}
+    ${pill("coverage", "Dækning", f.coverage || [], (x) => x)}
     ${pill("years", "År", years, (x) => x)}
   </div>`;
 }
@@ -249,8 +250,9 @@ function renderPop(key) {
       </div>
     </div>`;
   }
-  const all = key === "outcomes" ? OUTCOMES : key === "defect_types" ? state.meta.defect_types : state.meta.companies;
-  const counts = key === "outcomes" ? state.meta.outcome_counts || {} : {};
+  const all = key === "outcomes" ? OUTCOMES : key === "defect_types" ? state.meta.defect_types
+    : key === "coverage" ? (state.meta.coverage || ["Udvidet", "Basis", "Ikke angivet"]) : state.meta.companies;
+  const counts = key === "outcomes" ? state.meta.outcome_counts || {} : key === "coverage" ? state.meta.coverage_counts || {} : {};
   const q = state.popQuery.toLowerCase();
   const list = all.filter((x) => !q || x.toLowerCase().includes(q));
   const sel = new Set(state.filters[key]);
@@ -325,7 +327,7 @@ function renderAssistant() {
 
 function filterChips(f) {
   if (!f) return "";
-  const parts = [...(f.outcomes || []), ...(f.defect_types || []), ...(f.companies || [])];
+  const parts = [...(f.outcomes || []), ...(f.defect_types || []), ...(f.companies || []), ...(f.coverage || []).map((c) => `${c} dækning`)];
   if (f.year_from || f.year_to) parts.push(`${f.year_from || "…"}–${f.year_to || "…"}`);
   return parts.length ? `<div class="q-filters">${parts.map((p) => `<span class="tag">${esc(p)}</span>`).join("")}</div>` : "";
 }
@@ -575,7 +577,7 @@ function renderResult(d, q) {
     ${rest ? `<div class="res-sum">${q ? highlight(rest, q) : esc(rest)}</div>` : ""}
     ${snip}
     <div class="meta"><span class="num">AKF ${esc(d.case_number || "—")}</span><span class="sep"></span><span>${fmtDate(d.date)}</span>${d.company ? `<span class="sep"></span><span>${esc(d.company.replace(/,.*$/, ""))}</span>` : ""}</div>
-    <div class="res-side">${badge(d.outcome)}${(d.defect_types || []).slice(0, 2).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+    <div class="res-side">${badge(d.outcome)}${d.coverage && d.coverage !== "Ikke angivet" ? `<span class="tag">${esc(d.coverage)} dækning</span>` : ""}${(d.defect_types || []).slice(0, 2).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
   </button>`;
 }
 
@@ -702,6 +704,7 @@ function renderInsight() {
         <div class="card-h"><h3>Udfald pr. år</h3><div class="legend">${OUT_CHART.map((o) => `<span><i class="c-${OUT_KEY[o]}"></i>${o}</span>`).join("")}</div></div>
         ${yearChart(d.by_year)}
       </section>
+      ${d.by_coverage?.length ? `<section class="card"><div class="card-h"><h3>Dækningstype</h3><span class="hint">Basis- eller udvidet ejerskifteforsikring, som angivet i kendelsen</span></div>${breakdown(d.by_coverage, "coverage")}</section>` : ""}
       <div class="grid2">
         <section class="card"><div class="card-h"><h3>Mangeltype</h3><span class="hint">Klik for at filtrere</span></div>${breakdown(d.by_defect, "defect_types")}</section>
         <section class="card"><div class="card-h"><h3>Forsikringsselskab</h3><span class="hint">Top 15 efter antal</span></div>${breakdown(d.by_company, "companies")}</section>
@@ -859,6 +862,7 @@ function renderReader() {
         <div><dt>Afsagt</dt><dd>${fmtDate(d.date)}</dd></div>
         <div><dt>Selskab</dt><dd title="${esc(d.company)}">${esc(d.company || "—")}</dd></div>
         <div><dt>Udfald for klager</dt><dd>${esc(d.outcome)}</dd></div>
+        <div><dt>Dækning</dt><dd>${esc(d.coverage || "Ikke angivet")}</dd></div>
       </dl>
       ${r.summary || r.sumLoading ? `<div class="summary"><div class="summary-h">${icon("spark")}AI-resumé</div>${r.sumLoading ? '<div class="step active"><span class="spinner"></span>Læser kendelsen…</div>' : `<div class="answer">${md(r.summary)}</div>`}</div>` : ""}
       <div class="doc-text">${docText(d.text, r.q)}</div>

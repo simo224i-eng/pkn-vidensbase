@@ -69,6 +69,16 @@ class APITests(unittest.TestCase):
         r = self.client.post("/v1/search", headers=KEY, json={"query": "kloak", "mode": "keyword"})
         self.assertEqual(r.status_code, 200)
 
+    def test_coverage_filter_and_field(self):
+        r = self.client.post("/v1/search", headers=KEY, json={"query": "", "mode": "exact",
+                                                                "filters": {"coverage": ["Ikke angivet"]}})
+        self.assertEqual(r.json()["total"], 3)
+        self.assertEqual(r.json()["results"][0]["coverage"], "Ikke angivet")
+        r = self.client.post("/v1/search", headers=KEY, json={"query": "", "mode": "exact",
+                                                                "filters": {"coverage": ["Udvidet"]}})
+        self.assertEqual(r.json()["total"], 0)
+        self.assertIn("coverage_counts", self.client.get("/v1/meta", headers=KEY).json())
+
     def test_get_decision(self):
         r = self.client.get("/v1/decisions/60767", headers=KEY)
         self.assertEqual(r.status_code, 200)

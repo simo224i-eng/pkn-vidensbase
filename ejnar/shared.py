@@ -1112,7 +1112,11 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
 
     def _udfald(d):
         u = str(d.get("Udfald") or "").strip()
-        return f"[Udfald for klager: {u}] " if u and u != "Ukendt" else ""
+        dk = str(d.get("Dækning") or "").strip()
+        tags = [f"Udfald for klager: {u}"] if u and u != "Ukendt" else []
+        if dk in ("Udvidet", "Basis"):
+            tags.append(f"Dækning: {'udvidet' if dk == 'Udvidet' else 'basis'}")
+        return f"[{' · '.join(tags)}] " if tags else ""
 
     # Udfaldet står eksplicit i overskriften: nyere AKF-resuméer nævner det ikke altid.
     headers = [f"[Kilde {i+1}] {_dato(d)} – {_udfald(d)}{d.get('Titel', '')}" for i, d in enumerate(docs)]

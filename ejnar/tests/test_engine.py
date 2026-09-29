@@ -56,6 +56,17 @@ class DefectTypeTests(unittest.TestCase):
         self.assertIn("Kloak/dræn", engine.detect_mangeltyper("AnkeforsikringDBECT_1.aspx", "brud på kloakledning"))
 
 
+class CoverageTests(unittest.TestCase):
+    def test_detects_basis_and_extended(self):
+        d = engine.detect_daekning
+        self.assertEqual(d("Klager har tegnet ejerskifteforsikring med udvidet dækning i Codan."), "Udvidet")
+        self.assertEqual(d("Klagerne har tegnet en ejerskifteforsikring uden udvidet dækning."), "Basis")
+        self.assertEqual(d("klageren ikke har tegnet udvidet forsikring med dækning for ulovlige forhold"), "Basis")
+        # Negation vinder, selv om udvidet dækning også omtales generelt
+        self.assertEqual(d("Udvidet dækning omfatter ulovlige forhold. Klager havde ikke tegnet udvidet dækning."), "Basis")
+        self.assertEqual(d("Klager overtog huset i 2019."), "Ikke angivet")
+
+
 class CorpusTests(unittest.TestCase):
     def setUp(self):
         df = engine.prepare_frame(rows())
