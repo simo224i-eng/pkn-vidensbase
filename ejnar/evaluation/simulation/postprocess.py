@@ -25,7 +25,8 @@ PROFESSOR_KEYS = ["retrieval", "korrekthed", "forankring", "praksissyntese", "ko
 HANDLER_KEYS = ["anvendelighed", "tidsbesparelse", "tillid"]
 
 
-def auto_checks(answer: str, sources: list[dict], texts_by_n: dict[int, str] | None = None) -> dict:
+def auto_checks(answer: str, sources: list[dict], texts_by_n: dict[int, str] | None = None,
+                question: str = "") -> dict:
     import engine
 
     refs = [int(n) for g in re.findall(r"\[Kilde[r]?\s+([^\]]+)\]", answer, flags=re.I)
@@ -34,7 +35,7 @@ def auto_checks(answer: str, sources: list[dict], texts_by_n: dict[int, str] | N
     suspect = []
     if texts_by_n:
         docs = [{"Tekst": texts_by_n.get(s["n"], ""), "Titel": s.get("title", "")} for s in sources]
-        suspect = engine.mistænkelige_citater(answer, docs)
+        suspect = engine.mistænkelige_citater(answer, docs, question)
     return {
         "chars": len(answer),
         "citations_total": len(refs),
@@ -73,7 +74,7 @@ def report(run: Path) -> str:
         answer_path = run / case["answer_file"]
         answer = answer_path.read_text(encoding="utf-8") if answer_path.exists() else ""
         texts = _load_texts(case["sources"])
-        checks = auto_checks(answer, case["sources"], texts) if answer else {}
+        checks = auto_checks(answer, case["sources"], texts, case["question"]) if answer else {}
         (run / f"{case['id']}.checks.json").write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding="utf-8")
         rows.append((case, checks, reviews.get(case["id"])))
 

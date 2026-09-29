@@ -645,7 +645,7 @@ def _besvar_spørgsmål(tekst: str) -> None:
         svar = claude_svar_stream(tekst, kilder,
                                   historik=st.session_state.chat_historik,
                                   placeholder=ph)
-        suspekte = engine.mistænkelige_citater(svar, kilder)
+        suspekte = engine.mistænkelige_citater(svar, kilder, tekst)
         if suspekte:
             svar = svar + _citat_advarsel_html(suspekte)
             ph.markdown(svar, unsafe_allow_html=True)

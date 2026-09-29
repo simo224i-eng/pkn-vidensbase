@@ -129,6 +129,24 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual(engine.mistænkelige_citater(ok, docs), [])
         self.assertEqual(len(engine.mistænkelige_citater(bad, docs)), 1)
 
+    def test_citation_check_pairs_quotes_correctly(self):
+        docs = [{"Tekst": "forholdet medførte ikke nedsat brugbarhed. Klageren havde ikke godtgjort at skaden var til stede ved overtagelsen."}]
+        answer = ('Nævnet talte om "nedsat brugbarhed" [Kilde 1]. Det var afgørende, at '
+                  '"Klageren havde ikke godtgjort at skaden var til stede ved overtagelsen" [Kilde 1], '
+                  'og „forholdet medførte ikke nedsat brugbarhed“ [Kilde 1].')
+        self.assertEqual(engine.mistænkelige_citater(answer, docs), [])
+        fake = 'Nævnet sagde “selskabet skal betale fuld erstatning for hele kælderen” [Kilde 1].'
+        self.assertEqual(len(engine.mistænkelige_citater(fake, docs)), 1)
+
+    def test_citation_check_accepts_ellipsis_and_user_question(self):
+        docs = [{"Tekst": "Det kan ikke udelukkes, at der er tale om brud på dræn eller svigtende funktion af det oprindelige dræn."}]
+        answer = 'Nævnet skrev "Det kan ikke udelukkes … svigtende funktion af det oprindelige dræn" [Kilde 1].'
+        self.assertEqual(engine.mistænkelige_citater(answer, docs), [])
+        question = "TR skriver: 'Fugtig krybekælder, der er risiko for skimmelvækst'"
+        own = 'TR-formuleringen "Fugtig krybekælder, der er risiko for skimmelvækst" er afgørende.'
+        self.assertEqual(engine.mistænkelige_citater(own, docs, question), [])
+        self.assertEqual(len(engine.mistænkelige_citater(own, docs)), 1)
+
     def test_prompt_asks_for_short_answer_first(self):
         text = engine.byg_prompt("Dækkes skimmel?", [])[0]["text"]
         self.assertIn("## Kort svar", text)

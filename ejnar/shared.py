@@ -2087,25 +2087,26 @@ def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
     if not svar or not docs:
         return []
     # Normalisér alle kildetekster én gang
-    kilde_tekster = []
-    for d in docs:
-        tx = d.get("Tekst") or ""
-        kilde_tekster.append(_normaliser_citat(tx))
-    samlet_korpus = " ||| ".join(kilde_tekster)
-    signatur_korpus = "|".join(_citat_signatur(d.get("Tekst") or "") for d in docs)
+    # Titlen er AKF's resumé og står i prompten, så den kan også citeres.
+    raa = [f"{d.get('Titel') or ''}\n{d.get('Tekst') or ''}" for d in docs]
+    samlet_korpus = " ||| ".join(_normaliser_citat(tx) for tx in raa)
+    signatur_korpus = "|".join(_citat_signatur(tx) for tx in raa)
 
-    # Find alle "..." citater (inkl. danske citationstegn » « og " ")
+    # Find citater. Alle par udtrækkes FØR længdefiltrering – ellers bliver et kort
+    # citats afsluttende anførselstegn brugt som indledende, og resten af svarets
+    # par forskydes (tekst MELLEM citater blev tidligere fejlagtigt markeret).
     moenstre = [
-        r'"([^"]{%d,})"' % min_laengde,
-        r'»([^«]{%d,})«' % min_laengde,
-        r'"([^"]{%d,})"' % min_laengde,
+        r'"([^"\n]*)"',             # "lige"
+        r'\u201c([^\u201d\n]*)\u201d',   # “typografiske”
+        r'\u201e([^\u201c\u201d\n]*)[\u201c\u201d]',  # „danske“
+        r'\u00bb([^\u00ab\n]*)\u00ab',   # »guillemets«
     ]
     suspekte = []
     sete = set()
     for mnstr in moenstre:
         for m in re.finditer(mnstr, svar):
             citat = m.group(1).strip()
-            if len(citat) < min_laengde or citat in sete:
+            if len(citat) < min_laengde or citat in sete or "[Kilde" in citat:
                 continue
             sete.add(citat)
             norm = _normaliser_citat(citat)
@@ -2120,6 +2121,11 @@ def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
                 continue
             sig = _citat_signatur(citat)
             if len(sig) >= 20 and sig in signatur_korpus:
+                continue
+            # Udeladelser ("…" / "...") er korrekt citatteknik: hver del skal findes.
+            dele = [_citat_signatur(x) for x in re.split(r"\s*(?:\.\.\.|…|\[…\]|\[\.\.\.\])\s*", citat)]
+            dele = [x for x in dele if x]
+            if len(dele) > 1 and all(len(x) < 8 or x in signatur_korpus for x in dele):
                 continue
             suspekte.append(citat)
     return suspekte

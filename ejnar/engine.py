@@ -603,9 +603,11 @@ TEKST: {kerne}
 RESUMÉ:"""
 
 
-def mistænkelige_citater(svar: str, kilder: list) -> list:
+def mistænkelige_citater(svar: str, kilder: list, spørgsmål: str = "") -> list:
+    """Citater i svaret, der ikke findes i kilderne (eller i brugerens eget spørgsmål)."""
+    docs = list(kilder) + ([{"Titel": "", "Tekst": spørgsmål}] if spørgsmål else [])
     try:
-        return shared.valider_citationer(svar, kilder)
+        return shared.valider_citationer(svar, docs)
     except Exception:
         return []
 
@@ -681,7 +683,7 @@ class Corpus:
         return {
             "svar": svar,
             "citerede": citerede_kilder(svar, len(kilder)),
-            "mistænkelige_citater": mistænkelige_citater(svar, kilder),
+            "mistænkelige_citater": mistænkelige_citater(svar, kilder, spørgsmål),
         }
 
     def answer(self, spørgsmål: str, historik: list | None = None, sub_idx=None,
