@@ -32,3 +32,23 @@ python -m ejnar.evaluation.simulation.postprocess --run ejnar/evaluation/simulat
   (Gemini Flash, DeepSeek osv.) bør måles ved at køre trin 3 med den model.
 - Bedømmerne er også modeller. Brug rapporten til at finde systematiske svagheder,
   ikke som endelig juridisk kvalitetssikring.
+
+## Objektiv kvalitetssikring: omvendt facit (`reverse_gold.py`)
+
+Her er facit nævnets egen afgørelse og ikke en models vurdering:
+
+1. `sample` udtrækker kendelser, stratificeret på udfald, og viser kun sagens
+   faktum. Udfald og nævnets begrundelse fjernes automatisk.
+2. En agent skriver et realistisk skadesbehandler-spørgsmål ud fra faktum →
+   `questions.json`.
+3. `build` måler **retrieval** (finder Ejnar netop den kendelse?) og bygger
+   **leave-one-out**-prompts, hvor kildekendelsen er fjernet, så svaret skal
+   forudsige udfaldet ud fra anden praksis, som ved en ny sag.
+4. En agent eller model besvarer prompterne. `score` sammenligner det forudsagte
+   udfald med nævnets faktiske udfald og med basisraten "gæt altid Ikke medhold".
+
+```bash
+python -m ejnar.evaluation.simulation.reverse_gold sample --out ejnar/evaluation/simulation/runs/gold --n 20
+python -m ejnar.evaluation.simulation.reverse_gold build  --out ejnar/evaluation/simulation/runs/gold
+python -m ejnar.evaluation.simulation.reverse_gold score  --out ejnar/evaluation/simulation/runs/gold
+```
