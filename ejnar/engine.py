@@ -133,7 +133,7 @@ def detect_mangeltyper(titel: str, tekst: str) -> list[str]:
 _MEDHOLD = r"me?d?hold"  # fanger også tastefejl som "mehold"
 _TITEL_REGLER = [
     ("Delvis medhold", re.compile(rf"\bdelvis(?:t|e)?\s+{_MEDHOLD}\b")),
-    ("Medhold", re.compile(rf"\bklager(?:en|ne)?\s+{_MEDHOLD}\b")),
+    ("Medhold", re.compile(rf"(?<!ikke give )\bklager(?:en|ne)?\s+{_MEDHOLD}\b")),
     ("Ikke medhold", re.compile(rf"\bselskab(?:et)?\s+{_MEDHOLD}\b")),
     ("Afvist", re.compile(
         r"\bsag(?:en)?\s+afvist|\bafvisning\b|\bklagen\s+afvis|"
@@ -175,9 +175,13 @@ def detect_udfald_ejnar(titel: str, tekst: str, csv_udfald: str = "") -> str:
     2. Kendelsens konklusion ("... bestemmes: ...").
     3. CSV-feltet fra scraperen, hvis det er kendt."""
     hale = _normaliser(titel)[-220:]
-    for label, rx in _TITEL_REGLER:
-        if rx.search(hale):
-            return label
+    # AKF's resultatlinje er titlens sidste sætning ("Sag afvist/selskab medhold.");
+    # den afgør før tidligere omtale som "nævnet kunne ikke give klager medhold"
+    sætninger = [x for x in re.split(r"(?<=[.!?])\s+", hale.strip()) if x.strip()]
+    for del_ in ([sætninger[-1]] if sætninger else []) + [hale]:
+        for label, rx in _TITEL_REGLER:
+            if rx.search(del_):
+                return label
     tx = _normaliser(tekst)
     idx = tx.rfind("b e s t e m m e s")
     idx = idx if idx >= 0 else tx.rfind("bestemmes")
@@ -226,11 +230,30 @@ _DAEKNING_STÆRK = re.compile(
 )
 
 
+_PÅSTAND_KONTEKST = re.compile(r"anerkende,?\s+at|påstand|gjort\s+gældende|gør\s+gældende|anført,?\s+at|"
+                               r"anfører,?\s+at|mener,?\s+at", re.I)
+
+
+def _dæk_norm(t: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"-\s*\n\s*", "", t or ""))
+
+
 def detect_daekning(tekst: str, titel: str = "") -> str:
-    # AKF-resuméet (titlen) først: det gengiver policens niveau kort og præcist
-    t = re.sub(r"-\s*\n\s*", "", f"{titel or ''}\n{(tekst or '')[:20000]}")
-    t = re.sub(r"\s+", " ", t)
-    m = _DAEKNING_STÆRK.search(t)
+    # Nævnets egen gengivelse af policen (efter "Nævnet udtaler") vejer tungest;
+    # parternes brevveksling kan være forkert. Derefter resumé og sagens begyndelse.
+    import board_reasoning
+
+    delt = board_reasoning.del_kendelse(tekst or "")
+    kandidater = [_dæk_norm((tekst or "")[delt[0]:delt[0] + 6000])] if delt else []
+    kandidater.append(_dæk_norm(f"{titel or ''}\n{(tekst or '')[:20000]}"))
+    t, m = kandidater[-1], None
+    for tekstdel in kandidater:
+        # Spring gengivne påstande over ("… skal anerkende, at klageren har tegnet …")
+        m = next((x for x in _DAEKNING_STÆRK.finditer(tekstdel)
+                  if not _PÅSTAND_KONTEKST.search(tekstdel[max(0, x.start() - 80):x.start()])), None)
+        if m:
+            t = tekstdel
+            break
     if m:
         niveau = (m.group("a") or m.group("b") or m.group("c") or m.group("d") or "").lower()
         # "klager ikke har tegnet en udvidet …" / "… uden udvidet dækning"
@@ -891,7 +914,8 @@ _PÅSTAND_RX = [
         r"\bklagen\s+blev\s+ikke\s+taget\s+til\s+følge|\bselskabet\s+blev\s+frifundet", re.I)),
     ("Medhold", re.compile(
         rf"\b{_PARTER}\s+fik\s+(?:fuldt\s+|fuld\s+|helt\s+)?medhold|\bfik\s+{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|\bgav\s+(?:\d+\s+|en\s+)?{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|"
-        r"\bklagen\s+blev\s+taget\s+til\s+følge|\bgav\s+(?:fuldt\s+|helt\s+)?medhold\b(?!\s+til\s+selskab)", re.I)),
+        r"\bklagen\s+blev\s+taget\s+til\s+følge|\bgav\s+(?:fuldt\s+|helt\s+)?medhold\b(?!\s+til\s+selskab)|"
+        r"\bhelt\s+eller\s+delvis(?:t)?\s+medhold", re.I)),
 ]
 _KLAUSUL_RX = re.compile(r"(?<=[.!?;:])\s+|\n+|,\s+(?=(?:men|mens|hvorimod|hvor|og\s+i)\b)|\s+(?=(?:mens|hvorimod)\b)")
 # Påstand → faktiske udfald, der er uforenelige med den. "Delvis medhold" i kilden er

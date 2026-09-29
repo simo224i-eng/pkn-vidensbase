@@ -98,6 +98,18 @@ class CoverageDetectionTests(unittest.TestCase):
         self.assertEqual(engine.detect_daekning(
             "tegnede ejerskifteforsikring med 5-årig standarddækning. Klager anfører, at man har tegnet udvidet dækning."), "Basis")
 
+    def test_board_restatement_wins_over_party_claims(self):
+        tekst = ("Selskabet skrev, at klager har tegnet ejerskifteforsikring med udvidet dækning. "
+                 "Nævnet udtaler: Klageren har nedlagt påstand om, at selskabet skal anerkende, at klageren har "
+                 "tegnet ejerskifteforsikring med udvidet dækning. Klageren har tegnet ejerskifteforsikring med "
+                 "basisdækning.")
+        self.assertEqual(engine.detect_daekning(tekst), "Basis")
+
+    def test_result_line_decides_title_outcome(self):
+        titel = ("Nævnet kunne ikke træffe afgørelse vedrørende bygningsskader, og nævnet kunne ikke give klager "
+                 "medhold for så vidt angik indbogenstande. Sag afvist/selskab medhold.")
+        self.assertEqual(engine.detect_udfald_ejnar(titel, ""), "Ikke medhold")
+
     def test_negated_extended_cover_is_basis(self):
         self.assertEqual(engine.detect_daekning("Klager har ikke tegnet en udvidet ejerskifteforsikring."), "Basis")
         self.assertEqual(engine.detect_daekning("da klagerne ikke har tegnet udvidet ejerskifteforsikring"), "Basis")
@@ -137,6 +149,8 @@ class OutcomeConflictTests(unittest.TestCase):
                 "ikke medhold ([Kilde 1]).")
         self.assertEqual(self.check(svar), [])
         self.assertEqual(self.check("To kendelser gav medhold ([Kilde 1], [Kilde 2])."), [(1, "Medhold")])
+        self.assertEqual(self.check("Tre gav helt eller delvist medhold [Kilde 2] [Kilde 3]."), [])
+        self.assertEqual(self.check("To gav helt eller delvist medhold [Kilde 1]."), [(1, "Medhold")])
         # Opremsning med etiketter pr. kilde (fundet i praksissimulationen)
         svar = "- **Medhold eller delvis medhold:** [Kilde 3] (Delvis medhold), [Kilde 2] (Medhold)."
         self.assertEqual(self.check(svar), [])
