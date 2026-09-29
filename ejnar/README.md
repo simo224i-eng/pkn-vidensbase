@@ -9,6 +9,84 @@ Ejnar deler git-repo med Harald (`pkn-vidensbase`) men er en helt separat app:
 egen `app.py`, egen `shared.py`, egne data-filer og embedding-cache. De to
 apps kan deployes uafhængigt.
 
+## Webapp og REST-API (anbefalet)
+
+Ud over Streamlit-appen har Ejnar nu en selvstændig webapp (`web/`) og et
+REST-API (`api.py`, FastAPI). De kører som én server og deler søge- og
+RAG-motoren i `engine.py` med Streamlit-appen.
+
+**Webappen har:**
+
+- **Assistent:** stil praksisspørgsmål og få svar streamet med klikbare
+  kildehenvisninger. Ved siden af svaret vises en kildeoversigt med udfald,
+  og citatkontrollen advarer om citater, der ikke findes ordret i kilderne.
+- **Praksissøgning:** vælg mellem relevans, ordret søgning og AI-søgning.
+  Filtre, udfaldsfordeling og direkte opslag på sagsnummer er med.
+- **Indsigt:** udfaldsrater pr. år, mangeltype og selskab. Klik på en række
+  for at filtrere.
+- **Læser:** kendelsen i ren typografi med AI-resumé, reference til
+  udklipsholder og gemte kendelser.
+
+### Kør lokalt
+
+```bash
+cd ejnar
+pip install -r requirements.txt -r requirements-api.txt
+export EJNAR_API_KEYS="skift-mig"              # adgangsnøgle(r), kommasepareret
+export LLM_PROVIDER="gemini" LLM_API_KEY="..."  # eller ANTHROPIC_API_KEY=...
+export VOYAGE_API_KEY="..."                     # valgfri: hybrid semantisk søgning
+uvicorn api:app --port 8000
+```
+
+Åbn http://localhost:8000 og log ind med nøglen fra `EJNAR_API_KEYS`. Den
+interaktive API-dokumentation ligger på http://localhost:8000/docs.
+
+### Deploy (Docker)
+
+```bash
+docker build -f ejnar/Dockerfile -t ejnar .     # fra repo-roden
+docker run -p 8000:8000 -e EJNAR_API_KEYS=... -e LLM_PROVIDER=gemini -e LLM_API_KEY=... ejnar
+```
+
+Imaget kan køre på fx Render, Fly.io, Railway eller Google Cloud Run. Giv
+containeren mindst 1,5 GB RAM, fordi korpus og indeks holdes i hukommelsen.
+Opstarten tager 1–2 minutter, mens kendelserne indlæses. Imens svarer
+`/health` med `loading`, og webappen viser en ventestatus.
+
+| Miljøvariabel | Betydning |
+|---|---|
+| `EJNAR_API_KEYS` | Påkrævet. Kommaseparerede adgangsnøgler (bruges også til login i webappen) |
+| `LLM_PROVIDER`, `LLM_API_KEY`, `LLM_MODEL`, `LLM_FAST_MODEL`, `LLM_BASE_URL` | Sprogmodel, se nedenfor |
+| `VOYAGE_API_KEY` | Hybrid semantisk søgning og rerank |
+| `EJNAR_LLM_RATE_PER_MIN` | Maks. AI-kald pr. nøgle pr. minut (standard 20, 0 = fra) |
+| `EJNAR_CORS_ORIGINS` | Kommaseparerede origins, hvis en anden frontend kalder API'et |
+| `EJNAR_API_EMBEDDINGS=0` | Spring embeddings over (hurtigere opstart, kun TF-IDF) |
+
+### API
+
+| Endpoint | Formål |
+|---|---|
+| `GET /health` | Status, antal kendelser, søgemetode og model (offentlig) |
+| `GET /v1/meta` | Filterværdier og nøgletal |
+| `POST /v1/search` | `mode`: `keyword` (TF-IDF), `exact` (ordret frase/sagsnummer) eller `smart` (fuld RAG-retrieval) |
+| `POST /v1/stats` | Udfaldsstatistik pr. år, mangeltype og selskab |
+| `GET /v1/decisions/{id eller sagsnr.}` | Fuld kendelse |
+| `POST /v1/decisions/{id}/summary` | AI-resumé |
+| `POST /v1/answer` | RAG-svar med kilder. `stream: true` giver Server-Sent Events: `sources` → `delta`* → `done` |
+
+Alle `/v1`-kald kræver headeren `X-API-Key: <nøgle>` (eller `Authorization: Bearer <nøgle>`).
+
+### Datakvalitet
+
+`engine.prepare_frame` genberegner **udfald** og **mangeltype** ved indlæsning:
+
+- **Udfald** læses fra AKF's resultatlinje i titlen ("Selskab medhold.",
+  "Klager delvis medhold.", "Sag afvist."). Findes den ikke, bruges
+  konklusionen efter "bestemmes". Scraperens felt bruges kun som sidste udvej.
+  Det reducerede "Ukendt" fra 3.114 til 13 kendelser.
+- **Mangeltype** bestemmes med ordgrænse-regex på AKF's resumé. Den gamle
+  delstrengsmatch mærkede 100 % af kendelserne som "Tag/tagdækning".
+
 ## Struktur
 
 ```

@@ -84,6 +84,35 @@ class CorpusTests(unittest.TestCase):
         hits = engine.ordret_søg("undertag", self.c.df)
         self.assertEqual(list(hits["Link"]), ["https://x/2"])
 
+    def test_fuse_rankings_boosts_overlap_without_dropping(self):
+        a, b, c = {"Link": "a"}, {"Link": "b"}, {"Link": "c"}
+        fused = engine.fuse_rankings([[b, c], [a, b]], limit=10)
+        self.assertEqual([r["Link"] for r in fused][0], "b")
+        self.assertEqual({r["Link"] for r in fused}, {"a", "b", "c"})
+
+    def test_smart_retrieval_keeps_unfiltered_candidates(self):
+        from unittest import mock
+        df = self.c.df
+        calls = []
+
+        def fake_tfidf(q, df_, vec, mat, sub_idx=None, top_n=30, ekspander=False):
+            calls.append(list(sub_idx))
+            return df_.loc[sub_idx].reset_index(drop=True)
+
+        with mock.patch.object(engine.shared, "klassificer_query", return_value={"top_retrieve": 10, "top_final": 5}), \
+             mock.patch.object(engine.shared, "omformuler_opfoelgning", return_value="kloak"), \
+             mock.patch.object(engine.shared, "auto_filter_query", return_value={"Mangeltype": ["Kloak/dræn"]}), \
+             mock.patch.object(engine.shared, "udvid_query", return_value="kloak"), \
+             mock.patch.object(engine.shared, "llm_rerank", side_effect=lambda q, k, top_n: k[:top_n]), \
+             mock.patch.object(engine.shared, "apply_auto_filters", return_value=([2], True)), \
+             mock.patch.object(engine, "tfidf_søg", side_effect=fake_tfidf):
+            debug = {}
+            _, kilder = engine.smart_retrieval("kloak", df, None, None, [0, 1, 2], [],
+                                               filter_options=self.c.options, debug=debug)
+        self.assertTrue(debug["applied"])
+        self.assertEqual(kilder[0]["Link"], "https://x/3")  # metadata-match boostes
+        self.assertEqual({k["Link"] for k in kilder}, {"https://x/1", "https://x/2", "https://x/3"})
+
     def test_cited_sources(self):
         self.assertEqual(engine.citerede_kilder("A [Kilde 2] B [Kilde 1, 2, 9]", 3), [2, 1])
 

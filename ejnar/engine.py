@@ -431,6 +431,19 @@ def saml_kilder(historik, nye_hits, max_total=12):
     return merged[:max_total]
 
 
+def fuse_rankings(rankings: list[list[dict]], limit: int, k: int = 60) -> list[dict]:
+    """Reciprocal Rank Fusion af flere resultatlister (nøgle: Link)."""
+    score: dict[str, float] = {}
+    first: dict[str, dict] = {}
+    for ranking in rankings:
+        for rank, rec in enumerate(ranking):
+            key = rec.get("Link") or str(id(rec))
+            score[key] = score.get(key, 0.0) + 1.0 / (k + rank + 1)
+            first.setdefault(key, rec)
+    order = sorted(score, key=lambda x: score[x], reverse=True)
+    return [first[x] for x in order[:limit]]
+
+
 def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
                     top_retrieve=40, top_final=8, embeds=None, filter_options=None,
                     debug: dict | None = None):
@@ -480,13 +493,17 @@ def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
         return tfidf_søg(tfidf_query, df, vec, mat, sub_idx=sub,
                          top_n=top_retrieve, ekspander=False)
 
-    hits = _do(eff_sub)
-    kand = hits.to_dict("records") if len(hits) > 0 else []
+    # Automatiske metadatafiltre er et boost, ikke et hårdt filter: vi henter både
+    # i det filtrerede og det ufiltrerede korpus og fusionerer med RRF. Kendelser
+    # der matcher filtret får et forspring, men fejlklassificerede kendelser
+    # (fx en fugtsag med en generisk titel) kan stadig komme med.
+    alle_hits = _do(ai_sub_idx)
+    kand = alle_hits.to_dict("records") if len(alle_hits) > 0 else []
+    if prefiltered:
+        filt_hits = _do(eff_sub)
+        kand = fuse_rankings([filt_hits.to_dict("records") if len(filt_hits) else [], kand],
+                             limit=top_retrieve)
     rerankede = shared.llm_rerank(standalone, kand, top_n=top_final)
-    if len(rerankede) < 3 and prefiltered:
-        hits = _do(ai_sub_idx)
-        kand = hits.to_dict("records") if len(hits) > 0 else []
-        rerankede = shared.llm_rerank(standalone, kand, top_n=top_final)
 
     alle = saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
     return standalone, alle

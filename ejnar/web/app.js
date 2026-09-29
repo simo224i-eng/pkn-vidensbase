@@ -36,6 +36,7 @@ const ICONS = {
   scale: '<path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/>',
   doc: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
   retry: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
+  chart: '<path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-9"/>',
   quote: '<path d="M7 7h4v4c0 3-1 5-4 6M15 7h4v4c0 3-1 5-4 6"/>',
 };
 const icon = (n, cls = "") => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n] || ""}</svg>`;
@@ -90,6 +91,7 @@ const state = {
   filters: store.get("filters", { outcomes: [], defect_types: [], companies: [], year_from: null, year_to: null }),
   pop: null,
   popQuery: "",
+  insight: { q: "", data: null, loading: false, error: "", ran: false },
   search: { q: "", mode: "keyword", results: [], total: 0, counts: {}, loading: false, error: "", ran: false },
   reader: null,
   saved: store.get("saved", {}),
@@ -150,7 +152,7 @@ function render() {
           <button class="icon-btn" data-act="nav" aria-label="Menu">${icon("menu")}</button>
           <span class="brand-name">Ejnar</span>
         </div>
-        ${state.view === "search" ? renderSearch() : state.view === "saved" ? renderSaved() : renderAssistant()}
+        ${({ search: renderSearch, saved: renderSaved, insight: renderInsight }[state.view] || renderAssistant)()}
       </main>
     </div>
     ${state.reader ? renderReader() : ""}`;
@@ -189,6 +191,7 @@ function renderSidebar() {
       <nav class="nav">
         ${nav("assistant", "chat", "Assistent")}
         ${nav("search", "search", "Praksissøgning", fmtNum(state.meta.decisions))}
+        ${nav("insight", "chart", "Indsigt")}
         ${nav("saved", "bookmark", "Gemte kendelser", nSaved || null)}
       </nav>
       <div class="side-label">Seneste</div>
@@ -262,6 +265,7 @@ function renderPop(key) {
 function filtersChanged() {
   store.set("filters", state.filters);
   if (state.view === "search") runSearch();
+  else if (state.view === "insight") runStats();
   else render();
 }
 
@@ -596,6 +600,105 @@ function renderSaved() {
   </section>`;
 }
 
+// ── Indsigt ──────────────────────────────────────────────────────────────────
+let statsSeq = 0;
+async function runStats() {
+  const s = state.insight, seq = ++statsSeq;
+  s.loading = true; s.error = ""; s.ran = true; render();
+  try {
+    const d = await apiJson("/v1/stats", { method: "POST", body: { query: s.q, filters: filtersBody() } });
+    if (seq === statsSeq) s.data = d;
+  } catch (e) { if (seq === statsSeq) s.error = e.message; }
+  if (seq === statsSeq) { s.loading = false; render(); }
+}
+
+const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
+const klagerRate = (c, total) => pct((c["Medhold"] || 0) + (c["Delvis medhold"] || 0), total);
+const OUT_CHART = OUTCOMES.slice(0, 4);
+
+function niceMax(v) {
+  if (v <= 5) return 5;
+  const p = 10 ** Math.floor(Math.log10(v)), n = v / p;
+  return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p;
+}
+
+function yearChart(rows) {
+  if (!rows.length) return "";
+  const max = niceMax(Math.max(...rows.map((r) => r.total)));
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map((f) => Math.round(max * f));
+  const every = rows.length > 16 ? 3 : rows.length > 9 ? 2 : 1;
+  return `<div class="ychart" role="img" aria-label="Udfald pr. år, antal kendelser">
+    <div class="ygrid">${ticks.map((t) => `<div style="bottom:${(100 * t) / max}%"><span class="num">${fmtNum(t)}</span></div>`).join("")}</div>
+    <div class="ycols">
+      ${rows.map((r, i) => `
+        <div class="ycol" tabindex="0" data-tip="${esc(JSON.stringify(r))}">
+          <div class="ystack" style="height:${(100 * r.total) / max}%">
+            ${OUT_CHART.concat("Ukendt").filter((o) => r.counts[o]).map((o) => `<div class="c-${OUT_KEY[o]}" style="flex-grow:${r.counts[o]}"></div>`).join("")}
+          </div>
+          <span class="ylab num">${i % every === 0 || i === rows.length - 1 ? r.label : ""}</span>
+        </div>`).join("")}
+    </div>
+    <div class="tip" hidden></div>
+  </div>
+  <table class="sr"><caption>Udfald pr. år</caption><tr><th>År</th><th>I alt</th>${OUT_CHART.map((o) => `<th>${o}</th>`).join("")}</tr>
+    ${rows.map((r) => `<tr><td>${r.label}</td><td>${r.total}</td>${OUT_CHART.map((o) => `<td>${r.counts[o] || 0}</td>`).join("")}</tr>`).join("")}</table>`;
+}
+
+function breakdown(rows, key) {
+  if (!rows.length) return '<div class="aside-empty">Ingen data.</div>';
+  return `<div class="bd" role="table">
+    <div class="bd-row bd-h" role="row"><span role="columnheader"></span><span role="columnheader" class="r">Sager</span><span role="columnheader">Udfaldsfordeling</span><span role="columnheader" class="r">Klager medhold</span></div>
+    ${rows.map((r) => `
+      <button class="bd-row" role="row" data-act="bd-filter" data-k="${key}" data-v="${esc(r.label)}" title="Filtrér på ${esc(r.label)}">
+        <span class="bd-l" role="cell">${esc(key === "companies" ? r.label.replace(/,.*$/, "") : r.label)}</span>
+        <span class="r num" role="cell">${fmtNum(r.total)}</span>
+        <span class="bar" role="cell" aria-label="${OUT_CHART.map((o) => `${o} ${r.counts[o] || 0}`).join(", ")}">${OUTCOMES.filter((o) => r.counts[o]).map((o) => `<div class="c-${OUT_KEY[o]}" style="flex-grow:${r.counts[o]}"></div>`).join("")}</span>
+        <span class="r num strong" role="cell">${klagerRate(r.counts, r.total)}%</span>
+      </button>`).join("")}
+  </div>`;
+}
+
+function renderInsight() {
+  const s = state.insight;
+  if (!s.ran && !s.loading) queueMicrotask(() => runStats());
+  const d = s.data;
+  let body;
+  if (s.error) body = `<div class="err-box">${esc(s.error)}</div>`;
+  else if (!d) body = '<div class="kpis">' + '<div class="skel" style="height:92px"></div>'.repeat(4) + '</div><div class="skel" style="height:280px"></div>';
+  else if (!d.total) body = `<div class="empty">${icon("chart")}<h3>Ingen kendelser i udsnittet</h3><p>Fjern et filter eller ændr frasen.</p></div>`;
+  else {
+    const c = d.outcome_counts, years = d.by_year.map((r) => +r.label);
+    const recent = d.by_year.filter((r) => +r.label >= Math.max(...years) - 4);
+    const rTot = recent.reduce((a, r) => a + r.total, 0);
+    const rC = {}; recent.forEach((r) => OUTCOMES.forEach((o) => (rC[o] = (rC[o] || 0) + (r.counts[o] || 0))));
+    const kpi = (label, value, sub) => `<div class="kpi"><div class="kpi-l">${label}</div><div class="kpi-v num">${value}</div><div class="kpi-s">${sub}</div></div>`;
+    body = `
+      <div class="kpis ${s.loading ? "busy" : ""}">
+        ${kpi("Kendelser i udsnittet", fmtNum(d.total), `${Math.min(...years)}–${Math.max(...years)}`)}
+        ${kpi("Klager helt/delvist medhold", `${klagerRate(c, d.total)}%`, `${fmtNum((c["Medhold"] || 0) + (c["Delvis medhold"] || 0))} sager`)}
+        ${kpi("Seneste 5 år", `${klagerRate(rC, rTot)}%`, `klager medhold i ${fmtNum(rTot)} sager`)}
+        ${kpi("Afvist af nævnet", `${pct(c["Afvist"] || 0, d.total)}%`, "typisk pga. bevisførelse")}
+      </div>
+      <section class="card">
+        <div class="card-h"><h3>Udfald pr. år</h3><div class="legend">${OUT_CHART.map((o) => `<span><i class="c-${OUT_KEY[o]}"></i>${o}</span>`).join("")}</div></div>
+        ${yearChart(d.by_year)}
+      </section>
+      <div class="grid2">
+        <section class="card"><div class="card-h"><h3>Mangeltype</h3><span class="hint">Klik for at filtrere</span></div>${breakdown(d.by_defect, "defect_types")}</section>
+        <section class="card"><div class="card-h"><h3>Forsikringsselskab</h3><span class="hint">Top 15 efter antal</span></div>${breakdown(d.by_company, "companies")}</section>
+      </div>`;
+  }
+  return `<section class="page wide">
+    <div class="page-h"><div><h1 class="h2">Indsigt</h1><p class="page-sub">Hvordan falder praksis ud? Afgræns med filtre eller en ordret frase.</p></div></div>
+    <form class="searchbar" data-act="stats">${icon("search")}
+      <input type="search" data-focus="stats" placeholder="Afgræns med en frase, fx “krybekælder” eller “asbest”" value="${esc(s.q)}" aria-label="Frase">
+      <button class="btn sm" type="submit">Opdater</button>
+    </form>
+    <div class="search-tools">${renderFilters()}<span class="mode-hint">Udfald ses fra klagers side.</span></div>
+    ${body}
+  </section>`;
+}
+
 // ── Læser ────────────────────────────────────────────────────────────────────
 const STOP = new Set("hvad hvor hvornår hvordan hvilke hvilken være blev bliver eller efter skal kunne ikke også nævnet nævnets praksis dækning dækker forsikring ejerskifteforsikring ejerskifteforsikringen sagen sager klager selskabet mellem under".split(" "));
 function terms(q) {
@@ -859,10 +962,34 @@ app.addEventListener("click", (e) => {
       if (state.search.q.trim()) return runSearch();
       return render();
     case "more": return runSearch({ more: true });
+    case "bd-filter": {
+      const arr = f[el.dataset.k];
+      if (!arr.includes(el.dataset.v)) arr.push(el.dataset.v);
+      return filtersChanged();
+    }
   }
 });
 
+function showTip(col) {
+  const chart = col.closest(".ychart"), tip = $(".tip", chart);
+  const r = JSON.parse(col.dataset.tip);
+  tip.innerHTML = `<strong>${r.label}</strong><span class="num">${fmtNum(r.total)} sager</span>` +
+    OUT_CHART.filter((o) => r.counts[o]).map((o) => `<div><i class="c-${OUT_KEY[o]}"></i>${o}<b class="num">${r.counts[o]}</b></div>`).join("") +
+    `<div class="tip-f">Klager medhold ${klagerRate(r.counts, r.total)}%</div>`;
+  tip.hidden = false;
+  const cr = chart.getBoundingClientRect(), br = col.getBoundingClientRect();
+  const x = Math.min(Math.max(br.left - cr.left + br.width / 2, 90), cr.width - 90);
+  tip.style.left = `${x}px`;
+  $$(".ycol.on", chart).forEach((c) => c.classList.remove("on")); col.classList.add("on");
+}
+app.addEventListener("focusin", (e) => { const col = e.target.closest?.(".ycol"); if (col) showTip(col); });
+app.addEventListener("mouseleave", (e) => {
+  if (e.target.matches?.(".ychart")) { $(".tip", e.target).hidden = true; $$(".ycol.on", e.target).forEach((c) => c.classList.remove("on")); }
+}, true);
+
 app.addEventListener("mouseover", (e) => {
+  const col = e.target.closest(".ycol");
+  if (col) return showTip(col);
   const c = e.target.closest(".cite");
   if (!c) return;
   const aIdx = +c.closest("[data-turn]").dataset.turn;
@@ -882,6 +1009,7 @@ app.addEventListener("submit", (e) => {
   }
   if (act === "ask") return ask(state.draft);
   if (act === "search") { state.search.q = $('[data-focus="search"]').value; return runSearch(); }
+  if (act === "stats") { state.insight.q = $('[data-focus="stats"]').value; return runStats(); }
 });
 
 app.addEventListener("input", (e) => {

@@ -23,6 +23,7 @@ KEY = {"X-API-Key": "test-key"}
 @unittest.skipIf(TestClient is None, "fastapi er ikke installeret")
 class APITests(unittest.TestCase):
     def setUp(self):
+        api.RATE.hits.clear()
         df = engine.prepare_frame(rows())
         vec, mat = engine.build_index(df)
         api.STATE.corpus = engine.Corpus(df=df, vec=vec, mat=mat, options=engine.filter_options(df))
@@ -108,6 +109,26 @@ class APITests(unittest.TestCase):
         self.assertIn('event: delta\ndata: {"text": "Hej "}', text)
         self.assertIn('"cited": [1]', text)
         self.assertTrue(text.rstrip().split("\n")[-2].startswith("event: done"))
+
+    def test_stats(self):
+        r = self.client.post("/v1/stats", headers=KEY, json={"filters": {"companies": ["Tryg"]}})
+        body = r.json()
+        self.assertEqual(body["total"], 2)
+        self.assertEqual([y["label"] for y in body["by_year"]], ["2010", "2021"])
+        self.assertEqual(body["by_company"], [{"label": "Tryg", "total": 2, "counts": {"Ikke medhold": 1, "Afvist": 1}}])
+        r = self.client.post("/v1/stats", headers=KEY, json={"query": "undertag"})
+        self.assertEqual(r.json()["total"], 1)
+
+    def test_llm_rate_limit(self):
+        api.RATE.hits.clear()
+        with mock.patch.dict(os.environ, {"EJNAR_LLM_RATE_PER_MIN": "1"}), \
+             mock.patch.object(shared, "llm_tilgaengelig", return_value=True), \
+             mock.patch.object(shared, "_llm", return_value="Resumé"):
+            self.assertEqual(self.client.post("/v1/decisions/60767/summary", headers=KEY).status_code, 200)
+            r = self.client.post("/v1/decisions/60767/summary", headers=KEY)
+        self.assertEqual(r.status_code, 429)
+        self.assertIn("Retry-After", r.headers)
+        api.RATE.hits.clear()
 
     def test_answer_requires_llm(self):
         with mock.patch.object(shared, "llm_tilgaengelig", return_value=False):

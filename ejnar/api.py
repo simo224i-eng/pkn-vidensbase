@@ -10,6 +10,7 @@ Alle /v1-endpoints kræver headeren ``X-API-Key`` eller ``Authorization: Bearer`
 """
 from __future__ import annotations
 
+import hashlib
 import hmac
 import json
 import logging
@@ -102,6 +103,42 @@ def require_api_key(request: Request) -> None:
     if not any(hmac.compare_digest(supplied.encode(), k.encode()) for k in keys):
         raise HTTPException(401, "Manglende eller ugyldig API-nøgle.",
                             headers={"WWW-Authenticate": "Bearer"})
+
+
+# ── Rate limiting (pr. API-nøgle, kun LLM-endpoints) ─────────────────────────
+class _RateLimiter:
+    """Glidende vindue i hukommelsen. Rækker til én API-proces; bag en load
+    balancer med flere instanser bør det flyttes til fx Redis."""
+
+    def __init__(self):
+        self.hits: dict[str, list[float]] = {}
+        self.lock = threading.Lock()
+
+    def check(self, key: str, limit: int, window: float = 60.0) -> float:
+        """Returnér 0 hvis kaldet er tilladt, ellers sekunder til næste ledige plads."""
+        now = time.monotonic()
+        with self.lock:
+            hits = [t for t in self.hits.get(key, []) if now - t < window]
+            if len(hits) >= limit:
+                self.hits[key] = hits
+                return window - (now - hits[0])
+            hits.append(now)
+            self.hits[key] = hits
+            return 0.0
+
+
+RATE = _RateLimiter()
+
+
+def llm_rate_limit(request: Request) -> None:
+    limit = int(os.environ.get("EJNAR_LLM_RATE_PER_MIN", "20") or 0)
+    if limit <= 0:
+        return
+    who = request.headers.get("x-api-key") or request.headers.get("authorization", "")
+    wait = RATE.check(hashlib.sha256(who.encode()).hexdigest(), limit)
+    if wait:
+        raise HTTPException(429, f"For mange AI-forespørgsler – prøv igen om {int(wait) + 1} sekunder.",
+                            headers={"Retry-After": str(int(wait) + 1)})
 
 
 def corpus() -> engine.Corpus:
@@ -308,6 +345,45 @@ def search(req: SearchRequest):
     }
 
 
+class StatsRequest(BaseModel):
+    query: str = Field("", max_length=500, description="Valgfri ordret frase, der afgrænser grundlaget.")
+    filters: Filters = Field(default_factory=Filters)
+
+
+def _group(df: pd.DataFrame, col: str, limit: int | None = None, explode: bool = False) -> list[dict]:
+    frame = df[[col, "Udfald"]].explode(col) if explode else df[[col, "Udfald"]]
+    frame = frame[frame[col].astype(str).str.strip() != ""]
+    tab = pd.crosstab(frame[col], frame["Udfald"])
+    tab["_total"] = tab.sum(axis=1)
+    tab = tab.sort_values("_total", ascending=False)
+    if limit:
+        tab = tab.head(limit)
+    return [
+        {"label": str(idx) if not isinstance(idx, float) else str(int(idx)), "total": int(row["_total"]),
+         "counts": {o: int(row[o]) for o in engine.UDFALD if o in row.index and row[o]}}
+        for idx, row in tab.iterrows()
+    ]
+
+
+@app.post("/v1/stats", tags=["søgning"], dependencies=[Depends(require_api_key)])
+def stats(req: StatsRequest):
+    """Udfaldsstatistik for et udsnit af praksis: pr. år, mangeltype og selskab."""
+    c = corpus()
+    sub = req.filters.sub_idx(c)
+    base = c.df if sub is None else c.df.loc[sub]
+    if req.query.strip():
+        base = engine.ordret_søg(req.query, base)
+    by_year = _group(base.assign(År=base["År"].astype("Int64")), "År") if len(base) else []
+    by_year.sort(key=lambda r: int(r["label"]))
+    return {
+        "total": int(len(base)),
+        "outcome_counts": {k: int(v) for k, v in base["Udfald"].value_counts().items()},
+        "by_year": by_year,
+        "by_defect": _group(base, "Mangeltype", explode=True) if len(base) else [],
+        "by_company": _group(base, "Selskab", limit=15) if len(base) else [],
+    }
+
+
 @app.get("/v1/decisions/{key}", response_model=DecisionFull, tags=["kendelser"],
          dependencies=[Depends(require_api_key)])
 def get_decision(key: str, q: str = Query("", description="Valgfri søgetekst til uddraget.")):
@@ -318,7 +394,8 @@ def get_decision(key: str, q: str = Query("", description="Valgfri søgetekst ti
     return _to_decision(rec, q, full=True)
 
 
-@app.post("/v1/decisions/{key}/summary", tags=["kendelser"], dependencies=[Depends(require_api_key)])
+@app.post("/v1/decisions/{key}/summary", tags=["kendelser"],
+          dependencies=[Depends(require_api_key), Depends(llm_rate_limit)])
 def summarize_decision(key: str):
     """Kort struktureret resumé af en kendelse (LLM)."""
     rec = corpus().find(key)
@@ -333,7 +410,7 @@ def _sse(event: str, data) -> str:
 
 
 @app.post("/v1/answer", response_model=AnswerResponse, tags=["assistent"],
-          dependencies=[Depends(require_api_key)],
+          dependencies=[Depends(require_api_key), Depends(llm_rate_limit)],
           responses={200: {"content": {"text/event-stream": {}}}})
 def answer(req: AnswerRequest):
     """Besvar et praksisspørgsmål med kildehenvisninger ([Kilde n]) og citatkontrol."""
