@@ -82,6 +82,52 @@ kilderne. Metodeforbehold: revisorerne så et uddrag (faktum + nævnets
 begrundelse), ikke hele kendelsen. Nogle "ikke understøttet" kan derfor stå i
 den udeladte del.
 
+### Runde 3 og ny revisionsmetode
+
+Fra runde 3 ser revisorerne præcis de uddrag, modellen fik, samt nævnets egen vurdering
+(`claim_audit.py pack`). Den gamle pakke undervurderede kvaliteten. Derfor er runde 2
+revideret igen med den nye metode, så runde 2 og 3 kan sammenlignes:
+
+| | Runde 2 (ny metode) | Runde 3 |
+|---|---|---|
+| Fuldt understøttet | 87,7 % | 87,2 % |
+| Mindst delvist | 98,7 % | 99,0 % |
+| Modsagt | 3 | 2 |
+| Grundprincipper (bevisbyrde, skadesbegreb), andel af teksten | 5,1 % | 2,8 % |
+
+Runde 3 tilføjede at nævnets vurdering skilles fra dets gengivelse af parterne,
+kilderegister med udfald/dækning og færdig optælling, og at grundprincipper højst
+nævnes kort. Nøjagtigheden er uændret (inden for støj), mens svarene bruger
+halvt så meget plads på almen viden.
+
+## Praksisfacit: 60 kildeforankrede spørgsmål
+
+`gold_practice.py` + `ejnar/evaluation/gold_practice_v1/`. 60 kendelser (2012+,
+spredt over mangeltyper; 24/18/18 ikke/delvis/medhold). For hver skrev en agent et
+praksisspørgsmål og 2–4 nøglepunkter om, hvad nævnet lagde vægt på, hvert med et
+ordret citat fra nævnets vurdering (maskinelt kontrolleret: 0 fejl). Ejnars rigtige
+pipeline besvarede spørgsmålene, og bedømmere vurderede hvert nøglepunkt.
+
+| | Før | Efter relevansvægtet kontekst |
+|---|---|---|
+| Facitkendelsen fundet og citeret | 58/60 | 58/60 |
+| Nøglepunkter fuldt dækket | 62,5 % | **80,6 %** |
+| Nøglepunkter mindst delvist | 85,8 % | **90,9 %** |
+| Facitkendelsen gengivet forkert | 4 | **0** |
+
+**Fund og rettelse:** facitkendelsen var kilde 1 i 50 af 60 spørgsmål, men fik kun
+ca. 2.400 af 42.000 tegn i prompten, fordi pladsen blev fordelt ligeligt over 15–18
+kilder. Når svaret fejlede, var det typisk "uddragene nævner ikke X", hvor nævnet
+netop lagde vægt på X. Nu vægtes pladsen efter relevans (kilde 1: 3×, kilde 2–3: 2×),
+og de ledende kilder får hele nævnets vurdering, når den kan være der. Facitkendelsen
+får nu ca. 4.000 tegn, og prompten vokser kun 5 %.
+
+**Forbehold:** Spørgsmålene er skrevet af agenter, der havde læst kendelsen. Søgningen
+har derfor lettere ved at finde den end ved et rigtigt spørgsmål. Facit og bedømmelse
+er lavet af AI. En fagpersons stikprøvekontrol af 10–15 facit anbefales (se
+`gold_practice_v1/README.md`). Nogle svarfiler blev under kørslen omformateret af en
+ukendt proces i miljøet. Bedømmerne vurderede de endelige filer.
+
 ## Omvendt facit: peger praksis i den rigtige retning?
 
 Her er facit nævnets egen afgørelse og ikke en models vurdering (`reverse_gold.py`).

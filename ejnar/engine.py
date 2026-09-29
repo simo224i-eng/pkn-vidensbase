@@ -910,16 +910,22 @@ _PÅSTAND_RX = [
     ("Ikke medhold", re.compile(
         rf"\b{_PARTER}\s+fik\s+ikke\s+medhold|\bfik\s+{_PARTER}\s+ikke\s+medhold|\bgav\s+ikke\s+(?:\d+\s+|en\s+)?{_PARTER}\s+medhold|"
         r"\bselskabet\s+fik\s+medhold|\bgav\s+selskabet\s+medhold|\bgav\s+ikke\s+medhold|"
-        r"\bgav\s+medhold\s+til\s+selskabet|"
+        r"\bgav\s+medhold\s+til\s+selskabet|\bikke\s+gav\s+(?:\w+\s+)?medhold|"
+        r"(?<![a-zæøå])ikke\s+medhold\s+i\s+(?:\d+|en|et|to|tre|fire|fem|seks|syv|otte|ni|ti)\b|"
+        r"\bafslag\s+i\s+(?:\d+|en|et|to|tre|fire|fem|seks|syv|otte|ni|ti)\b|\b\d+\s+afslag\b|\bfik\s+afslag\b|"
         r"\bklagen\s+blev\s+ikke\s+taget\s+til\s+følge|\bselskabet\s+blev\s+frifundet", re.I)),
     ("Medhold", re.compile(
         rf"\b{_PARTER}\s+fik\s+(?:fuldt\s+|fuld\s+|helt\s+)?medhold|\bfik\s+{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|\bgav\s+(?:\d+\s+|en\s+)?{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|"
-        r"\bklagen\s+blev\s+taget\s+til\s+følge|\bgav\s+(?:fuldt\s+|helt\s+)?medhold\b(?!\s+til\s+selskab)|"
-        r"\bhelt\s+eller\s+delvis(?:t)?\s+medhold", re.I)),
+        r"\bklagen\s+blev\s+taget\s+til\s+følge|(?<!ikke )\bgav\s+(?:fuldt\s+|helt\s+)?medhold\b(?!\s+til\s+selskab)|"
+        r"\bmedhold-helt-eller-delvist", re.I)),
 ]
 _KLAUSUL_RX = re.compile(r"(?<=[.!?;:])\s+|\n+|,\s+(?=(?:men|mens|hvorimod|hvor|og\s+i)\b)|\s+(?=(?:mens|hvorimod)\b)")
 # Påstand → faktiske udfald, der er uforenelige med den. "Delvis medhold" i kilden er
 # foreneligt med alt, fordi svaret kan tale om ét af sagens led.
+_HELT_DELVIS_RX = re.compile(r"\b(?:helt|medhold)\s+eller\s+delvis(?:t|e)?\s+medhold\b", re.I)
+_OPTÆLLING_RX = re.compile(
+    r"\b\d+\s+af\s+\d+\b|\b(?:medhold|afslag)\s+i\s+(?:\d+|en|et|to|tre|fire|fem|seks|syv|otte|ni|ti)\b|"
+    r"\b\d+\s+(?:afslag|kendelser|sager|medhold)\b|\bblandt\b|\bfordeling|\]\s*\)?\s*mod\s+\[?", re.I)
 _ETIKET_RX = re.compile(
     r"\[Kilde\s+(\d+)\]\s*(?:\(\s*|:\s*)(delvis(?:t)?\s+medhold|ikke\s+medhold|medhold)\b(?!\s+til\s+selskab)\)?", re.I)
 _UFORENELIG = {"Medhold": {"Ikke medhold"}, "Ikke medhold": {"Medhold"}, "Delvis medhold": {"Ikke medhold", "Medhold"}}
@@ -950,15 +956,30 @@ def udfaldskonflikter(svar: str, kilder: list) -> list[dict]:
         tjek(int(m.group(1)), påstand, m.group(0))
     rest = _ETIKET_RX.sub(" ", svar or "")
     for klausul in _KLAUSUL_RX.split(rest):
+        # Optællinger ("blandt 10 kendelser … medhold i 1 [Kilde 1] og afslag i 9") kan ikke
+        # fortolkes sikkert; registrets færdige optælling dækker dem. Kontrollen gælder
+        # udsagn om en bestemt kendelses udfald.
+        if _OPTÆLLING_RX.search(klausul):
+            continue
+        # "helt eller delvist medhold" / "medhold eller delvis medhold" = klager fik noget
+        klausul = _HELT_DELVIS_RX.sub("medhold-helt-eller-delvist", klausul)
         påstande = sorted((m.start(), label) for label, rx in _PÅSTAND_RX for m in rx.finditer(klausul))
         # "delvis medhold" indeholder "medhold": behold kun det længste match pr. position
         påstande = [p for i, p in enumerate(påstande) if i == 0 or p[0] != påstande[i - 1][0]]
         if not påstande:
             continue
-        for ref in KILDE_REF_RX.finditer(klausul):
-            # Henvisningen hører til den nærmeste påstand før den (ellers den første efter)
+        refs = list(KILDE_REF_RX.finditer(klausul))
+        entydig = len({label for _, label in påstande}) == 1 and sum(len(kildenumre(r.group(1))) for r in refs) <= 2
+        for ref in refs:
+            # Henvisningen hører til den nærmeste påstand før den; står den før enhver
+            # påstand, kun når klausulen er entydig ("I [Kilde 2] fik klager ikke medhold")
             før = [label for pos, label in påstande if pos < ref.start()]
-            påstand = før[-1] if før else påstande[0][1]
+            if før:
+                påstand = før[-1]
+            elif entydig:
+                påstand = påstande[0][1]
+            else:
+                continue
             for n in kildenumre(ref.group(1)):
                 tjek(n, påstand, klausul)
     return konflikter

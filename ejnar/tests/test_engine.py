@@ -151,6 +151,16 @@ class OutcomeConflictTests(unittest.TestCase):
         self.assertEqual(self.check("To kendelser gav medhold ([Kilde 1], [Kilde 2])."), [(1, "Medhold")])
         self.assertEqual(self.check("Tre gav helt eller delvist medhold [Kilde 2] [Kilde 3]."), [])
         self.assertEqual(self.check("To gav helt eller delvist medhold [Kilde 1]."), [(1, "Medhold")])
+        # Optællinger (fundet i facittesten)
+        self.assertEqual(self.check("Klager fik medhold i 1 [Kilde 2] og afslag i 1 [Kilde 1]."), [])
+        self.assertEqual(self.check("Tre gav medhold eller delvis medhold [Kilde 2] [Kilde 3]."), [])
+        self.assertEqual(self.check("Klager fik medhold i 1 [Kilde 2], delvis medhold i 1 [Kilde 3] og "
+                                    "ikke medhold i 1 [Kilde 1]."), [])
+        # Optællingssætninger kontrolleres ikke (kilderegistret giver den færdige optælling)
+        self.assertEqual(self.check("Klager fik medhold i 2 [Kilde 1, 2]."), [])
+        self.assertEqual(self.check("Blandt 3 kendelser [Kilde 1–3] fik klager medhold i 1 [Kilde 2] og afslag i 2."), [])
+        # Negation: "som nævnet ikke gav medhold i"
+        self.assertEqual(self.check("Kravet, som nævnet ikke gav medhold i [Kilde 1]."), [])
         # Opremsning med etiketter pr. kilde (fundet i praksissimulationen)
         svar = "- **Medhold eller delvis medhold:** [Kilde 3] (Delvis medhold), [Kilde 2] (Medhold)."
         self.assertEqual(self.check(svar), [])
