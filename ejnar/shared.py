@@ -1110,7 +1110,12 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
     for lst in ranked.values():
         lst.sort(key=lambda x: (-x[0], x[1]))
 
-    headers = [f"[Kilde {i+1}] {_dato(d)} – {d.get('Titel', '')}" for i, d in enumerate(docs)]
+    def _udfald(d):
+        u = str(d.get("Udfald") or "").strip()
+        return f"[Udfald for klager: {u}] " if u and u != "Ukendt" else ""
+
+    # Udfaldet står eksplicit i overskriften: nyere AKF-resuméer nævner det ikke altid.
+    headers = [f"[Kilde {i+1}] {_dato(d)} – {_udfald(d)}{d.get('Titel', '')}" for i, d in enumerate(docs)]
     header_total = sum(len(h) + 2 for h in headers)
     fair = max(400, (max_total_chars - header_total) // max(1, len(docs)))
     chosen = defaultdict(list)          # kilde → [(pos, text)]

@@ -151,6 +151,15 @@ class CorpusTests(unittest.TestCase):
         text = engine.byg_prompt("Dækkes skimmel?", [])[0]["text"]
         self.assertIn("## Kort svar", text)
         self.assertIn("## Anbefaling", text)
+        self.assertIn("besvar hvert led for sig", text)
+        self.assertIn("årsspændet", text)
+
+    def test_context_headers_show_outcome(self):
+        import shared
+        docs = self.c.df.to_dict("records")
+        ctx = shared.byg_fokuseret_kontekst("skimmel kælder", docs)
+        self.assertIn("[Kilde 1] 01.03.2021 – [Udfald for klager: Ikke medhold]", ctx)
+        self.assertIn("[Kilde 3]", ctx)
 
     def test_cited_sources(self):
         self.assertEqual(engine.citerede_kilder("A [Kilde 2] B [Kilde 1, 2, 9]", 3), [2, 1])
