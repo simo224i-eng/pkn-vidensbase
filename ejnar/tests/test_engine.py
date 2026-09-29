@@ -80,6 +80,15 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual(self.c.sub_idx(år_fra=2015, udfald=["Delvis medhold"]), [1])
         self.assertEqual(self.c.sub_idx(mangeltyper=["Kloak/dræn"]), [2])
 
+    def test_relevance_search_is_llm_free(self):
+        from unittest import mock
+        engine.ensure_runtimes()
+        with mock.patch.object(engine.shared, "_llm", side_effect=AssertionError("LLM kaldt")):
+            idx = engine.relevans_søg("klager dækning", self.c.df, self.c.vec, self.c.mat, top_n=5)
+        self.assertTrue(idx)
+        self.assertTrue(set(idx) <= {0, 1, 2})
+        self.assertEqual(engine.relevans_søg("", self.c.df, self.c.vec, self.c.mat), [])
+
     def test_exact_search(self):
         hits = engine.ordret_søg("undertag", self.c.df)
         self.assertEqual(list(hits["Link"]), ["https://x/2"])

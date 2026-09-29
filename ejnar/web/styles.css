@@ -467,6 +467,15 @@ button.bd-row:hover { background: var(--hover); }
 .preamble[open] summary::before { transform: rotate(90deg); }
 .preamble[open] summary { margin-bottom: 8px; }
 
+.similar { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+.similar h3 { font-size: 12px; font-weight: 500; color: var(--ink-3); letter-spacing: .02em; margin: 0 0 10px; }
+.sim { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: center; width: 100%; text-align: left;
+  padding: 12px 10px; border-radius: var(--r-sm); border-bottom: 1px solid var(--line-2); }
+.sim:hover { background: var(--hover); }
+.sim-h { font: 400 15.5px/1.35 var(--serif); color: var(--ink); }
+.sim .meta { grid-column: 1; }
+.sim .badge { grid-column: 2; grid-row: 1 / span 2; }
+
 /* ── Login ─────────────────────────────────────────────────────────────── */
 .login { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px; }
 .login-card { width: 100%; max-width: 380px; }

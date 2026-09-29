@@ -62,6 +62,9 @@ jobs:
             ejnar/evaluation/retrieval_reproducibility.py \
             ejnar/evaluation/run_query_planner_experiment.py
 
+      - name: Check web app syntax
+        run: node --check ejnar/web/app.js
+
       - name: Run Ejnar unit tests
         env:
           PYTHONPATH: .

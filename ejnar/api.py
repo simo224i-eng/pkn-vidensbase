@@ -16,6 +16,7 @@ import json
 import logging
 import os
 import queue
+import re
 import threading
 import time
 from contextlib import asynccontextmanager
@@ -173,7 +174,7 @@ class SearchRequest(BaseModel):
     query: str = Field("", max_length=2000)
     mode: Literal["keyword", "exact", "smart"] = Field(
         "keyword",
-        description="keyword = hurtig TF-IDF-relevans (ingen LLM). exact = ordret frase, nyeste først. "
+        description="keyword = hurtig hybrid-relevans (TF-IDF + BM25 + embeddings, ingen LLM). exact = ordret frase, nyeste først. "
                     "smart = fuld RAG-retrieval (query-omskrivning, hybrid søgning, rerank).",
     )
     filters: Filters = Field(default_factory=Filters)
@@ -325,8 +326,8 @@ def search(req: SearchRequest):
         )
         recs = [(k, None) for k in kilder]
     elif req.mode == "keyword" and q:
-        hits = engine.tfidf_søg(q, c.df, c.vec, c.mat, sub_idx=sub, top_n=300)
-        recs = [(r, r.get("_score")) for r in hits.to_dict("records")]
+        idx = engine.relevans_søg(q, c.df, c.vec, c.mat, c.embeds, sub_idx=sub, top_n=200)
+        recs = [(r, None) for r in c.df.iloc[idx].to_dict("records")] if idx else []
     else:
         hits = engine.ordret_søg(q, c.df, sub_idx=sub)
         recs = [(r, None) for r in hits.to_dict("records")]
@@ -392,6 +393,21 @@ def get_decision(key: str, q: str = Query("", description="Valgfri søgetekst ti
     if rec is None:
         raise HTTPException(404, "Kendelsen findes ikke.")
     return _to_decision(rec, q, full=True)
+
+
+@app.get("/v1/decisions/{key}/similar", response_model=list[Decision], tags=["kendelser"],
+         dependencies=[Depends(require_api_key)])
+def similar_decisions(key: str, limit: int = Query(6, ge=1, le=20)):
+    """Kendelser der ligner denne mest (samme søgekæde som relevanssøgning, ingen LLM)."""
+    c = corpus()
+    rec = c.find(key)
+    if rec is None:
+        raise HTTPException(404, "Kendelsen findes ikke.")
+    # AKF's titel er et resumé af faktum og resultat og er derfor en god forespørgsel.
+    query = re.sub(r"\b(?:Selskab|Klager)(?:et|en)?\s+(?:delvis\w*\s+)?medhold\.?\s*$", "", rec["Titel"]).strip()
+    idx = engine.relevans_søg(query[:600], c.df, c.vec, c.mat, c.embeds, top_n=limit + 5)
+    out = [r for r in c.df.iloc[idx].to_dict("records") if r["Id"] != rec["Id"]] if idx else []
+    return [_to_decision(r) for r in out[:limit]]
 
 
 @app.post("/v1/decisions/{key}/summary", tags=["kendelser"],

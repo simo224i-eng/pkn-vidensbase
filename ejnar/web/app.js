@@ -506,7 +506,7 @@ function copyAnswer(idx) {
 
 // ── Søgning ──────────────────────────────────────────────────────────────────
 const MODES = [
-  ["keyword", "Relevans", "Rangerer efter hvor godt kendelsen matcher dine ord."],
+  ["keyword", "Relevans", "Hybrid rangering af ord, afsnit og betydning. Hurtig og uden AI-omkostning."],
   ["exact", "Ordret", "Nøjagtig frase i titel eller tekst. Tomt felt viser nyeste. Sagsnumre virker også."],
   ["smart", "AI-søgning", "Omskriver søgningen, kombinerer semantisk og ordbaseret søgning og rerangerer med AI."],
 ];
@@ -572,7 +572,7 @@ function renderSearch() {
   else if (s.loading && !s.results.length) body = '<div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>';
   else if (!s.results.length) body = `<div class="empty">${icon("search")}<h3>Ingen kendelser fundet</h3><p>Prøv andre ord, skift til AI-søgning eller fjern et filter.</p></div>`;
   else {
-    const capped = s.lastMode === "keyword" && s.total >= 300;
+    const capped = s.lastMode === "keyword" && s.total >= 200;
     body = `${renderDist(s.counts, s.total, true, capped ? "mest relevante kendelser" : s.lastMode === "smart" ? "udvalgte kendelser" : "kendelser")}
       <div class="results">${s.results.map((d) => renderResult(d, s.lastQ)).join("")}</div>
       ${s.results.length < s.total ? `<div class="more"><button class="btn" data-act="more" ${s.loading ? "disabled" : ""}>${s.loading ? '<span class="spinner"></span>' : ""}Vis flere · ${fmtNum(s.total - s.results.length)} tilbage</button></div>` : ""}`;
@@ -715,12 +715,17 @@ function highlight(text, q) {
 }
 
 async function openReader(id, q = "") {
-  state.reader = { id, q, data: null, error: "", summary: "", sumLoading: false };
+  state.reader = { id, q, data: null, error: "", summary: "", sumLoading: false, similar: null };
   state.pop = null;
   render();
   try {
     const d = await apiJson(`/v1/decisions/${encodeURIComponent(id)}?q=${encodeURIComponent(q)}`);
-    if (state.reader?.id === id) { state.reader.data = d; render(); }
+    if (state.reader?.id === id) {
+      state.reader.data = d; render();
+      apiJson(`/v1/decisions/${encodeURIComponent(d.id)}/similar?limit=6`)
+        .then((sim) => { if (state.reader?.id === id) { state.reader.similar = sim; render(); } })
+        .catch(() => { if (state.reader?.id === id) { state.reader.similar = []; render(); } });
+    }
   } catch (e) {
     if (state.reader?.id === id) { state.reader.error = e.message; render(); }
   }
@@ -781,7 +786,17 @@ function renderReader() {
         <div><dt>Udfald for klager</dt><dd>${esc(d.outcome)}</dd></div>
       </dl>
       ${r.summary || r.sumLoading ? `<div class="summary"><div class="summary-h">${icon("spark")}AI-resumé</div>${r.sumLoading ? '<div class="step active"><span class="spinner"></span>Læser kendelsen…</div>' : `<div class="answer">${md(r.summary)}</div>`}</div>` : ""}
-      <div class="doc-text">${docText(d.text, r.q)}</div>`;
+      <div class="doc-text">${docText(d.text, r.q)}</div>
+      <section class="similar">
+        <h3>Lignende kendelser</h3>
+        ${r.similar == null ? '<div class="skel" style="height:64px"></div><div class="skel" style="height:64px"></div>'
+          : r.similar.length ? r.similar.map((x) => `
+            <button class="sim" data-act="open-doc" data-id="${esc(x.id)}">
+              <span class="sim-h">${esc(headline(x.title))}</span>
+              <span class="meta"><span class="num">AKF ${esc(x.case_number || "—")}</span><span class="sep"></span><span>${fmtDate(x.date)}</span></span>
+              ${badge(x.outcome)}
+            </button>`).join("") : '<div class="aside-empty">Ingen lignende kendelser fundet.</div>'}
+      </section>`;
   }
   return `
     <div class="scrim" data-act="close-reader"></div>
@@ -937,6 +952,7 @@ app.addEventListener("click", (e) => {
       return;
     }
     case "open-doc": {
+      if (el.closest(".drawer")) { $(".drawer-body")?.scrollTo({ top: 0 }); return openReader(el.dataset.id, state.reader?.q || ""); }
       const q = el.dataset.src ? activeThread()?.messages[+el.dataset.src.split(":")[0] - 1]?.content : state.search.lastQ;
       return openReader(el.dataset.id, q || "");
     }

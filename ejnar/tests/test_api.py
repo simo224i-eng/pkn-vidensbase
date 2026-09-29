@@ -110,6 +110,12 @@ class APITests(unittest.TestCase):
         self.assertIn('"cited": [1]', text)
         self.assertTrue(text.rstrip().split("\n")[-2].startswith("event: done"))
 
+    def test_similar_excludes_itself(self):
+        r = self.client.get("/v1/decisions/93497/similar", headers=KEY)
+        self.assertEqual(r.status_code, 200)
+        self.assertNotIn("93497", [d["case_number"] for d in r.json()])
+        self.assertEqual(self.client.get("/v1/decisions/nope/similar", headers=KEY).status_code, 404)
+
     def test_stats(self):
         r = self.client.post("/v1/stats", headers=KEY, json={"filters": {"companies": ["Tryg"]}})
         body = r.json()
