@@ -1058,13 +1058,15 @@ def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int
 
 
 def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
-                            chunk_size: int = 400, max_total_chars: int = 24000) -> str:
-    """Chunk-level kontekst-udvælgelse: i stedet for at sende hele kerneafsnit til LLM'en,
-    chunker vi hvert dokument og scorer chunks mod query med simpel TF-IDF.
-    Returnerer formateret kontekst-streng med [Kilde N] headers bevaret.
+                            chunk_size: int = 120, max_total_chars: int = 26000) -> str:
+    """Byg AI-konteksten: hver kilde får sit AKF-resumé (titlen) plus de mest
+    spørgsmålsrelevante passager, scoret med TF-IDF mod spørgsmålet.
 
-    Dette giver LLM'en mere fokuseret, relevant kontekst og reducerer støj.
-    Falder tilbage til udtræk_kerneafsnit ved fejl."""
+    Budgettet fordeles retfærdigt: alle kilder får først en ligelig andel, så
+    ingen fundet kendelse falder ud, fordi de første kilder er lange. Tidligere
+    fyldte 3–4 kilder hele budgettet, og kilde 5–15 nåede aldrig modellen.
+    Overskydende plads går derefter til de højest rangerede kilder.
+    Returnerer formateret kontekst-streng med [Kilde N]-headers bevaret."""
     if not docs:
         return ""
     try:
@@ -1077,51 +1079,71 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
             for i, d in enumerate(docs)
         )
 
-    # 1. Chunk hvert dokument og hold styr på kilde-nummer
+    def _dato(d):
+        try:
+            return pd.Timestamp(d.get("Dato")).strftime("%d.%m.%Y")
+        except Exception:
+            return "–"
+
+    # 1. Chunk hvert dokument (små chunks → præcise passager)
     all_chunks = []     # (kilde_idx, chunk_text)
     for i, d in enumerate(docs):
-        kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=6000)
-        chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=80)
-        if not chunks:
-            chunks = [kerne[:3000]] if kerne else [d.get("Titel", "")]
+        kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=8000)
+        chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=25)
         for c in chunks:
             all_chunks.append((i, c))
 
-    if not all_chunks:
-        return ""
+    # 2. Scor chunks mod spørgsmålet
+    scores = np.ones(len(all_chunks))
+    if all_chunks:
+        try:
+            mini_vec = DeterministicTfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
+            chunk_mat = mini_vec.fit_transform([c for _, c in all_chunks])
+            scores = _cos(mini_vec.transform([query]), chunk_mat).flatten()
+        except Exception:
+            pass
 
-    # 2. Scorer chunks mod query
-    chunk_texts = [c for _, c in all_chunks]
-    try:
-        mini_vec = DeterministicTfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
-        chunk_mat = mini_vec.fit_transform(chunk_texts)
-        qv = mini_vec.transform([query])
-        scores = _cos(qv, chunk_mat).flatten()
-    except Exception:
-        scores = np.ones(len(all_chunks))
-
-    # 3. Vælg bedste chunks per kilde (bevar kilde-rækkefølge)
     from collections import defaultdict
-    kilde_chunks = defaultdict(list)
-    for idx, (kilde_i, chunk) in enumerate(all_chunks):
-        kilde_chunks[kilde_i].append((float(scores[idx]), chunk))
+    ranked = defaultdict(list)          # kilde → [(score, pos, chunk)] bedst først
+    for pos, ((kilde_i, chunk), score) in enumerate(zip(all_chunks, scores)):
+        ranked[kilde_i].append((float(score), pos, chunk))
+    for lst in ranked.values():
+        lst.sort(key=lambda x: (-x[0], x[1]))
+
+    headers = [f"[Kilde {i+1}] {_dato(d)} – {d.get('Titel', '')}" for i, d in enumerate(docs)]
+    header_total = sum(len(h) + 2 for h in headers)
+    fair = max(400, (max_total_chars - header_total) // max(1, len(docs)))
+    chosen = defaultdict(list)          # kilde → [(pos, text)]
+
+    def _take(i, budget):
+        """Tilføj kildens bedste endnu ikke valgte passager inden for budget."""
+        used = 0
+        while ranked[i] and len(chosen[i]) < max_chunks_per_doc:
+            score, pos, chunk = ranked[i][0]
+            if chosen[i] and score <= 0:
+                break
+            room = budget - used
+            if room < 200:
+                break
+            text = chunk if len(chunk) <= room else chunk[:room].rsplit(" ", 1)[0] + " …"
+            chosen[i].append((pos, text))
+            ranked[i].pop(0)
+            used += len(text) + 7
+        return used
+
+    # 3a. Ligelig andel til alle kilder
+    used_total = header_total + sum(_take(i, fair) for i in range(len(docs)))
+    # 3b. Resten til de højest rangerede kilder
+    for i in range(len(docs)):
+        spare = max_total_chars - used_total
+        if spare < 300:
+            break
+        used_total += _take(i, min(spare, fair * 2))
 
     dele = []
-    total_chars = 0
-    for i, d in enumerate(docs):
-        header = f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}"
-        best = sorted(kilde_chunks.get(i, []), key=lambda x: -x[0])[:max_chunks_per_doc]
-        best_texts = [c for _, c in best]
-        content = "\n[…]\n".join(best_texts) if best_texts else udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=2000)
-        entry = f"{header}\n{content}"
-        if total_chars + len(entry) > max_total_chars:
-            # Afkort sidste kilde
-            remaining = max_total_chars - total_chars
-            if remaining > 500:
-                dele.append(entry[:remaining] + "…")
-            break
-        dele.append(entry)
-        total_chars += len(entry)
+    for i in range(len(docs)):
+        passager = [t for _, t in sorted(chosen[i])]      # bevar tekstens rækkefølge
+        dele.append(headers[i] + ("\n" + "\n[…]\n".join(passager) if passager else ""))
     return "\n\n".join(dele)
 
 
@@ -2052,6 +2074,12 @@ def _normaliser_citat(s: str) -> str:
     return s
 
 
+def _citat_signatur(s: str) -> str:
+    """Kun bogstaver og tal: tåler PDF-ordbrud ("sels kabet", "undersøgel- se"),
+    ekstra mellemrum og tegnsætning, som modellen med rette retter i citater."""
+    return re.sub(r"[^0-9a-zæøåéü]", "", (s or "").lower())
+
+
 def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
     """Find citater i "..." i svaret og verificér at de findes i kildedokumenterne.
     Returnerer liste af suspekte citater (ikke fundet i nogen kilde).
@@ -2064,6 +2092,7 @@ def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
         tx = d.get("Tekst") or ""
         kilde_tekster.append(_normaliser_citat(tx))
     samlet_korpus = " ||| ".join(kilde_tekster)
+    signatur_korpus = "|".join(_citat_signatur(d.get("Tekst") or "") for d in docs)
 
     # Find alle "..." citater (inkl. danske citationstegn » « og " ")
     moenstre = [
@@ -2088,6 +2117,9 @@ def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
             # Fallback: check om første 60% af citatet findes (håndterer mindre afvigelser)
             head = norm[: max(30, int(len(norm) * 0.6))]
             if head in samlet_korpus:
+                continue
+            sig = _citat_signatur(citat)
+            if len(sig) >= 20 and sig in signatur_korpus:
                 continue
             suspekte.append(citat)
     return suspekte

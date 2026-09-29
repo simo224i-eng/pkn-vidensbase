@@ -122,6 +122,17 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual(kilder[0]["Link"], "https://x/3")  # metadata-match boostes
         self.assertEqual({k["Link"] for k in kilder}, {"https://x/1", "https://x/2", "https://x/3"})
 
+    def test_citation_check_tolerates_pdf_word_breaks(self):
+        docs = [{"Tekst": "Nævnet fandt, at sels kabet med rette havde afvist dækning, da undersøgel- se ikke var foretaget."}]
+        ok = 'Nævnet fandt: "at selskabet med rette havde afvist dækning, da undersøgelse ikke var foretaget" [Kilde 1]'
+        bad = 'Nævnet fandt: "at selskabet skal betale fuld erstatning for hele kælderen og følgeskader" [Kilde 1]'
+        self.assertEqual(engine.mistænkelige_citater(ok, docs), [])
+        self.assertEqual(len(engine.mistænkelige_citater(bad, docs)), 1)
+
+    def test_prompt_asks_for_short_answer_first(self):
+        text = engine.byg_prompt("Dækkes skimmel?", [])[0]["text"]
+        self.assertIn("## Kort svar", text)
+
     def test_cited_sources(self):
         self.assertEqual(engine.citerede_kilder("A [Kilde 2] B [Kilde 1, 2, 9]", 3), [2, 1])
 
