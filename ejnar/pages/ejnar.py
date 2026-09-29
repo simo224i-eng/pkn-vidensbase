@@ -4,405 +4,84 @@ if not st.session_state.get("_autentificeret_ejnar"):
     st.switch_page("app.py")
     st.stop()
 
-import os
 import re
-import csv
-import zipfile
-import io
-import glob as _glob
+import html as _html
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import requests
 
 from source_explainability import render_source_decision_core_html
 from answer_citation_explainability import render_source_claims_html
 
 from shared import (
-    logo, _llm, _llm_stream, strip_html, BADGE,
-    format_afgørelse_tekst, render_detail_header,
-    udtræk_kerneafsnit, sidebar_log_ud,
-    byg_indeks_tekst, udvid_query, omformuler_opfoelgning, llm_rerank,
-    byg_embeddings_indeks, hybrid_retrieval, embeddings_tilgængelige,
-    valider_citationer, dansk_tokenizer, byg_fokuseret_kontekst,
-    klassificer_query, highlight_query, copy_button, render_filter_chips, get_embed_error,
-    auto_filter_query, apply_auto_filters, llm_tilgaengelig, llm_label,
+    logo, _llm, _llm_stream, strip_html,
+    format_afgørelse_tekst, render_detail_header, sidebar_log_ud,
+    embeddings_tilgængelige, highlight_query, copy_button, render_filter_chips,
+    get_embed_error, llm_tilgaengelig, llm_label,
 )
+import engine
+from engine import tfidf_søg
 
 
 LLM_AKTIV = llm_tilgaengelig()
 
 
-# ── Mangeltype-detektion (samme liste som scrape_ejnar.py) ───────────────────
-MANGELTYPER = {
-    "Skimmel/fugt":         ["skimmel", "fugt", "fugtskade", "fugtindtrængning"],
-    "Tag/tagdækning":       ["tag", "tagdækning", "tagsten", "undertag", "tagrende"],
-    "Kloak/dræn":           ["kloak", "dræn", "afløb", "spildevand", "faldstamme"],
-    "Installationer":       ["el-install", "el install", "vand-install", "varmeinstal",
-                             "installationsskade", "stikledning"],
-    "Fundament":            ["fundament", "sokkel", "sætningsskade"],
-    "Vinduer/døre":         ["vindue", "døre", "vinduesparti"],
-    "Murværk/facade":       ["murværk", "mursten", "facade", "puds"],
-    "Råd/svamp/insekt":     ["råd", "trænedbrydende", "svamp", "ægte hussvamp",
-                             "insektangreb", "borebille"],
-    "Konstruktion/bærende": ["bjælke", "bærende konstruktion", "spær",
-                             "trækonstruktion", "etageadskillelse"],
-    "Badeværelse/vådrum":   ["badeværelse", "vådrum", "vådrumsmembran"],
-    "Gulv":                 ["gulv", "trægulv", "klinkegulv", "parketgulv"],
-}
-
-
-def detect_mangeltyper(titel: str, tekst: str) -> list[str]:
-    """Returnér liste af identificerede mangeltyper fra titel + tekst."""
-    blob = (titel + " " + (tekst or "")[:6000]).lower()
-    fundet = [label for label, ord in MANGELTYPER.items()
-              if any(s in blob for s in ord)]
-    return fundet or ["Andet"]
-
-
-def detect_udfald_ejnar(titel: str, tekst: str) -> str:
-    """Klassificér AKF-kendelser. Forsøger først titel, derefter tekstkonklusion."""
-    t = (titel or "").lower()
-    if "afvis" in t:
-        return "Afvist"
-    if "delvis" in t and "medhold" in t:
-        return "Delvis medhold"
-    if "ikke medhold" in t or "frifind" in t:
-        return "Ikke medhold"
-    if "medhold" in t:
-        return "Medhold"
-
-    tx = (tekst or "").lower()
-    halen = tx[-3000:]
-    if any(p in halen for p in (
-        "klageren får ikke medhold", "klagerens påstand tages ikke til følge",
-        "selskabet frifindes", "den indklagede tilpligtes ikke",
-    )):
-        return "Ikke medhold"
-    if any(p in halen for p in (
-        "klageren får delvist medhold", "klageren får delvis medhold",
-        "delvist medhold", "delvis medhold",
-    )):
-        return "Delvis medhold"
-    if any(p in halen for p in (
-        "klageren får medhold", "klagerens påstand tages til følge",
-        "den indklagede tilpligtes", "selskabet skal anerkende",
-        "selskabet skal betale",
-    )):
-        return "Medhold"
-    if any(p in halen for p in (
-        "klagen afvises", "afvises som åbenbart", "kan ikke realitetsbehandles",
-    )):
-        return "Afvist"
-    return "Ukendt"
-
-
-# ── Data loading ──────────────────────────────────────────────────────────────
-@st.cache_data(show_spinner="Indlæser kendelser…", ttl=None)
-def _læs_csv(sti: str) -> list:
-    rows = []
-    csv.field_size_limit(10_000_000)
-    with open(sti, newline="", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
-            tekst = strip_html(row.get("Tekst", ""), preserve_headings=True)
-            excerpt = re.sub(r'^#{2,3} ', '', tekst, flags=re.M).replace('\n', ' ')
-            excerpt = re.sub(r'\s+', ' ', excerpt).strip()
-            mangeltype = row.get("Mangeltype", "")
-            mangeltype_list = [m.strip() for m in mangeltype.split(",") if m.strip()] \
-                              if mangeltype else []
-            rows.append({
-                "Dato":            row.get("Dato", ""),
-                "Titel":           row.get("Titel", ""),
-                "Link":            row.get("Link", ""),
-                "Tekst":           tekst,
-                "Excerpt":         excerpt[:280],
-                "Sagsnummer":      row.get("Sagsnummer", ""),
-                "Selskab":         row.get("Selskab", ""),
-                "Udfald":          row.get("Udfald", ""),
-                "Mangeltype":      mangeltype_list,
-                "Forsikringstype": row.get("Forsikringstype", "Ejerskifteforsikring"),
-            })
-    return rows
-
-
+# ── Data loading (engine gør arbejdet; her caches det pr. Streamlit-proces) ──
 # cache_resource (ikke cache_data): deler ÉT df-objekt i stedet for at deep-copy'e
 # de ~170MB tekst ved hvert kald. df muteres aldrig in-place efter load → sikkert,
 # og sparer 1-2 fulde kopier i RAM ved opstart (afgørende for Streamlit Clouds 1GB).
 @st.cache_resource(show_spinner="Indlæser kendelser…")
 def load_data(version: int = 1):
-    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    _tmp = "/tmp/ejnar_data"
-    os.makedirs(_tmp, exist_ok=True)
-    csv.field_size_limit(10_000_000)
-
-    def _udpak(zip_navn: str) -> str:
-        zip_sti = os.path.join(_root, zip_navn)
-        csv_navn = zip_navn[:-4]
-        dest = os.path.join(_tmp, csv_navn)
-        if not os.path.exists(dest) and os.path.exists(zip_sti):
-            with zipfile.ZipFile(zip_sti) as z:
-                for m in z.namelist():
-                    if m.endswith(".csv"):
-                        with z.open(m) as src, open(dest, "wb") as dst:
-                            dst.write(src.read())
-                        break
-        return dest if os.path.exists(dest) else ""
-
-    def _find(navn: str) -> str:
-        repo_csv = os.path.join(_root, navn)
-        if os.path.exists(repo_csv):
-            return repo_csv
-        return _udpak(navn + ".zip")
-
-    rows: list = []
-    seen: set = set()
-    navne = (
-        {os.path.basename(p) for p in _glob.glob(os.path.join(_root, "ejnar_*.csv"))} |
-        {os.path.basename(p)[:-4] for p in _glob.glob(os.path.join(_root, "ejnar_*.csv.zip"))}
-    )
-    for navn in sorted(navne):
-        sti = _find(navn)
-        if not sti:
-            continue
-        for r in _læs_csv(sti):
-            if r["Link"] in seen:
-                continue
-            seen.add(r["Link"])
-            rows.append(r)
-
-    df = pd.DataFrame(rows)
-    if df.empty:
-        # Tom skelet-DataFrame så UI'en ikke crasher
-        df = pd.DataFrame(columns=[
-            "Dato", "Titel", "Link", "Tekst", "Excerpt", "Sagsnummer",
-            "Selskab", "Udfald", "Mangeltype", "Forsikringstype", "År",
-        ])
-        df["Dato"] = pd.to_datetime(df["Dato"], errors="coerce")
-        df["År"] = pd.Series(dtype="Int64")
-        return df
-
-    df["Dato"] = pd.to_datetime(df["Dato"], errors="coerce")
-    df["År"] = df["Dato"].dt.year.astype("Int64")
-
-    # Auto-detect mangeltyper/udfald hvis CSV-felterne er tomme
-    needs_mt = df["Mangeltype"].apply(lambda x: not x)
-    if needs_mt.any():
-        df.loc[needs_mt, "Mangeltype"] = df.loc[needs_mt].apply(
-            lambda r: detect_mangeltyper(r["Titel"], r["Tekst"]), axis=1)
-    needs_ud = df["Udfald"].fillna("").eq("") | df["Udfald"].eq("Ukendt")
-    if needs_ud.any():
-        df.loc[needs_ud, "Udfald"] = df.loc[needs_ud].apply(
-            lambda r: detect_udfald_ejnar(r["Titel"], r["Tekst"]), axis=1)
-
-    df["Selskab"] = df["Selskab"].fillna("").astype(str)
-    return df
+    return engine.load_data()
 
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int, version: int = 1):
-    from sklearn.feature_extraction.text import TfidfVectorizer
-    df2 = load_data()
-    if df2.empty:
-        return None, None
-    # generator (ikke liste): undgår at materialisere en hel ekstra kopi af
-    # teksten i RAM — TfidfVectorizer itererer alligevel kun én gang.
-    texts = (byg_indeks_tekst(t, tx) for t, tx in
-             zip(df2["Titel"].astype(str), df2["Tekst"].astype(str)))
-    vec = TfidfVectorizer(max_features=60_000, ngram_range=(1, 2),
-                          min_df=2, sublinear_tf=True, tokenizer=dansk_tokenizer,
-                          token_pattern=None)
-    mat = vec.fit_transform(texts)
-    return vec, mat
+    return engine.build_index(load_data())
 
 
 @st.cache_resource(show_spinner=False)
 def build_embeddings(n_rows: int, version: int = 1):
-    if not embeddings_tilgængelige():
-        return None
-    df2 = load_data()
-    if df2.empty:
-        return None
-    return byg_embeddings_indeks(df2, cache_key="ejnar_ejerskifteforsikring")
-
-
-def tfidf_søg(query, df, vec, mat, sub_idx=None, top_n=30, ekspander=False):
-    from sklearn.metrics.pairwise import cosine_similarity
-    if vec is None or mat is None:
-        return df.iloc[0:0].copy()
-    eff = udvid_query(query) if ekspander else query
-    qv = vec.transform([eff])
-
-    def _boost(idx, base):
-        try:
-            aar = int(df.at[idx, "År"])
-            decay = 1.0 + max(0, min(0.15, (aar - 2017) * 0.02))
-            return float(base) * decay
-        except Exception:
-            return float(base)
-
-    if sub_idx is not None:
-        scores = cosine_similarity(qv, mat[sub_idx]).flatten()
-        top_local = scores.argsort()[-top_n * 2:][::-1]
-        kand = [(sub_idx[i], scores[i]) for i in top_local if scores[i] > 0.01]
-    else:
-        scores = cosine_similarity(qv, mat).flatten()
-        top = scores.argsort()[-top_n * 2:][::-1]
-        kand = [(int(i), scores[i]) for i in top if scores[i] > 0.01]
-    kand = [(g, _boost(g, s)) for g, s in kand]
-    kand.sort(key=lambda x: x[1], reverse=True)
-    kand = kand[:top_n]
-    if not kand:
-        return df.iloc[0:0].copy()
-    idxs = [g for g, _ in kand]
-    res = df.loc[idxs].copy() if sub_idx is not None else df.iloc[idxs].copy()
-    res["_score"] = [s for _, s in kand]
-    return res.reset_index(drop=True)
-
-
-def _saml_kilder(historik, nye_hits, max_total=12):
-    seen, merged = set(), []
-    for rec in (nye_hits.to_dict("records") if hasattr(nye_hits, "to_dict") else nye_hits):
-        lnk = rec.get("Link", "")
-        if lnk and lnk not in seen:
-            seen.add(lnk)
-            merged.append(rec)
-    for msg in reversed(historik or []):
-        if msg.get("rolle") == "assistent":
-            for k in msg.get("kilder", []) or []:
-                lnk = k.get("Link", "")
-                if lnk and lnk not in seen and len(merged) < max_total:
-                    seen.add(lnk)
-                    merged.append(k)
-    return merged[:max_total]
+    return engine.build_embeddings(load_data())
 
 
 def smart_retrieval(spørgsmål, df, vec, mat, ai_sub_idx, historik,
                     top_retrieve=40, top_final=8, embeds=None, filter_options=None):
-    from concurrent.futures import ThreadPoolExecutor
-
-    n_workers = 3 if filter_options else 2
-    with ThreadPoolExecutor(max_workers=n_workers) as pool:
-        f1 = pool.submit(klassificer_query, spørgsmål)
-        f2 = pool.submit(omformuler_opfoelgning, spørgsmål, historik or [])
-        f3 = pool.submit(auto_filter_query, spørgsmål, filter_options) if filter_options else None
-        qtype = f1.result()
-        standalone = f2.result()
-        auto_filters = f3.result() if f3 else {}
-
-    top_retrieve = qtype["top_retrieve"]
-    top_final = qtype["top_final"]
-    corpus_size = len(ai_sub_idx) if ai_sub_idx else len(df)
-    if corpus_size > 500:
-        top_retrieve, top_final = max(top_retrieve, 100), max(top_final, 15)
-    elif corpus_size > 200:
-        top_retrieve, top_final = max(top_retrieve, 70), max(top_final, 12)
-
-    eff_sub, prefiltered = apply_auto_filters(df, ai_sub_idx, auto_filters)
+    debug: dict = {}
+    standalone, kilder = engine.smart_retrieval(
+        spørgsmål, df, vec, mat, ai_sub_idx, historik,
+        top_retrieve=top_retrieve, top_final=top_final, embeds=embeds,
+        filter_options=filter_options, debug=debug,
+    )
     st.session_state["_ejnar_last_auto_filters"] = {
-        "suggested": auto_filters,
-        "applied": prefiltered,
-        "before": len(ai_sub_idx) if ai_sub_idx else len(df),
-        "after": len(eff_sub) if eff_sub else 0,
+        k: debug.get(k) for k in ("suggested", "applied", "before", "after")
     }
-
-    udvidet = udvid_query(standalone)
-    tfidf_query = udvidet if udvidet else standalone
-
-    def _do(sub):
-        if embeds is not None:
-            fused = hybrid_retrieval(tfidf_query, df, vec, mat, embeds, sub_idx=sub,
-                                     top_retrieve=top_retrieve, top_final=top_retrieve)
-            if fused:
-                h = df.iloc[fused].copy()
-                h["_score"] = [1.0] * len(h)
-                return h.reset_index(drop=True)
-            return df.iloc[0:0].copy()
-        return tfidf_søg(tfidf_query, df, vec, mat, sub_idx=sub,
-                         top_n=top_retrieve, ekspander=False)
-
-    hits = _do(eff_sub)
-    kand = hits.to_dict("records") if len(hits) > 0 else []
-    rerankede = llm_rerank(standalone, kand, top_n=top_final)
-    if len(rerankede) < 3 and prefiltered:
-        hits = _do(ai_sub_idx)
-        kand = hits.to_dict("records") if len(hits) > 0 else []
-        rerankede = llm_rerank(standalone, kand, top_n=top_final)
-
-    alle = _saml_kilder(historik or [], rerankede, max_total=max(12, top_final + 4))
-    return standalone, alle
+    return standalone, kilder
 
 
 def _byg_prompt(spørgsmål, docs, historik=None):
-    kontekst = byg_fokuseret_kontekst(spørgsmål, docs, max_chunks_per_doc=3)
-    historik_tekst = ""
-    if historik:
-        for msg in historik[:-1]:
-            rolle = "Bruger" if msg["rolle"] == "bruger" else "Assistent"
-            historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
-    samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
-    kilde_liste = "\n".join(
-        f"[Kilde {i+1}] = {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel'][:80]}"
-        for i, d in enumerate(docs)
-    )
-    return [
-        {
-            "type": "text",
-            "text": (
-                "Du er en juridisk assistent specialiseret i dansk forsikringsret og "
-                "Ankenævnet for Forsikrings praksis om ejerskifteforsikring. "
-                "Dine brugere er professionelle jurister og forsikringsfolk – giv "
-                "præcise, faktabaserede svar.\n\n"
-                "REGLER:\n"
-                f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte kendelser. Opfind ikke fakta.\n"
-                "2. Brug kildeformatet [Kilde X] konsekvent – ALDRIG sagsnumre eller datoer som reference.\n"
-                "3. Svar på dansk. Strukturér med overskrifter og afsnit.\n"
-                "4. Understøt påstande med ordret citat i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3]. "
-                "Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat.\n"
-                "5. Identificér mønstre på tværs af kendelserne — fast praksis vs. variation. "
-                "Angiv evt. fordelingen (fx \"3 af 5 kendelser giver klager medhold\").\n"
-                "6. Nævn relevant lovhjemmel (lov om forbrugerbeskyttelse §§, forsikringsaftaleloven mv.) når det fremgår.\n"
-                "7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
-                "8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n\n"
-                f"KILDEREGISTER:\n{kilde_liste}"
-            ),
-        },
-        {
-            "type": "text",
-            "text": f"\nKENDELSER:\n{kontekst}\n",
-            "cache_control": {"type": "ephemeral"},
-        },
-        {
-            "type": "text",
-            "text": f"{samtale_blok}SPØRGSMÅL: {spørgsmål}\n\nSVAR:",
-        },
-    ]
+    return engine.byg_prompt(spørgsmål, docs, historik)
+
+
+_INGEN_LLM = "Ingen LLM konfigureret – se LLM_PROVIDER/LLM_API_KEY i Streamlit secrets."
 
 
 def claude_svar(spørgsmål, docs, historik=None):
     if not LLM_AKTIV:
-        return "Ingen LLM konfigureret – se LLM_PROVIDER/LLM_API_KEY i Streamlit secrets."
+        return _INGEN_LLM
     return _llm(_byg_prompt(spørgsmål, docs, historik))
 
 
 def claude_svar_stream(spørgsmål, docs, historik=None, placeholder=None):
     if not LLM_AKTIV:
-        return "Ingen LLM konfigureret – se LLM_PROVIDER/LLM_API_KEY i Streamlit secrets."
+        return _INGEN_LLM
     return _llm_stream(_byg_prompt(spørgsmål, docs, historik), placeholder=placeholder)
 
 
 def claude_resumé(titel, tekst):
     if not LLM_AKTIV:
         return "Ingen API-nøgle."
-    kerne = udtræk_kerneafsnit(tekst, max_tegn=6000)
-    prompt = f"""Lav et kort, struktureret resumé af denne kendelse fra Ankenævnet for Forsikring
-om ejerskifteforsikring. Inkluder: Sagens kerne, Klagerens påstand, Selskabets påstand,
-Nævnets vurdering, Resultat. Max 200 ord.
-
-TITEL: {titel}
-TEKST: {kerne}
-
-RESUMÉ:"""
-    return _llm(prompt)
+    return _llm(engine.resumé_prompt(titel, tekst))
 
 
 def erstat_kilde_refs(tekst, kilder):
@@ -491,10 +170,9 @@ with st.sidebar:
     st.markdown('<span class="h-filter-label">Årsinterval</span>', unsafe_allow_html=True)
     år_range = st.slider("", år_min, år_max, (år_min, år_max), label_visibility="collapsed")
 
-    with st.expander("Flere filtre"):
-        st.markdown('<span class="h-filter-label">Udfald</span>', unsafe_allow_html=True)
-        udfald_valg = st.multiselect("", _alle_udfald,
-                                      label_visibility="collapsed", key="ud")
+    st.markdown('<span class="h-filter-label">Udfald (for klager)</span>', unsafe_allow_html=True)
+    udfald_valg = st.multiselect("", _alle_udfald,
+                                  label_visibility="collapsed", key="ud")
 
     st.markdown("---")
     st.markdown(
@@ -566,6 +244,11 @@ else:
     df_vis = df_filter.sort_values("Dato", ascending=False)
     ai_sub_idx = sub_idx
 
+# Direkte opslag: et sagsnummer i søgefeltet lægger den kendelse øverst.
+_sag_hits = engine.sagsnummer_hits(søg_input, df)
+if len(_sag_hits):
+    df_vis = pd.concat([_sag_hits, df_vis]).drop_duplicates("Link").reset_index(drop=True)
+
 
 def build_download_text(data, søgeord=""):
     lines = [
@@ -607,6 +290,42 @@ with st.sidebar:
             mime="text/plain",
         )
     sidebar_log_ud()
+
+
+_UDFALD_FARVER = {
+    "Medhold": "#16a34a", "Delvis medhold": "#0891b2",
+    "Ikke medhold": "#dc2626", "Afvist": "#d97706", "Ukendt": "#94a3b8",
+}
+
+
+def _udfald_fordeling_html(udfald: pd.Series) -> str:
+    """Stablet bjælke med udfaldsfordelingen for de aktuelle resultater."""
+    n = len(udfald)
+    if not n:
+        return ""
+    tæl = udfald.value_counts()
+    segs, legend = [], []
+    for label, farve in _UDFALD_FARVER.items():
+        k = int(tæl.get(label, 0))
+        if not k:
+            continue
+        pct = 100 * k / n
+        segs.append(f'<div title="{label}: {k}" style="width:{pct:.2f}%;background:{farve};"></div>')
+        legend.append(
+            f'<span style="white-space:nowrap;"><span style="display:inline-block;width:8px;height:8px;'
+            f'border-radius:2px;background:{farve};margin-right:5px;"></span>{label} '
+            f'<strong style="color:#0f172a;">{pct:.0f}%</strong> <span style="color:#94a3b8;">({k})</span></span>'
+        )
+    klager = int(tæl.get("Medhold", 0) + tæl.get("Delvis medhold", 0))
+    return (
+        '<div style="margin:0.4rem 0 0.9rem;padding:12px 14px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;">'
+        '<div style="display:flex;justify-content:space-between;font-size:11.5px;color:#475569;margin-bottom:7px;">'
+        '<span style="font-weight:600;letter-spacing:.2px;text-transform:uppercase;font-size:10.5px;">Udfald i resultaterne</span>'
+        f'<span>Klager fik helt/delvist medhold i <strong style="color:#0f172a;">{100*klager/n:.0f}%</strong></span></div>'
+        f'<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;background:#e2e8f0;">{"".join(segs)}</div>'
+        f'<div style="display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:#475569;margin-top:8px;">{"".join(legend)}</div>'
+        '</div>'
+    )
 
 
 # ── Header ────────────────────────────────────────────────────────────────────
@@ -720,6 +439,17 @@ with tab_søg:
         else:
             st.markdown(f"Viser {min(_vis_antal, hits)} af **{total:,}** kendelser (nyeste først)")
 
+        if hits > 0:
+            st.markdown(_udfald_fordeling_html(df_vis["Udfald"]), unsafe_allow_html=True)
+            _sort_valg = (["Relevans", "Nyeste først", "Ældste først"]
+                          if søg_input.strip() and søge_type == "Intelligent"
+                          else ["Nyeste først", "Ældste først"])
+            _sort = st.selectbox("Sortér", _sort_valg, key="ejnar_sort",
+                                 label_visibility="collapsed")
+            if _sort != "Relevans" and not len(_sag_hits):
+                df_vis = df_vis.sort_values("Dato", ascending=(_sort == "Ældste først"),
+                                            na_position="last")
+
         if hits == 0:
             st.markdown(
                 '<div style="text-align:center;padding:3rem 1rem;color:#94a3b8;">'
@@ -744,9 +474,9 @@ with tab_søg:
                 ds = row["Dato"].strftime("%d.%m.%Y") if pd.notna(row["Dato"]) else "–"
                 mt_label = " / ".join(row.get("Mangeltype") or []) or "–"
                 sel = row.get("Selskab") or "–"
-                titel_h = highlight_query(row["Titel"], _hl) if _hl else row["Titel"]
-                exc_h = highlight_query(row["Excerpt"], _hl, max_len=300) if _hl \
-                        else (row["Excerpt"] + "…")
+                titel_h = highlight_query(row["Titel"], _hl) if _hl else _html.escape(row["Titel"])
+                exc_h = highlight_query(engine.snippet(row["Tekst"], _hl, 320), _hl) if _hl \
+                        else (_html.escape(row["Excerpt"]) + "…")
                 st.markdown(f"""
 <div class="pkn-card-v2" style="background:#ffffff;border-radius:8px 8px 0 0;padding:18px 22px;border:1px solid #e2e8f0;border-bottom:none;font-family:'Inter',system-ui,sans-serif;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
@@ -763,7 +493,7 @@ with tab_søg:
     <a href="{row['Link']}" target="_blank" style="font-size:11px;color:#94a3b8;text-decoration:none;font-weight:500;">Åbn kendelse på ankeforsikring.dk ↗</a>
   </div>
 </div>""", unsafe_allow_html=True)
-                if st.button("Læs kendelse →", key=f"btn_{row['Link'][-20:]}"):
+                if st.button("Læs kendelse →", key=f"btn_{row['Id']}"):
                     st.session_state.valgt_kendelse = row.to_dict()
                     if "_resumé" in st.session_state:
                         del st.session_state["_resumé"]
@@ -881,6 +611,54 @@ with tab_stat:
 # ════════════════════════════════════════════════════════════════════════════
 # TAB 3 – AI ASSISTENT
 # ════════════════════════════════════════════════════════════════════════════
+def _citat_advarsel_html(suspekte: list) -> str:
+    punkter = "".join(
+        f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
+        for c in suspekte[:3]
+    )
+    return (
+        "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
+        "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
+        "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
+        "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
+        f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
+    )
+
+
+def _besvar_spørgsmål(tekst: str) -> None:
+    """Kør retrieval + streamet svar + citatkontrol og gem i chat-historikken."""
+    tekst = tekst.strip()
+    st.session_state.chat_historik.append({"rolle": "bruger", "tekst": tekst})
+    st.markdown(f'<div class="chat-user">{tekst}</div>', unsafe_allow_html=True)
+    ph = st.empty()
+    with st.spinner("Søger i kendelser…"):
+        try:
+            _, kilder = smart_retrieval(
+                tekst, df, vec, mat, ai_sub_idx,
+                st.session_state.chat_historik, embeds=embeds,
+                filter_options=_filter_options,
+            )
+        except Exception:
+            kilder = []
+    try:
+        svar = claude_svar_stream(tekst, kilder,
+                                  historik=st.session_state.chat_historik,
+                                  placeholder=ph)
+        suspekte = engine.mistænkelige_citater(svar, kilder)
+        if suspekte:
+            svar = svar + _citat_advarsel_html(suspekte)
+            ph.markdown(svar, unsafe_allow_html=True)
+    except Exception as e:
+        svar = f"Fejl ved AI Assistent: {e}"
+        ph.error(svar)
+        kilder = []
+    af = st.session_state.pop("_ejnar_last_auto_filters", None)
+    st.session_state.chat_historik.append(
+        {"rolle": "assistent", "tekst": svar, "kilder": kilder,
+         "auto_filters": af, "spørgsmål": tekst})
+    st.rerun()
+
+
 with tab_ai:
     n_ai = len(ai_sub_idx)
     filtreret = n_ai != len(df)
@@ -955,48 +733,7 @@ with tab_ai:
         cols = st.columns(4)
         for i, f in enumerate(forslag):
             if cols[i].button(f, use_container_width=True, key=f"fs_{i}"):
-                st.session_state.chat_historik.append({"rolle": "bruger", "tekst": f})
-                st.markdown(f'<div class="chat-user">{f}</div>', unsafe_allow_html=True)
-                ph = st.empty()
-                with st.spinner("Søger i kendelser…"):
-                    try:
-                        _, kilder = smart_retrieval(
-                            f, df, vec, mat, ai_sub_idx,
-                            st.session_state.chat_historik, embeds=embeds,
-                            filter_options=_filter_options,
-                        )
-                    except Exception:
-                        kilder = []
-                try:
-                    svar = claude_svar_stream(f, kilder,
-                                              historik=st.session_state.chat_historik,
-                                              placeholder=ph)
-                    try:
-                        suspekte = valider_citationer(svar, kilder)
-                    except Exception:
-                        suspekte = []
-                    if suspekte:
-                        punkter = "".join(
-                            f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
-                            for c in suspekte[:3]
-                        )
-                        svar = svar + (
-                            "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
-                            "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
-                            "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
-                            "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
-                            f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
-                        )
-                        ph.markdown(svar, unsafe_allow_html=True)
-                except Exception as e:
-                    svar = f"Fejl ved AI Assistent: {e}"
-                    ph.error(svar)
-                    kilder = []
-                af = st.session_state.pop("_ejnar_last_auto_filters", None)
-                st.session_state.chat_historik.append(
-                    {"rolle": "assistent", "tekst": svar, "kilder": kilder,
-                     "auto_filters": af, "spørgsmål": f})
-                st.rerun()
+                _besvar_spørgsmål(f)
 
         with st.form("chat_form", clear_on_submit=True):
             spørgsmål = st.text_area("Dit spørgsmål", height=80,
@@ -1010,48 +747,7 @@ with tab_ai:
             st.rerun()
 
         if send and spørgsmål.strip():
-            st.session_state.chat_historik.append({"rolle": "bruger", "tekst": spørgsmål})
-            st.markdown(f'<div class="chat-user">{spørgsmål}</div>', unsafe_allow_html=True)
-            ph = st.empty()
-            with st.spinner("Søger i kendelser…"):
-                try:
-                    _, kilder = smart_retrieval(
-                        spørgsmål, df, vec, mat, ai_sub_idx,
-                        st.session_state.chat_historik, embeds=embeds,
-                        filter_options=_filter_options,
-                    )
-                except Exception:
-                    kilder = []
-            try:
-                svar = claude_svar_stream(spørgsmål, kilder,
-                                          historik=st.session_state.chat_historik,
-                                          placeholder=ph)
-                try:
-                    suspekte = valider_citationer(svar, kilder)
-                except Exception:
-                    suspekte = []
-                if suspekte:
-                    punkter = "".join(
-                        f"<li>«{c[:140]}…»</li>" if len(c) > 140 else f"<li>«{c}»</li>"
-                        for c in suspekte[:3]
-                    )
-                    svar = svar + (
-                        "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
-                        "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
-                        "<strong>Bemærk – citatverifikation:</strong> følgende citat(er) kunne "
-                        "ikke genfindes ordret i kilderne og bør dobbelttjekkes:"
-                        f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
-                    )
-                    ph.markdown(svar, unsafe_allow_html=True)
-            except Exception as e:
-                svar = f"Fejl ved AI Assistent: {e}"
-                ph.error(svar)
-                kilder = []
-            af = st.session_state.pop("_ejnar_last_auto_filters", None)
-            st.session_state.chat_historik.append(
-                {"rolle": "assistent", "tekst": svar, "kilder": kilder,
-                 "auto_filters": af, "spørgsmål": spørgsmål.strip()})
-            st.rerun()
+            _besvar_spørgsmål(spørgsmål)
 
         st.divider()
 

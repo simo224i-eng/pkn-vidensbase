@@ -1,0 +1,5 @@
+# Ekstra afhængigheder til REST-API'et (api.py). Installeres oveni requirements.txt.
+# Holdes adskilt, så Streamlit Cloud-deployet ikke påvirkes.
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27  # bruges af fastapi.testclient i tests

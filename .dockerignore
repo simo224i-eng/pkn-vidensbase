@@ -1,0 +1,8 @@
+# Kun Ejnar indgår i API-imaget (ejnar/Dockerfile); resten af repoet udelades.
+*
+!ejnar/
+ejnar/**/__pycache__/
+ejnar/**/*.pyc
+ejnar/.streamlit/secrets.toml
+ejnar/evaluation/
+ejnar/tests/

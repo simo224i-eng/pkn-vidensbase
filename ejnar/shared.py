@@ -7,6 +7,19 @@ import numpy as np  # noqa: F401 – bruges i page-filer via import shared
 import pandas as pd
 import requests
 import streamlit as st
+import os as _os
+
+
+def _secret(name: str, default: str = "") -> str:
+    """Læs en secret fra Streamlit secrets, ellers fra miljøvariabler.
+    Gør at samme kode kører både i Streamlit og headless (API, scripts)."""
+    try:
+        value = st.secrets.get(name, None)
+    except Exception:
+        value = None
+    if value in (None, ""):
+        value = _os.environ.get(name, default)
+    return value
 
 # ── Styling ───────────────────────────────────────────────────────────────────
 # Design tokens (Ejnar — samme look-and-feel som Harald):
@@ -1265,10 +1278,10 @@ def _embedding_provider() -> tuple:
     """Returnerer (provider_navn, api_key, model, dim) baseret på tilgængelige secrets.
     Preferer Voyage 3-large (bedst til dansk + chunk-niveau retrieval),
     falder tilbage til OpenAI."""
-    voyage_key = st.secrets.get("VOYAGE_API_KEY", "")
+    voyage_key = _secret("VOYAGE_API_KEY", "")
     if voyage_key:
         return ("voyage", voyage_key, "voyage-3-large", 1024)
-    openai_key = st.secrets.get("OPENAI_API_KEY", "")
+    openai_key = _secret("OPENAI_API_KEY", "")
     if openai_key:
         return ("openai", openai_key, "text-embedding-3-small", 1536)
     return (None, None, None, 0)
@@ -1359,7 +1372,7 @@ def _hyde_embed(query: str) -> "np.ndarray | None":
 
 def _delete_embedding_from_github(fname: str) -> bool:
     """Slet en embedding-fil fra GitHub (bruges til at fjerne partial efter komplet build)."""
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return False
     repo = "simo224i-eng/pkn-vidensbase"
@@ -1383,7 +1396,7 @@ def _delete_embedding_from_github(fname: str) -> bool:
 def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = False) -> str:
     """Push embedding-fil til GitHub. Returnerer status-streng for debug."""
     import os as _os
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return "SKIP: ingen GITHUB_TOKEN"
     if not _os.path.exists(local_path):
@@ -1428,7 +1441,7 @@ def _download_embedding_from_github(fname: str, save_dir: str) -> str | None:
     """Hent embedding-fil fra GitHub repo hvis den eksisterer.
     Returnerer lokal sti til filen, eller None."""
     import os as _os
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return None
     repo = "simo224i-eng/pkn-vidensbase"
@@ -1479,7 +1492,7 @@ def _load_chunked_embeds(cache_key: str, n_docs: int):
         try:
             # GitHub: liste ejnar/embeds/ og find matching navn
             import requests as _req
-            token = st.secrets.get("GITHUB_TOKEN", "").strip()
+            token = _secret("GITHUB_TOKEN", "").strip()
             if token:
                 repo = "simo224i-eng/pkn-vidensbase"
                 url = f"https://api.github.com/repos/{repo}/contents/ejnar/embeds"
@@ -1719,7 +1732,7 @@ def sync_embeddings_to_github():
     """Push alle lokale embedding-filer til GitHub.
     Returnerer liste af (filnavn, status) for debug-visning."""
     import os as _os, glob as _g
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return [("—", "Ingen GITHUB_TOKEN konfigureret")]
     _tmp_dir = "/tmp/ejnar_data/embeds"
@@ -1903,7 +1916,7 @@ def omformuler_opfoelgning(spoergsmaal: str, historik: list) -> str:
 def _voyage_rerank(query: str, documents: list, top_n: int = 8) -> "list | None":
     """Voyage Rerank 2: dedikeret neural reranker. Returnerer liste af (orig_index, score)
     eller None ved fejl / manglende nøgle. Bruger samme VOYAGE_API_KEY som embeddings."""
-    key = st.secrets.get("VOYAGE_API_KEY", "")
+    key = _secret("VOYAGE_API_KEY", "")
     if not key or not documents:
         return None
     try:
