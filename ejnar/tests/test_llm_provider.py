@@ -53,5 +53,17 @@ class LLMProviderTest(unittest.TestCase):
         self.assertTrue(lp.is_configured(secrets(LLM_PROVIDER="deepseek", DEEPSEEK_API_KEY="d")))
 
 
+class SharedHelperTest(unittest.TestCase):
+    def test_helper_calls_get_empty_string_without_llm(self):
+        # Fejlteksten til brugeren må aldrig ende i query-udvidelse/HyDE/rerank.
+        from unittest import mock
+        import shared
+
+        with mock.patch.object(shared._llm_provider, "is_configured", return_value=False), \
+             mock.patch.object(shared._llm_provider, "complete", side_effect=AssertionError("kaldt")):
+            self.assertEqual(shared._llm_haiku("udvid"), "")
+            self.assertIn("LLM", shared._llm("svar"))
+
+
 if __name__ == "__main__":
     unittest.main()

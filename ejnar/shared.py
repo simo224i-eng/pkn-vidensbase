@@ -1260,6 +1260,10 @@ def rrf_merge(rangeringer: list, k: int = 60) -> dict:
 def _llm_haiku(prompt: str, max_tokens: int = 400) -> str:
     """Billig/hurtig Claude Haiku-kald til query expansion, rewriting og reranking.
     Returnerer tom streng ved fejl – kalderen falder tilbage til original adfærd."""
+    # Uden konfigureret LLM må hjælpekald ikke få _llm's brugerrettede fejltekst
+    # tilbage – den ville ellers blive brugt som query-udvidelse, HyDE-tekst osv.
+    if not _llm_provider.is_configured():
+        return ""
     try:
         return _llm(prompt, max_tokens=max_tokens, model="claude-haiku-4-5-20251001")
     except Exception:

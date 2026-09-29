@@ -9,3 +9,4 @@ __MACOSX/
 .streamlit/secrets.toml
 pkn_udkast/.streamlit/secrets.toml
 ejnar/ejnar_ejerskifteforsikring.csv
+ejnar/.evaluation_tmp/
