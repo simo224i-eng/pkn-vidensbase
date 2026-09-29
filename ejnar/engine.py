@@ -291,6 +291,55 @@ def load_data(root: str = EJNAR_DIR, tmp: str = "/tmp/ejnar_data", reader=read_c
     return prepare_frame(rows)
 
 
+_MÅNEDER = {m: i for i, m in enumerate(
+    ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august",
+     "september", "oktober", "november", "december"], start=1)}
+_TEKSTDATO_RX = re.compile(
+    r"\b(\d{1,2})\.\s*(?:(\d{1,2})\.|(" + "|".join(_MÅNEDER) + r"))\s*((?:19|20)\d{2})\b",
+    re.IGNORECASE)
+
+
+def _tekstdatoer(tekst: str) -> list:
+    out = []
+    for d, mnr, mnavn, år in _TEKSTDATO_RX.findall(str(tekst or "")):
+        try:
+            out.append(pd.Timestamp(int(år), int(mnr) if mnr else _MÅNEDER[mnavn.lower()], int(d)))
+        except (ValueError, KeyError):
+            continue
+    return out
+
+
+def repair_dates(datoer: pd.Series, tekster: pd.Series, sagsnumre: pd.Series) -> tuple[pd.Series, pd.Series]:
+    """Erstat scraperens fallback-datoer med et skøn.
+
+    Nævnet træffer afgørelser på hverdage; en weekenddato, som mange kendelser
+    deler, er scrapingdatoen – ikke afgørelsesdatoen. Skønnet er den seneste dato
+    i kendelsens tekst (afgørelsen ligger efter alt, den omtaler) og ellers
+    datoen for sagen med nærmeste sagsnummer.
+    """
+    datoer = datoer.copy()
+    estimeret = pd.Series(False, index=datoer.index)
+    antal = datoer.value_counts()
+    mistænkt = datoer.notna() & (datoer.dt.dayofweek >= 5) & datoer.map(antal).fillna(0).ge(3)
+    # Sagsnumre stiger over tid: nærmeste troværdige nabosag giver et skøn
+    nr = pd.to_numeric(sagsnumre.astype(str).str.extract(r"^\s*(\d{4,6})")[0], errors="coerce")
+    ok = datoer.notna() & ~mistænkt & nr.notna()
+    ref = pd.DataFrame({"nr": nr[ok], "dato": datoer[ok]}).sort_values("nr")
+    naboer = {}
+    if not ref.empty:
+        for i in datoer.index[mistænkt & nr.notna()]:
+            pos = int(ref["nr"].searchsorted(nr[i]))
+            cand = [p for p in (pos - 1, pos) if 0 <= p < len(ref)]
+            best = min(cand, key=lambda p: abs(ref["nr"].iloc[p] - nr[i]))
+            naboer[i] = ref["dato"].iloc[best]
+    for i in datoer.index[mistænkt]:
+        kandidater = [d for d in _tekstdatoer(tekster.get(i)) if pd.Timestamp(1990, 1, 1) <= d < datoer[i]]
+        ny = max(kandidater) if kandidater else naboer.get(i, pd.NaT)
+        datoer[i] = ny
+        estimeret[i] = True
+    return datoer, estimeret
+
+
 def prepare_frame(rows: list) -> pd.DataFrame:
     df = pd.DataFrame(rows)
     if df.empty:
@@ -302,6 +351,7 @@ def prepare_frame(rows: list) -> pd.DataFrame:
 
     df["Id"] = [decision_id(link, i) for i, link in enumerate(df["Link"])]
     df["Dato"] = pd.to_datetime(df["Dato"], errors="coerce")
+    df["Dato"], df["DatoEstimeret"] = repair_dates(df["Dato"], df["Tekst"], df["Sagsnummer"])
     df["År"] = df["Dato"].dt.year.astype("Int64")
 
     # Klassifikation genberegnes altid ud fra titel/tekst: scraperens felter
@@ -691,7 +741,7 @@ def byg_prompt(spørgsmål, docs, historik=None):
             historik_tekst += f"\n{rolle}: {msg['tekst']}\n"
     samtale_blok = f"\nTIDLIGERE SAMTALE:{historik_tekst}\n" if historik_tekst.strip() else ""
     kilde_liste = "\n".join(
-        f"[Kilde {i+1}] = {_fmt_dato(d.get('Dato'))} – {str(d.get('Titel', ''))[:80]}"
+        f"[Kilde {i+1}] = {'ca. ' if d.get('DatoEstimeret') is True else ''}{_fmt_dato(d.get('Dato'))} – {str(d.get('Titel', ''))[:80]}"
         for i, d in enumerate(docs)
     )
     return [

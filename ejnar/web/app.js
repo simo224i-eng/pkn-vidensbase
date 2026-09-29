@@ -9,6 +9,8 @@ const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(
 const fmtNum = (n) => new Intl.NumberFormat("da-DK").format(n ?? 0);
 const _df = new Intl.DateTimeFormat("da-DK", { day: "numeric", month: "short", year: "numeric" });
 const fmtDate = (d) => { if (!d) return "Uden dato"; const x = new Date(d); return isNaN(x) ? d : _df.format(x); };
+// Afgørelsesdato; "ca." når datoen er skønnet (scraperen gav en fallback-dato)
+const fmtD = (x) => (x && x.date_estimated && x.date ? "ca. " : "") + fmtDate(x && x.date);
 
 const store = {
   get(k, d) { try { const v = localStorage.getItem("ejnar." + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
@@ -399,7 +401,7 @@ function renderSources(msg, idx) {
       return `<button class="src ${isCited ? "cited" : done ? "dim" : ""} ${state.hotCite === `${idx}:${s.n}` ? "hot" : ""}" data-act="open-doc" data-id="${esc(s.id)}" data-src="${idx}:${s.n}">
         <div class="src-top"><span class="src-n">${s.n}</span><span class="meta num">${esc(s.case_number || "—")}</span>${badge(s.outcome)}</div>
         <div class="src-title">${esc(head)}</div>
-        <div class="meta"><span>${fmtDate(s.date)}</span>${s.company ? `<span class="sep"></span><span>${esc(s.company.replace(/,.*$/, ""))}</span>` : ""}</div>
+        <div class="meta"><span>${fmtD(s)}</span>${s.company ? `<span class="sep"></span><span>${esc(s.company.replace(/,.*$/, ""))}</span>` : ""}</div>
       </button>`;
     }).join("")}`;
 }
@@ -410,7 +412,7 @@ function withCiteTitles(html, sources) {
   const byN = Object.fromEntries(sources.map((s) => [String(s.n), s]));
   return html.replace(/data-n="(\d+)" aria-label="Kilde \d+"/g, (m, n) => {
     const s = byN[n];
-    return s ? `data-n="${n}" aria-label="Kilde ${n}: AKF ${esc(s.case_number || "")}" title="AKF ${esc(s.case_number || "u.nr.")} · ${fmtDate(s.date)} · ${esc(s.outcome || "")}"` : m;
+    return s ? `data-n="${n}" aria-label="Kilde ${n}: AKF ${esc(s.case_number || "")}" title="AKF ${esc(s.case_number || "u.nr.")} · ${fmtD(s)} · ${esc(s.outcome || "")}"` : m;
   });
 }
 
@@ -530,11 +532,11 @@ function copyAnswer(idx) {
   if (!a) return;
   const byN = Object.fromEntries((a.sources || []).map((s) => [s.n, s]));
   const text = a.content.replace(/\[Kilde[r]?\s+((?:\d+|,|\s|og|Kilde)+)\]/gi, (_, g) => {
-    const refs = (g.match(/\d+/g) || []).map((n) => byN[n]).filter(Boolean).map((s) => `AKF ${s.case_number || "u.nr."}, ${fmtDate(s.date)}`);
+    const refs = (g.match(/\d+/g) || []).map((n) => byN[n]).filter(Boolean).map((s) => `AKF ${s.case_number || "u.nr."}, ${fmtD(s)}`);
     return refs.length ? `(${refs.join("; ")})` : "";
   });
   const cited = citedNumbers(a.content).map((n) => byN[n]).filter(Boolean);
-  const refs = cited.length ? "\n\nKilder:\n" + cited.map((s) => `- AKF ${s.case_number || "u.nr."} (${fmtDate(s.date)}): ${s.link}`).join("\n") : "";
+  const refs = cited.length ? "\n\nKilder:\n" + cited.map((s) => `- AKF ${s.case_number || "u.nr."} (${fmtD(s)}): ${s.link}`).join("\n") : "";
   copy(text + refs, "Svar kopieret med referencer");
 }
 
@@ -592,7 +594,7 @@ function renderResult(d, q) {
     <div class="res-head">${q ? highlight(head, q) : esc(head)}</div>
     ${rest ? `<div class="res-sum">${q ? highlight(rest, q) : esc(rest)}</div>` : ""}
     ${snip}
-    <div class="meta"><span class="num">AKF ${esc(d.case_number || "—")}</span><span class="sep"></span><span>${fmtDate(d.date)}</span>${d.company ? `<span class="sep"></span><span>${esc(d.company.replace(/,.*$/, ""))}</span>` : ""}</div>
+    <div class="meta"><span class="num">AKF ${esc(d.case_number || "—")}</span><span class="sep"></span><span>${fmtD(d)}</span>${d.company ? `<span class="sep"></span><span>${esc(d.company.replace(/,.*$/, ""))}</span>` : ""}</div>
     <div class="res-side">${badge(d.outcome)}${d.coverage && d.coverage !== "Ikke angivet" ? `<span class="tag">${esc(d.coverage)} dækning</span>` : ""}${(d.defect_types || []).slice(0, 2).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
   </button>`;
 }
@@ -876,7 +878,7 @@ function renderReader() {
       ${rest ? `<p class="doc-sum">${esc(rest)}</p>` : ""}
       <dl class="doc-grid">
         <div><dt>Sagsnummer</dt><dd class="num">${esc(d.case_number || "—")}</dd></div>
-        <div><dt>Afsagt</dt><dd>${fmtDate(d.date)}</dd></div>
+        <div><dt>Afsagt</dt><dd>${fmtD(d)}</dd></div>
         <div><dt>Selskab</dt><dd title="${esc(d.company)}">${esc(d.company || "—")}</dd></div>
         <div><dt>Udfald for klager</dt><dd>${esc(d.outcome)}</dd></div>
         <div><dt>Dækning</dt><dd>${esc(d.coverage || "Ikke angivet")}</dd></div>
@@ -889,7 +891,7 @@ function renderReader() {
           : r.similar.length ? r.similar.map((x) => `
             <button class="sim" data-act="open-doc" data-id="${esc(x.id)}">
               <span class="sim-h">${esc(headline(x.title))}</span>
-              <span class="meta"><span class="num">AKF ${esc(x.case_number || "—")}</span><span class="sep"></span><span>${fmtDate(x.date)}</span></span>
+              <span class="meta"><span class="num">AKF ${esc(x.case_number || "—")}</span><span class="sep"></span><span>${fmtD(x)}</span></span>
               ${badge(x.outcome)}
             </button>`).join("") : '<div class="aside-empty">Ingen lignende kendelser fundet.</div>'}
       </section>`;
@@ -1063,7 +1065,7 @@ app.addEventListener("click", (e) => {
     }
     case "copy-ref": {
       const d = state.reader?.data; if (!d) return;
-      return copy(`Ankenævnet for Forsikring, kendelse af ${fmtDate(d.date)}, sag nr. ${d.case_number || "—"} (${d.company || "ukendt selskab"}). ${d.link}`, "Reference kopieret");
+      return copy(`Ankenævnet for Forsikring, kendelse af ${fmtD(d)}, sag nr. ${d.case_number || "—"} (${d.company || "ukendt selskab"}). ${d.link}`, "Reference kopieret");
     }
     case "copy-answer": return copyAnswer(+el.dataset.i);
     case "retry": {

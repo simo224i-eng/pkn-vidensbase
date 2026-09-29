@@ -188,6 +188,7 @@ class Decision(BaseModel):
     id: str
     case_number: str
     date: str | None
+    date_estimated: bool = False
     year: int | None
     title: str
     company: str
@@ -247,6 +248,7 @@ def _to_decision(rec: dict, query: str = "", score=None, full: bool = False) -> 
         "id": str(rec.get("Id") or engine.decision_id(rec.get("Link", ""))),
         "case_number": str(rec.get("Sagsnummer") or ""),
         "date": ts.strftime("%Y-%m-%d") if ts is not None else None,
+        "date_estimated": rec.get("DatoEstimeret") is True,
         "year": int(år) if år is not None and not pd.isna(år) else (ts.year if ts is not None else None),
         "title": str(rec.get("Titel") or ""),
         "company": str(rec.get("Selskab") or ""),

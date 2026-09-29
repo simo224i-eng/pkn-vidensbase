@@ -1081,9 +1081,10 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
 
     def _dato(d):
         try:
-            return pd.Timestamp(d.get("Dato")).strftime("%d.%m.%Y")
+            txt = pd.Timestamp(d.get("Dato")).strftime("%d.%m.%Y")
         except Exception:
             return "–"
+        return f"ca. {txt}" if d.get("DatoEstimeret") is True else txt
 
     # 1. Chunk hvert dokument (små chunks → præcise passager)
     all_chunks = []     # (kilde_idx, chunk_text)

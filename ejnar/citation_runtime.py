@@ -20,6 +20,24 @@ except ImportError:  # package-import i tests/værktøjer
 _LOG = logging.getLogger("ejnar.citations")
 
 
+def _source_tags(document: dict[str, Any]) -> str:
+    """Dato og udfald i kildeoverskriften – samme oplysninger som den brede kontekst."""
+    parts = []
+    dato = document.get("Dato")
+    try:
+        import pandas as pd
+
+        if dato is not None and not pd.isna(dato):
+            prefix = "ca. " if document.get("DatoEstimeret") is True else ""
+            parts.append(prefix + pd.Timestamp(dato).strftime("%d.%m.%Y"))
+    except (ValueError, TypeError):
+        pass
+    udfald = str(document.get("Udfald") or "").strip()
+    if udfald and udfald != "Ukendt":
+        parts.append(f"[Udfald for klager: {udfald}]")
+    return " ".join(parts)
+
+
 def build_exact_citation_context(
     query: str,
     documents: list[dict[str, Any]],
@@ -62,6 +80,8 @@ def build_exact_citation_context(
             continue
 
         label = record.case_number or record.title or f"Kilde {number}"
+        tags = _source_tags(documents[number - 1])
+        label = f"{tags} {label}" if tags else label
         block = f"[Kilde {number}] {label} — {record.section_title}\n{record.text}"
         separator = "\n\n" if blocks else ""
         required = len(separator) + len(block)

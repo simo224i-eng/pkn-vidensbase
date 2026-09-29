@@ -151,6 +151,17 @@ def score(out: Path) -> dict:
     for label in LABELS:
         sub = [r for r in rows if r["actual"] == label]
         per_label[label] = f"{sum(norm(r['predicted']) == norm(label) for r in sub)}/{len(sub)}"
+    # Stikprøven er stratificeret; vægt recall pr. udfald med korpusfordelingen (år ≥ 2012)
+    # for at se, hvad nøjagtigheden betyder i den virkelige sagsmængde.
+    df = engine.load_data()
+    prior = df[df["År"].fillna(0) >= 2012]["Udfald"].value_counts()
+    prior = {label: float(prior.get(label, 0)) for label in LABELS}
+    total = sum(prior.values()) or 1.0
+    weighted = 0.0
+    for label in LABELS:
+        sub = [r for r in rows if r["actual"] == label]
+        if sub:
+            weighted += prior[label] / total * sum(norm(r["predicted"]) == norm(label) for r in sub) / len(sub)
     found = [r["rank"] for r in rows if r["rank"]]
     result = {
         "cases": n,
@@ -158,6 +169,8 @@ def score(out: Path) -> dict:
         "outcome_direction": f"{direction}/{n}",
         "baseline_always_ikke_medhold": f"{baseline}/{n}",
         "per_label_recall": per_label,
+        "prior_weighted_accuracy": round(weighted, 3),
+        "prior_weighted_baseline": round(prior["Ikke medhold"] / total, 3),
         "uafklaret": sum(norm(r["predicted"]) == "uafklaret" for r in rows),
         "retrieval_top5": f"{sum(r <= 5 for r in found)}/{n}",
         "retrieval_top15": f"{sum(r <= 15 for r in found)}/{n}",

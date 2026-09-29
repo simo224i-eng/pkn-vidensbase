@@ -30,6 +30,15 @@ class CitationRuntimeTests(unittest.TestCase):
         self.assertIn("Undertaget er ikke ført sammen over kip", context)
         self.assertNotIn("[Kilde 2] 1001", context)
 
+    def test_header_carries_date_and_outcome(self):
+        # Uden udfald i overskriften kan modellen ikke opgøre praksis (fundet i omvendt-facit-testen)
+        import pandas as pd
+
+        docs = [dict(self.docs[0], Dato=pd.Timestamp("2020-09-29"), Udfald="Medhold", DatoEstimeret=True),
+                dict(self.docs[1], Udfald="Ukendt")]
+        context = build_exact_citation_context("undertag kip", docs)
+        self.assertIn("[Kilde 1] ca. 29.09.2020 [Udfald for klager: Medhold] 1001", context)
+
     def test_irrelevant_document_is_not_forced_into_context(self):
         context = build_exact_citation_context("undertag kip", self.docs)
         self.assertIn("Undertag", context)

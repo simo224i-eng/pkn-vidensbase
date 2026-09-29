@@ -25,6 +25,34 @@ def rows():
     ]
 
 
+class RepairDatesTests(unittest.TestCase):
+    def _frame(self):
+        import pandas as pd
+
+        datoer = pd.to_datetime(["2026-05-09"] * 3 + ["2004-03-01", "2020-09-02", "2026-02-18"])
+        tekster = pd.Series(["Klager anmeldte den 3. juli 2015 og fik svar 16.05.2019. Tilbud af 1. juni 2031.",
+                             "", "", "", "", ""])
+        sagsnumre = pd.Series(["96040 (3/11)", "62766 (706/04)", "", "61317", "96001", "105000"])
+        return pd.Series(datoer), tekster, sagsnumre
+
+    def test_scrape_fallback_weekend_date_is_replaced(self):
+        import pandas as pd
+
+        datoer, estimeret = engine.repair_dates(*self._frame())
+        # Seneste tekstdato før fallback-datoen (fremtidige datoer ignoreres)
+        self.assertEqual(datoer[0], pd.Timestamp("2019-05-16"))
+        # Ingen tekstdato → nærmeste troværdige sagsnummer
+        self.assertEqual(datoer[1], pd.Timestamp("2004-03-01"))
+        self.assertTrue(pd.isna(datoer[2]))
+        self.assertEqual(list(estimeret), [True, True, True, False, False, False])
+
+    def test_genuine_weekday_dates_are_kept(self):
+        import pandas as pd
+
+        datoer, _ = engine.repair_dates(*self._frame())
+        self.assertEqual(datoer[5], pd.Timestamp("2026-02-18"))
+
+
 class OutcomeTests(unittest.TestCase):
     def test_title_outcome_wins_over_rejection_wording(self):
         # "afviste dækning" betyder ikke at sagen er afvist
