@@ -748,33 +748,37 @@ def byg_prompt(spørgsmål, docs, historik=None):
         {
             "type": "text",
             "text": (
-                "Du er en juridisk assistent specialiseret i dansk forsikringsret og "
-                "Ankenævnet for Forsikrings praksis om ejerskifteforsikring. "
-                "Dine brugere er professionelle jurister og forsikringsfolk – giv "
-                "præcise, faktabaserede svar.\n\n"
+                "Du er et praksisværktøj for Ankenævnet for Forsikrings kendelser om "
+                "ejerskifteforsikring. Dine brugere er jurister og skadesbehandlere, der undersøger, "
+                "hvordan nævnet har afgjort sager. Din opgave er at beskrive og analysere praksis "
+                "præcist – ikke at afgøre brugerens konkrete sag.\n\n"
                 "REGLER:\n"
                 f"1. Besvar spørgsmålet KUN baseret på de {len(docs)} vedlagte kendelser. Opfind ikke fakta.\n"
                 "2. Brug kildeformatet [Kilde X] konsekvent – ALDRIG sagsnumre eller datoer som reference.\n"
-                "3. Svar på dansk. Begynd med afsnittet '## Kort svar' på 2–4 sætninger, der direkte "
-                "besvarer spørgsmålet (ved en konkret sag: sandsynligt udfald og det afgørende moment). "
+                "3. Svar på dansk. Begynd med afsnittet '## Kort svar' på 2–4 sætninger, der opsummerer "
+                "praksis: hovedlinjen i nævnets kendelser og de momenter, udfaldet typisk afhænger af. "
                 "Uddyb derefter under overskrifter. Hold svaret fokuseret – typisk 350–750 ord; "
                 "skriv hellere præcist end udtømmende.\n"
                 "4. Understøt påstande med ordret citat i anførselstegn, fx: Nævnet udtalte: \"...\" [Kilde 3]. "
-                "Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat.\n"
+                "Citér KUN tekst der ordret fremgår af kilden – parafrasér aldrig som citat. Gengiv hver "
+                "kendelses udfald præcis som angivet i kildeoverskriften.\n"
                 "5. Identificér mønstre på tværs af kendelserne — fast praksis vs. variation. "
                 "Angiv evt. fordelingen (fx \"3 af 5 kendelser giver klager medhold\"), men tæl kun "
                 "kendelser med samme juridiske spørgsmål og sammenlignelige forsikringsvilkår/dækning "
                 "(fx basis vs. udvidet dækning) i samme nævner, og angiv årsspændet. Bygger en "
-                "praksislinje overvejende på kendelser, der er mere end 10 år gamle, så sig det.\n"
+                "praksislinje overvejende på kendelser, der er mere end 10 år gamle, så sig det. "
+                "Fremhæv kendelser, der går imod hovedlinjen, og hvad der adskilte dem.\n"
                 "6. Nævn relevant lovhjemmel (lov om forbrugerbeskyttelse §§, forsikringsaftaleloven mv.) når det fremgår.\n"
                 "7. Hvis kilderne ikke besvarer spørgsmålet, skriv det eksplicit. Gæt aldrig.\n"
                 "8. Ved opfølgningsspørgsmål: brug den tidligere samtale – kilderne har samme nummerering.\n"
                 "9. Indeholder spørgsmålet flere led (fx dækning, følgeskader, fradrag, hvem betaler "
-                "undersøgelser), så besvar hvert led for sig med egen konklusion og kilder; sig tydeligt, "
+                "undersøgelser), så beskriv praksis for hvert led for sig med kilder; sig tydeligt, "
                 "hvis kilderne ikke dækker et led.\n"
-                "10. Handler spørgsmålet om en konkret sag eller en afgørelse, selskabet har truffet eller "
-                "overvejer, så slut med '## Anbefaling': om afgørelsen efter praksis holder, bør justeres "
-                "eller ændres, og hvilke oplysninger/dokumentation der evt. mangler for at afgøre det.\n\n"
+                "10. Beskriver brugeren en konkret sag, så afgør den ikke og forudsig ikke udfaldet. "
+                "Slut i stedet med '## Praksis holdt op mod sagen': hvilke kendelser der ligner mest, "
+                "hvilke momenter nævnet har lagt vægt på i dem, hvilke forskelle i faktum der kan få "
+                "betydning, og hvilke oplysninger der er relevante at få belyst for at sammenligne "
+                "med praksis.\n\n"
                 f"KILDEREGISTER:\n{kilde_liste}"
             ),
         },
@@ -809,6 +813,52 @@ def mistænkelige_citater(svar: str, kilder: list, spørgsmål: str = "") -> lis
         return shared.valider_citationer(svar, docs)
     except Exception:
         return []
+
+
+# Udsagn om en bestemt kendelses udfald (datid: "fik", "gav", "blev" – ikke generelle "får typisk")
+_PARTER = r"(?:klage(?:r|ren|rne)|forsikringstage(?:r|ren)|købe(?:r|ren|rne)|kunde(?:n|rne))"
+_PÅSTAND_RX = [
+    ("Delvis medhold", re.compile(r"\bdelvis(?:t)?\s+medhold\b", re.I)),
+    ("Ikke medhold", re.compile(
+        rf"\b{_PARTER}\s+fik\s+ikke\s+medhold|\bfik\s+{_PARTER}\s+ikke\s+medhold|\bgav\s+ikke\s+(?:\d+\s+|en\s+)?{_PARTER}\s+medhold|"
+        r"\bselskabet\s+fik\s+medhold|\bgav\s+selskabet\s+medhold|"
+        r"\bklagen\s+blev\s+ikke\s+taget\s+til\s+følge|\bselskabet\s+blev\s+frifundet", re.I)),
+    ("Medhold", re.compile(
+        rf"\b{_PARTER}\s+fik\s+(?:fuldt\s+|fuld\s+|helt\s+)?medhold|\bfik\s+{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|\bgav\s+(?:\d+\s+|en\s+)?{_PARTER}\s+(?:fuldt\s+|helt\s+)?medhold|"
+        r"\bklagen\s+blev\s+taget\s+til\s+følge", re.I)),
+]
+_KLAUSUL_RX = re.compile(r"(?<=[.!?;:])\s+|\n+|,\s+(?=(?:men|mens|hvorimod|hvor|og\s+i)\b)|\s+(?=(?:mens|hvorimod)\b)")
+# Påstand → faktiske udfald, der er uforenelige med den. "Delvis medhold" i kilden er
+# foreneligt med alt, fordi svaret kan tale om ét af sagens led.
+_UFORENELIG = {"Medhold": {"Ikke medhold"}, "Ikke medhold": {"Medhold"}, "Delvis medhold": {"Ikke medhold", "Medhold"}}
+
+
+def udfaldskonflikter(svar: str, kilder: list) -> list[dict]:
+    """Udsagn i svaret om en kildes udfald, der strider mod kendelsens faktiske udfald.
+
+    Den alvorligste fejl i et praksisværktøj er at gengive forkert, hvad nævnet afgjorde.
+    Kun udsagn i datid om de kilder, der citeres i samme sætningsled, kontrolleres.
+    """
+    konflikter, set_ = [], set()
+    for klausul in _KLAUSUL_RX.split(svar or ""):
+        påstande = sorted((m.start(), label) for label, rx in _PÅSTAND_RX for m in rx.finditer(klausul))
+        # "delvis medhold" indeholder "medhold": behold kun det længste match pr. position
+        påstande = [p for i, p in enumerate(påstande) if i == 0 or p[0] != påstande[i - 1][0]]
+        if not påstande:
+            continue
+        for ref in re.finditer(r"\[Kilde[r]?\s+([\d,\s]+)\]", klausul, flags=re.I):
+            # Henvisningen hører til den nærmeste påstand før den (ellers den første efter)
+            før = [label for pos, label in påstande if pos < ref.start()]
+            påstand = før[-1] if før else påstande[0][1]
+            for n in (int(x) for x in re.findall(r"\d+", ref.group(1))):
+                if not 1 <= n <= len(kilder) or (n, påstand) in set_:
+                    continue
+                faktisk = str(kilder[n - 1].get("Udfald") or "")
+                if faktisk in _UFORENELIG[påstand]:
+                    set_.add((n, påstand))
+                    konflikter.append({"kilde": n, "påstand": påstand, "faktisk": faktisk,
+                                       "tekst": re.sub(r"\s+", " ", klausul).strip()[:240]})
+    return konflikter
 
 
 def citerede_kilder(svar: str, antal: int) -> list[int]:
@@ -882,6 +932,7 @@ class Corpus:
             "svar": svar,
             "citerede": citerede_kilder(svar, len(kilder)),
             "mistænkelige_citater": mistænkelige_citater(svar, kilder, spørgsmål),
+            "udfaldskonflikter": udfaldskonflikter(svar, kilder),
         }
 
     def answer(self, spørgsmål: str, historik: list | None = None, sub_idx=None,

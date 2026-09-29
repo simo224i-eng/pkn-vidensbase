@@ -5,6 +5,12 @@ udelukkende fokuseret på Ankenævnet for Forsikrings (AKF) praksis om
 **ejerskifteforsikring** efter lov om forbrugerbeskyttelse ved erhvervelse af
 fast ejendom mv.
 
+Ejnar er et værktøj til at undersøge nævnets praksis: hvilke kendelser der findes,
+hvordan nævnet har afgjort dem, og hvilke momenter der har været afgørende. Det
+afgør ikke konkrete sager. Svarene beskriver praksis med henvisning til kendelserne,
+og appen kontrollerer automatisk, at citater står ordret i kilderne, og at hver
+kendelses udfald er gengivet korrekt.
+
 Ejnar deler git-repo med Harald (`pkn-vidensbase`) men er en helt separat app:
 egen `app.py`, egen `shared.py`, egne data-filer og embedding-cache. De to
 apps kan deployes uafhængigt.
@@ -79,7 +85,7 @@ Alle `/v1`-kald kræver headeren `X-API-Key: <nøgle>` (eller `Authorization: Be
 ### Persondata
 
 - Webappen gemmer ingen samtaler på serveren. Samtaler og gemte kendelser ligger
-  kun i brugerens browser, og tekst indtastet i Sagsvurdering gemmes ikke.
+  kun i brugerens browser, og tekst indtastet under Lignende sager gemmes ikke.
 - **Spørgsmål sendes til den valgte AI-udbyder.** Skriv faktum uden navne,
   adresser, CPR- og policenumre. Appen advarer, hvis teksten ligner CPR-nummer,
   e-mail, telefonnummer eller adresse.

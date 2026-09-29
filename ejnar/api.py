@@ -232,14 +232,27 @@ class Source(Decision):
     cited: bool
 
 
+class OutcomeConflict(BaseModel):
+    source: int = Field(..., description="Kildenummer ([Kilde n]).")
+    claimed: str = Field(..., description="Udfaldet, som svaret tilskriver kendelsen.")
+    actual: str = Field(..., description="Kendelsens faktiske udfald.")
+    text: str
+
+
 class AnswerResponse(BaseModel):
     answer: str
     sources: list[Source]
     suspect_quotes: list[str]
+    outcome_conflicts: list[OutcomeConflict] = []
     debug: dict
 
 
 # ── Hjælpere ──────────────────────────────────────────────────────────────────
+def _conflicts(res: dict) -> list[dict]:
+    return [{"source": k["kilde"], "claimed": k["påstand"], "actual": k["faktisk"], "text": k["tekst"]}
+            for k in res.get("udfaldskonflikter", [])]
+
+
 def _to_decision(rec: dict, query: str = "", score=None, full: bool = False) -> dict:
     dato = rec.get("Dato")
     ts = pd.Timestamp(dato) if dato is not None and not pd.isna(dato) else None
@@ -412,8 +425,8 @@ class AssessResponse(BaseModel):
 @app.post("/v1/assess", response_model=AssessResponse, tags=["assistent"],
           dependencies=[Depends(require_api_key)])
 def assess(req: AssessRequest):
-    """Sagsvurdering uden LLM: de kendelser der ligner sagens faktum mest og
-    hvordan de faldt ud. Godt udgangspunkt før en AI-vurdering via /v1/answer."""
+    """Lignende sager uden LLM: de kendelser der ligner sagens faktum mest og
+    hvordan de faldt ud. Godt udgangspunkt før et praksisoverblik via /v1/answer."""
     c = corpus()
     idx = engine.relevans_søg(req.facts, c.df, c.vec, c.mat, c.embeds,
                               sub_idx=req.filters.sub_idx(c), top_n=req.limit)
@@ -486,6 +499,7 @@ def answer(req: AnswerRequest):
             "answer": res["svar"],
             "sources": _sources(res["kilder"], res["citerede"]),
             "suspect_quotes": res["mistænkelige_citater"],
+            "outcome_conflicts": _conflicts(res),
             "debug": _jsonable(res["debug"]),
         }
 
@@ -508,6 +522,7 @@ def answer(req: AnswerRequest):
                 "answer": res["svar"],
                 "cited": res["citerede"],
                 "suspect_quotes": res["mistænkelige_citater"],
+                "outcome_conflicts": _conflicts(res),
             }))
         except Exception as exc:
             log.exception("Fejl under streamet svar")

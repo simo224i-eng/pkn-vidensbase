@@ -104,6 +104,20 @@ class APITests(unittest.TestCase):
         self.assertEqual([s["cited"] for s in body["sources"]], [False, True])
         self.assertEqual(body["sources"][1]["n"], 2)
 
+    def test_answer_flags_misstated_outcome(self):
+        c = api.STATE.corpus
+        kilder = c.df.iloc[[0, 1]].to_dict("records")
+        faktisk = kilder[0]["Udfald"]
+        forkert = "Klager fik ikke medhold" if faktisk == "Medhold" else "Klager fik medhold"
+        p1, p2, _ = self._patched_answer()
+        with p1, p2, mock.patch.object(shared, "_llm", return_value=f"{forkert} [Kilde 1]."):
+            body = self.client.post("/v1/answer", headers=KEY, json={"question": "Dækkes skimmel?"}).json()
+        if faktisk in ("Medhold", "Ikke medhold"):
+            self.assertEqual(body["outcome_conflicts"][0]["source"], 1)
+            self.assertEqual(body["outcome_conflicts"][0]["actual"], faktisk)
+        else:
+            self.assertEqual(body["outcome_conflicts"], [])
+
     def test_answer_stream(self):
         def fake_stream(prompt, max_tokens=2000, placeholder=None):
             placeholder.markdown("Hej ▌")

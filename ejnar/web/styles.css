@@ -440,7 +440,7 @@ button.bd-row:hover { background: var(--hover); }
 .pii svg { color: var(--warn); flex: none; margin-top: 1px; }
 .pii-slot:empty { display: none; }
 
-/* ── Sagsvurdering ─────────────────────────────────────────────────────── */
+/* ── Lignende sager ─────────────────────────────────────────────────────── */
 .assess-box { margin-bottom: 20px; }
 .assess-box textarea { min-height: 140px; font-size: 15px; line-height: 1.6; }
 .assess-box .hint { font-size: 12px; color: var(--ink-3); margin-left: auto; white-space: nowrap; }

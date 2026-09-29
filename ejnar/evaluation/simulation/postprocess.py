@@ -33,6 +33,7 @@ def auto_checks(answer: str, sources: list[dict], texts_by_n: dict[int, str] | N
             for n in re.findall(r"\d+", g)]
     cited = engine.citerede_kilder(answer, len(sources))
     suspect = []
+    conflicts = engine.udfaldskonflikter(answer, [{"Udfald": s.get("outcome", "")} for s in sources])
     if texts_by_n:
         docs = [{"Tekst": texts_by_n.get(s["n"], ""), "Titel": s.get("title", "")} for s in sources]
         suspect = engine.mistænkelige_citater(answer, docs, question)
@@ -42,6 +43,7 @@ def auto_checks(answer: str, sources: list[dict], texts_by_n: dict[int, str] | N
         "cited_sources": cited,
         "invalid_source_refs": sorted({n for n in refs if n < 1 or n > len(sources)}),
         "suspect_quotes": suspect,
+        "outcome_conflicts": conflicts,
         "cites_case_numbers_directly": bool(re.search(r"\b(?:sag|j\.?\s?nr)\.?\s*\d{4,6}", answer, re.I)),
     }
 
@@ -88,12 +90,12 @@ def report(run: Path) -> str:
         hk = HANDLER_KEYS[i] if i < len(HANDLER_KEYS) else ""
         lines.append(f"| {pk} | {prof.get(pk, '') if pk else ''} | {hk} | {hand.get(hk, '') if hk else ''} |")
     lines += ["", "## Automatiske kontroller", "",
-              "| Sag | Type | Kilder | Citeret | Henvisninger | Ugyldige | Mistænkelige citater |",
-              "|---|---|---|---|---|---|---|"]
+              "| Sag | Type | Kilder | Citeret | Henvisninger | Ugyldige | Mistænkelige citater | Udfaldskonflikter |",
+              "|---|---|---|---|---|---|---|---|"]
     for case, checks, _ in rows:
         lines.append(
             f"| {case['id']} | {case.get('type', '')} | {len(case['sources'])} | {len(checks.get('cited_sources', []))} | "
-            f"{checks.get('citations_total', 0)} | {checks.get('invalid_source_refs', [])} | {len(checks.get('suspect_quotes', []))} |")
+            f"{checks.get('citations_total', 0)} | {checks.get('invalid_source_refs', [])} | {len(checks.get('suspect_quotes', []))} | {len(checks.get('outcome_conflicts', []))} |")
     lines += ["", "## Pr. sag", ""]
     for case, checks, rev in rows:
         lines += [f"### {case['id']} · {case.get('persona', '')} · {case.get('type', '')}", "",

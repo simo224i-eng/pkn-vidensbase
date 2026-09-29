@@ -211,7 +211,7 @@ function renderSidebar() {
       <nav class="nav">
         ${nav("assistant", "chat", "Assistent")}
         ${nav("search", "search", "Praksissøgning", fmtNum(state.meta.decisions))}
-        ${nav("assess", "scale", "Sagsvurdering")}
+        ${nav("assess", "scale", "Lignende sager")}
         ${nav("insight", "chart", "Indsigt")}
         ${nav("saved", "bookmark", "Gemte kendelser", nSaved || null)}
       </nav>
@@ -367,7 +367,10 @@ function renderTurn({ q, a, idx }) {
         <button class="btn ghost sm" data-act="print">${icon("doc")}Print / PDF</button>
         <button class="btn ghost sm" data-act="retry" data-i="${idx}">${icon("retry")}Generér igen</button>
       </div>` : "";
-    body = `${steps}<div class="answer" data-answer="${idx}">${a.content ? withCiteTitles(md(a.content), a.sources) : ""}${a.status === "streaming" && a.content ? '<span class="caret"></span>' : ""}</div>${suspect}${actions}`;
+    const conflicts = a.conflicts?.length ? `
+      <div class="warn-box">${icon("alert")}<div><strong>Udfaldskontrol:</strong> svaret gengiver udfaldet af ${a.conflicts.length > 1 ? "disse kendelser" : "denne kendelse"} anderledes end nævnets afgørelse. Læs kendelsen.
+        <ul>${a.conflicts.slice(0, 4).map((c) => `<li>[Kilde ${c.source}]: svaret siger „${esc(c.claimed)}“, kendelsen er „${esc(c.actual)}“</li>`).join("")}</ul></div></div>` : "";
+    body = `${steps}<div class="answer" data-answer="${idx}">${a.content ? withCiteTitles(md(a.content), a.sources) : ""}${a.status === "streaming" && a.content ? '<span class="caret"></span>' : ""}</div>${conflicts}${suspect}${actions}`;
   }
   return `<article class="turn" data-turn="${idx}">
       <h2 class="q ${q.content.length > 160 ? "long" : ""}">${esc(q.content)}</h2>${filterChips(q.filters)}
@@ -464,7 +467,7 @@ async function ask(question, { reuseIdx } = {}) {
   let a;
   if (reuseIdx != null) {
     a = t.messages[reuseIdx];
-    Object.assign(a, { content: "", sources: null, suspect: [], status: "streaming", error: "" });
+    Object.assign(a, { content: "", sources: null, suspect: [], conflicts: [], status: "streaming", error: "" });
   } else {
     t.messages.push({ role: "user", content: question, filters });
     a = { role: "assistant", content: "", sources: null, suspect: [], status: "streaming" };
@@ -507,7 +510,7 @@ async function ask(question, { reuseIdx } = {}) {
         const d = JSON.parse(data);
         if (ev === "sources") { a.sources = d.sources; render(); }
         else if (ev === "delta") { a.content += d.text; if (!raf) raf = requestAnimationFrame(paint); }
-        else if (ev === "done") { a.content = d.answer; a.suspect = d.suspect_quotes || []; a.status = "done"; }
+        else if (ev === "done") { a.content = d.answer; a.suspect = d.suspect_quotes || []; a.conflicts = d.outcome_conflicts || []; a.status = "done"; }
         else if (ev === "error") { throw new Error(d.detail); }
       }
     }
@@ -739,7 +742,7 @@ function renderInsight() {
   </section>`;
 }
 
-// ── Sagsvurdering ────────────────────────────────────────────────────────────
+// ── Lignende sager ────────────────────────────────────────────────────────────
 let assessSeq = 0;
 async function runAssess() {
   const a = state.assess, seq = ++assessSeq;
@@ -753,9 +756,9 @@ async function runAssess() {
 }
 
 function assessQuestion(facts) {
-  return "Vurdér denne konkrete sag i lyset af Ankenævnet for Forsikrings praksis om ejerskifteforsikring. " +
-    "Angiv de momenter nævnet typisk lægger vægt på, hvilke kendelser der ligner mest, og det sandsynlige udfald med begrundelse.\n\n" +
-    `Sagens faktum:\n${facts.trim()}`;
+  return "Hvilken praksis har Ankenævnet for Forsikring om sager, der ligner dette faktum? " +
+    "Beskriv hvilke kendelser der ligner mest, hvordan de faldt ud, og hvilke momenter nævnet lagde vægt på.\n\n" +
+    `Faktum:\n${facts.trim()}`;
 }
 
 function renderAssess() {
@@ -775,13 +778,13 @@ function renderAssess() {
       </div>
       ${renderDist(d.outcome_counts, d.total, false, "mest lignende kendelser")}
       <div class="assess-cta">
-        <div><strong>Vil du have en juridisk vurdering?</strong><span>Assistenten analyserer sagen mod praksis og citerer de kendelser, den bygger på.</span></div>
-        <button class="btn primary" data-act="assess-ai" ${state.health?.llm ? "" : "disabled"}>${icon("spark")}Få AI-vurdering</button>
+        <div><strong>Vil du have et praksisoverblik?</strong><span>Assistenten gennemgår de lignende kendelser, hvad nævnet lagde vægt på, og citerer dem.</span></div>
+        <button class="btn primary" data-act="assess-ai" ${state.health?.llm ? "" : "disabled"}>${icon("spark")}Få praksisoverblik</button>
       </div>
       <div class="results">${d.similar.map((x) => renderResult(x, a.facts)).join("")}</div>`;
   }
   return `<section class="page wide">
-    <div class="page-h"><div><h1 class="h2">Sagsvurdering</h1><p class="page-sub">Beskriv sagens faktum. Ejnar finder de kendelser, der ligner mest, og viser hvordan de faldt ud.</p></div></div>
+    <div class="page-h"><div><h1 class="h2">Lignende sager</h1><p class="page-sub">Beskriv et faktum. Ejnar finder de kendelser, der ligner mest, og viser hvordan nævnet afgjorde dem.</p></div></div>
     <form class="composer assess-box" data-act="assess">
       <label class="sr" for="facts">Sagens faktum</label>
       <textarea id="facts" data-focus="facts" rows="6" placeholder="Fx: Villa fra 1968 købt i 2021. Efter overtagelsen konstateres fugt og skimmel i krybekælderen. Tilstandsrapporten angav K1 for 'fugt i krybekælder'. Selskabet afviser med henvisning til alder og tilstandsrapport.">${esc(a.facts)}</textarea>

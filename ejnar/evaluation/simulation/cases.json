@@ -2,23 +2,23 @@
   {
     "id": "S01",
     "persona": "Mette",
-    "type": "sagsvurdering",
-    "question": "Hus opført 1972 med ventileret krybekælder. Køber anmelder 8 mdr. efter overtagelse fugt og skimmelvækst på undersiden af gulvbrædder og strøer. Konstateret ved vores besigtigelse: RF ca. 90 % i kælderen, mikrobiel vækst på træ, ingen egentlig råd. Tilstandsrapporten har K2 på krybekælder: 'Fugtig krybekælder, der er risiko for skimmelvækst' og K1 om manglende ventilationsriste mod nord. Vi har afvist med henvisning til, at forholdet er nævnt i TR. Køber mener, at omfanget langt overstiger det, der var beskrevet. Hvad siger praksis, og hvad er sandsynligt udfald i nævnet?",
-    "what_good_looks_like": "Kendelser om krybekældre med lignende K2-formulering, hvor nævnet tager stilling til, om TR-beskrivelsen dækker det faktiske omfang (risiko vs. konstateret skade), samt en klar vurdering af om afslaget sandsynligvis holder. Gerne med angivelse af, hvilke formuleringer i TR der har været tilstrækkelige, og hvilke nævnet har fundet for vage."
+    "type": "praksis_konkret_faktum",
+    "question": "Hus opført 1972 med ventileret krybekælder. Køber anmelder 8 mdr. efter overtagelse fugt og skimmelvækst på undersiden af gulvbrædder og strøer. Konstateret ved vores besigtigelse: RF ca. 90 % i kælderen, mikrobiel vækst på træ, ingen egentlig råd. Tilstandsrapporten har K2 på krybekælder: 'Fugtig krybekælder, der er risiko for skimmelvækst' og K1 om manglende ventilationsriste mod nord. Vi har afvist med henvisning til, at forholdet er nævnt i TR. Køber mener, at omfanget langt overstiger det, der var beskrevet. Hvad siger nævnets praksis om sager som denne?",
+    "what_good_looks_like": "Kendelser om krybekældre med lignende K2-formulering, hvor nævnet tager stilling til, om TR-beskrivelsen dækker det faktiske omfang (risiko vs. konstateret skade), samt hvilke momenter der har været afgørende i kendelser, hvor afslaget blev opretholdt, og i kendelser, hvor det ikke blev. Gerne med angivelse af, hvilke formuleringer i TR der har været tilstrækkelige, og hvilke nævnet har fundet for vage."
   },
   {
     "id": "S02",
     "persona": "Jonas",
-    "type": "sagsvurdering",
+    "type": "praksis_konkret_faktum",
     "question": "Rækkehus fra 1998, badeværelse renoveret af tidl. ejer i 2011 uden dokumentation. Køber har efter 14 mdr. fugtskade i vægge omkring bruser, vi har konstateret manglende/utilstrækkelig vådrumsmembran bag fliser. TR: vådrum K0, ingen bemærkninger, der er dog noteret 'fuger mørke' som K1. Vi har anerkendt dækning for membranfejlen men giver fradrag for forbedring (nye fliser, nyt armatur) og siger nej til følgeskader på gangens trægulv. Er fradraget og afgrænsningen i tråd med nævnspraksis?",
-    "what_good_looks_like": "Kendelser om skjult manglende vådrumsmembran, hvor nævnet har taget stilling til fradrag for forbedring/afskrivning og til dækning af følgeskader på tilstødende bygningsdele. Svaret skal sige, om vores beregning af fradrag er typisk og om afslaget på følgeskaden er holdbart."
+    "what_good_looks_like": "Kendelser om skjult manglende vådrumsmembran, hvor nævnet har taget stilling til fradrag for forbedring/afskrivning og til dækning af følgeskader på tilstødende bygningsdele. Svaret skal vise, hvordan nævnet har opgjort fradrag, og hvordan det har afgrænset følgeskader."
   },
   {
     "id": "S03",
     "persona": "Pia",
-    "type": "sagsvurdering",
-    "question": "Villa 1935, køber anmelder rotter i huset og brud på kloak under terrændæk konstateret ved TV-inspektion (forskudte samlinger, rodindvækst, et sted sammenstyrtet rør). TR anbefaler kloakundersøgelse pga. husets alder, men har ingen K-karakter på kloak (ikke omfattet). Sælger har oplyst i sælgers oplysningsskema at der ikke er kendte problemer med kloak. Køber havde tilkøbt udvidet dækning inkl. stikledninger. Vi har anerkendt det sammenstyrtede rør men afvist rodindvækst og forskudte samlinger som almindelig slitage/alder. Hvordan ser nævnet på det, og hvad risikerer vi?",
-    "what_good_looks_like": "Overblik over kendelser om kloakskader i ældre huse under udvidet dækning, hvor nævnet skelner mellem skade og forventelig nedbrydning ud fra alder, samt betydningen af TR's anbefaling om kloakundersøgelse. Klar risikovurdering af om afslaget på rodindvækst/forskudte samlinger står sig."
+    "type": "praksis_konkret_faktum",
+    "question": "Villa 1935, køber anmelder rotter i huset og brud på kloak under terrændæk konstateret ved TV-inspektion (forskudte samlinger, rodindvækst, et sted sammenstyrtet rør). TR anbefaler kloakundersøgelse pga. husets alder, men har ingen K-karakter på kloak (ikke omfattet). Sælger har oplyst i sælgers oplysningsskema at der ikke er kendte problemer med kloak. Køber havde tilkøbt udvidet dækning inkl. stikledninger. Vi har anerkendt det sammenstyrtede rør men afvist rodindvækst og forskudte samlinger som almindelig slitage/alder. Hvordan har nævnet set på det i lignende sager?",
+    "what_good_looks_like": "Overblik over kendelser om kloakskader i ældre huse under udvidet dækning, hvor nævnet skelner mellem skade og forventelig nedbrydning ud fra alder, samt betydningen af TR's anbefaling om kloakundersøgelse. Tydelig praksisbeskrivelse af, hvornår rodindvækst/forskudte samlinger er anset som skade frem for alder/slid."
   },
   {
     "id": "S04",

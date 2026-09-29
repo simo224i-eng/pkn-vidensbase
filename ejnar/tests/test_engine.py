@@ -25,6 +25,30 @@ def rows():
     ]
 
 
+class OutcomeConflictTests(unittest.TestCase):
+    kilder = [{"Udfald": "Ikke medhold"}, {"Udfald": "Medhold"}, {"Udfald": "Delvis medhold"}]
+
+    def check(self, svar):
+        return [(k["kilde"], k["påstand"]) for k in engine.udfaldskonflikter(svar, self.kilder)]
+
+    def test_misstated_outcomes_are_flagged(self):
+        self.assertEqual(self.check("Klager fik medhold [Kilde 1]."), [(1, "Medhold")])
+        self.assertEqual(self.check("I [Kilde 2] fik klageren ikke medhold."), [(2, "Ikke medhold")])
+        self.assertEqual(self.check("Nævnet gav selskabet medhold [Kilde 1, 2]."), [(2, "Ikke medhold")])
+        self.assertEqual(self.check("Køber fik delvis medhold [Kilde 1]."), [(1, "Delvis medhold")])
+
+    def test_correct_and_generic_statements_pass(self):
+        self.assertEqual(self.check("Klager fik medhold i [Kilde 2], men ikke i [Kilde 1]."), [])
+        # Generel praksisbeskrivelse i nutid kontrolleres ikke
+        self.assertEqual(self.check("Klager får typisk medhold, når skaden er skjult [Kilde 1]."), [])
+        # Delvis medhold i kilden er foreneligt med udsagn om ét af sagens led
+        self.assertEqual(self.check("Klager fik ikke medhold i kravet om fradrag [Kilde 3]."), [])
+        # Hver henvisning knyttes til den nærmeste påstand
+        svar = ("Af 5 kendelser gav 1 klager medhold ([Kilde 2]), og 2 gav selskabet medhold "
+                "([Kilde 1], [Kilde 3]).")
+        self.assertEqual(self.check(svar), [])
+
+
 class RepairDatesTests(unittest.TestCase):
     def _frame(self):
         import pandas as pd
@@ -187,11 +211,15 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual(engine.mistænkelige_citater(own, docs, question), [])
         self.assertEqual(len(engine.mistænkelige_citater(own, docs)), 1)
 
-    def test_prompt_asks_for_short_answer_first(self):
+    def test_prompt_is_practice_oriented(self):
         text = engine.byg_prompt("Dækkes skimmel?", [])[0]["text"]
         self.assertIn("## Kort svar", text)
-        self.assertIn("## Anbefaling", text)
-        self.assertIn("besvar hvert led for sig", text)
+        # Praksisværktøj: beskriver praksis, afgør ikke brugerens sag
+        self.assertIn("ikke at afgøre brugerens konkrete sag", text)
+        self.assertIn("## Praksis holdt op mod sagen", text)
+        self.assertNotIn("Anbefaling", text)
+        self.assertNotIn("sandsynligt udfald", text)
+        self.assertIn("for hvert led for sig", text)
         self.assertIn("årsspændet", text)
 
     def test_context_headers_show_outcome(self):

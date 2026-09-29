@@ -626,6 +626,22 @@ def _citat_advarsel_html(suspekte: list) -> str:
     )
 
 
+def _udfald_advarsel_html(konflikter: list) -> str:
+    import html as _html
+    punkter = "".join(
+        f"<li>[Kilde {k['kilde']}]: svaret siger «{_html.escape(k['påstand'])}», "
+        f"kendelsen er «{_html.escape(k['faktisk'])}»</li>"
+        for k in konflikter[:4]
+    )
+    return (
+        "\n\n<div style=\"margin-top:1rem;padding:0.9rem 1.1rem;background:#fef2f2;"
+        "border:1px solid #fecaca;border-radius:6px;font-size:12.5px;color:#991b1b;\">"
+        "<strong>Bemærk – udfaldskontrol:</strong> svaret gengiver udfaldet af følgende "
+        "kendelse(r) anderledes end nævnets afgørelse:"
+        f"<ul style=\"margin:0.4rem 0 0 1.1rem;padding:0;\">{punkter}</ul></div>"
+    )
+
+
 def _besvar_spørgsmål(tekst: str) -> None:
     """Kør retrieval + streamet svar + citatkontrol og gem i chat-historikken."""
     tekst = tekst.strip()
@@ -646,8 +662,12 @@ def _besvar_spørgsmål(tekst: str) -> None:
                                   historik=st.session_state.chat_historik,
                                   placeholder=ph)
         suspekte = engine.mistænkelige_citater(svar, kilder, tekst)
-        if suspekte:
-            svar = svar + _citat_advarsel_html(suspekte)
+        konflikter = engine.udfaldskonflikter(svar, kilder)
+        if suspekte or konflikter:
+            if suspekte:
+                svar = svar + _citat_advarsel_html(suspekte)
+            if konflikter:
+                svar = svar + _udfald_advarsel_html(konflikter)
             ph.markdown(svar, unsafe_allow_html=True)
     except Exception as e:
         svar = f"Fejl ved AI Assistent: {e}"
