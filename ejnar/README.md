@@ -139,6 +139,23 @@ til `LLM_MODEL`. Embeddings og rerank bruger stadig Voyage, fordi den gemte
 embedding-cache er bygget med `voyage-3-large`. Det koster næsten intet pr. søgning.
 Du kan også blive på Claude og spare ved at sætte `LLM_MODEL = "claude-haiku-4-5-20251001"`.
 
+### Brug dit eget Claude-abonnement (kun personligt, lokalt)
+
+Kører du Ejnar på din egen computer til eget brug, kan svarene komme fra dit
+Claude Pro/Max-abonnement via Claude Code i stedet for et betalt API:
+
+```bash
+npm install -g @anthropic-ai/claude-code && claude    # log ind én gang
+LLM_PROVIDER=claude_cli EJNAR_API_KEYS=lokal uvicorn api:app --port 8000
+```
+
+Udbyderen kalder `claude -p` uden værktøjer og fjerner `ANTHROPIC_API_KEY` fra
+miljøet, så abonnements-login'et bruges. Standardmodeller er `sonnet` (svar) og
+`haiku` (hjælpekald). De kan ændres med `LLM_MODEL` og `LLM_FAST_MODEL`.
+**Abonnementet er personligt.** Det må ikke bruges som backend for en tjeneste,
+som kolleger eller kunder bruger. Til det skal du bruge en API-nøgle (se ovenfor).
+Forbruget tæller med i abonnementets brugsgrænser.
+
 ## Workflow ved data-opdatering
 
 1. **Scrape data fra AKF** (kør lokalt — sandbox må ikke ramme ankeforsikring.dk):

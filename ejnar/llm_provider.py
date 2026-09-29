@@ -8,6 +8,8 @@ Secrets (alle valgfri; uden dem bruges Anthropic som hidtil):
 
     LLM_PROVIDER    = "anthropic" | "deepseek" | "gemini" | "openai"
                       | "openrouter" | "groq" | "mistral" | "openai_compatible"
+                      | "claude_cli"  (dit eget Claude-abonnement via Claude Code –
+                                       KUN til personlig, lokal brug, se README)
     LLM_API_KEY     = "..."      # falder tilbage til <PROVIDER>_API_KEY
     LLM_MODEL       = "..."      # hovedmodel (svar, syntese)
     LLM_FAST_MODEL  = "..."      # hurtig model (query-omskrivning, rerank, HyDE)
@@ -17,6 +19,8 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
+import subprocess
 import time
 from dataclasses import dataclass
 from typing import Callable
@@ -60,6 +64,10 @@ class LLMConfig:
     def is_anthropic(self) -> bool:
         return self.provider == "anthropic"
 
+    @property
+    def is_cli(self) -> bool:
+        return self.provider == "claude_cli"
+
     def resolve_model(self, requested: str | None) -> str:
         """Kortlæg et Claude-modelnavn fra kaldstedet til udbyderens model.
 
@@ -95,6 +103,14 @@ def load_config(get_secret: Callable[[str], str] = _default_secret) -> LLMConfig
             main_model=get_secret("LLM_MODEL") or ANTHROPIC_MAIN,
             fast_model=get_secret("LLM_FAST_MODEL") or ANTHROPIC_FAST,
         )
+    if provider in ("claude_cli", "claude_code"):
+        return LLMConfig(
+            provider="claude_cli",
+            api_key="",
+            base_url=get_secret("LLM_CLAUDE_BIN") or "claude",
+            main_model=get_secret("LLM_MODEL") or "sonnet",
+            fast_model=get_secret("LLM_FAST_MODEL") or "haiku",
+        )
     if provider not in PRESETS:
         raise ValueError(
             f"Ukendt LLM_PROVIDER '{provider}'. Gyldige: anthropic, " + ", ".join(PRESETS)
@@ -115,6 +131,8 @@ def is_configured(get_secret: Callable[[str], str] = _default_secret) -> bool:
         cfg = load_config(get_secret)
     except ValueError:
         return False
+    if cfg.is_cli:
+        return shutil.which(cfg.base_url) is not None
     return bool(cfg.api_key and cfg.main_model and cfg.base_url)
 
 
@@ -125,6 +143,8 @@ def missing_key_message(get_secret: Callable[[str], str] = _default_secret) -> s
         return str(exc)
     if cfg.is_anthropic:
         return "Tilføj ANTHROPIC_API_KEY (eller LLM_PROVIDER + LLM_API_KEY) i Streamlit secrets."
+    if cfg.is_cli:
+        return f"Claude Code-CLI'en '{cfg.base_url}' blev ikke fundet. Installér den og log ind med 'claude'."
     if not cfg.base_url or not cfg.main_model:
         return "Sæt LLM_BASE_URL og LLM_MODEL i Streamlit secrets for openai_compatible."
     return f"Tilføj LLM_API_KEY i Streamlit secrets for udbyderen '{cfg.provider}'."
@@ -224,8 +244,80 @@ def _post(cfg, prompt, max_tokens, model, stream):
     raise RuntimeError(last_err or "Ukendt fejl efter 3 forsøg.")
 
 
+# ── Claude Code-CLI (personligt abonnement) ───────────────────────────────────
+_CLI_SYSTEM = (
+    "Du er sprogmodellen bag juraværktøjet Ejnar. Besvar brugerens prompt direkte "
+    "og følg dens instruktioner. Du har ingen værktøjer."
+)
+
+
+def cli_command(cfg: LLMConfig, model: str | None, stream: bool) -> list[str]:
+    cmd = [
+        cfg.base_url, "-p",
+        "--model", cfg.resolve_model(model),
+        "--tools", "",                # ingen værktøjer: modellen kan kun svare
+        "--strict-mcp-config",        # ingen MCP-servere
+        "--disable-slash-commands",
+        "--setting-sources", "",      # ignorér bruger-/projektindstillinger
+        "--no-session-persistence",
+        "--system-prompt", _CLI_SYSTEM,
+    ]
+    if stream:
+        cmd += ["--output-format", "stream-json", "--verbose", "--include-partial-messages"]
+    else:
+        cmd += ["--output-format", "text"]
+    return cmd
+
+
+def _cli_env() -> dict:
+    # Uden API-nøgle i miljøet bruger CLI'en abonnements-login'et i stedet for API'et.
+    env = dict(os.environ)
+    env.pop("ANTHROPIC_API_KEY", None)
+    return env
+
+
+def _cli_complete(cfg: LLMConfig, prompt, model) -> str:
+    r = subprocess.run(cli_command(cfg, model, stream=False), input=prompt_to_text(prompt),
+                       capture_output=True, text=True, timeout=600, env=_cli_env())
+    if r.returncode != 0:
+        raise RuntimeError(f"claude_cli fejlede ({r.returncode}): {(r.stderr or r.stdout)[:500]}")
+    return r.stdout.strip()
+
+
+def _cli_stream(cfg: LLMConfig, prompt, model, on_text) -> str:
+    proc = subprocess.Popen(cli_command(cfg, model, stream=True), stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=_cli_env())
+    proc.stdin.write(prompt_to_text(prompt))
+    proc.stdin.close()
+    full_text, final = "", None
+    for line in proc.stdout:
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if event.get("type") == "stream_event":
+            inner = event.get("event") or {}
+            delta = inner.get("delta") or {}
+            if inner.get("type") == "content_block_delta" and delta.get("type") == "text_delta":
+                full_text += delta.get("text", "")
+                if on_text:
+                    on_text(full_text)
+        elif event.get("type") == "result":
+            final = event.get("result")
+    proc.wait(timeout=30)
+    if proc.returncode != 0 and not full_text:
+        raise RuntimeError(f"claude_cli fejlede ({proc.returncode}): {proc.stderr.read()[:500]}")
+    if final and final != full_text:
+        full_text = final
+        if on_text:
+            on_text(full_text)
+    return full_text
+
+
 def complete(prompt, max_tokens: int = 2000, model: str | None = None, cfg: LLMConfig | None = None) -> str:
     cfg = cfg or load_config()
+    if cfg.is_cli:
+        return _cli_complete(cfg, prompt, model)
     return extract_text(cfg, _post(cfg, prompt, max_tokens, model, stream=False).json())
 
 
@@ -233,6 +325,8 @@ def stream(prompt, max_tokens: int = 2000, model: str | None = None, on_text=Non
            cfg: LLMConfig | None = None) -> str:
     """Stream svaret; ``on_text(fuld_tekst_indtil_nu)`` kaldes for hver delta."""
     cfg = cfg or load_config()
+    if cfg.is_cli:
+        return _cli_stream(cfg, prompt, model, on_text)
     r = _post(cfg, prompt, max_tokens, model, stream=True)
     full_text = ""
     for line in r.iter_lines(decode_unicode=True):

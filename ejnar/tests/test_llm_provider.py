@@ -53,6 +53,51 @@ class LLMProviderTest(unittest.TestCase):
         self.assertTrue(lp.is_configured(secrets(LLM_PROVIDER="deepseek", DEEPSEEK_API_KEY="d")))
 
 
+class ClaudeCliProviderTest(unittest.TestCase):
+    def _fake_cli(self, body):
+        import stat
+        import tempfile
+
+        d = tempfile.mkdtemp()
+        path = os.path.join(d, "claude")
+        with open(path, "w") as f:
+            f.write("#!/usr/bin/env python3\n" + body)
+        os.chmod(path, os.stat(path).st_mode | stat.S_IEXEC)
+        return path
+
+    def test_config_and_command_are_locked_down(self):
+        cfg = lp.load_config(secrets(LLM_PROVIDER="claude_cli", LLM_CLAUDE_BIN="/x/claude"))
+        self.assertTrue(cfg.is_cli)
+        cmd = lp.cli_command(cfg, "claude-haiku-4-5", stream=False)
+        self.assertEqual(cmd[cmd.index("--model") + 1], "haiku")
+        self.assertEqual(cmd[cmd.index("--tools") + 1], "")
+        self.assertIn("--no-session-persistence", cmd)
+        self.assertFalse(lp.is_configured(secrets(LLM_PROVIDER="claude_cli", LLM_CLAUDE_BIN="/nope/claude")))
+
+    def test_complete_uses_stdin_and_drops_api_key(self):
+        from unittest import mock
+
+        fake = self._fake_cli(
+            "import os, sys\n"
+            "print('KEY' if os.environ.get('ANTHROPIC_API_KEY') else 'NOKEY', sys.stdin.read().strip())\n")
+        cfg = lp.load_config(secrets(LLM_PROVIDER="claude_cli", LLM_CLAUDE_BIN=fake))
+        with mock.patch.dict(os.environ, {"ANTHROPIC_API_KEY": "sk-test"}):
+            out = lp.complete([{"type": "text", "text": "hej"}], cfg=cfg)
+        self.assertEqual(out, "NOKEY hej")
+
+    def test_stream_parses_partial_messages(self):
+        fake = self._fake_cli(
+            "import json, sys\nsys.stdin.read()\n"
+            "for t in ['Hej ', 'verden']:\n"
+            "    print(json.dumps({'type': 'stream_event', 'event': {'type': 'content_block_delta',"
+            " 'delta': {'type': 'text_delta', 'text': t}}}))\n"
+            "print(json.dumps({'type': 'result', 'result': 'Hej verden'}))\n")
+        cfg = lp.load_config(secrets(LLM_PROVIDER="claude_cli", LLM_CLAUDE_BIN=fake))
+        seen = []
+        self.assertEqual(lp.stream("x", cfg=cfg, on_text=seen.append), "Hej verden")
+        self.assertEqual(seen, ["Hej ", "Hej verden"])
+
+
 class SharedHelperTest(unittest.TestCase):
     def test_helper_calls_get_empty_string_without_llm(self):
         # Fejlteksten til brugeren må aldrig ende i query-udvidelse/HyDE/rerank.

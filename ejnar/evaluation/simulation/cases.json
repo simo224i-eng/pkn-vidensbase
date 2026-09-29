@@ -1,0 +1,58 @@
+[
+  {
+    "id": "S01",
+    "persona": "Mette",
+    "type": "sagsvurdering",
+    "question": "Hus opført 1972 med ventileret krybekælder. Køber anmelder 8 mdr. efter overtagelse fugt og skimmelvækst på undersiden af gulvbrædder og strøer. Konstateret ved vores besigtigelse: RF ca. 90 % i kælderen, mikrobiel vækst på træ, ingen egentlig råd. Tilstandsrapporten har K2 på krybekælder: 'Fugtig krybekælder, der er risiko for skimmelvækst' og K1 om manglende ventilationsriste mod nord. Vi har afvist med henvisning til, at forholdet er nævnt i TR. Køber mener, at omfanget langt overstiger det, der var beskrevet. Hvad siger praksis, og hvad er sandsynligt udfald i nævnet?",
+    "what_good_looks_like": "Kendelser om krybekældre med lignende K2-formulering, hvor nævnet tager stilling til, om TR-beskrivelsen dækker det faktiske omfang (risiko vs. konstateret skade), samt en klar vurdering af om afslaget sandsynligvis holder. Gerne med angivelse af, hvilke formuleringer i TR der har været tilstrækkelige, og hvilke nævnet har fundet for vage."
+  },
+  {
+    "id": "S02",
+    "persona": "Jonas",
+    "type": "sagsvurdering",
+    "question": "Rækkehus fra 1998, badeværelse renoveret af tidl. ejer i 2011 uden dokumentation. Køber har efter 14 mdr. fugtskade i vægge omkring bruser, vi har konstateret manglende/utilstrækkelig vådrumsmembran bag fliser. TR: vådrum K0, ingen bemærkninger, der er dog noteret 'fuger mørke' som K1. Vi har anerkendt dækning for membranfejlen men giver fradrag for forbedring (nye fliser, nyt armatur) og siger nej til følgeskader på gangens trægulv. Er fradraget og afgrænsningen i tråd med nævnspraksis?",
+    "what_good_looks_like": "Kendelser om skjult manglende vådrumsmembran, hvor nævnet har taget stilling til fradrag for forbedring/afskrivning og til dækning af følgeskader på tilstødende bygningsdele. Svaret skal sige, om vores beregning af fradrag er typisk og om afslaget på følgeskaden er holdbart."
+  },
+  {
+    "id": "S03",
+    "persona": "Pia",
+    "type": "sagsvurdering",
+    "question": "Villa 1935, køber anmelder rotter i huset og brud på kloak under terrændæk konstateret ved TV-inspektion (forskudte samlinger, rodindvækst, et sted sammenstyrtet rør). TR anbefaler kloakundersøgelse pga. husets alder, men har ingen K-karakter på kloak (ikke omfattet). Sælger har oplyst i sælgers oplysningsskema at der ikke er kendte problemer med kloak. Køber havde tilkøbt udvidet dækning inkl. stikledninger. Vi har anerkendt det sammenstyrtede rør men afvist rodindvækst og forskudte samlinger som almindelig slitage/alder. Hvordan ser nævnet på det, og hvad risikerer vi?",
+    "what_good_looks_like": "Overblik over kendelser om kloakskader i ældre huse under udvidet dækning, hvor nævnet skelner mellem skade og forventelig nedbrydning ud fra alder, samt betydningen af TR's anbefaling om kloakundersøgelse. Klar risikovurdering af om afslaget på rodindvækst/forskudte samlinger står sig."
+  },
+  {
+    "id": "S04",
+    "persona": "Mette",
+    "type": "praksisoverblik",
+    "question": "Hvornår dækker nævnet utætte tage/undertag, når TR har skrevet at taget er 'nedslidt' eller 'ved at være udtjent' som K2? Og omvendt – hvor har nævnet givet medhold til forsikringstager, selvom der var en K-karakter på taget?",
+    "what_good_looks_like": "En struktureret oversigt over praksis, der viser hvad der typisk afgør udfaldet (ordlyd i TR, tagets alder, om skaden ligger ud over det beskrevne, undertagets tilstand), med henvisning til konkrete kendelser i begge retninger."
+  },
+  {
+    "id": "S05",
+    "persona": "Pia",
+    "type": "praksisoverblik",
+    "question": "Hvordan vurderer nævnet sætningsrevner? Særligt: hvornår er det en skade og ikke bare normale svindrevner, hvad lægger de vægt på ift. om revnerne er 'aktive', og hvor meget betyder en geoteknisk/ingeniørrapport i sagerne?",
+    "what_good_looks_like": "Et praksisoverblik der sammenfatter nævnets kriterier (revnevidde, aktivitet, funderingsforhold, konstruktionens alder) og betydningen af sagkyndige erklæringer og syn og skøn, understøttet af eksempler på afgørelser med både dækning og afslag."
+  },
+  {
+    "id": "S06",
+    "persona": "Jonas",
+    "type": "juridisk_spørgsmål",
+    "question": "Ulovlighedsdækning: køber har fået påbud fra kommunen om at lovliggøre en overdækket terrasse, som tidl. ejer har lukket til udestue uden byggetilladelse. Udestuen er ikke nævnt i BBR og ikke med i TR. Dækker ejerskifteforsikringen udgiften til lovliggørelse eller nedrivning, og hvordan opgøres erstatningen – udbedringsudgift eller værdiforringelse? Hvad hvis kommunen kun har udstedt en lovliggørende tilladelse med vilkår?",
+    "what_good_looks_like": "En klar redegørelse for hvordan nævnet anvender vilkårenes ulovlighedsdækning (krav om myndighedspåbud, bygningsdel vs. hele bygningen, forholdet til BBR og TR) og opgørelse af erstatning, med relevante kendelser om ulovlige tilbygninger/udestuer."
+  },
+  {
+    "id": "S07",
+    "persona": "Mette",
+    "type": "opslag",
+    "question": "Find kendelser hvor TR har skrevet 'fugtaftegninger' eller 'fugtpletter' på kældervæg som K1 eller K2, men hvor nævnet alligevel har givet medhold fordi det senere viste sig at være manglende omfangsdræn eller defekt fugtisolering. Gerne fra de seneste 5-6 år.",
+    "what_good_looks_like": "En præcis liste over kendelser, der matcher både formuleringen og faktakombinationen, med kort resumé af hvorfor nævnet mente at TR-beskrivelsen ikke var tilstrækkelig. Hellere få præcise hits end mange løse."
+  },
+  {
+    "id": "S08",
+    "persona": "Pia",
+    "type": "grænsetilfælde",
+    "question": "Svær sag: Hus fra 1964, køber opdager asbestholdige plader bag indvendig beklædning i kælder (var skjult). Der er ingen skade som sådan – pladerne er intakte – men køber vil rive beklædningen ned for at renovere, og nu kræver saneringen særlig håndtering. TR nævner ikke asbest (K-karakter kun på 'eternittag, asbestholdigt, K0 – ingen bemærkninger'). Er dette overhovedet en skade efter vilkårene, eller er det bare en egenskab ved huset fra byggeåret? Har nævnet taget stilling til asbest, hvor det ikke giver fysiske skader, men alene øger udgifterne til ombygning?",
+    "what_good_looks_like": "En ærlig vurdering af, om der er praksis der direkte rammer situationen, og hvis ikke, en begrundet analogi ud fra skadesbegrebet (sammenligning med normalt hus af samme alder og type), med tydelig markering af hvor usikkerheden ligger og hvilke kendelser der trækker i hver retning."
+  }
+]
