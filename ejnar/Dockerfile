@@ -13,7 +13,11 @@ COPY ejnar/requirements.txt ejnar/requirements-api.txt ./
 RUN pip install -r requirements.txt -r requirements-api.txt
 
 COPY ejnar/ ./
-RUN useradd --create-home ejnar && chown -R ejnar /app
+# Byg korpus + TF-IDF-indeks ind i imaget: containeren starter på sekunder i stedet
+# for ~70 s (cachen invalideres automatisk, hvis data eller kode ændres).
+ENV EJNAR_CACHE_DIR=/app/cache
+RUN python -c "import engine; engine.load_corpus_cached()" \
+ && useradd --create-home ejnar && chown -R ejnar /app
 USER ejnar
 
 EXPOSE 8000

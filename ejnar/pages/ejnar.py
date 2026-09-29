@@ -31,12 +31,12 @@ LLM_AKTIV = llm_tilgaengelig()
 # og sparer 1-2 fulde kopier i RAM ved opstart (afgørende for Streamlit Clouds 1GB).
 @st.cache_resource(show_spinner="Indlæser kendelser…")
 def load_data(version: int = 1):
-    return engine.load_data()
+    return engine.load_corpus_cached()[0]
 
 
 @st.cache_resource(show_spinner="Bygger søgeindeks…")
 def build_index(n_rows: int, version: int = 1):
-    return engine.build_index(load_data())
+    return engine.load_corpus_cached()[1:]
 
 
 @st.cache_resource(show_spinner=False)

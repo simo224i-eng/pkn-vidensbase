@@ -288,6 +288,65 @@ def prepare_frame(rows: list) -> pd.DataFrame:
     return df
 
 
+# ── Diskcache: forberedt korpus + TF-IDF-indeks ──────────────────────────────
+# Tekstrensning (~25 s) og TF-IDF (~40 s) er deterministiske. De caches på disk,
+# så en genstart af API'et/Streamlit tager sekunder. Nøglen dækker datafilerne, den
+# kode der former resultatet og sklearn-versionen – ændres noget, bygges der nyt.
+CACHE_DIR = os.environ.get("EJNAR_CACHE_DIR", "/tmp/ejnar_cache")
+_CORPUS_MEMO: dict[str, tuple] = {}
+
+
+def _corpus_cache_key(root: str) -> str:
+    import sklearn
+
+    h = hashlib.sha256()
+    for path in sorted(_glob.glob(os.path.join(root, "ejnar_*.csv")) + _glob.glob(os.path.join(root, "ejnar_*.csv.zip"))):
+        st = os.stat(path)
+        h.update(f"{os.path.basename(path)}:{st.st_size}".encode())
+        with open(path, "rb") as f:
+            h.update(hashlib.sha256(f.read()).digest())
+    for code in ("engine.py", "shared.py"):
+        with open(os.path.join(EJNAR_DIR, code), "rb") as f:
+            h.update(f.read())
+    h.update(f"sklearn={sklearn.__version__};pandas={pd.__version__}".encode())
+    return h.hexdigest()[:24]
+
+
+def load_corpus_cached(root: str = EJNAR_DIR):
+    """(df, vec, mat) fra hukommelse, diskcache eller – første gang – fuld opbygning."""
+    import pickle
+
+    key = _corpus_cache_key(root)
+    if key in _CORPUS_MEMO:
+        return _CORPUS_MEMO[key]
+    path = os.path.join(CACHE_DIR, f"corpus-{key}.pkl")
+    result = None
+    if os.path.exists(path):
+        try:
+            with open(path, "rb") as f:
+                result = pickle.load(f)
+        except Exception:
+            result = None
+    if result is None:
+        df = load_data(root)
+        vec, mat = build_index(df)
+        result = (df, vec, mat)
+        try:
+            os.makedirs(CACHE_DIR, exist_ok=True)
+            tmp = path + f".{os.getpid()}.tmp"
+            with open(tmp, "wb") as f:
+                pickle.dump(result, f, protocol=pickle.HIGHEST_PROTOCOL)
+            os.replace(tmp, path)          # atomisk: ingen halve cachefiler
+            for old in _glob.glob(os.path.join(CACHE_DIR, "corpus-*.pkl")):
+                if old != path:
+                    os.remove(old)
+        except Exception:
+            pass                           # cache er en optimering, aldrig et krav
+    _CORPUS_MEMO.clear()
+    _CORPUS_MEMO[key] = result
+    return result
+
+
 def decision_id(link: str, fallback: int = 0) -> str:
     """Stabilt, URL-venligt ID afledt af kendelsens link."""
     base = (link or "").strip() or f"row-{fallback}"
@@ -644,8 +703,7 @@ class Corpus:
     @classmethod
     def load(cls, with_embeddings: bool = True) -> "Corpus":
         ensure_runtimes()
-        df = load_data()
-        vec, mat = build_index(df)
+        df, vec, mat = load_corpus_cached()
         embeds = build_embeddings(df) if with_embeddings else None
         return cls(df=df, vec=vec, mat=mat, embeds=embeds, options=filter_options(df))
 
