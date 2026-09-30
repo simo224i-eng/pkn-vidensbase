@@ -7,6 +7,19 @@ import numpy as np  # noqa: F401 – bruges i page-filer via import shared
 import pandas as pd
 import requests
 import streamlit as st
+import os as _os
+
+
+def _secret(name: str, default: str = "") -> str:
+    """Læs en secret fra Streamlit secrets, ellers fra miljøvariabler.
+    Gør at samme kode kører både i Streamlit og headless (API, scripts)."""
+    try:
+        value = st.secrets.get(name, None)
+    except Exception:
+        value = None
+    if value in (None, ""):
+        value = _os.environ.get(name, default)
+    return value
 
 # ── Styling ───────────────────────────────────────────────────────────────────
 # Design tokens (Ejnar — samme look-and-feel som Harald):
@@ -639,128 +652,44 @@ import time as _time
 import json as _json
 
 
-def _api_headers(use_cache: bool = False) -> dict:
-    key = st.secrets.get("ANTHROPIC_API_KEY", "")
-    if not key:
-        return {}
-    headers = {
-        "x-api-key": key,
-        "anthropic-version": "2023-06-01",
-        "Content-Type": "application/json",
-    }
-    if use_cache:
-        headers["anthropic-beta"] = "prompt-caching-2024-07-31"
-    return headers
+import llm_provider as _llm_provider
 
 
-def _api_body(prompt, max_tokens: int, stream: bool = False, model: str = "claude-sonnet-4-6") -> dict:
-    body = {
-        "model": model,
-        "max_tokens": max_tokens,
-        "messages": [{"role": "user", "content": prompt}],
-    }
-    if stream:
-        body["stream"] = True
-    return body
+def llm_tilgaengelig() -> bool:
+    return _llm_provider.is_configured()
+
+
+def llm_label() -> str:
+    try:
+        return _llm_provider.load_config().label
+    except ValueError as exc:
+        return str(exc)
 
 
 def _llm(prompt, max_tokens: int = 2000, model: str = "claude-sonnet-4-6") -> str:
-    """Send en prompt til Claude (blokerende, med retry).
+    """Send en prompt til den konfigurerede LLM (blokerende, med retry).
     prompt kan være en str eller en liste af content-blokke (til prompt caching).
+    Claude-modelnavne kortlægges til udbyderens main/fast-model – se llm_provider.
     """
-    key = st.secrets.get("ANTHROPIC_API_KEY", "")
-    if not key:
-        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
-
-    use_cache = isinstance(prompt, list)
-    headers = _api_headers(use_cache)
-    body = _api_body(prompt, max_tokens, model=model)
-
-    last_err = None
-    for attempt in range(3):
-        try:
-            r = requests.post(
-                "https://api.anthropic.com/v1/messages",
-                headers=headers,
-                json=body,
-                timeout=300,
-            )
-            if r.status_code == 529 or r.status_code >= 500:
-                # Overloaded / server error → retry
-                last_err = f"{r.status_code} {r.reason}: {r.text[:300]}"
-                _time.sleep(2 ** attempt)
-                continue
-            if not r.ok:
-                raise RuntimeError(f"{r.status_code} {r.reason}: {r.text[:500]}")
-            return r.json()["content"][0]["text"]
-        except requests.exceptions.Timeout:
-            last_err = "Timeout – serveren svarede ikke inden for 5 minutter."
-            _time.sleep(2 ** attempt)
-        except requests.exceptions.ConnectionError:
-            last_err = "Netværksfejl – kunne ikke nå API'et."
-            _time.sleep(2 ** attempt)
-    raise RuntimeError(last_err or "Ukendt fejl efter 3 forsøg.")
+    if not _llm_provider.is_configured():
+        return _llm_provider.missing_key_message()
+    return _llm_provider.complete(prompt, max_tokens=max_tokens, model=model)
 
 
 def _llm_stream(prompt, max_tokens: int = 2000, placeholder=None):
-    """Stream svar fra Claude direkte ind i en Streamlit-placeholder.
+    """Stream svar direkte ind i en Streamlit-placeholder.
     Returnerer den samlede tekst. Hvis placeholder=None, falder tilbage til _llm().
-    prompt kan være en str eller en liste af content-blokke.
     """
     if placeholder is None:
         return _llm(prompt, max_tokens)
-
-    key = st.secrets.get("ANTHROPIC_API_KEY", "")
-    if not key:
-        return "Tilføj ANTHROPIC_API_KEY i Streamlit secrets (Settings → Secrets)."
-
-    use_cache = isinstance(prompt, list)
-    headers = _api_headers(use_cache)
-    body = _api_body(prompt, max_tokens, stream=True)
-
-    last_err = None
-    for attempt in range(3):
-        try:
-            r = requests.post(
-                "https://api.anthropic.com/v1/messages",
-                headers=headers,
-                json=body,
-                timeout=300,
-                stream=True,
-            )
-            if r.status_code == 529 or r.status_code >= 500:
-                last_err = f"{r.status_code} {r.reason}"
-                _time.sleep(2 ** attempt)
-                continue
-            if not r.ok:
-                raise RuntimeError(f"{r.status_code} {r.reason}: {r.text[:500]}")
-
-            full_text = ""
-            for line in r.iter_lines(decode_unicode=True):
-                if not line or not line.startswith("data: "):
-                    continue
-                data_str = line[6:]
-                if data_str.strip() == "[DONE]":
-                    break
-                try:
-                    evt = _json.loads(data_str)
-                except _json.JSONDecodeError:
-                    continue
-                if evt.get("type") == "content_block_delta":
-                    delta = evt.get("delta", {})
-                    chunk = delta.get("text", "")
-                    if chunk:
-                        full_text += chunk
-                        placeholder.markdown(full_text + "▌")
-            placeholder.markdown(full_text)
-            return full_text
-        except requests.exceptions.Timeout:
-            last_err = "Timeout – serveren svarede ikke inden for 5 minutter."
-            _time.sleep(2 ** attempt)
-        except requests.exceptions.ConnectionError:
-            last_err = "Netværksfejl – kunne ikke nå API'et."
-            _time.sleep(2 ** attempt)
-    raise RuntimeError(last_err or "Ukendt fejl efter 3 forsøg.")
+    if not _llm_provider.is_configured():
+        return _llm_provider.missing_key_message()
+    full_text = _llm_provider.stream(
+        prompt, max_tokens=max_tokens,
+        on_text=lambda t: placeholder.markdown(t + "▌"),
+    )
+    placeholder.markdown(full_text)
+    return full_text
 
 
 # ── Delte hjælpefunktioner ────────────────────────────────────────────────────
@@ -1059,15 +988,76 @@ def _get_dk_stemmer():
 
 _TOKEN_RE = re.compile(r"[a-zæøåA-ZÆØÅ][a-zæøåA-ZÆØÅ\-]{1,}")
 
+# Fagtermer, som brugere skriver, men nævnet ikke bruger: oversæt til nævnets ordvalg
+# før stemming, så søgningen rammer kendelserne ("rodindvækst" står i 0 kendelser,
+# "rødder" i 56).
+_FAGLEKSIKON = {
+    "rodindvækst": ("rødder", "indvækst"),
+    "rodindtrængning": ("rødder", "indtrængning"),
+    "rodindtrængninger": ("rødder", "indtrængning"),
+    "rodvækst": ("rødder",),
+}
+# Ord, som stemmeren ellers slår sammen med et andet ord ("rødder" → "rød" som i farven)
+_STEM_BESKYTTET = {"rødder": "rødder", "rødderne": "rødder"}
+
+
+def udvid_fagtermer(query: str) -> str:
+    """Tilføj nævnets ordvalg for fagtermer i forespørgslen ("rodindvækst" → "rødder"),
+    så alle søgekomponenter (TF-IDF, afsnits-BM25, embeddings) rammer kendelserne."""
+    ekstra = []
+    for ord_ in _TOKEN_RE.findall((query or "").lower()):
+        for x in _FAGLEKSIKON.get(ord_, ()):
+            if x != ord_ and x not in ekstra and x not in query.lower():
+                ekstra.append(x)
+    return f"{query} {' '.join(ekstra)}" if ekstra else query
+
+
 def dansk_tokenizer(text: str) -> list:
     """Tokenisér og stem dansk tekst med Snowball Danish stemmer.
     Bruges som custom analyzer i TfidfVectorizer for bedre matching
     af bøjningsformer (afgørelser→afgør, planloven→planlov osv.)."""
     stemmer = _get_dk_stemmer()
-    tokens = _TOKEN_RE.findall(text.lower())
+    tokens = [x for t in _TOKEN_RE.findall(text.lower()) for x in _FAGLEKSIKON.get(t, (t,))]
     if stemmer is None:
         return tokens
-    return [stemmer.stem(t) for t in tokens]
+    return [_STEM_BESKYTTET[t] if t in _STEM_BESKYTTET else stemmer.stem(t) for t in tokens]
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer as _SkTfidfVectorizer
+
+
+class DeterministicTfidfVectorizer(_SkTfidfVectorizer):
+    """TfidfVectorizer hvis ``max_features``-udvælgelse er uafhængig af CPU'en.
+
+    sklearn vælger de ``max_features`` hyppigste termer med numpy's ustabile
+    standard-argsort. Den er SIMD-dispatchet (AVX-512/AVX2/SSE), så *hvilke* termer
+    med samme hyppighed der kommer med ved grænsen afhænger af CPU'en – og dermed
+    ordforrådet, scorerne og rangeringen på tværs af CI-værter. Her brydes
+    uafgjort alfabetisk på termen, så udvælgelsen er ens overalt. Når der ikke er
+    uafgjort ved grænsen, er resultatet identisk med sklearn's."""
+
+    def _limit_features(self, X, vocabulary, high=None, low=None, limit=None):
+        # sklearn < 1.? returnerer (X, fjernede_termer); nyere kun X. Bevar formen.
+        result = super()._limit_features(X, vocabulary, high=high, low=low, limit=None)
+        as_tuple = isinstance(result, tuple)
+        X, removed = result if as_tuple else (result, None)
+        if limit is not None and X.shape[1] > limit:
+            terms = np.empty(len(vocabulary), dtype=object)
+            for term, idx in vocabulary.items():
+                terms[idx] = term
+            tfs = np.asarray(X.sum(axis=0)).ravel()
+            # np.lexsort er stabil: primærnøgle -tfs, sekundær termen selv.
+            keep = np.sort(np.lexsort((terms, -tfs))[:limit])
+            new_index = {int(old): new for new, old in enumerate(keep)}
+            for term, old in list(vocabulary.items()):
+                if old in new_index:
+                    vocabulary[term] = new_index[old]
+                else:
+                    del vocabulary[term]
+                    if removed is not None:
+                        removed.add(term)
+            X = X[:, keep]
+        return (X, removed) if as_tuple else X
 
 
 def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int = 80) -> list:
@@ -1091,18 +1081,57 @@ def chunk_tekst(tekst: str, titel: str = "", chunk_size: int = 500, overlap: int
     return chunks
 
 
-def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
-                            chunk_size: int = 400, max_total_chars: int = 24000) -> str:
-    """Chunk-level kontekst-udvælgelse: i stedet for at sende hele kerneafsnit til LLM'en,
-    chunker vi hvert dokument og scorer chunks mod query med simpel TF-IDF.
-    Returnerer formateret kontekst-streng med [Kilde N] headers bevaret.
+try:
+    import board_reasoning as _board
+except ImportError:  # pakke-import i tests/værktøjer
+    from ejnar import board_reasoning as _board
 
-    Dette giver LLM'en mere fokuseret, relevant kontekst og reducerer støj.
-    Falder tilbage til udtræk_kerneafsnit ved fejl."""
+ROLLE_PARTER = "Sagsfremstilling og parternes synspunkter"
+ROLLE_NÆVNET = "Nævnets begrundelse og afgørelse"
+
+
+def _del_efter_rolle(kerne: str) -> list:
+    """Del kendelsesteksten i parternes del og nævnets egen vurdering.
+
+    Efter "Nævnet udtaler" gengiver nævnet først sagen og parternes anbringender;
+    den del mærkes som parternes, så kun selve vurderingen tilskrives nævnet."""
+    delt = _board.del_kendelse(kerne or "")
+    if delt is None:
+        return [("", kerne)]
+    _, a = delt
+    dele = [(ROLLE_PARTER, kerne[:a]), (ROLLE_NÆVNET, kerne[a:])]
+    return [(r, t) for r, t in dele if t.strip()]
+
+
+def _kendelsesdele(tekst: str, max_parter: int = 40_000, max_nævnet: int = 12_000) -> list:
+    """Kendelsens tekst delt i (rolle, tekst) til kontekstbyggeren.
+
+    Uden markør for nævnets del bruges kerneafsnittet (slutningen af teksten)."""
+    dele = _del_efter_rolle(tekst)
+    if len(dele) == 1 and not dele[0][0]:
+        return [("", udtræk_kerneafsnit(tekst, max_tegn=8000))]
+    out = []
+    for rolle, del_ in dele:
+        if rolle == ROLLE_NÆVNET:
+            out.append((rolle, del_[:max_nævnet]))
+        else:
+            out.append((rolle, del_[-max_parter:] if len(del_) > max_parter else del_))
+    return out
+
+
+def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
+                            chunk_size: int = 120, max_total_chars: int = 26000) -> str:
+    """Byg AI-konteksten: hver kilde får sit AKF-resumé (titlen) plus de mest
+    spørgsmålsrelevante passager, scoret med TF-IDF mod spørgsmålet.
+
+    Budgettet fordeles retfærdigt: alle kilder får først en ligelig andel, så
+    ingen fundet kendelse falder ud, fordi de første kilder er lange. Tidligere
+    fyldte 3–4 kilder hele budgettet, og kilde 5–15 nåede aldrig modellen.
+    Overskydende plads går derefter til de højest rangerede kilder.
+    Returnerer formateret kontekst-streng med [Kilde N]-headers bevaret."""
     if not docs:
         return ""
     try:
-        from sklearn.feature_extraction.text import TfidfVectorizer
         from sklearn.metrics.pairwise import cosine_similarity as _cos
     except ImportError:
         # Fallback: brug kerneafsnit som hidtil
@@ -1112,51 +1141,97 @@ def byg_fokuseret_kontekst(query: str, docs: list, max_chunks_per_doc: int = 3,
             for i, d in enumerate(docs)
         )
 
-    # 1. Chunk hvert dokument og hold styr på kilde-nummer
+    def _dato(d):
+        try:
+            txt = pd.Timestamp(d.get("Dato")).strftime("%d.%m.%Y")
+        except Exception:
+            return "–"
+        return f"ca. {txt}" if d.get("DatoEstimeret") is True else txt
+
+    # 1. Chunk hvert dokument (små chunks → præcise passager)
+    # Hver passage mærkes med, hvem der taler: modellen tilskrev ellers selskabets
+    # eller klagers argumenter til nævnet (fundet ved udsagnsrevision).
+    # Hele kendelsen kan bidrage: tidligere kom kun de sidste 8.000 tegn med, så
+    # relevante passager tidligt i lange kendelser aldrig nåede modellen.
     all_chunks = []     # (kilde_idx, chunk_text)
+    bonus = []          # nævnets begrundelse foretrækkes ved lige relevans
     for i, d in enumerate(docs):
-        kerne = udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=6000)
-        chunks = chunk_tekst(kerne, titel="", chunk_size=chunk_size, overlap=80)
-        if not chunks:
-            chunks = [kerne[:3000]] if kerne else [d.get("Titel", "")]
-        for c in chunks:
-            all_chunks.append((i, c))
+        for rolle, del_ in _kendelsesdele(d.get("Tekst") or ""):
+            for c in chunk_tekst(del_, titel="", chunk_size=chunk_size, overlap=25):
+                all_chunks.append((i, f"({rolle}) {c}" if rolle else c))
+                bonus.append(0.05 if rolle == ROLLE_NÆVNET else 0.0)
 
-    if not all_chunks:
-        return ""
+    # 2. Scor chunks mod spørgsmålet
+    scores = np.ones(len(all_chunks))
+    if all_chunks:
+        try:
+            # Samme danske tokenizer (stemming + fagleksikon) som søgningen, så fx
+            # "rodindvækst" i spørgsmålet rammer "rødder" i kendelsen
+            mini_vec = DeterministicTfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True,
+                                                    tokenizer=dansk_tokenizer, token_pattern=None,
+                                                    lowercase=False)
+            chunk_mat = mini_vec.fit_transform([c for _, c in all_chunks])
+            scores = _cos(mini_vec.transform([query]), chunk_mat).flatten()
+        except Exception:
+            pass
+        scores = scores + np.asarray(bonus)
 
-    # 2. Scorer chunks mod query
-    chunk_texts = [c for _, c in all_chunks]
-    try:
-        mini_vec = TfidfVectorizer(max_features=20_000, ngram_range=(1, 2), sublinear_tf=True)
-        chunk_mat = mini_vec.fit_transform(chunk_texts)
-        qv = mini_vec.transform([query])
-        scores = _cos(qv, chunk_mat).flatten()
-    except Exception:
-        scores = np.ones(len(all_chunks))
-
-    # 3. Vælg bedste chunks per kilde (bevar kilde-rækkefølge)
     from collections import defaultdict
-    kilde_chunks = defaultdict(list)
-    for idx, (kilde_i, chunk) in enumerate(all_chunks):
-        kilde_chunks[kilde_i].append((float(scores[idx]), chunk))
+    ranked = defaultdict(list)          # kilde → [(score, pos, chunk)] bedst først
+    for pos, ((kilde_i, chunk), score) in enumerate(zip(all_chunks, scores)):
+        ranked[kilde_i].append((float(score), pos, chunk))
+    for lst in ranked.values():
+        lst.sort(key=lambda x: (-x[0], x[1]))
+
+    def _udfald(d):
+        u = str(d.get("Udfald") or "").strip()
+        dk = str(d.get("Dækning") or "").strip()
+        tags = [f"Udfald for klager: {u}"] if u and u != "Ukendt" else []
+        if dk in ("Udvidet", "Basis"):
+            tags.append(f"Dækning: {'udvidet' if dk == 'Udvidet' else 'basis'}")
+        return f"[{' · '.join(tags)}] " if tags else ""
+
+    # Udfaldet står eksplicit i overskriften: nyere AKF-resuméer nævner det ikke altid.
+    headers = [f"[Kilde {i+1}] {_dato(d)} – {_udfald(d)}{d.get('Titel', '')}" for i, d in enumerate(docs)]
+    header_total = sum(len(h) + 2 for h in headers)
+    # Relevansvægtet andel: kilde 1 får 3×, kilde 2–3 2× en almindelig kildes plads
+    vægte = [3.0, 2.0, 2.0] + [1.0] * max(0, len(docs) - 3)
+    vægte = vægte[:len(docs)]
+    rådighed = max_total_chars - header_total
+    andele = [max(400, int(rådighed * v / sum(vægte))) for v in vægte]
+    fair = max(400, rådighed // max(1, len(docs)))
+    loft = [max_chunks_per_doc * (3 if i == 0 else 2 if i < 3 else 1) for i in range(len(docs))]
+    chosen = defaultdict(list)          # kilde → [(pos, text)]
+
+    def _take(i, budget):
+        """Tilføj kildens bedste endnu ikke valgte passager inden for budget."""
+        used = 0
+        while ranked[i] and len(chosen[i]) < loft[i]:
+            score, pos, chunk = ranked[i][0]
+            if chosen[i] and score <= 0:
+                break
+            room = budget - used
+            if room < 200:
+                break
+            text = chunk if len(chunk) <= room else chunk[:room].rsplit(" ", 1)[0] + " …"
+            chosen[i].append((pos, text))
+            ranked[i].pop(0)
+            used += len(text) + 7
+        return used
+
+    # 3a. Ligelig andel til alle kilder
+    used_total = header_total + sum(_take(i, andele[i]) for i in range(len(docs)))
+    # 3b. Resten til de højest rangerede kilder
+    for i in range(len(docs)):
+        spare = max_total_chars - used_total
+        if spare < 300:
+            break
+        used_total += _take(i, min(spare, fair * 2))
 
     dele = []
-    total_chars = 0
-    for i, d in enumerate(docs):
-        header = f"[Kilde {i+1}] {pd.Timestamp(d['Dato']).strftime('%d.%m.%Y')} – {d['Titel']}"
-        best = sorted(kilde_chunks.get(i, []), key=lambda x: -x[0])[:max_chunks_per_doc]
-        best_texts = [c for _, c in best]
-        content = "\n[…]\n".join(best_texts) if best_texts else udtræk_kerneafsnit(d.get("Tekst") or "", max_tegn=2000)
-        entry = f"{header}\n{content}"
-        if total_chars + len(entry) > max_total_chars:
-            # Afkort sidste kilde
-            remaining = max_total_chars - total_chars
-            if remaining > 500:
-                dele.append(entry[:remaining] + "…")
-            break
-        dele.append(entry)
-        total_chars += len(entry)
+    for i in range(len(docs)):
+        passager = [t for _, t in sorted(chosen[i])]      # bevar tekstens rækkefølge
+        dele.append(headers[i] + ("\n" + "\n[…]\n".join(passager) if passager else ""))
     return "\n\n".join(dele)
 
 
@@ -1331,6 +1406,10 @@ def rrf_merge(rangeringer: list, k: int = 60) -> dict:
 def _llm_haiku(prompt: str, max_tokens: int = 400) -> str:
     """Billig/hurtig Claude Haiku-kald til query expansion, rewriting og reranking.
     Returnerer tom streng ved fejl – kalderen falder tilbage til original adfærd."""
+    # Uden konfigureret LLM må hjælpekald ikke få _llm's brugerrettede fejltekst
+    # tilbage – den ville ellers blive brugt som query-udvidelse, HyDE-tekst osv.
+    if not _llm_provider.is_configured() or not _llm_provider.helpers_enabled():
+        return ""
     try:
         return _llm(prompt, max_tokens=max_tokens, model="claude-haiku-4-5-20251001")
     except Exception:
@@ -1349,10 +1428,10 @@ def _embedding_provider() -> tuple:
     """Returnerer (provider_navn, api_key, model, dim) baseret på tilgængelige secrets.
     Preferer Voyage 3-large (bedst til dansk + chunk-niveau retrieval),
     falder tilbage til OpenAI."""
-    voyage_key = st.secrets.get("VOYAGE_API_KEY", "")
+    voyage_key = _secret("VOYAGE_API_KEY", "")
     if voyage_key:
         return ("voyage", voyage_key, "voyage-3-large", 1024)
-    openai_key = st.secrets.get("OPENAI_API_KEY", "")
+    openai_key = _secret("OPENAI_API_KEY", "")
     if openai_key:
         return ("openai", openai_key, "text-embedding-3-small", 1536)
     return (None, None, None, 0)
@@ -1443,7 +1522,7 @@ def _hyde_embed(query: str) -> "np.ndarray | None":
 
 def _delete_embedding_from_github(fname: str) -> bool:
     """Slet en embedding-fil fra GitHub (bruges til at fjerne partial efter komplet build)."""
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return False
     repo = "simo224i-eng/pkn-vidensbase"
@@ -1467,7 +1546,7 @@ def _delete_embedding_from_github(fname: str) -> bool:
 def _push_embedding_to_github(fname: str, local_path: str, overwrite: bool = False) -> str:
     """Push embedding-fil til GitHub. Returnerer status-streng for debug."""
     import os as _os
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return "SKIP: ingen GITHUB_TOKEN"
     if not _os.path.exists(local_path):
@@ -1512,7 +1591,7 @@ def _download_embedding_from_github(fname: str, save_dir: str) -> str | None:
     """Hent embedding-fil fra GitHub repo hvis den eksisterer.
     Returnerer lokal sti til filen, eller None."""
     import os as _os
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return None
     repo = "simo224i-eng/pkn-vidensbase"
@@ -1563,7 +1642,7 @@ def _load_chunked_embeds(cache_key: str, n_docs: int):
         try:
             # GitHub: liste ejnar/embeds/ og find matching navn
             import requests as _req
-            token = st.secrets.get("GITHUB_TOKEN", "").strip()
+            token = _secret("GITHUB_TOKEN", "").strip()
             if token:
                 repo = "simo224i-eng/pkn-vidensbase"
                 url = f"https://api.github.com/repos/{repo}/contents/ejnar/embeds"
@@ -1803,7 +1882,7 @@ def sync_embeddings_to_github():
     """Push alle lokale embedding-filer til GitHub.
     Returnerer liste af (filnavn, status) for debug-visning."""
     import os as _os, glob as _g
-    token = st.secrets.get("GITHUB_TOKEN", "").strip()
+    token = _secret("GITHUB_TOKEN", "").strip()
     if not token:
         return [("—", "Ingen GITHUB_TOKEN konfigureret")]
     _tmp_dir = "/tmp/ejnar_data/embeds"
@@ -1987,7 +2066,7 @@ def omformuler_opfoelgning(spoergsmaal: str, historik: list) -> str:
 def _voyage_rerank(query: str, documents: list, top_n: int = 8) -> "list | None":
     """Voyage Rerank 2: dedikeret neural reranker. Returnerer liste af (orig_index, score)
     eller None ved fejl / manglende nøgle. Bruger samme VOYAGE_API_KEY som embeddings."""
-    key = st.secrets.get("VOYAGE_API_KEY", "")
+    key = _secret("VOYAGE_API_KEY", "")
     if not key or not documents:
         return None
     try:
@@ -2029,47 +2108,46 @@ def llm_rerank(query: str, kandidater: list, top_n: int = 8) -> list:
     if voyage_result:
         return [kandidater[idx] for idx, _ in voyage_result]
 
-    # 2. Fallback: Haiku LLM-rerank
-    linjer = []
-    for i, k in enumerate(kandidater):
-        try:
-            dato = pd.Timestamp(k.get("Dato")).strftime("%d.%m.%Y")
-        except Exception:
-            dato = "-"
-        titel = (k.get("Titel") or "")[:120]
-        kerne = udtræk_kerneafsnit(k.get("Tekst") or "", max_tegn=500).replace("\n", " ")[:400]
-        linjer.append(f"[{i}] {dato} – {titel}\n    {kerne}")
-    oversigt = "\n\n".join(linjer)
-    prompt = (
-        f"Du vurderer relevansen af juridiske afgørelser for dette spørgsmål:\n"
-        f"SPØRGSMÅL: {query}\n\n"
-        f"KANDIDATER ({len(kandidater)} stk):\n{oversigt}\n\n"
-        f"Vurder hver kandidat 0-10 for direkte relevans for spørgsmålet. "
-        f"Returnér KUN de {top_n} mest relevante indekser (0-baserede), komma-separeret, bedste først. "
-        f"Ingen forklaring – kun tal.\n\n"
-        f"TOP {top_n}:"
-    )
-    svar = _llm_haiku(prompt, max_tokens=100)
-    if not svar or "apinøgle" in svar.lower():
+    # 2. Fallback: LLM-rerank. Kun de 40 bedste fra den hybride rangering vurderes, og
+    # AKF-resuméet (titlen: faktum + resultat) er det primære indhold. Kandidaterne
+    # deles i portioner, der vurderes parallelt – ét stort kald var flaskehalsen
+    # (målt: ~120 s af 150 s retrieval med 100 kandidater i én prompt).
+    kandidater = kandidater[:40]
+    portion = 14
+    grupper = [list(range(i, min(i + portion, len(kandidater)))) for i in range(0, len(kandidater), portion)]
+
+    def _vurder(indekser: list) -> list:
+        linjer = []
+        for i in indekser:
+            k = kandidater[i]
+            try:
+                dato = pd.Timestamp(k.get("Dato")).strftime("%Y")
+            except Exception:
+                dato = "-"
+            titel = re.sub(r"\s+", " ", (k.get("Titel") or ""))[:320]
+            kerne = udtræk_kerneafsnit(k.get("Tekst") or "", max_tegn=300).replace("\n", " ")[:160]
+            linjer.append(f"[{i}] {dato} – {titel}\n    {kerne}")
+        svar = _llm_haiku(
+            f"Du vurderer relevansen af juridiske afgørelser for dette spørgsmål:\n"
+            f"SPØRGSMÅL: {query}\n\nKANDIDATER:\n" + "\n\n".join(linjer) + "\n\n"
+            "Giv hver kandidat en relevansscore 0-10 for, hvor direkte den belyser spørgsmålet. "
+            "Svar KUN med linjer på formen 'indeks:score', fx '3:8'. Ingen forklaring.",
+            max_tokens=200,
+        )
+        return [(int(a), float(b)) for a, b in re.findall(r"(\d+)\s*:\s*(\d+(?:[.,]\d+)?)", (svar or "").replace(",", "."))
+                if int(a) in indekser]
+
+    from concurrent.futures import ThreadPoolExecutor as _TPE
+    with _TPE(max_workers=len(grupper)) as pool:
+        resultater = [r for rs in pool.map(_vurder, grupper) for r in rs]
+    if not resultater:
         return kandidater[:top_n]
-    import re as _re
-    tal = [int(x) for x in _re.findall(r'\d+', svar) if int(x) < len(kandidater)]
-    seen = set()
-    valgte = []
-    for t in tal:
-        if t not in seen:
-            seen.add(t)
-            valgte.append(t)
-        if len(valgte) >= top_n:
-            break
-    if not valgte:
-        return kandidater[:top_n]
-    for i in range(len(kandidater)):
-        if len(valgte) >= top_n:
-            break
-        if i not in seen:
-            valgte.append(i)
-    return [kandidater[i] for i in valgte[:top_n]]
+    score = {}
+    for i, sc in resultater:
+        score[i] = max(score.get(i, 0.0), sc)
+    # Uvurderede beholder den hybride rækkefølge bag de vurderede; lige score → hybrid rang.
+    orden = sorted(range(len(kandidater)), key=lambda i: (-score.get(i, -1.0), i))
+    return [kandidater[i] for i in orden[:top_n]]
 
 
 def _normaliser_citat(s: str) -> str:
@@ -2083,6 +2161,12 @@ def _normaliser_citat(s: str) -> str:
     return s
 
 
+def _citat_signatur(s: str) -> str:
+    """Kun bogstaver og tal: tåler PDF-ordbrud ("sels kabet", "undersøgel- se"),
+    ekstra mellemrum og tegnsætning, som modellen med rette retter i citater."""
+    return re.sub(r"[^0-9a-zæøåéü]", "", (s or "").lower())
+
+
 def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
     """Find citater i "..." i svaret og verificér at de findes i kildedokumenterne.
     Returnerer liste af suspekte citater (ikke fundet i nogen kilde).
@@ -2090,24 +2174,26 @@ def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
     if not svar or not docs:
         return []
     # Normalisér alle kildetekster én gang
-    kilde_tekster = []
-    for d in docs:
-        tx = d.get("Tekst") or ""
-        kilde_tekster.append(_normaliser_citat(tx))
-    samlet_korpus = " ||| ".join(kilde_tekster)
+    # Titlen er AKF's resumé og står i prompten, så den kan også citeres.
+    raa = [f"{d.get('Titel') or ''}\n{d.get('Tekst') or ''}" for d in docs]
+    samlet_korpus = " ||| ".join(_normaliser_citat(tx) for tx in raa)
+    signatur_korpus = "|".join(_citat_signatur(tx) for tx in raa)
 
-    # Find alle "..." citater (inkl. danske citationstegn » « og " ")
+    # Find citater. Alle par udtrækkes FØR længdefiltrering – ellers bliver et kort
+    # citats afsluttende anførselstegn brugt som indledende, og resten af svarets
+    # par forskydes (tekst MELLEM citater blev tidligere fejlagtigt markeret).
     moenstre = [
-        r'"([^"]{%d,})"' % min_laengde,
-        r'»([^«]{%d,})«' % min_laengde,
-        r'"([^"]{%d,})"' % min_laengde,
+        r'"([^"\n]*)"',             # "lige"
+        r'\u201c([^\u201d\n]*)\u201d',   # “typografiske”
+        r'\u201e([^\u201c\u201d\n]*)[\u201c\u201d]',  # „danske“
+        r'\u00bb([^\u00ab\n]*)\u00ab',   # »guillemets«
     ]
     suspekte = []
     sete = set()
     for mnstr in moenstre:
         for m in re.finditer(mnstr, svar):
             citat = m.group(1).strip()
-            if len(citat) < min_laengde or citat in sete:
+            if len(citat) < min_laengde or citat in sete or "[Kilde" in citat:
                 continue
             sete.add(citat)
             norm = _normaliser_citat(citat)
@@ -2119,6 +2205,14 @@ def valider_citationer(svar: str, docs: list, min_laengde: int = 25) -> list:
             # Fallback: check om første 60% af citatet findes (håndterer mindre afvigelser)
             head = norm[: max(30, int(len(norm) * 0.6))]
             if head in samlet_korpus:
+                continue
+            sig = _citat_signatur(citat)
+            if len(sig) >= 20 and sig in signatur_korpus:
+                continue
+            # Udeladelser ("…" / "...") er korrekt citatteknik: hver del skal findes.
+            dele = [_citat_signatur(x) for x in re.split(r"\s*(?:\.\.\.|…|\[…\]|\[\.\.\.\])\s*", citat)]
+            dele = [x for x in dele if x]
+            if len(dele) > 1 and all(len(x) < 8 or x in signatur_korpus for x in dele):
                 continue
             suspekte.append(citat)
     return suspekte

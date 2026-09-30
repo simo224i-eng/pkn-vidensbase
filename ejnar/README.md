@@ -5,9 +5,114 @@ udelukkende fokuseret på Ankenævnet for Forsikrings (AKF) praksis om
 **ejerskifteforsikring** efter lov om forbrugerbeskyttelse ved erhvervelse af
 fast ejendom mv.
 
+Ejnar er et værktøj til at undersøge nævnets praksis: hvilke kendelser der findes,
+hvordan nævnet har afgjort dem, og hvilke momenter der har været afgørende. Det
+afgør ikke konkrete sager. Svarene beskriver praksis med henvisning til kendelserne,
+og appen kontrollerer automatisk, at citater står ordret i kilderne, og at hver
+kendelses udfald er gengivet korrekt.
+
 Ejnar deler git-repo med Harald (`pkn-vidensbase`) men er en helt separat app:
 egen `app.py`, egen `shared.py`, egne data-filer og embedding-cache. De to
 apps kan deployes uafhængigt.
+
+## Webapp og REST-API (anbefalet)
+
+Ud over Streamlit-appen har Ejnar nu en selvstændig webapp (`web/`) og et
+REST-API (`api.py`, FastAPI). De kører som én server og deler søge- og
+RAG-motoren i `engine.py` med Streamlit-appen.
+
+**Webappen har:**
+
+- **Assistent:** stil praksisspørgsmål og få svar streamet med klikbare
+  kildehenvisninger. Ved siden af svaret vises en kildeoversigt med udfald,
+  og citatkontrollen advarer om citater, der ikke findes ordret i kilderne.
+- **Praksissøgning:** vælg mellem relevans, ordret søgning og AI-søgning.
+  Filtre, udfaldsfordeling og direkte opslag på sagsnummer er med.
+- **Indsigt:** udfaldsrater pr. år, mangeltype og selskab. Klik på en række
+  for at filtrere.
+- **Læser:** kendelsen i ren typografi med AI-resumé, reference til
+  udklipsholder og gemte kendelser.
+
+### Kør lokalt
+
+```bash
+cd ejnar
+pip install -r requirements.txt -r requirements-api.txt
+export EJNAR_API_KEYS="skift-mig"              # adgangsnøgle(r), kommasepareret
+export LLM_PROVIDER="gemini" LLM_API_KEY="..."  # eller ANTHROPIC_API_KEY=...
+export VOYAGE_API_KEY="..."                     # valgfri: hybrid semantisk søgning
+uvicorn api:app --port 8000
+```
+
+Åbn http://localhost:8000 og log ind med nøglen fra `EJNAR_API_KEYS`. Den
+interaktive API-dokumentation ligger på http://localhost:8000/docs.
+
+### Deploy (Docker)
+
+```bash
+docker build -f ejnar/Dockerfile -t ejnar .     # fra repo-roden
+docker run -p 8000:8000 -e EJNAR_API_KEYS=... -e LLM_PROVIDER=gemini -e LLM_API_KEY=... ejnar
+```
+
+Imaget kan køre på fx Render, Fly.io, Railway eller Google Cloud Run. Giv
+containeren mindst 1,5 GB RAM, fordi korpus og indeks holdes i hukommelsen.
+Opstarten tager 1–2 minutter, mens kendelserne indlæses. Imens svarer
+`/health` med `loading`, og webappen viser en ventestatus.
+
+| Miljøvariabel | Betydning |
+|---|---|
+| `EJNAR_API_KEYS` | Påkrævet. Kommaseparerede adgangsnøgler (bruges også til login i webappen) |
+| `LLM_PROVIDER`, `LLM_API_KEY`, `LLM_MODEL`, `LLM_FAST_MODEL`, `LLM_BASE_URL` | Sprogmodel, se nedenfor |
+| `VOYAGE_API_KEY` | Hybrid semantisk søgning og rerank |
+| `EJNAR_LLM_RATE_PER_MIN` | Maks. AI-kald pr. nøgle pr. minut (standard 20, 0 = fra) |
+| `EJNAR_CORS_ORIGINS` | Kommaseparerede origins, hvis en anden frontend kalder API'et |
+| `EJNAR_API_EMBEDDINGS=0` | Spring embeddings over (hurtigere opstart, kun TF-IDF) |
+
+### API
+
+| Endpoint | Formål |
+|---|---|
+| `GET /health` | Status, antal kendelser, søgemetode og model (offentlig) |
+| `GET /v1/meta` | Filterværdier og nøgletal |
+| `POST /v1/search` | `mode`: `keyword` (TF-IDF), `exact` (ordret frase/sagsnummer) eller `smart` (fuld RAG-retrieval) |
+| `POST /v1/stats` | Udfaldsstatistik pr. år, mangeltype og selskab |
+| `GET /v1/decisions/{id eller sagsnr.}` | Fuld kendelse |
+| `POST /v1/decisions/{id}/summary` | AI-resumé |
+| `POST /v1/answer` | RAG-svar med kilder. `stream: true` giver Server-Sent Events: `sources` → `delta`* → `done` |
+
+Alle `/v1`-kald kræver headeren `X-API-Key: <nøgle>` (eller `Authorization: Bearer <nøgle>`).
+
+### Persondata
+
+- Webappen gemmer ingen samtaler på serveren. Samtaler og gemte kendelser ligger
+  kun i brugerens browser, og tekst indtastet under Lignende sager gemmes ikke.
+- **Spørgsmål sendes til den valgte AI-udbyder.** Skriv faktum uden navne,
+  adresser, CPR- og policenumre. Appen advarer, hvis teksten ligner CPR-nummer,
+  e-mail, telefonnummer eller adresse.
+- Til rigtige kundesager: brug en API-udbyder med databehandleraftale, uden
+  træning på jeres data og helst med EU-databehandling. `claude_cli` (personligt
+  abonnement) er ikke egnet til kundedata.
+
+### Feedback fra brugere (pilot)
+
+Under hvert svar kan brugeren markere **Brugbart** eller **Ikke brugbart** og vælge,
+hvad der var galt (fx forkert gengivet kendelse, manglende kendelse eller for generelt).
+Feedbacken gemmes via `POST /v1/feedback` som JSON-linjer i `EJNAR_FEEDBACK_FILE`
+(standard: `feedback.jsonl` i cache-mappen) sammen med spørgsmål, svar og kildernes id.
+`GET /v1/feedback/summary` giver en optælling. API-nøglen gemmes ikke, kun et kort
+fingeraftryk. Brugerens spørgsmål gemmes, så gør piloten opmærksom på, at de ikke
+må indeholde personoplysninger.
+
+## Datakvalitet
+
+`engine.prepare_frame` genberegner **udfald** og **mangeltype** ved indlæsning:
+
+- **Udfald** læses fra AKF's resultatlinje i titlen ("Selskab medhold.",
+  "Klager delvis medhold.", "Sag afvist."). Findes den ikke, bruges
+  konklusionen efter "bestemmes". Scraperens felt bruges kun som sidste udvej.
+  Det reducerede "Ukendt" fra 3.114 til 13 kendelser.
+- **Mangeltype** bestemmes med ordgrænse-regex på AKF's resumé. Den gamle
+  delstrengsmatch mærkede 100 % af kendelserne som "Tag/tagdækning".
 
 ## Struktur
 
@@ -42,6 +147,44 @@ ANTHROPIC_API_KEY  = "..."
 VOYAGE_API_KEY     = "..."     # valgfri – aktiverer hybrid semantisk søgning
 GITHUB_TOKEN       = "..."     # valgfri – auto-pusher byggede embeddings til repoet
 ```
+
+### Billig LLM i stedet for Claude (valgfrit)
+
+Alle LLM-kald går gennem `llm_provider.py`. Uden ekstra secrets bruges Claude
+som hidtil. Vil du bruge en billigere model, skal du tilføje fx:
+
+```toml
+LLM_PROVIDER = "gemini"        # deepseek | gemini | openai | openrouter | groq | mistral | openai_compatible
+LLM_API_KEY  = "..."
+# LLM_MODEL      = "..."       # hovedmodel til svar (valgfri, preset-default bruges ellers)
+# LLM_FAST_MODEL = "..."       # hurtig model til omskrivning/rerank/HyDE (valgfri)
+# LLM_BASE_URL   = "..."       # kun til openai_compatible (fx Ollama/vLLM)
+```
+
+Kald der i koden beder om Haiku, går til `LLM_FAST_MODEL`. Alle andre kald går
+til `LLM_MODEL`. Embeddings og rerank bruger stadig Voyage, fordi den gemte
+embedding-cache er bygget med `voyage-3-large`. Det koster næsten intet pr. søgning.
+Du kan også blive på Claude og spare ved at sætte `LLM_MODEL = "claude-haiku-4-5-20251001"`.
+
+### Brug dit eget Claude-abonnement (kun personligt, lokalt)
+
+Kører du Ejnar på din egen computer til eget brug, kan svarene komme fra dit
+Claude Pro/Max-abonnement via Claude Code i stedet for et betalt API:
+
+```bash
+npm install -g @anthropic-ai/claude-code && claude    # log ind én gang
+LLM_PROVIDER=claude_cli EJNAR_API_KEYS=lokal uvicorn api:app --port 8000
+```
+
+Udbyderen kalder `claude -p` uden værktøjer og fjerner `ANTHROPIC_API_KEY` fra
+miljøet, så abonnements-login'et bruges. Standardmodeller er `sonnet` (svar) og
+`haiku` (hjælpekald). De kan ændres med `LLM_MODEL` og `LLM_FAST_MODEL`.
+Hjælpekald (query-udvidelse, AI-rerank m.m.) er som standard slået fra for
+`claude_cli`, fordi hvert CLI-kald tager 20–60 s. Retrieval kører så
+deterministisk på under et sekund. Sæt `LLM_HELPERS=1` for at slå dem til.
+**Abonnementet er personligt.** Det må ikke bruges som backend for en tjeneste,
+som kolleger eller kunder bruger. Til det skal du bruge en API-nøgle (se ovenfor).
+Forbruget tæller med i abonnementets brugsgrænser.
 
 ## Workflow ved data-opdatering
 

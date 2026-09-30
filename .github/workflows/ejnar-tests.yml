@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r ejnar/requirements.txt
+          pip install -r ejnar/requirements.txt -r ejnar/requirements-api.txt
 
       - name: Compile retrieval modules
         run: |
@@ -53,11 +53,17 @@ jobs:
             ejnar/paragraph_retrieval.py \
             ejnar/paragraph_bm25.py \
             ejnar/paragraph_runtime.py \
+            ejnar/llm_provider.py \
+            ejnar/engine.py \
+            ejnar/api.py \
             ejnar/evaluation/metrics.py \
             ejnar/evaluation/run_retrieval.py \
             ejnar/evaluation/run_live_retrieval.py \
             ejnar/evaluation/retrieval_reproducibility.py \
             ejnar/evaluation/run_query_planner_experiment.py
+
+      - name: Check web app syntax
+        run: node --check ejnar/web/app.js
 
       - name: Run Ejnar unit tests
         env:

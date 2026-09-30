@@ -1,0 +1,86 @@
+[
+  {
+    "id": "P01",
+    "persona": "Jurist",
+    "type": "praksisoverblik",
+    "question": "Hvornår har Ankenævnet anset en utæt eller defekt tagkonstruktion for dækket af ejerskifteforsikringen, selvom taget var gammelt? Hvad adskiller dem fra sagerne, hvor dækning blev afvist på grund af alder og slid?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P02",
+    "persona": "Jurist",
+    "type": "praksisoverblik",
+    "question": "Hvor præcis skal tilstandsrapportens beskrivelse af fugt i kælderen være, før nævnet anser forholdet for oplyst og dermed undtaget fra dækning?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P03",
+    "persona": "Jurist",
+    "type": "praksisoverblik",
+    "question": "Hvad er nævnets praksis om skimmelsvamp på loftet – særligt når årsagen er manglende eller defekt dampspærre eller utilstrækkelig ventilation?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P04",
+    "persona": "Jurist",
+    "type": "juridisk_spørgsmål",
+    "question": "Hvordan fastsætter nævnet fradrag for forbedring eller afskrivning, når selskabet dækker en defekt vådrumsmembran og der i den forbindelse lægges nye fliser?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P05",
+    "persona": "Jurist",
+    "type": "juridisk_spørgsmål",
+    "question": "Hvornår dækker ejerskifteforsikringen følgeskader på andre bygningsdele, og hvornår har nævnet afvist det?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P06",
+    "persona": "Jurist",
+    "type": "juridisk_spørgsmål",
+    "question": "Hvornår regner nævnet forældelsesfristen fra i sager om ejerskifteforsikring, og hvad skal der til for at fristen er afbrudt?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P07",
+    "persona": "Jurist",
+    "type": "praksisoverblik",
+    "question": "Hvad siger praksis om rodindvækst og forskudte samlinger i kloak og stikledninger – og hvilken betydning har det, om køber havde basis- eller udvidet dækning?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P08",
+    "persona": "Jurist",
+    "type": "juridisk_spørgsmål",
+    "question": "Hvordan har nævnet behandlet ulovlige forhold som tilbygninger eller inddragede rum uden byggetilladelse – dækker ejerskifteforsikringen udgifterne til lovliggørelse?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P09",
+    "persona": "Jurist",
+    "type": "opslag",
+    "question": "Find kendelser om defekt gulvvarme (vandbåren eller el) og beskriv, hvornår nævnet har anset det for en skade i forsikringens forstand.",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P10",
+    "persona": "Jurist",
+    "type": "juridisk_spørgsmål",
+    "question": "Hvad kræver nævnet, før der foreligger 'nærliggende risiko for skade', når der endnu ikke er sket en fysisk skade?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P11",
+    "persona": "Jurist",
+    "type": "juridisk_spørgsmål",
+    "question": "Dækker ejerskifteforsikringen køberens udgifter til undersøgelser, fx fugtmålinger, skimmelprøver eller TV-inspektion af kloak? Hvad har nævnet lagt vægt på?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  },
+  {
+    "id": "P12",
+    "persona": "Jurist",
+    "type": "praksisoverblik",
+    "question": "Hvad er praksis for sætningsrevner i fundament og ydervægge – hvornår er revnerne en skade, og hvilken vægt har nævnet givet ingeniørrapporter?",
+    "what_good_looks_like": "En korrekt og kildeforankret beskrivelse af nævnets praksis med kendelser i begge retninger og de momenter, der har været afgørende."
+  }
+]

@@ -254,5 +254,22 @@ Nævnet finder, at ventilationen i tagrummet ikke har medført fugt. Ventilation
         self.assertEqual(twice, once)
 
 
+class QuotedEarlierDecisionTests(unittest.TestCase):
+    def test_core_skips_quoted_earlier_decision(self):
+        from decision_grounding import extract_decision_grounding
+
+        text = "\n\n".join([
+            "Klager overtog huset i 2020.",
+            "Ved den tidligere kendelse udtalte nævnet: Nævnet finder, at der ikke var forhold ved funderingen.",
+            "Klageren har anført, at revnerne skyldes konstruktive svigt.",
+            "Selskabet har anført, at revnerne er ældre og uden betydning.",
+            "Nævnet finder, at klageren ikke har godtgjort, at revnerne udgør en skade.",
+            "Klageren får derfor ikke medhold.",
+        ])
+        core = extract_decision_grounding({"Tekst": text}).text
+        self.assertIn("ikke har godtgjort, at revnerne udgør en skade", core)
+        self.assertNotIn("forhold ved funderingen", core)
+
+
 if __name__ == "__main__":
     unittest.main()

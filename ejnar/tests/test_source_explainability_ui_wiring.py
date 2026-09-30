@@ -12,8 +12,11 @@ class SourceExplainabilityUIWiringTests(unittest.TestCase):
             "from source_explainability import render_source_decision_core_html",
             text,
         )
-        self.assertIn('"spørgsmål": f', text)
-        self.assertIn('"spørgsmål": spørgsmål.strip()', text)
+        # Begge indgange (forslagsknapper og chatformular) går via samme helper,
+        # som gemmer det stillede spørgsmål på assistent-beskeden.
+        self.assertIn('"auto_filters": af, "spørgsmål": tekst})', text)
+        self.assertIn("_besvar_spørgsmål(f)", text)
+        self.assertIn("_besvar_spørgsmål(spørgsmål)", text)
         self.assertIn('source_query = str(msg.get("spørgsmål") or "").strip()', text)
         self.assertIn(
             "core_html = render_source_decision_core_html(k, source_query)",

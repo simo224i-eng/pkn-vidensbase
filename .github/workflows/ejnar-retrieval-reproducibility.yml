@@ -131,6 +131,41 @@ jobs:
             --run host3=artifacts/reproducibility/host-3/stage-3.jsonl \
             --output artifacts/reproducibility/stage-comparison.json
 
+      - name: Print first divergent questions
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          def load(path):
+              rows = {}
+              for line in Path(path).read_text(encoding="utf-8").splitlines():
+                  if line.strip():
+                      row = json.loads(line)
+                      rows[row["question_id"]] = row
+              return rows
+
+          hosts = {
+              f"host{i}": load(f"artifacts/reproducibility/host-{i}/stage-{i}.jsonl")
+              for i in (1, 2, 3)
+          }
+          shown = 0
+          for qid in sorted(hosts["host1"]):
+              rows = {name: data.get(qid) for name, data in hosts.items()}
+              bases = {name: (row or {}).get("stages", {}).get("deterministic_base") for name, row in rows.items()}
+              if len({json.dumps(b) for b in bases.values()}) == 1:
+                  continue
+              print(f"== {qid}")
+              for name, row in rows.items():
+                  row = row or {}
+                  print(f"  {name} effective_query={row.get('effective_query')!r}")
+                  print(f"  {name} base[:6]={(bases[name] or [])[:6]}")
+              shown += 1
+              if shown >= 4:
+                  break
+          PY
+
       - name: Publish summary
         if: always()
         run: |

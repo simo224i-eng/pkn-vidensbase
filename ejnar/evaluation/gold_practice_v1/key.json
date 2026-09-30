@@ -1,0 +1,482 @@
+{
+  "F01": {
+    "id": "f40d10fff5a8",
+    "case_number": "90782",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Fundament",
+    "date": "2017-11-08"
+  },
+  "F02": {
+    "id": "e99c2a3d1662",
+    "case_number": "93830",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Vinduer/døre",
+    "date": "2019-10-02"
+  },
+  "F03": {
+    "id": "6b43698a3ede",
+    "case_number": "104150",
+    "outcome": "Delvis medhold",
+    "coverage": "Basis",
+    "defect": "Tag/tagdækning",
+    "date": "2026-02-18"
+  },
+  "F04": {
+    "id": "f79066a6f834",
+    "case_number": "97062",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Fundament",
+    "date": "2022-04-27"
+  },
+  "F05": {
+    "id": "cf4cb74dedfb",
+    "case_number": "81285 (898/12)",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Ulovlige forhold",
+    "date": "2012-09-03"
+  },
+  "F06": {
+    "id": "159313609fbe",
+    "case_number": "84889 (936/14)",
+    "outcome": "Ikke medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Vinduer/døre",
+    "date": "2014-03-31"
+  },
+  "F07": {
+    "id": "68adb26143a3",
+    "case_number": "84749 (927/13)",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Ulovlige forhold",
+    "date": "2013-11-06"
+  },
+  "F08": {
+    "id": "86ac9697d837",
+    "case_number": "81941 (901/12)",
+    "outcome": "Ikke medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Andet",
+    "date": "2012-10-15"
+  },
+  "F09": {
+    "id": "39f65e33a5de",
+    "case_number": "96565",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Konstruktion/bærende",
+    "date": "2021-08-25"
+  },
+  "F10": {
+    "id": "4188a590cfa7",
+    "case_number": "96666",
+    "outcome": "Medhold",
+    "coverage": "Udvidet",
+    "defect": "Fundament",
+    "date": "2021-10-06"
+  },
+  "F11": {
+    "id": "6893db5e5113",
+    "case_number": "98430",
+    "outcome": "Medhold",
+    "coverage": "Basis",
+    "defect": "Konstruktion/bærende",
+    "date": "2023-01-04"
+  },
+  "F12": {
+    "id": "43e8098bd6a0",
+    "case_number": "88777",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Råd/svamp/insekt",
+    "date": "2016-04-06"
+  },
+  "F13": {
+    "id": "3960ef70b5f9",
+    "case_number": "89347",
+    "outcome": "Delvis medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Murværk/facade",
+    "date": "2017-01-18"
+  },
+  "F14": {
+    "id": "2fda1896ee4f",
+    "case_number": "82068 (898/12)",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Andet",
+    "date": "2012-09-03"
+  },
+  "F15": {
+    "id": "1e9cca95e4cf",
+    "case_number": "100071",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Vinduer/døre",
+    "date": "2024-01-10"
+  },
+  "F16": {
+    "id": "246c0ab85682",
+    "case_number": "101050",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Tag/tagdækning",
+    "date": "2025-01-08"
+  },
+  "F17": {
+    "id": "ceb8c8ea2a46",
+    "case_number": "92919",
+    "outcome": "Ikke medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Kloak/dræn",
+    "date": "2019-08-07"
+  },
+  "F18": {
+    "id": "6e6c05b3b0fc",
+    "case_number": "101462",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Installationer",
+    "date": "2025-02-19"
+  },
+  "F19": {
+    "id": "a3ac7508490b",
+    "case_number": "93463",
+    "outcome": "Delvis medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Vinduer/døre",
+    "date": "2019-08-21"
+  },
+  "F20": {
+    "id": "a71d11f5d1e3",
+    "case_number": "92812",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Badeværelse/vådrum",
+    "date": "2019-02-20"
+  },
+  "F21": {
+    "id": "654a88fa28f3",
+    "case_number": "96159 (30/11)",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Gulv",
+    "date": "2020-08-27"
+  },
+  "F22": {
+    "id": "04f3e84e89d5",
+    "case_number": "87660",
+    "outcome": "Medhold",
+    "coverage": "Udvidet",
+    "defect": "Skimmel/fugt",
+    "date": "2015-08-05"
+  },
+  "F23": {
+    "id": "ab5104734870",
+    "case_number": "89826",
+    "outcome": "Ikke medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Murværk/facade",
+    "date": "2017-02-15"
+  },
+  "F24": {
+    "id": "956ffa7e0056",
+    "case_number": "94608 (1/10)",
+    "outcome": "Delvis medhold",
+    "coverage": "Basis",
+    "defect": "Skimmel/fugt",
+    "date": "2021-04-21"
+  },
+  "F25": {
+    "id": "17447a0ff245",
+    "case_number": "100759 (31/12)",
+    "outcome": "Delvis medhold",
+    "coverage": "Basis",
+    "defect": "Gulv",
+    "date": "2024-05-15"
+  },
+  "F26": {
+    "id": "adb3b4c0cdba",
+    "case_number": "89365",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Konstruktion/bærende",
+    "date": "2019-05-15"
+  },
+  "F27": {
+    "id": "1ea815c9b48a",
+    "case_number": "93798 (15/11)",
+    "outcome": "Delvis medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Andet",
+    "date": "2020-04-15"
+  },
+  "F28": {
+    "id": "e367465f9ba6",
+    "case_number": "87922",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Kloak/dræn",
+    "date": "2015-09-02"
+  },
+  "F29": {
+    "id": "62555b18aa7e",
+    "case_number": "89489",
+    "outcome": "Delvis medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Skimmel/fugt",
+    "date": "2017-06-14"
+  },
+  "F30": {
+    "id": "a262126be955",
+    "case_number": "94980",
+    "outcome": "Medhold",
+    "coverage": "Basis",
+    "defect": "Murværk/facade",
+    "date": "2020-09-30"
+  },
+  "F31": {
+    "id": "61756f067f76",
+    "case_number": "95782",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Råd/svamp/insekt",
+    "date": "2021-02-17"
+  },
+  "F32": {
+    "id": "530af7177fe8",
+    "case_number": "102502 (29/10)",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Murværk/facade",
+    "date": "2025-04-09"
+  },
+  "F33": {
+    "id": "15e6a34bfb52",
+    "case_number": "91090",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Installationer",
+    "date": "2018-01-24"
+  },
+  "F34": {
+    "id": "bb9ba94c5211",
+    "case_number": "92051",
+    "outcome": "Medhold",
+    "coverage": "Udvidet",
+    "defect": "Badeværelse/vådrum",
+    "date": "2019-11-20"
+  },
+  "F35": {
+    "id": "f28e90ca7382",
+    "case_number": "98029",
+    "outcome": "Medhold",
+    "coverage": "Basis",
+    "defect": "Gulv",
+    "date": "2022-08-31"
+  },
+  "F36": {
+    "id": "ae1e7f17cc4d",
+    "case_number": "98184",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Tag/tagdækning",
+    "date": "2022-06-29"
+  },
+  "F37": {
+    "id": "4690e1ad9685",
+    "case_number": "92363",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Gulv",
+    "date": "2018-12-17"
+  },
+  "F38": {
+    "id": "3388697cd182",
+    "case_number": "103641",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Badeværelse/vådrum",
+    "date": "2025-11-19"
+  },
+  "F39": {
+    "id": "7192d98ee639",
+    "case_number": "99595",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Murværk/facade",
+    "date": "2023-09-27"
+  },
+  "F40": {
+    "id": "df1587df5fc4",
+    "case_number": "94480",
+    "outcome": "Delvis medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Tag/tagdækning",
+    "date": "2020-05-27"
+  },
+  "F41": {
+    "id": "66b9ba2ef8ee",
+    "case_number": "86519",
+    "outcome": "Ikke medhold",
+    "coverage": "Udvidet",
+    "defect": "Tag/tagdækning",
+    "date": "2015-02-04"
+  },
+  "F42": {
+    "id": "4ab013aa2cdf",
+    "case_number": "96849",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Skimmel/fugt",
+    "date": "2022-05-04"
+  },
+  "F43": {
+    "id": "e040984fa263",
+    "case_number": "96554",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Installationer",
+    "date": "2021-09-22"
+  },
+  "F44": {
+    "id": "5b8558b74bff",
+    "case_number": "97181",
+    "outcome": "Medhold",
+    "coverage": "Basis",
+    "defect": "Råd/svamp/insekt",
+    "date": "2021-12-08"
+  },
+  "F45": {
+    "id": "5f83c2ab35fd",
+    "case_number": "85533",
+    "outcome": "Ikke medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Skimmel/fugt",
+    "date": "2014-09-22"
+  },
+  "F46": {
+    "id": "f58a7288bb01",
+    "case_number": "99245",
+    "outcome": "Medhold",
+    "coverage": "Basis",
+    "defect": "Tag/tagdækning",
+    "date": "2023-08-30"
+  },
+  "F47": {
+    "id": "3e0fd6a66a2b",
+    "case_number": "81877 (901/12)",
+    "outcome": "Medhold",
+    "coverage": "Udvidet",
+    "defect": "Fundament",
+    "date": "2012-10-15"
+  },
+  "F48": {
+    "id": "b03fcb1bade1",
+    "case_number": "90205",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Installationer",
+    "date": "2017-09-27"
+  },
+  "F49": {
+    "id": "736f28eebcc8",
+    "case_number": "90772",
+    "outcome": "Medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Vinduer/døre",
+    "date": "2017-10-25"
+  },
+  "F50": {
+    "id": "0ea8e3d9fdf1",
+    "case_number": "92083",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Konstruktion/bærende",
+    "date": "2018-12-05"
+  },
+  "F51": {
+    "id": "318cc09fb617",
+    "case_number": "98412",
+    "outcome": "Ikke medhold",
+    "coverage": "Basis",
+    "defect": "Badeværelse/vådrum",
+    "date": "2022-12-14"
+  },
+  "F52": {
+    "id": "b0840adfd11e",
+    "case_number": "97195",
+    "outcome": "Medhold",
+    "coverage": "Basis",
+    "defect": "Skimmel/fugt",
+    "date": "2022-02-02"
+  },
+  "F53": {
+    "id": "307aa7a81d57",
+    "case_number": "98908 (1/11)",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Installationer",
+    "date": "2023-08-23"
+  },
+  "F54": {
+    "id": "dd6f119222f1",
+    "case_number": "85516",
+    "outcome": "Ikke medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Kloak/dræn",
+    "date": "2014-11-03"
+  },
+  "F55": {
+    "id": "6acc39936b32",
+    "case_number": "100063",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Kloak/dræn",
+    "date": "2024-01-10"
+  },
+  "F56": {
+    "id": "e69d540fff02",
+    "case_number": "87522",
+    "outcome": "Delvis medhold",
+    "coverage": "Basis",
+    "defect": "Fundament",
+    "date": "2015-09-02"
+  },
+  "F57": {
+    "id": "12557297e406",
+    "case_number": "82354 (904/12)",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Vinduer/døre",
+    "date": "2012-12-03"
+  },
+  "F58": {
+    "id": "9868fe960881",
+    "case_number": "93287",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Fundament",
+    "date": "2019-09-04"
+  },
+  "F59": {
+    "id": "e2f1a2f45b6d",
+    "case_number": "91070",
+    "outcome": "Delvis medhold",
+    "coverage": "Udvidet",
+    "defect": "Installationer",
+    "date": "2017-12-06"
+  },
+  "F60": {
+    "id": "0d72046f471a",
+    "case_number": "93805",
+    "outcome": "Ikke medhold",
+    "coverage": "Ikke angivet",
+    "defect": "Råd/svamp/insekt",
+    "date": "2020-06-30"
+  }
+}

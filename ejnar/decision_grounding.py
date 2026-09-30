@@ -20,8 +20,10 @@ from typing import Any, Iterable
 
 try:
     from paragraph_retrieval import split_sections
+    import board_reasoning as _board
 except ImportError:  # package import in tests/tools
     from ejnar.paragraph_retrieval import split_sections
+    from ejnar import board_reasoning as _board
 
 
 @dataclass(frozen=True)
@@ -189,9 +191,46 @@ def _inline_board_start(paragraph: str) -> int | None:
     return best
 
 
+# Parternes indlæg ("Selskabet har anført ...") kommer før nævnets egen begrundelse.
+_PARTY_ARGUMENT_RE = re.compile(
+    r"\b(?:klageren|klager|selskabet|forsikringsselskabet)\s+(?:har\s+)?"
+    r"(?:anført|anfører|gjort\s+gældende|gør\s+gældende|bestrider|bestridt)",
+    flags=re.IGNORECASE,
+)
+
+
+_BOARD_STATES_RE = re.compile(r"\b(?:anke)?nævnet\s+udtaler\b", flags=re.IGNORECASE)
+
+
 def _trim_to_board_reasoning(paragraphs: Iterable[str]) -> list[str]:
     cleaned = [re.sub(r"\s+", " ", str(paragraph or "")).strip() for paragraph in paragraphs]
     cleaned = [paragraph for paragraph in cleaned if paragraph]
+    # Lange kendelser kan citere en TIDLIGERE kendelse (med dens "Nævnet finder ...")
+    # midt i sagsfremstillingen. Nævnets egentlige begrundelse kommer efter parternes
+    # sidste indlæg, så start derfra, når der findes nævnsformuleringer efter det.
+    # 1) En eksplicit "Nævnet udtaler:" markerer starten på nævnets egen del.
+    #    Derefter gengiver nævnet sagen og parternes anbringender; selve vurderingen
+    #    ("Nævnet lægger til grund …") begynder først efter den gengivelse.
+    udtaler = [i for i, p in enumerate(cleaned) if _BOARD_STATES_RE.search(p)]
+    if udtaler:
+        index = udtaler[-1]
+        start = _BOARD_STATES_RE.search(cleaned[index]).start()
+        del_ = [cleaned[index][start:].strip()] + cleaned[index + 1:]
+        samlet = "\n\n".join(del_)
+        vurdering = samlet[_board.vurdering_offset(samlet):].strip()
+        return [p for p in vurdering.split("\n\n") if p.strip()] or del_
+    # 2) Ellers: første nævnsformulering efter parternes sidste indlæg. Afsnit, der
+    #    selv nævner nævnet, er nævnets tekst (som ofte refererer parterne), ikke indlæg.
+    last_party = max(
+        (i for i, p in enumerate(cleaned)
+         if _PARTY_ARGUMENT_RE.search(p) and "nævn" not in p.lower()),
+        default=-1,
+    )
+    if last_party >= 0:
+        for index in range(last_party + 1, len(cleaned)):
+            start = _inline_board_start(cleaned[index])
+            if start is not None:
+                return [cleaned[index][start:].strip()] + cleaned[index + 1:]
     for index, paragraph in enumerate(cleaned):
         start = _inline_board_start(paragraph)
         if start is None:
@@ -395,6 +434,7 @@ def _choose_paragraphs(
     max_chars: int,
     trim_inline_board_preamble: bool = False,
     query: str = "",
+    whole_if_fits: bool = False,
 ) -> tuple[str, int]:
     cleaned = (
         _trim_to_board_reasoning(paragraphs)
@@ -403,6 +443,9 @@ def _choose_paragraphs(
     )
     if not cleaned or max_paragraphs <= 0 or max_chars <= 0:
         return "", 0
+    # Kan hele nævnets vurdering være der (ledende kilder), tages den med i sin helhed
+    if whole_if_fits and sum(len(p) + 2 for p in cleaned) <= max_chars:
+        return "\n\n".join(cleaned), len(cleaned)
 
     indices = _query_local_indices(cleaned, query, max_paragraphs=max_paragraphs)
     if not indices:
@@ -416,6 +459,7 @@ def extract_decision_grounding(
     query: str = "",
     max_chars: int = 1800,
     max_paragraphs: int = 4,
+    whole_if_fits: bool = False,
 ) -> DecisionGrounding:
     """Extract a compact, optionally query-specific representation of Board reasoning."""
     text = str(document.get("Tekst") or document.get("text") or "")
@@ -440,7 +484,13 @@ def extract_decision_grounding(
         max_chars=max_chars,
         trim_inline_board_preamble=not _has_explicit_board_heading(str(title or "")),
         query=query,
+        whole_if_fits=whole_if_fits,
     )
+    # En ikke-nævnsoverskrift (fx en falsk PDF-"sektion" som "SÆLGEROPLYSNINGER") må ikke
+    # mærke nævnets vurdering, når teksten er fundet via "Nævnet udtaler"
+    if (not _has_explicit_board_heading(str(title or "")) and core
+            and _BOARD_STATES_RE.search("\n".join(str(p) for p in paragraphs))):
+        title = "Nævnets vurdering"
     return DecisionGrounding(
         section_title=str(title or "Kendelse"),
         text=core,
@@ -456,6 +506,7 @@ def build_decision_grounding_context(
     max_documents: int = 6,
     per_document_chars: int = 1400,
     char_budget: int = 7000,
+    lead_chars: tuple[int, ...] = (),
 ) -> str:
     """Build numbered decision-core blocks aligned with Ejnar's [Kilde X] register."""
     if not documents or max_documents <= 0 or char_budget <= 0:
@@ -470,10 +521,15 @@ def build_decision_grounding_context(
     used = len(intro)
 
     for source_number, document in enumerate(documents[:max_documents], start=1):
+        # De højest rangerede kilder får mere af nævnets vurdering: facittesten viste,
+        # at den vigtigste kendelse ellers fik lige så lidt plads som den 15. bedste
+        lead = lead_chars[source_number - 1] if source_number <= len(lead_chars) else 0
         grounding = extract_decision_grounding(
             document,
             query=query,
-            max_chars=per_document_chars,
+            max_chars=max(per_document_chars, lead),
+            max_paragraphs=8 if lead > per_document_chars else 4,
+            whole_if_fits=lead > per_document_chars,
         )
         if not grounding.text:
             continue
