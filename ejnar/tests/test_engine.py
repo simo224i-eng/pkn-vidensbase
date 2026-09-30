@@ -340,6 +340,8 @@ class CorpusTests(unittest.TestCase):
         # Grundprincipper fylder højst én sætning; pladsen går til skillelinjerne
         self.assertIn("højst én sætning", text)
         self.assertIn("skillelinjerne", text)
+        # Svarer præcist på det spurgte uden at brede sig til andre dækningsgrundlag
+        self.assertIn("Svar præcist på det, der spørges om", text)
         self.assertIn("årsspændet", text)
 
     def test_context_headers_show_outcome(self):
