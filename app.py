@@ -37,6 +37,7 @@ pg = st.navigation([
     st.Page("pages/pkn.py",        title="Planklagenævnet"),
     st.Page("pages/mfkn.py",       title="Miljøklagenævnet"),
     st.Page("pages/sagsmappe.py",  title="Sagsmappe"),
+    st.Page("pages/boeger.py",     title="Bibliotek"),
 ])
 pg.run()
 

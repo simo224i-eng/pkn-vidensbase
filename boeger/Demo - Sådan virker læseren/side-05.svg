@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1131" viewBox="0 0 800 1131">
+  <rect width="800" height="1131" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="220" fill="#1e293b"/>
+  <text x="400" y="120" font-family="Inter,system-ui,sans-serif" font-size="120" font-weight="800" fill="#ffffff" text-anchor="middle" opacity="0.25">05</text>
+  <text x="400" y="190" font-family="Inter,system-ui,sans-serif" font-size="34" font-weight="700" fill="#ffffff" text-anchor="middle">Din tur</text>
+  <text x="400" y="420" font-family="Inter,system-ui,sans-serif" font-size="30" font-weight="600" fill="#0f172a" text-anchor="middle">Læg dine egne bøger ind.</text>
+  <line x1="250" y1="470" x2="550" y2="470" stroke="#1e293b" stroke-width="3"/>
+  <text x="400" y="560" font-family="Inter,system-ui,sans-serif" font-size="24" fill="#475569" text-anchor="middle">Se boeger/README.md for hvordan</text>
+  <text x="400" y="608" font-family="Inter,system-ui,sans-serif" font-size="24" fill="#475569" text-anchor="middle">du tilføjer manga, CBZ eller PDF.</text>
+  
+  <text x="400" y="1080" font-family="Inter,system-ui,sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">Demo · side 05 af 05</text>
+</svg>
