@@ -119,6 +119,7 @@ class Rapport:
     note: str
     lag: list[str]
     mindre: list[str] = field(default_factory=list)  # lavt prioriterede fund uden kilder
+    sted: dict | None = None                         # stedtjek: placering og fund i kortlag
 
     def to_json(self) -> dict:
         d = asdict(self)
@@ -200,7 +201,8 @@ def praksis_kilder(q: str, kategorier, dtype: str, dok_tekst: str, udeluk: set[s
                            kontekst=dok_tekst[:2500])
     res = [r for j, r in enumerate(res) if j == 0 or r["score"] >= MIN_LIGHED_ANDET]
     return [Kilde("praksis", f"{r['naevn']} {r['dato']}: {r['titel'][:140]}", r["link"], r["citat"], True,
-                  {"id": r["id"], "fejl": r["fejl"], "regel": r["regel"], "lighed": r["score"]}) for r in res]
+                  {"id": r["id"], "fejl": r["fejl"], "regel": r["regel"], "lighed": r["score"],
+                   "originaler": r.get("originaler", [])}) for r in res]
 
 
 def _praksis_kilder(p: dict, dtype: str, kontekst: str, udeluk: set[str], dok_tekst: str = "", n: int = 2) -> list[Kilde]:
@@ -316,13 +318,47 @@ def renset(rapport: Rapport) -> Rapport:
     return rapport
 
 
+def _stedsvagheder(r: Rapport, dok: Dokument, st: dict, udeluk: set[str]) -> None:
+    """Gør stedtjekkets uoverensstemmelser til svagheder med kortkilder og lovkilder."""
+    punkter = {p["id"]: p for p in tjekliste()}
+    for sv in st.get("svagheder", []):
+        p = punkter.get(sv["punkt"], {"id": sv["punkt"], "titel": "Stedtjek", "spørgsmål": "", "lov": []})
+        kilder = [Kilde("kort", f"{f['type']}: {f['navn']} ({f['afstand_m']} m)",
+                        f.get("link") or ("https://danmarksarealinformation.miljoeportal.dk/" if f["kilde"] == "miljoeportal"
+                                          else "https://kort.plandata.dk/"),
+                        f"Kilde: {'Danmarks Miljøportal' if f['kilde'] == 'miljoeportal' else 'Plandata.dk'}", True)
+                  for f in sv.get("fund", [])[:3]]
+        kilder += _lov_kilder(p, r.dokumenttype) + _praksis_kilder(p, r.dokumenttype, sv["tekst"], udeluk, dok.tekst, n=1)
+        citat = sv.get("citat")
+        r.svagheder.insert(0, Svaghed(
+            punkt=p["id"], titel=f"Stedtjek: {p['titel']}", art="stedtjek", svaghed=sv["tekst"],
+            citat_dokument=citat, citat_ok=citatkontrol.find(citat, dok.tekst) if citat else None,
+            hvorfor="Kortdata viser forhold i nærheden, som har betydning for vurderingen. " + _hvorfor(p, kilder),
+            spørgsmål=p.get("spørgsmål", ""), kilder=kilder, vægt=3.0, kilde_lag="stedtjek"))
+
+
 def tjek(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None = None,
-         llm=None) -> Rapport:
-    """Kør regellaget og (hvis llm er givet) modellaget. llm: callable(prompt:str)->str."""
+         llm=None, sted: dict | None = None) -> Rapport:
+    """Kør regellaget, (hvis llm er givet) modellaget og (hvis sted er givet) stedtjekket.
+
+    llm: callable(prompt:str)->str. sted: {"kommune","plannr"} eller {"adresse"} eller {"auto": True}."""
     r = tjek_regler(dok, dtype, udeluk)
+    st = None
+    if sted is not None:
+        from . import stedtjek
+        try:
+            st = stedtjek.stedtjek(dok.tekst, [s.tekst for s in dok.sætninger],
+                                   **{k: v for k, v in sted.items() if k in ("kommune", "plannr", "adresse") and v})
+        except Exception as e:  # kortservices kan være nede; tjekket må ikke fejle af den grund
+            st = {"sted": None, "fund": [], "svagheder": [], "note": f"Stedtjek kunne ikke gennemføres ({e})."}
     if llm is not None:
         from . import llm_tjek
         r = llm_tjek.supplér(r, dok, llm, udeluk=udeluk)
+    if st is not None:
+        r.sted = st
+        _stedsvagheder(r, dok, st, udeluk or set())
+        _niveauer(r.svagheder)
+        r.lag = r.lag + ["stedtjek"]
     return renset(r)
 
 
@@ -349,7 +385,15 @@ def som_markdown(r: Rapport) -> str:
         ud.append("**Kilder:**")
         for k in s.kilder:
             ud.append(f"- [{k.ref}]({k.url}): «{k.citat[:400]}»")
+            for o in (k.ekstra or {}).get("originaler", [])[:1]:
+                ud.append(f"  - Myndighedens oprindelige dokument: [{o['titel'][:120]}]({o['url']}) ({o['type']})")
         ud.append("")
+    if r.sted and r.sted.get("fund"):
+        ud.append(f"## Stedfakta ({r.sted['sted']['beskrivelse'] if r.sted.get('sted') else ''})")
+        for f in r.sted["fund"]:
+            ud.append(f"- {f['type']}: {f['navn']} – {f['afstand_m']} m"
+                      + ("" if f.get("nævnt") else " (ikke nævnt i dokumentet)") + (f" [kilde]({f['link']})" if f.get("link") else ""))
+        ud.append(f"\n_{r.sted.get('note', '')}_\n")
     if r.mindre:
         ud.append("## Mindre bemærkninger (uden kilder)")
         ud += [f"- {x}" for x in r.mindre]

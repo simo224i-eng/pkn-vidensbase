@@ -26,6 +26,10 @@ class TekstInput(BaseModel):
     navn: str = "indsat tekst"
     dokumenttype: str | None = None
     brug_model: bool = False
+    kommune: str | None = None
+    plannr: str | None = None
+    adresse: str | None = None
+    stedtjek: bool = True
 
 
 def _llm_eller_none(brug: bool):
@@ -40,10 +44,10 @@ def _llm_eller_none(brug: bool):
         raise HTTPException(503, "Sprogmodel er ikke tilgængelig i dette miljø.")
 
 
-def _svar(d: dokument.Dokument, dtype: str | None, brug_model: bool) -> dict:
+def _svar(d: dokument.Dokument, dtype: str | None, brug_model: bool, sted: dict | None = None) -> dict:
     if d.ord < 50:
         raise HTTPException(422, "Dokumentet indeholder for lidt tekst. Er det en scannet PDF uden tekstlag?")
-    r = tjek.tjek(d, dtype=dtype, llm=_llm_eller_none(brug_model))
+    r = tjek.tjek(d, dtype=dtype, llm=_llm_eller_none(brug_model), sted=sted)
     out = r.to_json()
     out["markdown"] = tjek.som_markdown(r)
     out["ord"] = d.ord
@@ -52,17 +56,21 @@ def _svar(d: dokument.Dokument, dtype: str | None, brug_model: bool) -> dict:
 
 @router.post("/tjek")
 async def tjek_fil(fil: UploadFile = File(...), dokumenttype: str | None = Form(None),
-                   brug_model: bool = Form(False)):
+                   brug_model: bool = Form(False), stedtjek: bool = Form(True),
+                   kommune: str | None = Form(None), plannr: str | None = Form(None),
+                   adresse: str | None = Form(None)):
     data = await fil.read()
     if len(data) > MAKS_BYTES:
         raise HTTPException(413, "Filen er for stor (maks. 15 MB).")
     d = dokument.læs(fil.filename or "dokument", data)
-    return _svar(d, dokumenttype or None, brug_model)
+    sted = {"kommune": kommune, "plannr": plannr, "adresse": adresse} if stedtjek else None
+    return _svar(d, dokumenttype or None, brug_model, sted)
 
 
 @router.post("/tjek-tekst")
 def tjek_tekst(inp: TekstInput):
-    return _svar(dokument.fra_tekst(inp.tekst, inp.navn), inp.dokumenttype, inp.brug_model)
+    sted = {"kommune": inp.kommune, "plannr": inp.plannr, "adresse": inp.adresse} if inp.stedtjek else None
+    return _svar(dokument.fra_tekst(inp.tekst, inp.navn), inp.dokumenttype, inp.brug_model, sted)
 
 
 @router.get("/tjekliste")
@@ -71,6 +79,16 @@ def tjekliste():
     if not p.exists():
         return {"meta": {}, "punkter": tjek.tjekliste()}
     return json.loads(p.read_text(encoding="utf-8"))
+
+
+@router.get("/sag/{sid}")
+def sag(sid: str):
+    """En underkendt sag: nævnets fejl med citater og links til myndighedens oprindelige dokument."""
+    from . import praksis
+    d = praksis.sag(sid)
+    if d is None:
+        raise HTTPException(404, "Sagen findes ikke i praksisdata.")
+    return d
 
 
 @router.get("/kilder")

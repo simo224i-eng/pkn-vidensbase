@@ -80,3 +80,24 @@ def test_dokumenttype(tekst, forventet):
 def test_sætninger_deler_ikke_ved_forkortelser():
     s = dokument.sætninger("Det følger af § 21, stk. 2, jf. bilag 6. Næste sætning starter her.")
     assert len(s) == 2
+
+
+def test_stedtjek_sammenligning_uden_netvaerk():
+    from miljoejurist import stedtjek as st
+    fund = [
+        st.Fund("miljoeportal", "dai:habitat_omr", "Natura 2000-habitatområde", "Rude Skov", 400, "D1"),
+        st.Fund("miljoeportal", "dai:bes_naturtyper", "§ 3-beskyttet natur", "Mose", 30, "D3"),
+        st.Fund("miljoeportal", "dai:fredede_omr", "Fredning", "Kirkevejen", 900, "D3"),  # for langt væk -> kun fakta
+    ]
+    tekst = "Nærmeste Natura 2000-område ligger ca. 3 km væk, og projektet påvirker det ikke."
+    sv = st.sammenlign(tekst, fund, [tekst])
+    typer = {(s["punkt"], s["type"]) for s in sv}
+    assert ("D1", "afstand") in typer      # dokumentet siger 3 km, kortet 400 m
+    assert ("D3", "ikke_nævnt") in typer   # § 3-mose 30 m væk, ikke nævnt
+    assert not any("Kirkevejen" in s["tekst"] for s in sv)
+
+
+def test_utm32_konvertering():
+    from miljoejurist import stedtjek as st
+    x, y = st._wgs84_til_utm32(55.676, 12.568)  # Rådhuspladsen
+    assert abs(x - 724334) < 200 and abs(y - 6175792) < 200

@@ -105,3 +105,24 @@ fund i begge. Det er nyttigt som tjekliste ("er emnet overhovedet behandlet?"), 
 | `forbered_revision.py`, `revision_opsummer.py` | Klargør og opsummerer revisionen (`revision_runde*.md`) |
 | `PROMPT_*.md` | Instruktioner til skribent, fejlindsætning, model og revisor |
 | `facit.json`, `t4_facit.json` | Facit (sags-id og kategorier, ingen sagstekst) |
+
+## Pilot: betyder det noget at have kommunens oprindelige dokument? (9. okt. 2026)
+
+Spørgsmål: (1) Er testene med rekonstruerede screeninger troværdige? (2) Giver originalen noget, nævnets
+gengivelse ikke giver? Grundlag: de 8 ægte oprindelige dokumenter (T4).
+
+| | Rekonstruktion (fra nævnets sagsfremstilling) | Original |
+|---|---|---|
+| Nævnets fejl blandt de prioriterede svagheder | 7/7 | 7/7 |
+| Topfund | stort set samme punkter (fx E1/D2, A2, A3) | |
+
+En Haiku-agent sammenlignede hver original med nævnets afgørelse (`PROMPT_SAMMENLIGN.md`):
+- I **8/8** sager kan nævnets fejl forstås og findes ud fra afgørelsen alene; nævnet gengiver de dele af
+  screeningen, fejlen handler om (helt i 2, delvist i 6).
+- Originalerne indeholder **43 ekstra oplysninger** (18 vurderet af høj betydning), som afgørelsen ikke gengiver:
+  konkrete tal (støjtabeller, afstande, arealer), interne modsigelser og svagheder, nævnet ikke tog stilling til.
+  38 af 43 citater blev genfundet ordret.
+
+**Konklusion:** rekonstruktionerne er en brugbar erstatning i test, så originalerne er ikke nødvendige for at
+måle kvaliteten. Til gengæld er de værdifulde som opslag ved siden af afgørelsen. Derfor høstes de som et
+link-indeks (sag → kommunens dokument), ikke som tekst i repoet.

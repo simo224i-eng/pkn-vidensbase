@@ -625,3 +625,10 @@ button.bd-row:hover { background: var(--hover); }
 .mj-not ul { padding-left: 18px; }
 
 .mj-h { font-size: 18px; margin: 28px 0 4px; }
+
+.mj-sted { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 6px 14px; }
+.mj-sted input:not([type=checkbox]) { border: 1px solid var(--line, #e3e1da); background: transparent; color: inherit; border-radius: 8px; padding: 6px 8px; font: inherit; min-width: 0; flex: 1 1 140px; }
+.mj-tab { overflow-x: auto; }
+.mj-tab table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.mj-tab th, .mj-tab td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--line, #e3e1da); }
+.mj-tab td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }

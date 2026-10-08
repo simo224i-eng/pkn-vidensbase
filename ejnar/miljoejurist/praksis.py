@@ -51,6 +51,23 @@ def sager() -> list[dict]:
 
 
 @lru_cache(maxsize=1)
+def originaler() -> dict[str, list[dict]]:
+    """Links til kommunernes oprindelige dokumenter pr. sag (tools/originaler/byg_indeks.py)."""
+    p = DATA / "originaler.json"
+    if not p.exists():
+        return {}
+    alle = json.loads(p.read_text(encoding="utf-8"))
+    return {k: [l for l in v if l["sikkerhed"] in ("høj", "middel", "kontrolleret")] for k, v in alle.items()}
+
+
+def sag(sid: str) -> dict | None:
+    s = next((x for x in sager() if x["id"] == sid), None)
+    if s is None:
+        return None
+    return {**s, "originaler": originaler().get(sid, [])}
+
+
+@lru_cache(maxsize=1)
 def _fejl() -> list[tuple[dict, dict]]:
     """(sag, fejl) for alle fejl med kontrolleret nævnscitat."""
     return [(s, f) for s in sager() for f in s["fejl"]]
@@ -107,7 +124,8 @@ def lignende(q: str, kategorier: list[str] | None = None, dokumenttype: str | No
         ud.append({"id": s["id"], "naevn": s["naevn"], "dato": s["dato"], "titel": s["titel"],
                    "link": s["link"], "fejl": f["fejl"], "citat": f["citat_naevn"],
                    "regel": f.get("regel", ""), "kategori": f["fejlkategori"], "score": round(sc, 2),
-                   "projekttype": s.get("projekttype"), "dokumenttype": s.get("dokumenttype")})
+                   "projekttype": s.get("projekttype"), "dokumenttype": s.get("dokumenttype"),
+                   "originaler": originaler().get(s["id"], [])[:2]})
         if len(ud) >= k:
             break
     return ud

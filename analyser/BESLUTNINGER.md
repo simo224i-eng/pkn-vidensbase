@@ -94,3 +94,12 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
   matcher det nævnets begrundelse/den indsatte fejl? Samme revisormodel i alle runder for sammenlignelighed.
 - **Testen stoppede efter runde 4**, fordi runde 4 (strammere prompt mod falske alarmer) ikke var bedre end
   runde 3 (færre fundne fejl i T1/T2). Koden er sat tilbage til runde 3's modellag.
+
+## Oprindelige screeninger (efter testen)
+- Brugeren oplyste, at kommunernes screeninger næsten altid kan findes, typisk som bilag til dagsordenen for
+  vedtagelse af planforslaget. En pilot på 8 ægte dokumenter viste, at værktøjet finder det samme i originaler og
+  rekonstruktioner (7/7 begge), men at originalerne rummer ekstra fakta og svagheder. Høsten laves derfor som
+  opslag: et indeks med links, ikke tekst i repoet.
+- 66 af de 92 myndigheder i sagerne bruger **FirstAgenda**, som har et åbent søge-API
+  (`/api/agenda/soeg`, `/api/agenda/dagsorden/{id}`, bilag på `/vis/pdf/bilag/{id}`). Én hentefunktion dækker dem
+  (`tools/originaler/hent_firstagenda.py`). Fredningssager springes over (fredningsnævnet er myndighed).
