@@ -12,7 +12,7 @@ Hentet med `scrape_pkn.py --relevante` og `scrape_mfkn.py --relevante` (se `naev
 Kolonner: `id` (nævnets uuid), `Naevn`, `Jnr`, `Dato`, `Titel`, `Link`, `Retsomraade`, `Tekst`.
 Overskrifter i teksten står på egen linje med `## ` foran.
 
-**Rensning** sker i `ejnar/miljoejurist/corpus.py` (`python -m miljoejurist.corpus` fra `ejnar/`):
+**Rensning** sker i `miljoejurist/corpus.py` (`python -m miljoejurist.corpus` fra `ejnar/`):
 dubletter på id slås sammen (kategorierne samles, længste tekst bevares), dubletter på
 normaliseret tekst fjernes, tekster under 1.500 tegn udelades, og udfald bestemmes ud fra titel,
 indledning og slutning. Resultatet gemmes i `korpus_renset.jsonl` (gitignoreret, genskabes).

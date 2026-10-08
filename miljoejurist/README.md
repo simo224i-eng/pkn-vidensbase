@@ -40,8 +40,12 @@ prioriterede (op til 6) vises som **svagheder**, resten som **øvrige opmærksom
 | `stedtjek.py` | Stedopslag og sammenligning med kortlag (cache 24 t) |
 | `data/originaler.json` | Links til kommunernes oprindelige dokumenter pr. nævnssag (bygges af `tools/originaler/`) |
 | `api_routes.py` | `POST /v1/miljoejurist/tjek` (upload), `POST /v1/miljoejurist/tjek-tekst`, `GET /v1/miljoejurist/tjekliste`, `GET /v1/miljoejurist/kilder` |
+| `server.py`, `web/` | Selvstændig webapp: FastAPI-server og siden (HTML/JS/CSS uden build-step) |
 
-Webappen (`ejnar/web/`) har fanen **Miljøjuristen**. Start som for Ejnar (`uvicorn api:app` fra `ejnar/`).
+Miljøjuristen er en selvstændig webapp: `server.py` (FastAPI) og siden i `web/`. Start fra repo-roden med
+`python -m uvicorn miljoejurist.server:app --port 8766` og åbn http://localhost:8766. Lokalt kræves ingen nøgle;
+sæt `MILJOEJURIST_API_KEYS` (kommasepareret) for at kræve headeren `X-API-Key`. Sprogmodellen genbruger
+`ejnar/llm_provider.py` og samme miljøvariabler (`LLM_PROVIDER` m.fl.).
 Uploadede dokumenter gemmes ikke.
 
 ## Opdatér datagrundlaget
@@ -56,5 +60,5 @@ python -m miljoejurist.byg_tjekliste
 
 ## Test
 
-`ejnar/tests/test_miljoejurist.py` (unit-tests) og `ejnar/evaluation/miljoejurist/` (rekonstruerede
+`miljoejurist/tests/test_miljoejurist.py` (unit-tests) og `miljoejurist/evaluation/` (rekonstruerede
 screeninger, indsatte fejl, falske alarmer og ægte screeninger; resultater i `RESULTS.md` dér).

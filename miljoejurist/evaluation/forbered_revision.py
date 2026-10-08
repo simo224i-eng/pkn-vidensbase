@@ -1,6 +1,6 @@
 """Læg dokument, rapport og facit klar til revisorerne (work/rev<N>/<blind>/).
 
-    python ejnar/evaluation/miljoejurist/forbered_revision.py --runde 2 --batches 12
+    python miljoejurist/evaluation/forbered_revision.py --runde 2 --batches 12
 """
 import argparse
 import json

@@ -1,6 +1,6 @@
 """Saml revisionernes vurderinger (work/rev<N>/<blind>/revision.jsonl) til måltal.
 
-    python ejnar/evaluation/miljoejurist/revision_opsummer.py --runde 1
+    python miljoejurist/evaluation/revision_opsummer.py --runde 1
 """
 import argparse
 import json

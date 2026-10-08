@@ -4,7 +4,7 @@ dansk fra EUR-Lex til eu_domme/.
 
     python fetch_eu_domme.py [--antal 30]
 
-Optællingen bruger det rensede korpus (ejnar/miljoejurist/corpus.py) og tæller
+Optællingen bruger det rensede korpus (miljoejurist/corpus.py) og tæller
 hver dom én gang pr. afgørelse. Sagsnumre skrives fx "C-127/02" eller "C‑127/02".
 CELEX-nummeret er 6 + årstal + CJ + løbenummer med fire cifre (domme fra
 Domstolen). Findes der ingen dansk dom (fx kendelser), forsøges CO (kendelse).

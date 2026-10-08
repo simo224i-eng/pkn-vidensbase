@@ -611,14 +611,6 @@ def feedback_summary():
     return {"total": sum(ratings.values()), "ratings": dict(ratings), "reasons": dict(reasons.most_common())}
 
 
-# ── Miljøjuristen (screeningstjek, se miljoejurist/README.md) ─────────────────
-try:
-    from miljoejurist.api_routes import router as _miljo_router
-    app.include_router(_miljo_router, dependencies=[Depends(require_api_key)])
-except ImportError as _exc:  # fx manglende python-multipart
-    log.warning("Miljøjuristen er ikke aktiv: %s", _exc)
-
-
 # ── Webapp ────────────────────────────────────────────────────────────────────
 # Registreres til sidst, så /health, /docs og /v1/* matches først.
 _WEB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web")

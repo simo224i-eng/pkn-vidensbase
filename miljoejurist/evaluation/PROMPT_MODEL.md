@@ -2,7 +2,7 @@
 
 Du er den sprogmodel, som Miljøjuristens webapp kalder. For hvert id i din liste:
 
-1. Læs `work/pb/<id>.txt` (stien er relativ til `ejnar/evaluation/miljoejurist/`). Filen er præcis den
+1. Læs `work/pb/<id>.txt` (stien er relativ til `miljoejurist/evaluation/`). Filen er præcis den
    prompt, appen sender til modellen.
 2. Svar på prompten, som en omhyggelig sprogmodel ville, og følg dens svarformat nøje (kun JSON).
 3. Skriv svaret til `work/sb/<id>.json`.

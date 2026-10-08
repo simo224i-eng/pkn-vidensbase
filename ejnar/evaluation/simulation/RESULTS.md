@@ -169,8 +169,8 @@ at give klager delvis medhold. Kun den samlede konklusion ramte ved siden af.
 
 ## Miljøjuristen (screeningstjek), oktober 2026
 
-Den nye funktion Miljøjuristen (`ejnar/miljoejurist/`) er testet separat: se
-[`ejnar/evaluation/miljoejurist/RESULTS.md`](../miljoejurist/RESULTS.md). Kort: på 30 rekonstruerede
+Den nye funktion Miljøjuristen (`miljoejurist/`) er testet separat: se
+[`miljoejurist/evaluation/RESULTS.md`](../../../miljoejurist/evaluation/RESULTS.md). Kort: på 30 rekonstruerede
 screeninger, som nævnene underkendte, pegede værktøjet (med sprogmodel) på nævnets egen begrundelse i 29;
 95 % af de prioriterede fund var relevante, og kilderne bar påstanden i 91 % (revideret af en AI-revisor).
 Uden sprogmodel finder regellaget kun omkring halvdelen og kan ikke skelne svage fra stærke screeninger.

@@ -6,7 +6,7 @@ Hent afgørelser, hvor teksten kun findes som PDF-dokument (tom brødtekst i API
 Læser data_2026/*.csv.zip, finder rækker med under 200 tegns tekst fra 2017 og frem,
 henter /api/publication/{id} og PDF'en under /media/<file>, udtrækker teksten og
 gemmer data_2026/pdf_afgoerelser.csv.zip i samme format. Korpusset
-(ejnar/miljoejurist/corpus.py) foretrækker den længste tekst pr. id.
+(miljoejurist/corpus.py) foretrækker den længste tekst pr. id.
 """
 import io
 import re

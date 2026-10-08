@@ -1,7 +1,7 @@
 """Kør Miljøjuristen på testsættene og beregn måltal.
 
-    python ejnar/evaluation/miljoejurist/koer_test.py prompts   # regellag + modelprompts
-    python ejnar/evaluation/miljoejurist/koer_test.py score [--runde N]
+    python miljoejurist/evaluation/koer_test.py prompts   # regellag + modelprompts
+    python miljoejurist/evaluation/koer_test.py score [--runde N]
 
 Testdokumenter (work/, gitignoreret):
   dok/R*.txt        rekonstruerede screeninger (T1 underkendte, T3 stadfæstede), id-kort i rekon_map.json
@@ -19,8 +19,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 HER = Path(__file__).resolve().parent
-REPO = HER.parents[2]
-sys.path.insert(0, str(REPO / "ejnar"))
+REPO = HER.parents[1]
+sys.path.insert(0, str(REPO))
 from miljoejurist import dokument, llm_tjek, tjek  # noqa: E402
 
 WORK = HER / "work"

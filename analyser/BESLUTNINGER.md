@@ -4,7 +4,7 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
 
 ## Setup
 - **Projektnavn:** Værktøjet hedder **Miljøjuristen** (brugerens ønske: "miljøkonsulenten/miljøjuristen").
-  Det bygges som modulet `ejnar/miljoejurist/` med egen fane i Ejnar-webappen, så det genbruger
+  Det bygges som modulet `miljoejurist/` med egen fane i Ejnar-webappen, så det genbruger
   søgning, citatkontrol og server. Det deler intet med Harald.
 - Navnet til trods giver værktøjet ikke juridisk rådgivning og skriver aldrig, at en afgørelse er i orden.
 - Lokalt Python-miljø i `.venv/` (gitignoreret).
@@ -61,7 +61,7 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
   plan_forhold, kompetence_procedure), fordi v1's "andet" var den største kategori.
 
 ## Tjekliste (punkt 4)
-- 21 punkter i 7 grupper (19 fra start, A4 og B3 tilføjet efter testrunde 2), skrevet ud fra lov og vejledning (`ejnar/miljoejurist/tjekliste_grund.py`) og
+- 21 punkter i 7 grupper (19 fra start, A4 og B3 tilføjet efter testrunde 2), skrevet ud fra lov og vejledning (`miljoejurist/tjekliste_grund.py`) og
   koblet automatisk til praksis (`byg_tjekliste.py`). Lovuddrag kontrolleres for at stå ordret.
 - Vejledningsafsnit er valgt i hånden pr. punkt (fx 4.5.2.1 "Screeningskriterierne i bilag 6"), fordi
   automatisk søgning ramte afsnit om fx opsættende virkning.
@@ -81,7 +81,7 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
   formulering med citat.
 
 ## Test (punkt 6)
-- Testen ligger i `ejnar/evaluation/miljoejurist/` med resultater i `RESULTS.md` dér (og et kort afsnit i
+- Testen ligger i `miljoejurist/evaluation/` med resultater i `RESULTS.md` dér (og et kort afsnit i
   `ejnar/evaluation/simulation/RESULTS.md`). Arbejdsfiler med sagstekster ligger i `work/` (gitignoreret).
 - **T1:** 30 underkendte screeninger rekonstrueret af en agent, der KUN så sagsfremstillingen (nævnets
   vurdering, indledning og titel fjernet). Sagens egen afgørelse udelukkes fra praksissøgningen.
@@ -114,3 +114,9 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
 - DAWA er lukket; adresser slås op i Nominatim (OpenStreetMap) og omregnes selv til UTM32.
 - Tærskler (`SVAGHEDSGRÆNSE_M`) blev strammet, så der kommer ca. 1 fund pr. dokument; kumulation tæller kun
   planforslag inden for 500 m. Bilag IV-artsfund (arter.dk) er udskudt.
+
+## Selvstændig app
+- Brugeren ønskede Miljøjuristen som selvstændig side, ikke en fane i Ejnar. Pakken er flyttet til `miljoejurist/` i
+  repo-roden (med `evaluation/` og `tests/`), har egen server (`miljoejurist/server.py`) og egen side
+  (`miljoejurist/web/`, grøn accent, ingen login lokalt). Fanen og ruterne er fjernet fra Ejnar. Det eneste, der
+  deles, er `ejnar/llm_provider.py` til sprogmodellen.

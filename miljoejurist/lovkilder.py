@@ -14,7 +14,7 @@ from pathlib import Path
 
 from .bm25 import BM25
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[1]
 LOV_DIR = REPO / "lovgrundlag"
 EU_DIR = REPO / "eu_domme"
 

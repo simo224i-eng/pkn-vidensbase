@@ -5,8 +5,8 @@
 Input:  analyser/miljoevurdering/v2/deep_v2.jsonl (trin 2, kontrollerede citater)
         analyser/miljoevurdering/v2/univers.json
         lovgrundlag/ (via lovkilder)
-Output: ejnar/miljoejurist/data/praksis.json   – underkendte sager med kontrollerede citater
-        ejnar/miljoejurist/data/tjekliste.json – grundpunkter + hyppighed, eksempler og vejledning
+Output: miljoejurist/data/praksis.json   – underkendte sager med kontrollerede citater
+        miljoejurist/data/tjekliste.json – grundpunkter + hyppighed, eksempler og vejledning
         analyser/TJEKLISTE.md                   – læsbar tjekliste med eksempler og links
 """
 from __future__ import annotations
@@ -20,7 +20,7 @@ from . import citatkontrol, lovkilder
 from .tjekliste_grund import PUNKTER
 
 HER = Path(__file__).resolve().parent
-REPO = HER.parents[1]
+REPO = HER.parent
 V2 = REPO / "analyser" / "miljoevurdering" / "v2"
 DATA = HER / "data"
 
@@ -184,7 +184,7 @@ def byg():
 
 def skriv_markdown(punkter: list[dict], meta: dict):
     ud = ["# Tjekliste: screeninger, miljørapporter og VVM-tilladelser", "",
-          "Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderingsloven, "
+          "Bygget automatisk af `miljoejurist/byg_tjekliste.py` ud fra miljøvurderingsloven, "
           "habitatbekendtgørelserne, vejledningerne og nævnenes underkendelser (trin 2-analysen i "
           "`analyser/miljoevurdering/v2/`). Alle citater fra lov, vejledning og afgørelser er kontrolleret "
           "maskinelt for, at de står ordret i kilden.", "",

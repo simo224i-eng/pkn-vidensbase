@@ -1,7 +1,7 @@
 # Hvad giver den oprindelige screening, som nævnets afgørelse ikke gengiver?
 
 For hver sag i din liste ligger to filer i `work/pilot/sammenlign/<id>/` (relativt til
-`ejnar/evaluation/miljoejurist/`):
+`miljoejurist/evaluation/`):
 - `original.txt` – myndighedens oprindelige screening/planforslag (kan være lang; læs det hele i bidder),
 - `afgoerelse.txt` – klagenævnets afgørelse (sagsfremstilling + nævnets vurdering).
 

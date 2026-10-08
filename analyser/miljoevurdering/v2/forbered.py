@@ -22,7 +22,7 @@ from pathlib import Path
 V2 = Path(__file__).resolve().parent
 V1 = V2.parent
 REPO = V2.parents[2]
-sys.path.insert(0, str(REPO / "ejnar"))
+sys.path.insert(0, str(REPO))
 from miljoejurist import corpus  # noqa: E402
 
 MV_KAT = {"Miljøvurderingsloven", "Planloven, VVM", "Miljøvurdering af konkrete projekter",

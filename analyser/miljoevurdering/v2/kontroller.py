@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 V2 = Path(__file__).resolve().parent
-sys.path.insert(0, str(V2.parents[2] / "ejnar"))
+sys.path.insert(0, str(V2.parents[2]))
 from miljoejurist import citatkontrol as C  # noqa: E402
 
 KAT = {"omfattet_bilag_projektbegreb", "afgraensning_opsplitning", "screeningskriterier_ikke_vurderet",

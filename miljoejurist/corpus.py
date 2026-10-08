@@ -16,7 +16,7 @@ import zipfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[1]
 DATA_DIR = REPO / "data_2026"
 CACHE = REPO / "data_2026" / "korpus_renset.jsonl"
 

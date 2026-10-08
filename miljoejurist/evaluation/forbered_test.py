@@ -1,8 +1,8 @@
 """Forbered testsættene til Miljøjuristen (punkt 6).
 
-    python ejnar/evaluation/miljoejurist/forbered_test.py
+    python miljoejurist/evaluation/forbered_test.py
 
-Laver ejnar/evaluation/miljoejurist/work/ (gitignoreret, indeholder sagstekster):
+Laver miljoejurist/evaluation/work/ (gitignoreret, indeholder sagstekster):
   T1  30 underkendte screeninger: sagsfremstillingen UDEN nævnets vurdering, indledning og titel,
       så en skribent kan rekonstruere kommunens screening uden at kende afgørelsen.
   T3  20 stadfæstede screeninger: samme, til falske alarmer og (T2) indsatte fejl.
@@ -16,9 +16,9 @@ from collections import Counter
 from pathlib import Path
 
 HER = Path(__file__).resolve().parent
-REPO = HER.parents[2]
+REPO = HER.parents[1]
 V2 = REPO / "analyser" / "miljoevurdering" / "v2"
-sys.path.insert(0, str(REPO / "ejnar"))
+sys.path.insert(0, str(REPO))
 from miljoejurist import corpus  # noqa: E402
 
 WORK = HER / "work"
@@ -47,7 +47,7 @@ def main():
     WORK.mkdir(exist_ok=True)
     (WORK / "fremstilling").mkdir(exist_ok=True)
     rng = random.Random(20261008)
-    praksis = json.loads((REPO / "ejnar" / "miljoejurist" / "data" / "praksis.json").read_text(encoding="utf-8"))
+    praksis = json.loads((REPO / "miljoejurist" / "data" / "praksis.json").read_text(encoding="utf-8"))
     sagstekst = {}
 
     def tekst(i):

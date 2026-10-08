@@ -1,7 +1,7 @@
 # Revidér Miljøjuristens fund mod kilderne
 
 Du er en erfaren miljøjurist og reviderer en rapport fra et screeningstjek-værktøj. For hver sag i din liste
-får du (stier relativt til `ejnar/evaluation/miljoejurist/`):
+får du (stier relativt til `miljoejurist/evaluation/`):
 
 - `work/rev1/<id>/dokument.txt` – det dokument, der blev tjekket (en screeningsafgørelse),
 - `work/rev1/<id>/rapport.md` – værktøjets rapport (svagheder med citater og kilder),

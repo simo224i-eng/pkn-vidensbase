@@ -3,7 +3,7 @@
     python tools/originaler/byg_indeks.py
 
 Samler fund fra FirstAgenda-dagsordener (fund_firstagenda.json) og plandata.dk (fund_plandata.json) og
-gemmer ejnar/miljoejurist/data/originaler.json: pr. nævnssag en kort liste af links med type og sikkerhed.
+gemmer miljoejurist/data/originaler.json: pr. nævnssag en kort liste af links med type og sikkerhed.
 Kun links og titler gemmes (dokumenterne kan indeholde navne).
 
 Sikkerhed:
@@ -18,7 +18,7 @@ from pathlib import Path
 
 HER = Path(__file__).resolve().parent
 REPO = HER.parents[1]
-UD = REPO / "ejnar" / "miljoejurist" / "data" / "originaler.json"
+UD = REPO / "miljoejurist" / "data" / "originaler.json"
 PLANNAVN = re.compile(r"lokalplan|kommuneplan|tillæg|planforslag|forslag til|screening|miljøvurdering|miljørapport|"
                       r"spildevandsplan|vandforsyningsplan|klimaplan|varmeplan", re.I)
 

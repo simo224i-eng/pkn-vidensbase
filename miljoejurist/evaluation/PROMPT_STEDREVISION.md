@@ -1,6 +1,6 @@
 # Revidér stedtjekkets fund
 
-For hver sag i din liste ligger i `work/stedrev/<id>/` (relativt til `ejnar/evaluation/miljoejurist/`):
+For hver sag i din liste ligger i `work/stedrev/<id>/` (relativt til `miljoejurist/evaluation/`):
 - `dokument.txt`: en screeningsafgørelse,
 - `stedtjek.json`: hvad kortopslaget fandt omkring planområdet (`alle_stedfakta`) og hvilke fund værktøjet gjorde til
   svagheder (`stedfund_som_svaghed`: et område tæt på, som dokumentet ikke ser ud til at nævne).

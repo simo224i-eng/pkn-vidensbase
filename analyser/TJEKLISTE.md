@@ -1,6 +1,6 @@
 # Tjekliste: screeninger, miljørapporter og VVM-tilladelser
 
-Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderingsloven, habitatbekendtgørelserne, vejledningerne og nævnenes underkendelser (trin 2-analysen i `analyser/miljoevurdering/v2/`). Alle citater fra lov, vejledning og afgørelser er kontrolleret maskinelt for, at de står ordret i kilden.
+Bygget automatisk af `miljoejurist/byg_tjekliste.py` ud fra miljøvurderingsloven, habitatbekendtgørelserne, vejledningerne og nævnenes underkendelser (trin 2-analysen i `analyser/miljoevurdering/v2/`). Alle citater fra lov, vejledning og afgørelser er kontrolleret maskinelt for, at de står ordret i kilden.
 
 **Grundlag:** 239 sager fra 2020–2026, hvor PKN eller MFKN helt eller delvist gav klager medhold, og hvor nævnets begrundelse kunne citeres ordret.
 

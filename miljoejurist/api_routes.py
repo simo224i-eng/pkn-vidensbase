@@ -1,4 +1,4 @@
-"""REST-ruter for Miljøjuristen (screeningstjek). Monteres i ejnar/api.py.
+"""REST-ruter for Miljøjuristen (screeningstjek). Bruges af server.py.
 
 POST /v1/miljoejurist/tjek        upload (multipart "fil") eller JSON {"tekst": ...}
 GET  /v1/miljoejurist/tjekliste   tjeklisten med lovgrundlag, vejledning og eksempler
@@ -32,16 +32,30 @@ class TekstInput(BaseModel):
     stedtjek: bool = True
 
 
+def llm_udbyder():
+    """Sprogmodel-udbyderen (genbruger llm_provider.py fra ejnar/, konfigureret med LLM_PROVIDER m.fl.).
+    Returnerer modulet, eller None hvis ingen udbyder er konfigureret."""
+    import sys
+    ejnar = Path(__file__).resolve().parents[1] / "ejnar"
+    if str(ejnar) not in sys.path:
+        sys.path.append(str(ejnar))
+    try:
+        import llm_provider
+    except ImportError:
+        return None
+    try:
+        return llm_provider if llm_provider.is_configured() else None
+    except ValueError:
+        return None
+
+
 def _llm_eller_none(brug: bool):
     if not brug:
         return None
-    try:
-        import shared
-        if not shared.llm_tilgaengelig():
-            raise HTTPException(503, "Ingen sprogmodel er konfigureret. Kør uden 'brug_model'.")
-        return lambda prompt: shared._llm(prompt, max_tokens=4000, model="claude-sonnet-4-6")
-    except ImportError:
-        raise HTTPException(503, "Sprogmodel er ikke tilgængelig i dette miljø.")
+    lp = llm_udbyder()
+    if lp is None:
+        raise HTTPException(503, "Ingen sprogmodel er konfigureret. Kør uden 'brug_model'.")
+    return lambda prompt: lp.complete(prompt, max_tokens=4000, model="claude-sonnet-4-6")
 
 
 def _svar(d: dokument.Dokument, dtype: str | None, brug_model: bool, sted: dict | None = None) -> dict:
@@ -94,7 +108,7 @@ def sag(sid: str):
 @router.get("/kilder")
 def kilder():
     from . import lovkilder
-    idx = Path(__file__).resolve().parents[2] / "lovgrundlag" / "index.json"
+    idx = Path(__file__).resolve().parents[1] / "lovgrundlag" / "index.json"
     lov = json.loads(idx.read_text(encoding="utf-8")) if idx.exists() else []
     from . import praksis
     s = praksis.sager()

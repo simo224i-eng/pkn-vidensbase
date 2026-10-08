@@ -101,3 +101,17 @@ def test_utm32_konvertering():
     from miljoejurist import stedtjek as st
     x, y = st._wgs84_til_utm32(55.676, 12.568)  # Rådhuspladsen
     assert abs(x - 724334) < 200 and abs(y - 6175792) < 200
+
+
+def test_selvstændig_server(monkeypatch):
+    from fastapi.testclient import TestClient
+    from miljoejurist import server
+    monkeypatch.delenv("MILJOEJURIST_API_KEYS", raising=False)
+    c = TestClient(server.app)
+    assert c.get("/health").json()["nøgle_kræves"] is False
+    assert "Miljøjuristen" in c.get("/").text
+    r = c.post("/v1/miljoejurist/tjek-tekst", json={"tekst": SVAG, "stedtjek": False})
+    assert r.status_code == 200 and r.json()["svagheder"]
+    monkeypatch.setenv("MILJOEJURIST_API_KEYS", "k1")
+    assert c.post("/v1/miljoejurist/tjek-tekst", json={"tekst": SVAG, "stedtjek": False}).status_code == 401
+    assert c.post("/v1/miljoejurist/tjek-tekst", json={"tekst": SVAG, "stedtjek": False}, headers={"X-API-Key": "k1"}).status_code == 200
