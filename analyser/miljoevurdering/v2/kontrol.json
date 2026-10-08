@@ -1,14 +1,14 @@
 {
  "trin1": {
-  "sager": 156,
-  "citat_ok": 156
+  "sager": 157,
+  "citat_ok": 157
  },
  "trin2": {
-  "sager": 274,
-  "fejl": 525,
-  "citat_naevn_ok": 525,
-  "citat_myndighed": 100,
-  "citat_myndighed_ok": 100,
+  "sager": 283,
+  "fejl": 539,
+  "citat_naevn_ok": 539,
+  "citat_myndighed": 107,
+  "citat_myndighed_ok": 107,
   "ukendt_kategori": 0
  }
 }

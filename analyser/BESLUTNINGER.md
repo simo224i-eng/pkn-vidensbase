@@ -35,3 +35,35 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
   De berører primært havområdet og energiprojekter; det står som kendt svaghed.
 - **Bilag IV-vejledning:** Habitatvejledningen (2020/9925) er den officielle vejledning om bilag IV-arter
   på retsinformation. Miljøstyrelsens særskilte bilag IV-materiale hentes, hvis det kan findes som PDF.
+- **Rensning (8/10 2026):** 28.668 rækker → 26.999 afgørelser efter sammenlægning af 949 id-dubletter
+  (samme afgørelse i flere kategorier), 278 tekstdubletter og 442 tomme/korte tekster. 489 afgørelser
+  havde tom brødtekst i API'et; teksten lå som PDF under "Dokumenter" og er hentet med
+  `fetch_pdf_afgoerelser.py` (408 lykkedes). 800 tekster er markeret som mulige afkortninger (mest
+  ældre "Naturklagenævnet orienterer" fra før 2014), de udelades ikke men kan filtreres.
+- **Udfald** bestemmes først ud fra titlen (MFKN skriver "Stadfæstelse", "Ophævelse og hjemvisning",
+  "Afvisning" osv.), derefter indledning og slutning. Mod de 858 model-mærkede sager fra v1 er
+  overensstemmelsen ca. 93 %. Genoptagelse og opsættende virkning er "andet".
+- **EU-domme:** de 30 hyppigst citerede (optalt én gang pr. afgørelse i miljø- og plansager) hentet på
+  dansk fra EUR-Lex. C-474/19 og C-461/16 fandtes ikke som dansk dom og er sprunget over (næste på
+  listen er taget i stedet).
+- **Oprindelige screeninger:** en agent har søgt på plandata.dk og kommunernes hjemmesider for de
+  nyeste underkendte screeningssager. Filerne ligger lokalt i `screeninger_originale/` (gitignoreret,
+  fordi de kan indeholde navne på ansøgere); kun resultaterne af testen kommer i repoet.
+
+## Analyse (punkt 3)
+- **Univers:** miljøvurderingskategorierne i begge nævn fra 1/1 2020 + husdyrsager med medhold fra 2022,
+  hvor nævnets vurdering handler om Natura 2000/bilag IV/§ 3 (55 sager). I alt 1.050 sager.
+- **Trin 1 genbruges** fra v1 for de 893 sager, der allerede var mærket; kun de 157 nye er mærket (Haiku).
+- **Trin 2 er lavet om for alle sager med medhold** (283) med Sonnet og HELE afgørelsesteksten, ikke
+  9.000 tegn. Flere fejl pr. sag registreres, med kategori, regel, ordret citat fra nævnet og (hvis det
+  findes) ordret citat af myndighedens egen tekst. Alle citater er maskinkontrolleret: 539/539 ok.
+- Kategorilisten er udvidet (natur_paragraf3, afvaergeforanstaltninger, materiel_vaesentlighed,
+  plan_forhold, kompetence_procedure), fordi v1's "andet" var den største kategori.
+
+## Tjekliste (punkt 4)
+- 19 punkter i 7 grupper, skrevet ud fra lov og vejledning (`ejnar/miljoejurist/tjekliste_grund.py`) og
+  koblet automatisk til praksis (`byg_tjekliste.py`). Lovuddrag kontrolleres for at stå ordret.
+- Vejledningsafsnit er valgt i hånden pr. punkt (fx 4.5.2.1 "Screeningskriterierne i bilag 6"), fordi
+  automatisk søgning ramte afsnit om fx opsættende virkning.
+- EU-domme: for de vigtigste punkter er præmissen valgt ved en ordret frase (C-127/02 præmis 45,
+  C-323/17 præmis 37, C-473/19 præmis 83, C-142/07 præmis 44), ellers ved søgning i punktets domme.

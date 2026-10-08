@@ -1,32 +1,32 @@
 {
  "meta": {
-  "sager_med_kontrollerede_fejl": 232,
+  "sager_med_kontrollerede_fejl": 239,
   "kategorier": {
-   "sagsoplysning_dokumentation": 71,
+   "sagsoplysning_dokumentation": 73,
+   "vilkaar": 51,
    "afvaergeforanstaltninger": 50,
-   "vilkaar": 49,
-   "bilagIV_arter": 43,
-   "kompetence_procedure": 42,
+   "bilagIV_arter": 45,
+   "kompetence_procedure": 44,
    "omfattet_bilag_projektbegreb": 38,
-   "natura2000_vaesentlighed": 32,
+   "natura2000_vaesentlighed": 33,
    "screeningskriterier_ikke_vurderet": 25,
    "plan_forhold": 23,
+   "miljoerapport_mangelfuld": 20,
    "natur_paragraf3": 19,
-   "miljoerapport_mangelfuld": 19,
    "materiel_vaesentlighed": 16,
    "afgraensning_opsplitning": 15,
    "kumulation": 12,
-   "hoering_inddragelse": 9,
-   "begrundelse": 9,
+   "begrundelse": 11,
+   "hoering_inddragelse": 10,
    "andet": 7
   },
   "dokumenttyper": {
    "andet": 12,
-   "screening_projekt": 72,
-   "miljoerapport_plan": 34,
-   "husdyrgodkendelse": 41,
-   "projekttilladelse": 40,
-   "screening_plan": 33
+   "screening_projekt": 75,
+   "miljoerapport_plan": 35,
+   "husdyrgodkendelse": 42,
+   "projekttilladelse": 41,
+   "screening_plan": 34
   }
  },
  "punkter": [
@@ -385,7 +385,7 @@
    "kræver": "\\b(fordi|idet|da (der|det|projektet|planen|området|arealet)|på baggrund af|på grund af|baseret på|ud fra|jf\\.|beregn\\w*|målt|målinger|undersøgelse\\w*|kortlæg\\w*|besigtig\\w*|registrer\\w*|afstand\\w*|\\d+\\s?(m|meter|km|ha|m2|m²|dB|%)\\b|kilde|rapport|notat)",
    "relevant_hvis": "",
    "søg": "kommunen havde ikke tilstrækkeligt grundlag oplysninger undersøgt officialprincippet",
-   "praksis_antal": 43,
+   "praksis_antal": 44,
    "eksempler": [
     {
      "id": "Mb650aeb0",
@@ -493,7 +493,7 @@
    "kræver": "berørte myndigheder|myndigheds?høring|(er|blev) hørt",
    "relevant_hvis": "",
    "søg": "høring af berørte myndigheder inden screeningsafgørelse",
-   "praksis_antal": 7,
+   "praksis_antal": 8,
    "eksempler": [
     {
      "id": "P0ea6df70",
@@ -600,7 +600,7 @@
    "kræver": "bilag 6",
    "relevant_hvis": "",
    "søg": "screeningskriterier bilag 6 ikke vurderet begrundelse henvisning til kriterierne",
-   "praksis_antal": 21,
+   "praksis_antal": 22,
    "eksempler": [
     {
      "id": "M3e959c0c",
@@ -1076,7 +1076,7 @@
    "relevant_hvis": "vand|udledning|regnvand|spildevand|dræn|grundvand|indvinding|sø|å\\b|vandløb|fjord",
    "emne": "vand|grundvand|vandløb|miljømål|udledning|recipient|drikkevand",
    "søg": "påvirkning af vandområde miljømål vandområdeplan grundvand ikke vurderet",
-   "praksis_antal": 18,
+   "praksis_antal": 19,
    "eksempler": [
     {
      "id": "M3e959c0c",
@@ -1177,7 +1177,7 @@
    "kræver": "udpegningsgrundlag|bevaringsmålsætning|naturtype|arter på udpegningsgrundlaget|kvælstof|deposition|hydrolog|forstyrr",
    "relevant_hvis": "",
    "søg": "væsentlighedsvurdering Natura 2000 udpegningsgrundlag ikke vurderet afstand",
-   "praksis_antal": 32,
+   "praksis_antal": 33,
    "eksempler": [
     {
      "id": "P9a9539d3",
@@ -1304,7 +1304,7 @@
    "kræver": "yngle|raste|økologisk funktionalitet|besigtig|undersøg|kortlæg|udbredelse|Arter\\.dk|DCE|NOVANA",
    "relevant_hvis": "",
    "søg": "bilag IV-arter yngle- og rasteområder ikke undersøgt økologisk funktionalitet",
-   "praksis_antal": 42,
+   "praksis_antal": 44,
    "eksempler": [
     {
      "id": "M9a2269be",
@@ -1624,7 +1624,7 @@
    "kræver": "\\b(fordi|idet|da (der|det|projektet|planen|området|arealet)|på baggrund af|på grund af|baseret på|ud fra|jf\\.|beregn\\w*|målt|målinger|undersøgelse\\w*|kortlæg\\w*|besigtig\\w*|registrer\\w*|afstand\\w*|\\d+\\s?(m|meter|km|ha|m2|m²|dB|%)\\b|kilde|rapport|notat)",
    "relevant_hvis": "",
    "søg": "screeningsafgørelsen ikke tilstrækkeligt begrundet konklusion uden begrundelse",
-   "praksis_antal": 17,
+   "praksis_antal": 19,
    "eksempler": [
     {
      "id": "P058e19c1",
@@ -1723,7 +1723,7 @@
    "kræver": "klage(vejledning|frist|adgang)|kan påklages",
    "relevant_hvis": "",
    "søg": "indirekte afgørelse ikke miljøvurderingspligt manglende screeningsafgørelse",
-   "praksis_antal": 28,
+   "praksis_antal": 29,
    "eksempler": [
     {
      "id": "M5ba79c70",
@@ -1829,7 +1829,7 @@
    "kræver": "alternativ",
    "relevant_hvis": "",
    "søg": "miljørapport mangler alternativer 0-alternativ kumulative virkninger",
-   "praksis_antal": 15,
+   "praksis_antal": 16,
    "eksempler": [
     {
      "id": "P7457d896",
@@ -1937,7 +1937,7 @@
    "kræver": "vilkår",
    "relevant_hvis": "",
    "søg": "vilkår i VVM-tilladelse uklare utilstrækkelige ophævet",
-   "praksis_antal": 17,
+   "praksis_antal": 18,
    "eksempler": [
     {
      "id": "M8e9eee53",

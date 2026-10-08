@@ -2,7 +2,7 @@
 
 Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderingsloven, habitatbekendtgørelserne, vejledningerne og nævnenes underkendelser (trin 2-analysen i `analyser/miljoevurdering/v2/`). Alle citater fra lov, vejledning og afgørelser er kontrolleret maskinelt for, at de står ordret i kilden.
 
-**Grundlag:** 232 sager fra 2020–2026, hvor PKN eller MFKN helt eller delvist gav klager medhold, og hvor nævnets begrundelse kunne citeres ordret.
+**Grundlag:** 239 sager fra 2020–2026, hvor PKN eller MFKN helt eller delvist gav klager medhold, og hvor nævnets begrundelse kunne citeres ordret.
 
 **Skal gennemgås af en fagperson før brug.** Tjeklisten er et arbejdsredskab; den erstatter ikke en juridisk vurdering, og at alle punkter er besvaret, betyder ikke, at en afgørelse holder.
 
@@ -10,22 +10,22 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 
 | Fejlkategori | Sager |
 |---|---|
-| sagsoplysning_dokumentation | 71 |
+| sagsoplysning_dokumentation | 73 |
+| vilkaar | 51 |
 | afvaergeforanstaltninger | 50 |
-| vilkaar | 49 |
-| bilagIV_arter | 43 |
-| kompetence_procedure | 42 |
+| bilagIV_arter | 45 |
+| kompetence_procedure | 44 |
 | omfattet_bilag_projektbegreb | 38 |
-| natura2000_vaesentlighed | 32 |
+| natura2000_vaesentlighed | 33 |
 | screeningskriterier_ikke_vurderet | 25 |
 | plan_forhold | 23 |
+| miljoerapport_mangelfuld | 20 |
 | natur_paragraf3 | 19 |
-| miljoerapport_mangelfuld | 19 |
 | materiel_vaesentlighed | 16 |
 | afgraensning_opsplitning | 15 |
 | kumulation | 12 |
-| hoering_inddragelse | 9 |
-| begrundelse | 9 |
+| begrundelse | 11 |
+| hoering_inddragelse | 10 |
 | andet | 7 |
 
 ## Omfattet og afgrænsning
@@ -106,7 +106,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### B1. Tilstrækkeligt oplysningsgrundlag
 **Spørgsmål:** Bygger vurderingerne på konkrete oplysninger (ansøgningens bilag 5-oplysninger, kort, beregninger, registreringer), og fremgår det, hvor oplysningerne kommer fra?  
 **Gælder:** Screening af projekt, Screening af plan, Miljørapport (plan), § 25-tilladelse  
-**Underkendt i praksis:** 43 sager (kategori: sagsoplysning_dokumentation)
+**Underkendt i praksis:** 44 sager (kategori: sagsoplysning_dokumentation)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 19](https://www.retsinformation.dk/eli/lta/2023/4): «indgive en skriftlig ansøgning»
@@ -129,7 +129,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### B2. Høring af berørte myndigheder
 **Spørgsmål:** Er berørte myndigheder hørt før afgørelsen, og er deres bemærkninger inddraget (§ 32 for planer, § 35 for projekter)?  
 **Gælder:** Screening af projekt, Screening af plan, Miljørapport (plan)  
-**Underkendt i praksis:** 7 sager (kategori: hoering_inddragelse)
+**Underkendt i praksis:** 8 sager (kategori: hoering_inddragelse)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 32](https://www.retsinformation.dk/eli/lta/2023/4): «skal sikre, at følgende informeres tidligt i beslutningsprocessen»
@@ -154,7 +154,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### C1. Alle relevante kriterier i bilag 6 (projekter) er vurderet
 **Spørgsmål:** Er hvert relevant kriterium i bilag 6 (projektets karakteristika, placering og påvirkningens art) vurderet konkret, og er afgørelsen begrundet med henvisning til dem?  
 **Gælder:** Screening af projekt  
-**Underkendt i praksis:** 21 sager (kategori: screeningskriterier_ikke_vurderet, begrundelse)
+**Underkendt i praksis:** 22 sager (kategori: screeningskriterier_ikke_vurderet, begrundelse)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 21](https://www.retsinformation.dk/eli/lta/2023/4): «Ved vurderingen skal myndigheden tage hensyn til kriterierne i bilag 6»
@@ -264,7 +264,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### C6. Vand: grundvand, vandløb, søer, kyst og miljømål
 **Spørgsmål:** Er påvirkningen af grundvand (drikkevandsinteresser), overfladevand og målopfyldelsen i vandområdeplanerne vurderet?  
 **Gælder:** Screening af projekt, Screening af plan, Miljørapport (plan), § 25-tilladelse  
-**Underkendt i praksis:** 18 sager (kategori: screeningskriterier_ikke_vurderet, sagsoplysning_dokumentation)
+**Underkendt i praksis:** 19 sager (kategori: screeningskriterier_ikke_vurderet, sagsoplysning_dokumentation)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven bilag 6](https://www.retsinformation.dk/eli/lta/2023/4): «miljøkvalitetsnormer»
@@ -288,7 +288,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### D1. Natura 2000: væsentlighedsvurdering
 **Spørgsmål:** Er det vurderet, om planen/projektet alene eller sammen med andre kan påvirke et Natura 2000-område væsentligt, ud fra områdets udpegningsgrundlag, afstand og påvirkningsveje (fx hydrologi, kvælstof, forstyrrelse) – og uden at lægge afværgeforanstaltninger til grund?  
 **Gælder:** Screening af projekt, Screening af plan, Miljørapport (plan), § 25-tilladelse  
-**Underkendt i praksis:** 32 sager (kategori: natura2000_vaesentlighed)
+**Underkendt i praksis:** 33 sager (kategori: natura2000_vaesentlighed)
 
 **Lovgrundlag:**
 - [Habitatbekendtgørelsen § 6](https://www.retsinformation.dk/eli/lta/2023/1098): «kan påvirke et Natura 2000-område væsentligt»
@@ -313,7 +313,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### D2. Bilag IV-arter: yngle- og rasteområder
 **Spørgsmål:** Er det undersøgt, hvilke bilag IV-arter der kan forekomme i området (kendt viden og om nødvendigt besigtigelse), og vurderet, om yngle- eller rasteområder kan beskadiges eller ødelægges, så den økologiske funktionalitet påvirkes?  
 **Gælder:** Screening af projekt, Screening af plan, Miljørapport (plan), § 25-tilladelse  
-**Underkendt i praksis:** 42 sager (kategori: bilagIV_arter)
+**Underkendt i praksis:** 44 sager (kategori: bilagIV_arter)
 
 **Lovgrundlag:**
 - [Habitatbekendtgørelsen § 10](https://www.retsinformation.dk/eli/lta/2023/1098): «beskadige eller ødelægge yngle- eller rasteområder»
@@ -386,7 +386,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### E2. Konklusionen er begrundet
 **Spørgsmål:** Står der for hver vurdering, hvorfor påvirkningen ikke er væsentlig (fakta, målestok, afstand), og ikke kun en konklusion?  
 **Gælder:** Screening af projekt, Screening af plan, Miljørapport (plan), § 25-tilladelse  
-**Underkendt i praksis:** 17 sager (kategori: begrundelse, materiel_vaesentlighed)
+**Underkendt i praksis:** 19 sager (kategori: begrundelse, materiel_vaesentlighed)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 21](https://www.retsinformation.dk/eli/lta/2023/4): «Afgørelsen skal begrundes med hovedårsagerne til afgørelsen»
@@ -409,7 +409,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### E3. Klar afgørelse, offentliggørelse og klagevejledning
 **Spørgsmål:** Fremgår det klart, at der er truffet en afgørelse efter § 21 (projekter) eller § 10 (planer), hvad den omfatter, og at den offentliggøres med klagevejledning?  
 **Gælder:** Screening af projekt, Screening af plan  
-**Underkendt i praksis:** 28 sager (kategori: kompetence_procedure)
+**Underkendt i praksis:** 29 sager (kategori: kompetence_procedure)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 36](https://www.retsinformation.dk/eli/lta/2023/4): «Myndigheden skal offentliggøre en afgørelse efter § 21»
@@ -434,7 +434,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### F1. Miljørapportens indhold: alternativer, 0-alternativ og kumulation
 **Spørgsmål:** Indeholder miljørapporten rimelige alternativer, 0-alternativet, kumulative virkninger, afværgeforanstaltninger og overvågning (bilag 4)?  
 **Gælder:** Miljørapport (plan)  
-**Underkendt i praksis:** 15 sager (kategori: miljoerapport_mangelfuld)
+**Underkendt i praksis:** 16 sager (kategori: miljoerapport_mangelfuld)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 12](https://www.retsinformation.dk/eli/lta/2023/4): «rimelige alternativer»
@@ -458,7 +458,7 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 ### G1. Vilkår er klare, håndhævelige og dækker de væsentlige påvirkninger
 **Spørgsmål:** Er vilkårene i tilladelsen præcise, målbare og håndhævelige, og dækker de de påvirkninger og foranstaltninger, miljøkonsekvensrapporten forudsætter (§ 27)?  
 **Gælder:** § 25-tilladelse  
-**Underkendt i praksis:** 17 sager (kategori: vilkaar)
+**Underkendt i praksis:** 18 sager (kategori: vilkaar)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 27](https://www.retsinformation.dk/eli/lta/2023/4): «indeholde alle de miljømæssige betingelser, der er knyttet til afgørelsen»
