@@ -136,9 +136,18 @@ def _vindue(sæt, i: int, n: int = 1) -> str:
     return " ".join(s.tekst for s in sæt[max(0, i - n): i + n + 1])
 
 
-def _lov_kilder(p: dict) -> list[Kilde]:
+_PLANTYPER = ("screening_plan", "miljoerapport_plan")
+
+
+def _lov_kilder(p: dict, dtype: str = "") -> list[Kilde]:
     ud = []
     for kode, nr, uddrag in p.get("lov", []):
+        if kode == "planlov_habitat_bek" and dtype not in _PLANTYPER:
+            continue
+        if kode == "mvl" and dtype in _PLANTYPER and nr in ("§ 16", "§ 19", "§ 21", "§ 36", "bilag 5", "bilag 6"):
+            continue
+        if kode == "mvl" and dtype not in _PLANTYPER and nr in ("§ 8", "§ 10", "§ 32", "§ 33", "bilag 3"):
+            continue
         s = lovkilder.slå_op(kode, nr)
         if not s:
             continue
@@ -162,8 +171,9 @@ def _vejl_kilder(p: dict, dtype: str, n: int = 1) -> list[Kilde]:
     if p["id"].startswith("D3"):
         koder = koder + ("vejl_nbl3",)
     if p.get("vejl_citat"):
-        # Forudvalgt afsnit fra byg_tjekliste (kontrolleret ordret)
-        return [Kilde("vejledning", v["ref"], v["url"], v["citat"], True) for v in p["vejl_citat"][:n]]
+        # Håndvalgte afsnit fra byg_tjekliste (kontrolleret ordret); vælg dem for dokumenttypen
+        valgte = [v for v in p["vejl_citat"] if v.get("kode") in koder] or p["vejl_citat"]
+        return [Kilde("vejledning", v["ref"], v["url"], v["citat"], True) for v in valgte[:n]]
     res = lovkilder.søg(p.get("vejl_søg", p["titel"]), k=n, typer=("vejledning",), kilder=koder)
     return [Kilde("vejledning", s.ref, s.url, _bedste_sætning(s.tekst, p.get("vejl_søg", "")), True) for s in res]
 
@@ -231,9 +241,16 @@ def tjek_regler(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None
                 fund.append(("kriterier_mangler", None,
                              f"Disse kriterier i {bilag} ser ikke ud til at være nævnt: " +
                              "; ".join(f"{nr}) {navn}" for nr, navn in mangler) + "."))
-        for art, citat, tekst in fund[:2]:
+        if fund:
+            # Ét fund pr. punkt: første fund bærer citatet; øvrige beskrivelser lægges til
+            art, citat, tekst = fund[0]
+            for _, c2, t2 in fund[1:]:
+                tekst += " " + t2
+                citat = citat or c2
+            fund = [(art, citat, tekst)]
+        for art, citat, tekst in fund:
             kontekst = citat or p["titel"]
-            kilder = _lov_kilder(p) + _vejl_kilder(p, dtype) + _praksis_kilder(p, dtype, kontekst, udeluk)
+            kilder = _lov_kilder(p, dtype) + _vejl_kilder(p, dtype) + _praksis_kilder(p, dtype, kontekst, udeluk)
             svagheder.append(Svaghed(
                 punkt=p["id"], titel=p["titel"], art=art, svaghed=tekst,
                 citat_dokument=citat, citat_ok=(citatkontrol.find(citat, dok.tekst) if citat else None),

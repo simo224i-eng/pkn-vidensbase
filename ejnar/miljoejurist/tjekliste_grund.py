@@ -171,6 +171,7 @@ PUNKTER = [
         "svagt": r"(støj|gener|trafik)\w*[^.]{0,80}(forventes|vurderes|antages) (ikke|at være begrænset|ubetydelig)",
         "kræver": r"dB|grænseværdi|vejledende|beregn|afstand|meter|\d+\s?m\b|biler|køretøjer|ÅDT|døgn",
         "relevant_hvis": "",
+        "emne": r"støj|lys|lugt|støv|trafik|gener|vibration",
         "søg": "støj gener naboer ikke vurderet grænseværdier screening",
     },
     {
@@ -186,6 +187,7 @@ PUNKTER = [
         "svagt": r"(landskab|visuel)\w*[^.]{0,80}(forventes|vurderes) (ikke|at være begrænset)",
         "kræver": r"visualiser|afstand|meter|højde|\d+\s?m\b|synlig",
         "relevant_hvis": r"landskab|kyst|kirke|fredning|vindmølle|solcelle|højde|byggeri|bygning",
+        "emne": r"landskab|visuel|kulturarv|kulturmiljø|kirke|fortidsminde|kystnær",
         "søg": "landskabelig påvirkning visualiseringer kystnærhedszonen kirker ikke vurderet",
     },
     {
@@ -201,6 +203,7 @@ PUNKTER = [
         "svagt": "",
         "kræver": r"vandområdeplan|miljømål|målsætning|OSD|drikkevandsinteresser|indvindingsopland|recipient",
         "relevant_hvis": r"vand|udledning|regnvand|spildevand|dræn|grundvand|indvinding|sø|å\b|vandløb|fjord",
+        "emne": r"vand|grundvand|vandløb|miljømål|udledning|recipient|drikkevand",
         "søg": "påvirkning af vandområde miljømål vandområdeplan grundvand ikke vurderet",
     },
     # ---------- D. Natur ----------
@@ -252,6 +255,7 @@ PUNKTER = [
         "svagt": r"(natur)\w*[^.]{0,60}(forventes|vurderes) ikke",
         "kræver": r"afstand|meter|\d+\s?m\b|besigtig|registrer|kortlæg|indirekte|kvælstof|dræn|hydrolog",
         "relevant_hvis": "",
+        "emne": r"§ ?3|beskyttet natur|naturtype|fredning|skov|biodiversitet|natur",
         "søg": "§ 3-beskyttet natur påvirkning ikke vurderet screening",
     },
     # ---------- E. Afværgeforanstaltninger, begrundelse og afgørelse ----------
