@@ -169,6 +169,7 @@
    "svagt": "(indgår|behandles|vurderes) ikke i (denne|nærværende) (screening|ansøgning)|separat (ansøgning|sag|screening)|særskilt (ansøgning|sag|screening)|senere etape",
    "kræver": "anlægsfase|anlægsperiode|drift",
    "relevant_hvis": "",
+   "kun_svagt": true,
    "søg": "projektet opsplittet hele projektet tilhørende anlæg vurderet samlet",
    "praksis_antal": 13,
    "eksempler": [
@@ -468,7 +469,6 @@
    "titel": "Høring af berørte myndigheder",
    "spørgsmål": "Er berørte myndigheder hørt før afgørelsen, og er deres bemærkninger inddraget (§ 32 for planer, § 35 for projekter)?",
    "gælder": [
-    "screening_projekt",
     "screening_plan",
     "miljoerapport_plan"
    ],
@@ -493,7 +493,7 @@
    "kræver": "berørte myndigheder|myndigheds?høring|(er|blev) hørt",
    "relevant_hvis": "",
    "søg": "høring af berørte myndigheder inden screeningsafgørelse",
-   "praksis_antal": 8,
+   "praksis_antal": 5,
    "eksempler": [
     {
      "id": "P0ea6df70",
@@ -1073,7 +1073,7 @@
    "dækket": "grundvand|drikkevand|vandløb|vandområdeplan|miljømål|målopfyldelse|recipient|udledning|nedsivning|regnvand|søer?\\b",
    "svagt": "",
    "kræver": "vandområdeplan|miljømål|målsætning|OSD|drikkevandsinteresser|indvindingsopland|recipient",
-   "relevant_hvis": "vand|udledning|regnvand|spildevand|dræn|grundvand|indvinding|sø|å\\b|vandløb|fjord",
+   "relevant_hvis": "grundvand|drikkevand|vandløb|udledning|spildevand|regnvand|dræn|indvinding|\\bsø\\b|søer|\\bå\\b|fjord|vådområde|boring|nedsivning",
    "emne": "vand|grundvand|vandløb|miljømål|udledning|recipient|drikkevand",
    "søg": "påvirkning af vandområde miljømål vandområdeplan grundvand ikke vurderet",
    "praksis_antal": 19,
@@ -1421,7 +1421,7 @@
    "dækket": "§ ?3|beskyttet natur|beskyttede naturtyper|fredning|fredet|skovbyggelinje|åbeskyttelseslinje|sø- og å|strandbeskyttelse|biodiversitet|eng|mose|overdrev",
    "svagt": "(natur)\\w*[^.]{0,60}(forventes|vurderes) ikke",
    "kræver": "afstand|meter|\\d+\\s?m\\b|besigtig|registrer|kortlæg|indirekte|kvælstof|dræn|hydrolog",
-   "relevant_hvis": "",
+   "relevant_hvis": "§ ?3|beskyttet|fredning|fredet|skov|mose|\\beng\\b|overdrev|hede|strandeng|biodiversitet|vandløb|\\bsø\\b",
    "emne": "§ ?3|beskyttet natur|naturtype|fredning|skov|biodiversitet|natur",
    "søg": "§ 3-beskyttet natur påvirkning ikke vurderet screening",
    "praksis_antal": 4,

@@ -1,0 +1,733 @@
+{
+ "T1_01": {
+  "sag": "P7063f89e",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2021-12-02",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/7063f89e-abcb-4239-8e96-ea4f26e6df1d",
+  "kategorier": [
+   "materiel_vaesentlighed",
+   "plan_forhold"
+  ],
+  "alle_kategorier": [
+   "materiel_vaesentlighed",
+   "plan_forhold",
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "fejl": [
+   "Kommunen screenede planerne og vurderede, at de ikke kunne få væsentlig indvirkning, uden at vurdere parkeringsarealets påvirkning af miljø og landskab, og med afgørende vægt på landskabstilpasning. Nævnet fandt, at planerne kunne få væsentlig indvirkning og skulle miljøvurderes.",
+   "Kommunen redegjorde ikke tilstrækkeligt for en særlig planlægningsmæssig eller funktionel begrundelse for at placere velkomstcenter og parkering i kystnærhedszonen ca. 60 m fra kysten.",
+   "Lokalplanens redegørelse indeholdt ikke tilstrækkelige visualiseringer af den visuelle påvirkning af kystlandskabet, bl.a. ingen visualisering set fra kysten eller af det samlede projekt med parkering."
+  ]
+ },
+ "T1_02": {
+  "sag": "M210b6d7e",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2020-08-17",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/210b6d7e-5a53-4ab4-8b80-88b30a855b25",
+  "kategorier": [
+   "afgraensning_opsplitning",
+   "omfattet_bilag_projektbegreb"
+  ],
+  "alle_kategorier": [
+   "afgraensning_opsplitning",
+   "omfattet_bilag_projektbegreb"
+  ],
+  "fejl": [
+   "Kommunen behandlede kun jordvoldene i en landzonetilladelse og fandt indirekte, at projektet ikke var omfattet af miljøvurderingsloven, selvom der reelt etableres en permanent motocrossbane (bilag 2, pkt. 11 a), som skulle have været screenet.",
+   "Jordvolden og motocrossbanen blev ikke betragtet som ét samlet projekt, selvom volden alene etableres for at skærme for støj fra banen."
+  ]
+ },
+ "T1_03": {
+  "sag": "Mf5c80a87",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2025-01-29",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/f5c80a87-5378-433c-9a3b-ceb3727c7475",
+  "kategorier": [
+   "kompetence_procedure",
+   "sagsoplysning_dokumentation"
+  ],
+  "alle_kategorier": [
+   "kompetence_procedure",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Kommunen screenede fornyelsen af en indvindingstilladelse ud fra den tidligere tilladte indvindingsmængde (17.000 m3/år) i stedet for de faktiske indvindinger (maks. 12.200 m3/år siden 2012). En tilladelse på 14.400 m3/år var dermed en stigning i forhold til de faktiske forhold, og påvirkningen af vandløbet blev vurderet som reduceret på et forkert grundlag.",
+   "Vandindvindingstilladelsen byggede på den mangelfulde screening og indeholdt ikke en konkret vurdering af indvindingens påvirkning af omgivelserne ved 14.400 m3/år, og blev derfor ugyldig."
+  ]
+ },
+ "T1_04": {
+  "sag": "M71419fc9",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-12-04",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/71419fc9-84e0-4ab4-ba56-33e49fcf2b4b",
+  "kategorier": [
+   "afvaergeforanstaltninger",
+   "sagsoplysning_dokumentation"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Regionen baserede screeningen på en tilpasning af projektet (grøft foran § 3-områder, afstandskrav, gravestrategi), som ikke indgik i bygherrens ansøgning, og stillede de facto vilkår i en screeningsafgørelse.",
+   "Screeningsafgørelsen blev ikke truffet på grundlag af bygherrens beskrivelse af det ansøgte projekt."
+  ]
+ },
+ "T1_05": {
+  "sag": "Pa169bffc",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2022-06-06",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/a169bffc-6d61-4e60-a975-edfd7a46e87d",
+  "kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter",
+   "kompetence_procedure"
+  ],
+  "fejl": [
+   "Kommunen undersøgte ikke markfirbenets forekomst, bestandens størrelse eller områdets værdi som yngle- og rasteområde. Besigtigelsen skete i vinterhi. Grundlaget for at vurdere påvirkningen af bilag IV-arten og afværgeforanstaltningernes effekt var derfor utilstrækkeligt.",
+   "Planerne kræver betydelige afværgeforanstaltninger, herunder erstatningsbiotoper, for at undgå beskadigelse af yngle- og rasteområder. Det betyder, at planerne må forventes at få væsentlig miljøpåvirkning og skal miljøvurderes."
+  ]
+ },
+ "T1_06": {
+  "sag": "Mdc595285",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2024-05-08",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/dc595285-4c55-4d97-9949-3ccc3bcce516",
+  "kategorier": [
+   "materiel_vaesentlighed",
+   "omfattet_bilag_projektbegreb"
+  ],
+  "alle_kategorier": [
+   "materiel_vaesentlighed",
+   "omfattet_bilag_projektbegreb"
+  ],
+  "fejl": [
+   "Kommunen screenede tillæg til spildevandsplan som en plan under § 8, stk. 2 (mindre område/mindre ændringer), selvom planen rammesætter flere bilag 2-projekter (regnvandsbassiner, rensning, trykledninger) og ikke angår et mindre område; planen skulle miljøvurderes obligatorisk.",
+   "Planen omfatter ti projekter, ca. 30 ha kloakoplande og ca. 150 matrikler samt en trykledning til mindst 11.005 PE, så den kan ikke anses for at fastlægge anvendelsen af et mindre område eller kun mindre ændringer."
+  ]
+ },
+ "T1_07": {
+  "sag": "M9a2269be",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2025-08-14",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/9a2269be-1c3a-4924-b77d-624797b47719",
+  "kategorier": [
+   "screeningskriterier_ikke_vurderet",
+   "vilkaar"
+  ],
+  "alle_kategorier": [
+   "bilagIV_arter",
+   "screeningskriterier_ikke_vurderet",
+   "vilkaar"
+  ],
+  "fejl": [
+   "Kommunen vurderede ikke konkret udledningens betydning for Landbækken og dens kvalitetselementer, selvom vandløbet ikke opfyldte miljømålet; kriteriet om vandets relative kvalitet og områder med overskredne miljøkvalitetsnormer var ikke vurderet i screeningen.",
+   "Udledningstilladelsen indeholdt ikke vilkår, der sikrer, at udledningen ikke forringer tilstanden eller hindrer målopfyldelse i Landbækken; kommunen henholdt sig til BAT-bassin uden at vurdere strengere vilkår."
+  ]
+ },
+ "T1_08": {
+  "sag": "P1e849b3a",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2023-05-17",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/1e849b3a-c52e-481e-8944-c905cb2b2379",
+  "kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Kommunen undersøgte ikke tilstrækkeligt forekomst, bestandsstørrelse, rasteområder og vandhuller omkring planområdet for stor vandsalamander (bilag IV) før screeningen; der var kun foretaget besigtigelse på et tidspunkt, hvor arten ikke kunne konstateres.",
+   "Planerne forudsatte afværgeforanstaltninger (nyt vandhul og spredningskorridor) for at undgå skade på yngle- og rasteområder for bilag IV-arten, hvilket udløser miljøvurderingspligt og ikke kan indgå i en screening; effekten var heller ikke nærmere begrundet."
+  ]
+ },
+ "T1_09": {
+  "sag": "Mad18d8cf",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2023-11-30",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/ad18d8cf-1e2b-421e-bcba-835e555920e7",
+  "kategorier": [
+   "afvaergeforanstaltninger",
+   "natura2000_vaesentlighed"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "natura2000_vaesentlighed",
+   "vilkaar"
+  ],
+  "fejl": [
+   "Kommunens væsentlighedsvurdering for Natura 2000-området var mangelfuld. Kommunen lagde til grund, at arterne på udpegningsgrundlaget ikke forekom i området, men de var registreret opstrøms dambruget. Der skulle have været gennemført en konsekvensvurdering.",
+   "Kommunen indregnede gitterstørrelser (vilkår om afgitring af indløb og udløb) i væsentlighedsvurderingen. Det er afværgeforanstaltninger, som først må indgå i en konsekvensvurdering."
+  ]
+ },
+ "T1_10": {
+  "sag": "Mb5427ccf",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2020-06-26",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/b5427ccf-ec87-41a7-a1fd-2a65d2af3362",
+  "kategorier": [
+   "kumulation",
+   "sagsoplysning_dokumentation"
+  ],
+  "alle_kategorier": [
+   "kumulation",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Kystdirektoratet screenede forbindelsesgang og opfyldning uden at vurdere kumulation med andre projekter og anlæg i området, herunder den vedtagne lokalplan for Papirøen; kun det samlede Operapark-projekt var inddraget.",
+   "Screeningen hvilede på et utilstrækkeligt oplysningsgrundlag, da direktoratet oplyste ikke at have kendskab til andre projekter i området."
+  ]
+ },
+ "T1_11": {
+  "sag": "P5c495490",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2020-08-10",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/5c495490-0c40-4916-b2f8-0ab4be02f1da",
+  "kategorier": [
+   "plan_forhold"
+  ],
+  "alle_kategorier": [
+   "kompetence_procedure",
+   "plan_forhold"
+  ],
+  "fejl": [
+   "Kommuneplantillægget udlagde et område i Fingerplanens ydre grønne kile til bebyggelse uden at friholde det, i strid med Fingerplanen og planlovens § 11, stk. 4, nr. 1.",
+   "Lokalplanen sikrede ikke, at Miljøstyrelsens vejledende grænseværdi for vejstøj (58 dB) kunne overholdes i delområderne R og P, og den generelle støjbestemmelse var ikke gjort til betingelse for ibrugtagning."
+  ]
+ },
+ "T1_12": {
+  "sag": "M5ba79c70",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-07-02",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/5ba79c70-ea6c-4a17-a991-4e33c87796d4",
+  "kategorier": [
+   "kompetence_procedure",
+   "omfattet_bilag_projektbegreb"
+  ],
+  "alle_kategorier": [
+   "kompetence_procedure",
+   "omfattet_bilag_projektbegreb"
+  ],
+  "fejl": [
+   "Kommunen vurderede, at inddragelsen af støj fra skibsanløb (som overskrider de vejledende støjgrænser) ikke var en ændring omfattet af miljøvurderingsloven, og screenede ikke ændringen efter bilag 6.",
+   "Miljøgodkendelsen efter miljøbeskyttelsesloven blev meddelt uden den nødvendige stillingtagen efter miljøvurderingsreglerne."
+  ]
+ },
+ "T1_13": {
+  "sag": "M2ba88282",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-02-02",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/2ba88282-ae27-4528-882d-ec9bce7966ba",
+  "kategorier": [
+   "afvaergeforanstaltninger",
+   "natura2000_vaesentlighed"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "natura2000_vaesentlighed",
+   "vilkaar"
+  ],
+  "fejl": [
+   "Kommunens væsentlighedsvurdering af påvirkningen af Natura 2000-område nr. 156 hvilede på, at der i tilladelsen blev fastsat vilkår om nedbringelse af indvindingen og kompensationsudpumpning, hvis naturtyperne blev påvirket. Sådanne afværgeforanstaltninger må ikke indgå i væsentlighedsvurderingen, og de forudsætter, at der foretages en fuld konsekvensvurdering.",
+   "Afværgeforanstaltningerne (neddrosling, kompensationsudpumpning, overvågning og trinvis stigning) blev brugt som forudsætning for screeningens konklusion om ingen væsentlig påvirkning."
+  ]
+ },
+ "T1_14": {
+  "sag": "P058e19c1",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2025-07-29",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/058e19c1-f71d-468a-8bf5-8ceae2e262f9",
+  "kategorier": [
+   "bilagIV_arter",
+   "materiel_vaesentlighed"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter",
+   "kompetence_procedure",
+   "materiel_vaesentlighed"
+  ],
+  "fejl": [
+   "Kommunen screenede lokalplanen for kollegieboliger som ikke miljøvurderingspligtig, selv om den selv fandt egnede yngle- og rasteområder for flagermus i bygninger, der skulle nedrives, og forudsatte afværgeforanstaltninger (nedrivningsperioder, flagermuskasser) uden at begrunde, at de sikrer økologisk funktionalitet; flagermuskasser kan være kompensation, ikke afværge.",
+   "Lokalplanen muliggør boliger, hvor Miljøstyrelsens vejledende støjgrænser for virksomhedsstøj fra det eksisterende kulturhus ikke kan overholdes; det er en sandsynlig væsentlig påvirkning, og den foreslåede løsning (lydsluser ved kulturhuset) var ikke tilstrækkelig sikring."
+  ]
+ },
+ "T1_15": {
+  "sag": "P92636523",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2023-03-15",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/92636523-5244-48b4-badc-796aeec0ae39",
+  "kategorier": [
+   "bilagIV_arter",
+   "sagsoplysning_dokumentation"
+  ],
+  "alle_kategorier": [
+   "bilagIV_arter",
+   "omfattet_bilag_projektbegreb",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Screeningen tog udgangspunkt i forholdene efter, at et skovareal på ca. 1 ha var ryddet, i stedet for forholdene før projektets påbegyndelse, så skovområdet ikke blev inddraget.",
+   "Vurderingen af flagermus som bilag IV-art tog udgangspunkt i, at træerne allerede var fældet, og kommunen vurderede ikke selv egnetheden som yngle- og rasteområde, men overlod lytteundersøgelser til senere hos bygherre."
+  ]
+ },
+ "T1_16": {
+  "sag": "M6e996ec7",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2020-10-19",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/6e996ec7-8d69-4432-b493-25a48433c16b",
+  "kategorier": [
+   "afvaergeforanstaltninger"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Kommunens screeningsafgørelse bygger på restriktioner for spildevandsudledning og olie-/benzinudslip, som skulle fastsættes senere. Vilkår må ikke indgå i en screening; er de nødvendige, skal der træffes afgørelse om miljøvurderingspligt."
+  ]
+ },
+ "T1_17": {
+  "sag": "P16930ba0",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2025-11-11",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/16930ba0-9931-4272-88f5-3c5d1d5b4fee",
+  "kategorier": [
+   "omfattet_bilag_projektbegreb"
+  ],
+  "alle_kategorier": [
+   "omfattet_bilag_projektbegreb"
+  ],
+  "fejl": [
+   "Kommunen screenede den lokale del af kommuneplan 2025 og konkluderede, at der ikke skulle miljøvurderes, selvom planen omfatter hele kommunen og indeholder mere end mindre ændringer (nye retningslinjer, rammeområder og rammebestemmelser, 40 indarbejdede tillæg hvoraf kun syv var miljøvurderet). Planen var derfor omfattet af obligatorisk miljøvurdering."
+  ]
+ },
+ "T1_18": {
+  "sag": "M6ecc6160",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-05-03",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/6ecc6160-5384-4433-bd04-c0543b9e08ff",
+  "kategorier": [
+   "bilagIV_arter"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter"
+  ],
+  "fejl": [
+   "Regionen sikrede sig ikke tilstrækkelige oplysninger om, om ejendommen, der skulle nedrives, var yngle- eller rasteområde for flagermus (bilag IV-arter), selv om egen besigtigelsesnotat anbefalede nærmere undersøgelser."
+  ]
+ },
+ "T1_19": {
+  "sag": "Mfbc0dfbd",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-03-31",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/fbc0dfbd-c00a-4eef-ad30-8284d315404d",
+  "kategorier": [
+   "afvaergeforanstaltninger"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "kompetence_procedure",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Kommunen screenede en reduceret indvindingsmængde (9.400 m3) i stedet for den ansøgte (38.000 m3), hvilket i realiteten var et vilkår i en screeningsafgørelse."
+  ]
+ },
+ "T1_20": {
+  "sag": "M25364fad",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-04-03",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/25364fad-01e4-42f1-9bd6-0722ca3e483e",
+  "kategorier": [
+   "afgraensning_opsplitning"
+  ],
+  "alle_kategorier": [
+   "afgraensning_opsplitning",
+   "kumulation"
+  ],
+  "fejl": [
+   "Screeningen af vinterudvidelsen af forlystelsesparkens sæson blev truffet adskilt fra og uden at bygge på den (senere ophævede) sommerudvidelse, selvom vinterudvidelsen forudsætter sommerudvidelsen, og de kumulative miljøpåvirkninger derfor ikke var vurderet samlet."
+  ]
+ },
+ "T1_21": {
+  "sag": "Pe0bc51bd",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2022-03-16",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/e0bc51bd-7ae7-4301-9b98-9dc69bde5e25",
+  "kategorier": [
+   "hoering_inddragelse"
+  ],
+  "alle_kategorier": [
+   "hoering_inddragelse"
+  ],
+  "fejl": [
+   "Kommunen anvendte den forkortede høringsfrist på 2 uger for lokalplaner af mindre betydning, selvom forslaget ændrede over 15 bestemmelser i den gamle lokalplan og muliggjorde fortætning. Lokalplanen er ophævet. Nævnet gav ikke medhold i klagen over selve miljøscreeningen."
+  ]
+ },
+ "T1_22": {
+  "sag": "M83f2ccf2",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2025-04-08",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/83f2ccf2-c574-4e1a-bbb3-14b13cad625c",
+  "kategorier": [
+   "afvaergeforanstaltninger"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter"
+  ],
+  "fejl": [
+   "Kommunen fastsatte i screeningen, at nedrivning skulle ske efter Naturstyrelsens anvisning på grund af mulige flagermus. Det er en afværgeforanstaltning/et vilkår, som ikke må indgå i en screening."
+  ]
+ },
+ "T1_23": {
+  "sag": "Ma9fdf3f6",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2025-06-30",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/a9fdf3f6-287b-498e-b905-4e7190a75577",
+  "kategorier": [
+   "kompetence_procedure"
+  ],
+  "alle_kategorier": [
+   "kompetence_procedure"
+  ],
+  "fejl": [
+   "Kommunen traf screeningsafgørelse uden at bygherren havde indgivet en skriftlig ansøgning; kommunen udfyldte selv skemaet og indhentede oplysninger på et møde."
+  ]
+ },
+ "T1_24": {
+  "sag": "M8cad826e",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2025-08-25",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/8cad826e-67b6-49f3-b2f0-aa9b85eb85a7",
+  "kategorier": [
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "alle_kategorier": [
+   "kompetence_procedure",
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "fejl": [
+   "Kommunen vurderede ikke konkret, hvad udledning af tag- og overfladevand fra regnvandsbassinet betyder for Smedebæk og dens miljømål (kobber og zink overskrider allerede miljøkvalitetskrav); den henviste blot til, at vandet ikke indeholder andet end sædvanligt overfladevand."
+  ]
+ },
+ "T1_25": {
+  "sag": "M6b8ec3a1",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2023-11-13",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/6b8ec3a1-b36e-40e6-ad10-acf1dccc1251",
+  "kategorier": [
+   "materiel_vaesentlighed"
+  ],
+  "alle_kategorier": [
+   "kumulation",
+   "materiel_vaesentlighed"
+  ],
+  "fejl": [
+   "Kommunen vurderede ændringen (7 dB(A) højere støjgrænse for 20 koncerter) ikke korrekt i kumulation med den eksisterende støjbelastning; den samlede overskridelse af de vejledende støjgrænser på 27 dB(A) udgør en væsentlig indvirkning, trods begrænset hyppighed og varighed."
+  ]
+ },
+ "T1_26": {
+  "sag": "Mf3c61716",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-06-27",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/f3c61716-57c5-4b26-9307-db9dcded6de7",
+  "kategorier": [
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "alle_kategorier": [
+   "materiel_vaesentlighed",
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "fejl": [
+   "Kommunen vurderede ikke tilstrækkeligt projektets støjpåvirkning, selvom egne beregninger viste overskridelse af de vejledende støjgrænser med op til 12 dB(A) og anlægget fremover også skulle bruges om vinteren."
+  ]
+ },
+ "T1_27": {
+  "sag": "M96327b5a",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2020-07-14",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/96327b5a-fe53-42f8-81da-4b27b1221043",
+  "kategorier": [
+   "kompetence_procedure"
+  ],
+  "alle_kategorier": [
+   "bilagIV_arter",
+   "kompetence_procedure",
+   "kumulation"
+  ],
+  "fejl": [
+   "Kommunen screenede skovrydningen efter dens gennemførelse uden at tage EU-rettens betingelser for lovliggørelse i betragtning, herunder indvirkninger siden gennemførelsen."
+  ]
+ },
+ "T1_28": {
+  "sag": "Mc110062f",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-06-25",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/c110062f-0c4b-4f39-96e4-600e82d3b662",
+  "kategorier": [
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "alle_kategorier": [
+   "kompetence_procedure",
+   "sagsoplysning_dokumentation",
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "fejl": [
+   "Kommunen foretog ikke en konkret vurdering af, hvad en formindsket vandføring (op til 50 %) og forlænget udtørring betød for vandløbet, dets kvalitetselementer og miljømål; den henviste alene til en tidligere afgørelse fra Miljøstyrelsen."
+  ]
+ },
+ "T1_29": {
+  "sag": "M3e959c0c",
+  "gruppe": "T1",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-09-28",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/3e959c0c-a2be-487b-999e-bee51badab44",
+  "kategorier": [
+   "afgraensning_opsplitning"
+  ],
+  "alle_kategorier": [
+   "afgraensning_opsplitning",
+   "afvaergeforanstaltninger",
+   "screeningskriterier_ikke_vurderet"
+  ],
+  "fejl": [
+   "Kommunen screenede kun skovrydningen og ikke det samlede projekt med byggemodning og boliger, som er forbundne projekter."
+  ]
+ },
+ "T1_30": {
+  "sag": "Pba8eea03",
+  "gruppe": "T1",
+  "dokumenttype": "screening_plan",
+  "dato": "2021-12-21",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/ba8eea03-9cec-4eab-9b85-4987f312b21e",
+  "kategorier": [
+   "sagsoplysning_dokumentation"
+  ],
+  "alle_kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Kommunen manglede oplysninger og/eller havde ikke vurderet, om saltholdigt overfladevand fra planområdet ville påvirke flora og fauna i den beskyttede Sømose, herunder bilag IV-arten spidssnudet frø og andre padder. Kommunen havde ingen målinger og redegjorde ikke for, hvorfor saltniveauet ikke gav anledning til bekymring."
+  ]
+ },
+ "T3_01": {
+  "sag": "M643df4d9",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-10-30",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/643df4d9-cc0f-46e4-b7a1-6b41b0dc1ffd",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_02": {
+  "sag": "M80d3f6e6",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-05-13",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/80d3f6e6-d10f-4cf6-97e6-450a3f09263f",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_03": {
+  "sag": "M53c8584c",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-05-12",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/53c8584c-1dda-453d-a23d-549d74c3917a",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_04": {
+  "sag": "P998018a5",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2021-05-05",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/998018a5-f557-4d58-85f0-59fd3fdc8cef",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_05": {
+  "sag": "Mfa97ba10",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-07-10",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/fa97ba10-cf7a-4651-bf81-f398597f77a3",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_06": {
+  "sag": "P6e1145f8",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2023-02-28",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/6e1145f8-aeb4-4b54-b79f-5050c290f0fa",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_07": {
+  "sag": "P09c18df2",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2025-06-26",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/09c18df2-d282-4b1c-ab89-e106db2bba81",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_08": {
+  "sag": "P4ffb925f",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2020-10-20",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/4ffb925f-8782-4b88-85a1-7c9a175e47cb",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_09": {
+  "sag": "M3f396934",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2025-06-25",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/3f396934-d97e-473f-87e7-7c946ec4f2ad",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_10": {
+  "sag": "M97805e1f",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2024-10-22",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/97805e1f-37c7-4007-801e-7e1093835399",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_11": {
+  "sag": "Mdaa1c5c2",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2020-08-12",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/daa1c5c2-4cfa-456e-87a6-17ce1ac2a1dc",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_12": {
+  "sag": "Mea4faf0b",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-09-29",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/ea4faf0b-13d5-4c96-8bdf-cf516271f7e3",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_13": {
+  "sag": "Meac9864b",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2024-12-02",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/eac9864b-2143-4708-aa26-009eceb9edd5",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_14": {
+  "sag": "Ma425970c",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-08-26",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/a425970c-2ad7-49dd-b94a-027ef316afbb",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_15": {
+  "sag": "P4fef5402",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2020-07-06",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/4fef5402-a24c-45cd-a95e-afb4f96e6c09",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_16": {
+  "sag": "P61c16a9c",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2020-08-19",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/61c16a9c-261d-4dba-9ea6-78d90f2de09e",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_17": {
+  "sag": "Pfbf94c1c",
+  "gruppe": "T3",
+  "dokumenttype": "screening_plan",
+  "dato": "2022-05-12",
+  "link": "https://pkn.naevneneshus.dk/afgoerelse/fbf94c1c-9db6-4abc-a720-3b20f11076a5",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_18": {
+  "sag": "Me58870b1",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2023-10-18",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/e58870b1-25ef-469c-bfa5-7be66a88a49c",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_19": {
+  "sag": "M2f9d98fa",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2026-03-10",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/2f9d98fa-834d-4a49-b938-e89046154f96",
+  "kategorier": [],
+  "fejl": []
+ },
+ "T3_20": {
+  "sag": "M7786c7e3",
+  "gruppe": "T3",
+  "dokumenttype": "screening_projekt",
+  "dato": "2025-11-28",
+  "link": "https://mfkn.naevneneshus.dk/afgoerelse/7786c7e3-857a-4250-83e9-c16ec7149ffa",
+  "kategorier": [],
+  "fejl": []
+ }
+}

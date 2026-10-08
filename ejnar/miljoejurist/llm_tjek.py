@@ -45,6 +45,13 @@ med "[…]"). Handler svagheden om noget, der mangler helt, så sæt citat til n
 REGLER
 - Skriv aldrig, at afgørelsen er i orden, lovlig eller uden fejl. Du vurderer kun mulige svagheder.
 - Medtag kun svagheder, du kan pege på i teksten. Ingen generelle råd.
+- Prioritér: højst 8 svagheder, sorteret efter risikoen for, at et klagenævn underkender afgørelsen.
+  Spring emner over, der er uden betydning for netop dette projekt/denne plan og dette område.
+- "alvor": "høj" kun når dokumentet selv giver et konkret holdepunkt for en væsentlig påvirkning (fx
+  projektet ligger i eller tæt på Natura 2000, § 3-natur eller kendte levesteder; afgørelsen hviler på en
+  usikret foranstaltning; en del af projektet er holdt udenfor) OG vurderingen af netop det er mangelfuld.
+  "middel" når vurderingen er tynd, men uden et sådant holdepunkt. "lav" for formelle eller mindre forhold.
+- Kriterier, der ikke er nævnt, men som åbenlyst er uden betydning for projektet, er ikke en svaghed.
 - Henvis kun til de bestemmelser, der står i tjeklisten.
 - Ingen personnavne i svaret.
 
@@ -120,7 +127,15 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
     # Modellens fund først (de er konkrete), derefter regelfund for punkter, modellen ikke dækkede
     dækket = {s.punkt for s in nye}
     rest = [s for s in rapport.svagheder if s.punkt not in dækket]
-    rapport.svagheder = sorted(nye, key=lambda s: -s.vægt) + rest
+    nye = sorted(nye, key=lambda s: -s.vægt)
+    for s in rest:  # regelfund, som modellen ikke tog med, nedprioriteres
+        s.vægt = round(s.vægt * 0.5, 2)
+    rapport.svagheder = nye + rest
+    from .tjek import _niveauer
+    _niveauer(rapport.svagheder)
+    for s in rapport.svagheder:  # modellens "lav" er altid opmærksomhed
+        if s.kilde_lag == "model" and s.vægt <= 1.0:
+            s.niveau = "opmærksomhed"
     rapport.ikke_vurderet = list(rapport.ikke_vurderet) + [
         FORBUDT.sub("[udeladt formulering]", x) for x in (data.get("ikke_vurderet") or [])][:12]
     rapport.lag = rapport.lag + ["model"]

@@ -105,6 +105,7 @@ class Svaghed:
     kilder: list[Kilde]
     vægt: float = 1.0
     kilde_lag: str = "regel"    # regel | model
+    niveau: str = "svaghed"     # svaghed | opmærksomhed (lavere prioritet)
 
 
 @dataclass
@@ -202,6 +203,17 @@ def _kriterier(dok: Dokument, dtype: str) -> list[tuple[str, str]]:
     return [(nr, navn) for nr, navn, rx in liste if not re.search(rx, dok.tekst, re.I)]
 
 
+# Konkrete fund (en svag formulering med citat) vægter mere end konstateringen af, at noget ikke er nævnt
+ART_VÆGT = {"svag_formulering": 1.6, "uden_grundlag": 1.25, "kriterier_mangler": 1.2, "ikke_behandlet": 0.7, "model": 1.0}
+MAKS_SVAGHEDER = 6
+
+
+def _niveauer(svagheder: list) -> None:
+    """De højst vægtede (højst MAKS_SVAGHEDER) er 'svaghed'; resten 'opmærksomhed'."""
+    for i, s in enumerate(svagheder):
+        s.niveau = "svaghed" if i < MAKS_SVAGHEDER else "opmærksomhed"
+
+
 def _vægt(p: dict) -> float:
     return float(p.get("praksis_antal", 1)) ** 0.5
 
@@ -222,7 +234,13 @@ def tjek_regler(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None
             continue
         træf = [i for i, s in enumerate(sæt) if re.search(p["dækket"], s.tekst, re.I)]
         fund: list[tuple[str, str | None, str]] = []
-        if not træf:
+        if p.get("kun_svagt"):
+            for i, s_ in enumerate(sæt):
+                if p.get("svagt") and re.search(p["svagt"], s_.tekst, re.I):
+                    fund.append(("svag_formulering", s_.tekst,
+                                 "Dokumentet udskyder eller udelader udtrykkeligt en del af projektet."))
+                    break
+        elif not træf:
             fund.append(("ikke_behandlet", None,
                          f"Dokumentet ser ikke ud til at behandle emnet ({p['titel'].lower()})."))
         else:
@@ -238,7 +256,7 @@ def tjek_regler(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None
                 fund.append(("uden_grundlag", sæt[træf[0]].tekst,
                              "Emnet nævnes, men uden de oplysninger, som vurderingen normalt kræver "
                              "(fx konkret undersøgelse, afstand, målestok eller henvisning til kriterierne)."))
-        if p["id"] in ("C1", "C2") and dtype in ("screening_projekt", "screening_plan"):
+        if p["id"] in ("C1", "C2") and dtype in ("screening_projekt", "screening_plan") and not p.get("kun_svagt"):
             mangler = _kriterier(dok, dtype)
             if mangler:
                 bilag = "bilag 3" if dtype == "screening_plan" else "bilag 6"
@@ -259,8 +277,10 @@ def tjek_regler(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None
             svagheder.append(Svaghed(
                 punkt=p["id"], titel=p["titel"], art=art, svaghed=tekst,
                 citat_dokument=citat, citat_ok=(citatkontrol.find(citat, dok.tekst) if citat else None),
-                hvorfor=_hvorfor(p, kilder), spørgsmål=p["spørgsmål"], kilder=kilder, vægt=_vægt(p)))
+                hvorfor=_hvorfor(p, kilder), spørgsmål=p["spørgsmål"], kilder=kilder,
+                vægt=round(_vægt(p) * ART_VÆGT.get(art, 1.0), 2)))
     svagheder.sort(key=lambda s: (-s.vægt, s.punkt))
+    _niveauer(svagheder)
     return Rapport(dok.navn, dtype, sc, svagheder, list(IKKE_VURDERET), ikke_rel, NOTE, ["regler"])
 
 
@@ -304,7 +324,12 @@ def som_markdown(r: Rapport) -> str:
     if not r.svagheder:
         ud += ["Værktøjets kontroller slog ikke ud på dette dokument. Det er ikke en vurdering af, "
                "om afgørelsen holder; se også listen over det, værktøjet ikke vurderer.", ""]
+    første_opm = True
     for n, s in enumerate(r.svagheder, 1):
+        if s.niveau == "opmærksomhed" and første_opm:
+            ud += ["# Øvrige opmærksomhedspunkter", "Lavere prioritet: emner, der ikke ses behandlet, eller "
+                   "som nævnene sjældnere har underkendt på.", ""]
+            første_opm = False
         ud.append(f"## {n}. {s.titel} ({s.punkt})")
         ud.append(f"**Svaghed:** {s.svaghed}")
         if s.citat_dokument:

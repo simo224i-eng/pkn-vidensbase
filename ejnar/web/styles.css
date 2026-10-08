@@ -623,3 +623,5 @@ button.bd-row:hover { background: var(--hover); }
 .mj-warn { color: #b3261e; font-size: 12px; }
 .mj-not { margin: 20px 0; padding: 14px 16px; border: 1px dashed var(--line, #e3e1da); border-radius: 12px; font-size: 14px; }
 .mj-not ul { padding-left: 18px; }
+
+.mj-h { font-size: 18px; margin: 28px 0 4px; }
