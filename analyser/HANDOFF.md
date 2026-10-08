@@ -32,6 +32,16 @@ vejledningen og lignende nævnsafgørelser, med citater og links.
   48 %, projekt-screeninger 40 %, miljørapporter for planer 29 %, plan-screeninger 21 %.
   MFKN 41 % mod PKN 24 %. PKN-tallet passer med nævnets egen årsberetning (23 %
   tilsidesat i 2024).
+- Resultat trin 2 (115 af 202 sager brugbare; 87 udeladt fordi uddraget var afkortet
+  eller afgørelsen blev ophævet som uaktuel): hyppigste fejl (primær + sekundær) er
+  screeningskriterier ikke vurderet (42), mangelfuld sagsoplysning (33), forkert
+  regel/forkert vurdering af om planen/projektet er omfattet af lovens bilag (26),
+  bilag IV-arter (21), vilkår (19), Natura 2000-væsentlighed (15), forkert afgrænsning
+  eller opsplitning af projektet (14). Projekt-screeninger falder især på bilagspunkter,
+  kriterier og afgrænsning; miljørapporter for planer især på Natura 2000 og bilag IV;
+  projekttilladelser især på vilkår. Modellen vurderer, at 111 af 115 kunne fanges med
+  en tjekliste; det tal er sandsynligvis for optimistisk og skal vurderes af en fagperson.
+  Felterne `tjekpunkt` er et godt udgangspunkt for tjeklisten.
 
 ## Kendte problemer i data
 
