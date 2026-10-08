@@ -62,6 +62,16 @@ REGLER
     område eller rammesætter projekter i bilag 1/2 (fx kommuneplaner),
   * at myndigheden selv har udfyldt screeningen uden skriftlig ansøgning med bilag 5-oplysninger,
   * at myndigheden overlader vurderingen (fx af bilag IV-arter) til senere eller til bygherren.
+- Undgå falske alarmer (revisionen fandt disse som de hyppigste):
+  * Kumulation (C3) kun når dokumentet eller området giver et konkret holdepunkt (andre anlæg, kilder eller
+    planer i nærheden, eller en projekttype, der typisk kumulerer, fx støj, vindmøller, udledning).
+  * Ét forhold = ét fund. Brug C1/C2 for kriterier, der ikke er vurderet, og E2 for en konklusion uden
+    begrundelse – ikke begge om det samme.
+  * Elementer, der er en del af selve projektet eller planens bestemmelser, er ikke afværgeforanstaltninger.
+  * Projekter, hvis formål er at forbedre natur eller vand (naturgenopretning, skovrejsning, vådområder),
+    skal vurderes på deres reelle risici, ikke på generelle miljøemner uden betydning for dem.
+  * Et emne, som dokumentet faktisk behandler konkret (med fakta eller afstande), er ikke en svaghed, blot
+    fordi behandlingen er kort.
 - Henvis kun til de bestemmelser, der står i tjeklisten.
 - Ingen personnavne i svaret.
 
@@ -133,6 +143,14 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
                            citat_dokument=citat, citat_ok=ok, hvorfor=hvorfor,
                            spørgsmål=p.get("spørgsmål", ""), kilder=kilder,
                            vægt=_ALVOR.get(s.get("alvor"), 1.5), kilde_lag="model"))
+    # Ét fund pr. punkt: behold det alvorligste, læg teksten fra de øvrige til som supplement
+    pr_punkt: dict[str, Svaghed] = {}
+    for sv in sorted(nye, key=lambda x: -x.vægt):
+        if sv.punkt in pr_punkt and sv.punkt != "?":
+            pr_punkt[sv.punkt].svaghed += f" Desuden: {sv.svaghed}"
+        else:
+            pr_punkt[sv.punkt if sv.punkt != "?" else f"?{len(pr_punkt)}"] = sv
+    nye = list(pr_punkt.values())
     # Modellens fund først (de er konkrete), derefter regelfund for punkter, modellen ikke dækkede
     dækket = {s.punkt for s in nye}
     rest = [s for s in rapport.svagheder if s.punkt not in dækket]
