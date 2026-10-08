@@ -128,8 +128,8 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
 
 ### B2. Høring af berørte myndigheder
 **Spørgsmål:** Er berørte myndigheder hørt før afgørelsen, og er deres bemærkninger inddraget (§ 32 for planer, § 35 for projekter)?  
-**Gælder:** Screening af projekt, Screening af plan, Miljørapport (plan)  
-**Underkendt i praksis:** 8 sager (kategori: hoering_inddragelse)
+**Gælder:** Screening af plan, Miljørapport (plan)  
+**Underkendt i praksis:** 5 sager (kategori: hoering_inddragelse)
 
 **Lovgrundlag:**
 - [Miljøvurderingsloven § 32](https://www.retsinformation.dk/eli/lta/2023/4): «skal sikre, at følgende informeres tidligt i beslutningsprocessen»
