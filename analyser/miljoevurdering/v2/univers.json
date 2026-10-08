@@ -14461,6 +14461,22 @@
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 2757
 },
+"P82c58b5b": {
+"id": "P82c58b5b",
+"v1_id": "M157",
+"naevn": "PKN",
+"dato": "2021-03-26",
+"titel": "Afgørelse i klagesag om Gribskov Kommunes screeningsafgørelse om, at rammelokalplan nr. 512.20 og kommuneplantillæg nr. 15, ikke skal miljøvurderes samt endelig vedtagelse af planerne",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/82c58b5b-f03b-4d92-ba4b-c9dfab0cdfc5",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 27109,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 10844
+},
 "M82bdc001": {
 "id": "M82bdc001",
 "v1_id": "M158",
@@ -14526,6 +14542,23 @@
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 2220
 },
+"Pfc8580fc": {
+"id": "Pfc8580fc",
+"v1_id": "M153",
+"naevn": "PKN",
+"dato": "2021-03-17",
+"titel": "Afgørelse i klagesag om Sønderborg Kommunes endelige vedtagelse af kommuneplantillæg nr. 15 og lokalplan nr. 7.4-3, Biogasanlæg ved Kværs, med tilhørende miljørapport",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/fc8580fc-bc28-478f-bf71-e605ca6e8178",
+"kategorier": [
+"Miljøvurderingsloven",
+"Planloven, retlig (efter 1. februar 2017)"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 63286,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 25315
+},
 "M1b800739": {
 "id": "M1b800739",
 "v1_id": "M152",
@@ -14557,6 +14590,120 @@
 "tegn": 4025,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 1610
+},
+"P85d67642": {
+"id": "P85d67642",
+"v1_id": "M150",
+"naevn": "PKN",
+"dato": "2021-03-15",
+"titel": "Afgørelse i klagesag om Ringsted Kommunes screeningsafgørelse om, at lokalplan nr. 301, ikke skal miljøvurderes.",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/85d67642-40ca-4523-ab2f-1617c6020264",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 24950,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 9980
+},
+"P6335509f": {
+"id": "P6335509f",
+"v1_id": "M149",
+"naevn": "PKN",
+"dato": "2021-03-15",
+"titel": "Afgørelse i klagesag om Vallensbæk Kommunes afgørelse om ikke miljøvurderingspligt for forslag til lokalplan nr. 102 samt endelige vedtagelse af lokalplan nr. 102, Vallensbæk Byhave",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/6335509f-c5b3-42a4-b9b8-843f0f9936af",
+"kategorier": [
+"Miljøvurderingsloven",
+"Planloven, retlig (efter 1. februar 2017)"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 43785,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 17514
+},
+"Mc52917ec": {
+"id": "Mc52917ec",
+"v1_id": "M148",
+"naevn": "MFKN",
+"dato": "2021-03-12",
+"titel": "Ikke medhold i klage over afgørelse om ikke miljøvurderingspligt for udvidelse af plads hvor der neddeles, sorteres og komposteres haveaffald i Næstved Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/c52917ec-fe7a-43e7-bd24-1a4ab76591d7",
+"kategorier": [
+"Miljøvurdering af konkrete projekter"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 19360,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 7744
+},
+"P79bc6e30": {
+"id": "P79bc6e30",
+"v1_id": "M147",
+"naevn": "PKN",
+"dato": "2021-03-11",
+"titel": "Afgørelse i klagesag om Svendborg Kommunes screeningsafgørelse om, at lokalplan nr. 634 og kommuneplantillæg 2017.06, ikke skal miljøvurderes",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/79bc6e30-fd56-4cf3-8050-d0067c6ede8c",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 33953,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 13582
+},
+"Md198bd4e": {
+"id": "Md198bd4e",
+"v1_id": "M146",
+"naevn": "MFKN",
+"dato": "2021-03-10",
+"titel": "Ikke medhold i klage over afgørelse om ikke miljøvurderingspligt for et nyt autoophug i Viborg Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/d198bd4e-d642-4cf6-90ae-db9038177734",
+"kategorier": [
+"Miljøvurdering af konkrete projekter"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 13121,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 5249
+},
+"Pbc185eb0": {
+"id": "Pbc185eb0",
+"v1_id": "M145",
+"naevn": "PKN",
+"dato": "2021-03-09",
+"titel": "Afgørelse i klagesag om Hillerød Kommunes miljøvurdering af lokalplan nr. 433,  F3 i Hillerød",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/bc185eb0-c4a4-4528-85f3-04a391c9377c",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 33058,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 13224
+},
+"P54be8f0b": {
+"id": "P54be8f0b",
+"v1_id": "M144",
+"naevn": "PKN",
+"dato": "2021-03-09",
+"titel": "Afgørelse i klagesag om Jammerbugt Kommunes endelige vedtagelse af lokalplan nr. 03-001 samt Vesthimmerlands Kommunes endelige vedtagelse af kommuneplantillæg nr. 09-316-49 og lokalplan nr. 1065 med tilhørende miljørapport",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/54be8f0b-e250-49b5-aa0d-ea71151d41fb",
+"kategorier": [
+"Miljøvurderingsloven",
+"Planloven, retlig (efter 1. februar 2017)"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 73826,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 29531
 },
 "Madbcf5df": {
 "id": "Madbcf5df",
@@ -14590,6 +14737,22 @@
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 5701
 },
+"Mf389f655": {
+"id": "Mf389f655",
+"v1_id": "M141",
+"naevn": "MFKN",
+"dato": "2021-02-26",
+"titel": "Afvisning af klage over afgørelse om ikke miljøvurderingspligt  af projekt om etablering af jordbaseret solcelleanlæg i Kerteminde Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/f389f655-8624-4f78-8821-9750cc741b92",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "afvist",
+"afkortet": false,
+"tegn": 5946,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 2379
+},
 "M9aff1d5f": {
 "id": "M9aff1d5f",
 "v1_id": "M140",
@@ -14606,6 +14769,38 @@
 "tegn": 45694,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 18278
+},
+"Pd0cb94d6": {
+"id": "Pd0cb94d6",
+"v1_id": null,
+"naevn": "PKN",
+"dato": "2021-02-23",
+"titel": "Afgørelse i klagesag om Kolding Kommunes screeningsafgørelse om, at tillæg 1 til lokalplan nr. 0521-51-01, A1 – et grønt område, ikke skal miljøvurderes",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/d0cb94d6-1e17-461b-8ead-4594534724b9",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 31558,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 12624
+},
+"Pfe9b03ff": {
+"id": "Pfe9b03ff",
+"v1_id": "M139",
+"naevn": "PKN",
+"dato": "2021-02-17",
+"titel": "Afgørelse i klagesag om Rebild Kommunes screeningsafgørelse om, at forslag til kommuneplantillæg nr. 16 og forslag til lokalplan nr. 312, ikke skal miljøvurderes.",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/fe9b03ff-3e27-4ca2-a866-b174d86f352d",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 48491,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 19397
 },
 "M2695b837": {
 "id": "M2695b837",
@@ -14656,6 +14851,152 @@
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 2371
 },
+"M147fda50": {
+"id": "M147fda50",
+"v1_id": "M136",
+"naevn": "MFKN",
+"dato": "2021-02-12",
+"titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for råstofgrav i Region Midtjylland",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/147fda50-bbf9-4a6c-9c5a-9026a4c83f4a",
+"kategorier": [
+"Miljøvurdering af konkrete projekter",
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 27907,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 11163
+},
+"P25b27303": {
+"id": "P25b27303",
+"v1_id": "M134",
+"naevn": "PKN",
+"dato": "2021-02-10",
+"titel": "Afgørelse i klagesag om Aabenraa Kommunes screeningsafgørelse om, at lokalplanforslag nr. 111, ikke skal miljøvurderes, samt endelig vedtagelse af planen",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/25b27303-fea0-4805-b8f1-7e217f69a8c8",
+"kategorier": [
+"Miljøvurderingsloven",
+"Planloven, retlig (efter 1. februar 2017)"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 25276,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 10111
+},
+"P2770ae13": {
+"id": "P2770ae13",
+"v1_id": "M133",
+"naevn": "PKN",
+"dato": "2021-02-03",
+"titel": "Afgørelse i klagesag om Norddjurs Kommunes screeningsafgørelse om, at forslag til lokalplan nr. 094-707 og forslag til kommuneplantillæg nr. 16 til kommuneplan 2017, ikke skal miljøvurderes",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/2770ae13-de65-4e6b-b55d-c3cc629a25bc",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 20804,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 8322
+},
+"P916acb40": {
+"id": "P916acb40",
+"v1_id": "M132",
+"naevn": "PKN",
+"dato": "2021-01-29",
+"titel": "Afvisning af klage over Aalborg Kommunes afgørelse om, at der ikke skal ske miljøvurdering af lokalplan nr. 5-2-113",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/916acb40-a50d-419c-844a-f22c0f0d419e",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "afvist",
+"afkortet": false,
+"tegn": 4640,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 1856
+},
+"Mbd0f08c1": {
+"id": "Mbd0f08c1",
+"v1_id": "M131",
+"naevn": "MFKN",
+"dato": "2021-01-29",
+"titel": "Ophævelse og hjemvisning i sag om ikke at genoptage sag om ikke miljøvurderingspligt for skovrejsning i Sorø Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/bd0f08c1-d2dd-40c2-80d2-b6e69b1b7393",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 15001,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 6001
+},
+"Pe73c1b67": {
+"id": "Pe73c1b67",
+"v1_id": "M129",
+"naevn": "PKN",
+"dato": "2021-01-27",
+"titel": "Afvisning af klage over Silkeborg Kommunes endelige vedtagelse af lokalplan nr. 24-003 med tilhørende miljørapport",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/e73c1b67-abf2-4183-a7e0-10fd3074f7ab",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "afvist",
+"afkortet": false,
+"tegn": 7103,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 2842
+},
+"Md6f9daef": {
+"id": "Md6f9daef",
+"v1_id": "M128",
+"naevn": "MFKN",
+"dato": "2021-01-27",
+"titel": "Ikke medhold i sag om ikke miljøvurderingspligt for etablering af ungdomsboliger i Lyngby-Taarbæk Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/d6f9daef-e478-42ac-82ee-56631fd57b9a",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 15761,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 6305
+},
+"M69db386a": {
+"id": "M69db386a",
+"v1_id": "M130",
+"naevn": "MFKN",
+"dato": "2021-01-27",
+"titel": "Ophævelse af afgørelse om ikke miljøvurderingspligt for etablering af et NORM dekontamineringsanlæg i Esbjerg Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/69db386a-ef4f-458c-9ae8-a6e5ca6fa99f",
+"kategorier": [
+"Miljøvurdering af konkrete projekter"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 5036,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 2015
+},
+"M2b525878": {
+"id": "M2b525878",
+"v1_id": "M127",
+"naevn": "MFKN",
+"dato": "2021-01-27",
+"titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for råstofgrav i Region Sjælland",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/2b525878-78c4-40fe-bc05-0115c8eea7f5",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 21545,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 8618
+},
 "Pcc7a3fd7": {
 "id": "Pcc7a3fd7",
 "v1_id": "M125",
@@ -14672,6 +15013,54 @@
 "tegn": 131620,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 63964
+},
+"M3c178cb2": {
+"id": "M3c178cb2",
+"v1_id": "M124",
+"naevn": "MFKN",
+"dato": "2021-01-12",
+"titel": "Ikke medhold i klage over afgørelse om miljøvurderingspligt for planlagt produktionsændring af et asfaltfabriksanlæg i Aarhus Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/3c178cb2-007b-48b6-8587-937c0b643e55",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 30423,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 12170
+},
+"Pee885c19": {
+"id": "Pee885c19",
+"v1_id": "M122",
+"naevn": "PKN",
+"dato": "2021-01-05",
+"titel": "Afgørelse i klagesag om Esbjerg Kommunes screeningsafgørelse om, at lokalplan forslag nr. 20-010-0003, ikke skal miljøvurderes",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/ee885c19-573e-4f58-aa56-b127e919f5f0",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 42883,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 17154
+},
+"Pb4b666ad": {
+"id": "Pb4b666ad",
+"v1_id": "M123",
+"naevn": "PKN",
+"dato": "2021-01-05",
+"titel": "Afgørelse i klagesag om Ringsted Kommunes screeningsafgørelse om, at forslag til lokalplan nr. 302 og forslag til kommuneplantillæg nr. 4, til kommuneplan 2017-2029 ikke skal miljøvurderes",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/b4b666ad-62f0-4e91-bb80-59e3fd6d7e5f",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 32388,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 12956
 },
 "Mea1ce8a9": {
 "id": "Mea1ce8a9",
@@ -14706,6 +15095,23 @@
 "tegn": 156627,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 62651
+},
+"P8fbc65d8": {
+"id": "P8fbc65d8",
+"v1_id": "M118",
+"naevn": "PKN",
+"dato": "2020-12-21",
+"titel": "Afgørelse i klagesag om Helsingør Kommunes endelige vedtagelse af lokalplan 1.167 og kommuneplantillæg 41 med tilhørende miljørapport",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/8fbc65d8-25aa-4fa3-853a-3171b1cadb2f",
+"kategorier": [
+"Miljøvurderingsloven",
+"Planloven, retlig (efter 1. februar 2017)"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 42713,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 17086
 },
 "P2bddb4da": {
 "id": "P2bddb4da",
@@ -14756,6 +15162,22 @@
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 27040
 },
+"Pf8eacaa5": {
+"id": "Pf8eacaa5",
+"v1_id": "M114",
+"naevn": "PKN",
+"dato": "2020-12-16",
+"titel": "Afgørelse i klagesag om Syddjurs Kommunes screeningsafgørelse om, at lokalplan nr. 404, ikke skal miljøvurderes, samt endelig vedtagelse af planen",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/f8eacaa5-0810-4d71-9b3b-00548d95cc5e",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 50155,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 20062
+},
 "P8131f33e": {
 "id": "P8131f33e",
 "v1_id": "M115",
@@ -14788,6 +15210,87 @@
 "tegn": 78123,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 31250
+},
+"Pebec0021": {
+"id": "Pebec0021",
+"v1_id": "M112",
+"naevn": "PKN",
+"dato": "2020-12-03",
+"titel": "Afvisning af klage over Halsnæs Kommunes afgørelse om, at der ikke skal ske miljøvurdering af forslag til lokalplan nr. 04.88 og kommuneplantillæg nr. 34 til kommuneplan 2013",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/ebec0021-beaa-433a-9557-65b196428e2a",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "afvist",
+"afkortet": false,
+"tegn": 4364,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 1746
+},
+"Pc587c784": {
+"id": "Pc587c784",
+"v1_id": "M111",
+"naevn": "PKN",
+"dato": "2020-12-02",
+"titel": "Afgørelse i klagesag om Vallensbæk Kommunes screeningsafgørelse om, at lokalplan nr. 106, Emiliehaven, ikke skal miljøvurderes.",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/c587c784-f5de-4807-84dd-6392662bc2e3",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "delvis",
+"afkortet": false,
+"tegn": 18637,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 7455
+},
+"P6de7d7a9": {
+"id": "P6de7d7a9",
+"v1_id": "M110",
+"naevn": "PKN",
+"dato": "2020-12-02",
+"titel": "Afgørelse i klagesag om Vejle Kommunes screeningsafgørelse om, at lokalplanforslag nr. 1292 og forslag til kommuneplantillæg nr. 35, ikke skal miljøvurderes",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/6de7d7a9-ce86-482f-bd67-1aae3e688c95",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 21564,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 8626
+},
+"M6d70ee1b": {
+"id": "M6d70ee1b",
+"v1_id": "M109",
+"naevn": "MFKN",
+"dato": "2020-12-02",
+"titel": "Ikke medhold i klage over VVM-redegørelse for projekt om vindmøller i Tønder Kommune samt stadfæstelse af VVM-tilladelse til opstilling af seks vindmøller i Tønder Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/6d70ee1b-e904-4ae7-ae00-d13081b7654b",
+"kategorier": [
+"Miljøvurdering af konkrete projekter"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 58706,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 23483
+},
+"Pf14e3621": {
+"id": "Pf14e3621",
+"v1_id": "M108",
+"naevn": "PKN",
+"dato": "2020-11-25",
+"titel": "Afgørelse i klagesag om Aalborg Kommunes vedtagelse af kommuneplantillæg 10014 og lokalplan nr. 10-7.103 samt Vesthimmerlands Kommunes kommuneplantillæg 311 og lokalplan nr. 1064 med tilhørende miljørapport",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/f14e3621-0512-4191-919b-12084792b9fc",
+"kategorier": [
+"Miljøvurderingsloven",
+"Planloven, retlig (efter 1. februar 2017)"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 41347,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 16539
 },
 "Md3402efb": {
 "id": "Md3402efb",
@@ -14868,6 +15371,22 @@
 "tegn": 12361,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 6328
+},
+"Mf29fe779": {
+"id": "Mf29fe779",
+"v1_id": "M102",
+"naevn": "MFKN",
+"dato": "2020-11-12",
+"titel": "Ophævelse og hjemvisning af VVM-tilladelse til opstilling af vindmøller i Struer Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/f29fe779-d074-49d9-8625-eb7bb2f25e3d",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 9938,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 3976
 },
 "P1e3a20a1": {
 "id": "P1e3a20a1",
@@ -15687,6 +16206,22 @@
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 10389
 },
+"M762cc3bd": {
+"id": "M762cc3bd",
+"v1_id": "M050",
+"naevn": "MFKN",
+"dato": "2020-06-24",
+"titel": "Ikke medhold i klage over afgørelse om ikke miljøvurderingspligt for projekt om yderligere deponering af blandet affald i Hvidovre Kommune",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/762cc3bd-a46b-47ba-b102-576900864e82",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "ikke_medhold",
+"afkortet": false,
+"tegn": 21292,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 8517
+},
 "P4d1118cd": {
 "id": "P4d1118cd",
 "v1_id": "M047",
@@ -15702,6 +16237,38 @@
 "tegn": 7724,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 3509
+},
+"M93349daa": {
+"id": "M93349daa",
+"v1_id": "M048",
+"naevn": "MFKN",
+"dato": "2020-06-23",
+"titel": "Stadfæstelse med ændringer af tilladelse til erhvervsmæssig indvinding af råstoffer i Region Midtjylland",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/93349daa-54c7-4f23-ad65-15c6f54f5464",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "delvis",
+"afkortet": false,
+"tegn": 22615,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 9046
+},
+"M4bfb45c3": {
+"id": "M4bfb45c3",
+"v1_id": "M049",
+"naevn": "MFKN",
+"dato": "2020-06-23",
+"titel": "Ophævelse og hjemvisning af afgørelse om at forslag om fredning i Hjørring Kommune ikke er omfattet af krav om miljøvurdering",
+"link": "https://mfkn.naevneneshus.dk/afgoerelse/4bfb45c3-13f4-4017-82ed-9c21e68f3a44",
+"kategorier": [
+"Miljøvurdering af planer og programmer"
+],
+"udfald_regel": "medhold",
+"afkortet": false,
+"tegn": 21101,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 8441
 },
 "Mcfbc9239": {
 "id": "Mcfbc9239",
@@ -15766,6 +16333,22 @@
 "tegn": 22654,
 "gruppe": "miljoevurdering",
 "vurdering_tegn": 7573
+},
+"P55bd0474": {
+"id": "P55bd0474",
+"v1_id": "M042",
+"naevn": "PKN",
+"dato": "2020-06-15",
+"titel": "Afvisning af klage over Ikast-Brande Kommunes afgørelse om, at der ikke skal ske miljøvurdering af lokalplan nr. 381",
+"link": "https://pkn.naevneneshus.dk/afgoerelse/55bd0474-9925-4738-a69c-5d31ed698cda",
+"kategorier": [
+"Miljøvurderingsloven"
+],
+"udfald_regel": "afvist",
+"afkortet": false,
+"tegn": 6487,
+"gruppe": "miljoevurdering",
+"vurdering_tegn": 2595
 },
 "M4d19a82e": {
 "id": "M4d19a82e",

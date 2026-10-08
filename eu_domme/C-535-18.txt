@@ -1,0 +1,840 @@
+62018CJ0535
+DOMSTOLENS DOM (Første Afdeling)
+28. maj 2020 (
+*1
+)
+»Præjudiciel forelæggelse – miljø – Århuskonventionen – direktiv 2011/92/EU – vurdering af visse projekters indvirkning på miljøet – offentlig deltagelse i beslutningsprocesser – uregelmæssigheder i forbindelse med tilladelsesproceduren for et projekt – adgang til prøvelse – begrænsninger i henhold til national lovgivning – direktiv 2000/60/EF – Den Europæiske Unions vandpolitiske foranstaltninger – forringelse af en grundvandsforekomst – regler for vurdering – privatpersoners ret til at vedtage foranstaltninger med henblik på at forebygge forurening – søgsmålskompetence ved de nationale domstole«
+I sag C-535/18,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Bundesverwaltungsgericht (forbundsdomstol i forvaltningsretlige sager, Tyskland) ved afgørelse af 25. april 2018, indgået til Domstolen den 16. august 2018, i sagen
+IL,
+JK,
+KJ,
+LI,
+NG,
+MH,
+OF,
+PE,
+RC og SB
+, som arvinger efter QD,
+TA,
+UZ,
+VY,
+WX
+mod
+Land Nordrhein-Westfalen,
+har
+DOMSTOLEN (Første Afdeling),
+sammensat af afdelingsformanden, J.-C. Bonichot (refererende dommer), Domstolens vicepræsident, R. Silva de Lapuerta, og dommerne M. Safjan, L. Bay Larsen og C. Toader,
+generaladvokat: G. Hogan,
+justitssekretær: fuldmægtig M. Krausenböck,
+på grundlag af den skriftlige forhandling og efter retsmødet den 19. september 2019,
+efter at der er afgivet indlæg af:
+–
+IL, JK, KJ, LI, NG, MH, OF, PE, RC og SB, TA, UZ, VY og WX ved Rechtsanwälte R. Nebelsieck, J. Mittelstein og K. Fock,
+–
+den polske regering ved B. Majczyna, som befuldmægtiget,
+–
+Europa-Kommissionen ved E. Manhaeve og M. Noll-Ehlers, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 12. november 2019,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 6 og artikel 11, stk. 1, litra b), i Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (
+EUT 2012, L 26, s. 1
+) og af artikel 4, stk. 1, litra a), nr. i)-iii), og artikel 4, stk. 1, litra b), nr. i), i Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger (
+EFT 2000, L 327, s. 1
+, og berigtiget i
+EUT 2006, L 113, s. 26
+).
+2
+Anmodningen er blevet fremsat i forbindelse med en tvist mellem forskellige personer og Land Nordrhein-Westfalen (delstaten Nordrhein-Westfalen, Tyskland) vedrørende en afgørelse fra myndighederne i Bezirksregierung Detmold (distriktsmyndigheden i Detmold, Tyskland) af 27. september 2016 om at give tilladelse til en plan for anlæggelse af en motorvejsstrækning på ca. 3,7 km.
+Retsforskrifter
+Folkeretten
+3
+Konventionen om adgang til oplysninger, offentlig deltagelse i beslutningsprocesser samt adgang til klage og domstolsprøvelse på miljøområdet, som blev undertegnet i Århus den 25. juni 1998 og godkendt på Det Europæiske Fællesskabs vegne ved Rådets afgørelse 2005/370/EF af 17. februar 2005 (
+EUT 2005, L 124, s. 1
+, herefter »Århuskonventionen«), fastsætter i artikel 9, stk. 3:
+»[…] [Hver part] sikrer […], at medlemmer af offentligheden, der opfylder eventuelle kriterier i national ret, har adgang til administrative eller retslige procedurer for at anfægte private personers og offentlige myndigheders handlinger og undladelser, der er i strid med de bestemmelser i national ret, der vedrører miljøet.«
+EU-retten
+Direktiv 2011/92/EØF
+4
+Følgende fremgår af 7., 19. og 21. betragtning til direktiv 2011/92:
+»(7)
+Tilladelse til offentlige og private projekter, som kan forventes at få væsentlige indvirkninger på miljøet, bør først gives efter[, at] en vurdering af de væsentlige indvirkninger på miljøet, disse projekter kan forventes at få, er blevet foretaget. Denne vurdering bør foretages på grundlag af relevante oplysninger fra bygherren og eventuelt også fra de myndigheder og den offentlighed, der forventes at blive berørt af projektet.
+[…]
+(19)
+Et af Århuskonventionens formål er at sikre retten til offentlig deltagelse i beslutningsprocessen på miljøområdet med henblik på at bidrage til at beskytte ethvert menneskes ret til at leve i et miljø, der er passende for hans eller hendes sundhed og trivsel.
+(20)
+Artikel 6 i Århuskonventionen indeholder bestemmelser om offentlig deltagelse i afgørelser vedrørende de konkrete aktiviteter, der er opført i konventionens bilag I, og aktiviteter, som ikke er indeholdt i nævnte bilag I, men som kan have væsentlige indvirkninger på miljøet.
+(21)
+Artikel 9, stk. 2 og 4, i Århuskonventionen indeholder bestemmelser om adgang til ved en domstol eller ved andre procedurer at få prøvet den materielle og processuelle lovlighed af enhver afgørelse, handling eller undladelse, der er omfattet af bestemmelserne om offentlig deltagelse i konventionens artikel 6.«
+5
+Direktivets artikel 1, stk. 1 og 2, har følgende ordlyd:
+»1. Dette direktiv vedrører vurderingen af de indvirkninger på miljøet af offentlige og private projekter, der er af en sådan beskaffenhed, at de vil kunne påvirke miljøet væsentligt.
+2. I dette direktiv forstås ved:
+a)
+»projekt«:
+–
+gennemførelse af anlægsarbejder eller andre installationer eller arbejder
+–
+andre indgreb i det naturlige miljø eller i landskaber, herunder sådanne, der tager sigte på udnyttelse af ressourcer i undergrunden
+b)
+»bygherre«: enten den person, der ansøger om godkendelse af et privat projekt, eller den offentlige myndighed, som tager initiativ til et projekt
+c)
+»tilladelse«: afgørelse fra den eller de kompetente myndighed(er), som giver bygherren ret til at gennemføre projektet
+d)
+»offentlighed«: en eller flere fysiske eller juridiske personer og i henhold til national lovgivning eller praksis disses foreninger, organisationer eller grupper
+e)
+»den berørte offentlighed«: den del af offentligheden, som er berørt af, kan blive berørt af eller har en interesse i de beslutningsprocedurer på miljøområdet, der er nævnt i artikel 2, stk. 2. Med henblik på denne definition anses ikke-statslige organisationer, der arbejder for at fremme miljøbeskyttelse, og som opfylder alle krav efter national lovgivning, for at have en interesse
+f)
+»kompetente myndighed(er)«: myndighed(er), som medlemsstaterne udpeger til at udføre de opgaver, der følger af dette direktiv.«
+6
+Nævnte direktivs artikel 3 fastsætter:
+»Miljøkonsekvensvurderingen skal, afhængigt af hvert enkelt tilfælde og i overensstemmelse med artikel 4-12, bestå i på passende måde at påvise, beskrive og vurdere et projekts direkte og indirekte virkninger på følgende faktorer:
+a)
+mennesker, fauna og flora
+b)
+jordbund, vand, luft, klima og landskab
+c)
+materielle goder og kulturarv
+d)
+samspillet mellem faktorerne i litra a), b) og c).«
+7
+Samme direktivs artikel 5 bestemmer:
+»1. For så vidt angår projekter, som i henhold til artikel 4 skal underkastes en miljøkonsekvensvurdering i overensstemmelse med nærværende artikel og artikel 6-10, vedtager medlemsstaterne de nødvendige foranstaltninger for at sikre, at bygherren på passende vis giver de i bilag IV omhandlede oplysninger, når:
+a)
+medlemsstaterne finder, at oplysningerne er relevante for et givet stadium i tilladelsesproceduren og for så vidt angår de særlige karakteristika, der gør sig gældende for et bestemt projekt eller en bestemt projekttype og for det miljø, som kan forventes at blive berørt, og
+b)
+medlemsstaterne finder, at det i betragtning af bl.a. den nuværende viden og de kendte vurderingsmetoder med rimelighed kan forlanges, at bygherren indsamler disse oplysninger.
+2. Medlemsstaterne træffer de nødvendige foranstaltninger for at sikre, at den kompetente myndighed, hvis bygherren forlanger det, inden en ansøgning om tilladelse indgives, udtaler sig om, hvilke oplysninger bygherren skal fremlægge i henhold til stk. 1. Den kompetente myndighed skal rådføre sig med bygherren og de i artikel 6, stk. 1, nævnte myndigheder, før den afgiver sin udtalelse. Den omstændighed, at myndigheden har afgivet en udtalelse i henhold til nærværende stykke, forhindrer den ikke i senere at kræve yderligere oplysninger af bygherren.
+Medlemsstaterne kan kræve, at de kompetente myndigheder afgiver en sådan udtalelse, uanset om bygherren anmoder derom.
+3. De oplysninger, som bygherren skal give i henhold til stk. 1, skal mindst omfatte:
+a)
+en beskrivelse af projektet med oplysninger om projektets placering, art og dimensioner
+b)
+en beskrivelse af påtænkte foranstaltninger med henblik på at undgå, nedbringe og om muligt neutralisere væsentlige skadelige virkninger
+c)
+de data, der er nødvendige for at konstatere og vurdere de væsentligste indvirkninger, projektet kan forventes at få på miljøet
+d)
+en oversigt over de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste grunde til valget under hensyn til indvirkningen på miljøet
+e)
+et ikke-teknisk resumé af de i litra a)-d) omhandlede oplysninger.
+4. Medlemsstaterne sørger om nødvendigt for, at myndigheder, som måtte være i besiddelse af relevante oplysninger, jf. navnlig artikel 3, stiller disse til rådighed for bygherren.«
+8
+Artikel 6 i direktiv 2011/92 har følgende ordlyd:
+»[…]
+2. Offentligheden informeres ved offentligt opslag eller ved andre egnede midler såsom elektroniske medier, hvor det er muligt, om følgende tidligt i de beslutningsprocedurer på miljøområdet, der er nævnt i artikel 2, stk. 2, og senest, så snart oplysningerne med rimelighed kan gives:
+a)
+ansøgningen om tilladelse
+b)
+det forhold, at projektet er underkastet en procedure med miljøkonsekvensvurdering, og eventuelt at artikel 7 finder anvendelse
+c)
+de kompetente myndigheder, der har ansvaret for at træffe afgørelsen, hvorfra der kan indhentes relevante oplysninger, hvortil kommentarer eller spørgsmål kan rettes samt nærmere oplysninger om fristerne for fremsendelse af bemærkninger eller spørgsmål
+d)
+karakteren af eventuelle afgørelser eller udkastet til afgørelsen, hvis et sådant foreligger
+e)
+hvorvidt de oplysninger, der er indhentet i henhold til artikel 5, er til rådighed
+f)
+hvornår, hvor og hvordan de relevante oplysninger stilles til rådighed
+g)
+hvilke foranstaltninger der er truffet med henblik på offentlig deltagelse, jf. stk. 5.
+3. Medlemsstaterne sikrer, at den berørte offentlighed får adgang til følgende inden for rimelige tidsfrister:
+a)
+alle oplysninger, der er indhentet i henhold til artikel 5
+b)
+i overensstemmelse med national lovgivning de vigtigste rapporter og anbefalinger, der er indgivet til den eller de kompetente myndighed(er) på det tidspunkt, hvor den berørte offentlighed informeres i henhold til nærværende artikels stk. 2
+c)
+i overensstemmelse med Europa-Parlamentets og Rådets direktiv 2003/4/EF af 28. januar 2003 om offentlig adgang til miljøoplysninger [og om ophævelse af Rådets direktiv 90/313/EØF (
+EUT 2003, L 41, s. 26
+)], andre end de i stk. 2 i denne artikel omhandlede oplysninger, som har relevans for afgørelsen i overensstemmelse med artikel 8 i nærværende direktiv, og som først er til rådighed, efter at den berørte offentlighed er blevet informeret i henhold til stk. 2 i nærværende artikel.
+4. Den berørte offentlighed skal tidligt og effektivt have mulighed for at deltage i de beslutningsprocedurer på miljøområdet, der er nævnt i artikel 2, stk. 2, og skal med henblik herpå have ret til at fremsætte kommentarer og udtalelser, mens alle muligheder stadig står åbne, over for den eller de kompetente myndighed(er), inden der træffes afgørelse vedrørende tilladelsen.
+5. De nærmere bestemmelser om information af offentligheden (f.eks. ved opslag inden for en vis radius eller offentliggørelse i lokale dagblade) og høring af den berørte offentlighed (f.eks. ved skriftlig forelæggelse eller offentlig høring) fastlægges af medlemsstaterne.
+6. Der fastsættes rimelige tidsrammer for de forskellige faser, der giver tilstrækkelig tid til at informere offentligheden og til, at den berørte offentlighed kan forberede sig på og opnå reel deltagelse i de beslutningsprocedurer på miljøområdet, der er omfattet af denne artikel.«
+9
+Direktivets artikel 11, stk. 1-3, fastsætter:
+»1. Medlemsstaterne sikrer inden for rammerne af deres relevante nationale lovgivning, at medlemmerne af den berørte offentlighed:
+a)
+som har tilstrækkelig interesse, eller
+b)
+som gør gældende, at en rettighed er krænket, når dette er en forudsætning i henhold til en medlemsstats forvaltningsretlige regler,
+har adgang til ved en domstol eller et andet uafhængigt og upartisk ved lov nedsat organ at få prøvet den materielle og processuelle lovlighed af enhver afgørelse, handling eller undladelse, der er omfattet af dette direktivs bestemmelser om offentlig deltagelse.
+2. Medlemsstaterne afgør, på hvilket stadium der kan rejses indsigelse mod afgørelser, handlinger eller undladelser.
+3. Medlemsstaterne fastsætter, hvad der forstås ved tilstrækkelig interesse og krænkelse af en rettighed, i overensstemmelse med målet om at give den berørte offentlighed vidtgående adgang til klage og domstolsprøvelse. Med henblik på stk. 1, litra a), anses den interesse, som enhver ikke-statslig organisation, jf. artikel 1, stk. 2, måtte have, for tilstrækkelig. I forbindelse med stk. 1, litra b), i nærværende artikel anses sådanne organisationer også for at have rettigheder, der kan krænkes.«
+10
+Bilag IV til nævnte direktiv med overskriften »Oplysninger omhandlet i artikel 5, stk. 1« bestemmer følgende i punkt 4:
+»En beskrivelse af, hvilke væsentlige virkninger på miljøet det foreslåede projekt vil kunne få som følge af:
+a)
+tilstedeværelsen af projektet som helhed
+b)
+anvendelsen af naturlige ressourcer
+c)
+emissionen af forurenende stoffer, opståelsen af gener og bortskaffelsen af affald.«
+11
+I en fodnote til punkt 4 præciseres det, at »[d]enne beskrivelse bør anføre projektets direkte virkninger og i givet fald dets indirekte, sekundære, kumulative, kort- og langsigtede, vedvarende eller midlertidige samt positive eller negative virkninger«.
+Direktiv 2006/118/EF
+12
+Artikel 3, stk. 1, i Europa-Parlamentets og Rådets direktiv 2006/118/EØF af 12. december 2006 om beskyttelse af grundvandet mod forurening og forringelse (
+EUT 2006, L 372, s. 19
+) bestemmer:
+»Med henblik på at vurdere den kemiske tilstand af en grundvandsforekomst eller en gruppe af grundvandsforekomster i henhold til punkt 2.3 i bilag V til direktiv 2000/60[…] anvender medlemsstaterne følgende kriterier:
+a)
+kvalitetskravene for grundvand i bilag I
+b)
+de tærskelværdier, som medlemsstaterne skal fastsætte efter proceduren i bilag II, del A, for de forurenende stoffer, grupper af forurenende stoffer og forureningsindikatorer, for hvilke det på en medlemsstats område er fastslået, at de bidrager til karakteriseringen af grundvandsforekomster eller grupper af grundvandsforekomster som truet, idet der mindst skal tages hensyn til listen i bilag II, del B.
+Tærskelværdierne for grundvands gode kemiske tilstand er baseret på beskyttelsen af grundvandsforekomsten i overensstemmelse med bilag II, del A, punkt 1-3, idet der tages hensyn til navnlig forekomstens indvirkninger på og indbyrdes forbindelse med tilknyttede overfladeområder og terrestriske økosystemer og vådområder, der er direkte afhængig af den, og skal bl.a. tage humantoksikologisk og økotoksikologisk viden i betragtning.«
+13
+Direktivets artikel 4 bestemmer:
+»1. Medlemsstaterne anvender den procedure, der er beskrevet i stk. 2, til at vurdere den kemiske tilstand af en grundvandsforekomst. Hvor det er relevant, kan medlemsstaterne ved anvendelse af denne procedure vurdere grundvandsforekomster under ét, jf. bilag V til direktiv 2000/60[…].
+2. En grundvandsforekomst eller en gruppe af grundvandsforekomster anses for at have en god kemisk tilstand, når:
+a)
+den relevante overvågning viser, at betingelserne i tabel 2.3.2 i bilag V til direktiv 2000/60[…] opfyldes; eller
+b)
+grundvandskvalitetskravene som anført i bilag I og de relevante tærskelværdier, der er udarbejdet i overensstemmelse med artikel 3 og bilag II, ikke overskrides i nogen af overvågningspunkterne i denne grundvandsforekomst eller gruppe af grundvandsforekomster; eller
+c)
+grundvandskvalitetskravene eller tærskelværdien overskrides i et eller flere overvågningspunkter, men en relevant undersøgelse i overensstemmelse med bilag III bekræfter, at:
+i)
+det på grundlag af den vurdering, der er omhandlet i punkt 3 i bilag III, kan fastslås, at koncentrationerne af forurenende stoffer, der overskrider grundvandskvalitetskravene eller tærskelværdierne, ikke anses for at udgøre en væsentlig miljørisiko, idet der i relevant omfang tages hensyn til omfanget af den grundvandsforekomst, der berøres
+ii)
+de øvrige betingelser for god kemisk tilstand for grundvand som anført i tabel 2.3.2 i bilag V til direktiv 2000/60[…] er opfyldt, jf. punkt 4 i bilag III til nærværende direktiv
+iii)
+for grundvandsforekomster, der er udpegede i henhold til artikel 7, stk. 1, i direktiv 2000/60[…] opfyldes kriterierne i direktivets artikel 7, stk. 3, i overensstemmelse med punkt 4 i bilag III til nærværende direktiv.
+iv)
+grundvandsforekomsten eller nogle af forekomsterne i gruppen af grundvandsforekomster ikke er så forurenede, at menneskers mulighed for at anvende dem er blevet væsentligt forringet.
+3. Udvælgelsen af grundvandsovervågningssteder skal opfylde kravene i bilag V, punkt 2.4 i direktiv 2000/60[…] om, at de udformes således, at de giver et sammenhængende og omfattende overblik over grundvandets kemiske tilstand og giver repræsentative overvågningsdata.
+4. Medlemsstaterne offentliggør et resumé af vurderingen af grundvandets kemiske tilstand i vandområdeplanerne i overensstemmelse med artikel 13 i direktiv 2000/60[…].
+Dette resumé, der er udarbejdet for vanddistriktområdet eller den del af det internationale vanddistriktområde, der ligger på en medlemsstats område, skal også omfatte en forklaring på, hvordan overskridelserne af kvalitetskravene eller tærskelværdierne i individuelle overvågningspunkter er blevet taget i betragtning i den endelige vurdering.
+5. Hvis en grundvandsforekomst klassificeres som havende god kemisk tilstand, jf. stk. 2, litra c), træffer medlemsstaterne i overensstemmelse med artikel 11 i direktiv 2000/60[…] de foranstaltninger, der måtte være nødvendige for at beskytte de akvatiske økosystemer, terrestriske økosystemer og menneskers brug af grundvand, der er afhængig af den del af grundvandsforekomsten, der repræsenteres i det eller de overvågningspunkter, hvor et grundvandskvalitetskrav eller en tærskelværdi er overskredet.«
+Direktiv 2000/60
+14
+Følgende fremgår af 23.-26. og 37. betragtning til direktiv 2000/60:
+»(23)
+Der er behov for fælles principper for at samordne medlemsstaternes indsats for at forbedre beskyttelsen af Fællesskabets vand med hensyn til mængde og kvalitet, fremme bæredygtigt vandforbrug, […] beskytte vandøkosystemer samt terrestriske økosystemer og vådområder, der er direkte afhængige heraf, og beskytte og udvikle den potentielle anvendelse af Fællesskabets vandforekomster.
+(24)
+En god vandkvalitet vil bidrage til at sikre befolkningens drikkevandsforsyning.
+(25)
+Der bør fastlægges fælles definitioner for vands tilstand med hensyn til kvalitet og, når det er relevant i forbindelse med miljøbeskyttelse, mængde. Der bør fastsættes miljømål, som kan sikre en god tilstand for overfladevand og grundvand i hele Fællesskabet, og som kan forebygge forringelse af vandets tilstand på Fællesskabsniveau.
+(26)
+Medlemsstaterne bør sigte mod at opfylde målet for i det mindste god vandtilstand ved at fastlægge og gennemføre de fornødne foranstaltninger inden for integrerede indsatsprogrammer under hensyntagen til eksisterende fællesskabskrav. Hvor vandtilstanden allerede er god, bør den opretholdes. For så vidt angår grundvand bør der stilles krav om en god vandtilstand. Herudover bør enhver betydelig og vedvarende stigende tendens i koncentrationen af forurenende stoffer identificeres og vendes.
+[…]
+(37)
+Medlemsstaterne bør identificere vandområder, der anvendes til indvinding af drikkevand, og sikre overholdelse af Rådets direktiv 80/778/EØF af 15. juli 1980 om kvaliteten af drikkevand [(
+EFT 1980, L 229, s. 11
+)].«
+15
+I direktivets artikel 1 defineres dets formål som følger:
+»Direktivets overordnede formål er at fastlægge en ramme for beskyttelse af vandløb og søer, overgangsvande, kystvande og grundvand, som:
+a)
+forebygger yderligere forringelse og beskytter og forbedrer vandøkosystemernes tilstand og, hvad angår deres vandbehov, også tilstanden for terrestriske økosystemer og vådområder, der er direkte afhængige af vandøkosystemerne
+b)
+fremmer bæredygtig vandanvendelse baseret på langsigtet beskyttelse af tilgængelige vandressourcer
+[…]
+d)
+sikrer en progressiv reduktion af forureningen af grundvandet og forhindrer en yderligere forurening heraf
+[…]
+og derved bidrager til:
+–
+tilstrækkelig forsyning af overfladevand og grundvand af god kvalitet, som er nødvendig for at opnå en bæredygtig, afbalanceret og rimelig vandanvendelse
+–
+en betydelig reduktion af forureningen af grundvandet
+–
+[…]«
+16
+Det nævnte direktivs artikel 2 indeholder følgende definitioner i nr. 2), 12), 19), 20), 25), 28), 31) og 33):
+»2)
+»[g]rundvand«: alt vand under jordoverfladen i den mættede zone og i direkte kontakt med jorden eller undergrunden
+[…]
+12)
+»[g]rundvandsforekomst«: en separat mængde grundvand i et eller flere grundvandsmagasiner
+[…]
+19)
+»[g]rundvandstilstand«: det samlede udtryk for en grundvandsforekomsts tilstand bestemt ved enten dens kvantitative eller dens kemiske tilstand, alt efter hvilken der er ringest
+20)
+»[g]od grundvandstilstand«: den tilstand, en grundvandsforekomst har nået, når både dens kvantitative og dens kemiske tilstand i det mindste er »god«
+[…]
+25)
+»[g]od kemisk tilstand for grundvand«: den kemiske tilstand i en grundvandsforekomst, der opfylder alle betingelser i tabel 2.3.2 i bilag V
+[…]
+28)
+»[g]od kvantitativ tilstand«: den tilstand, der er defineret i tabel 2.1.2 i bilag V
+[…]
+31)
+»[f]orurenende stof«: ethvert stof, der kan forårsage forurening, herunder navnlig stoffer nævnt i bilag VIII
+[…]
+33)
+»[f]orurening«: direkte eller indirekte udledning som følge af menneskelige aktiviteter af stoffer eller varme til luft, vand eller jord, der kan skade menneskers sundhed eller kvaliteten af vandøkosystemer eller terrestriske økosystemer, som er direkte afhængige af vandøkosystemer, eller medføre skade på materielle værdier eller forringelse eller forstyrrelse af naturfaciliteter og anden legitim anvendelse af miljøet«.
+17
+Samme direktivs artikel 4, stk. 1, litra a) og b), har følgende ordlyd:
+»1. Ved iværksættelsen af de indsatsprogrammer, der er angivet i vandområdeplanerne, gælder følgende:
+a)
+[O]verfladevand
+i)
+[M]edlemsstaterne iværksætter de nødvendige foranstaltninger med henblik på at forebygge forringelse af tilstanden for alle overfladevandområder, med forbehold af anvendelse af stk. 6 og 7, jf. dog stk. 8.
+ii)
+[M]edlemsstaterne beskytter, forbedrer og restaurerer alle overfladevandområder med forbehold af anvendelse af nr. iii) for kunstige og stærkt modificerede vandområder, med henblik på at opnå god tilstand for overfladevand i overensstemmelse med bestemmelserne i bilag V senest 15 år efter datoen for dette direktivs ikrafttræden, med forbehold af eventuelle fristforlængelser i henhold til stk. 4 og anvendelse af stk. 5, 6 og 7, jf. dog stk. 8.
+iii)
+[M]edlemsstaterne beskytter og forbedrer alle kunstige og stærkt modificerede vandområder med henblik på at opnå et godt økologisk potentiale og god kemisk tilstand for overfladevand i overensstemmelse med bestemmelserne i bilag V senest 15 år efter datoen for dette direktivs ikrafttræden, med forbehold af eventuelle fristforlængelser i henhold til stk. 4 og anvendelse af stk. 5, 6 og 7, jf. dog stk. 8.
+iv)
+[M]edlemsstaterne iværksætter de nødvendige foranstaltninger i overensstemmelse med artikel 16, stk. 1 og 8, med henblik på en progressiv reduktion af forurening med prioriterede stoffer samt standsning eller udfasning af emissioner, udledninger og tab af prioriterede farlige stoffer
+med forbehold af de for de berørte parter relevante internationale aftaler, som der henvises til i artikel 1.
+b)
+[G]rundvand
+i)
+[M]edlemsstaterne iværksætter de nødvendige foranstaltninger med henblik på at forebygge eller begrænse udledning af forurenende stoffer til grundvand og at forebygge forringelse af tilstanden af alle grundvandsforekomster med forbehold af anvendelse af stk. 6 og 7, jf. dog stk. 8, og med forbehold af anvendelse af artikel 11, stk. 3, litra j).
+ii)
+[M]edlemsstaterne beskytter, forbedrer og restaurerer alle grundvandsforekomster, sørger for balance mellem indvinding og grundvandsdannelse med henblik på at opnå god grundvandstilstand i overensstemmelse med bestemmelserne i bilag V senest 15 år efter datoen for dette direktivs ikrafttræden, med forbehold af eventuelle fristforlængelser i henhold til stk. 4 og anvendelsen af stk. 5, 6 og 7, jf. dog stk. 8, og med forbehold af anvendelse af artikel 11, stk. 3, litra j).
+iii)
+[M]edlemsstaterne iværksætter de nødvendige foranstaltninger med henblik på at vende enhver væsentlig og vedvarende opadgående tendens i koncentrationen af et hvilket som helst forurenende stof hidrørende fra menneskelig aktivitet med henblik på en progressiv reduktion af forureningen af grundvandet.
+Foranstaltningerne med henblik på at vende tendensen skal iværksættes i overensstemmelse med artikel 17, stk. 2, 4 og 5, under hensyn til gældende standarder i den relevante fællesskabslovgivning, med forbehold af anvendelse af denne artikels stk. 6 og 7, jf. dog dens stk. 8.«
+18
+Artikel 4, stk. 4, litra c), i direktiv 2000/60 bestemmer:
+»4. Fristerne i stk. 1 kan med henblik på en gradvis opfyldelse af målene for forekomster af vand forlænges, under forudsætning af at der ikke sker yderligere forringelse af det pågældende vandområdes tilstand, og følgende betingelser alle er opfyldt:
+[…]
+c)
+fristforlængelser begrænses til højst to yderligere ajourføringer af vandområdeplanen, bortset fra de tilfælde, hvor de naturlige forhold er af en sådan karakter, at målene ikke kan opfyldes inden for denne periode.«
+19
+Direktivets artikel 4, stk. 7, litra a)-d), har følgende ordlyd:
+»7. Medlemsstaterne misligholder ikke dette direktiv, hvis:
+–
+manglende opnåelse af god grundvandstilstand, god økologisk tilstand eller, hvor det er relevant, godt økologisk potentiale, eller manglende forebyggelse af forringelse af et overfladevandområdes eller en grundvandsforekomsts tilstand skyldes nye ændringer af overfladevandområdets fysiske karakteristika eller forandringer i grundvandsforekomsternes niveau, eller hvis
+–
+manglende forebyggelse af et overfladevandområdes forringelse fra tilstanden »høj« til tilstanden »god« skyldes nye bæredygtige menneskelige udviklingsaktiviteter
+og følgende betingelser alle er opfyldt
+a)
+[D]er tages alle praktisk gennemførlige skridt for at mindske den skadelige indvirkning på vandforekomstens tilstand.
+b)
+[G]rundene til disse ændringer eller forandringer er specifikt angivet og forklaret i den vandområdeplan, der kræves i henhold til artikel 13, og målene revideres hvert sjette år.
+c)
+[Æ]ndringerne eller forandringerne er begrundet i væsentlige samfundsinteresser, og/eller nyttevirkningerne for miljøet og samfundet ved opnåelse af målene i stk. 1 er mindre end de nyttevirkninger, der følger af de nye ændringer eller forandringer for befolkningens sundhed, opretholdelsen af menneskers sikkerhed og en bæredygtig udvikling, […]
+d)
+[D]e nyttige mål, der tilsigtes ved de nye ændringer eller forandringer af vandområdet, kan ikke på grund af tekniske vanskeligheder eller uforholdsmæssigt store omkostninger opnås med andre midler, som miljømæssigt er en væsentligt bedre løsning.«
+20
+Nævnte direktivs artikel 13, stk. 7, bestemmer:
+»Vandområdeplanerne revideres og ajourføres senest 15 år efter datoen for dette direktivs ikrafttræden og derefter hvert sjette år.«
+21
+Samme direktivs artikel 17 med overskriften »Strategier til forebyggelse af og kontrol med forurening af grundvand« bestemmer i stk. 1 og 2:
+»1. Europa-Parlamentet og Rådet [for Den Europæiske Union] vedtager specifikke foranstaltninger til forebyggelse af og kontrol med grundvandsforurening. Sådanne foranstaltninger tager sigte på at opfylde målet om god kemisk tilstand for grundvand i overensstemmelse med artikel 4, stk. 1, litra b), og vedtages på forslag af [Europa-]Kommissionen, der forelægges inden to år efter dette direktivs ikrafttræden, i overensstemmelse med procedurerne i traktaten.
+2. Når Kommissionen foreslår foranstaltninger, tager den hensyn til de analyser, der er foretaget i overensstemmelse med artikel 5 og bilag II. Sådanne foranstaltninger foreslås tidligere, hvis der er data til rådighed, og omfatter:
+a)
+kriterier for vurdering af god kemisk tilstand for grundvand i overensstemmelse med bilag II, punkt. 2.2, og bilag V, punkt. 2.3.2 og 2.4.5
+[…]«
+22
+Punkt 2.3 i bilag V til direktiv 2000/60 vedrører vurderingen af grundvandets kemiske tilstand. Punkt 2.3.1 i dette bilag omtaler »ledningsevnen« og »koncentrationer af forurenende stoffer« som værende »[p]arametre for bestemmelse af grundvandets kemiske tilstand«.
+23
+Punkt 2.3.2 i bilag V til direktivet definerer »god kemisk tilstand« for grundvand som følger:
+»Definition af god kemisk tilstand for grundvand
+Elementer
+God tilstand
+Generelt
+Grundvandsforekomstens kemiske sammensætning er således, at koncentrationerne af forurenende stoffer
+— som anført nedenfor ikke viser påvirkninger fra indtrængning af saltvand eller andet
+— ikke overstiger de kvalitetskrav, der gælder i henhold til anden relevant fællesskabslovgivning i overensstemmelse med artikel 17
+— ikke ville medføre, at miljømålene i artikel 4 ikke opfyldes for tilknyttede overfladevande, eller at der sker en signifikant forringelse i sådanne vandområders økologiske eller kemiske kvalitet eller en signifikant beskadigelse af terrestriske økosystemer, som er direkte afhængige af grundvandsforekomsten
+[…]
+[…]«
+24
+Punkt 2.4 i bilag V til nævnte bilag, der vedrører overvågning af grundvands kemiske tilstand, bestemmer navnlig i dettes punkt 2.4.1, at »[o]vervågningsnettet udformes således, at det giver et sammenhængende og omfattende overblik over grundvandets kemiske tilstand i hvert vandløbsopland, og således at langsigtede menneskeskabte tendenser til stigning i forekomsten af forurenende stoffer kan registreres«.
+25
+Punkt 2.4.5 i bilag V til samme direktiv vedrører fortolkning og præsentation af grundvandets kemiske tilstand. Punktet har følgende ordlyd:
+»Ved vurderingen af tilstand aggregeres data fra de enkelte overvågningspunkter i en grundvandsforekomst for grundvandsforekomsten som helhed. Med forbehold af de berørte direktiver forudsætter god kemisk tilstand for en grundvandsforekomst for så vidt angår de kemiske parametre, for hvilke der findes fællesskabslovgivning om miljøkvalitetskrav:
+–
+at middelværdien af resultaterne fra hvert overvågningspunkt i grundvandsforekomsten eller gruppen af grundvandsforekomster beregnes, og
+–
+at disse middelværdier i overensstemmelse med artikel 17 anvendes til at vise overensstemmelse med god kemisk tilstand for grundvand.
+Med forbehold af punkt 2.5 udarbejder medlemsstaterne et kort, der viser grundvandets kemiske tilstand med nedenstående farvekoder:
+God: grøn
+Ringe: rød
+[…]
+Kortene skal indgå i vandområdeplanen.«
+Tysk ret
+26
+§ 46 i Verwaltungsverfahrensgesetz (lov om administrativ procedure) af 23. januar 2003 (BGBl. 2003 I, s. 102), om konsekvenserne af processuelle og formelle fejl bestemmer:
+»En forvaltningsakt, der ikke er ugyldig i henhold til § 44, kan ikke kræves annulleret alene med den begrundelse, at den er blevet vedtaget i strid med bestemmelser om procedure, form eller stedlig kompetence, når det er åbenbart, at tilsidesættelsen ikke har haft indvirkning på afgørelsens indhold.«
+27
+§ 4 i Umweltrechtsbehelfsgesetz (lov om retsmidler i miljøsager) af 7. december 2006 (BGBl. 2006 I, s. 2816), i den version, der blev offentliggjort den 23. august 2017 (BGBl. 2017 I, s. 3290), har følgende ordlyd:
+»Stk. 1 En afgørelse vedrørende tilladelse til et projekt i henhold til § 1, stk. 1, første punktum, nr. 1-2b, kan kræves annulleret, såfremt:
+1)
+der ikke – eller ikke efterfølgende er foretaget
+a)
+en foreskrevet miljøkonsekvensvurdering, som krævet i henhold til bestemmelserne i Gesetz über die Umweltverträglichkeitsprüfung [(lov om miljøvurdering) af 24. februar 2010 (BGBl. 2010 I, s. 94)], […] eller
+b)
+en foreskrevet foreløbig konkret vurdering af, om der er behov for en miljøkonsekvensvurdering, som krævet i henhold til bestemmelserne i Gesetz über die Umweltverträglichkeitsprüfung [(lov om miljøvurdering)]
+[…]
+2)
+kravet om offentlig deltagelse i henhold til § 18 i Gesetz über die Umweltverträglichkeitsprüfung [(lov om vurdering af miljøpåvirkning)], eller i henhold til § 10 i Bundes-Immissionsschutzgesetz [(forbundslov om beskyttelse mod emissioner)] hverken er opfyldt inden for den fastlagte frist eller derefter, eller
+3)
+en anden processuel fejl har fundet sted, som
+a)
+ikke er afhjulpet
+b)
+med hensyn til art og grovhed i de tilfælde kan sammenlignes med de i nr. 1) og 2) nævnte tilfælde
+c)
+har frataget de berørte medlemmer af offentligheden den lovfæstede mulighed for at deltage i beslutningsprocessen, hvilken deltagelse omfatter adgang til dokumenter, der skal fremlægges til offentligt gennemsyn med henblik på høring af offentligheden.
+[…]
+Stk. 1a. § 46 i Verwaltungsverfahrensgesetz (lov om forvaltningsretspleje) finder anvendelse på processuelle fejl, som ikke er omfattet af stk. 1. Såfremt retten ikke kan fastslå, om en processuel fejl som omhandlet i første punktum har haft indflydelse på sagen, antages dette at være tilfældet.
+[…]
+Stk. 3 Stk. 1-2 finder anvendelse på retsmidler indgivet af
+1)
+personer som omhandlet i § 61, nr. 1, i Verwaltungsgerichtsordnung [(lov om forvaltningsprocessen) af 21. januar 1960 (BGBl. 1960 I, s. 17)] foreninger som omhandlet i denne lovs § 61, nr. 2), og
+2)
+foreninger, som opfylder kravene i § 3, stk. 1, eller § 2, stk. 2.
+Stk. 1, første punktum, nr. 3), finder anvendelse på retsmidler indgivet af personer og foreninger som omhandlet i første punktum, nr. 1), med det forbehold, at en afgørelse kun kan forlanges annulleret, såfremt den processuelle fejl har frataget den berørte part dennes lovfæstede mulighed for at deltage i beslutningsprocessen.
+[…]«
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+28
+Ved afgørelse af 27. september 2016 (herefter »den anfægtede afgørelse«) gav distriktsmyndigheden i Detmold (herefter »tilladelsesmyndigheden«) efter anmodning fra vejbygningsmyndigheden for den tyske delstat Nordrhein-Westfalen tilladelse til planen for anlæggelse af motorvejsstrækningen A 33/hovedvej B 61 med fire baner over en strækning på ca. 3,7 km.
+29
+Denne afgørelse gav bygherren tilladelse til at udlede regnvand, der faldt på vejoverfladerne, til tre overfladevandområder eller til grundvandet. I denne forbindelse indeholdt afgørelsen for så vidt angår såvel bortskaffelsen af regnvand til overfladevandområder som nedsivning heraf i grundvandet en lang række tilknyttede bestemmelser med det formål at sikre beskyttelsen af vandmiljøet.
+30
+Dokumenterne vedrørende det omhandlede projekt blev stillet til rådighed for offentligheden i perioden fra den 30. august til den 29. september 2010. Selv om dokumenterne vedrørende strømning, beskyttelse af dyrearter og fauna var nævnt i meddelelsen om denne tilrådighedsstillelse, var dette ikke tilfældet for dokumenterne vedrørende støjbeskyttelse og afvanding, hvilket gav anledning til visse indsigelser fra offentligheden.
+31
+Under hensyn til høringsproceduren foretog bygherren forskellige ændringer af planen, navnlig med hensyn til afvanding af regnvand. Bygherren udarbejdede derudover en »forside« med en liste over de dokumenter, der var stillet til rådighed for offentligheden. Der blev rejst yderligere offentlige indsigelser i forbindelse med den nye høring, som fandt sted i perioden fra den 19. maj til den 18. juni 2014.
+32
+Efter at der blev givet tilladelse til det omhandlede projekt, anlagde sagsøgerne i hovedsagen, der har været genstand for ekspropriering eller inden for projektets geografiske omkreds har private brønde til privat drikkevandsforsyning, søgsmål ved den forelæggende ret, Bundesverwaltungsgericht (forbundsdomstol i forvaltningsretlige sager, Tyskland), til prøvelse af den anfægtede afgørelse. I denne forbindelse er den forelæggende ret forpligtet til at foretage en fuldstændig prøvelse af denne afgørelses lovlighed.
+33
+Bundesverwaltungsgericht (forbundsdomstol i forvaltningsretlige sager) har i denne forbindelse anført, at vandområderne før godkendelsen af planen for byggeriet ikke var genstand for nogen dokumenteret kontrol vedrørende beskyttelsen af de pågældende vandområder.
+34
+Ganske vist har tilladelsesmyndigheden bekræftet, at der i løbet af tilladelsesproceduren blev foretaget en kontrol af de pågældende vandområder. Det var imidlertid først under retssagen, at denne myndighed fremlagde en teknisk undersøgelse vedrørende afvanding på i alt 48 sider, der beskrev de pågældende vandområder og det omhandlede projekts indvirkning på disses kvalitetselementer (herefter »den tekniske undersøgelse om afvanding«). Dette er årsagen til, at den forelæggende ret er af den opfattelse, at offentligheden ikke er blevet tilstrækkeligt informeret om projektets indvirkning på miljøet under tilladelsesproceduren, som derfor er behæftet med en processuel fejl.
+35
+I det foreliggende tilfælde er denne processuelle fejl imidlertid ifølge Bundesverwaltungsgericht (forbundsdomstol i forvaltningsretlige sager) ikke af en sådan art, at den kan medføre annullation af den anfægtede afgørelse, eftersom den ikke har haft indvirkning på afgørelsens indhold. I dette tilfælde kan en sådan processuel fejl i henhold til den relevante tyske lovgivning kun påberåbes af en sagsøger, der er en privatperson, og kan kun føre til annullation af afgørelsen vedrørende tilladelse til planen, hvis denne person rent faktisk er blevet frataget muligheden for at deltage i beslutningsprocessen.
+36
+Dernæst ønsker den forelæggende ret oplyst, om det er udelukket, at kontrollen med hensyn til forbuddet mod forringelse af de af et projekt berørte vandområder, først finder sted efter, at afgørelsen vedrørende tilladelse er vedtaget. Den forelæggende ret er af den opfattelse, at direktiv 2000/60 kan betyde, at denne kontrol skal foretages inden dette tidspunkt inden for rammerne af en gennemsigtig administrativ procedure. Dette ville indebære, at det ikke påhviler domstolene i forbindelse med en retssag, men de kompetente administrative myndigheder at foretage de nødvendige skridt og udarbejde den krævede dokumentation.
+37
+Såfremt denne fortolkning af direktiv 2000/60 lægges til grund, er den forelæggende ret af den opfattelse, at det påhviler den at afgøre, om den administrative procedure i tvisten i hovedsagen skal genåbnes med henblik på at foretage en ny offentlig høring.
+38
+I denne forbindelse vil der være behov for at besvare spørgsmålet om, hvorvidt de dokumenter, der stilles til rådighed for offentligheden i henhold til artikel 6 i direktiv 2011/92, systematisk skal indeholde en rapport om overholdelsen af lovgivningen vedrørende vandkvaliteten. Bundesverwaltungsgericht (forbundsdomstol i forvaltningsretlige sager) er af den opfattelse, at når en bygherre kontrollerer de betingelser, der er fastsat i direktiv 2000/60, skal den rapport, den pågældende forelægger tilladelsesmyndigheden, anses for en af de »vigtigste rapporter« som omhandlet i artikel 6, stk. 3, litra b), i direktiv 2011/92, og den bør derfor være tilgængelig under den offentlige høringsfase.
+39
+Ifølge Bundesverwaltungsgerichts (forbundsdomstol i forvaltningsretlige sager) praksis er en fornyet offentlig deltagelse imidlertid ikke altid påkrævet. I det foreliggende tilfælde blev den tekniske undersøgelse om afvanding først udarbejdet efter afsigelsen af dom af 1. juli 2015, Bund für Umwelt und Naturschutz Deutschland (
+C-461/13
+,
+EU:C:2015:433
+), og følgelig efter den offentlige høringsfase. I dette meget specifikke tilfælde ville en fornyet offentlig deltagelse kunne undlades, for så vidt som de forskellige dokumenter, der var offentligt tilgængelige, inden der blev givet tilladelse til projektet, opfylder to betingelser. For det første skal disse dokumenter i det væsentlige indeholde de samme oplysninger som en rapport, der på grundlag af de kriterier, der er fastsat i direktiv 2000/60, undersøger projektets indvirkning på vandmiljøet, uden at det er nødvendigt, at denne rapport indeholder en mere dybtgående undersøgelse. For det andet skal de dokumenter, der er til rådighed, såvel som den nævnte rapport nå frem til de samme konklusioner.
+40
+Den forelæggende ret er i øvrigt af den opfattelse, at forpligtelsen til at forebygge forringelsen af vandområders tilstand på én gang omfatter overfladevand og grundvand, og at betragtningerne i dom af 1. juli 2015, Bund für Umwelt und Naturschutz Deutschland (
+C-461/13
+,
+EU:C:2015:433
+), for så vidt angår overfladevand i vidt omfang kan overføres på grundvand. Med henblik på at afgøre, om der foreligger en forringelse af en grundvandsforekomsts kemiske tilstand, sondrer direktiv 2000/60 imidlertid kun mellem »god tilstand« og »ringe tilstand«. I henhold til punkt 2.4.5 i bilag V til dette direktiv kan der desuden kun tages hensyn til en lokalt konstateret forringelse, hvis den påvirker det pågældende vandområde i sin helhed.
+41
+Henset til dom af 1. juli 2015, Bund für Umwelt und Naturschutz Deutschland (
+C-461/13
+,
+EU:C:2015:433
+), mener den forelæggende ret, at der foreligger en forringelse af en grundvandsforekomsts kemiske tilstand i to tilfælde: for det første, når mindst ét af de i bilag V til direktiv 2000/60 fastsatte kvalitetselementer som følge af projektet ikke overholder ét af de relevante parametre, for det andet, når koncentrationen af forurenende stoffer, der allerede overstiger en gældende grænseværdi, stiger yderligere.
+42
+Hvad angår de gældende grænseværdier er Bundesverwaltungsgericht (forbundsdomstol i forvaltningsretlige sager) af den opfattelse, at der skal henvises til direktiv 2006/118, men at der i det foreliggende tilfælde ikke kunne konstateres nogen forringelse af grundvandsforekomsterne.
+43
+Endelig er den forelæggende ret af den opfattelse, at forpligtelsen til at forebygge forringelse og forpligtelsen til at forbedre tilstanden for vandområder, der er fastsat i artikel 4, stk. 1, i direktiv 2000/60, ikke indebærer, at alle medlemmer af den af et projekt berørte offentlighed, som gør gældende, at deres rettigheder krænkes, kan anfægte en afgørelse, der tilsidesætter disse forpligtelser. I henhold til den relevante tyske lovgivning kan et søgsmål anlagt af en privatperson kun antages til realitetsbehandling, såfremt denne person påberåber sig en tilsidesættelse af bestemmelser, der i det mindste delvis tilsigter at beskytte vedkommendes rettigheder.
+44
+Såvel forpligtelsen til at forebygge forringelse af tilstanden for vandområder som pligten til at forbedre sidstnævnte bør overholdes af de offentlige myndigheder. I den tyske lovgivning giver disse forpligtelser imidlertid ikke private, som eventuelt berøres af et projekts indvirkning på vandmiljøet, nogen subjektive rettigheder. De fastsætter mål for vandforvaltning og tjener udelukkende almene interesser.
+45
+I denne henseende følger det af dom af 15. oktober 2015, Kommissionen mod Tyskland (
+C-137/14
+,
+EU:C:2015:683
+), af 8. november 2016, Lesoochranárske zoskupenie VLK (
+C-243/15
+,
+EU:C:2016:838
+), og af 20. december 2017, Protect Natur-, Arten- und Landschaftsschutz Umweltorganisation (
+C-664/15
+,
+EU:C:2017:987
+), at det er tilstrækkeligt, at miljøbeskyttelsesforeninger har mulighed for at få prøvet, om de EU-retlige regler på miljøområdet overholdes, hvilket tjener offentlighedens interesse. Denne opfattelse af klageadgangen svarede til den, der fremgår af artikel 11, stk. 1, i direktiv 2011/92 og Århuskonventionens artikel 9, stk. 3.
+46
+Når dette er sagt, fremgår det af 24. og 37. betragtning samt af artikel 1, første led, i direktiv 2000/60, at direktivet ikke alene beskytter vandmiljøet som en bestanddel af økosystemet, men også med henblik på befolkningens drikkevandsforsyning. Det må derfor fastslås, at de forpligtelser, som direktivet fastsætter, bidrager til beskyttelsen af menneskers sundhed. I overensstemmelse med Domstolens praksis (dom af 25.7.2008, Janecek,
+C-237/07
+,
+EU:C:2008:447
+, af 8.11.2016, Lesoochranárske zoskupenie VLK,
+C-243/15
+,
+EU:C:2016:838
+, og af 20.12.2017, Protect Natur-, Arten- und Landschaftsschutz Umweltorganisation,
+C-664/15
+,
+EU:C:2017:987
+), bør personer, hvis helbred er truet af en tilsidesættelse af de ufravigelige bestemmelser i et direktiv, kunne påberåbe sig dette for den kompetente nationale ret.
+47
+Henset til disse betragtninger kan det ikke udelukkes, at sagsøgerne i hovedsagen, der råder over en privat brønd inden for den geografiske omkreds af det omhandlede projekt, kan påberåbe sig en tilsidesættelse af forbuddet mod forringelse og forpligtelsen til forbedring af vandområders tilstand i direktiv 2000/60, når deres sundhed kan trues som følge af den manglende overholdelse af disse forpligtelser.
+48
+På denne baggrund har Bundesverwaltungsgericht (forbundsdomstol i forvaltningsretlige sager) besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Skal artikel 11, stk. 1, litra b), i […] direktiv 2011/92[…] fortolkes således, at en bestemmelse i national ret er forenelig med denne bestemmelse, hvorefter en sagsøger, der ikke er anerkendt som miljøorganisation, kun kan forlange annullation af en afgørelse på grund af en processuel fejl, hvis den processuelle fejl har frataget [den pågældende] muligheden for deltagelse i den ved lov fastsatte beslutningsproces?
+2)
+a)
+Skal artikel 4, stk. 1, litra a), nr. i)-iii), i […] direktiv 2000/60[…] fortolkes således, at den ikke kun indeholder en materielretlig standard, men også bestemmelser om myndighedernes godkendelsesprocedure?
+b)
+Såfremt spørgsmålet i litra a), besvares bekræftende: Skal inddragelsen af offentligheden i henhold til […] artikel 6 [i direktiv 2011/92] altid ske på grundlag af dokumenterne vedrørende den vandretlige prøvelse i førnævnte forstand, eller er det tilladt at foretage en differentiering efter tidspunktet for dokumentets udarbejdelse og efter dettes kompleksitet?
+3)
+Skal begrebet forringelse af tilstanden af en grundvandsforekomst i […] artikel 4, stk. 1, litra b), nr. i), [i direktiv 2000/60] fortolkes således, at der foreligger en forringelse af den kemiske tilstand, så snart mindst en miljøkvalitetsnorm for et parameter overskrides som følge af projektet, og at enhver yderligere (målbar) forhøjelse af koncentrationen uafhængigt heraf, når den relevante grænseværdi for et skadeligt stof allerede er overskredet, udgør en forringelse?
+4)
+a)
+Skal […] artikel 4 [i direktiv 2000/60] – under hensyntagen til dets bindende virkning (artikel 288 TEUF) og sikringen af en effektiv retsbeskyttelse (artikel 19 TEU) – fortolkes således, at alle medlemmer af den af et projekt berørte offentlighed, som gør gældende, at deres rettigheder krænkes af godkendelsen af projektet, også har ret til at gøre overtrædelser af det vandretlige forbud mod forringelse og forpligtelsen til forbedring gældende ved domstolene?
+b)
+Såfremt spørgsmålet i litra a), besvares benægtende: Skal […] artikel 4 [i direktiv 2000/60] – under hensyntagen til dens målsætning – fortolkes således, at i hvert fald sagsøgere, som har en privat brønd til privat vandforsyning i geografisk nærhed af den planlagte vejføring, kan gøre overtrædelser af det vandretlige forbud mod forringelse og forpligtelsen til forbedring gældende ved domstolene?«
+Om de præjudicielle spørgsmål
+Det første spørgsmål
+49
+Med det første spørgsmål ønsker den forelæggende ret oplyst, om artikel 11, stk. 1, litra b), i direktiv 2011/92 skal fortolkes således, at bestemmelsen tillader medlemsstaterne at fastsætte, at en påstand om annullation af en afgørelse vedrørende tilladelse til et projekt på grund af processuelle fejl alene kan antages til realitetsbehandling, såfremt den omhandlede uregelmæssighed har frataget sagsøgeren dennes ret til at deltage i den beslutningsproces på miljøområdet, som er sikret ved direktivets artikel 6.
+50
+Det fremgår af forelæggelsesafgørelsen, at det omhandlede projekt, dvs. anlæggelsen af en motorvejsstrækning, inden der blev givet tilladelse hertil, blev underlagt en vurdering af dets indvirkning på miljøet. Projektet kunne især have en indvirkning på tilstanden for overfladevandområder og grundvandsforekomster inden for projektets geografiske omkreds, navnlig forårsaget af afvandingen af regnvand. Inden vedtagelsen af den omtvistede afgørelse fik offentligheden imidlertid ikke adgang til nogen dokumentation vedrørende projektets indvirkning på vandmiljøet og overholdelsen af de forpligtelser, der navnlig følger af artikel 4 i direktiv 2000/60. Ifølge den forelæggende ret er tilladelsen til det omhandlede projekt følgelig behæftet med en processuel fejl.
+51
+Det fremgår ligeledes af forelæggelsesafgørelsen, at der under tilladelsesproceduren for det omhandlede projekt blev foretaget en kontrol af de pågældende vandområder, uden at denne kontrol blev dokumenteret. Den tekniske undersøgelse om afvanding, der indeholder betragtninger med hensyn til den vurdering af overholdelsen af de forpligtelser, der følger af artikel 4, stk. 1, i direktiv 2000/60, blev først udarbejdet efter, at der blev givet tilladelse til projektet.
+52
+Den forelæggende ret har i øvrigt understreget, at det omhandlede projekt overholder den i artikel 4, stk. 1, i direktiv 2000/60 fastsatte forpligtelse til at forebygge forringelse af tilstanden for alle vandområder. Henset til den minimale stigning i mængden af klorid, som ligger under de gældende tærskelværdier, vil dette projekt sandsynligvis ikke medføre nogen forringelse af vandkvaliteten. Det er derfor åbenbart, at den processuelle fejl, som sagsøgerne i hovedsagen har påberåbt sig, ikke har haft nogen indvirkning på den anfægtede afgørelses indhold.
+53
+Det er på grundlag af denne sidste forudsætning, at det første spørgsmål, der er forelagt Domstolen, skal besvares.
+54
+Det bemærkes, at medlemsstaterne ifølge artikel 11, stk. 1, i direktiv 2011/92 inden for rammerne af deres relevante nationale lovgivning sikrer, at medlemmerne af »den berørte offentlighed«, som enten har tilstrækkelig interesse, eller som gør gældende, at en rettighed er krænket, når dette er en betingelse i henhold til en medlemsstats forvaltningsretlige regler, har adgang til at få prøvet den materielle og processuelle lovlighed af enhver afgørelse, handling eller undladelse, der er omfattet af dette direktivs bestemmelser.
+55
+Et søgsmåls antagelse til realitetsbehandling kan således betinges af en »tilstrækkelig interesse« eller af, at »en rettighed er krænket«, alt efter om den nationale lovgivning gør brug af den ene eller den anden af disse betingelser (jf. i denne retning dom af 16.4.2015, Gruber,
+C-570/13
+,
+EU:C:2015:231
+, præmis
+33
+).
+56
+Artikel 11, stk. 3, i direktiv 2011/92 bestemmer, at medlemsstaterne fastsætter, hvad der forstås ved enten tilstrækkelig interesse eller krænkelse af en rettighed i overensstemmelse med målet om at give den berørte offentlighed vidtgående adgang til klage og domstolsprøvelse.
+57
+I denne henseende har Domstolen fastslået, at det er tilladt den nationale lovgiver at begrænse de rettigheder, hvis tilsidesættelse kan påberåbes af en borger for at kunne anlægge et søgsmål til prøvelse af en af disse afgørelser, handlinger eller undladelser, der er omfattet af artikel 10a i Rådets direktiv 85/337/EØF af 27. juni 1985 om vurdering af visse offentlige og private projekters indvirkning på miljøet (
+EFT 1985, L 175, s. 40
+), nu artikel 11 i direktiv 2011/92, til kun at omfatte subjektive rettigheder, dvs. individuelle rettigheder, der i henhold til den nationale lovgivning kan kvalificeres som offentlige subjektive rettigheder (jf. i denne retning dom af 12.5.2011, Bund für Umwelt und Naturschutz Deutschland, Landesverband Nordrhein-Westfalen,
+C-115/09
+,
+EU:C:2011:289
+, præmis
+45
+, af 16.4.2015, Gruber,
+C-570/13
+,
+EU:C:2015:231
+, præmis
+40
+, og af 15.10.2015, Kommissionen mod Tyskland,
+C-137/14
+,
+EU:C:2015:683
+, præmis
+33
+).
+58
+Domstolen har ligeledes fastslået, at når en processuel fejl ikke har konsekvenser, som kan berøre den anfægtede afgørelses indhold, skal den ikke anses for at krænke de rettigheder, der tilkommer den, som påberåber sig fejlen (jf. i denne retning dom af 7.11.2013, Gemeinde Altrip m.fl.,
+C-72/12
+,
+EU:C:2013:712
+, præmis
+49
+).
+59
+Henset til, at artikel 11 i direktiv 2011/92 overlader medlemsstaterne et betydelig skøn med henblik på at fastslå, hvad der skal forstås ved krænkelse af en rettighed som omhandlet i denne artikel 11, stk. 1, litra b), kan national ret vælge ikke at anerkende en sådan krænkelse, hvis det godtgøres, at det ifølge omstændighederne i den foreliggende sag er muligt, at den anfægtede afgørelse ikke ville have været anderledes uden den påberåbte processuelle fejl (jf. i denne retning dom af 7.11.2013, Gemeinde Altrip m.fl.,
+C-72/12
+,
+EU:C:2013:712
+, præmis
+50
+og
+51
+).
+60
+En national lovgivning, som underlægger muligheden for at antage søgsmål anlagt af privatpersoner til realitetsbehandling en betingelse om, at disse personer gør gældende, at der er sket en tilsidesættelse af en rettighed, og som samtidig gør det muligt for privatpersoner at påberåbe sig en processuel fejl, der påvirker offentlighedens deltagelse i beslutningsprocessen, selv om denne fejl ikke har haft nogen indvirkning på den omhandlede afgørelses indhold, giver følgelig adgang til et retsmiddel, selv i tilfælde, hvor artikel 11, stk. 1, litra b), i direktiv 2011/92 ikke kræver det.
+61
+Det er derfor tilladt for den nationale lovgiver at stille som betingelse for at antage et annullationssøgsmål – der er anlagt til prøvelse af en afgørelse om tilladelse til et projekt på grund af processuelle fejl, når denne fejl ikke kan ændre afgørelsens indhold – til realitetsbehandling af, at fejlen faktisk har frataget sagsøgerne deres ret til at deltage i beslutningsprocessen.
+62
+Det bemærkes for alle tilfældes skyld endvidere, sådan som det fremhæves i denne doms præmis 90, andet led, at offentligheden, når det dossier, der er stillet til rådighed for den, mangler de oplysninger, der er nødvendige for at vurdere et projekts indvirkninger på vandmiljøet, ikke er i stand til at deltage på en meningsfuld måde i beslutningsprocessen.
+63
+På baggrund af samtlige ovenstående betragtninger skal det første spørgsmål besvares med, at artikel 11, stk. 1, litra b), i direktiv 2011/92 skal fortolkes således, at bestemmelsen tillader medlemsstaterne at fastsætte, at når en processuel fejl, som afgørelsen om tilladelse til et projekt er behæftet med, ikke er af en sådan art, at den kan ændre afgørelsens indhold, kan en påstand om annullation af denne afgørelse alene antages til realitetsbehandling, såfremt den pågældende uregelmæssighed har frataget sagsøgeren dennes ret til at deltage i den beslutningsproces på miljøområdet, som er sikret ved direktivets artikel 6.
+Det andet spørgsmål
+64
+Med det andet spørgsmål ønsker den forelæggende ret oplyst, om artikel 4, stk. 1, litra a), i direktiv 2000/60 skal fortolkes således, at bestemmelsen er til hinder for, at kontrollen med overholdelsen af de forpligtelser, som den fastsætter, først kan finde sted efter, at der er givet tilladelse til et projekt.
+65
+I givet fald ønsker den forelæggende ret endvidere oplyst, om artikel 6 i direktiv 2011/92 skal fortolkes således, at de oplysninger, der skal stilles til rådighed for offentligheden under proceduren om tilladelse til et projekt, altid skal omfatte dokumenter, der indeholder en undersøgelse af dette projekt i forhold til de forpligtelser, der er fastsat i direktiv 2000/60.
+66
+Hvad angår den første del af det andet spørgsmål bemærkes indledningsvis, at den forelæggende rets spørgsmål ikke alene vedrører de forpligtelser, der er fastsat i artikel 4, stk. 1, litra a), i direktiv 2000/60 med hensyn til overfladevand, men ligeledes de i direktivets artikel 4, stk. 1, litra b), fastsatte forpligtelser i forbindelse med grundvand.
+67
+Ifølge artikel 1, stk. 1, litra a), i direktiv 2000/60 er direktivets formål at fastlægge en ramme for beskyttelse af vandløb og søer, overgangsvande, kystvande og grundvand, som forebygger yderligere forringelse og beskytter og forbedrer vandøkosystemernes tilstand og tilstanden for terrestriske økosystemer, der er direkte afhængige af vandøkosystemerne.
+68
+I denne henseende bemærkes, at artikel 4, stk. 1, litra a), i direktiv 2000/60 opstiller to særskilte, men indbyrdes tæt forbundne mål. For det første iværksætter medlemsstaterne i henhold til artikel 4, stk. 1, litra a), nr. i), de nødvendige foranstaltninger med henblik på at forebygge forringelse af tilstanden for alle overfladevandområder (forpligtelsen til at forebygge forringelse). Under anvendelse af artikel 4, stk. 1, litra a), nr. ii) og iii), beskytter, forbedrer og restaurerer medlemsstaterne for det andet alle overfladevandområder med henblik på at opnå en »god tilstand« senest i slutningen af 2015 (forpligtelsen til forbedring) (dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+39
+).
+69
+Artikel 4, stk. 1, litra b), i direktiv 2000/60 fastsætter for så vidt angår grundvand forpligtelser, der stort set er identiske med dem, der er fastsat for overfladevand. For det første iværksætter medlemsstaterne i henhold til artikel 4, stk. 1, litra b), nr. i), de nødvendige foranstaltninger med henblik på at forebygge forringelse af tilstanden for alle grundvandsforekomster (forpligtelsen til at forebygge forringelse). Under anvendelse af artikel 4, stk. 1, litra b), nr. ii), beskytter, forbedrer og restaurerer medlemsstaterne for det andet alle grundvandsforekomster med henblik på at opnå en »god tilstand« senest i slutningen af 2015 (forpligtelsen til forbedring).
+70
+Som generaladvokaten har anført i punkt 56 i forslaget til afgørelse, svarer målene med direktiv 2000/60 for overfladevand og grundvand til hinanden.
+71
+I denne henseende bemærkes, at formålet med direktiv 2000/60 består i ved en koordineret indsats at opnå en »god tilstand« for alt overfladevand og grundvand i Den Europæiske Union inden udgangen af 2015. Såvel forpligtelsen til forbedring som forpligtelsen til at forebygge forringelse af tilstanden for vandområder tilsigter at opfylde de kvalitative mål (jf. i denne retning dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+37
+,
+38
+og
+41
+)
+72
+Det følger desuden af ordlyden af og systematikken i samt formålet med artikel 4 i direktiv 2000/60, at i lighed med de forpligtelser, der er fastsat i artikel 4, stk. 1, litra a), for overfladevand, der, som Domstolen har fastslået i dom af 1. juli 2015, Bund für Umwelt und Naturschutz Deutschland (
+C-461/13
+,
+EU:C:2015:433
+, præmis
+43
+), er bindende, har de forpligtelser, der er fastsat i artikel 4, stk. 1, litra b), for grundvand, ligeledes en sådan karakter.
+73
+Heraf følger det, at artikel 4, stk. 1, i direktiv 2000/60 ikke begrænser sig til ved en programmatisk formulering at anføre simple mål for forvaltningsplaner, men har bindende virkning, så snart det pågældende vandområdes økologiske tilstand er fastslået i alle faser i den procedure, der er fastlagt ved dette direktiv.
+74
+Artikel 4 i direktiv 2000/60 indeholder ikke kun mere langsigtede planlægningsforpligtelser, der følger af forvaltningsplaner og indsatsprogrammer, men vedrører også enkeltprojekter, som forbuddet mod forringelse af vandområder ligeledes gælder for. En medlemsstat er følgelig forpligtet til at nægte at give tilladelse til et projekt, såfremt sidstnævnte kan medføre en forringelse af tilstanden for et berørt overfladevandområde eller indebærer risiko for, at der ikke opnås en »god tilstand« for overfladevand, med forbehold for de undtagelser, der ligeledes er fastsat i denne artikel 4 (jf. i denne retning dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+47
+,
+48
+og
+50
+)
+75
+Domstolen har nærmere bestemt fastslået, at et projekt, når det kan medføre negative virkninger for vandressourcer, kun kan tillades, såfremt betingelserne i artikel 4, stk. 7, litra a)-d), i direktiv 2000/60 er opfyldt. Det er de nationale myndigheder, som har kompetence til at give tilladelse til et projekt, der er forpligtede til at efterprøve, om disse betingelser opfyldt, før de udsteder en sådan bevilling, med forbehold af en eventuel domstolsprøvelse (jf. i denne retning dom af 1.6.2017, Folk,
+C-529/15
+,
+EU:C:2017:419
+, præmis
+36
+og
+39
+).
+76
+Det følger af det ovenstående, at de kompetente myndigheder under tilladelsesproceduren for et projekt, og således inden der træffes afgørelse, i henhold til artikel 4 i direktiv 2000/60 er forpligtet til at kontrollere, om projektet kan have skadelige virkninger på vandmiljøet, som vil være i strid med forpligtelsen til at forebygge forringelse og forpligtelsen til at forbedre tilstanden for overfladevandområder og grundvandsforekomster. Denne bestemmelse er følgelig til hinder for, at en sådan kontrol først foretages efter dette tidspunkt.
+77
+Hvad angår den anden del af det andet spørgsmål om de oplysninger, der skal stilles til rådighed for offentligheden, inden et projekt tillades, bemærkes, at artikel 2, stk. 1, i direktiv 2011/92 fastsætter, at projekter, der kan få væsentlig indvirkning på miljøet som omhandlet i direktivets artikel 4, sammenholdt med bilag I eller II hertil, skal underkastes en miljøkonsekvensvurdering, inden der meddeles tilladelse (dom af 28.2.2018, Comune di Castelbellino,
+C-117/17
+,
+EU:C:2018:129
+, præmis
+24
+).
+78
+Den forudgående karakter af en sådan vurdering er begrundet i behovet for, at den kompetente myndighed som led i beslutningsprocessen på et så tidligt stadium som muligt tager indvirkningen af alle tekniske planlægnings- og beslutningsprocesser på miljøet i betragtning, idet formålet er fra starten at undgå dannelsen af forurening eller gener frem for senere at forsøge at modvirke deres virkninger (dom af 28.2.2018, Comune di Castelbellino,
+C-117/17
+,
+EU:C:2018:129
+, præmis
+25
+).
+79
+Artikel 3 i direktiv 2011/92 opregner de faktorer, der skal tages i betragtning ved vurderingen af et projekts indvirkning på miljøet. I henhold til artikel 3, litra b), er det nødvendigt på passende måde at påvise, beskrive og vurdere et projekts direkte og indirekte virkninger på jordbund, vand, luft, klima og landskab.
+80
+De oplysninger, som bygherren under alle omstændigheder skal give den besluttende myndighed, omfatter i overensstemmelse med artikel 5, stk. 3, litra b) og c), i direktiv 2011/92 bl.a. en beskrivelse af påtænkte foranstaltninger med henblik på at undgå, nedbringe og om muligt neutralisere væsentlige skadelige virkninger samt de data, der er nødvendige for at konstatere og vurdere de væsentligste indvirkninger, projektet kan forventes at få på miljøet.
+81
+I lyset af artikel 3, litra b), i direktiv 2011/92 og henset til den obligatoriske karakter af den kontrol, der skal udføres i henhold til direktiv 2000/60, hvortil der er henvist i denne doms præmis 74-76, og den betydning, som sidstnævnte direktiv tillægger beskyttelsen af vandmiljøet, skal det følgelig fastslås, at de i artikel 5, stk. 3, litra b) og c), i direktiv 2011/92 omhandlede oplysninger skal indeholde de oplysninger, der er nødvendige for at vurdere et projekts indvirkninger på tilstanden for de pågældende vandområder i forhold til de kriterier og forpligtelser, der navnlig er fastsat i artikel 4, stk. 1, i direktiv 2000/60.
+82
+Det fremgår desuden af artikel 5, stk. 1, i direktiv 2011/92, at medlemsstaterne skal vedtage de nødvendige foranstaltninger for at sikre, at bygherren på passende vis giver de i bilag IV til direktivet omhandlede oplysninger, for så vidt som disse oplysninger er relevante for at vurdere et givet projekts indvirkninger, og inden for grænserne af, hvad der med rimelighed kan forlanges af en privat aktør. Disse oplysninger indeholder i overensstemmelse med punkt 4 i dette bilag en beskrivelse af projektets direkte, indirekte, sekundære, kumulative, kort- og langsigtede, vedvarende eller midlertidige samt positive eller negative virkninger som følge af navnlig anvendelsen af naturlige ressourcer og emissionen af forurenende stoffer.
+83
+Alle de oplysninger, der således er indhentet, skal i overensstemmelse med artikel 6, stk. 3, i direktiv 2011/92 stilles til rådighed for den berørte offentlighed inden for rimelige tidsfrister.
+84
+Henset til ovenstående betragtninger skal det konkluderes, at de oplysninger, der stilles til rådighed for offentligheden med henblik på høringen, inden der gives tilladelse til et projekt, i henhold til direktiv 2011/92 og navnlig dettes artikel 3, 5 og 6, skal indeholde de data, der er nødvendige for at vurdere projektets indvirkning på vandmiljøet i forhold til de kriterier og forpligtelser, der navnlig er fastsat i artikel 4, stk. 1, i direktiv 2000/60.
+85
+Selv om det i øvrigt ikke kan udledes af artikel 5 og 6 i direktiv 2011/92, at de oplysninger, der gør det muligt at vurdere et projekts indvirkninger på vandmiljøet, nødvendigvis skal fremgå af et enkelt dokument, såsom en rapport eller en teknisk undersøgelse, skal den berørte offentlighed, således som det kræves i henhold til dette direktivs artikel 6, stk. 4 og 6, have faktisk mulighed for at deltage i beslutningsprocessen og for at forberede sig behørigt i denne henseende.
+86
+Det er følgelig væsentligt, at oplysningerne i det dossier, der stilles til rådighed for offentligheden, gør det muligt for disse sidstnævnte at få et præcist overblik over projektets indvirkninger på de pågældende vandområders tilstand, således at offentligheden kan efterprøve, om de forpligtelser, der navnlig følger af artikel 4 i direktiv 2000/60, overholdes. Nærmere bestemt skal de fremlagte data være af en sådan art, at de viser, hvorvidt det pågældende projekt, henset til de kriterier, der er fastsat i dette direktiv, kan føre til en forringelse af et vandområde.
+87
+Under alle omstændigheder gør et ufuldstændigt dossier eller usammenhængende oplysninger i en lang række dokumenter det ikke muligt for den berørte offentlighed at deltage i beslutningsprocessen på en hensigtsmæssig måde og opfylder derfor ikke de krav, der følger af artikel 6 i direktiv 2011/92.
+88
+Endvidere påhviler det i henhold til dette direktivs artikel 5, stk. 3, litra e), bygherren at udarbejde et »ikke-teknisk resumé« af de i stk. 3, litra a)-d), omhandlede oplysninger, hvilket omfatter de data, der er nødvendige for at konstatere og vurdere de væsentligste indvirkninger, projektet kan forventes at få på miljøet. Dette resumé skal i henhold til nævnte direktivs artikel 6, stk. 3, litra a), ligeledes stilles til rådighed for offentligheden.
+89
+I det foreliggende tilfælde tilkommer det den forelæggende ret at efterprøve, om det dossier, som offentligheden havde adgang til, inden der blev givet tilladelse til det omhandlede projekt, opfylder alle de krav, der følger af artikel 6, stk. 3, i direktiv 2011/92, sammenholdt med dette direktivs artikel 5, stk. 1 og 3, som præciseret i nærværende dom.
+90
+På baggrund af samtlige ovenstående betragtninger skal det andet spørgsmål besvares som følger:
+–
+Artikel 4 i direktiv 2000/60 skal fortolkes således, at den er til hinder for, at den kompetente myndigheds kontrol med overholdelsen af de i artiklen fastsatte forpligtelser, herunder forpligtelsen til at forebygge forringelse af tilstanden for de vandområder – såvel overfladevand som grundvand – der berøres af et projekt, først kan finde sted, efter at der er givet tilladelse til projektet.
+–
+Artikel 6 i direktiv 2011/92 skal fortolkes således, at de oplysninger, der skal stilles til rådighed for offentligheden under tilladelsesproceduren for et projekt, skal omfatte de data, der er nødvendige for at vurdere projektets indvirkning på vandmiljøet, henset til de kriterier og forpligtelser, der navnlig er fastsat i artikel 4, stk. 1, i direktiv 2000/60.
+Det tredje spørgsmål
+91
+Med det tredje spørgsmål ønsker den forelæggende ret oplyst, om artikel 4, stk. 1, litra b), nr. i), i direktiv 2000/60 skal fortolkes således, at en overskridelse af et parameter for mindst et af miljøkvalitetskravene skal anses for at udgøre en forringelse af den kemiske tilstand af en grundvandsforekomst som følge af et projekt. Den forelæggende ret ønsker ligeledes oplyst, om en forventet stigning i koncentrationen af et forurenende stof, når den fastsatte tærskel for dette stof allerede er overskredet, skal anses for en sådan forringelse.
+92
+Det skal bemærkes, at Domstolen i dom af 1. juli 2015, Bund für Umwelt und Naturschutz Deutschland (
+C-461/13
+,
+EU:C:2015:433
+, præmis
+70
+), fastslog, at begrebet »forringelse af tilstanden« af et overfladevandområde i artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 skal fortolkes således, at der foreligger en forringelse, når mindst et af kvalitetselementerne som omhandlet i dette direktivs bilag V falder et niveau, selv om denne forringelse ikke fører til, at hele overfladevandområdet rykker en klasse ned. Hvis det pågældende kvalitetselement allerede befinder sig i den laveste klasse, udgør enhver forringelse af dette element imidlertid en »forringelse af tilstanden« for et overfladevandområde i den forstand, hvori dette udtryk er anvendt i denne bestemmelse.
+93
+Som generaladvokaten har anført i punkt 55 i forslaget til afgørelse, er det korrekt, at i modsætning til overfladevandområder – for hvilke direktiv 2000/60 foreskriver en skala med fem klasser af økologisk tilstand – sondrer direktivet kun mellem »god tilstand« og »ringe tilstand« med hensyn til grundvandsforekomsternes kvantitative og kemiske tilstand. Det følger af direktivets artikel 2, nr. 25) og 28), at denne klassificering foretages ved hjælp af tabellerne i punkt 2.1.2 og 2.3.2 i bilag V hertil.
+94
+Det bemærkes imidlertid, at på trods af disse forskelle i, hvordan vandområdernes tilstand fastsættes, alt efter om der er tale om overfladevand eller grundvand, fastlægger de samme principper rækkevidden af begrebet »forringelse af tilstanden« for vandmiljøet, uanset hvilken type vandmiljø der er tale om.
+95
+Det er således fastslået i denne doms præmis 68-72, at formålene med direktiv 2000/60, såvel for overfladevand som for grundvand, samt de forpligtelser, der følger af dette direktivs artikel 4, stk. 1, for disse typer vandmiljøer, for en stor dels vedkommende er identiske.
+96
+Dette gælder især forpligtelsen til at forebygge forringelse af vandets tilstand, der er fastsat i dette direktivs artikel 4, stk. 1, litra a), nr. i), for så vidt angår overfladevand, og i artikel 4, stk. 1, litra b), nr. i), for så vidt angår grundvand. Disse to bestemmelser indeholder ikke nogen henvisning til bilag V til samme direktiv, således at begrebet »forringelse af tilstanden« for vand er et begreb med en global rækkevidde (jf. i denne retning dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+61
+).
+97
+Domstolen har desuden fastslået, at selv om de i bilag V til direktiv 2000/60 fastsatte klasser er afgørende for at vurdere, om der er sket en forringelse, vil en ny forringelse af et overfladevandområdes tilstand, efter at dette er blevet klassificeret i den laveste tilstandsklasse, ikke længere være juridisk mulig. I betragtning af formålet med samme direktiv 2000/60 fortjener et vandområde, der befinder sig i en ringe tilstand, imidlertid særlig opmærksomhed i forbindelse med vandforvaltningen (jf. i denne retning dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+63
+).
+98
+Samme ræsonnement finder anvendelse mutatis mutandis på grundvand.
+99
+I denne sammenhæng bør der ligeledes, henses til artikel 4, stk. 5, litra c), i direktiv 2000/60, der for så vidt angår stærkt modificerede overfladevandområder og grundvandsforekomster, i forhold til hvilke medlemsstaterne kan tilstræbe mindre strenge miljømål, udtrykkeligt fastlægger et forbud mod enhver yderligere forringelse (jf. i denne retning dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+64
+).
+100
+Henset til disse forhold skal begrebet »forringelse af tilstanden« i vandområderne fortolkes med henvisning til såvel et kvalitetselement som et stof. Forbuddet mod forringelse bevarer således sin fulde effektive virkning, forudsat at det omfatter alle ændringer, som kan indebære risiko for, at direktiv 2000/60’s hovedmål ikke opnås (jf. i denne retning dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+66
+).
+101
+Hvad derudover angår kriterierne for, at det kan fastslås, at der foreligger en forringelse af tilstanden for et vandområde, skal der mindes om, at det fremgår af opbygningen af artikel 4 i direktiv 2000/60, og navnlig stk. 6 og 7 heri, at – selv midlertidige – forringelser i et vandområde kun er tilladte under strenge betingelser. Heraf følger det, at den tærskel, hvorover der foreligger en tilsidesættelse af forpligtelsen til at forebygge forringelse af et vandområde, skal være så lav som muligt (jf. i denne retning dom af 1.7.2015, Bund für Umwelt und Naturschutz Deutschland,
+C-461/13
+,
+EU:C:2015:433
+, præmis
+67
+).
+102
+Hvad specifikt angår undersøgelsen af grundvandsforekomsternes kemiske tilstand fremgår det af punkt 2.3.1 i bilag V til direktiv 2000/60, at vandets ledningsevne og koncentrationen af forurenende stoffer udgør relevante parametre. Tabellen i punkt 2.3.2 i dette bilag fastlægger for hver af disse parametre de kvalitetselementer, der skal tages hensyn til ved fastlæggelsen af, om et vandområdes kemiske tilstand er »god« eller »ringe«.
+103
+Hvad i første omgang angår koncentrationen af forurenende stoffer er denne undersøgelse baseret på tre kvalitetselementer. For det første viser koncentrationerne af forurenende stoffer ikke påvirkninger fra indtrængning af saltvand eller andet. For det andet overstiger disse koncentrationer ikke de kvalitetskrav, der gælder i henhold til anden relevant lovgivning i overensstemmelse med artikel 17 i direktiv 2000/60. For det tredje og endelig medfører koncentrationerne af forurenende stoffer i grundvandet ikke, at miljømålene i dette direktivs artikel 4 ikke opfyldes for tilknyttede overfladevande, eller at der sker en signifikant forringelse i sådanne vandområders økologiske eller kemiske kvalitet eller en signifikant beskadigelse af terrestriske økosystemer, som er direkte afhængige af grundvandsforekomsten.
+104
+Hvad derefter angår ledningsevnen er det kun væsentligt, at ændringerne af denne ikke viser tegn på indtrængning af saltvand eller andet i grundvandsforekomsten.
+105
+For så vidt som punkt 2.3.2 i bilag V til direktiv 2000/60 henviser til de kvalitetskrav, der gælder i henhold til anden relevant lovgivning i overensstemmelse med dette direktivs artikel 17, bemærkes, at sidstnævnte bestemmelse fastsætter, at EU-lovgiver vedtager specifikke foranstaltninger til forebyggelse af og kontrol med grundvandsforurening, som navnlig omfatter kriterier for vurdering af god kemisk tilstand for dette vandmiljø i overensstemmelse med punkt. 2.2 i bilag II og punkt. 2.3.2 og 2.4.5 i bilag V til samme direktiv. EU-lovgiver har i denne henseende vedtaget direktiv 2006/118.
+106
+Artikel 3, stk. 1, i direktiv 2006/118 bestemmer, at medlemsstaterne med henblik på at vurdere den kemiske tilstand af en grundvandsforekomst anvender dels de kvalitetskrav for grundvand, der er opført på listen i bilag I til dette direktiv, dels de tærskelværdier, som medlemsstaterne skal fastsætte i overensstemmelse med bilag II til samme direktiv, navnlig for de forurenende stoffer, for hvilke det på en medlemsstats område er fastslået, at de bidrager til karakteriseringen af grundvandsforekomster som truet.
+107
+Følgelig udgør disse kvalitetskrav og tærskelværdier et kvalitetselement som omhandlet i punkt 2.3.2 i bilag V til direktiv 2000/60, som gør det muligt at vurdere et af de parametre, der er afgørende for kvalificeringen af en grundvandsforekomsts tilstand, nemlig koncentrationen af forurenende stoffer.
+108
+Eftersom begrebet »forringelse af tilstanden« for vandmiljøet, således som det bemærkes i denne doms præmis 100, skal fortolkes under henvisning til et kvalitetselement eller et stof, og den tærskel, over hvilken der konstateres en tilsidesættelse af forpligtelsen til at forebygge forringelse af et vandområdes tilstand, således som det fremgår af denne doms præmis 101, skal være så lav som mulig, må det konstateres, at manglende overholdelse af et af de i punkt 2.3.2 i bilag V til direktiv 2000/60 omhandlede kvalitetselementer udgør en forringelse af den pågældende grundvandsforekomst kemiske tilstand.
+109
+Navnlig skal overskridelsen i en grundvandsforekomst af et enkelt af kvalitetskravene eller tærskelværdierne som omhandlet i artikel 3, stk. 1, i direktiv 2006/118 kvalificeres som en tilsidesættelse af forpligtelsen til at forebygge forringelse af en grundvandsforekomsts tilstand.
+110
+Af de samme grunde som dem, der er anført i denne doms præmis 108, og navnlig i lyset af de betragtninger, der er anført i denne doms præmis 97, udgør enhver efterfølgende stigning i koncentrationen af et forurenende stof, der, henset til artikel 3, stk. 1, i direktiv 2006/118, allerede overskrider et miljøkvalitetskrav eller en af medlemsstaten fastsat grænseværdi, ligeledes en forringelse.
+111
+Med henblik på at besvare den forelæggende rets spørgsmål vedrørende hensyntagen til ændringer i koncentrationen af forurenende stoffer, der er konstateret lokalt, med henblik på at efterprøve, om der foreligger en forringelse af et vandområdes kemiske tilstand, bemærkes, at punkt 2.4 i bilag V til direktiv 2000/60 fastsætter hovedkriterierne for overvågningen af grundvands kemiske tilstand. Dette bilags punkt 2.4.5, som den forelæggende ret udtrykkeligt har nævnt, indeholder krav om fortolkning og præsentation.
+112
+Selv om sidstnævnte bestemmelse ganske vist fastsætter, at kvalificeringen af en grundvandsforekomsts kemiske tilstand som »god« eller »ringe« skal foretages ved at samle data fra de enkelte overvågningspunkter i et vandområde, følger det ikke heraf, at hele grundvandsforekomsten skal være påvirket med henblik på at konstatere en forringelse af denne tilstand.
+113
+Det fremgår navnlig af hvert enkelt overvågningssteds rolle og betydning i det system til overvågning af grundvandets kvalitet, der er indført ved direktiv 2000/60, navnlig punkt 2.4 i bilag V, at manglende overholdelse af et kvalitetselement på et enkelt overvågningspunkt er nok til, at det må konstateres, at der foreligger en forringelse af en grundvandsforekomsts tilstand som omhandlet i dette direktivs artikel 4, stk. 1.
+114
+I overensstemmelse med punkt 2.4 i bilag V til nævnte direktiv skal overvågningspunkterne placeres således, at det giver et sammenhængende og omfattende overblik over grundvandets kemiske tilstand i hvert vandløbsopland. Med henblik herpå er der fastsat forskellige kriterier i denne bestemmelse for udvælgelsen af kontrolsteder, der, som det bekræftes i artikel 4, stk. 3, i direktiv 2006/118, skal give repræsentative overvågningsdata.
+115
+Manglende overholdelse af et kvalitetselement på et enkelt overvågningspunkt angiver således, at der som omhandlet i artikel 4, stk. 1, litra b), nr. i), i direktiv 2000/60 foreligger en forringelse af den kemiske tilstand for i det mindste en betydelig del af en grundvandsforekomst.
+116
+Desuden er det ganske vist ikke udelukket, at en grundvandsforekomst på trods af overskridelsen af et grundvandskvalitetskrav eller en grænseværdi i et eller flere overvågningspunkter skal anses for at have en god kemisk tilstand i medfør af artikel 4, stk. 2, litra c), i direktiv 2006/118. I dette tilfælde kræver dette direktivs artikel 4, stk. 5, imidlertid, at medlemsstaterne i overensstemmelse med artikel 11 i direktiv 2000/60 træffer de foranstaltninger, der måtte være nødvendige for at beskytte de akvatiske økosystemer, terrestriske økosystemer og menneskers brug af grundvand, der er afhængig af den del af grundvandsforekomsten, der berøres af overskridelsen.
+117
+De i artikel 11 i direktiv 2000/60 omhandlede foranstaltninger omfatter udarbejdelsen af programmer med henblik på opfyldelse af de mål, der er fastsat i dette direktivs artikel 4.
+118
+Når et kvalitetselement ikke overholdes på et enkelt overvågningspunkt i en grundvandsforekomst, skal der følgelig konstateres en forringelse af den kemiske tilstand heraf som omhandlet i artikel 4, stk. 1, litra b), nr. i), i direktiv 2000/60.
+119
+Henset til samtlige ovenstående betragtninger skal det tredje spørgsmål besvares med, at artikel 4, stk. 1, litra b), nr. i), i direktiv 2000/60 skal fortolkes således, at der foreligger en forringelse af den kemiske tilstand af en grundvandsforekomst som følge af et projekt i tilfælde af dels en overskridelse af mindst ét af de kvalitetskrav eller tærskelværdier som omhandlet i artikel 3, stk. 1, i direktiv 2006/118, dels en forventet stigning i koncentrationen af et forurenende stof, når den fastsatte tærskel for dette stof allerede er overskredet. De værdier, der er målt på hvert overvågningspunkt, skal tages i betragtning individuelt.
+Det fjerde spørgsmål
+120
+Med det fjerde spørgsmål ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 4, stk. 1, i direktiv 2000/60, sammenholdt med artikel 19 TEU og artikel 288 TEUF, skal fortolkes således, at medlemmerne af den offentlighed, der er berørt af et projekt, for de kompetente nationale domstole skal kunne påberåbe sig en tilsidesættelse af forpligtelsen til at forebygge forringelsen af vandområder og forpligtelsen til at forbedre deres tilstand.
+121
+I denne henseende bemærkes, at det ifølge Domstolens faste praksis ville være uforeneligt med den bindende karakter, som artikel 288 TEUF tillægger et direktiv, principielt at udelukke, at de forpligtelser, som det pålægger, kan påberåbes af de berørte personer (dom af 3.10.2019, Wasserleitungsverband Nördliches Burgenland m.fl.,
+C-197/18
+,
+EU:C:2019:824
+, præmis
+30
+og den deri nævnte retspraksis).
+122
+Især i de tilfælde, hvor EU-lovgiver ved et direktiv pålægger medlemsstaterne en bestemt fremgangsmåde, ville den effektive virkning af en sådan retsakt formindskes, såfremt de retsundergivne var forhindret i at påberåbe sig den under retssager, og de nationale domstole var forhindret i at tage den i betragtning som en del af EU-retten for at efterprøve, at den nationale lovgiver under udøvelse af den mulighed, som tilkommer vedkommende med hensyn til form og midler for denne retsakts gennemførelse, ikke har overskredet de i denne afstukne grænser for skønnet (dom af 3.10.2019, Wasserleitungsverband Nördliches Burgenland m.fl.,
+C-197/18
+,
+EU:C:2019:824
+, præmis
+31
+og den deri nævnte retspraksis).
+123
+Domstolen har heraf udledt, at i det mindste fysiske og juridiske personer, der er direkte berørt af en tilsidesættelse af direktivbestemmelser på miljøområdet, skal kunne kræve af de kompetente myndigheder eller i givet fald ad rettens vej, at de pågældende forpligtelser overholdes (dom af 3.10.2019, Wasserleitungsverband Nördliches Burgenland m.fl.,
+C-197/18
+,
+EU:C:2019:824
+, præmis
+32
+).
+124
+I denne henseende har den forelæggende ret anført, at visse af sagsøgerne i hovedsagen inden for rammerne af deres søgsmål er af den opfattelse, at det omhandlede projekt kan forringe tilstanden for den grundvandsforekomst, der forsyner deres private brønde, som de benytter sig af til at få drikkevand. Derimod gør hverken de oplysninger, der er indeholdt i forelæggelsesafgørelsen, eller de indlæg, der er afgivet for Domstolen, det muligt at fastslå, at de overfladevandområder, der ligeledes kan blive berørt af det omhandlede projekt, er relevante for sagsøgerne i hovedsagen. Under disse omstændigheder lader det ikke til, at sagsøgerne i hovedsagen kan være berørt af en eventuel tilsidesættelse af de forpligtelser, der følger af artikel 4, stk. 1, litra a), i direktiv 2000/60, således at Domstolens prøvelse alene vil vedrøre artikel 4, stk. 1, litra b), der omhandler grundvand.
+125
+For at afgøre, om personer såsom sagsøgerne i hovedsagen er direkte berørt af en tilsidesættelse af de forpligtelser, der er fastsat i artikel 4, stk. 1, litra b), i direktiv 2000/60, skal der tages hensyn til formålet med sidstnævnte direktiv såvel som til ordlyden af den omhandlede bestemmelse, hvis korrekte anvendelse anfægtes for den forelæggende ret (dom af 3.10.2019, Wasserleitungsverband Nördliches Burgenland m.fl.,
+C-197/18
+,
+EU:C:2019:824
+, præmis
+35
+).
+126
+I denne henseende følger det af nærværende doms præmis 71, at formålet med direktiv 2000/60 består i ved en koordineret indsats at opnå en »god tilstand« for alt overfladevand og grundvand i EU inden udgangen af 2015. Såvel forpligtelsen til at forbedre som forpligtelsen til at forebygge forringelsen af vandområders tilstand tilsigter at opfylde dette kvalitative mål.
+127
+Som det fremgår af artikel 1, stk. 2, første led, i direktiv 2000/60, bidrager dette formål specifikt for så vidt angår grundvandet til at sikre tilstrækkelig forsyning af grundvand af god kvalitet, som er nødvendig for at opnå en bæredygtig, afbalanceret og rimelig vandanvendelse.
+128
+Det skal derfor konstateres, at direktiv 2000/60 i kraft af sit formål og de forpligtelser, der er fastsat i dets artikel 4, stk. 1, litra b), med henblik på at nå dette mål, ligeledes forfølger det specifikke formål at beskytte grundvandet som en ressource, der udnyttes af mennesker.
+129
+Denne fortolkning af de formål, der forfølges med direktiv 2000/60, bekræftes af dettes artikel 1, stk. 1, litra d), og artikel 1, stk. 2, andet led, sammenholdt med direktivets artikel 2, nr. 33).
+130
+Det fremgår af artikel 1, stk. 1, litra d), og artikel 1, stk. 2, andet led, at den lovgivningsmæssige ramme, som dette direktiv fastlægger, har til formål progressivt at opnå en betydelig reduktion af forureningen af grundvandet og forhindre en yderligere forurening heraf. I henhold til artikel 2, nr. 33), forårsages vandforurening af enhver udledning af stoffer hertil, der kan skade menneskers sundhed eller kvaliteten af vandøkosystemer, således at naturfaciliteter og anden legitim anvendelse af miljøet, og mere specifikt af vandmiljøet, forstyrres.
+131
+Det følger således af artikel 1, stk. 1, litra d), og artikel 1, stk. 2, andet led, i direktiv 2000/60, sammenholdt med direktivets artikel 2, nr. 33), at reduktion og forebyggelse af forurening navnlig har til formål at muliggøre retmæssig anvendelse af grundvand.
+132
+En person, der har ret til at tappe og anvende grundvand, udfører en sådan retmæssige anvendelse. Den pågældende er således direkte berørt af tilsidesættelsen af forpligtelserne til forbedring og forebyggelse af forringelse af tilstanden af de grundvandsforekomster, som forsyner vedkommendes kilde, idet denne tilsidesættelse kan besværliggøre udnyttelsen heraf (jf. analogt dom af 3.10.2019, Wasserleitungsverband Nördliches Burgenland m.fl.,
+C-197/18
+,
+EU:C:2019:824
+, præmis
+40
+og
+42
+).
+133
+Henset til de forskellige former for anvendelse af grundvand, der er omhandlet i artikel 1, stk. 2, første led, samt i artikel 2, nr. 33), i direktiv 2000/60, kan det forhold, at overskridelsen af et eneste af kvalitetskravene eller en eneste af tærskelværdierne som omhandlet i artikel 3, stk. 1, i direktiv 2006/118 ikke som sådan medfører, at sundheden hos de personer, der ønsker at indlede en administrativ eller retslig procedure, bringes i fare, ikke stille spørgsmålstegn ved denne konklusion (jf. analogt dom af 3.10.2019, Wasserleitungsverband Nördliches Burgenland m.fl.,
+C-197/18
+,
+EU:C:2019:824
+, præmis
+41
+).
+134
+For så vidt som sagsøgerne i hovedsagen lovligt anvender det omhandlede grundvand, er de følgelig direkte berørt af tilsidesættelsen af disse forpligtelser.
+135
+På baggrund af samtlige ovenstående betragtninger skal det fjerde spørgsmål besvares med, at artikel 1, stk. 1, litra b), artikel 1, stk. 2, første led, og artikel 4, stk. 1, litra b), i direktiv 2000/60, sammenholdt med artikel 19 TEU og artikel 288 TEUF, skal fortolkes således, at medlemmerne af den offentlighed, der er berørt af et projekt, for de kompetente nationale domstole skal kunne påberåbe sig en tilsidesættelse af forpligtelsen til at forebygge forringelsen af vandområder og forpligtelsen til at forbedre deres tilstand, såfremt denne tilsidesættelse berører dem direkte.
+Sagsomkostninger
+136
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagsomkostningerne. Bortset fra de nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Første Afdeling) for ret:
+1)
+Artikel 11, stk. 1, litra b), i Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet skal fortolkes således, at bestemmelsen tillader medlemsstaterne at fastsætte, at når en processuel fejl, som afgørelsen om tilladelse til et projekt er behæftet med, ikke er af en sådan art, at den kan ændre indholdet af denne afgørelse, kan en påstand om annullation af denne afgørelse alene antages til realitetsbehandling, såfremt den pågældende uregelmæssighed har frataget sagsøgeren dennes ret til at deltage i den beslutningsproces på miljøområdet, som er sikret ved direktivets artikel 6.
+2)
+Artikel 4 i Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger skal fortolkes således, at den er til hinder for, at den kompetente myndigheds kontrol med overholdelsen af de i artiklen fastsatte forpligtelser, herunder forpligtelsen til at forebygge forringelse af tilstanden for de vandområder – såvel overfladevand som grundvand – der berøres af et projekt, først kan finde sted, efter at der er givet tilladelse til projektet.
+Artikel 6 i direktiv 2011/92 skal fortolkes således, at de oplysninger, der skal stilles til rådighed for offentligheden under tilladelsesproceduren for et projekt, skal omfatte de data, der er nødvendige for at vurdere projektets indvirkning på vandmiljøet, henset til de kriterier og forpligtelser, der navnlig er fastsat i artikel 4, stk. 1, i direktiv 2000/60.
+3)
+Artikel 4, stk. 1, litra b), nr. i), i direktiv 2000/60 skal fortolkes således, at der foreligger en forringelse af den kemiske tilstand af en grundvandsforekomst som følge af et projekt i tilfælde af dels en overskridelse af mindst ét af kvalitetskravene eller tærskelværdierne som omhandlet i artikel 3, stk. 1, i Europa-Parlamentets og Rådets direktiv 2006/118/EØF af 12. december 2006 om beskyttelse af grundvand mod forurening og forringelse, dels en forventet stigning i koncentrationen af et forurenende stof, når den fastsatte tærskel for dette stof allerede er overskredet. De værdier, der er målt på hvert overvågningspunkt, skal tages i betragtning individuelt.
+4)
+Artikel 1, stk. 1, litra b), artikel 1, stk. 2, første led, og artikel 4, stk. 1, litra b), i direktiv 2000/60, sammenholdt med artikel 19 TEU og artikel 288 TEUF, skal fortolkes således, at medlemmerne af den offentlighed, der er berørt af et projekt, for de kompetente nationale domstole skal kunne påberåbe sig en tilsidesættelse af forpligtelsen til at forebygge forringelsen af vandområder og forpligtelsen til at forbedre deres tilstand, såfremt denne tilsidesættelse berører dem direkte.
+Underskrifter
+(
+*1
+) – Processprog: tysk.

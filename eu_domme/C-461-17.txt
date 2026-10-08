@@ -1,0 +1,366 @@
+62017CJ0461
+DOMSTOLENS DOM (Anden Afdeling)
+7. november 2018 (
+*1
+)
+»Præjudiciel forelæggelse – miljø – direktiv 92/43/EØF – bevaring af naturtyper – bevaring af vilde dyr og planter – vejanlægsprojekt – passende vurdering af indvirkningen på miljøet – begrundelsespligtens omfang – direktiv 2011/92/EU – vurdering af visse projekters indvirkning – bilag IV, punkt 3 – artikel 5, stk. 3, litra d) – rækkevidden af begrebet »de væsentligste alternativer««
+I sag C-461/17,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af High Court (ret i første instans, Irland) ved afgørelse af 5. maj 2017, indgået til Domstolen den 28. juli 2017, i sagen
+Brian Holohan,
+Richard Guilfoyle,
+Noric Guilfoyle,
+Liam Donegan
+mod
+An Bord Pleanála,
+procesdeltager:
+National Parks and Wildlife Service (NPWS),
+har
+DOMSTOLEN (Anden Afdeling),
+sammensat af formanden for Tredje Afdeling, A. Prechal, som fungerende formand for Anden Afdeling, og dommerne C. Toader (refererende dommer) og A. Rosas,
+generaladvokat: J. Kokott,
+justitssekretær: fuldmægtig K. Malacek,
+på grundlag af den skriftlige forhandling og efter retsmødet den 16. maj 2018,
+efter at der er afgivet indlæg af:
+–
+B. Holohan, R. Guilfoyle, N. Guilfoyle og L. Donegan ved D. Browne og C. Hugues, BL, samt ved P. O’Higgins og J. Devlin, SC, på vegne af solicitors C. Herlihy, L. O’Sullivan og M.B. Harrington,
+–
+An Bord Pleanála ved F. Valentine, BL, og N. Butler, SC, på vegne af solicitors M. Larkin og A. Doyle,
+–
+Irland ved M. Browne, G. Hodge og A. Joyce, som befuldmægtigede, bistået af G. Simons, SC, og M. Gray, BL,
+–
+den tjekkiske regering ved M. Smolek, J. Vláčil og L. Dvořáková, som befuldmægtigede,
+–
+Det Forenede Kongeriges regering først ved G. Brown, som befuldmægtiget, bistået af barrister C. Banner, dernæst ved R. Fadoju og J. Kraehling, som befuldmægtigede, bistået af barristers T. Buley og C. Banner,
+–
+Europa-Kommissionen ved C. Hermes, E. Manhaeve og M. Noll-Ehlers, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse den 7. august 2018,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter (
+EFT 1992, L 206, s. 7
+, herefter »habitatdirektivet«) og Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (
+EUT 2012, L 26, s. 1
+, herefter »VVM-direktivet«).
+2
+Denne anmodning er blevet indgivet i forbindelse med en tvist mellem Brian Holohan, Richard Guilfoyle og Noric Guilfoyle samt Liam Donegan, på den ene side, og An Bord Pleanála (det irske appeludvalg for byggesager) (herefter »appeludvalget«), på den anden side, vedrørende en tilladelse til et projekt til udvidelse af den nordlige ringvej omkring byen Kilkenny (Irland) (herefter »anlægsprojektet«).
+Retsforskrifter
+EU-retten
+Habitatdirektivet
+3
+I første og tredje betragtning til habitatdirektivet hedder det:
+»Bevaring, beskyttelse og forbedring af kvaliteten af miljøet, herunder bevaring af naturtyper samt vilde dyr og planter, er et yderst vigtigt mål af almen interesse, som Fællesskabet forfølger, og som er anført i […] artikel [191 TEUF].
+[…]
+[D]a hovedformålet med dette direktiv er at fremme opretholdelsen af den biologiske diversitet under hensyntagen til økonomiske, sociale, kulturelle og regionale behov, bidrager det til en bæredygtig udvikling, hvilket er det overordnede mål; for at opretholde denne biologiske diversitet er det i visse tilfælde nødvendigt at opretholde eller endog at fremme udfoldelsen af menneskelige aktiviteter.«
+4
+Dette direktivs artikel 1 bestemmer:
+»I dette direktiv forstås ved:
+[…]
+e)
+en naturtypes bevaringsstatus
+: resultatet af alle de forhold, der indvirker på en naturtype og på de karakteristiske arter, som lever dér, og som på lang sigt kan påvirke dens naturlige udbredelse, dens struktur og funktion samt de karakteristiske arters overlevelse på lang sigt inden for det område, der er nævnt i artikel 2.
+En naturtypes »bevaringsstatus« anses for »gunstig«, når:
+–
+det naturlige udbredelsesområde og de arealer, det dækker inden for dette område, er stabile eller i udbredelse, og
+–
+den særlige struktur og de særlige funktioner, der er nødvendige for dets opretholdelse på lang sigt, er til stede og sandsynligvis fortsat vil være det i en overskuelig fremtid, samt når
+[…]
+k)
+lokalitet af fællesskabsbetydning
+: en lokalitet, der i det eller de biogeografiske område(r), som den tilhører, bidrager væsentligt til at opretholde eller genoprette en gunstig bevaringsstatus for en af naturtyperne i bilag I eller for en af arterne i bilag II, og som også kan bidrage væsentligt til at sikre sammenhængen i Natura 2000, jf. artikel 3, og/eller som bidrager væsentligt til at opretholde den biologiske diversitet i det eller de pågældende biogeografiske område(r).
+[…]
+l)
+særligt bevaringsområde
+: et område af fællesskabsbetydning, som medlemsstaterne har udpeget ved en retsakt, en administrativ bestemmelse og/eller en aftale, og hvor der gennemføres de bevaringsforanstaltninger, der er nødvendige for at opretholde eller genoprette en gunstig bevaringsstatus for de naturtyper og/eller de arter, for hvilke lokaliteten er udpeget
+[…]«
+5
+Nævnte direktivs artikel 2 har følgende ordlyd:
+»1. Formålet med dette direktiv er at bidrage til at sikre den biologiske diversitet ved at bevare naturtyperne samt de vilde dyr og planter inden for det af medlemsstaternes område i Europa, hvor traktaten finder anvendelse.
+2. De foranstaltninger, der træffes efter dette direktiv, tager sigte på at opretholde eller genoprette en gunstig bevaringsstatus for naturtyper samt vilde dyre- og plantearter af fællesskabsbetydning.
+3. De foranstaltninger, der træffes efter dette direktiv, tager hensyn til de økonomiske, sociale og kulturelle behov og til regionale og lokale særpræg.«
+6
+Habitatdirektivets artikel 3, stk. 1, har følgende ordlyd:
+»Der oprettes et sammenhængende europæisk økologisk net af særlige bevaringsområder under betegnelsen Natura 2000. Dette net, der består af lokaliteter, der omfatter de naturtyper, der er nævnt i bilag I, og levesteder for de arter, der er nævnt i bilag II, skal sikre opretholdelse eller i givet fald genopretning af en gunstig bevaringsstatus for de pågældende naturtyper og levestederne for de pågældende arter i deres naturlige udbredelsesområde.
+[…]«
+7
+Samme direktivs artikel 6 fastsætter følgende:
+»1. For de særlige bevaringsområder iværksætter medlemsstaterne de nødvendige bevaringsforanstaltninger, hvilket i givet fald kan indebære hensigtsmæssige forvaltningsplaner, som er specifikke for lokaliteterne eller integreret i andre udviklingsplaner, samt de relevante retsakter, administrative bestemmelser eller aftaler, der opfylder de økologiske behov for naturtyperne i bilag I og de arter i bilag II, der findes på lokaliteterne.
+2. Medlemsstaterne træffer passende foranstaltninger for at undgå forringelse af naturtyperne og levestederne for arterne i de særlige bevaringsområder samt forstyrrelser af de arter, for hvilke områderne er udpeget, for så vidt disse forstyrrelser har betydelige konsekvenser for dette direktivs målsætninger.
+3. Alle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som i sig selv eller i forbindelse med andre planer og projekter kan påvirke en sådan lokalitet væsentligt, vurderes med hensyn til deres virkninger på lokaliteten under hensyn til bevaringsmålsætningerne for denne. På baggrund af konklusionerne af vurderingen af virkningerne på lokaliteten, og med forbehold af stk. 4, giver de kompetente nationale myndigheder først deres tilslutning til en plan eller et projekt, når de har sikret sig, at den/det ikke skader lokalitetens integritet, og når de – hvis det anses for nødvendigt – har hørt offentligheden.
+4. Hvis en plan eller et projekt, på trods af at virkningerne på lokaliteten vurderes negativt, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, fordi der ikke findes nogen alternativ løsning, træffer medlemsstaten alle nødvendige kompensationsforanstaltninger for at sikre, at den globale sammenhæng i Natura 2000 beskyttes. Medlemsstaten underretter Kommissionen om, hvilke kompensationsforanstaltninger der træffes.
+Hvis der er tale om en lokalitet med en prioriteret naturtype og/eller en prioriteret art, kan der alene henvises til hensynet til menneskers sundhed og den offentlige sikkerhed eller væsentlige gavnlige virkninger på miljøet eller, efter udtalelse fra Kommissionen, andre bydende nødvendige hensyn til væsentlige samfundsinteresser.«
+8
+I overensstemmelse med habitatdirektivets artikel 7 finder de forpligtelser, der følger af dette direktivs artikel 6, stk. 2-4, anvendelse på særligt beskyttede områder som omhandlet i Europa-Parlamentets og Rådets direktiv 2009/147/EF af 30. november 2009 om beskyttelse af vilde fugle (
+EUT 2010, L 20, s. 7
+, herefter »fugledirektivet«).
+Fugledirektivet
+9
+Fugledirektivets artikel 4, stk. 1, fjerde afsnit, fastsætter følgende:
+»Medlemsstaterne udlægger som særligt beskyttede områder navnlig sådanne områder, som med hensyn til antal og udstrækning er bedst egnede til beskyttelse af disse arter, idet der tages hensyn til behovet for at beskytte arterne i det geografiske sø- og landområde, hvor dette direktiv finder anvendelse.«
+VVM-direktivet
+10
+VVM-direktivets artikel 1 bestemmer:
+»1. Dette direktiv vedrører vurderingen af de indvirkninger på miljøet af offentlige og private projekter, der er af en sådan beskaffenhed, at de vil kunne påvirke miljøet væsentligt.
+2. I dette direktiv forstås ved:
+a)
+»projekt«:
+–
+gennemførelse af anlægsarbejder eller andre installationer eller arbejder
+–
+andre indgreb i det naturlige miljø eller i landskaber, herunder sådanne, der tager sigte på udnyttelse af ressourcer i undergrunden
+b)
+»bygherre«: enten den person, der ansøger om godkendelse af et privat projekt, eller den offentlige myndighed, som tager initiativ til et projekt
+c)
+»tilladelse«: afgørelse fra den eller de kompetente myndighed(er), som giver bygherren ret til at gennemføre projektet
+d)
+»offentlighed«: en eller flere fysiske eller juridiske personer og i henhold til national lovgivning eller praksis disses foreninger, organisationer eller grupper
+e)
+»den berørte offentlighed«: den del af offentligheden, som er berørt af, kan blive berørt af eller har en interesse i de beslutningsprocedurer på miljøområdet, der er nævnt i artikel 2, stk. 2[; m]ed henblik på denne definition anses ikke-statslige organisationer, der arbejder for at fremme miljøbeskyttelse, og som opfylder alle krav efter national lovgivning, for at have en interesse
+f)
+»kompetente myndighed(er)«: myndighed(er), som medlemsstaterne udpeger til at udføre de opgaver, der følger af dette direktiv.
+[…]«
+11
+Dette direktivs artikel 2, stk. 1, fastsætter:
+»Medlemsstaterne vedtager de nødvendige foranstaltninger for at sikre, at projekter, der bl.a. på grund af deres art, dimensioner eller placering kan forventes at få væsentlige indvirkninger på miljøet, undergives et krav om tilladelse og en vurdering af disse indvirkninger, inden der gives tilladelse. Disse projekter er defineret i artikel 4.«
+12
+Direktivets artikel 3 har følgende ordlyd:
+»Miljøkonsekvensvurderingen skal, afhængigt af hvert enkelt tilfælde og i overensstemmelse med artikel 4-12, bestå i på passende måde at påvise, beskrive og vurdere et projekts direkte og indirekte virkninger på følgende faktorer:
+a)
+mennesker, fauna og flora
+b)
+jordbund, vand, luft, klima og landskab
+c)
+materielle goder og kulturarv
+d)
+samspillet mellem faktorerne i litra a), b) og c).«
+13
+VVM-direktivets artikel 4, stk. 1, bestemmer:
+»Med forbehold af artikel 2, stk. 4, skal projekter, der er opført i bilag I, underkastes en vurdering i henhold til artikel 5-10.«
+14
+Direktivets artikel 5 bestemmer:
+»1. For så vidt angår projekter, som i henhold til artikel 4 skal underkastes en miljøkonsekvensvurdering i overensstemmelse med nærværende artikel og artikel 6-10, vedtager medlemsstaterne de nødvendige foranstaltninger for at sikre, at bygherren på passende vis giver de i bilag IV omhandlede oplysninger, når:
+a)
+medlemsstaterne finder, at oplysningerne er relevante for et givet stadium i tilladelsesproceduren og for så vidt angår de særlige karakteristika, der gør sig gældende for et bestemt projekt eller en bestemt projekttype og for det miljø, som kan forventes at blive berørt, og
+b)
+medlemsstaterne finder, at det i betragtning af bl.a. den nuværende viden og de kendte vurderingsmetoder med rimelighed kan forlanges, at bygherren indsamler disse oplysninger.
+[…]
+3. De oplysninger, som bygherren skal give i henhold til stk. 1, skal mindst omfatte:
+[…]
+c)
+de data, der er nødvendige for at konstatere og vurdere de væsentligste indvirkninger, projektet kan forventes at få på miljøet
+d)
+en oversigt over de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste grunde til valget under hensyn til indvirkningen på miljøet
+[…]«
+15
+Bilag IV til dette direktiv med overskriften »Oplysninger omhandlet i artikel 5, stk. 1« bestemmer følgende i punkt 3:
+»En beskrivelse af de miljøaspekter, som kan forventes at blive berørt i væsentlig grad af det foreslåede projekt, herunder navnlig befolkning, fauna, flora, jord, vand, luft, klimatiske forhold, materielle goder, herunder den arkitektoniske og arkæologiske kulturarv, landskab og den indbyrdes sammenhæng mellem ovennævnte faktorer.«
+16
+Artikel 3, stk. 2, i Europa-Parlamentets og Rådets direktiv 2014/52/EU af 16. april 2014 om ændring af direktiv 2011/92 (
+EUT 2014, L 124, s. 1
+) bestemmer:
+»Projekter er undergivet forpligtelserne i artikel 3 og artikel 5-11 i [VVM-direktivet] før ændringen heraf ved nærværende direktiv, såfremt:
+a)
+proceduren vedrørende den i artikel 5, stk. 2, i [VVM-direktivet] omhandlede udtalelse blev påbegyndt, eller
+b)
+de i artikel 5, stk. 1, i [VVM-direktivet] omhandlede oplysninger blev givet, før den 16. maj 2017.«
+Irsk ret
+17
+Section 177V(1) i del XAB i Planning and Development Act 2000 (lov af 2000 om planlægning og udvikling) fastsætter:
+»En passende vurdering i medfør af denne del skal omfatte den i [habitatdirektivets] artikel 6, stk. 3, omhandlede kompetente nationale myndigheds stillingtagen til, om en arealanvendelsesplan eller et foreslået projekt kan skade integriteten af en lokalitet i [Den Europæiske Union], og den kompetente myndighed skal foretage en fyldestgørende vurdering, hver gang den i henhold til artikel 177U(4) konstaterer, at en passende vurdering er nødvendig […] for udstedelsen af en tilladelse til det foreslåede projekt.«
+18
+Section 177V(2) fastsætter:
+»I forbindelse med den i stk. 1 omhandlede passende vurdering skal den kompetente myndighed tage følgende elementer i betragtning: a) Natura-rapporten eller Natura-virkningsvurderingen, hvis det er relevant; b) alle eventuelle supplerende oplysninger vedrørende denne rapport eller vurdering; c) i givet fald alle supplerende oplysninger, som myndigheden har anmodet om, og som ansøgeren af en Natura-virkningsvurdering har indsendt; d) alle supplerende oplysninger, som efter anmodning fra den kompetente myndighed er stillet til rådighed over for denne; e) alle oplysninger eller råd, der er tilvejebragt af den kompetente myndighed; f) i givet fald alle skriftlige bemærkninger eller andre bemærkninger fremsat over for den kompetente myndighed vedrørende ansøgningen om tilladelse til det foreslåede projekt; g) alle andre relevante oplysninger.«
+19
+Ifølge section 217B i Planning and Development Act 2000 kan appeludvalget anmode vejmyndighederne om supplerende oplysninger og opfordre dem til at foreslå præcise ændringer til betingelserne for et foreslået vejprojekt.
+20
+Section 50 i Roads Act 1993 (vejloven af 1993) fastsætter:
+»(2)
+En vurdering af virkningen på miljøet skal omfatte følgende oplysninger:
+[…]
+d)
+en oversigt over de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste årsager til bygherrens valg, under hensyntagen til de miljømæssige virkninger.«
+21
+I henhold til lovens section 50(5) skal der, hvis bygherren anmoder herom, fremlægges en udtalelse om afgrænsning af vurderingen, dvs. en skriftlig udtalelse om de oplysninger, som vurderingen af virkningen på miljøet skal indeholde.
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+22
+Sagsøgerne i hovedsagen har nedlagt påstand om annullation af en afgørelse, der blev truffet af appeludvalget den 11. juli 2014 om tilladelse til Kilkenny County Council (Kilkenny amtsråd, Irland) til at gennemføre anlægsprojektet. Dette anlægsprojekt består i anlæggelse af ca. 1,5 km udelt kørebane og anlæggelse af en rundkørsel samt tilpasning af en anden rundkørsel tillige med anlæggelse af en gangsti og en cykelsti på bysiden samt diverse andre arbejder.
+23
+Den foreslåede vej går gennem to Natura 2000-områder: det særligt beskyttede område River Nore, som Irland har udpeget i henhold til fugledirektivet, og lokaliteten af fælleskabsbetydning River Barrow and River Nore, der siden 2004 har været udpeget som lokaliteter af fællesskabsbetydning i henhold til habitatdirektivet.
+24
+Sagsøgerne i hovedsagen har nærmere bestemt gjort gældende for det første, at appeludvalget begik en fejl, eftersom det undlod at vurdere de undersøgte væsentligste alternativers indvirkning på miljøet, for det andet, at den angiveligt foretagne vurdering var utilstrækkelig, og for det tredje, at sagsøgte begik en fejl ved at godkende anlægsprojektet og den Natura-virkningsvurdering, som Kilkenny County Council fremlagde, for så vidt som Kilkenny County Council havde undladt at foretage de forudgående økologiske undersøgelser inden udstedelsen af denne tilladelse.
+25
+Den forelæggende ret har angivet, at bygherren, dvs. Kilkenny County Council, i maj 2013 udarbejdede en Natura-virkningsvurdering med hensyn til udviklingsprojektet. Ifølge denne ret foretages der ikke i denne Natura-virkningsvurdering – som er baseret på et dokument udstedt den 19. juli 2011 af National Parks and Wildlife Service (nationalpark- fauna- og floramyndigheden under miljø-, kulturarvs- og lokalforvaltningsministeriet, Irland) vedrørende bevaringsmålsætningerne og en opstilling af de mål, der skal opnås for udlægning som et særligt beskyttelsesområde – nogen fyldestgørende analyse af virkningerne på andre arter end dem, som er opført for lokaliteterne River Barrow and River Nore, og den omhandler ikke virkningerne på beskyttede arter eller levesteder uden for de pågældende lokaliteter.
+26
+I december 2013 udarbejdede bygherren ligeledes en vurdering af virkningen på miljøet, og anmodede den 16. december 2013 appeludvalget om tilladelse til at gennemføre anlægsprojektet.
+27
+Efter at der var indgivet en klage og afholdt en høring i april 2014, blev der i juni 2014 offentliggjort en inspektionsrapport vedrørende denne anmodning. I sin rapport konkluderede inspektøren, at oplysningerne i den omhandlede anmodning, vurderingen af virkningen på miljøet og Natura-virkningsvurderingen ikke var tilstrækkelige, og at yderligere relevante oplysninger var påkrævet. Inspektøren ønskede yderligere oplysninger vedrørende bl.a. anlægsfasen, en videnskabelig referenceundersøgelse og skalerede tegninger, hvoraf placeringen af beskyttede arter og levesteder fremgik, såvel som supplerende oplysninger vedrørende eventuelle »krydsninger« bestående af opførelse af en bro over flodsletten. Til trods for denne inspektionsrapport traf den kompetente myndighed alligevel i juli 2014 afgørelse om at give tilladelse til gennemførelsen af udviklingsprojektet.
+28
+Ifølge den forelæggende ret behandler Natura-virkningsvurderingen ikke i tilstrækkelig grad muligheden for »krydsninger« med henvisning til, at denne tilgang »på et tidligt tidspunkt« var blevet afvist af Kilkenny County Council til fordel for en »i økonomisk henseende mere fordelagtig løsning«. Den forelæggende ret har tilføjet, at Natura-virkningsvurderingen heller ikke udtrykkeligt analyserer virkningerne af det pågældende projekt på alle de arter, som er identificeret deri.
+29
+På denne baggrund har High Court (ret i første instans, Irland) besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Medfører [habitatdirektivet], at de levesteder og arter, som er opført for lokaliteten, skal nævnes i fuldt omfang i en Natura-virkningsvurdering?
+2)
+Medfører [habitatdirektivet], at den potentielle virkning på alle arter (i modsætning til blot beskyttede arter), som bidrager til og er en del af et beskyttet levested, skal identificeres og behandles i en Natura-virkningsvurdering?
+3)
+Medfører [habitatdirektivet], at en Natura-virkningsvurdering udtrykkeligt skal behandle virkningen af det foreslåede anlægsarbejde på beskyttede arter og levesteder inden for det særlige bevaringsområde såvel som arter og levesteder uden for dets grænser?
+4)
+Medfører [VVM-direktivet], med senere ændringer, at spørgsmålet om, hvorvidt det foreslåede anlægsarbejde har en betydelig virkning på de arter, der er nævnt i en vurdering af virkningen på miljøet, udtrykkeligt skal behandles i vurderingen?
+5)
+Udgør en løsning, som bygherren har overvejet og omtalt i vurderingen af virkningen på miljøet, og/eller som nogle af de interesserede parter har argumenteret for, og/eller som blev taget i betragtning af den kompetente myndighed, et af de »væsentligste alternativer« som omhandlet i artikel 5, stk. 3, litra d), i [VVM-direktivet], med senere ændringer, selv om den blev forkastet af bygherren på et tidligt tidspunkt?
+6)
+Medfører [VVM-direktivet], med senere ændringer, at en vurdering af virkningen på miljøet bør indeholde tilstrækkelige oplysninger vedrørende hvert alternativs virkning på miljøet til at give mulighed for sammenligning af de forskellige alternativers miljømæssige ønskværdighed, og/eller at vurderingen af virkningen på miljøet skal indeholde udtrykkelige oplysninger om, hvorledes der er taget hensyn til alternativernes indvirkning på miljøet?
+7)
+Gælder kravet i artikel 5, stk. 3, litra d), i [VVM-direktivet], med senere ændringer, om, at grundene til bygherrens valg skal gives »under hensyn til indvirkningen på miljøet«, kun den valgte løsning eller også de væsentligste alternativer, som bygherren har undersøgt, hvorved der kræves en analyse af disse løsninger for at tage højde for deres indvirkning på miljøet?
+8)
+Er det foreneligt med opnåelsen af [habitatdirektivets] målsætninger, at detaljerede oplysninger om anlægsfasen (f.eks. byggepladsens placering og transportveje) først skal fastlægges, efter at der er givet tilladelse, og har en kompetent myndighed i så fald beføjelse til at tillade, at sådanne forhold bestemmes egenhændigt af bygherren inden for rammerne af en eventuel tilladelse, hvor den pågældende beslutning skal meddeles den kompetente myndighed frem for at blive godkendt af den kompetente myndighed?
+9)
+Medfører [habitatdirektivet], at en kompetent myndighed er forpligtet til at registrere, med en tilstrækkelig detaljeringsgrad og tydelighed til at hindre enhver tvivl om den videnskabelige udtalelses betydning og virkning, i hvilket omfang den videnskabelige udtalelse, som den har fået forelagt, argumenterer for, at der skal indsamles yderligere oplysninger, inden der gives tilladelse?
+10)
+Medfører [habitatdirektivet], at den kompetente myndighed skal begrunde eller detaljeret begrunde afvisningen af dens inspektørs konklusion om, at der kræves yderligere oplysninger eller en videnskabelig undersøgelse, inden der gives anlægstilladelse?
+11)
+Medfører [habitatdirektivet], at en kompetent myndighed som led i udførelsen af en vurdering skal begrunde hvert element i sin afgørelse detaljeret og udtrykkeligt?«
+Om de præjudicielle spørgsmål
+Habitatdirektivet
+30
+Det skal indledningsvis bemærkes, at habitatdirektivets artikel 6 pålægger medlemsstaterne en række forpligtelser og særlige procedurer, der, således som det fremgår af dette direktivs artikel 2, stk. 2, skal sikre opretholdelse eller i givet fald genopretning af en gunstig bevaringsstatus for naturtyper samt vilde dyre- og plantearter af betydning for Unionen med henblik på at opfylde det mere generelle formål med samme direktiv om at sikre et højt niveau af beskyttelse af miljøet for så vidt angår de lokaliteter, der er beskyttet i henhold til dette direktiv (dom af 17.4.2018, Kommissionen mod Polen (Białowieżaskoven),
+C-441/17
+,
+EU:C:2018:255
+, præmis
+106
+og den deri nævnte retspraksis).
+31
+Navnlig fastsætter habitatdirektivets artikel 6, stk. 3, en procedure for vurdering med henblik på ved hjælp af en forudgående kontrol at sikre, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendigt for lokalitetens forvaltning, men som kan påvirke en sådan lokalitet væsentligt, alene godkendes, såfremt denne plan eller dette projekt ikke skader lokalitetens integritet. Den nævnte bestemmelse fastsætter således to faser. Den første fase, der fremgår af bestemmelsens første punktum, kræver af medlemsstaterne, at de foretager en passende vurdering af en plans eller et projekts virkninger på en beskyttet lokalitet, når der er en sandsynlighed for, at planen eller projektet vil kunne påvirke den omhandlede lokalitet væsentligt. Den anden fase, der er omhandlet i habitatdirektivets artikel 6, stk. 3, andet punktum, og som i tid ligger efter den nævnte passende vurdering, indebærer, at der kun kan gives tilladelse til planen eller projektet, hvis planen eller projektet ikke skader den berørte lokalitets integritet (jf. i denne retning dom af 21.7.2016, Orleans m.fl.,
+C-387/15 og C-388/15
+,
+EU:C:2016:583
+, præmis
+43
+-
+46
+og den deri nævnte retspraksis).
+De tre første spørgsmål
+32
+Med sine tre første spørgsmål, som skal behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at en »vurdering« dels skal identificere alle de levesteder og arter, for hvilke en lokalitet er beskyttet, dels identificere og undersøge såvel det foreslåede projekts virkninger på de arter, som findes på denne lokalitet, men som ikke er opført for denne lokalitet, som virkningerne for arter og levesteder uden for den pågældende lokalitets grænser.
+33
+I henhold til habitatdirektivets artikel 6, stk. 3, indebærer en vurdering af en plan eller et projekts virkning på den berørte lokalitet, at alle de aspekter af denne plan eller dette projekt, som i sig selv eller i forbindelse med andre planer og projekter vil kunne påvirke bevaringsmålsætningen for lokaliteten, skal identificeres før godkendelsen heraf under hensyn til den bedste videnskabelige viden på området. De kompetente nationale myndigheder giver kun tilladelse til en aktivitet på den beskyttede lokalitet på betingelse af, at de har opnået vished for, at aktiviteten ikke har skadelige virkninger for den pågældende lokalitets integritet. Sådan forholder det sig, når det ud fra et videnskabeligt synspunkt uden rimelig tvivl kan fastslås, at der ikke er sådanne virkninger (dom af 8.11.2016, Lesoochranárske zoskupenie VLK,
+C-243/15
+,
+EU:C:2016:838
+, præmis
+42
+og den deri nævnte retspraksis).
+34
+Den vurdering, der foretages i henhold til denne bestemmelse, må ikke medføre lakuner og skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl for så vidt angår virkningerne af de arbejder, som var påtænkt på det pågældende beskyttede område (dom af 25.7.2018, Grace og Sweetman,
+C-164/17
+,
+EU:C:2018:593
+, præmis
+39
+og den deri nævnte retspraksis).
+35
+Den omstændighed, at en lokalitets integritet som naturtype ikke skades i den forstand, hvori begrebet er anvendt i habitatdirektivets artikel 6, stk. 3, andet punktum, forudsætter, at lokaliteten opretholdes i en gunstig bevaringsstatus, hvilket indebærer en varig opretholdelse af de grundlæggende kendetegn ved den berørte lokalitet, der er knyttet til tilstedeværelsen af en naturtype, hvis bevaringsmålsætning har medført, at lokaliteten er blevet udpeget til at blive opført på listen over lokaliteter af fællesskabsbetydning som omhandlet i dette direktiv (dom af 17.4.2018, Kommissionen mod Polen (Białowieżaskoven),
+C-441/17
+,
+EU:C:2018:255
+, præmis
+116
+og den deri nævnte retspraksis).
+36
+Det er i lyset af disse bevaringsmålsætninger, at omfanget af forpligtelsen til at foretage en vurdering af en plans eller et projekts virkninger på en lokalitet skal fastlægges.
+37
+Som anført i denne doms præmis 33 og 34 skal alle de aspekter, der kan påvirke disse målsætninger, identificeres, og eftersom vurderingen skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner herom, må det fastslås, at alle de levesteder og arter, med hensyn til hvilke lokaliteten er beskyttet, skal identificeres. Den omstændighed, at alle de levesteder og arter, for hvilke området er beskyttet, ikke er blevet identificeret i denne vurdering, indebærer en tilsidesættelse af de ovenfor nævnte krav, og de fjerner dermed ikke som anført af generaladvokaten i punkt 31 i forslaget til afgørelse enhver rimelig videnskabelig tvivl i forhold til skadevirkninger for den beskyttede lokalitets integritet (jf. i denne retning dom af 26.4.2017, Kommissionen mod Tyskland,
+C-142/16
+,
+EU:C:2017:301
+, præmis
+33
+).
+38
+Det skal ligeledes tilføjes, at eftersom det af vurderingen tydeligt skal fremgå, hvorfor de beskyttede levesteder og arter ikke påvirkes, kan det som anført af generaladvokaten i punkt 30 i forslaget til afgørelse i visse tilfælde være tilstrækkeligt at fastslå, at det kun er nogle bestemte beskyttede levesteder og arter på den del af det beskyttede område, som berøres af projektet, der påvirkes, og at de andre beskyttede levesteder og arter på lokaliteten ikke påvirkes.
+39
+Hvad angår andre levesteder eller arter, som findes på lokaliteten, men for hvilke denne lokalitet ikke er blevet opført, og levesteder og arter uden for denne lokalitet skal det bemærkes, at som det følger af ordlyden af habitatdirektivets artikel 6, stk. 3, underkastes »[a]lle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som kan påvirke denne væsentligt«, den deri fastsatte miljøbeskyttelsesforanstaltning. Som generaladvokaten har anført i punkt 43 og 48 i sit forslag til afgørelse, fremgår det af den bevaringsmålsætning, som habitatdirektivet forfølger, og som er omtalt i denne doms præmis 35, at karakteristiske levesteder eller karakteristiske arter skal omfattes af vurderingen, hvis de er nødvendige for bevaringen af de levesteder og arter, som er opført for det beskyttede område.
+40
+Henset til samtlige ovenstående betragtninger skal de tre første spørgsmål besvares med, at habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at en »vurdering« dels skal identificere alle de levesteder og arter, for hvilke en lokalitet er beskyttet, dels identificere og undersøge såvel virkningerne af det foreslåede projekt på de arter, der findes på denne lokalitet, men som ikke er opført for denne lokalitet, som virkningerne på de levesteder og arter, der findes uden for denne lokalitets grænser.
+Det ottende spørgsmål
+41
+Med sit ottende spørgsmål, som herefter skal behandles, ønsker den forelæggende ret nærmere bestemt oplyst, om habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at den giver den kompetente myndighed mulighed for at tillade en plan eller et projekt, som overlader det til en efterfølgende afgørelse at fastlægge visse parametre vedrørende anlægsfasen, såsom byggepladsens placering og transportveje, og i bekræftende fald om disse parametre efterfølgende kan fastlægges egenhændigt af bygherren for dernæst blot at blive meddelt den kompetente myndighed.
+42
+Det skal bemærkes, at det fremgår af habitatdirektivets artikel 6, stk. 3, at de kompetente nationale myndigheder først giver deres tilslutning til en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for lokalitetens forvaltning, men som kan påvirke lokaliteten væsentligt, når de ved hjælp af en vurdering har sikret sig, at den/det ikke skader lokalitetens integritet.
+43
+I henhold til den retspraksis, som der er henvist til i denne doms præmis 33 og 34, indebærer en vurdering af en plans eller et projekts virkninger på en beskyttet lokalitet for det første, at alle de aspekter ved denne plan eller dette projekt, som vil kunne påvirke bevaringsmålsætningerne for den berørte lokalitet, skal identificeres, inden der kan gives tilladelse til planen eller projektet. For det andet kan en sådan vurdering ikke anses for passende, såfremt den medfører lakuner og ikke indeholder fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl for så vidt angår virkningerne af den omhandlede plan eller det omhandlede projekt på den berørte lokalitet. For det tredje skal alle de aspekter af den omhandlede plan eller det omhandlede projekt, som i sig selv eller i forbindelse med andre planer eller projekter kan påvirke bevaringsmålsætningen for denne lokalitet, identificeres under hensyn til den bedste videnskabelige viden på området.
+44
+I henhold til ordlyden af habitatdirektivets artikel 6, stk. 3, påhviler disse forpligtelser ikke bygherren, uanset om bygherren, som det er tilfældet i den foreliggende sag, er en offentlig myndighed, men derimod den kompetente myndighed, dvs. den myndighed, som medlemsstaterne har udpeget til at udføre de opgaver, der følger af dette direktiv.
+45
+Heraf følger, at denne bestemmelse pålægger den kompetente myndighed at identificere og vurdere alle aspekter af en plan eller et projekt, som kan påvirke bevaringsmålsætningerne for en beskyttet lokalitet, inden den pågældende tilladelse gives.
+46
+Som generaladvokaten ligeledes har bemærket i punkt 56 og 57 i sit forslag til afgørelse, er det kun sådanne parametre, med hensyn til hvilke der ikke består nogen rimelig videnskabelig tvivl om, at deres virkninger ikke skader lokalitetens integritet, som det overlades bygherren selv at fastsætte efterfølgende.
+47
+Henset til ovenstående betragtninger skal det ottende spørgsmål besvares med, at habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at den giver den kompetente myndighed mulighed for at tillade en plan eller et projekt, som overlader det til bygherren efterfølgende at fastlægge visse parametre vedrørende anlægsfasen, såsom byggepladsens placering og transportveje, såfremt der i tilladelsen med sikkerhed fastsættes tilstrækkeligt strenge krav, som sikrer, at disse parametre ikke skader lokalitetens integritet.
+Det niende til det ellevte spørgsmål
+48
+Med sit niende til ellevte spørgsmål, som skal behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at hvis den kompetente myndighed afviser konklusionerne i en videnskabelig udtalelse, som argumenterer for, at der skal indsamles yderligere oplysninger, skal vurderingen indeholde en detaljeret og udtrykkelig begrundelse, der kan skabe sikkerhed for, at der til trods for denne udtalelse ikke består nogen rimelig videnskabelig tvivl om de miljømæssige virkninger af de påtænkte arbejder på den i disse konklusioner omhandlede lokalitet.
+49
+Det fremgår bl.a. af Domstolens praksis vedrørende habitatdirektivets artikel 6, stk. 3, således som gengivet i denne doms præmis 43, at vurderingen i henhold til habitatdirektivets artikel 6, stk. 3, ikke må medføre lakuner og skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl for så vidt angår virkningerne af de arbejder, som er påtænkt på den berørte lokalitet.
+50
+Når der ikke foreligger sådanne konklusioner, der kan fjerne enhver rimelig tvivl med hensyn til, om de tilgængelige oplysninger kan anses for tilstrækkelige, kan vurderingen ikke anses for »passende« i henhold til habitatdirektivets artikel 6, stk. 3.
+51
+Under omstændigheder som de i hovedsagen foreliggende indebærer dette krav, at den kompetente myndighed inden udstedelsen af tilladelsen på tilfredsstillende vis er i stand til at angive de forhold, som gjorde, at den – til trods for sin inspektørs konklusion om, at der kræves yderligere oplysninger – opnåede sikkerhed for, at der ikke findes nogen rimelig videnskabelig tvivl for så vidt angår de miljømæssige virkningerne af de påtænkte arbejder på den berørte lokalitet.
+52
+Henset til ovenstående betragtninger skal det niende til det ellevte spørgsmål besvares med, habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at hvis den kompetente myndighed afviser konklusionerne i en videnskabelig udtalelse, som argumenterer for, at der skal indsamles yderligere oplysninger, skal vurderingen indeholde en detaljeret og udtrykkelig begrundelse, der kan skabe sikkerhed for, at der ikke består nogen rimelig videnskabelig tvivl om virkningerne af de påtænkte arbejder på den berørte lokalitet.
+VVM-direktivet
+53
+Selv om anmodningen om præjudiciel afgørelse henviser til de ændringer, som blev indført med direktiv 2014/52, skal det bemærkes, at disse ændringer i henhold til dette direktivs artikel 3, stk. 2, alene finder anvendelse, såfremt visse proceduremæssige skridt er blevet taget efter den 16. maj 2017.
+54
+I hovedsagen blev den anfægtede afgørelse truffet den 11. juli 2014.
+55
+Heraf følger, at spørgsmålene vedrørende VVM-direktivet skal undersøges i lyset af direktivets oprindelige affattelse.
+Det fjerde spørgsmål
+56
+Med det fjerde spørgsmål ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 5, stk. 1 og 3, i VVM-direktivet samt bilag IV dertil skal fortolkes således, at de pålægger bygherren at give oplysninger, som udtrykkeligt behandler de eventuelle væsentlige indvirkninger på de arter, som er identificeret i den vurdering, der skal foretages i henhold til disse bestemmelser.
+57
+I henhold til VVM-direktivets artikel 5, stk. 1, skal bygherren give de oplysninger, der er omhandlet i bilag IV til dette direktiv. Dette bilags punkt 3 nævnes i denne forbindelse udtrykkeligt som eksempel på de oplysninger, som er omhandlet i VVM-direktivets artikel 5, stk. 1: »[e]n beskrivelse af de miljøaspekter, som kan forventes at blive berørt i væsentlig grad af det foreslåede projekt, herunder navnlig […] fauna, flora […] og den indbyrdes sammenhæng mellem ovennævnte faktorer«. Dette direktivs artikel 5, stk. 3, litra c), pålægger desuden bygherren at lade »de data, der er nødvendige for at konstatere og vurdere de væsentligste indvirkninger, projektet kan forventes at få på miljøet«, være omfattet heraf.
+58
+Som anført af generaladvokaten i punkt 84 og 85 i forslaget til afgørelse fremgår det af disse bestemmelser, at den deri omhandlede forpligtelse ikke kan udvides til at gælde alle indvirkninger på alle forekommende arter, men kun de væsentligste indvirkninger, henset til, at dette begreb skal fortolkes i lyset af VVM-direktivets artikel 1, stk. 1, og artikel 2, stk. 1, hvorefter projekter, der er af en sådan beskaffenhed, at de vil kunne påvirke miljøet væsentligt, skal undergives et krav om en vurdering af disse indvirkninger.
+59
+Henset til ovenstående betragtninger skal det fjerde spørgsmål besvares med, at VVM-direktivets artikel 5, stk. 1 og 3, samt bilag IV dertil skal fortolkes således, at de pålægger bygherren at give oplysninger, som udtrykkeligt behandler de væsentlige indvirkninger, som vedkommendes projekt kan have på de arter, som er identificeret i den vurdering, der skal foretages i henhold til disse bestemmelser.
+Det femte til det syvende spørgsmål
+60
+Med sit femte til syvende spørgsmål, som skal behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om VVM-direktivets artikel 5, stk. 3, litra d), skal fortolkes således, at bygherren skal give oplysninger om indvirkningerne på miljøet såvel i forhold til den valgte løsning som i forhold til alle de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste grunde til vedkommendes valg under hensyn til deres indvirkning på miljøet, uanset om et sådant alternativ er blevet forkastet på et tidligt tidspunkt.
+61
+VVM-direktivet har i henhold til dets artikel 3 bl.a. til formål at påvise, beskrive og vurdere projekters virkninger på miljøet.
+62
+VVM-direktivets artikel 5 opstiller i denne forbindelse en liste over de i bilag IV nævnte oplysninger, som bygherren på passende vis skal give de kompetente myndigheder, for at de kan foretage en miljøkonsekvensvurdering af vedkommendes projekt.
+63
+VVM-direktivets artikel 5, stk. 3, litra d), præciserer navnlig, at bygherren skal give »en oversigt over de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste grunde til valget under hensyn til indvirkningen på miljøet«.
+64
+Det fremgår udtrykkeligt af ordlyden af denne bestemmelse, at det tilkommer bygherren at give de kompetente myndigheder en oversigt over de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste grunde til bygherrens valg under hensyn til indvirkningen på miljøet.
+65
+I denne forbindelse skal det indledningsvis bemærkes, at VVM-direktivet ikke indeholder nogen definition af begrebet »de væsentligste alternativer«, der er omfattet af VVM-direktivets artikel 5, stk. 3, litra d). Det skal imidlertid som anført af generaladvokaten i punkt 94 og 95 i forslaget til afgørelse bemærkes, at det afgørende ved vurderingen af, hvilke alternativer der skal anses for de »væsentligste«, er disse alternativers betydning for indvirkningen på miljøet, eller for undgåelsen af disse indvirkninger, udslagsgivende. I denne forbindelse er tidspunktet for forkastelsen af en alternativ løsning ud fra dette synspunkt uden betydning.
+66
+Eftersom der ifølge VVM-direktivets artikel 5, stk. 3, litra d), blot skal afgives en oversigt over de væsentligste alternativer, må det fastslås, at denne bestemmelse ikke kræver, at de væsentligste alternativer skal underkastes en miljøkonsekvensvurdering svarende til den, der skal foretages for så vidt angår det godkendte projekt. Bestemmelsen kræver imidlertid, at bygherren giver grundene for sit valg i det mindste under hensyn til indvirkningerne på miljøet. Formålet med bygherrens forpligtelse til at fremlægge de væsentligste alternativer er nemlig bl.a. at begrunde vedkommendes valg.
+67
+Denne forpligtelse, der påhviler bygherren, gør det muligt for den kompetente myndighed efterfølgende at foretage en fyldestgørende undersøgelse i overensstemmelse med VVM-direktivets artikel 3 af indvirkningerne på miljøet, som behørigt identificerer, beskriver og vurderer det valgte projekts indvirkninger på miljøet.
+68
+Det skal endelig bemærkes, at den oversigt, som er omhandlet i denne bestemmelse, skal gives med hensyn til alle de væsentligste alternativer, som bygherren har undersøgt, uanset om de er blevet overvejet af bygherren eller den kompetente myndighed, eller om nogle af de interesserede parter har argumenteret for dem.
+69
+På baggrund af ovenstående betragtninger skal det femte til det syvende spørgsmål besvares med, at VVM-direktivets artikel 5, stk. 3, litra d), skal fortolkes således, at bygherren skal give oplysninger om indvirkningerne på miljøet såvel i forhold til den valgte løsning som i forhold til alle de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste grunde til vedkommendes valg i det mindste under hensyn til deres indvirkning på miljøet, uanset om et sådant alternativ er blevet forkastet på et tidligt tidspunkt.
+Sagsomkostninger
+70
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagsomkostningerne. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Anden Afdeling) for ret:
+1)
+Artikel 6, stk. 3, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter skal fortolkes således, at en »vurdering« dels skal identificere alle de levesteder og arter, for hvilke en lokalitet er beskyttet, dels identificere og undersøge såvel virkningerne af det foreslåede projekt på de arter, der findes på denne lokalitet, men som ikke er opført for denne lokalitet, som virkningerne på de levesteder og arter, der findes uden for denne lokalitets grænser.
+2)
+Habitatdirektivets artikel 6, stk. 3 i direktiv 92/43, skal fortolkes således, at den giver den kompetente myndighed mulighed for at tillade en plan eller et projekt, som overlader det til bygherren efterfølgende at fastlægge visse parametre vedrørende anlægsfasen, såsom byggepladsens placering og transportveje, såfremt der i tilladelsen med sikkerhed fastsættes tilstrækkeligt strenge krav, som sikrer, at disse parametre ikke skader lokalitetens integritet.
+3)
+Habitatdirektivets artikel 6, stk. 3 i direktiv 92/43, skal fortolkes således, at hvis den kompetente myndighed afviser konklusionerne i en videnskabelig udtalelse, som argumenterer for, at der skal indsamles yderligere oplysninger, skal vurderingen indeholde en detaljeret og udtrykkelig begrundelse, der kan skabe sikkerhed for, at der ikke består nogen rimelig videnskabelig tvivl om virkningerne af de påtænkte arbejder på den berørte lokalitet.
+4)
+Artikel 5, stk. 1 og 3, i Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet samt bilag IV dertil skal fortolkes således, at de pålægger bygherren at give oplysninger, som udtrykkeligt behandler de væsentlige indvirkninger, som vedkommendes projekt kan have på de arter, som er identificeret i den vurdering, der skal foretages i henhold til disse bestemmelser.
+5)
+Artikel 5, stk. 3, litra d), i direktiv 2011/92 skal fortolkes således, at bygherren skal give oplysninger om indvirkningerne på miljøet såvel i forhold til den valgte løsning som i forhold til alle de væsentligste alternativer, som bygherren har undersøgt, og oplysninger om de vigtigste grunde til vedkommendes valg i det mindste under hensyn til deres indvirkning på miljøet, uanset om et sådant alternativ er blevet forkastet på et tidligt tidspunkt.
+Underskrifter
+(
+*1
+) – Processprog: engelsk.

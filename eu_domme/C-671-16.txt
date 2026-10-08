@@ -1,0 +1,330 @@
+62016CJ0671
+DOMSTOLENS DOM (Anden Afdeling)
+7. juni 2018 (
+*1
+)
+»Præjudiciel forelæggelse – miljø – direktiv 2001/42/EF – artikel 2, litra a) – begrebet »planer og programmer« – artikel 3 – vurdering af bestemte planers og programmers indvirkning på miljøet – regional forordning om byplanlægning vedrørende EU-kvarteret i Bruxelles (Belgien)«
+I sag C-671/16,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Conseil d’État (appeldomstol i forvaltningsretlige sager, Belgien) ved afgørelse af 14. december 2016, indgået til Domstolen den 29. december 2016, i sagen
+Inter-Environnement Bruxelles ASBL,
+Groupe d’animation du quartier européen de la ville de Bruxelles ASBL,
+Association du quartier Léopold ASBL,
+Brusselse Raad voor het Leefmilieu ASBL,
+Pierre Picard,
+David Weytsman
+mod
+Région de Bruxelles-Capitale,
+har
+DOMSTOLEN (Anden Afdeling),
+sammensat af afdelingsformanden, M. Ilešič, og dommerne A. Rosas, C. Toader (refererende dommer), A. Prechal og E. Jarašiūnas,
+generaladvokat: J. Kokott,
+justitssekretær: fuldmægtig V. Giacobbo-Peyronnel,
+på grundlag af den skriftlige forhandling og efter retsmødet den 30. november 2017,
+efter at der er afgivet indlæg af:
+–
+Inter-Environnement Bruxelles ASBL, Groupe d’animation du quartier européen de la ville de Bruxelles ASBL, Association du quartier Léopold ASBL, Brusselse Raad voor het Leefmilieu ASBL, Pierre Picard og David Weytsman ved avocat J. Sambon,
+–
+den belgiske regering ved M. Jacobs, L. Van den Broeck og J. Van Holm, som befuldmægtigede, bistået af avocats P. Coenraets og L. Thommès,
+–
+den tjekkiske regering ved M. Smolek, J. Vláčil og L. Dvořáková, som befuldmægtigede,
+–
+den danske regering ved J. Nymann-Lindegren, som befuldmægtiget,
+–
+Europa-Kommissionen ved F. Thiran og C. Zadra, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 25. januar 2018,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 2, litra a), i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (
+EFT 2001, L 197, s. 30
+, herefter »SMV-direktivet«).
+2
+Denne anmodning er blevet indgivet i forbindelse med en sag mellem Inter-Environnement Bruxelles ASBL, Groupe d’animation du quartier européen de la ville de Bruxelles ASBL, Association du quartier Léopold ASBL og Brusselse Raad voor het Leefmilieu ASBL, samlet under »Coordination Brussels-Europe«, samt Pierre Picard og David Weytsman på den ene side og Région de Bruxelles-Capitale (hovedstadsregionen Bruxelles, Belgien) på den anden side vedrørende gyldigheden af arrêté du gouvernement de la région de Bruxelles-Capitale du 12 décembre 2013, approuvant le règlement régional d’urbanisme zoné et la composition du dossier de demande de certificat et de permis d’urbanisme pour le périmètre de la rue de la Loi et ses abords (regeringen for hovedstadsregionen Bruxelles’ bekendtgørelse af 12.12.2013 om godkendelse af den regionale forordning om zoneopdelt byplanlægning og udformningen af ansøgninger om byggecertifikat og ‑tilladelse for området rue de la Loi og dets omgivelser) (
+Moniteur belge
+af 30.1.2014, s. 8390, herefter »den anfægtede bekendtgørelse«).
+Retsforskrifter
+EU-retten
+3
+Fjerde betragtning til SMV-direktivet har følgende ordlyd:
+»Miljøvurdering er et vigtigt værktøj til integrering af miljøhensyn i udarbejdelsen og vedtagelsen af visse planer og programmer, som kan få væsentlig indvirkning på miljøet i medlemsstaterne, fordi det herved sikres, at der tages hensyn til en sådan indvirkning af gennemførelsen af planer og programmer under deres udarbejdelse, og inden de vedtages.«
+4
+Direktivets artikel 1 med overskriften »Formål« bestemmer:
+»Formålet med dette direktiv er at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet.«
+5
+Det nævnte direktivs artikel 2 er affattet således:
+»I dette direktiv forstås ved:
+a)
+»planer og programmer«: planer og programmer, herunder sådanne, der medfinansieres af [Den Europæiske Union], samt ændringer deri
+–
+som udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller som udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, og
+–
+som kræves ifølge love og administrative bestemmelser
+b)
+»miljøvurdering«: udarbejdelse af en miljørapport, gennemførelse af høringer, hensyntagen til miljørapporten og til resultaterne af høringerne ved beslutningstagning samt underretning om afgørelsen i overensstemmelse med artikel 4-9
+[…]«
+6
+SMV-direktivets artikel 3 med overskriften »Anvendelsesområde« har følgende ordlyd:
+»1. Der skal for de i stk. 2-4 omhandlede planer og programmer, som kan få væsentlig indvirkning på miljøet, gennemføres en miljøvurdering, som skal være i overensstemmelse med dette direktivs artikel 4-9.
+2. Med forbehold af stk. 3 gennemføres der en miljøvurdering for alle planer og programmer:
+a)
+som udarbejdes inden for landbrug, skovbrug, fiskeri, energi, industri, transport, affaldshåndtering, vandforvaltning, telekommunikation, turisme, fysisk planlægning og arealanvendelse, og som fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er omhandlet i bilag I og II til [Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (
+EUT 2012, L 26, s. 1
+)] […]
+[…]«
+7
+SMV-direktivets artikel 5 med overskriften »Miljørapport« præciserer i stk. 3:
+»Relevante oplysninger, som foreligger om planernes eller programmernes indvirkning på miljøet, og som er indhentet på andre trin af beslutningsforløbet eller i forbindelse med anden fællesskabslovgivning, kan benyttes med henblik på at give de oplysninger, der er nævnt i bilag I.«
+8
+Det nævnte direktivs artikel 6, der har overskriften »Høringer«, bestemmer:
+»1. Udkastet til planen eller programmet og den miljørapport, som er udarbejdet i overensstemmelse med artikel 5, stilles til rådighed for de myndigheder, der er omhandlet i stk. 3 i nærværende artikel, og for offentligheden.
+2. De i stk. 3 omhandlede myndigheder og den i stk. 4 omhandlede offentlighed skal tidligt have konkret lejlighed til inden for en passende frist at udtale sig om udkastet til planen eller programmet og den ledsagende miljørapport, inden planen eller programmet vedtages, eller lovgivningsproceduren indledes.
+3. Medlemsstaterne udpeger de myndigheder, som skal høres, og som på grund af deres specifikke miljøansvar kan blive berørt af indvirkningen på miljøet af planers eller programmers gennemførelse.
+4. Medlemsstaterne identificerer offentligheden med henblik på stk. 2, herunder de dele af offentligheden, som berøres eller forventes at blive berørt af, eller som har interesse i den beslutningstagning, der er omfattet af dette direktiv, herunder relevante ikke-statslige organisationer, f.eks. sådanne, der fremmer miljøbeskyttelse, og andre berørte organisationer.
+5. De nærmere ordninger for underretning og høring af myndighederne og offentligheden fastlægges af medlemsstaterne.«
+9
+SMV-direktivets artikel 11 med overskriften »Forbindelser med anden fællesskabslovgivning« bestemmer i stk. 1:
+»En miljøvurdering, der gennemføres efter dette direktiv, berører ikke kravene efter direktiv [2011/92] eller andre krav efter fællesskabsretten.«
+10
+I henhold til artikel 4, stk. 2, i direktiv 2011/92 (herefter »VVM-direktivet«) skal medlemsstaterne afgøre, om projekter, der er opført i bilag II til dette direktiv, skal vurderes i henhold til det nævnte direktivs artikel 5-10. Blandt de projekter, der henhører under dette bilags punkt 10, som har overskriften »Infrastrukturprojekter«, indgår i litra b) »[a]nlægsarbejder i byzoner, herunder opførelse af butikscentre og parkeringsanlæg«.
+Belgisk ret
+11
+Som det fremgår af artikel 1, stk. 2, i Code bruxellois de l’aménagement du territoire (lov om fysisk planlægning for Bruxelles) af 9. april 2004 (
+Moniteur belge
+af 26.5.2004, s. 40738, herefter »CoBAT«), har denne lov navnlig til formål at gennemføre SMV-direktivet i belgisk ret.
+12
+CoBAT sondrer mellem på den ene side værktøjerne til udvikling og arealplanlægning og på den anden side værktøjerne til byplanlægning. De førstnævnte værktøjer er omfattet af denne lovs afsnit II, der har overskriften »Planlægning«, mens de sidstnævnte værktøjer er genstand for lovens afsnit III med overskriften »forordninger om byplanlægning«.
+13
+Hvad angår værktøjerne til udvikling og arealplanlægning bestemmer CoBAT’s artikel 13 følgende:
+»Udviklingen af hovedstadsregionen Bruxelles udformes, og arealplanlægningen fastsættes i følgende planer:
+1. den regionale udviklingsplan
+2. den regionale plan for arealanvendelse
+3. kommunale udviklingsplaner
+4. den konkrete plan for arealanvendelse […]«
+14
+For så vidt angår værktøjerne til byplanlægning præciserer denne lovs artikel 87 følgende:
+»Byplanlægningen af hovedstadsregionen Bruxelles er reguleret ved følgende forordninger:
+1. de regionale forordninger om byplanlægning
+2. de kommunale forordninger om byplanlægning.«
+15
+Proceduren for udarbejdelse af de planer, der er omhandlet i CoBAT’s artikel 13, omfatter udarbejdelsen af en miljørapport, således som det fremgår henholdsvis af denne lovs artikel 18, stk. 1, artikel 25, stk. 1, artikel 33, stk. 1, og artikel 43, stk. 1.
+16
+CoBAT’s artikel 88 ff., der beskriver proceduren for udarbejdelse af de i denne lovs artikel 87 nævnte forordninger, fastsætter derimod ikke en tilsvarende procedure for vurdering af indvirkningen på miljøet for disse forordninger.
+17
+Lovens artikel 88 bestemmer:
+»Regeringen kan udstede en eller flere regionale forordninger om byplanlægning, der indeholder bestemmelser, som har til formål at sikre navnlig:
+1°
+bygningers, installationers og deres omgivelsers gavnlighed for helbredet, bevarelse, robusthed og skønhed samt deres sikkerhed, herunder sikring mod brand og oversvømmelse
+2°
+bygningers termiske og akustiske kvalitet, energibesparelser og genvinding af energi
+3°
+vejes, til- og frakørslers og deres omgivelsers bevarelse, gavnlighed for helbredet, sikkerhed, bæredygtighed og skønhed
+4°
+bygningers forsyning ved hjælp af udstyr af almen interesse, navnlig vand-, gas-, elektricitets- varme- og telekommunikationsforsyning og bortskaffelse af affald
+5°
+minimumsstandarder for boligers beboelighed
+6°
+bokvaliteten og bekvemmeligheden ved langsom trafik, navnlig ved forebyggelse af støj, støv og dampe fra byggearbejder og forbud herimod på bestemte tidspunkter og dage
+7°
+adgang til bygninger, uanset deres opførelse, eller til disse bygningers offentligt tilgængelige dele, anlæg og veje, for personer med nedsat mobilitet
+8°
+sikkerheden i forbindelse med anvendelsen af offentligt tilgængelige ejendomme.
+Disse forordninger kan bl.a. vedrøre byggerier og installationer over og under jorden, skilte, reklame- og fremvisningsanordninger, antenner, rørledninger, hegn, depoter, ubebyggede grunde, beplantninger, ændringer af terrænforholdet og indretning af områder til kørsel og parkering uden for offentlig vej.
+Disse forordninger om byplanlægning må ikke afvige fra de bestemmelser, der gælder for større veje.
+De finder anvendelse på hele det regionale område eller en del af dette område, for hvilket de fastlægger grænserne.«
+Tvisten i hovedsagen og det præjudicielle spørgsmål
+18
+Den 24. april 2008 godkendte regeringen for hovedstadsregionen Bruxelles endeligt en vejledende plan for EU-kvarteret i Bruxelles (herefter »EU-kvarteret«) med henblik på at gøre dette til et samlet og blandet kvarter, der kombinerer et internationalt jobcentrum, et centrum for beboelse og et centrum for kultur og fritid, som er tilgængeligt for alle.
+19
+Den 16. december 2010 vedtog denne regering både retningslinjerne for »Projet urbain Loi« (byprojektet Loi), som består af en tegning, der ikke har retsvirkninger, og en bekendtgørelse om gennemførelsen – ved en konkret plan for arealanvendelse – af udkastet til fastlæggelse af en bymodel for rue de la Loi og områdets omgivelser midt i EU-kvarteret, som skal godkendes af Conseil communal (byrådet) i Bruxelles by.
+20
+Den 15. december 2011 godkendte regeringen for hovedstadsregionen Bruxelles det første udkast til regional forordning om zoneopdelt byplanlægning (herefter »RFZB«) for det i den foregående præmis anførte område. En offentlig undersøgelse, der fandt sted mellem den 19. marts og den 18. april 2012, gav anledning til klager og bemærkninger, herunder fra Coordination Brussels-Europe, der blandt andre klagepunkter anførte, at der ikke var gennemført en vurdering af indvirkningen på miljøet. Den 19. juli 2012 vedtog denne regering en meddelelse med henblik på at gennemføre en miljøvurdering vedrørende dette første udkast til RFZB.
+21
+Efter denne undersøgelse godkendte den nævnte regering den 28. februar 2013 det andet udkast til RFZB, der ligeledes havde været sendt i høring, og som for sit vedkommende havde givet anledning til klager og bemærkninger, herunder dem fra Coordination Brussels-Europe.
+22
+Den 12. december 2013 godkendte regeringen for hovedstadsregionen Bruxelles den omhandlede RFZB ved den anfægtede bekendtgørelse.
+23
+Ved stævning indleveret den 31. marts 2014 har sagsøgerne i hovedsagen anlagt sag ved Conseil d’État (Belgien) (appeldomstol i forvaltningsretlige sager, Belgien) med påstand om ophævelse af denne bekendtgørelse. De har bl.a. kritiseret den nævnte regering for at have tilsidesat de i SMV-direktivet fastsatte procedurer ved ikke at have gennemført en miljøvurdering i overensstemmelse med dette direktiv. De har navnlig gjort gældende, at miljøvurderingen ikke opfylder kravene i dette direktiv.
+24
+I stævningen har sagsøgerne i hovedsagen i det væsentlige fremhævet, at der i belgisk lovgivning sondres mellem de foranstaltninger, der henhører under arealplanlægning, og dem, der henhører under byplanlægning, idet der alene for de førstnævnte kræves udarbejdelse af en vurdering af indvirkningen på miljøet. SMV-direktivet henviser imidlertid til »planer og programmer« uden at foretage en sådan differentiering.
+25
+Regeringen for hovedstadsregionen Bruxelles har som forsvar gjort gældende, at den anfægtede bekendtgørelse hverken udgør en plan eller et program i dette direktivs forstand, og at de proceduremæssige forpligtelser, der er fastsat i dette direktiv, følgelig ikke finder anvendelse i forbindelse med vedtagelsen af en sådan bekendtgørelse.
+26
+Den forelæggende ret har anført, at spørgsmålet om, hvorvidt den sag, der er anlagt for denne ret, skal realitetsbehandles, afhænger af, om den nævnte bekendtgørelse er omfattet af begrebet »planer og programmer« som omhandlet i SMV-direktivet.
+27
+På denne baggrund har Conseil d’État (appeldomstol i forvaltningsretlige sager, Belgien) besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»Skal [SMV-direktivets] artikel 2, [litra] a), […] fortolkes således, at begrebet »planer og programmer« omfatter en forordning om byplanlægning, der er vedtaget af en regional myndighed:
+–
+som indeholder en kortlægning, der fastsætter dens anvendelsesområde, der er begrænset til et enkelt kvarter, og som inden for dette område afgrænser forskellige blokke, hvor der gælder særlige regler for så vidt angår beliggenheden af og højden på bygninger, og
+–
+som ligeledes fastsætter særlige bestemmelser for anvendelsen af de zoner, der omkranser bygningerne, såvel som nøjagtige angivelser for den fysiske anvendelse af visse regler, der er fastsat under hensyntagen til vejene, de lige linjer, der krydser disse veje vinkelret og afstandene i forhold til byggelinjen for disse veje, og
+–
+som forfølger et formål om fornyelse af det omhandlede kvarter, og
+–
+som fastsætter regler for udformningen af ansøgningerne om byggetilladelse, der er betinget af en vurdering af indvirkningen på miljøet i dette kvarter?«
+Om det præjudicielle spørgsmål
+28
+Det bemærkes indledningsvis, at selv om det præjudicielle spørgsmål alene henviser til SMV-direktivets artikel 2, litra a), således som flere af deltagerne i sagen har gjort gældende for Domstolen, vedrører anmodningen om præjudiciel afgørelse både afgørelsen af, om en RFZB som den i hovedsagen omhandlede henhører under begrebet »planer og programmer« som omhandlet i den nævnte bestemmelse, og af, om en sådan forordning indgår blandt dem, der skal underlægges en vurdering af indvirkningen på miljøet som omhandlet i dette direktivs artikel 3.
+29
+Den omstændighed, at en national ret rent formelt har formuleret sin præjudicielle anmodning under henvisning til visse bestemmelser i EU-retten, er ikke til hinder for, at Domstolen oplyser denne ret om alle de fortolkningsmomenter, der kan være til nytte ved afgørelsen af den sag, som verserer for den nationale ret, uanset om den henviser til dem i sine spørgsmål. Det tilkommer herved Domstolen fra samtlige de oplysninger, der er fremlagt af den nationale ret, navnlig af forelæggelsesafgørelsens præmisser, at udlede de EU-retlige elementer, som det under hensyn til sagens genstand er nødvendigt at fortolke (dom af 22.6.2017, E.ON Biofor Sverige,
+C-549/15
+,
+EU:C:2017:490
+, præmis
+72
+og den deri nævnte retspraksis).
+30
+Det fremgår i denne forbindelse af SMV-direktivets artikel 3, at denne bestemmelse skal fortolkes således, at den gør forpligtelsen til at underlægge en konkret plan eller et konkret program en miljøvurdering, betinget af, at den plan eller det program, som denne bestemmelse omhandler, kan forventes at få væsentlig indvirkning på miljøet.
+31
+Det er derfor hensigtsmæssigt at forstå den forelæggende rets præjudicielle spørgsmål således, at den nærmere bestemt ønsker oplyst, om SMV-direktivets artikel 2, litra a), og artikel 3 skal fortolkes således, at en RFZB som den i hovedsagen omhandlede, der fastsætter visse bestemmelser for udførelsen af byggeprojekter, er omfattet af begrebet »planer og programmer«, som kan få væsentlig indvirkning på miljøet, i dette direktivs forstand, og derfor skal underlægges en vurdering af indvirkningen på miljøet.
+32
+Det bemærkes indledningsvis, at miljøvurderingen, således som det fremgår af fjerde betragtning til SMV-direktivet, er et vigtigt værktøj til integrering af miljøhensyn i udarbejdelsen og vedtagelsen af visse planer og programmer.
+33
+Dernæst er formålet med dette direktiv i henhold til dettes artikel 1 at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet (dom af 21.12.2016, Associazione Italia Nostra Onlus,
+C-444/15
+,
+EU:C:2016:978
+, præmis
+47
+).
+34
+Henset endelig til formålet med dette direktiv, som består i at sikre et sådant højt miljøbeskyttelsesniveau, skal bestemmelser, der afgrænser dets anvendelsesområde, og særligt bestemmelser, der fastsætter definitioner på de retsakter, der er omfattet heraf, fortolkes bredt (dom af 27.10.2016, D’Oultremont m.fl.,
+C-290/15
+,
+EU:C:2016:816
+, præmis
+40
+og den deri nævnte retspraksis).
+35
+Det præjudicielle spørgsmål skal besvares i lyset af ovenstående betragtninger.
+SMV-direktivets artikel 2, litra a)
+36
+SMV-direktivets artikel 2, litra a), definerer de af dette direktiv omhandlede »planer og programmer« som værende dem, der opfylder to kumulative betingelser om, at disse dels udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, dels kræves ifølge love og administrative bestemmelser.
+37
+Domstolen har fortolket denne bestemmelse således, at planer og programmer, hvis vedtagelse er reguleret ved nationale love og administrative bestemmelser, som fastlægger, hvilke myndigheder der har beføjelse til at vedtage dem samt proceduren for deres udarbejdelse, skal betragtes som »krævet« i henhold til og med henblik på anvendelsen af SMV-direktivet og således er underlagt en miljøvurdering på de betingelser, som dette direktiv fastsætter (dom af 22.3.2012, Inter-Environnement Bruxelles m.fl.,
+C-567/10
+,
+EU:C:2012:159
+, præmis
+31
+).
+38
+En udelukkelse af planer og programmer, hvis vedtagelse ikke er obligatorisk, fra SMV-direktivets anvendelsesområde, ville nemlig være til skade for det nævnte direktivs effektive virkning, henset til dets formål, der består i at sikre et højt miljøbeskyttelsesniveau (jf. i denne retning dom af 22.3.2012, Inter-Environnement Bruxelles m.fl.,
+C-567/10
+,
+EU:C:2012:159
+, præmis
+28
+og
+30
+).
+39
+I det foreliggende tilfælde fremgår det af den forelæggende rets konstateringer, at den anfægtede bekendtgørelse blev vedtaget af en regional myndighed på grundlag af CoBAT’s artikel 88 ff.
+40
+Det følger heraf, at de betingelser, der er opregnet i denne doms præmis 36, er opfyldt.
+SMV-direktivets artikel 3
+41
+Det skal bemærkes, at det følger af SMV-direktivets artikel 3, stk. 2, litra a), at planer og programmer, som dels udarbejdes inden for visse sektorer, dels fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er opregnet i bilag I og II til VVM-direktivet, underlægges en systematisk miljøvurdering (jf. i denne retning dom af 17.6.2010, Terre wallonne og Inter-Environnement Wallonie,
+C-105/09 og C-110/09
+,
+EU:C:2010:355
+, præmis
+43
+).
+42
+For så vidt angår den første af disse betingelser fremgår det af ordlyden af SMV-direktivets artikel 3, stk. 2, litra a), at denne bestemmelse bl.a. omhandler sektoren for »fysisk planlægning og arealanvendelse«.
+43
+Som Europa-Kommissionen har gjort gældende, indikerer den omstændighed, at denne bestemmelse henviser både til »fysisk planlægning« og til »arealanvendelse«, klart, at den omhandlede sektor ikke er begrænset til arealanvendelse i snæver forstand, dvs. opdeling af arealet i zoner og definition af de aktiviteter, der er tilladte inden for disse zoner, men at denne sektor nødvendigvis omfatter et større område.
+44
+Det fremgår af CoBAT’s artikel 88, at en regional forordning om byplanlægning bl.a. vedrører bygningerne og deres omgivelser, herunder planer for veje, bevarelse, sikkerhed, gavnligheden for helbredet, energi, akustik, affaldshåndtering og æstetik.
+45
+Derfor henhører en sådan retsakt under sektoren for »fysisk planlægning og arealanvendelse« som omhandlet i SMV-direktivets artikel 3, stk. 2, litra a).
+46
+Hvad angår den anden af betingelserne bemærkes, at for at fastslå, hvorvidt en regional forordning om byplanlægning som den, der er omhandlet i hovedsagen, fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er opregnet i bilag I og II til VVM-direktivet, skal indholdet af og formålet med denne forordning undersøges under hensyntagen til rækkevidden af miljøvurderingen af disse projekter som fastsat ved dette direktiv (jf. i denne retning dom af 17.6.2010, Terre wallonne og Inter-Environnement Wallonie,
+C-105/09 og C-110/09
+,
+EU:C:2010:355
+, præmis
+45
+).
+47
+Hvad for det første angår de projekter, der er opregnet i bilag I og II til VVM-direktivet, skal det bemærkes, at der under sidstnævnte bilags punkt 10 er anført infrastrukturprojekter, hvilke, i dette punkts litra b), omfatter anlægsarbejder i byzoner.
+48
+Det skal bemærkes, at den anfægtede retsakt indeholder regler, der finder anvendelse på alle bygninger, dvs. bygninger af enhver art og alle deres omgivelser, herunder »zoner med åbne områder« og »vejzoner«, uanset om disse er private eller offentligt tilgængelige.
+49
+I denne henseende indeholder denne retsakt en kortlægning, der ikke begrænser sig til at fastsætte dens anvendelsesområde, men som afgrænser forskellige blokke, hvor der gælder særlige regler for så vidt angår beliggenheden af og højden på bygninger.
+50
+Den nævnte retsakt indeholder mere specifikt bestemmelser om bl.a. bygningernes antal, beliggenhed og størrelse samt deres bebyggelsesområde, de ubebyggede områder, herunder beplantningen i disse områder, indsamling af regnvand, herunder opførelsen af regnvandsbassiner og cisterner, udformningen af bygninger i sammenhæng med deres potentielle anvendelse, deres levetid og nedrivning, biotopkoefficienten, dvs. forholdet mellem områder, der kan anvendes miljøvenligt, og områdets areal, opførelsen af tagkonstruktioner, herunder i forhold til integrationen i landskabet og vegetationen.
+51
+For så vidt angår formålet med den anfægtede retsakt forfølger denne et formål om at udvikle området til et »urbant, samlet og blandet« kvarter og sigter mod en »fornyelse af hele EU-kvarteret«. Mere specifikt indeholder den nævnte retsakt et afsnit med overskriften »Bestemmelser vedrørende udformningen af ansøgninger om byggecertifikat og ‑tilladelse«, der ikke alene fastsætter de materielle regler, som gælder ved udstedelsen af tilladelser, men ligeledes de proceduremæssige regler vedrørende udformningen af ansøgninger om byggecertifikater og ‑tilladelser.
+52
+Det følger heraf, at en bekendtgørelse som den i hovedsagen omhandlede med sit indhold og formål bidrager til gennemførelsen af de projekter, der er opregnet i det nævnte bilag.
+53
+Hvad angår spørgsmålet om, hvorvidt den anfægtede retsakt fastlægger rammerne for fremtidige anlægstilladelser til projekter, bemærkes for det andet, at Domstolen allerede har fastslået, at begrebet »planer og programmer« vedrører enhver retsakt, der, idet den definerer de regler og kontrolprocedurer, der skal finde anvendelse på den pågældende sektor, fastlægger en betydningsfuld helhed af kriterier og fremgangsmåder for tilladelse og iværksættelse af et eller flere projekter, der kan have væsentlige indvirkninger på miljøet (dom af 27.10.2016, D’Oultremont m.fl.,
+C-290/15
+,
+EU:C:2016:816
+, præmis
+49
+og den deri nævnte retspraksis).
+54
+Denne fortolkning af begrebet »planer og programmer« har, således som generaladvokaten har anført i punkt 23 i forslaget til afgørelse, til formål at sikre, at bestemmelser, som kan få væsentlig indvirkning på miljøet, underlægges en miljøvurdering.
+55
+Som generaladvokaten har anført i punkt 25 og 26 i forslaget til afgørelse, skal begrebet »en betydningsfuld helhed af kriterier og fremgangsmåder« dermed forstås kvalitativt og ikke kvantitativt. Mulige strategier for omgåelse af de forpligtelser, der fremgår af SMV-direktivet, skal således undgås, idet de kan materialiseres ved en opdeling af foranstaltninger, hvorved den effektive virkning af dette direktiv reduceres (jf. i denne retning dom af 27.10.2016, D’Oultremont m.fl.,
+C-290/15
+,
+EU:C:2016:816
+, præmis
+48
+og den deri nævnte retspraksis).
+56
+Det fremgår af fortolkningen af den anfægtede retsakt, at denne bl.a. indeholder bestemmelser om den fysiske planlægning af zonerne omkring bygninger og andre ubebyggede områder, vejzoner, zoner med gårdhaver og haver, hegn, forbindelser til forsyningsnet og kloakering, indsamling af regnvand og bygningers forskellige karakteristika, herunder disses konvertible og bæredygtige karakter, visse af deres eksterne aspekter eller endda køretøjers adgang til dem.
+57
+Henset til den måde, hvorpå de kriterier og fremgangsmåder, der er fastlagt ved en sådan retsakt, er defineret, kan de, således som generaladvokaten har anført i punkt 30 i forslaget til afgørelse, få væsentlig indvirkning på bymiljøet.
+58
+Sådanne kriterier og fremgangsmåder vil nemlig, som Kommissionen har fremhævet, kunne få en indvirkning på belysningen, vindforholdene, bylandskabet, luftkvaliteten, biodiversiteten, vandforvaltningen, bygningernes bæredygtighed og, mere generelt, udledningerne i den pågældende zone. Som nævnt i betragtningerne til den anfægtede retsakt vil størrelserne og placeringen af høje bygninger nærmere bestemt kunne forårsage uønskede vind- og skyggeforhold.
+59
+Henset til disse kriterier, som det – for så vidt angår spørgsmålet om, hvorvidt de foreligger, og om rækkevidden heraf med hensyn til den omhandlede retsakt – dog tilkommer den nationale ret at efterprøve, skal det fastslås, at en retsakt som den i hovedsagen omhandlede er omfattet af begrebet »planer og programmer« som omhandlet i SMV-direktivets artikel 3, stk. 1 og 2, og skal underlægges en vurdering af indvirkningen på miljøet.
+60
+En sådan konklusion kan ikke drages i tvivl af den indsigelse, som den belgiske regering har rejst vedrørende den i hovedsagen omhandlede lovgivnings generelle dimension. Bortset fra den omstændighed, at det fremgår af selve ordlyden af SMV-direktivets artikel 2, litra a), første led, at begrebet »planer og programmer« kan omfatte normative retsakter, der er vedtaget ved lov eller administrativt, indeholder dette direktiv nemlig netop ikke særlige bestemmelser vedrørende politikker eller generel lovgivning, der for disse ville kræve en afgrænsning i forhold til planer og programmer som omhandlet i det nævnte direktiv. Den omstændighed, at en RFZB som den i hovedsagen omhandlede indeholder generelle regler, har et vist abstraktionsniveau og forfølger et formål om fornyelse af kvarteret, illustrerer i øvrigt dennes program- eller planmæssige dimension og er ikke til hinder for, at den er omfattet af begrebet »planer og programmer« (jf. i denne retning dom af 27.10.2016, D’Oultremont m.fl.,
+C-290/15
+,
+EU:C:2016:816
+, præmis
+52
+og
+53
+).
+Den eventuelle kumulering af vurderingerne af indvirkningen på miljøet
+61
+Den forelæggende ret har anført, at fremtidige ansøgninger om byggetilladelse, som den i hovedsagen omhandlede RFZB fastsætter reglerne om udformningen af sagsakterne for, vil blive underlagt en vurdering af indvirkningen på miljøet.
+62
+Det bemærkes, at det væsentligste formål med SMV-direktivet er, at »planer og programmer«, der kan få væsentlig indvirkning på miljøet, skal underlægges en miljøvurdering i forbindelse med deres udarbejdelse og inden deres vedtagelse (jf. i denne retning dom af 28.2.2012, Inter-Environnement Wallonie og Terre wallonne,
+C-41/11
+,
+EU:C:2012:103
+, præmis
+40
+og den deri nævnte retspraksis).
+63
+I denne henseende fremgår det af dette direktivs artikel 6, stk. 2, at miljøvurderingen skal gennemføres så tidligt som muligt, således at resultaterne kan nå at få indflydelse på eventuelle afgørelser. Det er nemlig på dette stade, at de forskellige alternativer kan analyseres, og der kan træffes strategiske valg.
+64
+Selv om SMV-direktivets artikel 5, stk. 3, fastsætter muligheden for at anvende de relevante oplysninger, som er indhentet på andre trin af beslutningsforløbet eller i forbindelse med anden EU-retlig lovgivning, præciserer dette direktivs artikel 11, stk. 1, desuden, at en miljøvurdering, der gennemføres efter dette direktiv, ikke berører kravene efter VVM-direktivet.
+65
+Endvidere kan en vurdering af indvirkningen på miljøet, der er gennemført i henhold til VVM-direktivet, ikke fritage fra forpligtelsen til at foretage den miljøvurdering, som kræves efter SMV-direktivet, for at opfylde de miljøaspekter, der er særlige for dette direktiv.
+66
+Den omstændighed, der er fremhævet af den forelæggende ret, hvorefter de fremtidige ansøgninger om byggetilladelse vil blive underlagt en vurdering af indvirkningen i henhold til VVM-direktivet, kan således ikke skabe tvivl om nødvendigheden af at foretage en miljøvurdering af en plan eller et program, der henhører under anvendelsesområdet for SMV-direktivets artikel 3, stk. 2, litra a), og som fastlægger rammerne for fremtidige byggetilladelser til disse projekter, medmindre vurderingen af denne plans eller dette programs indvirkning allerede er blevet gennemført som omhandlet i præmis 42 i dom af 22. marts 2012, Inter-Environnement Bruxelles m.fl. (
+C-567/10
+,
+EU:C:2012:159
+).
+67
+Henset til samtlige ovenstående betragtninger skal det forelagte spørgsmål besvares med, at SMV-direktivets artikel 2, litra a), artikel 3, stk. 1, og artikel 3, stk. 2, litra a), skal fortolkes således, at en forordning om byplanlægning som den i hovedsagen omhandlede, der fastsætter visse bestemmelser for udførelsen af byggeprojekter, er omfattet af begrebet »planer og programmer«, som kan få væsentlig indvirkning på miljøet i dette direktivs forstand, og derfor skal underlægges en vurdering af indvirkningen på miljøet.
+Sagsomkostninger
+68
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagsomkostningerne. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Anden Afdeling) for ret:
+Artikel 2, litra a), artikel 3, stk. 1, og artikel 3, stk. 2, litra a), i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet skal fortolkes således, at en forordning om byplanlægning som den i hovedsagen omhandlede, der fastsætter visse bestemmelser for udførelsen af byggeprojekter, er omfattet af begrebet »planer og programmer«, som kan få væsentlig indvirkning på miljøet i dette direktivs forstand, og derfor skal underlægges en vurdering af indvirkningen på miljøet.
+Underskrifter
+(
+*1
+) – Processprog: fransk.

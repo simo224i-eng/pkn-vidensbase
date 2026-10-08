@@ -1,0 +1,310 @@
+62020CJ0473
+DOMSTOLENS DOM (Første Afdeling)
+20. oktober 2022 (
+*1
+)
+»Præjudiciel forelæggelse – tilnærmelse af lovgivningerne – direktiv 2009/65/EF – institutter for kollektiv investering i værdipapirer (investeringsinstitutter) – administrationsselskaber – forpligtelser med hensyn til oplysninger til investorer – artikel 72 – forpligtelse til ajourføring af »væsentlige dele af prospektet« – rækkevidde – artikel 69, stk. 2 – oplysningerne, der er nævnt i skema A i bilag I – sammensætningen af et af administrationsselskabets organer – artikel 99a, litra r) – gennemførelse i medlemsstaternes retsordener – national lovgivning, der udvider de situationer, hvor en overtrædelse vedrørende ajourføring af prospektet kan konstateres og udløse sanktioner«
+I sag C-473/20,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Sofijski Rajonen sad (kredsdomstolen i Sofia, Bulgarien) ved afgørelse af 17. september 2020, indgået til Domstolen den 30. september 2020, i sagen
+»Invest Fund Management« AD
+mod
+Komisia za finansov nadzor
+har
+DOMSTOLEN (Første Afdeling),
+sammensat af afdelingsformanden, A. Arabadjiev, Domstolens vicepræsident, L. Bay Larsen, som fungerende dommer i Første Afdeling, og dommerne P.G. Xuereb, A. Kumin og I. Ziemele (refererende dommer),
+generaladvokat: A.M. Collins,
+justitssekretær: fuldmægtig M. Siekierzyńska,
+på grundlag af den skriftlige forhandling og efter retsmødet den 26. januar 2022,
+efter at der er afgivet indlæg af:
+–
+»Invest Fund Management« AD ved advokati I. Antov, S. Dobrev, I. Georgiev, B. Karadzhov, M. Mitkova, T. Nacheva, S. Nedev, B. Teknedzhiev og V. Tokushev
+–
+Komisia za finansov nadzor ved B. Gercheva, A. Giorchev, L. Valchovska og M. Vasileva,
+–
+den tyske regering ved J. Möller og S. Heimerl, som befuldmægtigede,
+–
+den italienske regering ved G. Palmieri, som befuldmægtiget, bistået af avvocato dello Stato F. Meloncelli,
+–
+den luxembourgske regering ved A. Germeaux og T. Uri, som befuldmægtigede,
+–
+den polske regering ved B. Majczyna, som befuldmægtiget,
+–
+Europa-Kommissionen ved C. Auvret, C. Georgieva, J. Rius Riu og H. Tserepa-Lacombe, som befuldmægtigede,
+–
+Den Europæiske Værdipapir- og Markedstilsynsmyndighed (ESMA) ved F. Barzanti, G. Filippa og R. Vasileva Hoff, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 31. marts 2022,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 69, stk. 2, artikel 72 og artikel 99a, litra r), i Europa-Parlamentets og Rådets direktiv 2009/65/EF af 13. juli 2009 om samordning af love og administrative bestemmelser om visse institutter for kollektiv investering i værdipapirer (investeringsinstitutter) (
+EUT 2009, L 302, s. 32
+), som ændret ved Europa-Parlamentets og Rådets direktiv 2014/91/EU af 23. juli 2014 (
+EUT 2014, L 257, s. 186
+) (herefter »direktiv 2009/65«).
+2
+Anmodningen er blevet indgivet i forbindelse med en tvist mellem »Invest Fund Management« AD (herefter »IFM«) og Komisia za finansov nadzor (finanstilsynet, Bulgarien, herefter »finanstilsynet«) vedrørende en bøde, som IFM er blevet pålagt som følge af manglende overholdelse af forpligtelsen til at ajourføre prospektet vedrørende et institut for kollektiv investering i værdipapirer (investeringsinstitut), som IFM administrerer.
+Retsforskrifter
+EU-retten
+3
+3., 4., 15., 58., 59., 61. og 69. betragtning til direktiv 2009/65 har følgende ordlyd:
+»(3)
+En samordning af de nationale lovgivninger, der gælder for institutter for kollektiv investering, forekommer derfor hensigtsmæssig med henblik på indbyrdes at tilnærme konkurrencevilkårene for disse institutter på fællesskabsplan og derved gennemføre en mere effektiv og ensartet beskyttelse af deltagerne. En sådan samordning gør det lettere at ophæve begrænsningerne i den frie bevægelighed på fællesskabsplan for andele i investeringsinstitutter.
+(4)
+Under hensyn til disse målsætninger bør der gælde fælles grundlæggende bestemmelser for investeringsinstitutter etableret i medlemsstaterne for så vidt angår deres godkendelse, tilsyn, struktur, aktiviteter samt de oplysninger, som det kræves, [at] de skal offentliggøre.
+[…]
+(15)
+Et hjemland bør principielt kunne fastsætte strengere regler end reglerne i dette direktiv, især om godkendelsesbetingelser, tilsynskrav og aflæggelse af beretning samt om prospekter.
+[…]
+(58)
+Medlemsstaterne bør skelne klart mellem markedsføringsmateriale og den obligatoriske information, der i henhold til dette direktiv skal udleveres til investorer. Sidstnævnte omfatter central investorinformation, prospektet samt års- og halvårsregnskaber.
+(59)
+Den centrale investorinformation bør udleveres gratis som et specifikt dokument til investorerne i god tid forud for tegningen af andele i et investeringsinstitut, således at de kan træffe en velfunderet investeringsbeslutning. Denne centrale investorinformation bør kun omfatte de oplysninger, der er væsentlige for en sådan beslutning. Den type oplysninger, den centrale investorinformation skal indeholde, bør fuldt ud harmoniseres for at sikre en tilstrækkelig grad af investorbeskyttelse og sammenlignelighed. Den centrale investorinformation bør være kortfattet. Et enkelt dokument af begrænset længde, hvori oplysningerne præsenteres i en bestemt rækkefølge, er den mest velegnede metode til at opnå den klarhed og simplicitet i præsentationen, som ikke-professionelle investorer kræver, og bør gøre det muligt at foretage nyttige sammenligninger, navnlig af omkostninger og risikoprofil, som er relevante for investeringsbeslutningen.
+[…]
+(61)
+Der bør udarbejdes central investorinformation for alle investeringsinstitutter. Det er administrationsselskabet eller i givet fald investeringsselskabet, der bør udlevere central investorinformation, i overensstemmelse med den anvendte afsætningsmetode (direkte salg eller salg gennem formidlere). […]
+[…]
+(69)
+Det er nødvendigt at styrke konvergensen i de kompetente myndigheders beføjelser for derved at sikre ensartet håndhævelse af dette direktiv i de forskellige medlemsstater. Et fælles minimumssæt af beføjelser, der er i overensstemmelse med de beføjelser, som de kompetente myndigheder tildeles ved anden fællesskabslovgivning om finansielle tjenesteydelser, bør sikre et effektivt tilsyn. Medlemsstaterne bør endvidere fastsætte sanktionsbestemmelser, som kan omfatte strafferetlige eller administrative sanktioner, samt administrative foranstaltninger, som finder anvendelse ved overtrædelser af dette direktiv. Medlemsstater bør ligeledes træffe de foranstaltninger, der er nødvendige for at sikre, at disse sanktioner håndhæves.«
+4
+Direktivets artikel 1, stk. 7, bestemmer:
+»Med forbehold af dette kapitel kan medlemsstaterne for investeringsinstitutter, der er etableret på deres eget område, fastsætte strengere bestemmelser end dem, der er fastsat i dette direktiv, samt supplerende bestemmelser, såfremt sådanne bestemmelser finder almindelig anvendelse og ikke strider mod bestemmelserne i dette direktiv.«
+5
+Direktivets artikel 2, stk. 1, litra b) og s), har følgende ordlyd:
+»I dette direktiv forstås ved:
+[…]
+b)
+»administrationsselskab«: et selskab, hvis almindelige virksomhed er administration af investeringsinstitutter i form af investeringsfonde eller investeringsselskaber (kollektiv porteføljeforvaltning for investeringsinstitutter)
+[…]
+s)
+»ledelsesorgan«: organet med de øverste beslutningsbeføjelser i et administrationsselskab, et investeringsselskab eller en depositar, herunder tilsyns- og ledelsesfunktioner, eller kun ledelsesfunktionen, hvis de to funktioner er adskilt. Hvis administrationsselskabet, investeringsselskabet eller depositaren i henhold til national ret har etableret forskellige organer med specifikke funktioner, finder kravene fastsat i dette direktiv til »ledelsesorganet« eller »ledelsesorganet i sin egenskab af tilsynsførende« også eller i stedet for anvendelse på de medlemmer af administrationsselskabets, investeringsselskabets eller depositarens andre organer, som gældende national ret tildeler det respektive ansvar.
+[…]«
+6
+Samme direktivs artikel 68, stk. 1, litra a), bestemmer:
+»Et investeringsselskab og, for hver af de investeringsfonde det administrerer, et administrationsselskab offentliggør følgende:
+a)
+et prospekt.«
+7
+Artikel 69, stk. 1 og 2, i direktiv 2009/65 har følgende ordlyd:
+»1. Prospektet skal indeholde de oplysninger, der er nødvendige for, at investorerne kan danne sig et pålideligt skøn over den investering, der tilbydes dem, og især de dermed forbundne risici.
+Prospektet skal, uanset hvilket instrument der investeres i, indeholde en klar og letforståelig redegørelse for fondens risikoprofil.
+Prospektet skal indeholde enten:
+a)
+oplysninger om den ajourførte aflønningspolitik, herunder, men ikke begrænset til, en beskrivelse af, hvordan løn og goder beregnes, identiteten på de personer, der er ansvarlige for at tildele løn og goder, herunder sammensætningen af aflønningsudvalget, hvis der findes et sådant udvalg, eller
+b)
+et resumé af aflønningspolitikken og en erklæring om, at oplysningerne om den ajourførte aflønningspolitik, herunder, men ikke begrænset til, en beskrivelse af, hvordan løn og goder beregnes, identiteten på de personer, der er ansvarlige for at tildele løn og goder, herunder sammensætningen af aflønningsudvalget, hvis der findes et sådant udvalg, er tilgængelige via et websted med angivelse af det pågældende websted, og at der efter anmodning gratis stilles en trykt udgave til rådighed.
+2. Prospektet skal mindst indeholde de oplysninger, der fremgår af skema A i bilag I, for så vidt disse oplysninger ikke er indeholdt i fondsbestemmelserne eller vedtægterne, der i henhold til artikel 71, stk. 1, skal være vedlagt prospektet.«
+8
+Dette direktivs artikel 71 fastsætter:
+»1. Fondsbestemmelserne eller investeringsselskabets vedtægter udgør en integreret del af prospektet og knyttes som bilag til dette.
+2. De i stk. 1 omhandlede dokumenter behøver dog ikke at være knyttet som bilag til prospektet, såfremt investor underrettes om, at disse dokumenter på anmodning enten kan blive tilsendt eller kan konsulteres på et nærmere angivet sted i hver af de medlemsstater, hvor andelene markedsføres.«
+9
+Direktivets artikel 72 har følgende ordlyd:
+»De væsentlige dele af prospektet holdes ajour.«
+10
+Samme direktivs artikel 74 fastsætter:
+»Investeringsinstitutter forelægger deres prospekter og eventuelle ændringer heraf samt deres årsberetninger og halvårsberetninger for de kompetente myndigheder i investeringsinstituttets hjemland. Investeringsinstituttet fremsender efter anmodning disse dokumenter til de kompetente myndigheder i administrationsselskabets hjemland.«
+11
+Artikel 75, stk. 1 og 2, i direktiv 2009/65 bestemmer:
+»1. Prospektet og de senest offentliggjorte års- og halvårsberetninger udleveres på anmodning og gratis til investorerne.
+2. Prospektet udleveres på et varigt medium eller via et websted. En trykt udgave leveres efter anmodning og gratis til investorerne.«
+12
+Direktivets artikel 78, stk. 1-3 og 5, bestemmer:
+»1. Medlemsstaterne kræver, at et investeringsselskab og, for hver af de investeringsfonde det administrerer, et administrationsselskab udarbejder et kort dokument indeholdende central information for investorer. Dette dokument betegnes i dette direktiv som »central investorinformation«. Ordene »central investorinformation« skal være tydeligt angivet på dokumentet på et af de i artikel 94, stk. 1, litra b), omhandlede sprog.
+2. Den centrale investorinformation omfatter produktinformation om de væsentlige karakteristika ved de relevante investeringsinstitutter, og disse oplysninger udleveres til investorer, således at de kan forventes at forstå karakteren af og risiciene forbundet med det investeringsprodukt, de tilbydes, og således kan træffe investeringsbeslutninger på et velinformeret grundlag.
+3. Central investorinformation giver oplysninger om følgende vigtige punkter i relation til det pågældende investeringsinstitut:
+a)
+identifikation af investeringsinstituttet og af investeringsinstituttets kompetente myndighed
+b)
+en kort beskrivelse af investeringsmål og investeringspolitik
+c)
+en gennemgang af de hidtidige resultater eller eventuelle resultatscenarier
+d)
+omkostninger og gebyrer, og
+e)
+investeringens risk/reward-profil, herunder passende forklaringer og advarsler i forbindelse med risiciene forbundet med investeringer i det relevante investeringsinstitut.
+Disse vigtige punkter skal være forståelige for investoren uden henvisning til andre dokumenter.
+[…]
+5. Den centrale investorinformation skal foreligge i skriftlig form, være kortfattet og affattet i et ikke-teknisk sprog. Der benyttes et fælles format, der gør det muligt at foretage sammenligninger, og den præsenteres på en måde, der kan forventes ikke at volde ikke-professionelle investorer forståelsesvanskeligheder.«
+13
+Det nævnte direktivs artikel 79, stk. 1, fastsætter:
+»Den centrale investorinformation tjener kun til underretning forud for indgåelsen af en aftale. Den skal være fair og tydelig og må ikke være vildledende. Den skal være i overensstemmelse med de relevante dele af prospektet.«
+14
+Samme direktivs artikel 82 bestemmer:
+»1. Investeringsinstitutter sender deres centrale investorinformation og eventuelle ændringer heraf til de kompetente myndigheder i deres hjemland.
+2. Alle væsentlige dele af den centrale investorinformation holdes ajour.«
+15
+Artikel 99, stk. 1, første og tredje afsnit, og artikel 99, stk. 6, i direktiv 2009/65 har følgende ordlyd:
+»1. Uden at dette berører de kompetente myndigheders tilsynsbeføjelser som omhandlet i artikel 98 og medlemsstaternes ret til at fastsætte og pålægge strafferetlige sanktioner, fastsætter medlemsstaterne regler om administrative sanktioner og andre administrative foranstaltninger, der skal pålægges virksomheder og personer for overtrædelser af nationale bestemmelser, der gennemfører dette direktiv, og træffer alle fornødne foranstaltninger til sikring af, at de gennemføres.
+[…]
+Administrative sanktioner og andre administrative foranstaltninger skal være effektive, stå i rimeligt forhold til overtrædelsen og have afskrækkende virkning.
+[…]
+6. Medlemsstaterne sikrer i overensstemmelse med national ret, at de administrative sanktioner og andre administrative foranstaltninger, som kan anvendes i alle de i stk. 1 nævnte tilfælde, mindst omfatter følgende:
+[…]
+e)
+hvis der er tale om en juridisk person, administrative maksimumsbøder på mindst 5000000 EUR eller i medlemsstater, der ikke har euroen som valuta, den tilsvarende værdi i national valuta den 17. september 2014 eller 10% af den juridiske persons samlede årsomsætning ifølge de seneste foreliggende regnskaber, som ledelsesorganet har godkendt; […]
+[…]
+g)
+som alternativ til litra e) og f), administrative maksimumsbøder på op til mindst det dobbelte af den fortjeneste, der er opnået ved overtrædelsen, såfremt fortjenesten kan beregnes, også selv om dette overstiger maksimumsbeløbene i litra e) og f).«
+16
+Dette direktivs artikel 99a fastsætter:
+»Medlemsstaterne sikrer, at deres love eller administrative bestemmelser, der gennemfører dette direktiv, fastsætter sanktioner, særlig når:
+[…]
+r)
+et investeringsselskab eller, for hver af de investeringsfonde, som det administrerer, et administrationsselskab gentagne gange undlader at opfylde forpligtelser til at afgive oplysninger til investorer fastsat i overensstemmelse med nationale bestemmelser til gennemførelse af artikel 68 til 82
+[…]«
+17
+Bilag I til direktivet indeholder to skemaer, A og B. Skema A består af en tabel, der er opdelt i tre kolonner, hvoraf den anden har følgende ordlyd:
+»1.
+Oplysninger om administrationsselskabet, herunder oplysninger om, hvorvidt administrationsselskabet er etableret i en anden medlemsstat end investeringsinstituttets hjemland
+[…]
+1.8.
+Navn m.v. og funktion i selskabet for medlemmerne af administrations-, ledelses- og tilsynsorganer. Angivelse af den hovedvirksomhed, disse personer udøver uden for selskabet, når den har betydning for dette
+[…]«
+Bulgarsk ret
+18
+Artikel 1 i zakon za deynostta na kolektivnite investitsionni shemi i na drugi predpriyatiya za kolektivno investirane (lov om kollektive investeringsordninger og andre institutter for kollektive investeringer, DV nr. 77) af 4. oktober 2011 i den affattelse, der finder anvendelse på tvisten i hovedsagen (herefter »lov om kollektiv investering«), bestemmer:
+»Denne lov regulerer:
+1. virksomhed, som udføres af kollektive investeringsordninger og administrationsselskaberne
+2. virksomhed, som udføres af andre institutter for kollektive investeringer
+[…]«
+19
+Artikel 56, stk. 1, i lov om kollektiv investering fastsætter, at ved enhver ændring af de væsentlige dele af prospektet for kollektive investeringsordninger skal prospektet ajourføres inden for en frist på 14 dage efter ændringens indtræden og forelægges for finanstilsynet inden for denne frist.
+20
+Lovens artikel 273 har følgende ordlyd:
+»(1) Den, som begår eller tillader en overtrædelse af:
+[…]
+10. […] artikel 56, stk. 1, [i denne lov] straffes med bøde på mellem 4000 [bulgarske leva (BGN)] og 5000000 BGN [(ca. 2 000-2 500000 EUR)].
+[…]
+(5) Ved overtrædelser som omhandlet i stk. 1 begået af juridiske personer eller enkeltmandsvirksomheder pålægges en økonomisk sanktion af følgende størrelse:
+[…]
+10.
+ved overtrædelser som omhandlet i stk. 1, nr. 10 – fra 10000 til 5000000 BGN [(ca. 5 000-2 500000 EUR)], ved gentagen overtrædelse – fra 20000 til 10000000 BGN [(ca. 10 000-5 000 000 EUR)].«
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+21
+IFM er et bulgarsk aktieselskab med hjemsted i Sofia (Bulgarien), som har tilladelse til at udøve virksomhed som administrationsselskab som omhandlet i artikel 2, stk. 1, litra b), i direktiv 2009/65, og som er registreret i finanstilsynets register. IFM leder og administrerer fem særskilte investeringsinstitutter.
+22
+I forbindelse med en kontrol konstaterede repræsentanter for finanstilsynet, at sammensætningen af IFM’s bestyrelse, således som den fremgik af det bulgarske handelsregister, var blevet ændret den 28. august 2019 ved optagelsen af to nye menige bestyrelsesmedlemmer uden tildelte ledelsesfunktioner i IMF’s bestyrelse.
+23
+Finanstilsynets repræsentanter var derfor af den opfattelse, at IFM burde have ajourført prospektet for hvert af de fem investeringsinstitutter, som dette selskab administrerer, inden for den lovbestemte frist på 14 dage og senest den 11. september 2019. Idet ajourføringen fandt sted den 17. oktober 2019, pålagde finanstilsynet ved fem separate afgørelser IFM administrative sanktioner i form af fem bøder på hver 10000 BGN (ca. 5000 EUR).
+24
+IFM har anfægtet disse afgørelser ved den forelæggende ret. Hovedsagen vedrører et af disse fem søgsmål. IFM har for det første gjort gældende, at oplysningerne om ændringen i sammensætningen af bestyrelsen i et administrationsselskab ikke udgør »væsentlige dele« som omhandlet i artikel 56, stk. 1, i lov om kollektiv investering, som pålægger en ajourføring af investeringsinstitutters prospekter inden for fristerne, for så vidt som de nyvalgte medlemmer af bestyrelsen er menige medlemmer og ikke udøver nogen ledelsesfunktion, og for det andet og subsidiært, at de fem bøder er blevet pålagt selskabet ulovligt, eftersom der alene var tale om en enkelt overtrædelse.
+25
+Finanstilsynet har gjort gældende, at enhver ændring af personer i sammensætningen af bestyrelsen i et administrationsselskab udgør en ændring af »væsentlige dele«, for så vidt som dette forhold er omfattet af det mindsteindhold, der kræves i prospekterne, hvilket gør det obligatorisk at ajourføre prospekterne. Desuden er de fem særskilte bøder ikke blevet pålagt ulovligt, henset til den omstændighed, at der er konstateret en undladelse for hvert af de fem investeringsinstitutter, der administreres af IFM.
+26
+På denne baggrund har Sofijski Rajonen sad (kredsdomstolen i Sofia, Bulgarien) besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Hvilken betydning har EU-lovgiver ønsket at tillægge begrebet »væsentlige dele« af prospektet som omhandlet i artikel 72 i [direktiv 2009/65]?
+2)
+Skal bestemmelsen i artikel 69, stk. 2, i [direktiv 2009/65] fortolkes således, at enhver ændring af de nødvendige minimumsoplysninger, der er fastsat i skema A i bilag I, altid er omfattet af begrebet »væsentlige dele« i direktivets artikel 72, således at disse skal ajourføres rettidigt?
+3)
+Såfremt det andet spørgsmål besvares benægtende, skal det da lægges til grund, at oplysningen om ændringen af sammensætningen af direktionen i et bestemt administrationsselskab for så vidt angår medlemmer, som [er menige bestyrelsesmedlemmer] og ikke er blevet tillagt [ledelsesopgaver], er omfattet af begrebet »væsentlige dele« som omhandlet i artikel 72 i [direktiv 2009/65]?
+4)
+Skal bestemmelsen i artikel 99a, litra r), i [direktiv 2009/65] fortolkes således, at det kun er tilladt at pålægge et administrationsselskab en sanktion for hver af de investeringsfonde, som det administrerer, hvis det gentagne gange undlader at opfylde forpligtelser til at afgive oplysninger til investorer fastsat i overensstemmelse med nationale bestemmelser til gennemførelse af artikel 68 til 82 i [direktiv 2009/65]?«
+Om de præjudicielle spørgsmål
+Om det første og det andet spørgsmål
+27
+Med det første og det andet spørgsmål, som skal behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 72 i direktiv 2009/65 skal fortolkes således, at de oplysninger om et administrationsselskab, der er fastsat i skema A i bilag I til dette direktiv, som prospektet som minimum skal indeholde i henhold til direktivets artikel 69, stk. 2, er omfattet af begrebet »væsentlige dele af prospektet« som omhandlet i den nævnte artikel 72, således at disse oplysninger skal ajourføres.
+28
+Det skal indledningsvis fastslås, at direktiv 2009/65 ikke indeholder en definition af begrebet »væsentlige dele af prospektet«.
+29
+I denne henseende skal det bemærkes, at ordlyden af en bestemmelse i EU-retten, som ikke indeholder nogen udtrykkelig henvisning til medlemsstaternes ret med henblik på at fastlægge dens betydning og rækkevidde, normalt skal undergives en selvstændig og ensartet fortolkning i hele Unionen (dom af 22.6.2021, Latvijas Republikas Saeima (Strafpoint),
+C-439/19
+,
+EU:C:2021:504
+, præmis
+81
+og den deri nævnte retspraksis).
+30
+I det foreliggende tilfælde indeholder direktiv 2009/65 ikke nogen henvisning til national ret for så vidt angår rækkevidden af begrebet »væsentlige dele af prospektet« som omhandlet i direktivets artikel 72, således at dette begreb skal undergives en selvstændig og ensartet fortolkning i hele Unionen, og dette så meget desto mere, eftersom – således som generaladvokaten har anført i punkt 31 i forslaget til afgørelse – det fremgår af tredje betragtning til direktiv 2009/65, at direktivet har til formål at samordne de nationale lovgivninger, der gælder for disse institutter, på en måde, hvorpå der dels sker en tilnærmelse af konkurrencevilkårene for disse institutter på EU-plan, dels sikres en mere effektiv og ensartet beskyttelse af investorerne.
+31
+For så vidt som begrebet »væsentlige dele af prospektet«, som det fremgår af denne doms præmis 28, ikke er defineret i direktiv 2009/65, skal dette desuden fortolkes i overensstemmelse med dets sædvanlige betydning i almindelig sprogbrug, idet der skal tages hensyn til den sammenhæng, hvori det anvendes, og de mål, der forfølges med den lovgivning, som det udgør en del af (dom af 28.10.2021, Magistrat der Stadt Wien (Den europæiske hamster – II),
+C-357/20
+,
+EU:C:2021:881
+, præmis
+46
+og den deri nævnte retspraksis).
+32
+Hvad for det første angår den sædvanlige betydning af ordet »væsentlig« i almindelig sprogbrug bemærkes, at dette adjektiv betegner en del, der er uundværlig, i modsætning til en accessorisk eller sekundær del.
+33
+De dele af et prospekt, der skal anses for væsentlige, er således de dele, der er uundværlige for, at dette dokument kan opfylde sin funktion.
+34
+Hvad for det andet angår den sammenhæng, hvori artikel 72 i direktiv 2009/65 indgår, bemærkes, at denne bestemmelse er en del af afdeling 1 med overskriften »Offentliggørelse af prospekt og periodiske beretninger« i kapitel IX i direktiv 2009/65 om forpligtelser med hensyn til oplysninger til investorer, og at bestemmelsen følger i direkte forlængelse af de bestemmelser, der præciserer, hvilke oplysninger der skal være indeholdt i prospektet, herunder direktivets artikel 69, stk. 1 og 2, således som generaladvokaten har anført i punkt 33 i forslaget til afgørelse.
+35
+Det skal navnlig indledningsvis bemærkes, at det nævnte direktivs artikel 69, stk. 1, første og andet afsnit, bestemmer, at prospektet skal indeholde de oplysninger, der er nødvendige for, at investorerne kan danne sig et pålideligt skøn over den investering, der tilbydes dem, og især de dermed forbundne risici, og at prospektet skal, uanset hvilket instrument der investeres i, indeholde en klar og letforståelig redegørelse for fondens risikoprofil.
+36
+Dernæst skal prospektet i henhold til artikel 69, stk. 1, tredje afsnit, i direktiv 2009/65 indeholde en række oplysninger om aflønningspolitikken.
+37
+Det følger således af en samlet læsning af artikel 69, stk. 1, i direktiv 2009/65 og direktivets artikel 72, at de dele af prospektet, der er »væsentlige« i sidstnævnte bestemmelses forstand, er de dele af prospektet, der er uundværlige for, at investorerne kan danne sig et pålideligt skøn over den investering, der tilbydes dem, og især de dermed forbundne risici.
+38
+Endelig bestemmer artikel 69, stk. 2, i direktiv 2009/65, at prospektet mindst skal indeholde de oplysninger, der fremgår af skema A i bilag I til direktivet, for så vidt som disse oplysninger ikke er indeholdt i fondsbestemmelserne eller vedtægterne, der i henhold til direktivets artikel 71, stk. 1, skal være vedlagt prospektet. Det drejer sig om oplysninger om investeringsfonden, administrationsselskabet og investeringsselskabet, samt oplysninger om depositaren, oplysninger om rådgivningsfirmaer eller eksterne investeringsrådgivere, oplysninger om, hvilke faciliteter der er til rådighed med henblik på udbetalinger til deltagere, tilbagekøb eller indløsning af andele samt formidling af oplysninger om investeringsinstituttet, samt visse andre investeringsoplysninger og økonomiske oplysninger.
+39
+Som generaladvokaten har anført i punkt 34 og 36 i forslaget til afgørelse, viser anvendelsen af udtrykket »mindst« i denne bestemmelse lovgivers hensigt om, at de oplysninger, som skema A i bilag I til direktiv 2009/65 henviser til, udgør de minimumsoplysninger, som prospektet skal indeholde, herunder, i overensstemmelse med punkt 1.8 i dette skema, navn mv. og funktion i selskabet for medlemmerne af administrations-, ledelses- og tilsynsorganer, samt angivelse af deres hovedvirksomhed uden for selskabet, når den har betydning for dette.
+40
+Eftersom EU-lovgiver således har betragtet de dele, der er opregnet i dette skema A, som uundværlige for, at prospektet kan opfylde sin funktion, som består i at gøre det muligt for investorerne at danne sig et pålideligt skøn over den investering, der tilbydes dem, skal det fastslås, at de er omfattet af begrebet »væsentlige dele af prospektet« som omhandlet i artikel 72 i direktiv 2009/65.
+41
+Det skal endvidere bemærkes, at EU-lovgiver ikke har indført et hierarki mellem disse uundværlige oplysninger, hverken i forhold til deres betydning for investoren eller på grundlag af et andet kriterium.
+42
+Såfremt det antages – således som IFM og den tyske, den luxembourgske og den polske regering i det væsentlige har foreslået i deres skriftlige indlæg – at kun visse af disse uundværlige dele – såsom de dele, der betydeligt berører investorernes økonomiske interesser eller påvirker deres investeringsbeslutninger, eller de dele, der er særligt vigtige for investorerne for at vurdere risikoen forbundet med investeringerne, der tilbydes dem – er »væsentlige« som omhandlet i artikel 72 i direktiv 2009/65, ville dette være i strid med EU-lovgivers valg om at tillægge alle de dele, der er angivet i artikel 69, stk. 2, i direktiv 2009/65, en afgørende karakter med samme værdi.
+43
+Hvad for det tredje angår de formål, der forfølges med direktiv 2009/65, fremgår det af tredje og fjerde betragtning til dette direktiv, at direktivet med henblik på at lette ophævelsen af begrænsningerne i den frie bevægelighed inden for Unionen for andele i investeringsinstitutter har til formål at samordne de nationale lovgivninger, der gælder for disse institutter, således at der dels sker en tilnærmelse af konkurrencevilkårene for disse institutter på EU-plan, dels sikres en mere effektiv og ensartet beskyttelse af investorerne. Henset til disse formål indfører det nævnte direktiv fælles minimumsbestemmelser for så vidt angår godkendelse, tilsyn, struktur, aktiviteter samt de oplysninger, investeringsinstitutterne skal offentliggøre.
+44
+Der er imidlertid for det første ingen tvivl om, at en hurtig ajourføring af oplysninger, hvis indsættelse i prospektet eller i de dokumenter, der udgør en integrerende del heraf, er uundværlig, opfylder formålet om beskyttelse af investorerne, for så vidt som en sådan obligatorisk ajourføring garanterer investorerne, at de oplysninger, som prospektet indeholder, er pålidelige.
+45
+En sådan fortolkning er ligeledes forenelig med det formål, som er nævnt i denne doms præmis 43, om at lette ophævelsen af begrænsningerne i den frie bevægelighed inden for Unionen for andele i investeringsinstitutter og at tilnærme konkurrencevilkårene for disse institutter på EU-plan. Forpligtelsen til ajourføring af oplysninger, hvis indsættelse i prospektet er uundværlig, og som finder ensartet anvendelse på investeringsinstitutter og administrationsselskaber, uanset i hvilken medlemsstat de er hjemmehørende eller etableret, bidrager nemlig til at ophæve begrænsningerne og til en tilnærmelse af konkurrencevilkårene mellem sådanne institutter.
+46
+Konklusionen i denne doms præmis 40 kan ikke drages i tvivl af de argumenter, som den tyske regering har fremført i sit skriftlige indlæg, og som på dette punkt i retsmødet for Domstolen er blevet støttet af IFM og den luxembourgske regering, hvorefter rækkevidden af artikel 72 i det væsentlige skal fastlægges under hensyntagen til artikel 78 i direktiv 2009/65 vedrørende dokumentet med overskriften »central investorinformation«, som investeringsselskaberne og administrationsselskaberne er forpligtet til at udarbejde, således at kun de dele, der er omhandlet i direktivets artikel 78, kan anses for »væsentlige dele« som omhandlet i artikel 72 i direktiv 2009/65.
+47
+Det skal i denne forbindelse bemærkes, at artikel 78, stk. 2 og 3, i direktiv 2009/65 præciserer, hvilken type oplysninger der skal anses for »central investorinformation«, nemlig produktinformation om de væsentlige karakteristika ved de relevante investeringsinstitutter, idet stk. 3 i denne artikel 78 desuden opregner en række oplysninger, der kvalificeres som »vigtige punkter i relation til det pågældende investeringsinstitut«, som i denne egenskab skal være indeholdt i det dokument, der er omhandlet i denne bestemmelse. Artikel 72 i direktiv 2009/65 vedrører imidlertid ikke de væsentlige dele i relation til det pågældende investeringsinstitut, men i relation til prospektet. Som generaladvokaten har anført i punkt 41 i forslaget til afgørelse, anvender artikel 72 og 78 i direktiv 2009/65 ikke det samme begreb.
+48
+Selv om artikel 69, 72 og 78 i direktiv 2009/65 findes i samme kapitel IX, er de to førstnævnte artikler desuden en del af dette kapitels afdeling 1 med overskriften »Offentliggørelse af prospekt og periodiske beretninger«, mens dette direktivs artikel 78 findes i nævnte kapitels afdeling 3 med overskriften »central investorinformation«. Denne afdeling 3 indeholder bestemmelser om det dokument, der indeholder disse oplysninger, herunder artikel 82 i direktiv 2009/65, som afslutter nævnte afdeling 3 ved at fastsætte en forpligtelse til at ajourføre væsentlige dele af den centrale investorinformation.
+49
+Der er således en parallelitet mellem artikel 72 og 82 i direktiv 2009/65, der hver især fastsætter en forpligtelse til at ajourføre prospektet på den ene side og den centrale investorinformation på den anden side.
+50
+Som generaladvokaten har anført i punkt 42 i forslaget til afgørelse, er omfanget af de oplysninger, som disse to dokumenter giver, forskellig, idet den »centrale investorinformation« er tænkt som et meget kort dokument med et standardiseret indhold, der udleveres gratis i god tid forud for tegningen af alle investeringsinstitutter, således som det fremgår af 59. og 61. betragtning til direktiv 2009/65, idet det har til formål at lette sammenligningen af forskellige investeringsprojekter, navnlig for ikke-professionelle investorer, således som det følger af dette direktivs artikel 78, stk. 5. Prospektet er derimod rettet mod enhver form for investor og indeholder mere detaljerede og mere udtømmende oplysninger.
+51
+Det følger heraf, at en fortolkning af artikel 72 i direktiv 2009/65, hvorefter kun de vigtige punkter i relation til det pågældende investeringsinstitut som omhandlet i artikel 78, stk. 2 og 3, i direktiv 2009/65 udgør væsentlige dele af prospektet, ville svare til at sidestille to særskilte dokumenter, nemlig dels den »centrale investorinformation«, dels prospektet.
+52
+Henset til ovenstående betragtninger skal det første og det andet spørgsmål besvares med, at artikel 72 i direktiv 2009/65 skal fortolkes således, at de oplysninger om et administrationsselskab, der er fastsat i skema A i bilag I til dette direktiv, som prospektet som minimum skal indeholde i henhold til direktivets artikel 69, stk. 2, er omfattet af begrebet »væsentlige dele af prospektet« som omhandlet i den nævnte artikel 72, således at disse oplysninger skal ajourføres.
+Det tredje spørgsmål
+53
+Henset til besvarelsen af det første og det andet spørgsmål er det ufornødent at besvare det tredje spørgsmål.
+Det fjerde spørgsmål
+54
+Med det fjerde spørgsmål ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 99a, litra r), i direktiv 2009/65 skal fortolkes således, at bestemmelsen er til hinder for en national lovgivning, hvorefter et administrationsselskab – der ikke inden for den frist, der er fastsat i denne nationale lovgivning, har overholdt den forpligtelse til at ajourføre prospektet, der er fastsat i dette direktivs artikel 68-82, for flere investeringsinstitutter – pålægges en administrativ sanktion for hvert af disse institutter, selv om ændringen, der skulle have været genstand for en ajourføring af prospekterne, vedrørte et enkelt element om sammensætningen af et af administrationsselskabets organer.
+55
+I denne henseende skal det for det første bemærkes, at artikel 99a, litra r), i direktiv 2009/65 bestemmer, at medlemsstaterne sikrer, at deres love eller administrative bestemmelser, der gennemfører dette direktiv, fastsætter sanktioner, særlig når et investeringsselskab eller, for hver af de investeringsfonde, som det administrerer, et administrationsselskab gentagne gange undlader at opfylde forpligtelser til at afgive oplysninger til investorer fastsat i overensstemmelse med nationale bestemmelser til gennemførelse af direktivets artikel 68-82.
+56
+Det fremgår således af denne bestemmelses ordlyd og navnlig af anvendelsen af udtrykket »særlig«, at selv om medlemsstaterne er forpligtet til at fastsætte sanktioner for den adfærd, der er omhandlet i dette direktivs artikel 99a, litra r), forbyder denne bestemmelse dem på ingen måde at pålægge sanktioner for andre former for adfærd.
+57
+For det andet bekræftes en sådan fortolkning af den sammenhæng, hvori denne bestemmelse indgår. Det skal nemlig bemærkes, at medlemsstaterne i henhold til artikel 99, stk. 1, første afsnit, i direktiv 2009/65, sammenholdt med 69. betragtning hertil, uden at dette berører deres ret til at pålægge strafferetlige sanktioner, er forpligtet til dels at fastsætte regler om administrative sanktioner og andre administrative foranstaltninger, der skal pålægges virksomheder og personer for overtrædelser af nationale bestemmelser, der gennemfører det nævnte direktiv i den nationale retsorden, dels at træffe alle fornødne foranstaltninger til sikring af, at de gennemføres.
+58
+Det fremgår desuden af nævnte direktivs artikel 1, stk. 7, sammenholdt med 15. betragtning hertil, at medlemsstaterne kan fastsætte strengere regler end dem, der er fastsat i dette direktiv, især reglerne om aflæggelse af beretning og om prospektet, såfremt sådanne strengere regler finder almindelig anvendelse og ikke strider mod bestemmelserne i direktivet.
+59
+Følgeligt – som generaladvokaten har anført i punkt 56 i forslaget til afgørelse – tilsigter direktiv 2009/65 ikke en fuldstændig harmonisering af medlemsstaternes lovgivninger, hvorfor medlemsstaterne er beføjet til at træffe bestemmelser om de sanktioner, som de finder rimelige.
+60
+Det følger heraf, at medlemsstaterne kan indføre sanktioner for overtrædelser af lovgivningen til gennemførelse af direktiv 2009/65 i den nationale retsorden, som består af anden adfærd end den, der bl.a. er omhandlet i direktivets artikel 99a, litra r), idet sådanne sanktioner ligeledes kan være strengere end dem, der er fastsat i direktiv 2009/65.
+61
+Det skal imidlertid præciseres, at det fremgår af artikel 99, stk. 1, tredje afsnit, i direktiv 2009/65, at de administrative sanktioner skal være effektive, stå i rimeligt forhold til overtrædelsen og have afskrækkende virkning.
+62
+Ordlydsfortolkningen af artikel 99a, litra r), i direktiv 2009/65, således som den fremgår af denne doms præmis 56, er ligeledes i overensstemmelse med de formål, der forfølges med dette direktiv, og som er formuleret i tredje betragtning til direktivet, nemlig bl.a. at sikre en mere effektiv og ensartet beskyttelse af investorerne og således lette ophævelsen af begrænsningerne i den frie bevægelighed inden for Unionen for andele i investeringsinstitutter.
+63
+Det følger heraf, at en national lovgivning kan fastsætte, at et administrationsselskab i tilfælde af en enkelt undladelse af at opfylde de forpligtelser vedrørende oplysninger til investorer, der er pålagt i henhold til de nationale bestemmelser, der gennemfører det nævnte direktivs artikel 68-82, kan pålægges administrative sanktioner for hver af de investeringsfonde, som selskabet administrerer, på betingelse af, at sanktionerne er effektive, står i rimeligt forhold til overtrædelsen og har afskrækkende virkning.
+64
+Det fjerde spørgsmål skal derfor besvares med, at artikel 99a, litra r), i direktiv 2009/65 skal fortolkes således, at bestemmelsen ikke er til hinder for en national lovgivning, hvorefter et administrationsselskab – der ikke inden for den frist, der er fastsat i denne nationale lovgivning, har overholdt den forpligtelse til at ajourføre prospektet, der er fastsat i dette direktivs artikel 68-82, for flere investeringsinstitutter – pålægges en administrativ sanktion for hvert af disse institutter, selv om ændringen, der skulle have været genstand for en ajourføring af prospekterne, vedrørte et enkelt element om sammensætningen af et af administrationsselskabets organer, på betingelse af, at den administrative sanktion, idet den er effektiv og har afskrækkende virkning, står i rimeligt forhold til overtrædelsen.
+Sagsomkostninger
+65
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagsomkostningerne. Bortset fra de nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Første Afdeling) for ret:
+1)
+Artikel 72 i Europa-Parlamentets og Rådets direktiv 2009/65/EF af 13. juli 2009 om samordning af love og administrative bestemmelser om visse institutter for kollektiv investering i værdipapirer, som ændret ved Europa-Parlamentets og Rådets direktiv 2014/91/EU af 23. juli 2014,
+skal fortolkes således, at
+de oplysninger om et administrationsselskab, der er fastsat i skema A i bilag I til dette direktiv, som prospektet som minimum skal indeholde i henhold til direktivets artikel 69, stk. 2, er omfattet af begrebet »væsentlige dele af prospektet« som omhandlet i den nævnte artikel 72, således at disse oplysninger skal ajourføres.
+2)
+Artikel 99a, litra r), i direktiv 2009/65, som ændret ved direktiv 2014/91,
+skal fortolkes således, at
+bestemmelsen ikke er til hinder for en national lovgivning, hvorefter et administrationsselskab – der ikke inden for den frist, der er fastsat i denne nationale lovgivning, har overholdt den forpligtelse til at ajourføre prospektet, der er fastsat i dette direktivs artikel 68-82, for flere investeringsinstitutter – pålægges en administrativ sanktion for hvert af disse institutter, selv om ændringen, der skulle have været genstand for en ajourføring af prospekterne, vedrørte et enkelt element om sammensætningen af et af administrationsselskabets organer, på betingelse af, at den administrative sanktion, idet den er effektiv og har afskrækkende virkning, står i rimeligt forhold til overtrædelsen.
+Underskrifter
+(
+*1
+) – Processprog: bulgarsk.

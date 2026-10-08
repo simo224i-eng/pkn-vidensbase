@@ -41,6 +41,21 @@ VEJL_AFSNIT = {
     "E3": [(P, "4.5.5."), (V, "4.3.4.")], "F1": [(V, "4.2.4.6.")], "G1": [(P, "4.4.5.")],
 }
 
+# EU-domme pr. punkt (blandt de 30 hyppigst citerede); bedste præmis findes ved søgning
+EU_SAGER = {
+    "A1": ["C-2/07", "C-142/07"],
+    "A3": ["C-444/15", "C-290/15", "C-671/16", "C-160/17", "C-379/15"],
+    "F1": ["C-461/17"],
+}
+# Håndvalgte præmisser (Domstolens egne udsagn), fundet ved en ordret frase
+EU_FRASE = {
+    "A2": [("C-142/07", "ikke kan omgås gennem en projektopdeling")],
+    "D1": [("C-127/02", "ikke kan udelukkes, at planen eller projektet i sig selv"),
+           ("C-323/17", "Såfremt der allerede blev taget hensyn til sådanne foranstaltninger")],
+    "E1": [("C-323/17", "Såfremt der allerede blev taget hensyn til sådanne foranstaltninger")],
+    "D2": [("C-473/19", "finder anvendelse, uanset hvor mange enheder af den berørte art")],
+}
+
 _VEJL = {"screening_projekt": "vejl_mv_projekter", "projekttilladelse": "vejl_mv_projekter",
          "screening_plan": "vejl_mv_planer", "miljoerapport_plan": "vejl_mv_planer"}
 
@@ -68,6 +83,10 @@ def byg_praksis() -> list[dict]:
                    "resume": d.get("resume", ""), "eu_domme": d.get("eu_domme") or [], "fejl": fejl})
     ud.sort(key=lambda s: s["dato"], reverse=True)
     return ud
+
+
+# Sætningsskel, der ikke deler ved forkortelser som "stk.", "nr.", "jf." og "art."
+_SÆTNINGSSKEL = re.compile(r"(?<!stk\.)(?<!nr\.)(?<!jf\.)(?<!art\.)(?<!pkt\.)(?<=[.!?])\s+(?=[A-ZÆØÅ])")
 
 
 def _bedste_sætning(tekst: str, q: str) -> str:
@@ -133,6 +152,20 @@ def byg():
             if citatkontrol.find(c, st.tekst):
                 vejl.append({"kode": kode, "ref": st.ref.split(" (")[0], "url": st.url, "citat": c})
         p["vejl_citat"] = vejl
+        # EU-dom: bedste præmis blandt punktets domme
+        eu = []
+        for sag, frase in EU_FRASE.get(p["id"], []):
+            st = next((s for s in lovkilder.alle() if s.kilde == sag and citatkontrol.find(frase, s.tekst)), None)
+            if st:
+                sæt = [x for x in _SÆTNINGSSKEL.split(re.sub(r"\s+", " ", st.tekst)) if citatkontrol.find(frase, x)]
+                eu.append({"sag": sag, "ref": st.ref, "url": st.url, "citat": (sæt[0] if sæt else st.tekst)[:900]})
+        if not eu and EU_SAGER.get(p["id"]):
+            res = lovkilder.søg(f"{p['vejl_søg']} {p['spørgsmål']}", k=2, typer=("eu",), kilder=tuple(EU_SAGER[p["id"]]))
+            for st in res:
+                c = _bedste_sætning(st.tekst, p["vejl_søg"] + " " + p["spørgsmål"])
+                if citatkontrol.find(c, st.tekst):
+                    eu.append({"sag": st.kilde, "ref": st.ref, "url": st.url, "citat": re.sub(r"\s+", " ", c)})
+        p["eu_citat"] = eu
         punkter.append(p)
 
     andel = {kat: len(v) for kat, v in sorted(pr_kat.items(), key=lambda x: -len(x[1]))}

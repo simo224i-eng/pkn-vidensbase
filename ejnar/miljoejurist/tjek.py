@@ -186,6 +186,10 @@ def _bedste_sætning(tekst: str, q: str) -> str:
     return best.strip()[:600]
 
 
+def _eu_kilder(p: dict, n: int = 1) -> list[Kilde]:
+    return [Kilde("eu", e["ref"], e["url"], e["citat"], True) for e in (p.get("eu_citat") or [])[:n]]
+
+
 def _praksis_kilder(p: dict, dtype: str, kontekst: str, udeluk: set[str], n: int = 2) -> list[Kilde]:
     q = f"{p.get('søg', '')} {kontekst[:400]}"
     res = praksis.lignende(q, kategorier=p.get("fejlkategorier"), dokumenttype=dtype, k=n, udeluk=udeluk)
@@ -250,7 +254,8 @@ def tjek_regler(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None
             fund = [(art, citat, tekst)]
         for art, citat, tekst in fund:
             kontekst = citat or p["titel"]
-            kilder = _lov_kilder(p, dtype) + _vejl_kilder(p, dtype) + _praksis_kilder(p, dtype, kontekst, udeluk)
+            kilder = (_lov_kilder(p, dtype) + _vejl_kilder(p, dtype) + _eu_kilder(p)
+                      + _praksis_kilder(p, dtype, kontekst, udeluk))
             svagheder.append(Svaghed(
                 punkt=p["id"], titel=p["titel"], art=art, svaghed=tekst,
                 citat_dokument=citat, citat_ok=(citatkontrol.find(citat, dok.tekst) if citat else None),

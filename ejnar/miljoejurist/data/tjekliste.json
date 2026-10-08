@@ -128,6 +128,20 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9093",
      "citat": "Også ændringer og udvidelser af projekter på bilag 1 eller 2 kan være omfattet af bilag 2 dvs. være screeningspligtige, jf. lovens bilag 2, punkt 13 a."
     }
+   ],
+   "eu_citat": [
+    {
+     "sag": "C-2/07",
+     "ref": "EU-Domstolens dom i sag C-2/07, præmis 34",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62007CJ0002",
+     "citat": "Denne fortolkning drages på ingen måde i tvivl af den omstændighed, at direktiv 97/11 har erstattet punkt 12 i bilag II til direktiv 85/337 med et nyt punkt 13, hvori »[æ]ndringer eller udvidelser af projekter i bilag I eller II, som allerede er godkendt, er udført eller er ved at blive udført […]« udtrykkeligt er betegnet som projekter i henhold til artikel 4, stk. 2, i direktiv 85/337, som ændret ved direktiv 97/11, mens punkt 12 i bilag II blot nævnte »[æ]ndring af projekter i bilag I«."
+    },
+    {
+     "sag": "C-142/07",
+     "ref": "EU-Domstolens dom i sag C-142/07, præmis 13",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62007CJ0142",
+     "citat": "Bilag II, nr. 13, første led, omhandler »[æ]ndringer eller udvidelser af projekter i bilag I eller II, som allerede er godkendt, er udført eller er ved at blive udført, når de kan være til skade for miljøet«."
+    }
    ]
   },
   {
@@ -215,6 +229,14 @@
      "ref": "Vejledning om miljøvurdering af konkrete projekter",
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9093",
      "citat": "Derfor vil det være i strid med lovens formål at opdele projekter i et antal separate projekter med henblik på, at delprojekterne hver for sig ikke overskrider den fastsatte tærskelværdi eller ved en screening ikke anses for at have en væsentlig indvirkning på miljøet og derfor ikke kræver en miljøvurdering. [55]"
+    }
+   ],
+   "eu_citat": [
+    {
+     "sag": "C-142/07",
+     "ref": "EU-Domstolens dom i sag C-142/07, præmis 44",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62007CJ0142",
+     "citat": "Som Domstolen allerede har fastslået hvad angår direktiv 85/337 bemærkes endelig, at formålet med det ændrede direktiv ikke kan omgås gennem en projektopdeling, og at manglende hensyntagen til projekternes kumulative virkning ikke i praksis kan føre til, at samtlige projektdele fritages for vurderingsforpligtelsen, idet projekterne i deres helhed kan få væsentlig indvirkning på miljøet som omhandlet i det ændrede direktivs artikel 2, stk. 1 (jf. hvad angår direktiv 85/337 dom af 21.9.1999, sag C-392/96, Kommissionen mod Irland, Sml."
     }
    ]
   },
@@ -314,6 +336,20 @@
      "ref": "Vejledning om miljøvurdering af planer og programmer",
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "Når myndigheden skal foretage en screening af en plan/program, sker dette på grundlag af kriterierne i lovens bilag 3."
+    }
+   ],
+   "eu_citat": [
+    {
+     "sag": "C-160/17",
+     "ref": "EU-Domstolens dom i sag C-160/17, præmis 6",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62017CJ0160",
+     "citat": "For planer og programmer som omhandlet i stk. 2, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet."
+    },
+    {
+     "sag": "C-290/15",
+     "ref": "EU-Domstolens dom i sag C-290/15, præmis 12",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62015CJ0290",
+     "citat": "For planer og programmer som omhandlet i stk. 2, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet."
     }
    ]
   },
@@ -423,7 +459,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "Nævnet har navnlig lagt vægt på, at kommunen har foretaget besigtigelse af området og desuden foretaget screeningen på baggrund af eksisterende kendte oplysninger om området, hvilket må anses for tilstrækkeligt i forbindelse med screening af den konkrete plan."
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "B2",
@@ -530,7 +567,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "Berørte myndigheder kan være såvel interne som eksterne i forhold til den myndighed, der er ansvarlig for planen/programmet eller som skal træffe afgørelse om tilladelse til de projekter, som planen eller programmet fastlægger rammerne for."
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "C1",
@@ -630,7 +668,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9093",
      "citat": "Nævnet påpegede, at et af screeningskriterierne vedrører projektets karakteristika, som efter bilag 6, pkt. 1, litra a, blandt andet skal anskues i forhold til ”hele” projektets dimensioner og udformning."
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "C2",
@@ -730,7 +769,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "Vurderingen af væsentligheden foretages ved at inddrage de indvirkninger, der med rimelig sandsynlighed kan få betydning i forhold til den konkrete plan/program, jf. lovens bilag 3, nr. 2, om"
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "C3",
@@ -838,7 +878,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "For planer/programmer, der sætter en ramme for infrastruktur og andre projekter med en levetid på mange år, vil hensynet til klimaforandring og biodiversitet være afgørende for planens/programmets strategiske sigte."
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "C4",
@@ -935,7 +976,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "indvirkningens sandsynlighed, varighed, hyppighed og reversibilitet"
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "C5",
@@ -1002,7 +1044,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "indvirkningen på områder eller landskaber, som har en anerkendt beskyttelsesstatus på nationalt plan, fællesskabsplan eller international plan."
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "C6",
@@ -1099,7 +1142,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "indvirkningens sandsynlighed, varighed, hyppighed og reversibilitet"
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "D1",
@@ -1206,6 +1250,20 @@
      "ref": "Habitatvejledningen inkl. bilag IV-arter",
      "url": "https://www.retsinformation.dk/eli/retsinfo/2020/9925",
      "citat": "Vurderingen af, om en plan eller et projekt påvirker et Natura 2000-områdes bevaringsmålsætninger væsentligt, retter sig mod påvirkningen af de karakteristika og miljømæssige forhold, der kendetegner det konkrete Natura 2000-område, og herunder særligt de konkret fastsatte bevaringsmålsætninger for de arter og naturtyper, der er på Natura 2000-områdets udpegningsgrundlag. [106]"
+    }
+   ],
+   "eu_citat": [
+    {
+     "sag": "C-127/02",
+     "ref": "EU-Domstolens dom i sag C-127/02, præmis 45",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62002CJ0127",
+     "citat": "Herefter skal spørgsmål 3 a) besvares med, at habitatdirektivets artikel 6, stk. 3, første punktum, skal fortolkes således, at alle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, vurderes med hensyn til deres virkninger på lokaliteten under hensyn til bevaringsmålsætningerne for denne lokalitet, såfremt det på baggrund af objektive kriterier ikke kan udelukkes, at planen eller projektet i sig selv eller i forbindelse med andre planer og projekter kan påvirke den pågældende lokalitet væsentligt."
+    },
+    {
+     "sag": "C-323/17",
+     "ref": "EU-Domstolens dom i sag C-323/17, præmis 37",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62017CJ0323",
+     "citat": "Såfremt der allerede blev taget hensyn til sådanne foranstaltninger i forbindelse med screeningen, vil dette kunne skade habitatdirektivets effektive virkning i almindelighed, og vurderingsfasen i særdeleshed, eftersom vurderingen dermed ville miste sin genstand, og der ville foreligge en risiko for en fordrejning af denne vurderingsfase, der dog udgør en væsentlig garanti i dette direktiv."
     }
    ]
   },
@@ -1328,6 +1386,14 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2020/9925",
      "citat": "Det er således fortsat op til myndighederne at afgøre de konkrete behov i den konkrete situation, ligesom det er myndigheden, der i sidste ende tager stilling til, om sagen er tilstrækkeligt oplyst til at kunne vurdere, om en handling vil beskadige eller ødelægge yngle- eller rasteområder."
     }
+   ],
+   "eu_citat": [
+    {
+     "sag": "C-473/19",
+     "ref": "EU-Domstolens dom i sag C-473/19, præmis 83",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62019CJ0473",
+     "citat": "Domstolen har endvidere fremhævet, at den strenge beskyttelse, der er fastsat i habitatdirektivets artikel 12, stk. 1, litra d), finder anvendelse, uanset hvor mange enheder af den berørte art der findes i det pågældende område (dom af 17.4.2018, Kommissionen mod Polen (Białowieża-skoven), C-441/17 , EU:C:2018:255 , præmis 237 )."
+    }
    ]
   },
   {
@@ -1424,7 +1490,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "indvirkningens sandsynlighed, varighed, hyppighed og reversibilitet"
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "E1",
@@ -1518,6 +1585,14 @@
      "ref": "Vejledning om miljøvurdering af planer og programmer",
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "Screeningsafgørelsen om, at der ikke skal gennemføres en miljøvurdering, er en forvaltningsretlig afgørelse."
+    }
+   ],
+   "eu_citat": [
+    {
+     "sag": "C-323/17",
+     "ref": "EU-Domstolens dom i sag C-323/17, præmis 37",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62017CJ0323",
+     "citat": "Såfremt der allerede blev taget hensyn til sådanne foranstaltninger i forbindelse med screeningen, vil dette kunne skade habitatdirektivets effektive virkning i almindelighed, og vurderingsfasen i særdeleshed, eftersom vurderingen dermed ville miste sin genstand, og der ville foreligge en risiko for en fordrejning af denne vurderingsfase, der dog udgør en væsentlig garanti i dette direktiv."
     }
    ]
   },
@@ -1615,7 +1690,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "Nævnet fandt, at det generelt er tvivlsomt, at det vil udgøre en tilstrækkelig begrundelse for en screeningsafgørelse for en plan, at der udelukkende foretages en afkrydsning i et screeningsskema uden en nærmere uddybning af vurderingen i forhold til miljøparametre efter miljøvurderingsloven."
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "E3",
@@ -1721,7 +1797,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "Efter høring af berørte myndigheder og på grundlag screeningen kan myndigheden i screeningsafgørelsen nå frem til"
     }
-   ]
+   ],
+   "eu_citat": []
   },
   {
    "id": "F1",
@@ -1820,6 +1897,20 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9094",
      "citat": "I det omfang der har været overvejet alternativer, skal disse beskrives, vurderes og fremgå af miljørapporten i form af"
     }
+   ],
+   "eu_citat": [
+    {
+     "sag": "C-461/17",
+     "ref": "EU-Domstolens dom i sag C-461/17, præmis 29",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62017CJ0461",
+     "citat": "Medfører [VVM-direktivet], med senere ændringer, at en vurdering af virkningen på miljøet bør indeholde tilstrækkelige oplysninger vedrørende hvert alternativs virkning på miljøet til at give mulighed for sammenligning af de forskellige alternativers miljømæssige ønskværdighed, og/eller at vurderingen af virkningen på miljøet skal indeholde udtrykkelige oplysninger om, hvorledes der er taget hensyn til alternativernes indvirkning på miljøet?"
+    },
+    {
+     "sag": "C-461/17",
+     "ref": "EU-Domstolens dom i sag C-461/17, præmis 49",
+     "url": "https://eur-lex.europa.eu/legal-content/DA/TXT/?uri=CELEX:62017CJ0461",
+     "citat": "Det fremgår bl.a. af Domstolens praksis vedrørende habitatdirektivets artikel 6, stk. 3, således som gengivet i denne doms præmis 43, at vurderingen i henhold til habitatdirektivets artikel 6, stk. 3, ikke må medføre lakuner og skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl for så vidt angår virkningerne af de arbejder, som er påtænkt på den berørte lokalitet."
+    }
    ]
   },
   {
@@ -1906,7 +1997,8 @@
      "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9093",
      "citat": "Myndigheden har efter lovens § 27, stk. 2, hjemmel til at stille vilkår i tilladelsen med henblik på opfyldelse af lovens formål."
     }
-   ]
+   ],
+   "eu_citat": []
   }
  ]
 }

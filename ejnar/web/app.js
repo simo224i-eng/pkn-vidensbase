@@ -113,6 +113,7 @@ const state = {
   popQuery: "",
   insight: { q: "", data: null, loading: false, error: "", ran: false },
   assess: { facts: "", data: null, loading: false, error: "" }, // bevidst ikke i localStorage
+  miljo: { text: "", dtype: "", model: false, data: null, loading: false, error: "", fileName: "" }, // gemmes ikke
 
   search: { q: "", mode: "keyword", results: [], total: 0, counts: {}, loading: false, error: "", ran: false },
   reader: null,
@@ -174,7 +175,7 @@ function render() {
           <button class="icon-btn" data-act="nav" aria-label="Menu">${icon("menu")}</button>
           <span class="brand-name">Ejnar</span>
         </div>
-        ${({ search: renderSearch, saved: renderSaved, insight: renderInsight, assess: renderAssess }[state.view] || renderAssistant)()}
+        ${({ search: renderSearch, saved: renderSaved, insight: renderInsight, assess: renderAssess, miljo: renderMiljo }[state.view] || renderAssistant)()}
       </main>
     </div>
     ${state.reader ? renderReader() : ""}`;
@@ -216,6 +217,7 @@ function renderSidebar() {
         ${nav("assess", "scale", "Lignende sager")}
         ${nav("insight", "chart", "Indsigt")}
         ${nav("saved", "bookmark", "Gemte kendelser", nSaved || null)}
+        ${nav("miljo", "doc", "Miljøjuristen")}
       </nav>
       <div class="side-label">Seneste</div>
       <div class="threads">${threads}</div>
@@ -849,6 +851,104 @@ function renderAssess() {
   </section>`;
 }
 
+// ── Miljøjuristen: screeningstjek ───────────────────────────────────────────
+// Uploadede dokumenter gemmes ikke. Teksten sendes kun til en sprogmodel, hvis brugeren vælger det.
+const DOKTYPER = [["", "Gæt automatisk"], ["screening_projekt", "Screening af projekt (§ 21)"],
+  ["screening_plan", "Screening af plan (§ 10)"], ["miljoerapport_plan", "Miljørapport for plan"],
+  ["projekttilladelse", "§ 25-tilladelse / miljøkonsekvensrapport"]];
+const ART = { ikke_behandlet: "Ikke behandlet", uden_grundlag: "Uden synligt grundlag", svag_formulering: "Svag formulering",
+  kriterier_mangler: "Kriterier mangler", model: "Fundet af sprogmodel" };
+let miljoSeq = 0;
+
+async function runMiljo(form) {
+  const m = state.miljo, seq = ++miljoSeq;
+  const file = form.querySelector("#miljo-fil")?.files?.[0];
+  m.text = form.querySelector("#miljo-tekst")?.value || "";
+  m.dtype = form.querySelector("#miljo-type")?.value || "";
+  m.model = !!form.querySelector("#miljo-model")?.checked;
+  if (!file && m.text.trim().length < 200) { m.error = "Vælg en fil eller indsæt mindst et par afsnit tekst."; return render(); }
+  m.loading = true; m.error = ""; m.fileName = file ? file.name : ""; render();
+  try {
+    let r;
+    if (file) {
+      const fd = new FormData();
+      fd.append("fil", file);
+      if (m.dtype) fd.append("dokumenttype", m.dtype);
+      fd.append("brug_model", m.model ? "true" : "false");
+      const res = await fetch("/v1/miljoejurist/tjek", { method: "POST", headers: { "X-API-Key": state.key }, body: fd });
+      if (res.status === 401) { logout("Din adgangsnøgle blev afvist. Log ind igen."); return; }
+      if (!res.ok) { let d = res.statusText; try { d = (await res.json()).detail; } catch { /* ok */ } throw new ApiError(res.status, d); }
+      r = await res.json();
+    } else {
+      r = await apiJson("/v1/miljoejurist/tjek-tekst", { method: "POST", body: { tekst: m.text, dokumenttype: m.dtype || null, brug_model: m.model } });
+    }
+    if (seq === miljoSeq) m.data = r;
+  } catch (e) { if (seq === miljoSeq) m.error = e.message; }
+  if (seq === miljoSeq) { m.loading = false; render(); }
+}
+
+function renderKilde(k) {
+  const t = { lov: "Lov", vejledning: "Vejledning", praksis: "Praksis", eu: "EU-dom" }[k.type] || k.type;
+  return `<li class="mj-src"><span class="mj-tag t-${esc(k.type)}">${t}</span>
+    <a href="${esc(safeUrl(k.url))}" target="_blank" rel="noopener">${esc(k.ref)} ${icon("ext")}</a>
+    <blockquote>${esc(k.citat)}${k.citat_ok ? "" : ' <span class="mj-warn">kunne ikke genfindes ordret</span>'}</blockquote>
+    ${k.ekstra?.fejl ? `<div class="mj-sub">Nævnet underkendte: ${esc(k.ekstra.fejl)}</div>` : ""}</li>`;
+}
+
+function renderSvaghed(s, n) {
+  const cit = s.citat_dokument
+    ? `<blockquote class="mj-doc">«${esc(s.citat_dokument)}»${s.citat_ok === false ? ' <span class="mj-warn">citatet kunne ikke genfindes ordret</span>' : ""}</blockquote>`
+    : "";
+  return `<article class="mj-card">
+    <header><span class="mj-n">${n}</span><h3>${esc(s.titel)} <span class="mj-id">${esc(s.punkt)}</span></h3>
+      <span class="mj-art">${esc(ART[s.art] || s.art)}</span></header>
+    <div class="mj-row"><strong>Svaghed</strong><p>${esc(s.svaghed)}</p>${cit}</div>
+    <div class="mj-row"><strong>Hvorfor</strong><p>${esc(s.hvorfor || "–")}</p><p class="mj-q">${esc(s.spørgsmål)}</p></div>
+    <details class="mj-row" ${n <= 2 ? "open" : ""}><summary><strong>Kilder (${s.kilder.length})</strong></summary><ul>${s.kilder.map(renderKilde).join("")}</ul></details>
+  </article>`;
+}
+
+function renderMiljo() {
+  const m = state.miljo, d = m.data;
+  let result = "";
+  if (m.error) result = `<div class="err-box">${esc(m.error)}</div>`;
+  else if (m.loading) result = '<div class="skel" style="height:120px"></div><div class="skel" style="height:240px"></div>';
+  else if (d) {
+    const typeNavn = (DOKTYPER.find((x) => x[0] === d.dokumenttype) || [0, d.dokumenttype])[1];
+    result = `
+      <div class="mj-sum">
+        <div><strong>${esc(d.dokument)}</strong> · ${fmtNum(d.ord)} ord · ${esc(typeNavn)} · ${esc(d.lag.join(" + "))}</div>
+        <p>${esc(d.note)}</p>
+        <button class="btn" data-act="miljo-dl">${icon("doc")}Hent rapport (Markdown)</button>
+      </div>
+      ${d.svagheder.length ? d.svagheder.map((s, i) => renderSvaghed(s, i + 1)).join("")
+        : `<div class="empty"><h3>Værktøjets kontroller slog ikke ud</h3><p>Det er ikke en vurdering af, om afgørelsen holder. Se listen over, hvad værktøjet ikke vurderer.</p></div>`}
+      <section class="mj-not"><h3>Hvad værktøjet ikke har vurderet</h3><ul>${d.ikke_vurderet.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+        ${d.punkter_ikke_relevante.length ? `<details><summary>Tjeklistepunkter, der ikke er kørt (${d.punkter_ikke_relevante.length})</summary><ul>${d.punkter_ikke_relevante.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}
+      </section>`;
+  }
+  const llm = !!state.health?.llm;
+  return `<section class="page wide">
+    <div class="page-h"><div><h1 class="h2">Miljøjuristen · screeningstjek</h1>
+      <p class="page-sub">Upload en screeningsafgørelse, miljørapport eller § 25-tilladelse. Miljøjuristen finder mulige svagheder,
+      citerer dokumentet ordret og holder dem op mod loven, vejledningen og lignende afgørelser fra Planklagenævnet og
+      Miljø- og Fødevareklagenævnet. Den vurderer ikke, om afgørelsen holder.</p></div></div>
+    <form class="composer mj-form" data-act="miljo">
+      <label class="mj-file"><span>Dokument (PDF, Word, HTML eller tekst)</span><input type="file" id="miljo-fil" accept=".pdf,.docx,.txt,.html,.htm"></label>
+      <label class="sr" for="miljo-tekst">Eller indsæt tekst</label>
+      <textarea id="miljo-tekst" rows="5" placeholder="…eller indsæt teksten fra screeningen her">${esc(m.text)}</textarea>
+      <div class="composer-bar">
+        <select id="miljo-type" aria-label="Dokumenttype">${DOKTYPER.map(([v, l]) => `<option value="${v}" ${m.dtype === v ? "selected" : ""}>${l}</option>`).join("")}</select>
+        <label class="mj-chk" title="${llm ? "Teksten sendes til den konfigurerede AI-udbyder" : "Ingen sprogmodel konfigureret"}">
+          <input type="checkbox" id="miljo-model" ${m.model && llm ? "checked" : ""} ${llm ? "" : "disabled"}> Brug også sprogmodel</label>
+        <span class="hint">Gemmes ikke</span>
+        <button class="btn primary" type="submit" ${m.loading ? "disabled" : ""}>${m.loading ? '<span class="spinner"></span>' : icon("search")}Tjek dokumentet</button>
+      </div>
+    </form>
+    ${result}
+  </section>`;
+}
+
 // ── Læser ────────────────────────────────────────────────────────────────────
 const STOP = new Set("hvad hvor hvornår hvordan hvilke hvilken være blev bliver eller efter skal kunne ikke også nævnet nævnets praksis dækning dækker forsikring ejerskifteforsikring ejerskifteforsikringen sagen sager klager selskabet mellem under".split(" "));
 function terms(q) {
@@ -1057,6 +1157,14 @@ app.addEventListener("click", (e) => {
   const f = state.filters;
   switch (act) {
     case "nav": state.navOpen = !state.navOpen; return render();
+    case "miljo-dl": {
+      const d = state.miljo.data;
+      if (!d) return;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([d.markdown], { type: "text/markdown" }));
+      a.download = "screeningstjek.md"; a.click(); URL.revokeObjectURL(a.href);
+      return;
+    }
     case "view":
       state.view = el.dataset.v; state.navOpen = false; store.set("view", state.view);
       if (state.view === "assistant") state.focusTurn = null;
@@ -1188,6 +1296,7 @@ app.addEventListener("submit", (e) => {
     return sendFeedback(+e.target.dataset.i, "down", fd.getAll("r"), String(fd.get("comment") || "").trim());
   }
   if (act === "stats") { state.insight.q = $('[data-focus="stats"]').value; return runStats(); }
+  if (act === "miljo") return runMiljo(e.target);
 });
 
 app.addEventListener("input", (e) => {

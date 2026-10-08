@@ -1,0 +1,408 @@
+62015CJ0444
+DOMSTOLENS DOM (Tredje Afdeling)
+21. december 2016 (
+*1
+)
+»Præjudiciel forelæggelse — miljø — direktiv 2001/42/EF — vurdering af bestemte planers og programmers indvirkning på miljøet — artikel 3, stk. 3 — planer og programmer, for hvilke der kun skal gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet — gyldighed i forhold til EUF-traktaten og Den Europæiske Unions charter om grundlæggende rettigheder — begrebet »mindre områder på lokalt plan« — national lovgivning, der henviser til de pågældende områders areal«
+I sag C-444/15,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Tribunale amministrativo regionale per il Veneto (den regionale forvaltningsdomstol for Veneto, Italien) ved afgørelse af 16. juli 2015, indgået til Domstolen den 17. august 2015, i sagen:
+Associazione Italia Nostra Onlus
+mod
+Comune di Venezia,
+Ministero per i beni e le attività culturali,
+Regione Veneto,
+Ministero delle Infrastrutture e dei Trasporti,
+Ministero della Difesa – Capitaneria di Porto di Venezia,
+Agenzia del Demanio,
+procesdeltager:
+Società Ca’ Roman Srl,
+har
+DOMSTOLEN (Tredje Afdeling)
+sammensat af afdelingsformanden, L. Bay Larsen, og dommerne M. Vilaras, J. Malenovský, M. Safjan (refererende dommer) og D. Šváby,
+generaladvokat: J. Kokott,
+justitssekretær: A. Calot Escobar,
+på grundlag af den skriftlige forhandling,
+efter at der er afgivet indlæg af:
+—
+Associazione Italia Nostra Onlus ved avvocati F. Mantovan, P. Mantovan og P. Piva
+—
+Comune di Venezia ved avvocati A. Iannotta, M. Ballarin og N. Ongaro
+—
+Società Ca’ Roman Srl ved avvocato G. Zago
+—
+den italienske regering ved G. Palmieri, som befuldmægtiget, bistået af avvocato dello Stato P. Grasso
+—
+Europa-Parlamentet ved A. Tamás og M. Menegatti, som befuldmægtigede
+—
+Rådet for Den Europæiske Union ved M. Simm og S. Barbagallo, som befuldmægtigede
+—
+Europa-Kommissionen ved L. Pignataro og C. Hermes, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse den 8. september 2016,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører gyldigheden af artikel 3, stk. 3, i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (
+EFT 2001, L 197, s. 30
+) og fortolkningen af direktivets artikel 3, stk. 2 og 3.
+2
+Denne anmodning er indgivet under en sag mellem Associazione Italia Nostra Onlus (Italien) på den ene side og Comune di Venezia (Venedig Kommune, Italien), Ministero per i Beni e le Attività Culturali (ministeriet for kulturelle goder og aktiviteter, Italien), Regione Veneto (regionen Veneto, Italien), Ministero delle Infrastrutture e dei Trasporti (ministeriet for infrastruktur og transport, Italien), Ministero della Difesa – Capitaneria di Porto di Venezia (forsvarsministeriet – havnekontoret i Venedig, Italien) og Agenzia del Demanio (bygningsstyrelsen, Italien) på den anden side vedrørende forpligtelsen til at gennemføre en miljøvurdering i henhold til direktiv 2001/42 i forbindelse med et byggeprojekt, der skal udføres på en ø i Venedigs lagune (Italien).
+Retsforskrifter
+EU-retten
+Direktiv 92/43/EØF
+3
+Artikel 1, litra k) og l), i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter (
+EFT 1992, L 206, s. 7
+, herefter »habitatdirektivet«) indeholder følgende definitioner:
+»k)
+lokalitet af fællesskabsbetydning
+: en lokalitet, der i det eller de biogeografiske område(r), som den tilhører, bidrager væsentligt til at opretholde eller genoprette en gunstig bevaringsstatus for en af naturtyperne i bilag I eller for en af arterne i bilag II, og som også kan bidrage væsentligt til at sikre sammenhængen i »Natura 2000«, jf. artikel 3, og/eller som bidrager væsentligt til at opretholde den biologiske diversitet i det eller de pågældende biogeografiske område(r)
+[…]
+l)
+særligt bevaringsområde
+: et område af fællesskabsbetydning, som medlemsstaterne har udpeget ved en retsakt, en administrativ bestemmelse og/eller en aftale, og hvor der gennemføres de bevaringsforanstaltninger, der er nødvendige for at opretholde eller genoprette en gunstig bevaringsstatus for de naturtyper og/eller de arter, for hvilke lokaliteten er udpeget.«
+4
+Direktivets artikel 2 bestemmer:
+»1. Formålet med dette direktiv er at bidrage til at sikre den biologiske diversitet ved at bevare naturtyperne samt de vilde dyr og planter inden for det af medlemsstaternes område i Europa, hvor Traktaten finder anvendelse.
+2. De foranstaltninger, der træffes efter dette direktiv, tager sigte på at opretholde eller genoprette en gunstig bevaringsstatus for naturtyper samt vilde dyre- og plantearter af fællesskabsbetydning.
+3. De foranstaltninger, der træffes efter dette direktiv, tager hensyn til de økonomiske, sociale og kulturelle behov og til regionale og lokale særpræg.«
+5
+Direktivets artikel 3, stk. 1, bestemmer:
+»Der oprettes et sammenhængende europæisk økologisk net af særlige bevaringsområder under betegnelsen »Natura 2000«. Dette net, der består af lokaliteter, der omfatter de naturtyper, der er nævnt i bilag I, og levesteder for de arter, der er nævnt i bilag II, skal sikre opretholdelse eller i givet fald genopretning af en gunstig bevaringsstatus for de pågældende naturtyper og levestederne for de pågældende arter i deres naturlige udbredelsesområde.
+Natura 2000-nettet omfatter ligeledes de særligt beskyttede områder, som medlemsstaterne har udlagt i medfør af [Rådets] direktiv 79/409/EØF [af 2. april 1979 om beskyttelse af vilde fugle (
+EFT 1979, L 103, s. 1
+)].«
+6
+Habitatdirektivets artikel 6 bestemmer:
+»1. For de særlige bevaringsområder iværksætter medlemsstaterne de nødvendige bevaringsforanstaltninger, hvilket i givet fald kan indebære hensigtsmæssige forvaltningsplaner, som er specifikke for lokaliteterne eller integreret i andre udviklingsplaner, samt de relevante retsakter, administrative bestemmelser eller aftaler, der opfylder de økologiske behov for naturtyperne i bilag I og de arter i bilag II, der findes på lokaliteterne.
+2. Medlemsstaterne træffer passende foranstaltninger for at undgå forringelse af naturtyperne og levestederne for arterne i de særlige bevaringsområder samt forstyrrelser af de arter, for hvilke områderne er udpeget, for så vidt disse forstyrrelser har betydelige konsekvenser for dette direktivs målsætninger.
+3. Alle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som i sig selv eller i forbindelse med andre planer og projekter kan påvirke en sådan lokalitet væsentligt, vurderes med hensyn til deres virkninger på lokaliteten under hensyn til bevaringsmålsætningerne for denne. På baggrund af konklusionerne af vurderingen af virkningerne på lokaliteten, og med forbehold af stk. 4, giver de kompetente nationale myndigheder først deres tilslutning til en plan eller et projekt, når de har sikret sig, at den/det ikke skader lokalitetens integritet, og når de – hvis det anses for nødvendigt – har hørt offentligheden.
+4. Hvis en plan eller et projekt, på trods af at virkningerne på lokaliteten vurderes negativt, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, fordi der ikke findes nogen alternativ løsning, træffer medlemsstaten alle nødvendige kompensationsforanstaltninger for at sikre, at den globale sammenhæng i Natura 2000 beskyttes. Medlemsstaten underretter Kommissionen om, hvilke kompensationsforanstaltninger der træffes.
+Hvis der er tale om en lokalitet med en prioriteret naturtype og/eller en prioriteret art, kan der alene henvises til hensynet til menneskers sundhed og den offentlige sikkerhed eller væsentlige gavnlige virkninger på miljøet eller, efter udtalelse fra Kommissionen, andre bydende nødvendige hensyn til væsentlige samfundsinteresser.«
+7
+Habitatdirektivets artikel 7 har følgende ordlyd:
+»Forpligtelserne i artikel 6, stk. 2, 3 og 4, i nærværende direktiv træder i stedet for forpligtelserne i artikel 4, stk. 4, første punktum, i direktiv [79/409] for så vidt angår de områder, der er udlagt som særligt beskyttede efter artikel 4, stk. 1, eller tilsvarende anerkendt efter artikel 4, stk. 2, deri, fra datoen for nærværende direktivs iværksættelse eller fra den dato, hvor en medlemsstat har udlagt eller anerkendt områderne efter direktiv [79/409], hvis denne dato er senere.«
+Direktiv 2001/42
+8
+Følgende fremgår af niende og tiende betragtning til direktiv 2001/42:
+»(9)
+Dette direktiv er af proceduremæssig karakter, og kravene i det bør enten integreres i eksisterende procedurer i medlemsstaterne eller indsættes i specielt udarbejdede procedurer. For at undgå dobbeltarbejde bør medlemsstaterne, hvor det er hensigtsmæssigt, tage hensyn til, at vurderingerne vil blive foretaget på forskellige niveauer i hierarkiet af planer og programmer.
+(10)
+Alle planer og programmer, som udarbejdes for en række sektorer, og som fastsætter en ramme for fremtidige anlægstilladelser til projekter, der er opført i bilag I og II til Rådets direktiv 85/337/EØF af 27. juni 1985 om vurdering af visse offentlige og private projekters indvirkning på miljøet [
+EFT 1985, L 175, s. 40
+, som ændret ved Rådets direktiv 97/11/EF af 3. marts 1997 (
+EFT 1997, L 73, s. 5
+)], og alle planer og programmer, som skal vurderes i henhold til [habitatdirektivet], kan få væsentlig indvirkning på miljøet og bør som hovedregel underkastes en systematisk miljøvurdering. Når de fastlægger anvendelsen af små områder på lokalt plan eller udgør mindre ændringer af ovennævnte planer eller programmer, bør de kun vurderes, hvis medlemsstaterne fastslår, at de kan få væsentlig indvirkning på miljøet.«
+9
+Artikel 1 i direktiv 2001/42 med overskriften »Formål« er affattet således:
+»Formålet med dette direktiv er at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet.«
+10
+Direktivets artikel 2, litra a) og b), indeholder følgende definitioner:
+»I dette direktiv forstås ved:
+a)
+»planer og programmer«: planer og programmer, herunder sådanne, der medfinansieres af Det Europæiske Fællesskab, samt ændringer deri
+—
+som udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller som udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, og
+—
+som kræves ifølge love og administrative bestemmelser
+b)
+»miljøvurdering«: udarbejdelse af en miljørapport, gennemførelse af høringer, hensyntagen til miljørapporten og til resultaterne af høringerne ved beslutningstagning samt underretning om afgørelsen i overensstemmelse med artikel 4-9.«
+11
+Direktivets artikel 3, der har overskriften »Anvendelsesområde«, bestemmer:
+»1. Der skal for de i stk. 2-4 omhandlede planer og programmer, som kan få væsentlig indvirkning på miljøet, gennemføres en miljøvurdering, som skal være i overensstemmelse med dette direktivs artikel 4-9.
+2. Med forbehold af stk. 3 gennemføres der en miljøvurdering for alle planer og programmer:
+a)
+som udarbejdes inden for landbrug, skovbrug, fiskeri, energi, industri, transport, affaldshåndtering, vandforvaltning, telekommunikation, turisme, fysisk planlægning og arealanvendelse, og som fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er omhandlet i bilag I og II til direktiv [85/337], eller
+b)
+for hvilke det på grund af den sandsynlige indvirkning på lokaliteter er besluttet, at der kræves en vurdering i medfør af [habitatdirektivets] artikel 6 eller 7 […].
+3. For planer og programmer som omhandlet i stk. 2, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet.
+4. Medlemsstaterne afgør, om planer og programmer, som ikke falder ind under stk. 2, men som fastlægger rammerne for fremtidige anlægstilladelser til projekter, kan forventes at få væsentlig indvirkning på miljøet.
+5. Medlemsstaterne afgør, om de planer eller programmer, som er omhandlet i stk. 3 og 4, kan få væsentlig indvirkning på miljøet, enten ved at undersøge hvert enkelt tilfælde eller ved at opstille typer af planer og programmer eller ved at kombinere de to metoder. I den forbindelse tager medlemsstaterne i alle tilfælde hensyn til de relevante kriterier, der er nævnt i bilag II, med henblik på at sikre, at planer og programmer, der kan få væsentlig indvirkning på miljøet, er omfattet af dette direktiv.
+[…]«
+12
+Artikel 4 i direktiv 2001/42 med overskriften »Generelle forpligtelser«, er affattet således:
+»1. Den miljøvurdering, der er omhandlet i artikel 3, gennemføres under udarbejdelsen og inden vedtagelsen af eller indledningen af lovgivningsproceduren for en plan eller et program.
+2. Kravene i dette direktiv skal enten integreres i medlemsstaternes gældende procedurer for vedtagelse af planer og programmer eller indarbejdes i de procedurer, medlemsstaterne indfører med henblik på at efterkomme dette direktiv.
+3. Når planer og programmer indgår i et hierarki, tager medlemsstaterne med henblik på at undgå dobbeltvurdering hensyn til, at vurderingen i overensstemmelse med dette direktiv gennemføres på forskellige niveauer i hierarkiet. Medlemsstaterne anvender bestemmelserne i artikel 5, stk. 2 og 3, bl.a. for at undgå dobbeltvurdering.«
+13
+Direktivets artikel 5 med overskriften »Miljørapport« bestemmer følgende i stk. 1 og 2:
+»1. Når der kræves en miljøvurdering efter artikel 3, stk. 1, udarbejdes der en miljørapport, hvori den sandsynlige væsentlige indvirkning på miljøet af planens eller programmets gennemførelse og rimelige alternativer under hensyn til planens eller programmets mål og geografiske anvendelsesområde fastlægges, beskrives og evalueres. De oplysninger, der skal afgives med henblik herpå, er nævnt i bilag I.
+2. Den miljørapport, der udarbejdes efter stk. 1, skal indeholde de oplysninger, som med rimelighed kan forlanges under hensyntagen til den aktuelle viden og de gængse vurderingsmetoder samt til, hvor detaljeret planen eller programmet er, hvad den/det indeholder, på hvilket trin den/det befinder sig i beslutningsforløbet, og hvorvidt bestemte forhold vurderes bedre på et andet trin i det pågældende forløb, således at dobbeltvurdering undgås.«
+14
+Kriterierne for bestemmelse af den sandsynlige betydning af den indvirkning på miljøet, der er omhandlet i artikel 3, stk. 5, i direktiv 2001/42, er opregnet i bilag II til dette direktiv.
+Italiensk ret
+15
+Direktiv 2001/42 blev gennemført i italiensk ret ved decreto legislativo n. 152 – Norme in materia ambientale (lovdekret nr. 152 vedrørende miljømæssige standarder) af 3. april 2006 (almindeligt tillæg til GURI nr. 88 af 14.4.2006).
+16
+Lovdekretets artikel 6 i den affattelse, som var gældende på tidspunktet for de faktiske omstændigheder i hovedsagen, bestemmer:
+»1. Den strategiske miljøvurdering vedrører planer og programmer, som kan få væsentlig indvirkning på miljøet og kulturarven.
+2. Med forbehold af stk. 3 foretages en miljøvurdering for alle planer og programmer
+a)
+som udarbejdes med henblik på vurdering og styring af luftkvalitet inden for landbrug, skovbrug, fiskeri, energi, industri, transport, affaldshåndtering, vandforvaltning, telekommunikation, turisme, fysisk planlægning og arealanvendelse, og som fastlægger en referenceramme for tilladelse og samtykke til samt placering og gennemførelse af de projekter, som er omhandlet i bilag II, III og IV til dette dekret
+b)
+for hvilke det på grund af den sandsynlige indvirkning på bevaringsmålsætningerne for lokaliteter, der er udpeget som beskyttede områder for vilde fugle, og lokaliteter, der er udpeget som lokaliteter af fællesskabsbetydning med henblik på bevaring af naturtyper samt vilde dyr og planter, er besluttet, at der skal foretages en vurdering af indvirkningen i medfør af artikel 5 i dekret fra republikkens præsident nr. 357 af 8. september 1997 med efterfølgende ændringer.
+3. For planer og programmer som omhandlet i stk. 2, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten i henhold til bestemmelserne i artikel 12 fastslår, at de kan få væsentlig indvirkning på miljøet […].
+3a. Den kompetente myndighed vurderer i henhold til bestemmelserne i artikel 12, om planer og programmer, som ikke falder ind under stk. 2, men som fastlægger rammerne for fremtidige tilladelser til projekter, kan forventes at få væsentlig indvirkning på miljøet.
+[…]«
+Faktiske omstændigheder i hovedsagen og de præjudicielle spørgsmål
+17
+I Venedigs lagune findes der ud fra sydspidsen af øen Pellestrina en ø med navnet »Ca’ Roman«, der hører under Comune di Venezia. Henset til øens værdi som naturområde blev levestedet Ca’ Roman optaget i Natura 2000-nettet.
+18
+Dette levested udgør den sydligste del af lokaliteten af fællesskabsbetydning (herefter »LAF«) og af det særligt beskyttede område (herefter »SBO«), der er opført under betegnelsen »Venedigs kyst: levesteder langs kysten« (kode IT 3250023), og det grænser op til den LAF og det SBO, som er optaget under betegnelsen »Venedigs lagune« (kode IT 3250046), og den LAF, der er optaget under betegnelsen »den sydlige del af Venedigs lagune« (kode IT 3250030). Ifølge den forelæggende ret findes der et område med forladte bygninger på Ca’ Roman, som grænser op til den omhandlede LAF og SIC.
+19
+De byplanlægningsmæssige regler, som finder anvendelse på Comune di Venezias område, gør det muligt at foretage bygningsfornyelse i form af nedrivning og genopførelse af bygninger, der ikke har nogen værdi, og hvis formål ændres efter udarbejdelsen af en gennemførelsesplan for byplanlægningen i forhold til infrastrukturen og stedets arkitektur.
+20
+Società Ca’ Roman har udarbejdet en gennemførelsesplan for de forladte bygninger, der er nævnt i nærværende doms præmis 18. På det sted, hvor de er beliggende, har selskabet til hensigt at bygge 84 boliger fordelt på 42 bygninger og grupperet i grupper med fem bygninger på et samlet areal af 29 195 m
+2
+.
+21
+Ved afgørelse af 31. maj 2012 godkendte byrådet i Comune di Venezia den omhandlede plan, der havde været underlagt en vurdering af indvirkningen på miljøet i henhold til habitatdirektivet. Selv om resultatet af denne vurdering var positivt, blev der imidlertid opstillet talrige krav med henblik på beskyttelsen af de pågældende LAF’er og SOB’er.
+22
+Planen blev imidlertid ikke underkastet en miljøvurdering i henhold til direktiv 2001/42. Det kompetente regionale udvalg fastslog nemlig i udtalelse af 4. juni 2013, at den omhandlede plan kun vedrørte anvendelse af mindre områder på lokalt plan, og at planer for sådanne områder ikke kræver gennemførelse af en miljøvurdering, når de ikke har nogen væsentlig indvirkning på miljøet.
+23
+Ved afgørelse af 2. oktober 2014, som blev truffet i medfør af den kompetence, der er tillagt byrådet, godkendte commissario straordinario (den særlige kommissær) i Comune di Venezia, efter at det var undersøgt, om der skulle foretages en miljøvurdering i henhold til direktiv 2001/42, den omhandlede plan, uden at der blev foretaget nogen ændring i forhold til den affattelse af planen, som forinden var blevet godkendt.
+24
+Associazione Italia Nostra Onlus, der er en forening, hvis formål er at bidrage til beskyttelsen og nyttiggørelsen af den historiske, kunstneriske og kulturelle italienske arv, anlagde sag ved Tribunale amministrativo regionale per il Veneto (den regionale forvaltningsdomstol for Veneto, Italien) til prøvelse af denne godkendelsesafgørelse og andre retsakter, idet den navnlig bestred gyldigheden af artikel 3, stk. 3, i direktiv 200/42 i henhold til EU-retten.
+25
+Ifølge den forelæggende ret er denne bestemmelse ugyldig i henhold til artikel 191 TEUF og artikel 37 i Den Europæiske Unions charter om grundlæggende rettigheder (herefter »chartret«), eftersom den bestemmer, at for planer og programmer, der i henhold til habitatdirektivets artikel 6 og 7 skal underkastes en vurdering af deres indvirkning på miljøet, skal der ikke gennemføres en miljøvurdering i henhold til direktiv 2001/42.
+26
+Til forskel fra en obligatorisk og systematisk miljøvurdering giver blot en kontrol af, hvorvidt der foreligger en forpligtelse til at underkaste en plan eller et program en miljøvurdering, nemlig de nationale myndigheder mulighed for at omgå de målsætninger for miljøbeskyttelse, der forfølges med habitatdirektivet og direktiv 2001/42.
+27
+Artikel 3, stk. 3, i direktiv 2001/42 tilsidesætter endvidere »rimelighedsprincippet«, henset til det mangelfulde og utilstrækkelige beskyttelsesniveau, som denne bestemmelse opstiller i forhold til de formål, som forfølges med habitatdirektivet, og henset til henvisningen til det rent kvantitative kriterium for det areal, som er omfattet af de planer og programmer, der er nævnt i den omhandlede bestemmelse.
+28
+Den forelæggende ret har i denne forbindelse anført, at henset til deres særlige karakteristika, kan Natura 2000-lokaliteterne påvirkes af selv meget små ændringer, der skyldes de forstyrrelser, som dyrene, plantearterne, jorden og vandet udsættes for. Virkningen af ændringerne af disse lokaliteter, der navnlig kan have til formål at beskytte sjældne arter eller uddøende racer, har dermed ikke nogen forbindelse til arealet af den lokalitet, som er berørt af en plan eller et program. Disse virkninger vedrører udelukkende kvalitative aspekter, såsom arten og placeringen af det påtænkte indgreb, og spørgsmålet om, hvorvidt de påtænkte uigenkaldelige og omfattende renoveringer er hensigtsmæssige.
+29
+Den forelæggende ret har henvist til Domstolens praksis, hvorefter en medlemsstat, der fastsætter kriterier og/eller grænseværdier, ved hvilke der kun lægges vægt på projekternes dimensioner og ikke desuden på deres art eller placering, overskrider grænserne for det skøn, den har (jf. hvad angår direktiv 85/337 dom af 21.9.1999, Kommissionen mod Irland,
+C-392/96
+,
+EU:C:1999:431
+, præmis
+64
+-
+67
+, og af 16.3.2006, Kommissionen mod Spanien,
+C-332/04
+, ikke trykt i Sml.,
+EU:C:2006:180
+, præmis
+76
+-
+81
+).
+30
+Det er derfor ikke berettiget at fritage planer og programmer, som er omfattet af direktiv 2001/42, fra en obligatorisk og systematisk miljøvurdering på baggrund et af rent kvantitativt kriterium, såsom kriteriet i direktivets artikel 3, stk. 3, om anvendelsen af »mindre områder på lokalt plan«.
+31
+Den forelæggende ret har tilføjet, at for det tilfælde, at Domstolen fastslår, at denne bestemmelse ikke er ugyldig i henhold til EUF-traktaten og chartret, opstår spørgsmålet om, hvorvidt begrebet »mindre områder på lokalt plan« kan defineres kvantitativt i national ret, således som det er tilfældet i Italien.
+32
+Den italienske lovgiver har nemlig ikke givet en definition af udtrykket »mindre områder på lokalt plan«, og i national retspraksis henvises der bl.a. til sådanne faktorer som udvikling af nye eller ekspanderende byområder med et areal på op til 40 ha og projekter om planlægning eller udvikling af byområder i eksisterende byområder med et areal på op til 10 ha. Disse rent kvantitative faktorer udgør en meget høj tærskel, hvilket er et problem i forhold til direktiv 2001/42.
+33
+Under disse omstændigheder har Tribunale amministrativo regionale per il Lazio (den regionale forvaltningsdomstol for Veneto) besluttet at udsætte sagerne og forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Skal artikel 3, stk. 3, i direktiv 2001/42[…], for så vidt som denne bestemmelse også omhandler det i artikel 3, stk. 2, litra b), omhandlede tilfælde, i lyset af miljøbeskyttelsesreglerne i traktaten om Den Europæiske Unions funktionsmåde og chartret om grundlæggende rettigheder anses for at være gyldig, for så vidt som denne bestemmelse fritager planer og programmer, for hvilke det er besluttet, at der kræves en vurdering af indvirkningen i medfør af [habitatdirektivets] artikel 6 og 7 […], fra en systematisk strategisk miljøvurdering?
+2)
+Såfremt Domstolen fastslår, at den nævnte bestemmelse er gyldig, skal artikel 3, stk. 2 og 3, i direktiv 2001/42, læst i lyset af tiende betragtning til samme direktiv, hvorefter »alle planer og programmer, som skal vurderes i henhold til [habitatdirektivet] kan få væsentlig indvirkning på miljøet og […] som hovedregel [bør] underkastes en systematisk miljøvurdering«, da fortolkes således, at de er til hinder for en national bestemmelse som den omhandlede, der fastlægger definitionen af begrebet »mindre områder på lokalt plan« i artikel 3, stk. 3, i direktiv 2001/42 med henvisning til rent kvantitative faktorer?
+3)
+Såfremt det foregående spørgsmål besvares benægtende, skal artikel 3, stk. 2 og 3, i direktiv 2001/42[…], læst i lyset af tiende betragtning til direktivet, hvorefter »alle planer og programmer, som skal vurderes i henhold til [habitatdirektivet], kan få væsentlig indvirkning på miljøet og […] som hovedregel [bør] underkastes en systematisk miljøvurdering«, da fortolkes således, at de er til hinder for en national bestemmelse som den omhandlede, hvorefter der hvad angår alle projekter til såvel udvikling af nye eller ekspanderende byområder med et areal på op til 40 ha samt projekter om planlægning eller udvikling af byområder i eksisterende byområder med et areal på op til 10 ha ikke automatisk og obligatorisk skal gennemføres en strategisk miljøvurdering, selv om det på grund af den sandsynlige indvirkning på lokaliteterne allerede er besluttet, at der kræves en vurdering af deres indvirkning i medfør af [habitatdirektivets] artikel 6 og 7 […]?«
+Om de præjudicielle spørgsmål
+Formaliteten vedrørende anmodningen om præjudiciel afgørelse
+34
+Comune di Venezia og Società Ca’ Roman er af den opfattelse, at den præjudicielle anmodning ikke kan antages til realitetsbehandling.
+35
+De har gjort gældende, at det område, som er omfattet af den i hovedsagen omhandlede plan, befinder sig uden for de LAF’er og de SOB’er som er nævnt i denne doms præmis 18. For dette område er det derfor ikke påkrævet at foretage en vurdering af virkningerne på miljøet i henhold til habitatdirektivets artikel 6 og 7 og dermed heller ikke nødvendigt at foretage en miljøvurdering i medfør af direktiv 2001/42, eftersom betingelserne i direktivets artikel 3, stk. 2, litra b), ikke er opfyldt. Det er hermed ikke relevant for afgørelsen af tvisten i hovedsagen at besvare den forelæggende rets spørgsmål.
+36
+Der skal i denne henseende henvises til, at der gælder en formodning for, at de spørgsmål om en fortolkning af EU-retten, som den nationale ret har stillet på det retlige og faktiske grundlag, som den har fastlagt inden for sit ansvarsområde, og som det ikke tilkommer Domstolen at efterprøve rigtigheden af, er relevante. Domstolen kan kun afvise at træffe afgørelse om et præjudicielt spørgsmål forelagt af en national ret, hvis det klart fremgår, at den ønskede fortolkning af EU-retten savner enhver forbindelse med realiteten i hovedsagen eller dennes genstand, såfremt problemet er af hypotetisk karakter, eller såfremt Domstolen ikke råder over de faktiske og retlige oplysninger, som er nødvendige for, at den kan give en hensigtsmæssig besvarelse af de forelagte spørgsmål (jf. bl.a. dom af 13.3.2001, PreussenElektra,
+C-379/98
+,
+EU:C:2001:160
+, præmis
+39
+, og af 21.9.2016, Radgen,
+C-478/15
+,
+EU:C:2016:705
+, præmis
+27
+).
+37
+I det foreliggende tilfælde, og således som generaladvokaten har anført i punkt 22 i forslaget til afgørelse, kan det ikke udelukkes, at den i hovedsagen omhandlede plan skal underkastes en vurdering af indvirkningerne på miljøet i medfør af habitatdirektivets artikel 6 og 7, selv om den umiddelbart kun berører et enkelt område uden for de LAF’er eller de SOB’er, som er nævnt i denne doms præmis 18. En plan eller et program, der vedrører et område, der ligger uden for en LAF eller et SOB, kan imidlertid afhængigt af omstændighederne påvirke den pågældende LAF eller SOB.
+38
+Det fremgår af forelæggelsesafgørelsen, at den forelæggende ret – som har henvist til, at den i hovedsagen omhandlede plan vedrører et område, der grænser op til de LAF’er og de SOB’er, der er nævnt i nærværende doms præmis 18 – er af den opfattelse, at dette er tilfældet, hvilket det ikke tilkommer Domstolen at undersøge.
+39
+Under disse omstændigheder fremgår det ikke klart, at den ønskede fortolkning af direktiv 2001/42 savner enhver forbindelse med realiteten i hovedsagen eller dennes genstand.
+Det første spørgsmål
+40
+Med det første spørgsmål spørger den forelæggende ret nærmere bestemt, om artikel 3, stk. 3, i direktiv 2001/42 er gyldig i henhold til bestemmelserne i EUF-traktaten og chartret.
+41
+Det skal indledningsvis bemærkes, at direktiv 2001/42 har hjemmel i artikel 175, stk. 1, EF om de aktioner, der skal iværksættes af Den Europæiske Union på miljøområdet med henblik på at opfylde de mål, der er anført i artikel 174 EF.
+42
+Artikel 191 TEUF, som svarer til artikel 174 EF, og tidligere i det væsentlige til EF-traktatens artikel 130 R, bestemmer i stk. 2, at Unionens politik på miljøområdet tager sigte på et »højt beskyttelsesniveau« under hensyntagen til de forskelligartede forhold, der gør sig gældende i de forskellige områder i Unionen. Tilsvarende fastsættes det i artikel 3, stk. 3, TEU, at Unionen tilstræber et »højt niveau for beskyttelse og forbedring af miljøkvaliteten«.
+43
+Ifølge Domstolens praksis er det efter artikel 191, stk. 1, TEUF tilladt at træffe foranstaltninger, der udelukkende vedrører visse nærmere angivne aspekter af miljøet, for så vidt som disse foranstaltninger bidrager til bevarelse, beskyttelse og forbedring af miljøkvaliteten (jf. dom af 14.7.1998, Safety Hi-Tech,
+C-284/95
+,
+EU:C:1998:352
+, præmis
+45
+, og af 14.7.1998, Bettati,
+C-341/95
+,
+EU:C:1998:353
+, præmis
+43
+).
+44
+Selv om det står fast, at artikel 191, stk. 2, TEUF kræver, at Unionens politik på miljøområdet tager sigte på et højt beskyttelsesniveau, skal et sådant beskyttelsesniveau for at være foreneligt med denne bestemmelse ikke nødvendigvis være det teknisk højst mulige. Artikel 193 TEUF gør det nemlig muligt for medlemsstaterne at opretholde eller indføre strengere beskyttelsesforanstaltninger (jf. dom af 14.7.1998, Safety Hi-Tech,
+C-284/95
+,
+EU:C:1998:352
+, præmis
+49
+, og af 14.7.1998, Bettati,
+C-341/95
+,
+EU:C:1998:353
+, præmis
+47
+).
+45
+Det skal dernæst undersøges, om artikel 3, stk. 3, i direktiv 2001/42 i lyset af denne retspraksis er gyldig i forhold til artikel 191 TEUF.
+46
+Det skal i denne forbindelse præciseres, at da det er nødvendigt at foretage en afvejning af visse af de mål og principper, der er omhandlet i artikel 191 TEUF, og at det er kompliceret at anvende de omhandlede kriterier, må den retslige kontrol nødvendigvis begrænses til spørgsmålet om, hvorvidt Europa-Parlamentet Rådet for Den Europæiske Union ved vedtagelsen af artikel 3, stk. 3, i direktiv 2001/42 har anlagt et åbenbart urigtigt skøn (jf. i denne retning dom af 14.7.1998, Safety Hi-Tech,
+C-284/95
+,
+EU:C:1998:352
+, præmis
+37
+, 14.7.1998, Bettati,
+C-341/95
+,
+EU:C:1998:353
+, præmis
+35
+, og af 15.12.2005, Grækenland mod Kommissionen,
+C-86/03
+,
+EU:C:2005:769
+, præmis
+88
+).
+47
+Hvad angår direktiv 2001/42 skal det bemærkes, at ifølge dets artikel 1 er formålet hermed at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet.
+48
+Det fremgår af direktivets artikel 3, stk. 2, litra b), at med forbehold af stk. 3 gennemføres der en miljøvurdering for alle planer og programmer, for hvilke det på grund af den sandsynlige indvirkning på lokaliteter er besluttet, at der kræves en vurdering af indvirkningen på miljøet i medfør af habitatdirektivets artikel 6 eller 7.
+49
+Artikel 3, stk. 3, i direktiv 2001/42 bestemmer, at for planer og programmer, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet.
+50
+Det fremgår af denne bestemmelse, sammenholdt med tiende betragtning til direktiv 2001/42, at for planer og programmer, som fastlægger anvendelsen af mindre områder på lokalt plan, skal de kompetente myndigheder i den relevante medlemsstat foretage en forudgående undersøgelse med henblik på at kontrollere, om en særlig plan eller program kan få væsentlig indvirkning på miljøet, og at disse myndigheder dernæst er forpligtet til at gennemføre en miljøvurdering i henhold til dette direktiv af denne plan eller dette program, såfremt de konkluderer, at planen eller programmet kan have sådanne virkninger på miljøet.
+51
+I henhold til ordlyden af artikel 3, stk. 5, i direktiv 2001/42 gennemføres denne fastlæggelse af planer eller programmer, der kan få en væsentlig indvirkning på miljøet, hvilket nødvendiggør en miljøvurdering i medfør af samme direktiv, enten ved at undersøge hvert enkelt tilfælde eller ved at opstille typer af planer eller programmer eller ved at kombinere de to metoder. I den forbindelse skal medlemsstaterne i alle tilfælde tage hensyn til de relevante kriterier, der er nævnt i bilag II til direktivet, med henblik på at sikre, at planer og programmer, der kan få væsentlig indvirkning på miljøet, er omfattet af dette direktiv.
+52
+De mekanismer til undersøgelse af planer og programmer, som er nævnt i artikel 3, stk. 5, i direktiv 2001/42, har til formål at gøre det lettere at fastlægge, hvilke planer og programmer der er pligt til at vurdere, fordi de kan få væsentlig indvirkning på miljøet (jf. dom af 22.9.2011, Valčiukienė m.fl.,
+C-295/10
+,
+EU:C:2011:608
+, præmis
+45
+).
+53
+Det skøn, som medlemsstaterne i medfør af artikel 3, stk. 5, i direktiv 2001/42 råder over i forbindelse med fastlæggelsen af visse typer planer eller programmer, der kan få væsentlig indvirkning på miljøet, begrænses af forpligtelsen i direktivets artikel 3, stk. 3 – sammenholdt med samme artikels stk. 2 – til at gennemføre en miljøvurdering af planer og programmer, der kan få væsentlig indvirkning på miljøet, bl.a. på grund af deres kendetegn, indvirkninger og områder, der kan blive berørt (jf. dom af 22.9.2011, Valčiukienė m.fl.,
+C-295/10
+,
+EU:C:2011:608
+, præmis
+46
+).
+54
+Artikel 2, stk. 2, 3 og 5, i direktiv 2001/42 tilsigter således, at ingen plan eller intet program, der kan få væsentlig indvirkning på miljøet, unddrages en miljøvurdering (jf. dom af 22.9.2011, Valčiukienė m.fl.,
+C-295/10
+,
+EU:C:2011:608
+, præmis
+53
+).
+55
+Der skal derfor sondres mellem denne situation og den, hvor en rent kvantitativ tærskel medfører, at en hel kategori af planer eller programmer i praksis på forhånd unddrages en miljøvurdering i henhold til direktiv 2001/42, selv om disse planer eller programmer kan få væsentlig indvirkning på miljøet (jf. i denne retning dom af 22.9.2011, Valčiukienė m.fl.,
+C-295/10
+,
+EU:C:2011:608
+, præmis
+47
+og den deri nævnte retspraksis).
+56
+Henset til det ovenstående skal det fastslås, at artikel 3, stk. 3, i direktiv 2001/42, indgår i det med direktivet forfulgte formål om at sikre et højt miljøbeskyttelsesniveau, idet bestemmelsen ikke fritager nogen plan eller noget program, der kan få væsentlig indvirkning på miljøet fra gennemførelse af en miljøvurdering i overensstemmelse med dette direktiv.
+57
+Den forelæggende ret har imidlertid anført, at til forskel fra en obligatorisk og systematisk vurdering giver en almindelig kontrol af, hvorvidt der foreligger en forpligtelse til at underkaste en plan eller et program en miljøvurdering, de nationale myndigheder mulighed for at omgå de beskyttelsesmålsætninger, der forfølges med habitatdirektivet og direktiv 2001/42
+58
+Som det fremgår af direktiv 2001/42, således som det fortolkes af Domstolen, tilkommer det medlemsstaterne inden for rammerne af deres kompetence at træffe alle de almindelige eller særlige foranstaltninger, der er nødvendige for, at alle planer og programmer, som kan have væsentlig indvirkning på miljøet, i direktivets forstand underkastes en miljøvurdering i overensstemmelse med fremgangsmåden og kriterierne i direktivet, inden deres vedtagelse (jf. dom af 28.2.2012, Inter-Environnement Wallonie og Terre wallonne,
+C-41/11
+,
+EU:C:2012:103
+, præmis
+42
+og den deri nævnte retspraksis).
+59
+Under alle omstændigheder indebærer risikoen for, at de nationale myndigheder gennem deres handlinger omgår anvendelsen af direktiv 2001/42, ikke, at direktivets artikel 3, stk. 3 er ugyldig.
+60
+I det foreliggende tilfælde anlagde Parlamentet og Rådet ved vedtagelsen af artikel 3, stk. 3, i direktiv 2001/42 dermed ikke et åbenbart urigtigt skøn i forhold til artikel 191 TEUF. Inden for rammerne af den foreliggende sag er der intet frembragt, som kan rejse tvivl om gyldigheden af denne bestemmelse i direktiv 2001/42 i forhold til artikel 191 TEUF.
+61
+Hvad angår spørgsmålet om, hvorvidt artikel 3, stk. 3, i direktiv 2001/42 eventuelt er ugyldig i forhold til chartrets artikel 37, skal det bemærkes, at sidstnævnte bestemmelse fastsætter, at et »højt miljøbeskyttelsesniveau og forbedring af miljøkvaliteten skal integreres i Unionens politikker og sikres i overensstemmelse med princippet om en bæredygtig udvikling«.
+62
+Det skal i denne forbindelse bemærkes, at chartrets artikel 52, stk. 2, bestemmer, at de rettigheder, der anerkendes i chartret, og for hvilke der er fastlagt bestemmelser i traktaterne, udøves på de betingelser og med de begrænsninger, der er fastlagt deri. Dette er tilfældet for så vidt angår chartrets artikel 37. Som det fremgår af de forklaringer til chartret om grundlæggende rettigheder (
+EUT 2007, C 303, s. 17
+), der vedrører denne bestemmelse, er »[p]rincippet i [chartrets artikel 37] […] baseret på artikel 2, 6 og 174 [EF], der nu er erstattet af artikel 3, stk. 3, [TEU] og artikel 11 og 191 [TEUF]«.
+63
+Det følger heraf, at idet der som fastslået i denne doms præmis 60 ikke er frembragt noget forhold, der kan påvirke gyldigheden af artikel 3, stk. 3, i direktiv 2001/42 i forhold til artikel 191 TEUF, er der heller ikke ved gennemgangen af denne bestemmelse fremkommet noget forhold, der kan påvirke dens gyldighed, henset til chartrets artikel 37.
+64
+Det følger af de ovenstående betragtninger, at gennemgangen af det første spørgsmål intet har frembragt, der kan rejse tvivl om gyldigheden af artikel 3, stk. 3, i direktiv 2001/42 i forhold til bestemmelserne i EUF-traktaten og chartret.
+Det andet og det tredje spørgsmål
+65
+Med det andet og det tredje spørgsmål, der skal behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 3, stk. 3, i direktiv 2001/42, sammenholdt med tiende betragtning hertil, skal fortolkes således, at begrebet »mindre områder på lokalt plan« i stk. 3 kan defineres alene med henvisning til arealet af det pågældende område.
+66
+Hvad angår begrebet »mindre områder på lokalt plan« som omhandlet i artikel 3, stk. 3, i direktiv 2001/42 følger det såvel af kravene om en ensartet anvendelse af EU-retten som af lighedsprincippet, at en bestemmelse i EU-retten, som ikke indeholder nogen udtrykkelig henvisning til medlemsstaternes ret med henblik på at fastlægge dens betydning og rækkevidde, normalt skal undergives en selvstændig og ensartet fortolkning i hele Unionen, som skal søges under hensyntagen til bestemmelsens kontekst og formålet med den pågældende ordning (jf. bl.a. dom af 18.1.1984, Ekro,
+327/82
+,
+EU:C:1984:11
+, præmis
+11
+, og af 13.10.2016, Mikołajczyk,
+C-294/15
+,
+EU:C:2016:772
+, præmis
+44
+).
+67
+Eftersom artikel 3, stk. 3, i direktiv 2001/42 ikke indeholder nogen udtrykkelig henvisning til medlemsstaternes ret med henblik på fastlæggelsen af betydningen og rækkevidden af begrebet »mindre områder på lokalt plan«, skal betydningen og rækkevidden heraf fastlægges under hensyntagen til bestemmelsens kontekst og direktivets formål.
+68
+Det skal i denne forbindelse bemærkes, at ifølge bestemmelsens ordlyd skal en plan eller et program opfylde to kumulative betingelser. For det første skal en plan eller et program fastlægge anvendelsen af det »mindre område«, og for det andet skal der være tale om et område »på lokalt plan«.
+69
+Hvad angår begrebet »på lokalt plan« skal det fremhæves, at udtrykket »en lokal myndighed« er anvendt i artikel 2, litra a), første led, i direktiv 2001/42. Ifølge denne bestemmelse forstås ved »planer og programmer«: planer og programmer, herunder sådanne, der medfinansieres af Unionen, samt ændringer deri, som udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller som udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, og som kræves ifølge love og administrative bestemmelser.
+70
+Som anført af generaladvokaten i punkt 56 i forslaget til afgørelse følger det af den ens betydning, som tillægges begrebet i artikel 3, stk. 3, og artikel 2, litra a), første led, i direktiv 2001/42, og af direktivets opbygning, at udtrykket »på lokalt plan« og »en lokal myndighed« har samme betydning i begge bestemmelser, dvs. at der med begrebet henvises til det administrative plan i den pågældende medlemsstat.
+71
+For at en plan eller et program kan kvalificeres som en foranstaltning, der fastlægger anvendelsen af et mindre område »på lokalt plan« som omhandlet i artikel 3, stk. 3, i direktiv 2001/42, skal den pågældende plan eller det pågældende program være udarbejdet og/eller vedtaget af en lokal myndighed, i modsætning til en regional eller national myndighed.
+72
+Hvad angår begrebet »mindre område« henviser betegnelsen »mindre« efter dets sædvanlige betydning i almindelig sprogbrug til størrelsen af et område. Som anført af generaladvokaten i punkt 59 i forslaget til afgørelse kan kriteriet om områdets størrelse kun forstås som et rent kvantitativt forhold, dvs. arealet af det område, der er omfattet af den plan eller det program, der omhandlet i artikel 3, stk. 3, i direktiv 2001/42, uanset indvirkningen på miljøet.
+73
+Under disse omstændigheder må det konstateres, at EU-logiver ved anvendelsen af udtrykket »mindre områder på lokalt plan« for det første har haft til hensigt at referere til den stedlige kompetence, som er tillagt den lokale myndighed, som har udarbejdet og/eller vedtaget den omhandlede plan eller det omhandlede program. For så vidt som kriteriet om anvendelsen af »mindre områder« er et supplement til kravet om en fastlæggelse på lokalt plan, skal det pågældende område for det andet have en mindre størrelse i forhold til det område, der er omfattet af denne stedlige kompetence.
+74
+Henset til de ovenstående betragtninger skal det andet og det tredje spørgsmål besvares med, at artikel 3, stk. 3, i direktiv 2001/42, sammenholdt med tiende betragtning hertil, skal fortolkes således, at begrebet »mindre områder på lokalt plan« i stk. 3 skal defineres med henvisning til arealet af det omhandlede område, forudsat at
+—
+planen eller programmet er udarbejdet og/eller vedtaget af en lokal myndighed, i modsætning til en regional eller national myndighed, og
+—
+det berørte område, der er omfattet af den lokale myndigheds stedlige kompetence, har en mindre størrelse i forhold til det område, der er omfattet af denne stedlige kompetence.
+Sagens omkostninger
+75
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagens omkostninger. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Tredje Afdeling) for ret:
+1)
+Gennemgangen af det første spørgsmål har intet frembragt, der kan rejse tvivl om gyldigheden af artikel 3, stk. 3, i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet i forhold til bestemmelserne i EUF-traktaten og Den Europæiske Unions charter om grundlæggende rettigheder.
+2)
+Artikel 3, stk. 3, i direktiv 2001/42, sammenholdt med tiende betragtning hertil, skal fortolkes således, at begrebet »mindre områder på lokalt plan« i stk. 3 skal defineres med henvisning til arealet af det omhandlede område, forudsat at
+—
+planen eller programmet er udarbejdet og/eller vedtaget af en lokal myndighed, i modsætning til en regional eller national myndighed, og
+—
+det berørte område, der er omfattet af den lokale myndigheds stedlige kompetence, har en mindre størrelse i forhold til det område, der er omfattet af denne stedlige kompetence.
+Underskrifter
+(
+*1
+) – Processprog: italiensk.

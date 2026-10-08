@@ -1,0 +1,321 @@
+62015CJ0379
+DOMSTOLENS DOM (Første Afdeling)
+28. juli 2016 (
+*1
+)
+»Præjudiciel forelæggelse — direktiv 2001/42/EF — vurdering af bestemte planers og programmers indvirkning på miljøet — national retsakt, der er uforenelig med EU-retten — retsvirkninger — kompetencen for den nationale retsinstans til midlertidigt at opretholde visse virkninger af den pågældende foranstaltning — artikel 267, stk. 4, TEUF — pligt til at indbringe en præjudiciel forelæggelse for Domstolen«
+I sag C-379/15,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Conseil d’État (Frankrig) ved afgørelse af 26. juni 2015, indgået til Domstolen den 16. juli 2015, i sagen:
+Association France Nature Environnement
+mod
+Premier ministre,
+Ministre de l’Écologie, du Développement durable et de l'Énergie,
+har
+DOMSTOLEN (Første Afdeling)
+sammensat af afdelingsformanden, R. Silva de Lapuerta (refererende dommer), og dommerne A. Arabadjiev, J.-C. Bonichot, C.G. Fernlund og E. Regan,
+generaladvokat: J. Kokott
+justitssekretær: fuldmægtig V. Tourrès,
+på grundlag af den skriftlige forhandling og efter retsmødet den 24. februar 2016,
+efter at der er afgivet indlæg af:
+—
+Association Frankrig Nature Environnement ved E. Wormser, som befuldmægtiget, bistået af avocat M. Le Berre
+—
+den franske regering ved S. Ghiandoni, F.-X. Bréchot, D. Colas, og G. de Bergues, som befuldmægtigede
+—
+Europa-Kommissionen ved O. Beynet og C. Hermes, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 28. april 2016,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 267 TEUF.
+2
+Denne anmodning er fremsat inden for rammerne af en tvist mellem Association France Nature Environnement (herefter »FNE«) og Premier ministre (premierministeren) samt ministre de l’Écologie, du Développement durable et de l'Énergie (ministeren for økologi, bæredygtig udvikling og energi) vedrørende en påstand om annullation af décret n
+o
+2012-616, du 2 mai 2012, relatif à l’évaluation de certains plans et programmes ayant une incidence sur l’environnement (dekret nr. 2012-616 af 2.5.2012 vedrørende vurdering af bestemte planer og programmer, der har en indvirkning på miljøet) (JORF af 4.5.2012, s. 7884) på grund af overskridelse af beføjelser.
+Retsforskrifter
+EU-retten
+3
+Artikel 1 i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (
+EFT 2001, L 197, s. 30
+) er affattet således:
+»Formålet med dette direktiv er at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet.«
+4
+Dette direktivs artikel 2 lyder:
+»I dette direktiv forstås ved:
+a)
+»planer og programmer«: planer og programmer, herunder sådanne der medfinansieres af [Den Europæiske Union], samt ændringer deri
+—
+som udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller som udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, og
+—
+som kræves ifølge love og administrative bestemmelser
+b)
+»miljøvurdering«: udarbejdelse af en miljørapport, gennemførelse af høringer, hensyntagen til miljørapporten og til resultaterne af høringerne ved beslutningstagning samt underretning om afgørelsen [...]
+[…]«
+5
+Direktivets artikel 3 bestemmer:
+»1. Der skal for de i stk. 2-4 omhandlede planer og programmer, som kan få væsentlig indvirkning på miljøet, gennemføres en miljøvurdering [...].
+2. Med forbehold af stk. 3 gennemføres der en miljøvurdering for alle planer og programmer:
+[…]
+3. For planer og programmer som omhandlet i stk. 2, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet.
+4. Medlemsstaterne afgør, om planer og programmer, som ikke falder ind under stk. 2, men som fastlægger rammerne for fremtidige anlægstilladelser til projekter, kan forventes at få væsentlig indvirkning på miljøet.
+5. Medlemsstaterne afgør, om de planer eller programmer, som er omhandlet i stk. 3 og 4, kan få væsentlig indvirkning på miljøet, enten ved at undersøge hvert enkelt tilfælde eller ved at opstille typer af planer og programmer eller ved at kombinere de to metoder. I den forbindelse tager medlemsstaterne i alle tilfælde hensyn til de relevante kriterier, der er nævnt i bilag II, med henblik på at sikre, at planer og programmer, der kan få væsentlig indvirkning på miljøet, er omfattet af dette direktiv.
+6. Ved undersøgelsen af det enkelte tilfælde og ved opstillingen af typer af planer og programmer, jf. stk. 5, høres de i artikel 6, stk. 3, omhandlede myndigheder.
+7. Medlemsstaterne sørger for, at resultatet i henhold til stk. 5, herunder grundene til, at der ikke kræves en miljøvurdering [...], gøres offentligt tilgængelige.
+[…]«
+6
+Samme direktivs artikel 4 bestemmer:
+»1. Den miljøvurdering, der er omhandlet i artikel 3, gennemføres under udarbejdelsen og inden vedtagelsen af eller indledningen af lovgivningsproceduren for en plan eller et program.
+2. Kravene i dette direktiv skal enten integreres i medlemsstaternes gældende procedurer for vedtagelse af planer og programmer eller indarbejdes i de procedurer, medlemsstaterne indfører med henblik på at efterkomme dette direktiv.
+3. Når planer og programmer indgår i et hierarki, tager medlemsstaterne med henblik på at undgå dobbeltvurdering hensyn til, at vurderingen i overensstemmelse med dette direktiv gennemføres på forskellige niveauer i hierarkiet. […]«
+7
+Artikel 6 i direktiv 2001/42 har følgende ordlyd:
+»1. Udkastet til planen eller programmet og den miljørapport, som er udarbejdet i overensstemmelse med artikel 5, stilles til rådighed for de myndigheder, der er omhandlet i stk. 3 i nærværende artikel, og for offentligheden.
+2. De i stk. 3 omhandlede myndigheder og den i stk. 4 omhandlede offentlighed skal tidligt have konkret lejlighed til inden for en passende frist at udtale sig om udkastet til planen eller programmet og den ledsagende miljørapport, inden planen eller programmet vedtages, eller lovgivningsproceduren indledes.
+3. Medlemsstaterne udpeger de myndigheder, som skal høres, og som på grund af deres specifikke miljøansvar kan blive berørt af indvirkningen på miljøet af planers eller programmers gennemførelse.
+4. Medlemsstaterne identificerer offentligheden med henblik på stk. 2, herunder de dele af offentligheden, som berøres eller forventes at blive berørt af, eller som har interesse i den beslutningstagning, der er omfattet af dette direktiv, herunder relevante ikke-statslige organisationer, f.eks. sådanne, der fremmer miljøbeskyttelse, og andre berørte organisationer.
+5. De nærmere ordninger for underretning og høring af myndighederne og offentligheden fastlægges af medlemsstaterne.«
+8
+Artikel 13 i direktiv 2001/42 er affattet således:
+»1. Medlemsstaterne sætter de nødvendige love og administrative bestemmelser i kraft for at efterkomme dette direktiv inden den 21. juli 2004. […]
+[…]
+3. Den forpligtelse, der er omhandlet i artikel 4, stk. 1, gælder for de planer og programmer, for hvilke den første formelle forberedende retsakt følger efter den dato, der er nævnt i stk. 1. Planer og programmer, for hvilke den første formelle forberedende retsakt er dateret før denne dato, og hvis vedtagelse eller indledning af lovgivningsproceduren sker mere end 24 måneder derefter, skal opfylde kravet i artikel 4, stk. 1, medmindre medlemsstaterne i hvert enkelt tilfælde beslutter, at dette ikke er muligt, og informerer offentligheden om deres beslutning.
+[…]«
+Fransk ret
+9
+Direktiv 2001/42 er blevet gennemført i fransk ret ved hjælp af et vist antal retlige instrumenter, herunder navnlig ordonnance n
+o
+2004-489, du 3 juin 2004, portant transposition de la directive 2001/42/CE du Parlement européen et du Conseil du 27 juin 2001 relative à l’évaluation des incidences de certains plans et programmes sur l’environnement (bekendtgørelse nr. 2004-489 af 3.6.2004 om gennemførelse af Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet) (JORF af 5.6.2004, s. 9979), to dekreter af 27. maj 2005, hvoraf den ene ændrer code de l’environnement (miljøloven) (dekret nr. 2005-613) og den anden code de l’urbanisme (byggeloven) (dekret nr. 2005-608), samt loi n
+o
+2010-788, du 12 juillet 2010, portant engagement national pour l’environnement (lov nr. 2010-788 af 12.7.2010 om det nationale miljøengagement) (JORF af 13.7.2010, s. 12905). Miljølovens artikel L. 122-4 – L. 122-11 blev ændret ved artikel 232 og 233 i sidstnævnte lov.
+10
+Miljølovens artikel 122-4, som ændret ved lov nr. 2010-788, bestemmer:
+»I. –
+Planer, skemaer, programmer og øvrige planlægningsdokumenter, der kan have en indvirkning på miljøet, og som – uden selv at kræve gennemførelse af arbejder eller anlægsprojekter – finder anvendelse på gennemførelsen af sådanne arbejder eller projekter, skal undergives en miljøvurdering på grundlag af de kriterier, der er nævnt i bilag II til direktiv [2001/42]:
+1°
+Planer, skemaer, programmer og andre planlægningsdokumenter, der vedtages af staten, lokale eller regionale myndigheder eller grupper heraf samt offentlige virksomheder i tilknytning hertil, vedrørende landbrug, skovbrug, fiskeri, energi, industri, transport, affaldshåndtering, vandforvaltning, telekommunikation, turisme eller byplanlægning, og som har til formål at definere rammen for iværksættelsen af de arbejder og anlægsprojekter, der er omfattet af anvendelsesområdet for artikel L. 122-1.
+2°
+Øvrige planer, skemaer, programmer og andre planlægningsdokumenter, der vedtages af staten, lokale eller regionale myndigheder eller grupper heraf samt offentlige virksomheder i tilknytning hertil, end de i 1° nævnte, som har til formål at definere rammen for iværksættelsen af de arbejder og anlægsprojekter, såfremt de kan få væsentlig indvirkning på miljøet.
+3°
+Planer, skemaer, programmer og andre planlægningsdokumenter, hvor en vurdering af indvirkningen på miljøet er påkrævet i henhold til artikel L. 414-4, henset til de virkninger som de kan have på lokaliteter.
+II. –
+Miljøvurderingen af de planer, skemaer, programmer og andre planlægningsdokumenter, der er nævnt i byggelovens artikel L. 121-10 og i artikel L. 4424-9 og L. 4433-7 i code général des collectivités territoriales [almindelig lov om lokale myndigheder], er undergivet bestemmelserne i byggelovens artikel L. 121-10 - L. 121-15.
+III. –
+Planer, skemaer, programmer og andre planlægningsdokumenter, der præciserer anvendelsen af mindre områder, undergives ikke den i dette afsnit omhandlede vurdering såfremt deres anvendelse ikke kan få væsentlig indvirkning på miljøet henset bl.a. til miljøets følsomhed, planens genstand eller projektets indhold.
+IV. –
+Ved dekret fra Conseil d’État identificeres de planer, skemaer, programmer og dokumenter, der er omhandlet i punkt I og III, som skal undergives en miljøvurdering ved en undersøgelse i hvert enkelt tilfælde, der foretages af den kompetente statslige administrative miljømyndighed.
+V. –
+De planer og programmer, som alene tjener et nationalt forsvarsformål og et civilt beredskabsformål, undergives ikke en miljøvurdering.«
+11
+Miljølovens artikel 122-5, som ændret ved lov nr. 2010-788, er affattet således:
+»Med undtagelse af mindre ændringer medfører ændringer af de planer og dokumenter, der er omfattet af bestemmelserne i punkt I i artikel L. 122-4, at der skal foretages en ny miljøvurdering eller en ajourføring af den undersøgelse, der blev gennemført på tidspunktet for deres udarbejdelse.
+Vurderingen af, om der er tale om mindre ændringer, skal ske på grundlag af de kriterier, der er nævnt i bilag II til direktiv [2001/42]. Ved dekret fra Conseil d’État fastsættes de tilfælde, hvor ændringerne kan undergives en miljøvurdering efter en undersøgelse i hvert enkelt tilfælde, foretaget af den kompetente statslige administrative miljømyndighed.«
+12
+Miljølovens artikel 122-7, som ændret ved lov nr. 2010-788, bestemmer:
+»Den offentlige myndighed, som har ansvar for udarbejdelsen af en plan eller et dokument, forelægger det udarbejdede udkast til plan eller dokument vedlagt miljørapporten til udtalelse hos en statslig administrativ miljømyndighed i henhold til artikel L. 122-4.
+Såfremt udtalelsen ikke er afgivet inden udløbet af en frist på tre måneder, anses den for at være positiv.
+Den statslige miljømyndighed høres i nødvendigt omfang med hensyn til, hvor omfattende og detaljerede de oplysninger skal være, som skal indgå i miljørapporten.«
+13
+Miljølovens artikel L. 122-11 bestemmer:
+»Betingelserne for anvendelse af dette afsnit for hver kategori af planer eller dokumenter fastsættes i nødvendigt omfang ved dekret fra Conseil d’État.«
+14
+Med henblik på anvendelsen af artikel 232 og 233 i lov nr. 2010-788 og på gennemførelsen af direktiv 2001/42 har Premier ministre navnlig vedtaget dekret nr. 201-616. I dekretet er fastsat listen over projekter, planer, skemaer, programmer og planlægningsdokumenter, der skal undergives en miljøundersøgelse, enten systematisk eller efter en vurdering i hvert enkelt tilfælde foretaget af den administrative myndighed, der er udpeget med henblik herpå. Dette dekret definerer ligeledes, hvilken myndighed med kompetence på miljøområdet der skal høres inden for rammerne af denne miljøvurdering. Nævnte dekret opregner endvidere i en detaljeret tabel de planer skemaer, programmer og planlægningsdokumenter, der skal undergives en miljøvurdering.
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+15
+Den 13. juni 2012 har Association France Nature Environnement anlagt sag ved den forelæggende ret med påstand om annullation af dekret nr. 2012-616, idet det bl.a. er gjort gældende, at bestemmelserne i direktiv 2001/42 er tilsidesat, og nærmere bestemt, at flere miljømyndigheder ikke har den administrative selvstændighed, der er påkrævet i henhold til dette direktiv.
+16
+Ved afgørelse af 26. juni 2015 tog den forelæggende ret påstanden om annullation af dekret nr. 2012-616 til følge for så vidt angår artikel 1 og 7 heri.
+17
+Den forelæggende ret fastslog for det første, at dekretets artikel 1 tilsidesatte de krav, der følger af artikel 6, stk. 3, i direktiv 2001/42. Denne bestemmelse i national ret gav nemlig den samme myndighed kompetence til dels at udarbejde og godkende planer og programmer, dels høringskompetence på miljøområdet vedrørende disse planer og programmer, uden at der er fastsat bestemmelser, der kan sikre, at høringskompetencen på miljøområdet bliver udøvet i denne myndighed af en enhed, som besidder en reel selvstændighed.
+18
+Den forelæggende ret fastslog for det andet, at dekretets artikel 7 tilsidesatte kravene om at bringe national ret i overensstemmelse med EU-retten, idet den – uden at dette var begrundet i tvingende hensyn til retssikkerhed eller den offentlige orden – undlod at anvende administrative forskrifter med henblik på gennemførelsen af direktiv 2001/42 vedrørende chartre om regionale naturparker, der skulle udarbejdes eller revideres før den 1. januar 2013, selv om fristen for gennemførelse af dette direktiv var udløbet.
+19
+Efter at have fastslået, at artikel 1 og 7 i dekret nr. 2012-616 var ulovlige, skal den forelæggende ret nu tage stilling til virkningerne af en sådan konklusion.
+20
+I denne henseende er den forelæggende ret af den opfattelse, at det forhold, at den delvise annullation af dette dekret har tilbagevirkende kraft, indebærer en risiko for, at der opstår spørgsmål om lovligheden af ikke blot planer og programmer, der er vedtaget på grundlag af disse bestemmelser, men ligeledes lovligheden af enhver foranstaltning, der er vedtaget på grundlag heraf, henset til muligheden, der ikke er undergivet nogen frist, for at påberåbe sig ulovligheden af sådanne generelle retsregler i fransk forvaltningsret. En sådan situation ville være skadelig både for så vidt angår respekten for retssikkerhedsprincippet og for opfyldelsen af Unionens mål om miljøbeskyttelse. Et retligt tomrum ville desuden være til hinder for gennemførelsen af andre nationale bestemmelser, som er vedtaget til gennemførelse af direktiv 2001/42, således, at de nationale domstole ville skulle gøre brug af deres beføjelse til at fastsætte virkningerne af annullationen af nævnte dekret ratione temporis.
+21
+Den forelæggende ret har således anført, at hvad angår de betingelser, hvorunder franske forvaltningsdomstole kan gøre brug af deres beføjelse til at fastsætte virkningerne af en afgørelse om annullation, kunne en hensyntagen til disse betragtninger føre til en opretholdelse af virkningerne af artikel 1 og 7 i dekret nr. 2012-616 i den periode, som er strengt nødvendig for, at der kan vedtages bestemmelser om et passende system med administrative myndigheder, der skal have ansvaret for miljøvurderingen i overensstemmelse med direktiv 2001/42. Denne ret ønsker følgelig oplyst, om det er muligt at bestemme, at den delvise annullation af nævnte dekret først får virkning fra den 1. januar 2016, og at virkningerne af bestemmelserne i det anfægtede dekret før dets annullation bliver betragtet som endelige med forbehold for de retssager, der allerede er anlagt på datoen for nærværende afgørelse til prøvelse af foranstaltninger truffet på grundlag heraf.
+22
+Under disse omstændigheder har Conseil d’État besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Skal en national retsinstans, som fortolker EU-retten, under alle omstændigheder forelægge Den Europæiske Unions Domstol en anmodning om præjudiciel afgørelse, for at denne kan vurdere, om de bestemmelser, der af den nationale ret er blevet anset for at være i strid med EU-retten, midlertidigt skal opretholdes?
+2)
+I tilfælde af et bekræftende svar på dette første spørgsmål vil den afgørelse, Conseil d’État måtte træffe om at opretholde virkningerne indtil den 1. januar 2016 af de bestemmelser i artikel 1 i dekret [nr. 2012-616], som retten finder ulovlige, bl.a. være begrundet i et tvingende hensyn til miljøbeskyttelse?«
+Om de præjudicielle spørgsmål
+Det andet spørgsmål
+23
+Med sit andet spørgsmål, der skal behandles først, ønsker den forelæggende ret nærmere bestemt oplyst, under hvilke betingelser en national ret, der er forelagt en tvist, ratione temporis kan begrænse visse virkninger af en afgørelse, hvorved det fastslås, at en bestemmelse i national ret, der er blevet vedtaget under tilsidesættelse af de forpligtelser, der er fastsat i direktiv 2001/42, navnlig de forpligtelser, der følger af artikel 6, stk. 3, heri, er ulovlig.
+24
+Det skal bemærkes, at anmodningen om præjudiciel afgørelse er fremsat i forbindelse med en sag om prøvelse af lovligheden på grundlag af foreneligheden med direktiv 2001/42 af et vist antal bestemmelser i national ret. Inden for rammerne af denne sag har den forelæggende ret bl.a. fastslået, at kravene i dette direktivs artikel 6, stk. 3, er blevet tilsidesat af nationale retsregler, der er vedtaget til gennemførelse af denne artikel i direktivet.
+25
+Den forelæggende ret har med henvisning til dom af 20. oktober 2011, Seaport (NI) m.fl. (
+C-474/10
+,
+EU:C:2011:681
+) bl.a. fastslået, at bestemmelserne i dekret nr. 2012-616 er ulovlige, fordi de ikke gør det muligt at sikre miljømyndighedens funktionelle uafhængighed, eftersom disse bestemmelser ikke garanterer, at høringskompetencen på miljøområdet bliver udøvet i denne myndighed af en enhed, som besidder en faktisk selvstændighed.
+26
+Domstolen har nemlig i den doms præmis 39 fastslået, at bestemmelserne i direktiv 2001/42 ville miste deres effektive virkning, såfremt der – i tilfælde, hvor den i henhold til direktivets artikel 6, stk. 3, udpegede myndighed ligeledes selv foranlediges til at udarbejde eller vedtage en plan eller et program – inden for den omhandlede medlemsstats administrative struktur, ikke er noget andet organ, som har beføjelse til at udføre denne høringsfunktion.
+27
+Den forelæggende ret er af den opfattelse, at artikel 1 og 7 i dekret nr. 2012-616 ikke opfylder dette krav om selvstændighed, hvorfor disse bestemmelser skal annulleres. Retten ønsker imidlertid oplysning om retsvirkningerne af en sådan annullation.
+28
+Den forelæggende ret frygter navnlig, at denne annullation indebærer en risiko for, at lovligheden af et stort antal planer og programmer samt forskrifter vedtaget på grundlag heraf vil blive anfægtet, hvilket vil skabe et retligt tomrum til skade for miljøbeskyttelsen. På grund af den tilbagevirkende kraft af annullationen af disse nationale retsregler, vil høringer, der er sket på grundlag heraf, skulle anses for at være gennemført ulovligt.
+29
+Det er i denne sammenhæng, at den forelæggende ret har henvist til dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+).
+30
+I præmis 42 i den dom fastslog Domstolen, at da der i direktiv 2001/42 ikke er bestemmelser om de konsekvenser, der skal drages af en tilsidesættelse af dets processuelle bestemmelser, tilkommer det medlemsstaterne inden for rammerne af deres kompetence at træffe alle de almindelige eller særlige foranstaltninger, der er nødvendige for, at alle planer og programmer, som kan have væsentlig indvirkning på miljøet i dette direktivs forstand, underkastes en miljøvurdering i overensstemmelse med fremgangsmåden og kriterierne i direktivet, inden deres vedtagelse.
+31
+I nævnte doms præmis 43 bemærkede Domstolen, at det følger af Domstolens faste praksis, at medlemsstaterne skal bringe ulovlige følgevirkninger af en tilsidesættelse af EU-retten til ophør, og at en sådan forpligtelse påhviler enhver myndighed i den pågældende medlemsstat inden for rammerne af dens kompetence.
+32
+Det fremgår desuden af præmis 44-46 i samme dom, at forpligtelsen til at råde bod på, at der ikke er blevet foretaget en miljøvurdering som krævet i direktiv 2001/42, herunder til eventuelt at suspendere eller annullere den akt, der er behæftet med en sådan fejl, ligeledes påhviler de nationale retsinstanser, for hvem der er indbragt en sag til prøvelse af en sådan national retsregel, vedtaget i strid med direktivet. Følgelig skal de nævnte nationale retsinstanser træffe foranstaltninger på grundlag af national ret med henblik på suspension eller annullation af en plan eller et program, der er vedtaget i strid med forpligtelsen til at foretage den miljøvurdering, der er påkrævet i henhold til nævnte direktiv.
+33
+For så vidt angår den forelæggende rets tvivl med hensyn til de eventuelle skadelige virkninger for miljøet af annullation af de nationale retsregler, hvorom det er blevet fastslået, at de er uforenelige med EU-retten, følger det af præmis 66 og 67 i dom af 8. september 2010, Winner Wetten (
+C-409/06
+,
+EU:C:2010:503
+), at det kun er Domstolen, der undtagelsesvis og af tvingende retssikkerhedsmæssige hensyn kan træffe bestemmelse om en midlertidig suspension af den fortrængende virkning, som en direkte anvendelig EU-bestemmelse har i forhold til national ret, der er i strid hermed. Hvis nationale retsinstanser havde beføjelse til at give nationale bestemmelser forrang for EU-retten, der er til hinder for sådanne bestemmelser, også selv om det blot er midlertidigt, ville det nemlig være til skade for den ensartede anvendelse af EU-retten.
+34
+På dette grundlag og med hensyn til det berørte område har Domstolen i præmis 58 i dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), fastslået, at en national ret i betragtning af, at der foreligger et tvingende hensyn til miljøbeskyttelsen, og for så vidt som et vist antal betingelser, der er nærmere opregnet i den dom, er opfyldt, undtagelsesvis kan gøre brug af den nationale bestemmelse, der giver den mulighed for at opretholde virkningerne af en annulleret national retsakt. Det følger således af nævnte dom, at Domstolen har haft til hensigt, i det enkelte tilfælde og undtagelsesvis, at give en national ret mulighed for at tilpasse virkningerne af, at en national bestemmelse, der er fastslået at være uforenelig med EU-retten, annulleres.
+35
+Som det således fremgår af artikel 3, stk. 3, TEU og artikel 191, stk. 1 og 2, TEUF, arbejder Unionen for et højt niveau for beskyttelse og forbedring af miljøkvaliteten.
+36
+Ud fra denne synsvinkel har Domstolen i sin dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), søgt at forene legalitetsprincippet og princippet om EU-rettens forrang på den ene side, og kravet om miljøbeskyttelse, der følger af disse bestemmelser i den primære EU-ret, på den anden side.
+37
+Derfor har Domstolen, således som det fremgår af denne doms præmis 34, i den nævnte doms præmis 58 underlagt muligheden for undtagelsesvis at opretholde visse virkninger af en national retsakt, der er uforenelig med EU-retten, en række betingelser.
+38
+Disse betingelser blev opregnet i domskonklusionen i dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+). For det første skal den anfægtede nationale retsakt udgøre en foranstaltning til korrekt gennemførelse af Rådets direktiv 91/676/EØF af 12. december 1991 om beskyttelse af vand mod forurening forårsaget af nitrater, der stammer fra landbruget (
+EFT 1991, L 375, s. 1
+). For det andet skal vedtagelsen og ikrafttrædelsen af den nye nationale retsakt ikke gøre det muligt at undgå skadelige virkninger på miljøet, som følger af annullationen af den anfægtede retsakt. For det tredje skal annullationen af den pågældende retsakt medføre, at der skabes et retligt tomrum, for så vidt angår gennemførelsen af direktiv 91/676, som ville være mere skadeligt for miljøet. Endelig for det fjerde skal en undtagelsesvis opretholdelse af virkningerne af en sådan retsakt alene omfatte en tidsperiode, som er begrænset til det strengt nødvendige til vedtagelse af foranstaltninger, der kan afhjælpe den konstaterede uregelmæssighed.
+39
+For så vidt angår den første betingelse fastslog Domstolen ganske vist i præmis 59 i dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), henset til de særlige omstændigheder i den sag, der lå til grund for den dom, at den retsakt, der var omhandlet i den sag, skulle udgøre en foranstaltning til korrekt gennemførelse af direktiv 91/676, men det skal bemærkes – henset til, at der foreligger et tvingende hensyn til miljøbeskyttelsen, hvilket Domstolen anerkendte i den nævnte doms præmis 58 – at denne betingelse skal anses for at omfatte enhver foranstaltning, der, selv om den er vedtaget i strid med forpligtelserne i direktiv 2001/42, udgør den korrekte gennemførelse af EU-retten på miljøbeskyttelsesområdet.
+40
+Under alle omstændigheder kan den mulighed, der er indrømmet den nationale retsinstans, der har karakter af en undtagelse, kun anvendes i hvert enkelt tilfælde og ikke på abstrakt eller generel måde. Som Domstolen således allerede har fastslået, skal denne mulighed udøves under hensyn til de særlige omstændigheder i den sag, der er indbragt for den (jf. i denne retning dom af 28.2.2012, Inter-Environnement Wallonie og Terre wallonne,
+C-41/11
+,
+EU:C:2012:103
+, præmis
+63
+).
+41
+Den nationale retsinstans skal således tage stilling til, om alle de betingelser, der fremgår af dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), er opfyldt, og afgøre, om annullationen af den nationale foranstaltning, der er genstand for den sag, der verserer for den, vil kunne have negative følgevirkninger for miljøet, hvilket vil bringe de mål, der forfølges af EU-retten på området, i fare.
+42
+I denne sammenhæng skal den nationale retsinstans foretage en vurdering, der tager højde for navnlig formålet med og indholdet af den foranstaltning, der er genstand for den sag, samt dens virkninger i forhold til andre bestemmelser om miljøbeskyttelse.
+43
+Det følger af ovenstående betragtninger, at det andet spørgsmål skal besvares med, at en national ret, når dette er muligt i henhold til de nationale retsregler, undtagelsesvis og i hvert enkelt tilfælde ratione temporis kan begrænse visse virkninger af en afgørelse om, at en bestemmelse i national ret, der blevet vedtaget under tilsidesættelse af de forpligtelser, der er fastsat i direktiv 2001/42, navnlig de forpligtelser, der følger af artikel 6, stk. 3, heri, er ulovlig, på betingelse af, at en sådan begrænsning er nødvendig, idet der foreligger et tvingende hensyn til miljøbeskyttelsen, og henset til de særlige omstændigheder i den sag, der er indbragt for den. Denne mulighed, der har karakter af en undtagelse, kan imidlertid kun benyttes, hvis alle de betingelser, der fremgår af dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), er opfyldt, dvs. at:
+—
+den anfægtede nationale bestemmelse udgør en foranstaltning til korrekt gennemførelse af EU-retten på miljøbeskyttelsesområdet
+—
+vedtagelsen og ikrafttrædelsen af en ny national bestemmelse ikke gør det muligt at undgå de skadelige virkninger på miljøet, som følger af annullationen af den anfægtede nationale bestemmelse
+—
+annullationen af denne sidstnævnte medfører, at der skabes et retligt tomrum for så vidt angår gennemførelsen af EU-retten på miljøområdet, som ville være mere skadelig for miljøet i den forstand, at annullationen ville betyde ringere beskyttelse og således ville modvirke selve EU-rettens væsentligste formål, og
+—
+en undtagelsesvis opretholdelse af virkningerne af en sådan bestemmelse alene omfatter en tidsperiode, som er begrænset til det strengt nødvendige til vedtagelse af foranstaltninger, der kan afhjælpe den konstaterede uregelmæssighed.
+Det første spørgsmål
+44
+Med sit første spørgsmål ønsker den forelæggende ret oplyst, om en national ret, inden den gør brug af den mulighed, der giver den adgang til på betingelser svarende til dem, der fremgår af dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), undtagelsesvis at opretholde visse virkninger af en national retsakt, der er uforenelig med EU-retten, under alle omstændigheder skal forelægge Domstolen en anmodning om præjudiciel afgørelse.
+45
+I denne henseende skal det bemærkes, at artikel 267 TEUF giver nationale retter, hvis afgørelser ifølge de nationale retsregler kan appelleres, mulighed for at forelægge Domstolen en anmodning om præjudiciel afgørelse.
+46
+Det tilkommer udelukkende den nationale retsinstans, for hvem en tvist er indbragt, og som har ansvaret for den retsafgørelse, der skal træffes, på grundlag af omstændighederne i den konkrete sag at vurdere, såvel om en præjudiciel afgørelse er nødvendig for, at den kan afsige dom, som relevansen af de spørgsmål, den forelægger Domstolen (dom af 9.9.2015, X og van Dijk,
+C-72/14 og C-197/14
+,
+EU:C:2015:564
+, præmis
+57
+).
+47
+Hvis en national ret, hvis afgørelser ikke kan appelleres, derimod finder, at det er nødvendigt at tage stilling til et EU-retligt spørgsmål for at træffe en afgørelse i en for den verserende sag, er den ifølge artikel 267, stk. 3, TEUF forpligtet til at forelægge Domstolen en anmodning om præjudiciel afgørelse.
+48
+Domstolen fastslog i denne henseende i præmis 16 i dom af 6. oktober 1982, Cilfit m.fl. (
+283/81
+,
+EU:C:1982:335
+), at den korrekte anvendelse af EU-retten kan fremgå med en sådan klarhed, at der ikke foreligger nogen rimelig tvivl om afgørelsen af det rejste spørgsmål. Inden den nationale ret, der træffer afgørelse i sidste instans, konkluderer, at dette er tilfældet, må den være overbevist om, at hverken de øvrige medlemsstaters retter eller Domstolen vil være i tvivl om afgørelsen. Kun når disse betingelser er opfyldt, kan den nationale ret undlade at forelægge spørgsmålet for Domstolen og således selvstændigt træffe afgørelsen.
+49
+Det er desuden i forhold til EU-rettens særegenheder og særlige vanskeligheder, som fortolkningen heraf frembyder, at den nationale ret skal vurdere, i hvilket omfang den ikke har pligt til at forelægge Domstolen en præjudiciel anmodning. De enkelte EU-retlige regler, herunder Domstolens praksis på det pågældende område, skal vurderes i deres rette sammenhæng og fortolkes i lyset af EU-rettens bestemmelser som helhed, den bagvedliggende målsætning og EU-rettens udviklingstrin på tidspunktet for den pågældende bestemmelses anvendelse (jf. i denne retning dom af 6.10.1982, Cilfit m.fl.,
+283/81
+,
+EU:C:1982:335
+, præmis
+17
+og
+20
+).
+50
+Domstolen fastslog således i præmis 21 i dom af 6. oktober 1982, Cilfit m.fl. (
+283/81
+,
+EU:C:1982:335
+), at hvis der er rejst et EU-retligt spørgsmål for en retsinstans, hvis afgørelser ifølge de nationale retsregler ikke kan appelleres, er retten pligtig at indbringe sagen for Domstolen, med mindre retten har fastslået, at EU-rettens korrekte anvendelse fremgår med en sådan klarhed, at der ikke er plads for fortolkningstvivl, og at en sådan mulighed skal vurderes i forhold til dels EU-rettens særegenheder, dels de særlige vanskeligheder fortolkningen heraf frembyder, samt risikoen for afvigende retspraksis inden for Unionen.
+51
+For så vidt angår en sag som den i hovedsagen omhandlede bemærkes, at når spørgsmålet om muligheden for en national ret for ratione temporis at begrænse visse virkninger af en afgørelse, hvorved det fastslås, at en bestemmelse i de nationale retsregler, der er blevet vedtaget under tilsidesættelse af de forpligtelser, der følger af direktiv 2001/42, herunder navnlig de forpligtelser, der følger af artikel 6, stk. 3, heri, er ulovlig, for det første ikke har været behandlet af Domstolen siden dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), og at en sådan mulighed for det andet har karakter af en undtagelse, således som det fremgår af besvarelsen af det andet spørgsmål, skal en national ret, hvis afgørelser ikke kan appelleres, forelægge Domstolen en præjudiciel anmodning, når den nærer den mindste tvivl med hensyn til den korrekte fortolkning eller anvendelse af EU-retten.
+52
+Nærmere bestemt bemærkes, at eftersom udøvelsen af denne mulighed, der har karakter af en undtagelse, kan påvirke overholdelsen af EU-rettens forrang, kan den nationale ret kun undtages fra pligten til at forelægge Domstolen en præjudiciel afgørelse, for så vidt som retten er overbevist om, at udøvelsen af denne mulighed, der har karakter af en undtagelse, ikke giver anledning til nogen rimelig tvivl. Der skal desuden redegøres for fraværet af en sådan tvivl på detaljeret vis.
+53
+Det første spørgsmål skal således besvares med, at på EU-rettens udviklingstrin har en national ret, hvis afgørelser ikke kan appelleres, principielt pligt til at forelægge Domstolen en anmodning om præjudiciel afgørelse, for at denne kan vurdere, om bestemmelser i de nationale retsregler, der er fastslået at være i strid med EU-retten, undtagelsesvis kan opretholdes, når henses til et tvingende hensyn til miljøbeskyttelsen og til de særlige omstændigheder i den sag, der er indbragt for den. Den nævnte nationale ret er kun undtaget fra denne pligt, når den er overvist om, hvilket den skal redegøre for på detaljeret vis, at der ikke er nogen rimelig tvivl med hensyn til fortolkningen og anvendelsen af de betingelser, der fremgår af dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+).
+Sagens omkostninger
+54
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagens omkostninger. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Første Afdeling) for ret:
+1)
+En national ret kan, når dette er muligt i henhold til de nationale retsregler, undtagelsesvis og i hvert enkelt tilfælde ratione temporis begrænse visse virkninger af en afgørelse om, at en bestemmelse i national ret, der blevet vedtaget under tilsidesættelse af de forpligtelser, der er fastsat i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet, navnlig de forpligtelser, der følger af artikel 6, stk. 3, heri, er ulovlig, på betingelse af, at en sådan begrænsning er nødvendig, idet der foreligger et tvingende hensyn til miljøbeskyttelsen, og henset til de særlige omstændigheder i den sag, der er indbragt for den. Denne mulighed, der har karakter af en undtagelse, kan imidlertid kun benyttes, hvis alle de betingelser, der fremgår af dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+), er opfyldt, dvs. at:
+—
+den anfægtede nationale bestemmelse udgør en foranstaltning til korrekt gennemførelse af EU-retten på miljøbeskyttelsesområdet
+—
+vedtagelsen og ikrafttrædelsen af en ny national bestemmelse ikke gør det muligt at undgå de skadelige virkninger på miljøet, som følger af annullationen af den anfægtede nationale bestemmelse
+—
+annullationen af denne sidstnævnte medfører, at der skabes et retligt tomrum for så vidt angår gennemførelsen af EU-retten på miljøområdet, som ville være mere skadelig for miljøet i den forstand, at annullationen ville betyde ringere beskyttelse og således ville modvirke selve EU-rettens væsentligste formål, og
+—
+en undtagelsesvis opretholdelse af virkningerne af en sådan bestemmelse alene omfatter en tidsperiode, som er begrænset til det strengt nødvendige til vedtagelse af foranstaltninger, der kan afhjælpe den konstaterede uregelmæssighed.
+2)
+På EU-rettens udviklingstrin har en national ret, hvis afgørelser ikke kan appelleres, principielt pligt til at forelægge Domstolen en anmodning om præjudiciel afgørelse, for at denne kan vurdere, om bestemmelser i de nationale retsregler, der er fastslået at være i strid med EU-retten, undtagelsesvis kan opretholdes, når henses til et tvingende hensyn til miljøbeskyttelsen og til de særlige omstændigheder i den sag, der er indbragt for den. Den nævnte nationale ret er kun undtaget fra denne pligt, når den er overvist om, hvilket den skal redegøre for på detaljeret vis, at der ikke er nogen rimelig tvivl med hensyn til fortolkningen og anvendelsen af de betingelser, der fremgår af dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne (
+C-41/11
+,
+EU:C:2012:103
+).
+Underskrifter
+(
+*1
+) – Processprog: fransk.

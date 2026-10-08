@@ -92,10 +92,18 @@ def _eu_stykker() -> list[Stykke]:
     ud = []
     for d in json.loads(p.read_text(encoding="utf-8")):
         tekst = (EU_DIR / d["fil"]).read_text(encoding="utf-8")
-        # Præmisserne er nummererede linjer: "45\nTekst" eller "45 Tekst"
-        for m in re.finditer(r"(?ms)^(\d{1,3})\n(.{80,}?)(?=^\d{1,3}\n|\Z)", tekst):
-            ud.append(Stykke(d["sag"], f"EU-Domstolens dom i sag {d['sag']}, præmis {m.group(1)}",
-                             d["url"], m.group(2).strip()[:2500], "eu"))
+        # Præmisserne er linjer med et nummer alene. Tal midt i en sætning (fx "stk.\n1, litra d)")
+        # ligner også præmisnumre, så kun fortløbende numre, der efterfølges af stort bogstav, tælles.
+        starter, næste = [], 1
+        for m in re.finditer(r"(?m)^(\d{1,3})\n(?=[A-ZÆØÅ»\"(])", tekst):
+            n = int(m.group(1))
+            if næste <= n <= næste + 4:
+                starter.append((n, m.start(), m.end()))
+                næste = n + 1
+        for j, (n, s0, e0) in enumerate(starter):
+            slut = starter[j + 1][1] if j + 1 < len(starter) else len(tekst)
+            ud.append(Stykke(d["sag"], f"EU-Domstolens dom i sag {d['sag']}, præmis {n}",
+                             d["url"], tekst[e0:slut].strip()[:2500], "eu"))
         if not any(s.kilde == d["sag"] for s in ud):
             for j in range(0, len(tekst), 1500):
                 ud.append(Stykke(d["sag"], f"EU-Domstolens dom i sag {d['sag']}", d["url"], tekst[j:j + 1500], "eu"))

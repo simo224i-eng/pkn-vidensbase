@@ -1,0 +1,313 @@
+62017CJ0160
+DOMSTOLENS DOM (Anden Afdeling)
+7. juni 2018 (
+*1
+)
+»Præjudiciel forelæggelse – miljø – direktiv 2001/42/EF – artikel 2, litra a) – begrebet »planer og programmer« – artikel 3 – vurdering af bestemte planers og programmers indvirkning på miljøet – byplanlægningsperimeter – mulighed for at fravige byplanlægningskrav – ændring af »planer og programmer««
+I sag C-160/17,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Conseil d’État (appeldomstol i forvaltningsretlige sager, Belgien) ved afgørelse af 2. februar 2015, indgået til Domstolen den 1. marts 2017, i sagen
+Raoul Thybaut,
+Johnny De Coster,
+Frédéric Romain
+mod
+Région wallone
+procesdeltagere:
+Commune d’Orp-Jauche,
+Bodymat SA,
+har
+DOMSTOLEN (Anden Afdeling),
+sammensat af afdelingsformanden, M. Ilešič, og dommerne A. Rosas, C. Toader (refererende dommer), A. Prechal og E. Jarašiūnas,
+generaladvokat: J. Kokott,
+justitssekretær: fuldmægtig V. Giacobbo-Peyronnel,
+på grundlag af den skriftlige forhandling og efter retsmødet den 30. november 2017,
+efter at der er afgivet indlæg af:
+–
+Raoul Thybaut ved avocats B. Cambier, F. Hans og J. Sambon,
+–
+Johnny De Coster og Frédéric Romain ved avocats B. Cambier og F. Hans,
+–
+Bodymat SA ved avocats F. Evrard, M. Scholasse og F. Haumont,
+–
+den belgiske regering ved M. Jacobs, L. Van den Broeck og J. Van Holm, som befuldmægtigede, bistået af avocate B. Hendrickx,
+–
+den danske regering ved J. Nymann-Lindegren, som befuldmægtiget,
+–
+Europa-Kommissionen ved C. Hermes, F. Thiran og C. Zadra, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 25. januar 2018,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 2, litra a), i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (
+EFT 2001, L 197, s. 30
+, herefter »SMV-direktivet«).
+2
+Denne anmodning er blevet indgivet i forbindelse med en sag mellem på den ene side Raoul Thybaut, Johnny De Coster og Frédéric Romain og på den anden side Région wallone (regionen Vallonien, herefter »regionen Vallonien«) vedrørende gyldigheden af en bekendtgørelse af 3. maj 2012 udstedt af regeringen i denne region om fastlæggelse af et byplanlægningsperimeter for et område i kommunen Orp-Jauche (Belgien) (
+Moniteur belge
+af 22.5.2012, s. 29488, herefter »den anfægtede bekendtgørelse«).
+Retsforskrifter
+EU-retten
+3
+Følgende anføres i fjerde betragtning til SMV-direktivet:
+»Miljøvurdering er et vigtigt værktøj til integrering af miljøhensyn i udarbejdelsen og vedtagelsen af visse planer og programmer, som kan få væsentlig indvirkning på miljøet i medlemsstaterne, fordi det herved sikres, at der tages hensyn til en sådan indvirkning af gennemførelsen af planer og programmer under deres udarbejdelse, og inden de vedtages.«
+4
+Direktivets artikel 1 med overskriften »Formål« bestemmer:
+»Formålet med dette direktiv er at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet.«
+5
+Det nævnte direktivs artikel 2 er affattet således:
+»I dette direktiv forstås ved:
+a)
+»planer og programmer«: planer og programmer, herunder sådanne, der medfinansieres af [Den Europæiske Union], samt ændringer deri
+–
+som udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller som udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, og
+–
+som kræves ifølge love og administrative bestemmelser
+b)
+»miljøvurdering«: udarbejdelse af en miljørapport, gennemførelse af høringer, hensyntagen til miljørapporten og til resultaterne af høringerne ved beslutningstagning samt underretning om afgørelsen i overensstemmelse med artikel 4-9
+[…]«
+6
+Artikel 3 i SMV-direktivet med overskriften »Anvendelsesområde« har følgende ordlyd:
+»1. Der skal for de i stk. 2-4 omhandlede planer og programmer, som kan få væsentlig indvirkning på miljøet, gennemføres en miljøvurdering, som skal være i overensstemmelse med dette direktivs artikel 4-9.
+2. Med forbehold af stk. 3 gennemføres der en miljøvurdering for alle planer og programmer:
+a)
+som udarbejdes inden for landbrug, skovbrug, fiskeri, energi, industri, transport, affaldshåndtering, vandforvaltning, telekommunikation, turisme, fysisk planlægning og arealanvendelse, og som fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er omhandlet i bilag I og II til [Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (
+EUT 2012, L 26, s. 1
+)] […]
+3. For planer og programmer som omhandlet i stk. 2, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet.
+[…]«
+7
+Artikel 5 i SMV-direktivet med overskriften »Miljørapport« præciserer i stk. 3:
+»Relevante oplysninger, som foreligger om planernes eller programmernes indvirkning på miljøet, og som er indhentet på andre trin af beslutningsforløbet eller i forbindelse med anden fællesskabslovgivning, kan benyttes med henblik på at give de oplysninger, der er nævnt i bilag I.«
+8
+Det nævnte direktivs artikel 6 med overskriften »Høringer« bestemmer:
+»1. Udkastet til planen eller programmet og den miljørapport, som er udarbejdet i overensstemmelse med artikel 5, stilles til rådighed for de myndigheder, der er omhandlet i stk. 3 i nærværende artikel, og for offentligheden.
+2. De i stk. 3 omhandlede myndigheder og den i stk. 4 omhandlede offentlighed skal tidligt have konkret lejlighed til inden for en passende frist at udtale sig om udkastet til planen eller programmet og den ledsagende miljørapport, inden planen eller programmet vedtages, eller lovgivningsproceduren indledes.
+3. Medlemsstaterne udpeger de myndigheder, som skal høres, og som på grund af deres specifikke miljøansvar kan blive berørt af indvirkningen på miljøet af planers eller programmers gennemførelse.
+4. Medlemsstaterne identificerer offentligheden med henblik på stk. 2, herunder de dele af offentligheden, som berøres eller forventes at blive berørt af, eller som har interesse i den beslutningstagning, der er omfattet af dette direktiv, herunder relevante ikke-statslige organisationer, f.eks. sådanne, der fremmer miljøbeskyttelse, og andre berørte organisationer.
+5. De nærmere ordninger for underretning og høring af myndighederne og offentligheden fastlægges af medlemsstaterne.«
+9
+Artikel 11 i SMV-direktivet med overskriften »Forbindelser med anden fællesskabslovgivning« bestemmer i stk. 1:
+»En miljøvurdering, der gennemføres efter dette direktiv, berører ikke kravene efter direktiv [85/337] eller andre krav efter fællesskabsretten.«
+10
+I henhold til artikel 4, stk. 2, i direktiv 2011/92 (herefter »VVM-direktivet«) skal medlemsstaterne afgøre, om de projekter, der er opført i bilag II til dette direktiv, skal vurderes i henhold til det nævnte direktivs artikel 5-10. Blandt de projekter, der henhører under punkt 10 i dette bilag med overskriften »Infrastrukturprojekter«, indgår i litra b) »[a]nlægsarbejder i byzoner, herunder opførelse af butikscentre og parkeringsanlæg«.
+Belgisk ret
+11
+Artikel 1 i code wallon de l’aménagement du territoire, de l’urbanisme, du patrimoine et de l’énergie (den vallonske lov om fysisk planlægning, bebyggelse, offentlig ejendom og energi) i den udgave, der var gældende på tidspunktet for de i hovedsagen omhandlede omstændigheder (herefter »den vallonske lov«), bestemmer i stk. 3:»Fysisk planlægning og bebyggelse fastlægges ved følgende planer og forordninger:
+1°
+sektorplaner
+2°
+kommunale arealanvendelsesplaner
+3°
+regionale byplanlægningsforordninger
+4°
+kommunale byplanlægningsforordninger.«
+12
+Den vallonske lovs artikel 127 præciserer:
+»§ 1. […] [byplanlægnings]tilladelser [udstedes] af regeringen eller af en befuldmægtiget tjenestemand:
+[…]
+8°
+når den vedrører handlinger og arbejder, der befinder sig inden for et byplanlægningsperimeter; perimetret fastsættes af regeringen efter initiativ eller forslag fra byrådet eller en befuldmægtiget tjenestemand; bortset fra når byrådet fremlægger forslag til perimetret, afgiver dette sin udtalelse inden for en frist på 45 dage regnet fra den befuldmægtigede tjenestemands anmodning; i modsat fald anses udtalelsen for at være positiv; når udtalelsen er negativ, indstilles proceduren; perimetret vedrører alle byplanlægningsprojekter vedrørende ændring og udvikling af bymæssige funktioner, som kræver opførelse, ændring, udvidelse og nedlæggelse af veje eller overbygninger over veje på jord og offentlige områder; forslaget til perimeter og vurderingen af indvirkningen af forslaget til byplanlægning skal først undergives særlige offentlighedsforanstaltninger og høring af det kommunale udvalg, hvis et sådant eksisterer, efter de nærmere bestemmelser i artikel 4; kommunalbestyrelsen afgiver sin udtalelse inden for 70 dage regnet fra modtagelsen af anmodningen fra den befuldmægtigede tjenestemand; i modsat fald anses udtalelsen for at være positiv; efter gennemførelsen af projektet eller efter forslag fra byrådet eller den befuldmægtigede tjenestemand ophæver eller ændrer regeringen perimetret; en bekendtgørelse, der fastsætter, ændrer eller ophæver perimetret, offentliggøres i
+Moniteur belge
+[…]
+§ 3. For så vidt som anmodningen forudgående underlægges de særlige offentlighedsforanstaltninger, der fastsættes af regeringen, og den obligatoriske høring, der er omhandlet i artikel 4, afsnit 1, punkt 3, kan tilladelsen, når der er tale om handlinger og arbejder som omhandlet i § 1, afsnit 1, punkt 1, 2, 4, 5, 7 og 8, som enten overholder, strukturerer eller genskaber landskabets hovedlinjer, udstedes ved fravigelse af sektorplanen, en kommunal arealanvendelsesplan, en kommunal byplanlægningsforordning eller en linjeføringsplan.«
+13
+Den vallonske lovs artikel 181, første og fjerde afsnit, bestemmer:
+»Regeringen kan i offentlighedens interesse fastslå ekspropriation af faste ejendomme beliggende:
+[…]
+5°
+i et byplanlægningsperimeter
+[…]
+I et byplanlægningsperimeter kan artikel 58, afsnit 3-6, finde anvendelse, selv om der ikke foreligger en kommunal arealanvendelsesplan.«
+14
+Denne lovs artikel 58, tredje til sjette afsnit, præciserer:
+»En eksproprierende myndighed kan være følgende: regionen, provinserne, kommunerne, de selvstændige kommunale forvaltninger, de tværkommunale enheder, der har arealplanlægning eller boliger som formål, og offentlige institutioner og organer, der ved lov eller dekret er bemyndiget til at ekspropriere i offentlighedens interesse.
+Når den planlagte ekspropriering har til formål at gennemføre den fysiske planlægning af en del af det areal, der skal anvendes til udstykningstilladelser eller byggetilladelser med henblik på opførelse af bygninger til boliger eller erhverv, har den ejer eller de ejere, der arealmæssigt er i besiddelse af mere end halvdelen af jordlodderne på dette areal, ret til inden for den frist og de betingelser, som den eksproprierende myndighed har fastsat, og for så vidt som denne/de godtgør at have tilstrækkelige ressourcer, at anmode om at få overdraget ansvaret for gennemførelsen af de arbejder, der skal udføres i henhold til planlægningen, samt nyudstykningen og jordfordelingen.
+Denne anmodning skal indgives inden udløbet af en præklusionsfrist på tre måneder fra offentliggørelsen i
+Moniteur belge
+af regeringens bekendtgørelse om godkendelse af eksproprieringsplanen.
+Når eksproprieringen har til formål at organisere planlægningen af en del af det areal, som anvendes til et bestemt formål i henhold til artikel 49, afsnit 1, punkt 2, kan ejeren/ejerne under de ovenfor fastsatte betingelser anmode om at få overdraget ansvaret for gennemførelsen af planlægningsarbejderne.«
+Tvisten i hovedsagen og det præjudicielle spørgsmål
+15
+Den 27. april 2009 vedtog ministre wallon du Logement, des Transports et du Développement territorial (den vallonske minister for boliger, transport og territorial udvikling, Belgien) ved bekendtgørelse et byplanlægningsperimeter (herefter »BPP’et«) vedrørende Orp-le-Petit, der er en lokalitet i kommunen Orp-Jauche (Belgien). Der blev anlagt tre søgsmål med henblik på prøvelse af denne bekendtgørelse ved Conseil d’État (appeldomstol i forvaltningsretlige sager, Belgien), der annullerede den ved dom af 3. juni 2010.
+16
+Efter denne annullation indgav Bodymat ansøgning om et nyt projekt i det omhandlede område med et BPP på 40000 m
+2
+. Dette selskab foreslog, at de tidligere industribygninger i centrum af Orp-le-Petit blev ombygget til et byggemarked, et supermarked og andre små supplerende forretninger, og at denne gruppe af forretninger blev suppleret af »tilknyttede boliger« og af nye veje, der forbindes med det eksisterende vejnet, og en parkeringsplads.
+17
+Det fremgår af den anfægtede bekendtgørelse, at dette forslag til BPP var ledsaget af en vurdering af indvirkningen på miljøet, der var foretaget på grundlag af en undersøgelse af indvirkningerne foretaget af et kontor for undersøgelse og rådgivning på miljøområdet.
+18
+Efter drøftelser den 22. december 2010 vedtog byrådet i Orp-Jauche BPP’et for Orp-le-Petit-centret og overdrog hele sagen herom til den befuldmægtigede tjenestemand (Belgien) med henblik på fortsættelse af gennemførelsesproceduren i overensstemmelse med den vallonske lovs artikel 127, stk. 1, første afsnit, punkt 8.
+19
+Den befuldmægtigede tjenestemand foreslog ved udtalelse af 6. juni 2011 godkendelse af BPP’et.
+20
+Den 3. maj 2012 godkendte den vallonske regering (Belgien) det omhandlede BPP ved den anfægtede bekendtgørelse.
+21
+Sagsøgerne i hovedsagen, der er borgere med bopæl i det af BPP’et berørte område, har anlagt et søgsmål ved Conseil d’État og nedlagt påstand om annullation af den anfægtede bekendtgørelse. De er af den opfattelse, at den undersøgelse af indvirkningen på miljøet, der er gennemført i det foreliggende tilfælde, ikke opfylder kravene i SMV-direktivet, idet den er ufuldstændig, fejlagtig og ulovlig. De har anført, at et BPP henhører under begrebet »planer og programmer« som omhandlet i dette direktiv, og at det nævnte direktiv er blevet gennemført ukorrekt i belgisk ret.
+22
+Heroverfor har Bodymat, som er intervenient i hovedsagen, gjort gældende, at et BPP alene har til formål at fastsætte et perimeter, og at den ikke indgår blandt de instrumenter, der skal gøres til genstand for en vurdering af indvirkningen på miljøet som fastsat i SMV-direktivet.
+23
+Den forelæggende ret er af den opfattelse, at undersøgelsen af, om der er grundlag for søgsmålet i hovedsagen, kræver en forudgående fastlæggelse af arten og rækkevidden af et BPP.
+24
+Den forelæggende ret har fremhævet, at et BPP’s eneste funktion er at fastsætte et perimeter, dvs. omkredsen, af et geografisk område, hvori der kan opføres et »byplanlægningsprojekt om ændring og udvikling af bymæssige funktioner, som kræver opførelse, ændring, udvidelse og nedlæggelse af veje eller overbygninger over veje på jord og offentlige områder«.
+25
+Den forelæggende ret har ligeledes anført, at et BPP er forskelligt fra et byplanlægningsprojekt, selv om sidstnævnte udgør en betingelse for vedtagelsen af BPP’et. På denne måde kan et byplanlægningsprojekt efter vedtagelsen af et BPP ændres eller tilpasses, men vil fortsat behøve en vurdering af indvirkningen på miljøet i overensstemmelse med retsforskrifterne herom på området.
+26
+Efter disse oplysninger har den forelæggende ret anført de retlige konsekvenser af vedtagelsen af et BPP. For det første ændres den myndighed, der har kompetence til at udstede byplanlægningstilladelser. For det andet fastsætter artikel 127, stk. 3, i den vallonske lov, at de tilladelser, der udstedes for det således afgrænsede geografisk område, kan fravige sektorplanen, den kommunale arealanvendelsesplan, en kommunal byplanlægningsforordning og en linjeføringsplan. For det tredje kan regeringen i offentlighedens interesse træffe afgørelse om ekspropriation af fast ejendom beliggende inden for et BPP i henhold til de nærmere bestemmelser, der er fastsat i den vallonske lov.
+27
+Den forelæggende ret har oplyst, at de skadelige virkninger, som sagsøgerne i hovedsagen frygter vil indtræde, alene kan indtræde ved gennemførelse af byplanlægningsprojektet. Den anfægtede bekendtgørelse giver ikke direkte tilladelse til dette projekt, idet dette skal have forskellige tilladelser, i hvilken forbindelse der skal gennemføres en vurdering af indvirkningen. Den forelæggende ret har imidlertid anført, at den anfægtede bekendtgørelse er en nødvendig forudsætning for gennemførelsen af det nævnte projekt. På grund af vedtagelsen af BPP’et kan de tilladelser vedrørende byplanlægningsprojektet, der understøtter dette, udstedes i henhold til en procedure, der er særligt fastsat i den vallonske lov.
+28
+Ifølge den forelæggende ret har vedtagelsen af et BPP således den virkning, at ændre det juridiske system, idet dette tillader planlægning af et kvarter i henhold til en særlig procedure, der kan forårsage problemer for personer som sagsøgerne i hovedsagen.
+29
+Den forelæggende ret er samtidig af andre grunde i tvivl om, hvorvidt den vallonske lovs artikel 127, stk. 1, punkt 8, er forenelig med såvel den belgiske forfatning som EU-retten.
+30
+På denne baggrund har den forelæggende ret besluttet at udsætte sagen og i samme forbindelse truffet afgørelse om at forelægge et spørgsmål for henholdsvis Cour constitutionnelle (forfatningsdomstol, Belgien) og Domstolen om, hvorvidt den i hovedsagen omhandlede lovgivning tilsidesætter den belgiske forfatning, og hvorvidt BPP’et udgør en plan eller et program som omhandlet i SMV-direktivet, hvorved den forelæggende ret har præciseret, at spørgsmålet til Domstolen først reelt forelægges denne, såfremt forfatningsdomstolen bekræfter, at den belgiske forfatning ikke er blevet tilsidesat.
+31
+Ved dom af 16. juni 2016 traf Cour constitutionnelle (forfatningsdomstol, Belgien) afgørelse om, at den vallonske lovs artikel 127, stk. 1, første afsnit, punkt 8, artikel 127, stk. 3, artikel 181, første afsnit, punkt 5, og artikel 181, fjerde afsnit, ikke tilsidesætter den belgiske forfatning med forbehold for, at »de ved artikel 127, § 3, tilladte fravigelsesbestemmelser [fortolkes] indskrænkende, og at anvendelsen af disse begrundes behørigt – endog selv om den udstedende lovgiver ikke i den omhandlede bestemmelse for så vidt angår de tilladelser, der udstedes i henhold til et BPP, har angivet, at disse fravigelser alene kan foretages undtagelsesvis«.
+32
+Efter afsigelsen af denne dom har Conseil d’État (appeldomstol i forvaltningsretlige sager) forelagt Domstolen det præjudicielle spørgsmål, som skulle rettes til denne.
+33
+Det præjudicielle spørgsmål, der forelægges for Domstolen, har følgende ordlyd:
+»Skal artikel 2, litra a), i [SMV-direktivet] fortolkes således, at begrebet »planer eller programmer« omfatter et perimeter, der er fastsat i en lovbestemmelse og vedtaget af en regional myndighed:
+–
+som alene har til formål at fastsætte omkredsen af en geografisk zone, hvori der kan gennemføres et byplanlægningsprojekt, idet det forudsættes, at dette projekt, som skal forfølge et bestemt formål – i det foreliggende tilfælde vedrøre ændring og udvikling af bymæssige funktioner, og som kræver opførelse, ændring, udvidelse og nedlæggelse af veje eller overbygninger over veje på jord eller offentlige områder – danner grundlag for vedtagelsen af perimetret, som således medfører accept af princippet for projektet, men at projektet endvidere skal være genstand for en tilladelse, som kræver en vurdering af indvirkningerne, og
+–
+som processuelt set bevirker, at ansøgninger om tilladelse til handlinger eller arbejder inden for dette perimeter er omfattet af en fravigelsesprocedure, idet de bymæssige krav, der fandt anvendelse på de pågældende jorder inden vedtagelsen af perimetret, fortsat finder anvendelse, men således, at retten til denne procedure kan gøre det muligt lettere at opnå en fravigelse af disse krav, og
+–
+som er omfattet af en formodning for, at ekspropriationer, der sker i forbindelse med den hertil vedlagte ekspropriationsplan, sker i offentlighedens interesse?«
+Om det præjudicielle spørgsmål
+34
+Det bemærkes indledningsvis, at selv om det præjudicielle spørgsmål alene henviser til artikel 2, litra a), i SMV-direktivet, således som flere af deltagerne i sagen har gjort gældende for Domstolen, vedrører anmodningen om præjudiciel afgørelse både afgørelsen af, om et BPP som det i hovedsagen omhandlede henhører under begrebet »planer og programmer« som omhandlet i den nævnte bestemmelse, og af, om en sådan retsakt indgår blandt dem, der skal underlægges en vurdering af indvirkningen på miljøet som omhandlet i dette direktivs artikel 3.
+35
+Den omstændighed, at en national ret rent formelt har formuleret sin præjudicielle anmodning under henvisning til visse bestemmelser i EU-retten, er ikke til hinder for, at Domstolen oplyser denne ret om alle de fortolkningsmomenter, der kan være til nytte ved afgørelsen af den sag, som verserer for den nationale ret, uanset om den henviser til dem i sine spørgsmål. Det tilkommer herved Domstolen fra samtlige de oplysninger, der er fremlagt af den nationale ret, navnlig af forelæggelsesafgørelsens præmisser, at udlede de EU-retlige elementer, som det under hensyn til sagens genstand er nødvendigt at fortolke (dom af 22.6.2017, E.ON Biofor Sverige,
+C-549/15
+,
+EU:C:2017:490
+, præmis
+72
+og den deri nævnte retspraksis).
+36
+I denne forbindelse fastsætter artikel 3, stk. 2, i SMV-direktivet reglen om, at der skal gennemføres en miljøvurdering for alle planer og programmer, der er omfattet af denne bestemmelse, mens undtagelsen i dette direktivs artikel 3, stk. 3, betinger en sådan vurdering af, at medlemsstaterne fastslår, at de pågældende planer kan få væsentlig indvirkning på miljøet (jf. i denne retning dom af 18.4.2013, L,
+C-463/11
+,
+EU:C:2013:247
+, præmis
+32
+).
+37
+Det præjudicielle spørgsmål skal derfor forstås således, at det nærmere bestemt ønskes oplyst, om artikel 2, litra a), og artikel 3 i SMV-direktivet skal fortolkes således, at et BPP som det i hovedsagen omhandlede, der alene har til formål at fastlægge et geografisk område, inden for hvilket der kan gennemføres et byplanlægningsprojekt, der har til formål at ændre og udvikle bymæssige funktioner, og som kræver opførelse, ændring og nedlæggelse af veje eller overbygninger over veje på jord og offentlige områder, og hvis gennemførelse kan indebære en fravigelse af visse byplanlægningskrav, henhører under begrebet »planer og programmer«, der kan have væsentlig indvirkning på miljøet som omhandlet i dette direktiv, for hvilke der skal gennemføres en miljøvurdering.
+38
+Det bemærkes indledningsvis, at miljøvurderingen, således som det fremgår af fjerde betragtning til SMV-direktivet, er et vigtigt værktøj til integrering af miljøhensyn i udarbejdelsen og vedtagelsen af visse planer og programmer.
+39
+Dernæst er formålet med dette direktiv i henhold til dettes artikel 1 at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet (dom af 21.12.2016, Associazione Italia Nostra Onlus,
+C-444/15
+,
+EU:C:2016:978
+, præmis
+47
+).
+40
+Henset endelig til formålet med dette direktiv, som består i at sikre et højt miljøbeskyttelsesniveau, skal bestemmelser, der afgrænser dets anvendelsesområde, og særligt bestemmelser, der fastsætter definitioner på de retsakter, der er omfattet heraf, fortolkes bredt (dom af 27.10.2016, D’Oultremont m.fl.,
+C-290/15
+,
+EU:C:2016:816
+, præmis
+40
+og den deri nævnte retspraksis).
+41
+Det præjudicielle spørgsmål skal besvares i lyset af ovenstående betragtninger.
+42
+For det første definerer artikel 2, litra a), i SMV-direktivet de af dette direktiv omfattede »planer og programmer« som værende dem, der opfylder to kumulative betingelser om, at disse dels udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, dels kræves ifølge love og administrative bestemmelser.
+43
+Domstolen har fortolket denne bestemmelse således, at planer og programmer, hvis vedtagelse er reguleret ved nationale love og administrative bestemmelser, som fastlægger, hvilke myndigheder der har beføjelse til at vedtage dem samt proceduren for deres udarbejdelse, skal betragtes som »krævet« i henhold til og med henblik på anvendelsen af SMV-direktivet og er således underlagt en miljøvurdering på de betingelser, som dette direktiv fastsætter (dom af 22.3.2012, Inter-Environnement Bruxelles m.fl.,
+C-567/10
+,
+EU:C:2012:159
+, præmis
+31
+).
+44
+I det foreliggende tilfælde følger det af den forelæggende rets konstateringer, at den anfægtede bekendtgørelse blev vedtaget af en regional myndighed på grundlag af den vallonske lovs artikel 127.
+45
+Det følger heraf, at de i nærværende doms præmis 42 nævnte betingelser er opfyldt.
+46
+For det andet bemærkes, at det følger af artikel 3, stk. 2, litra a), i SMV-direktivet, at planer og programmer, som dels udarbejdes inden for visse sektorer, dels fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er omhandlet i bilag I og II til VVM-direktivet, underlægges en systematisk miljøvurdering (jf. i denne retning dom af 17.6.2010, Terre wallonne og Inter-Environnement Wallonie,
+C-105/09 og C-110/09
+,
+EU:C:2010:355
+, præmis
+43
+).
+47
+For så vidt angår den første af disse betingelser fremgår det af ordlyden af artikel 3, stk. 2, litra a), i SMV-direktivet, at denne bestemmelse bl.a. omhandler sektoren for »fysisk planlægning og arealanvendelse«.
+48
+Den omstændighed, at denne bestemmelse henviser både til »fysisk planlægning« og til »arealanvendelse«, indikerer klart, at den omhandlede sektor ikke er begrænset til arealanvendelse i snæver forstand, dvs. opdeling af arealet i områder og definition af de aktiviteter, der er tilladte inden for områderne, men at denne sektor nødvendigvis omfatter et større område.
+49
+Et BPP som det i hovedsagen omhandlede henhører på grund af både dets ordlyd og dets formål, som er at gøre det muligt at fravige byplanlægningskravene vedrørende bygningsplaner og arealplanlægning, under sektoren for »fysisk planlægning og arealanvendelse« som omhandlet i det nævnte direktivs artikel 3, stk. 2, litra a).
+50
+Hvad angår den anden af betingelserne nævnt i nærværende doms præmis 46 med henblik på at fastslå, hvorvidt et BPP som det, der er omhandlet i hovedsagen, fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er opregnet i bilag I og II til VVM-direktivet, skal indholdet af og formålet med denne retsakt undersøges under hensyntagen til rækkevidden af miljøvurderingen af disse projekter som fastsat i dette direktiv (jf. i denne retning dom af 17.6.2010, Terre wallonne og Inter-Environnement Wallonie,
+C-105/09 og C-110/09
+,
+EU:C:2010:355
+, præmis
+45
+).
+51
+Blandt de projekter, der er opregnet i bilag II til VVM-direktivet, fremgår under bilagets punkt 10 infrastrukturprojekter, hvilke, i dette punkts litra b), omfatter anlægsarbejder i byzoner.
+52
+Det følger af ordlyden af den vallonske lovs artikel 127, at et BPP som det, der er omhandlet i hovedsagen, har til formål at fastlægge omkredsen af et geografisk område, hvori der kan opføres et »byplanlægningsprojekt om ændring og udvikling af bymæssige funktioner, som kræver opførelse, ændring, udvidelse og nedlæggelse af veje eller overbygninger over veje på jord og offentlige områder«.
+53
+En sådan retsakt bidrager på grund af sit indhold og formål til gennemførelsen af projekter, der er opregnet i det nævnte bilag, idet den forudsætter gennemførelse af infrastrukturprojekter i almindelighed og byplanlægningsarbejder i særdeleshed.
+54
+Hvad angår spørgsmålet om, hvorvidt en retsakt som den anfægtede fastlægger rammerne for fremtidige anlægstilladelser til projekter, bemærkes, at Domstolen allerede har fastslået, at begrebet »planer og programmer« vedrører enhver retsakt, der, idet den definerer de regler og kontrolprocedurer, der skal finde anvendelse på den pågældende sektor, fastlægger en betydningsfuld helhed af kriterier og fremgangsmåder for tilladelse og iværksættelse af et eller flere projekter, der kan have væsentlige indvirkninger på miljøet (dom af 27.10.2016, D’Oultremont m.fl.,
+C-290/15
+,
+EU:C:2016:816
+, præmis
+49
+og den deri nævnte retspraksis).
+55
+Med hensyn hertil skal begrebet »betydningsfuld helhed af kriterier og fremgangsmåder« forstås kvalitativt og ikke kvantitativt. Mulige strategier for omgåelse af de forpligtelser, der fremgår af SMV-direktivet, skal nemlig undgås, idet de kan materialiseres ved en opdeling af foranstaltninger, hvorved den effektive virkning af dette direktiv reduceres (jf. i denne retning dom af 27.10.2016, D’Oultremont m.fl.,
+C-290/15
+,
+EU:C:2016:816
+, præmis
+48
+og den deri nævnte retspraksis).
+56
+I det foreliggende tilfælde følger det af den forelæggende rets konstateringer, at selv om et BPP som det, der er omhandlet i hovedsagen, ikke i sig selv indeholder positive krav, tillader det imidlertid fravigelse af de gældende byplanlægningskrav. Den forelæggende ret har således præciseret, at afgrænsningen af BPP’et ved den anfægtede bekendtgørelse indebærer en principiel accept af et fremtidigt byplanlægningsprojekt, som vil kunne gennemføres lettere ved en tilladelse, der fraviger de gældende krav til byplanlægning. Den forelæggende ret har i denne forbindelse anført, at byplanlægningstilladelser, der udstedes for det geografiske område, der er afgrænset af BPP’et, i henhold til den vallonske lovs artikel 127, stk. 3, og på de deri fastsatte betingelser, kan fravige sektorplanen, en kommunal arealanvendelsesplan og en kommunal byplanlægningsforordning.
+57
+Med hensyn hertil skal et BPP som det i hovedsagen omhandlede, for så vidt som sektorplanen, den kommunale arealanvendelsesplan og den kommunale byplanlægningsforordning i sig selv udgør planer og programmer som omhandlet i SMV-direktivet, kvalificeres på samme måde og underlægges den samme retlige ordning, idet dette BPP ændrer den ramme, der er fastsat ved disse planer.
+58
+Det følger deraf, at selv om en sådan retsakt ikke indeholder og ikke kan indeholde positive krav, ændrer den beføjelse, som den indfører til lettere at foretage fravigelser af de gældende byplanlægningskrav, det juridiske system og bevirker, at det i hovedsagen omhandlede BPP henhører under anvendelsesområdet for artikel 2, litra a), og artikel 3, stk. 2, litra a), i SMV-direktivet.
+59
+Henset til disse elementer, som det imidlertid tilkommer den forelæggende ret at vurdere realiteten og rækkevidden af i forhold til den pågældende retsakt, skal det lægges til grund, at en retsakt som den i hovedsagen omhandlede henhører under begrebet »planer og programmer« som omhandlet i artikel 2, litra a), artikel 3, stk. 1, og artikel 3, stk. 2, i SMV-direktivet, for hvilke der skal gennemføres en miljøvurdering.
+60
+For det tredje og sidste har den forelæggende ret præciseret, at selv om afgrænsningen af BPP’et indebærer en principiel accept af byplanlægningsprojektet, skal dette stadig gøres til genstand for tilladelser, der kræver en vurdering af indvirkningerne som omhandlet i VVM-direktivet.
+61
+Det bemærkes, at det væsentligste formål med SMV-direktivet er, at »planer og programmer«, der kan få væsentlig indvirkning på miljøet, skal underlægges en miljøvurdering i forbindelse med deres udarbejdelse og inden deres vedtagelse (jf. i denne retning dom af 28.2.2012, Inter-Environnement Wallonie og Terre wallonne,
+C-41/11
+,
+EU:C:2012:103
+, præmis
+40
+og den deri nævnte retspraksis).
+62
+Med hensyn hertil fremgår det af dette direktivs artikel 6, stk. 2, således som generaladvokaten har anført i punkt 39 i forslaget til afgørelse, at miljøvurderingen skal gennemføres så tidligt som muligt, således at resultaterne kan nå at få indflydelse på eventuelle afgørelser. Det er nemlig på dette stade, at de forskellige alternativer kan analyseres, og der kan foretages strategiske valg.
+63
+Selv om artikel 5, stk. 3, i SMV-direktivet fastsætter muligheden for at anvende de relevante oplysninger, som er indhentet på andre trin af beslutningsforløbet eller i forbindelse med anden EU-retlig lovgivning, præciserer dette direktivs artikel 11, stk. 1, desuden, at en miljøvurdering, der gennemføres efter dette direktiv, ikke berører kravene efter VVM-direktivet.
+64
+Endvidere kan en vurdering af indvirkningen på miljøet, der er gennemført i henhold til VVM-direktivet, ikke fritage fra forpligtelsen til at foretage den miljøvurdering, som kræves efter SMV-direktivet, for at opfylde de miljøaspekter, der er særlige for dette direktiv.
+65
+For så vidt som en bekendtgørelse som den, der er omhandlet i hovedsagen, indebærer en ændring af den retlige referenceramme, således som beskrevet i nærværende doms præmis 58, og derved uden begrænsninger giver mulighed for at fravige byplanlægningsreglerne for alle de projekter, der gennemføres efterfølgende i det pågældende geografiske område, vil en sådan mulighed kunne medføre væsentlige indvirkninger på miljøet. Med forbehold for de undersøgelser, som det påhviler den forelæggende ret at foretage, kræver ændringen af den tidligere vurderede indvirkning, at der gennemføres en ny miljøvurdering.
+66
+En sådan betragtning bevarer den effektive virkning af SMV-direktivet, idet det sikres, at mulige væsentlige indvirkninger på miljøet gøres til genstand for en miljøvurdering.
+67
+Under hensyn til ovenstående betragtninger skal det præjudicielle spørgsmål besvares med, at artikel 2, litra a), artikel 3, stk. 1, og artikel 3, stk. 2, litra a), i SMV-direktivet skal fortolkes således, at en bekendtgørelse, der fastlægger et BPP, der alene har til formål at fastlægge et geografisk område, inden for hvilket der kan gennemføres et byplanlægningsprojekt, der har til formål at ændre og udvikle bymæssige funktioner, og som kræver opførelse, ændring og nedlæggelse af veje eller overbygninger over veje på jord og offentlige områder, og hvis gennemførelse kan indebære en fravigelse af visse byplanlægningskrav, henhører – på grund af denne beføjelse til at fravige – under begrebet »planer og programmer«, der kan have væsentlig indvirkning på miljøet som omhandlet i dette direktiv, for hvilke der skal gennemføres en miljøvurdering.
+Sagsomkostninger
+68
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagsomkostningerne. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Anden Afdeling) for ret:
+Artikel 2, litra a), artikel 3, stk. 1, og artikel 3, stk. 2, litra a), i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet skal fortolkes således, at en bekendtgørelse, der fastlægger et byplanlægningsperimeter, der alene har til formål at fastlægge et geografisk område, inden for hvilket der kan gennemføres et byplanlægningsprojekt, der har til formål at ændre og udvikle bymæssige funktioner, og som kræver opførelse, ændring og nedlæggelse af veje eller overbygninger over veje på jord og offentlige områder, og hvis gennemførelse kan indebære en fravigelse af visse byplanlægningskrav, henhører – på grund af denne beføjelse til at fravige – under begrebet »planer og programmer«, der kan have væsentlig indvirkning på miljøet som omhandlet i dette direktiv, for hvilke der skal gennemføres en miljøvurdering.
+Underskrifter
+(
+*1
+) – Processprog: fransk.
