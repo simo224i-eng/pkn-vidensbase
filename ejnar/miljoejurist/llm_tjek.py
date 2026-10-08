@@ -52,6 +52,16 @@ REGLER
   usikret foranstaltning; en del af projektet er holdt udenfor) OG vurderingen af netop det er mangelfuld.
   "middel" når vurderingen er tynd, men uden et sådant holdepunkt. "lav" for formelle eller mindre forhold.
 - Kriterier, der ikke er nævnt, men som åbenlyst er uden betydning for projektet, er ikke en svaghed.
+- Se især efter disse mønstre, som nævnene ofte underkender:
+  * afværgeforanstaltninger eller vilkår, som screeningen selv fastsætter eller forudsætter (en screening kan
+    ikke bygge på afværge, der kræver vilkår; Natura 2000-væsentlighed må ikke vurderes med afværge),
+  * vurdering ud fra et forkert udgangspunkt (fx forholdene efter en gennemført rydning/ændring eller en
+    tidligere tilladt, men ikke udnyttet mængde),
+  * screening af et projekt, der allerede er påbegyndt/gennemført (lovliggørelse),
+  * planer, der behandles som "mindre områder på lokalt plan"/"mindre ændringer", selv om de dækker et stort
+    område eller rammesætter projekter i bilag 1/2 (fx kommuneplaner),
+  * at myndigheden selv har udfyldt screeningen uden skriftlig ansøgning med bilag 5-oplysninger,
+  * at myndigheden overlader vurderingen (fx af bilag IV-arter) til senere eller til bygherren.
 - Henvis kun til de bestemmelser, der står i tjeklisten.
 - Ingen personnavne i svaret.
 
@@ -127,14 +137,19 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
     dækket = {s.punkt for s in nye}
     rest = [s for s in rapport.svagheder if s.punkt not in dækket]
     nye = sorted(nye, key=lambda s: -s.vægt)
-    for s in rest:  # regelfund, som modellen ikke tog med, nedprioriteres
+    # Revisionen (runde 2) viste, at regellagets "ikke behandlet"/"uden grundlag" næsten altid er støj,
+    # når modellen har gennemgået dokumentet, og at modellens "lav" sjældent er relevant. De flyttes til en
+    # kort liste uden kilder. Regellagets konkrete svage formuleringer beholdes.
+    beholdes = [s for s in rest if s.art in ("svag_formulering", "kriterier_mangler")]
+    for s in beholdes:
         s.vægt = round(s.vægt * 0.5, 2)
-    rapport.svagheder = nye + rest
+    korte = [s for s in rest if s not in beholdes] + [s for s in nye if s.vægt <= 1.0]
+    nye = [s for s in nye if s.vægt > 1.0]
+    rapport.mindre = [f"{s.punkt} {s.titel}: {s.svaghed}" for s in korte]
+    rapport.svagheder = nye + beholdes
     from .tjek import _niveauer
     _niveauer(rapport.svagheder)
-    for s in rapport.svagheder:  # modellens "lav" er altid opmærksomhed
-        if s.kilde_lag == "model" and s.vægt <= 1.0:
-            s.niveau = "opmærksomhed"
+
     rapport.ikke_vurderet = list(rapport.ikke_vurderet) + [
         FORBUDT.sub("[udeladt formulering]", x) for x in (data.get("ikke_vurderet") or [])][:12]
     rapport.lag = rapport.lag + ["model"]

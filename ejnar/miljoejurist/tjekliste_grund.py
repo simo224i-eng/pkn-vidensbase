@@ -77,6 +77,40 @@ PUNKTER = [
         "relevant_hvis": "",
         "søg": "lokalplan mindre område på lokalt plan rammer for anlægstilladelser bilag 1 og 2",
     },
+    {
+        "id": "A4", "gruppe": "Omfattet og afgrænsning",
+        "titel": "Screening efter, at projektet er påbegyndt (lovliggørelse)",
+        "spørgsmål": "Er projektet helt eller delvist gennemført før screeningen? Så skal sagen behandles som "
+                     "lovliggørelse, og vurderingen skal også omfatte indvirkningerne siden gennemførelsen.",
+        "gælder": ["screening_projekt", "projekttilladelse"],
+        "fejlkategorier": ["kompetence_procedure", "omfattet_bilag_projektbegreb"],
+        "lov": [("mvl", "§ 16", "må ikke påbegyndes, før myndigheden")],
+        "vejl_søg": "miljøvurdering screening på bagkant lovliggørelse",
+        "dækket": r"lovliggør|allerede (er )?(udført|etableret|gennemført|påbegyndt)|er påbegyndt|blev (etableret|udført|gennemført) i|uden tilladelse",
+        "svagt": r"allerede (er )?(udført|etableret|gennemført|påbegyndt)|er påbegyndt|blev (etableret|udført|gennemført|ryddet)|uden forudgående",
+        "kræver": r"lovliggør|på bagkant|indvirkninger siden|siden (gennemførelsen|etableringen)",
+        "relevant_hvis": r"allerede|påbegyndt|lovliggør|etableret i \d{4}|gennemført i \d{4}|uden tilladelse|ryddet",
+        "kun_svagt": True,
+        "emne": r"lovliggør|påbegyndt|gennemført|bagkant|allerede (var )?(udført|etableret)",
+        "søg": "screening efter gennemførelse lovliggørelse indvirkninger siden gennemførelsen",
+    },
+    {
+        "id": "B3", "gruppe": "Oplysningsgrundlag",
+        "titel": "Rigtigt udgangspunkt for vurderingen (referencetilstand)",
+        "spørgsmål": "Tager vurderingen udgangspunkt i de faktiske forhold før projektet (ikke forholdene efter en "
+                     "allerede gennemført ændring eller en tidligere tilladt, men ikke udnyttet, mængde)?",
+        "gælder": ["screening_projekt", "projekttilladelse"],
+        "fejlkategorier": ["sagsoplysning_dokumentation", "omfattet_bilag_projektbegreb"],
+        "lov": [("mvl", "bilag 6", "hele projektets dimensioner og udformning")],
+        "vejl_søg": "ansøgning om ændring af et projekt eksisterende tilladelse",
+        "dækket": r"tidligere tillad|eksisterende tilladelse|tilladte mængde|uændret|allerede screenet|nuværende tilladelse",
+        "svagt": r"tidligere (tilladt|tilladelse)|tilladte mængde|allerede screenet|uændret i forhold til (den )?(gældende|eksisterende) tilladelse",
+        "kræver": r"faktisk|reelt|udnyttet|målt|indvundet|produceret",
+        "relevant_hvis": r"tilladelse|godkendelse|ændring|udvidelse|fornyelse",
+        "kun_svagt": True,
+        "emne": r"udgangspunkt|tidligere tillad|faktisk|referenc|tilladte mængde|før rydning",
+        "søg": "udgangspunkt i tidligere tilladt mængde i stedet for faktiske forhold referencetilstand",
+    },
     # ---------- B. Oplysningsgrundlag og høring ----------
     {
         "id": "B1", "gruppe": "Oplysningsgrundlag",
@@ -346,7 +380,8 @@ IKKE_VURDERET = [
     "Om faktum i dokumentet er rigtigt (afstande, arealer, beregninger, artsfund). Værktøjet læser kun teksten.",
     "Kort, tegninger, bilag og billeder, som ikke er en del af den uploadede tekst.",
     "Om konklusionen om væsentlighed er rigtig. Værktøjet peger kun på steder, hvor grundlaget kan være svagt.",
-    "Andre lovkrav end dem på tjeklisten, fx planlovens indholdskrav, byggeloven og lokale planbestemmelser.",
+    "Andre lovkrav end dem på tjeklisten, fx planlovens krav (kystnærhedszonen, Fingerplanen, høringsfrister, "
+    "redegørelseskrav), byggeloven og lokale planbestemmelser.",
     "Nyere praksis eller lovændringer efter datagrundlagets dato (se 'Datagrundlag').",
     "Forhold, som kun fremgår af sagens øvrige akter (ansøgning, høringssvar, notater).",
 ]

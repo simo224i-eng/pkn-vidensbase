@@ -101,6 +101,26 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
   Nævnet: «Miljø- og Fødevareklagenævnet finder, at Vandforsyningsplan 2024-2034 er omfattet af miljøvurderingslovens § 8, stk. 1, nr. 1, idet den udarbejdes inden for vandforvaltning og fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er omfattet af bilag 1 og 2. Planen er således omfattet af obligatorisk miljøvurderingspligt.»
   Myndigheden havde skrevet: «Det fremgår af afgørelsen, at det er Norddjurs Kommunes vurdering, at vandforsyningsplanen ikke vil påvirke miljøet væsentligt.»
 
+### A4. Screening efter, at projektet er påbegyndt (lovliggørelse)
+**Spørgsmål:** Er projektet helt eller delvist gennemført før screeningen? Så skal sagen behandles som lovliggørelse, og vurderingen skal også omfatte indvirkningerne siden gennemførelsen.  
+**Gælder:** Screening af projekt, § 25-tilladelse  
+**Underkendt i praksis:** 3 sager (kategori: kompetence_procedure, omfattet_bilag_projektbegreb)
+
+**Lovgrundlag:**
+- [Miljøvurderingsloven § 16](https://www.retsinformation.dk/eli/lta/2023/4): «må ikke påbegyndes, før myndigheden»
+
+**Vejledning:**
+- [Vejledning om miljøvurdering af konkrete projekter](https://www.retsinformation.dk/eli/retsinfo/2024/9093): «Denne adgang er dog ifølge Domstolen betinget af, at de nationale bestemmelser, der tillader en sådan lovliggørelse, ikke giver de berørte anledning til at omgå EU-reglerne eller til at undlade at anvende dem, og at vurderingen foretaget med henblik på lovliggørelse ikke kun begrænses til projektets fremtidige indvirkninger på miljøet, men også tager de indvirkninger på miljøet, der har været siden projektets gennemførelse, i betragtning. [103]»
+- [Vejledning om miljøvurdering af konkrete projekter](https://www.retsinformation.dk/eli/retsinfo/2024/9093): «Efter lovens § 55, stk. 2 og 3, kan tilsynsmyndigheden på ejerens bekostning lade et påbud om at berigtige et ulovligt forhold tinglyse på ejendommen.»
+
+**Eksempler fra nævnene:**
+- [MFKN 2025-08-25](https://mfkn.naevneneshus.dk/afgoerelse/8cad826e-67b6-49f3-b2f0-aa9b85eb85a7) – Screeningen blev først foretaget efter projektets gennemførelse som lovliggørelse, hvilket kræver at også de indvirkninger, der har været siden gennemførelsen, tages i betragtning (C-196/16 og C-197/16).  
+  Nævnet: «Miljø- og Fødevareklagenævnet konstaterer, at vurderingen er foretaget efter projektets gennemførelse. Forudsætningen om, at screening skal være gennemført inden projektets påbegyndelse, er derfor ikke opfyldt, og nævnet finder på den baggrund, at Tønder Kommunes screeningsafgørelse skal betragtes som en afgørelse om lovliggørelse af den manglende forudgående screening.»
+- [MFKN 2025-05-27](https://mfkn.naevneneshus.dk/afgoerelse/0a8994d5-3257-4c07-abaf-bcfa6133332f) – Screeningen blev foretaget efter projektets påbegyndelse (støbning af fundamenter), og kommunen behandlede den ikke som lovliggørelse, hvor allerede udførte forhold også skal inddrages.  
+  Nævnet: «Miljø- og Fødevareklagenævnet konstaterer indledningsvist, at vurderingen er foretaget efter projektets påbegyndelse.»
+- [MFKN 2020-07-14](https://mfkn.naevneneshus.dk/afgoerelse/96327b5a-fe53-42f8-81da-4b27b1221043) – Kommunen screenede skovrydningen efter dens gennemførelse uden at tage EU-rettens betingelser for lovliggørelse i betragtning, herunder indvirkninger siden gennemførelsen.  
+  Nævnet: «Miljø- og Fødevareklagenævnet finder, at Silkeborg Kommune ikke har taget disse betingelser for lovliggørelse i betragtning. På den baggrund lider Silkeborg Kommunes afgørelse af en væsentlig retlig mangel, og kommunen skal derfor ved sagens genbehandling endvidere forholde sig til de indvirkninger på miljøet, der har været siden projektets gennemførelse.»
+
 ## Oplysningsgrundlag
 
 ### B1. Tilstrækkeligt oplysningsgrundlag
@@ -148,6 +168,27 @@ Bygget automatisk af `ejnar/miljoejurist/byg_tjekliste.py` ud fra miljøvurderin
   Nævnet: «Vordingborg Kommune har alene offentliggjort miljørapporten den 12. august 2021.»
 - [PKN 2023-02-22](https://pkn.naevneneshus.dk/afgoerelse/287757e8-a7e5-4aeb-ab54-d7ccf5890ab8) – Den supplerende miljøvurdering om Natura 2000-fugle og bilag IV-arter, der indeholdt nye oplysninger og vurderinger, blev udarbejdet efter høringen og ikke sendt i offentlig høring før vedtagelsen.  
   Nævnet: «Planklagenævnet finder på baggrund af ovenstående, at høringsproceduren ikke er foregået i overensstemmelse med miljøvurderingslovens krav om offentlig høring, jf. § 32, stk. 1-4.»
+
+### B3. Rigtigt udgangspunkt for vurderingen (referencetilstand)
+**Spørgsmål:** Tager vurderingen udgangspunkt i de faktiske forhold før projektet (ikke forholdene efter en allerede gennemført ændring eller en tidligere tilladt, men ikke udnyttet, mængde)?  
+**Gælder:** Screening af projekt, § 25-tilladelse  
+**Underkendt i praksis:** 7 sager (kategori: sagsoplysning_dokumentation, omfattet_bilag_projektbegreb)
+
+**Lovgrundlag:**
+- [Miljøvurderingsloven bilag 6](https://www.retsinformation.dk/eli/lta/2023/4): «hele projektets dimensioner og udformning»
+
+**Vejledning:**
+- [Vejledning om miljøvurdering af konkrete projekter](https://www.retsinformation.dk/eli/retsinfo/2024/9093): «Som allerede anført i afsnit 2.1 bør de kompetente myndigheder, når de afgør, om ændringer eller udvidelser af visse bilag I og bilag II-projekter skal undergives en vurdering, tage hensyn til VVM-direktivets hovedformål, dvs. at projekter, der bl.a. på grund af deres art, dimensioner eller placering kan forventes at få væsentlig indvirkning på miljøet, inden der gives tilladelse, undergives en forudgående vurdering af deres virkninger, omfang og formål.»
+
+**Eksempler fra nævnene:**
+- [MFKN 2025-09-15](https://mfkn.naevneneshus.dk/afgoerelse/543afe92-3d31-41eb-9c17-362f3b609913) – Screeningen vurderede projektet ud fra det tilladte antal årlige operationer (25.000) frem for de faktiske, lovlige aktiviteter (højst 12.617 i 2018-2023), så konklusionen om mindre belastning af naboer, flagermus og mosehornugle hvilede på et forkert grundlag.  
+  Nævnet: «Miljø- og Fødevareklagenævnet finder, at Herning Kommunes screeningsafgørelse er truffet på et forkert grundlag. Afgørelsen lider derfor af en væsentlig retlig mangel.»
+- [MFKN 2025-02-12](https://mfkn.naevneneshus.dk/afgoerelse/32fa2ae8-82ff-4933-ad39-c6636e4ba44c) – Kommunen havde ikke fastlagt, at flagermus-vurderingen skulle bygge på worst case eller en nærmere konkret undersøgelse af, om de to bygninger faktisk var yngle- eller rasteområder.  
+  Nævnet: «Ved en fornyet behandling bør Odder Kommune i forhold til arter af flagermus enten fuldt ud behandle projektet ud fra et worst case-scenarium om, at der er yngle- eller rasteområder, der vil blive nedlagt som følge af projektet, eller foretage en nærmere konkret vurdering af, om der er yngle- eller rasteområder i projektområdet.»
+- [MFKN 2025-01-29](https://mfkn.naevneneshus.dk/afgoerelse/f5c80a87-5378-433c-9a3b-ceb3727c7475) – Kommunen screenede fornyelsen af en indvindingstilladelse ud fra den tidligere tilladte indvindingsmængde (17.000 m3/år) i stedet for de faktiske indvindinger (maks. 12.200 m3/år siden 2012). En tilladelse på 14.400 m3/år var dermed en stigning i forhold til de faktiske forhold, og påvirkningen af vandløbet blev vurderet som reduceret på et forkert grundlag.  
+  Nævnet: «Miljø- og Fødevareklagenævnet finder, at Ikast-Brande Kommunes screeningsafgørelse er truffet på et forkert grundlag, da grundlaget for afgørelsen er den tidligere tilladte indvindingsmængde og ikke de tidligere faktiske indvindingsmængder. Afgørelsen lider derfor af en væsentlig retlig mangel.»
+- [MFKN 2024-11-25](https://mfkn.naevneneshus.dk/afgoerelse/b14c35cb-5c6f-43f0-ac20-58030b176053) – Kommunen screenede grundvandsindvinding med udgangspunkt i de tidligere tilladte indvindingsmængder (55.000 m3) og ikke de faktiske indvundne mængder (maks. 43.000 m3), så projektet fejlagtigt fremstod som en reduktion; vurderingen af påvirkning af § 3-natur, bilag IV-arten spidssnudet frø og boringer hvilede på dette forkerte grundlag.  
+  Nævnet: «Miljø- og Fødevareklagenævnet finder, at Silkeborg Kommunes screeningsafgørelse er truffet på et forkert grundlag, da grundlaget for afgørelsen er de tidligere tilladte indvindingsmængder og ikke de tidligere faktiske indvindingsmængder. Afgørelsen lider derfor af en væsentlig retlig mangel.»
 
 ## Screeningskriterier
 

@@ -31,7 +31,8 @@ DOKTYPER = {"screening_projekt": "Screening af projekt", "screening_plan": "Scre
 # Håndvalgte vejledningsafsnit pr. punkt: (kilde, afsnitsnummer)
 P, V, H = "vejl_mv_projekter", "vejl_mv_planer", "habitatvejl"
 VEJL_AFSNIT = {
-    "A1": [(P, "3.2.")], "A2": [(P, "3.4.")], "A3": [(V, "4.3.2.")],
+    "A1": [(P, "3.2.")], "A2": [(P, "3.4.")], "A3": [(V, "4.3.2.")], "A4": [(P, "7.7."), (P, "6.1.3.")],
+    "B3": [(P, "4.5.1.2.")],
     "B1": [(P, "4.5.1."), (V, "4.3.2.")], "B2": [(P, "5.1.3."), (V, "5.1.3.")],
     "C1": [(P, "4.5.2.1.")], "C2": [(V, "4.3.3.")], "C3": [(P, "4.5.2.1."), (V, "4.2.4.4.")],
     "C4": [(P, "4.5.2.1."), (V, "4.3.3.2.")], "C5": [(P, "4.5.2.1."), (V, "4.3.3.2.")],

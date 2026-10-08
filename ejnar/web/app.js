@@ -924,6 +924,7 @@ function renderMiljo() {
       ${d.svagheder.length ? d.svagheder.map((s, i) => (s.niveau === "opmærksomhed" && (i === 0 || d.svagheder[i - 1].niveau !== "opmærksomhed")
           ? `<h2 class="mj-h">Øvrige opmærksomhedspunkter</h2><p class="mj-sub">Lavere prioritet: emner, der ikke ses behandlet, eller som nævnene sjældnere har underkendt på.</p>` : "") + renderSvaghed(s, i + 1)).join("")
         : `<div class="empty"><h3>Værktøjets kontroller slog ikke ud</h3><p>Det er ikke en vurdering af, om afgørelsen holder. Se listen over, hvad værktøjet ikke vurderer.</p></div>`}
+      ${d.mindre?.length ? `<details class="mj-not"><summary><strong>Mindre bemærkninger (${d.mindre.length})</strong></summary><ul>${d.mindre.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}
       <section class="mj-not"><h3>Hvad værktøjet ikke har vurderet</h3><ul>${d.ikke_vurderet.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
         ${d.punkter_ikke_relevante.length ? `<details><summary>Tjeklistepunkter, der ikke er kørt (${d.punkter_ikke_relevante.length})</summary><ul>${d.punkter_ikke_relevante.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}
       </section>`;

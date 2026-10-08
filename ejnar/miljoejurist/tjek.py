@@ -118,6 +118,7 @@ class Rapport:
     punkter_ikke_relevante: list[str]
     note: str
     lag: list[str]
+    mindre: list[str] = field(default_factory=list)  # lavt prioriterede fund uden kilder
 
     def to_json(self) -> dict:
         d = asdict(self)
@@ -348,6 +349,10 @@ def som_markdown(r: Rapport) -> str:
         ud.append("**Kilder:**")
         for k in s.kilder:
             ud.append(f"- [{k.ref}]({k.url}): «{k.citat[:400]}»")
+        ud.append("")
+    if r.mindre:
+        ud.append("## Mindre bemærkninger (uden kilder)")
+        ud += [f"- {x}" for x in r.mindre]
         ud.append("")
     ud.append("## Hvad værktøjet ikke har vurderet")
     ud += [f"- {x}" for x in r.ikke_vurderet]

@@ -355,6 +355,184 @@
    ]
   },
   {
+   "id": "A4",
+   "gruppe": "Omfattet og afgrænsning",
+   "titel": "Screening efter, at projektet er påbegyndt (lovliggørelse)",
+   "spørgsmål": "Er projektet helt eller delvist gennemført før screeningen? Så skal sagen behandles som lovliggørelse, og vurderingen skal også omfatte indvirkningerne siden gennemførelsen.",
+   "gælder": [
+    "screening_projekt",
+    "projekttilladelse"
+   ],
+   "fejlkategorier": [
+    "kompetence_procedure",
+    "omfattet_bilag_projektbegreb"
+   ],
+   "lov": [
+    [
+     "mvl",
+     "§ 16",
+     "må ikke påbegyndes, før myndigheden"
+    ]
+   ],
+   "vejl_søg": "miljøvurdering screening på bagkant lovliggørelse",
+   "dækket": "lovliggør|allerede (er )?(udført|etableret|gennemført|påbegyndt)|er påbegyndt|blev (etableret|udført|gennemført) i|uden tilladelse",
+   "svagt": "allerede (er )?(udført|etableret|gennemført|påbegyndt)|er påbegyndt|blev (etableret|udført|gennemført|ryddet)|uden forudgående",
+   "kræver": "lovliggør|på bagkant|indvirkninger siden|siden (gennemførelsen|etableringen)",
+   "relevant_hvis": "allerede|påbegyndt|lovliggør|etableret i \\d{4}|gennemført i \\d{4}|uden tilladelse|ryddet",
+   "kun_svagt": true,
+   "emne": "lovliggør|påbegyndt|gennemført|bagkant|allerede (var )?(udført|etableret)",
+   "søg": "screening efter gennemførelse lovliggørelse indvirkninger siden gennemførelsen",
+   "praksis_antal": 3,
+   "eksempler": [
+    {
+     "id": "M8cad826e",
+     "naevn": "MFKN",
+     "dato": "2025-08-25",
+     "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for udledning af tag- og overfladevand fra regnvandsbassin til vandløb i Tønder Kommune - Ophævelse og hjemvisning af tilladelse til udledning af tag- og overfladevand fra regnvandsbassin til vandløb i Tønder Kommune",
+     "link": "https://mfkn.naevneneshus.dk/afgoerelse/8cad826e-67b6-49f3-b2f0-aa9b85eb85a7",
+     "fejl": "Screeningen blev først foretaget efter projektets gennemførelse som lovliggørelse, hvilket kræver at også de indvirkninger, der har været siden gennemførelsen, tages i betragtning (C-196/16 og C-197/16).",
+     "citat": "Miljø- og Fødevareklagenævnet konstaterer, at vurderingen er foretaget efter projektets gennemførelse. Forudsætningen om, at screening skal være gennemført inden projektets påbegyndelse, er derfor ikke opfyldt, og nævnet finder på den baggrund, at Tønder Kommunes screeningsafgørelse skal betragtes som en afgørelse om lovliggørelse af den manglende forudgående screening.",
+     "citat_myndighed": null
+    },
+    {
+     "id": "M0a8994d5",
+     "naevn": "MFKN",
+     "dato": "2025-05-27",
+     "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for etablering af en lynladestation i Frederiksberg Kommune",
+     "link": "https://mfkn.naevneneshus.dk/afgoerelse/0a8994d5-3257-4c07-abaf-bcfa6133332f",
+     "fejl": "Screeningen blev foretaget efter projektets påbegyndelse (støbning af fundamenter), og kommunen behandlede den ikke som lovliggørelse, hvor allerede udførte forhold også skal inddrages.",
+     "citat": "Miljø- og Fødevareklagenævnet konstaterer indledningsvist, at vurderingen er foretaget efter projektets påbegyndelse.",
+     "citat_myndighed": null
+    },
+    {
+     "id": "M96327b5a",
+     "naevn": "MFKN",
+     "dato": "2020-07-14",
+     "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for projekt om skovfældning i Silkeborg Kommune",
+     "link": "https://mfkn.naevneneshus.dk/afgoerelse/96327b5a-fe53-42f8-81da-4b27b1221043",
+     "fejl": "Kommunen screenede skovrydningen efter dens gennemførelse uden at tage EU-rettens betingelser for lovliggørelse i betragtning, herunder indvirkninger siden gennemførelsen.",
+     "citat": "Miljø- og Fødevareklagenævnet finder, at Silkeborg Kommune ikke har taget disse betingelser for lovliggørelse i betragtning. På den baggrund lider Silkeborg Kommunes afgørelse af en væsentlig retlig mangel, og kommunen skal derfor ved sagens genbehandling endvidere forholde sig til de indvirkninger på miljøet, der har været siden projektets gennemførelse.",
+     "citat_myndighed": null
+    }
+   ],
+   "lov_kontrol": [
+    {
+     "kode": "mvl",
+     "nr": "§ 16",
+     "uddrag": "må ikke påbegyndes, før myndigheden",
+     "ref": "Miljøvurderingsloven § 16",
+     "url": "https://www.retsinformation.dk/eli/lta/2023/4",
+     "ok": true
+    }
+   ],
+   "vejl_citat": [
+    {
+     "kode": "vejl_mv_projekter",
+     "ref": "Vejledning om miljøvurdering af konkrete projekter",
+     "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9093",
+     "citat": "Denne adgang er dog ifølge Domstolen betinget af, at de nationale bestemmelser, der tillader en sådan lovliggørelse, ikke giver de berørte anledning til at omgå EU-reglerne eller til at undlade at anvende dem, og at vurderingen foretaget med henblik på lovliggørelse ikke kun begrænses til projektets fremtidige indvirkninger på miljøet, men også tager de indvirkninger på miljøet, der har været siden projektets gennemførelse, i betragtning. [103]"
+    },
+    {
+     "kode": "vejl_mv_projekter",
+     "ref": "Vejledning om miljøvurdering af konkrete projekter",
+     "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9093",
+     "citat": "Efter lovens § 55, stk. 2 og 3, kan tilsynsmyndigheden på ejerens bekostning lade et påbud om at berigtige et ulovligt forhold tinglyse på ejendommen."
+    }
+   ],
+   "eu_citat": []
+  },
+  {
+   "id": "B3",
+   "gruppe": "Oplysningsgrundlag",
+   "titel": "Rigtigt udgangspunkt for vurderingen (referencetilstand)",
+   "spørgsmål": "Tager vurderingen udgangspunkt i de faktiske forhold før projektet (ikke forholdene efter en allerede gennemført ændring eller en tidligere tilladt, men ikke udnyttet, mængde)?",
+   "gælder": [
+    "screening_projekt",
+    "projekttilladelse"
+   ],
+   "fejlkategorier": [
+    "sagsoplysning_dokumentation",
+    "omfattet_bilag_projektbegreb"
+   ],
+   "lov": [
+    [
+     "mvl",
+     "bilag 6",
+     "hele projektets dimensioner og udformning"
+    ]
+   ],
+   "vejl_søg": "ansøgning om ændring af et projekt eksisterende tilladelse",
+   "dækket": "tidligere tillad|eksisterende tilladelse|tilladte mængde|uændret|allerede screenet|nuværende tilladelse",
+   "svagt": "tidligere (tilladt|tilladelse)|tilladte mængde|allerede screenet|uændret i forhold til (den )?(gældende|eksisterende) tilladelse",
+   "kræver": "faktisk|reelt|udnyttet|målt|indvundet|produceret",
+   "relevant_hvis": "tilladelse|godkendelse|ændring|udvidelse|fornyelse",
+   "kun_svagt": true,
+   "emne": "udgangspunkt|tidligere tillad|faktisk|referenc|tilladte mængde|før rydning",
+   "søg": "udgangspunkt i tidligere tilladt mængde i stedet for faktiske forhold referencetilstand",
+   "praksis_antal": 7,
+   "eksempler": [
+    {
+     "id": "M543afe92",
+     "naevn": "MFKN",
+     "dato": "2025-09-15",
+     "titel": "Ophævelse og hjemvisning i klage over afgørelse om ikke miljøvurderingspligt for etablering af faldskærmsflyvecenter i Herning Kommune - Ophævelse og hjemvisning i sag om tillæg til miljøgodkendelse af faldskærmsflyvecenter i Herning Kommune",
+     "link": "https://mfkn.naevneneshus.dk/afgoerelse/543afe92-3d31-41eb-9c17-362f3b609913",
+     "fejl": "Screeningen vurderede projektet ud fra det tilladte antal årlige operationer (25.000) frem for de faktiske, lovlige aktiviteter (højst 12.617 i 2018-2023), så konklusionen om mindre belastning af naboer, flagermus og mosehornugle hvilede på et forkert grundlag.",
+     "citat": "Miljø- og Fødevareklagenævnet finder, at Herning Kommunes screeningsafgørelse er truffet på et forkert grundlag. Afgørelsen lider derfor af en væsentlig retlig mangel.",
+     "citat_myndighed": null
+    },
+    {
+     "id": "M32fa2ae8",
+     "naevn": "MFKN",
+     "dato": "2025-02-12",
+     "titel": "Ophævelse og hjemvisning af § 25-tilladelse til solcelleanlæg med tilhørende kabelanlæg i Odder Kommune",
+     "link": "https://mfkn.naevneneshus.dk/afgoerelse/32fa2ae8-82ff-4933-ad39-c6636e4ba44c",
+     "fejl": "Kommunen havde ikke fastlagt, at flagermus-vurderingen skulle bygge på worst case eller en nærmere konkret undersøgelse af, om de to bygninger faktisk var yngle- eller rasteområder.",
+     "citat": "Ved en fornyet behandling bør Odder Kommune i forhold til arter af flagermus enten fuldt ud behandle projektet ud fra et worst case-scenarium om, at der er yngle- eller rasteområder, der vil blive nedlagt som følge af projektet, eller foretage en nærmere konkret vurdering af, om der er yngle- eller rasteområder i projektområdet.",
+     "citat_myndighed": null
+    },
+    {
+     "id": "Mf5c80a87",
+     "naevn": "MFKN",
+     "dato": "2025-01-29",
+     "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for projekt for indvinding af grundvand i Ikast-Brande Kommune. Ophævelse og hjemvisning af afgørelse om tilladelse til indvinding af grundvand til markvanding i Ikast-Brande Kommune",
+     "link": "https://mfkn.naevneneshus.dk/afgoerelse/f5c80a87-5378-433c-9a3b-ceb3727c7475",
+     "fejl": "Kommunen screenede fornyelsen af en indvindingstilladelse ud fra den tidligere tilladte indvindingsmængde (17.000 m3/år) i stedet for de faktiske indvindinger (maks. 12.200 m3/år siden 2012). En tilladelse på 14.400 m3/år var dermed en stigning i forhold til de faktiske forhold, og påvirkningen af vandløbet blev vurderet som reduceret på et forkert grundlag.",
+     "citat": "Miljø- og Fødevareklagenævnet finder, at Ikast-Brande Kommunes screeningsafgørelse er truffet på et forkert grundlag, da grundlaget for afgørelsen er den tidligere tilladte indvindingsmængde og ikke de tidligere faktiske indvindingsmængder. Afgørelsen lider derfor af en væsentlig retlig mangel.",
+     "citat_myndighed": null
+    },
+    {
+     "id": "Mb14c35cb",
+     "naevn": "MFKN",
+     "dato": "2024-11-25",
+     "titel": "Ophævelse og hjemvisning i klage over afgørelse om ikke miljøvurderingspligt for indvinding af grundvand til markvanding i Silkeborg Kommune",
+     "link": "https://mfkn.naevneneshus.dk/afgoerelse/b14c35cb-5c6f-43f0-ac20-58030b176053",
+     "fejl": "Kommunen screenede grundvandsindvinding med udgangspunkt i de tidligere tilladte indvindingsmængder (55.000 m3) og ikke de faktiske indvundne mængder (maks. 43.000 m3), så projektet fejlagtigt fremstod som en reduktion; vurderingen af påvirkning af § 3-natur, bilag IV-arten spidssnudet frø og boringer hvilede på dette forkerte grundlag.",
+     "citat": "Miljø- og Fødevareklagenævnet finder, at Silkeborg Kommunes screeningsafgørelse er truffet på et forkert grundlag, da grundlaget for afgørelsen er de tidligere tilladte indvindingsmængder og ikke de tidligere faktiske indvindingsmængder. Afgørelsen lider derfor af en væsentlig retlig mangel.",
+     "citat_myndighed": null
+    }
+   ],
+   "lov_kontrol": [
+    {
+     "kode": "mvl",
+     "nr": "bilag 6",
+     "uddrag": "hele projektets dimensioner og udformning",
+     "ref": "Miljøvurderingsloven bilag 6",
+     "url": "https://www.retsinformation.dk/eli/lta/2023/4",
+     "ok": true
+    }
+   ],
+   "vejl_citat": [
+    {
+     "kode": "vejl_mv_projekter",
+     "ref": "Vejledning om miljøvurdering af konkrete projekter",
+     "url": "https://www.retsinformation.dk/eli/retsinfo/2024/9093",
+     "citat": "Som allerede anført i afsnit 2.1 bør de kompetente myndigheder, når de afgør, om ændringer eller udvidelser af visse bilag I og bilag II-projekter skal undergives en vurdering, tage hensyn til VVM-direktivets hovedformål, dvs. at projekter, der bl.a. på grund af deres art, dimensioner eller placering kan forventes at få væsentlig indvirkning på miljøet, inden der gives tilladelse, undergives en forudgående vurdering af deres virkninger, omfang og formål."
+    }
+   ],
+   "eu_citat": []
+  },
+  {
    "id": "B1",
    "gruppe": "Oplysningsgrundlag",
    "titel": "Tilstrækkeligt oplysningsgrundlag",
