@@ -49,11 +49,17 @@ def main():
             indeks.setdefault(sid, []).append({"type": f"planens PDF på plandata ({status}; screeningen er ofte kun resumeret)",
                                                "titel": f"{h['plan']} {h.get('plannavn') or ''}".strip(),
                                                "url": h["url"], "sikkerhed": "middel"})
+    # Manuelt fundne links (manuelle.json: {sag: [{type, titel, url}]}) kommer først og er kontrollerede
+    manuelle = json.loads((HER / "manuelle.json").read_text(encoding="utf-8")) if (HER / "manuelle.json").exists() else {}
+    for sid, links in manuelle.items():
+        indeks[sid] = [{**l, "sikkerhed": "kontrolleret", "manuel": True} for l in links] + indeks.get(sid, [])
     # Manuel/agent-kontrol kan nedgradere eller bekræfte (kontrol.json: {sag: {url: "ok"|"forkert"}})
     for sid, links in indeks.items():
         # Er dagsordenens screeningsbilag forkert, er hele dagsordenpunktet det som regel også
         fa_forkert = any(kontrol.get(sid, {}).get(l["url"]) == "forkert" for l in links if "plandata" not in l["type"])
         for l in links:
+            if l.pop("manuel", False):
+                continue
             vurd = kontrol.get(sid, {}).get(l["url"])
             if fa_forkert and "plandata" not in l["type"] and vurd != "ok":
                 vurd = "forkert"

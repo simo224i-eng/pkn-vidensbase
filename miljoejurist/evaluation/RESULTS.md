@@ -156,3 +156,18 @@ meget større end den målte? Kortopslag sker direkte mod kilderne med 24 timers
 - På den ægte screening T4_07 (§ 3-sag) ramte stedtjekket nævnets fejl.
 - Forbehold: kortlagene er vejledende (fx § 3 er registrerede, ikke alle beskyttede arealer), og stedet skal
   kunne findes. Fundene vises som "stedtjek" med kortlaget som kilde.
+
+## Simulation med ægte sag (Gladsaxe, kommuneplan 2025)
+
+Kommunens egen screening (bilag til byrådets dagsorden 26.02.2025) kørt gennem værktøjet med nævnets afgørelse
+(P1c222e8f, PKN 10.10.2025, ugyldig) skjult fra praksissøgningen (simulationsfeltet / `udeluk`). Sagen indgik
+ikke i testsættene. Modellaget blev spillet af Haiku med præcis den prompt, siden sender.
+
+| | Nævnets fejl 1: obligatorisk miljøvurdering (§ 8, stk. 1), ikke "mindre ændringer" | Fejl 2: kommuneplan 2021 var aldrig selv miljøvurderet |
+|---|---|---|
+| Kun regler | ikke fundet | ikke fundet |
+| Regler + Haiku | **fundet som svaghed nr. 1**, med det rigtige citat | ikke fundet (kun indirekte via "mindre ændringer") |
+
+Haiku gav 6 svagheder og 2 opmærksomhedspunkter; de øvrige (opsplitning, grundvand, Natura 2000, § 3, kumulation)
+tog nævnet ikke stilling til, da fejl 1 var nok til ugyldighed. Indekset pegede først på en forkert screening
+(lokalplan 293); den rigtige blev fundet manuelt i dagsordenen og ligger nu i `tools/originaler/manuelle.json`.

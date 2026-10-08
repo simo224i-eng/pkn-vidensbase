@@ -30,6 +30,7 @@ class TekstInput(BaseModel):
     plannr: str | None = None
     adresse: str | None = None
     stedtjek: bool = True
+    udeluk: list[str] = []  # simulation: nævnsafgørelser, der skjules fra praksissøgningen
 
 
 def llm_udbyder():
@@ -58,13 +59,21 @@ def _llm_eller_none(brug: bool):
     return lambda prompt: lp.complete(prompt, max_tokens=4000, model="claude-sonnet-4-6")
 
 
-def _svar(d: dokument.Dokument, dtype: str | None, brug_model: bool, sted: dict | None = None) -> dict:
+def _udeluk(v) -> set[str]:
+    if isinstance(v, str):
+        v = v.replace(";", ",").split(",")
+    return {x.strip() for x in (v or []) if x and x.strip()}
+
+
+def _svar(d: dokument.Dokument, dtype: str | None, brug_model: bool, sted: dict | None = None,
+          udeluk: set[str] | None = None) -> dict:
     if d.ord < 50:
         raise HTTPException(422, "Dokumentet indeholder for lidt tekst. Er det en scannet PDF uden tekstlag?")
-    r = tjek.tjek(d, dtype=dtype, llm=_llm_eller_none(brug_model), sted=sted)
+    r = tjek.tjek(d, dtype=dtype, udeluk=udeluk or None, llm=_llm_eller_none(brug_model), sted=sted)
     out = r.to_json()
     out["markdown"] = tjek.som_markdown(r)
     out["ord"] = d.ord
+    out["udeluk"] = sorted(udeluk or [])
     return out
 
 
@@ -72,19 +81,19 @@ def _svar(d: dokument.Dokument, dtype: str | None, brug_model: bool, sted: dict 
 async def tjek_fil(fil: UploadFile = File(...), dokumenttype: str | None = Form(None),
                    brug_model: bool = Form(False), stedtjek: bool = Form(True),
                    kommune: str | None = Form(None), plannr: str | None = Form(None),
-                   adresse: str | None = Form(None)):
+                   adresse: str | None = Form(None), udeluk: str | None = Form(None)):
     data = await fil.read()
     if len(data) > MAKS_BYTES:
         raise HTTPException(413, "Filen er for stor (maks. 15 MB).")
     d = dokument.læs(fil.filename or "dokument", data)
     sted = {"kommune": kommune, "plannr": plannr, "adresse": adresse} if stedtjek else None
-    return _svar(d, dokumenttype or None, brug_model, sted)
+    return _svar(d, dokumenttype or None, brug_model, sted, _udeluk(udeluk))
 
 
 @router.post("/tjek-tekst")
 def tjek_tekst(inp: TekstInput):
     sted = {"kommune": inp.kommune, "plannr": inp.plannr, "adresse": inp.adresse} if inp.stedtjek else None
-    return _svar(dokument.fra_tekst(inp.tekst, inp.navn), inp.dokumenttype, inp.brug_model, sted)
+    return _svar(dokument.fra_tekst(inp.tekst, inp.navn), inp.dokumenttype, inp.brug_model, sted, _udeluk(inp.udeluk))
 
 
 @router.get("/tjekliste")

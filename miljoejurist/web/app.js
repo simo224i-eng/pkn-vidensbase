@@ -23,7 +23,7 @@ const ART = { ikke_behandlet: "Ikke behandlet", uden_grundlag: "Uden synligt gru
   kriterier_mangler: "Kriterier mangler", model: "Fundet af sprogmodel", stedtjek: "Fundet på kort" };
 
 const state = { key: store.get("key", ""), health: null, text: "", dtype: "", model: false, sted: true,
-  kommune: "", plannr: "", adresse: "", data: null, loading: false, error: "", loginError: "" };
+  kommune: "", plannr: "", adresse: "", udeluk: "", data: null, loading: false, error: "", loginError: "" };
 let seq = 0;
 
 class ApiError extends Error { constructor(status, msg) { super(msg); this.status = status; } }
@@ -41,7 +41,7 @@ async function run(form) {
   state.dtype = form.querySelector("#type").value;
   state.model = form.querySelector("#model").checked;
   state.sted = form.querySelector("#sted").checked;
-  for (const k of ["kommune", "plannr", "adresse"]) state[k] = form.querySelector("#" + k).value.trim();
+  for (const k of ["kommune", "plannr", "adresse", "udeluk"]) state[k] = form.querySelector("#" + k).value.trim();
   if (!file && state.text.trim().length < 200) { state.error = "Vælg en fil eller indsæt mindst et par afsnit tekst."; return render(); }
   state.loading = true; state.error = ""; render();
   try {
@@ -52,11 +52,12 @@ async function run(form) {
       if (state.dtype) fd.append("dokumenttype", state.dtype);
       fd.append("brug_model", state.model ? "true" : "false");
       fd.append("stedtjek", state.sted ? "true" : "false");
-      for (const k of ["kommune", "plannr", "adresse"]) if (state[k]) fd.append(k, state[k]);
+      for (const k of ["kommune", "plannr", "adresse", "udeluk"]) if (state[k]) fd.append(k, state[k]);
       r = await api("/v1/miljoejurist/tjek", { method: "POST", body: fd });
     } else {
       r = await api("/v1/miljoejurist/tjek-tekst", { method: "POST", json: { tekst: state.text, dokumenttype: state.dtype || null,
-        brug_model: state.model, stedtjek: state.sted, kommune: state.kommune || null, plannr: state.plannr || null, adresse: state.adresse || null } });
+        brug_model: state.model, stedtjek: state.sted, kommune: state.kommune || null, plannr: state.plannr || null, adresse: state.adresse || null,
+        udeluk: state.udeluk ? state.udeluk.split(/[,;\s]+/).filter(Boolean) : [] } });
     }
     if (my === seq) state.data = r;
   } catch (e) {
@@ -107,6 +108,7 @@ function renderResultat() {
     : '<div class="card empty"><h3>Værktøjets kontroller slog ikke ud</h3><p>Det er ikke en vurdering af, om afgørelsen holder. Se listen over, hvad værktøjet ikke vurderer.</p></div>';
   return `
     <div class="card sum">
+      ${d.udeluk?.length ? `<div class="sub">Simulation: ${esc(d.udeluk.join(", "))} er skjult fra praksissøgningen.</div>` : ""}
       <div><strong>${esc(d.dokument)}</strong> · ${fmtNum(d.ord)} ord · ${esc(typeNavn)} · ${esc(d.lag.join(" + "))}</div>
       <p>${esc(d.note)}</p>
       <button class="btn" data-act="dl">${icon("doc")}Hent rapport (Markdown)</button>
@@ -151,6 +153,11 @@ function render() {
         <input id="adresse" placeholder="…eller adresse" value="${esc(state.adresse)}">
         <span class="hint">Tomme felter: placeringen gættes ud fra dokumentet</span>
       </div>
+      <details class="sim"${state.udeluk ? " open" : ""}><summary>Simulation</summary>
+        <label for="udeluk">Skjul nævnsafgørelser fra praksissøgningen (sags-id, fx P1c222e8f)</label>
+        <input id="udeluk" value="${esc(state.udeluk)}" placeholder="P1c222e8f">
+        <span class="hint">Bruges til at teste værktøjet på en sag, nævnet har afgjort, uden at det kan finde svaret.</span>
+      </details>
       <div class="bar">
         <select id="type" aria-label="Dokumenttype">${DOKTYPER.map(([v, l]) => `<option value="${v}" ${state.dtype === v ? "selected" : ""}>${l}</option>`).join("")}</select>
         <label class="chk" title="${llm ? "Teksten sendes til den konfigurerede AI-udbyder" : "Ingen sprogmodel konfigureret"}">

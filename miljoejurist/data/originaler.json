@@ -348,15 +348,21 @@
  "P1c222e8f": [
   {
    "type": "screening (bilag til dagsorden)",
+   "titel": "Bilag 5: Miljøvurdering - Screeningsafgørelse til Kommuneplan 2025 (Byrådet 26.02.2025)",
+   "url": "https://dagsordener.gladsaxe.dk/vis/pdf/bilag/6797cfe4-4de6-4a6e-ab6f-a4a538316808/?redirectDirectlyToPdf=false",
+   "sikkerhed": "kontrolleret"
+  },
+  {
+   "type": "screening (bilag til dagsorden)",
    "titel": "Bilag 3: Byplan Miljøvurdering screeningsskema",
    "url": "https://dagsordener.gladsaxe.dk/vis/pdf/bilag/880ab2d8-eb5c-423d-a310-4416e703d523/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "forkert"
   },
   {
    "type": "dagsordenpunkt",
    "titel": "Byrådet 2022-2025 2024-09-25: Vedtagelse af planforslag for boliger ved krydset Buddinge Hovedgade/Stengårds Allé og tillæg 13 til Kommuneplan 2021, 1. behandling",
    "url": "https://dagsordener.gladsaxe.dk/vis?id=7037a065-d2f5-43dc-979a-54bb4badade0",
-   "sikkerhed": "høj"
+   "sikkerhed": "forkert"
   }
  ],
  "M543afe92": [
