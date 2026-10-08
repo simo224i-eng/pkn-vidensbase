@@ -1,0 +1,455 @@
+NOTAT Styrelsen for Grøn Arealomlægning
+og Vandmiljø
+Miljøvurdering og Plan
+J.nr. 2024 - 63244
+Ref. sanfi
+Den 25. o ktober 2024
+Notat om de juridiske rammer for vurdering af påvirkning af
+bilag IV-arters levesteder
+Formålet med dette notat er at skitsere processen for den juridiske vurdering efter habitatdirektivets1
+artikel 12, stk. 1, litra d) (beskyttelsen af bilag IV-arters yngle- og rasteområder) samt at beskrive de
+vigtigste elementer, der bør indgå i denne vurdering. Indledningsvist beskrives det retlige grundlag for
+vurderingen (Del A). Herefter gennemgås de centrale elementer i vurderingen (Del B). Endelig
+indeholder notatet en række korte råd og tips til at gennemføre vurderingen (Del C).
+Notatet er udarbejdet i forbindelse med opfølgning på opdatering af Håndbog for bilag IV-arter og
+henvender sig især til bygherrer, rådgivere samt statslige og kommunale myndigheder. Notatet har
+særligt fokus på de vurderinger, der skal foretages efter habitatbekendtgørelsens2 § 10, stk. 1, nr. 1, i
+sager vedrørende afgørelser om tilladelse efter miljøvurderingslovens3 § 25. Hovedparten af notatet kan
+dog også være relevant for andre sager, hvor der stilles krav om vurdering af en aktivitets eller et projekts
+påvirkning på bilag IV-arters yngle- eller rasteområder.
+Notatet er ikke udtømmende i forhold til habitatdirektivets artikel 12, stk. 1, litra d), og erstatter ikke
+Miljøstyrelsens vejledning til bekendtgørelse nr. 1595 af 6. december 2018 om udpegning og
+administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter
+(habitatvejledningen).4
+Dernæst skal det tilføjes, at det i miljøkonsekvensrapporten for et projekt, som kan skade bilag IV-arter,
+udover vurderingen af, om projektet kan beskadige eller ødelægge bilag IV-arters yngle- eller
+rasteområder, skal fremgå, om projektet faktisk vil kunne gennemføres, uden at der sker forsætligt drab
+eller forstyrrelse af bilag IV-arter i strid med de øvrige forbud i habitatdirektivets artikel 12, stk. 1.5 Disse
+forbud omtales ikke nærmere i nærværende notat.
+1 Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og
+planter.
+2 Bekendtgørelse nr. 1098 af 21. august 2023 om udpegning og administration af
+internationale naturbeskyttelsesområder samt beskyttelse af visse arter.
+3 Lov om miljøvurdering af planer og programmer og af konkrete projekter, jf.
+lovbekendtgørelse nr. 4 af 3. januar 2023.
+4 Miljøstyrelsens vejledning nr. 48, december 2020,
+https://mst.dk/media/kqyb2h5i/habitatvejledningen.pdf.
+5 MFKN afgørelse af 10. december 2021, sag jr. nr. 21/06969, 21/06968.
+Styrelsen for Grøn Arealomlægning
+og Vandmiljø • Tolderlundsvej 5 • 5000 Odense C •
+Tlf. 72 54 40 00 • CVR 25798376 • EAN 5798000860810 • mst@mst.dk • www.mst.dk
+
+Del A. DET RETLIGE GRUNDLAG FOR VURDERINGEN
+Habitatdirektivets artikel 12, stk. 1, forpligter medlemsstaterne til at træffe de nødvendige
+foranstaltninger til at indføre en streng beskyttelsesordning for de dyrearter, der er nævnt i direktivets
+bilag IV, litra a). Ordningen skal efter bestemmelsens litra d) blandt andet omfatte et forbud mod
+beskadigelse eller ødelæggelse af bilag IV-arters yngle- eller rasteområder. Formålet med
+bestemmelsen er at beskytte vigtige dele i bilag IV-arternes levesteder, således at disse dele fortsat
+frembyder de vilkår, der er nødvendige for, at de berørte dyrearter inden for dette område kan raste eller
+yngle med succes.6 Bestemmelsen er i dansk ret blandt andet gennemført i habitatbekendtgørelsens §
+10, stk. 1, nr. 1, og i tilsvarende regler på andre ministeriers områder.
+Det fremgår af habitatbekendtgørelsens § 10, stk. 1, nr. 1, at der ved administration af de i
+habitatbekendtgørelsens §§ 7 og 8 nævnte bestemmelser ikke kan gives tilladelse, dispensation,
+godkendelse mv., hvis det ansøgte kan beskadige eller ødelægge yngle- eller rasteområder i det naturlige
+udbredelsesområde for bilag IV-arter. De nævnte bestemmelser i habitatbekendtgørelsens § 7 omfatter
+blandt andet miljøvurderingslovens § 25 (§ 25-tilladelser), jf. habitatbekendtgørelsens § 7, stk. 13, nr. 2.
+Ved meddelelse af en § 25-tilladelse skal myndigheden således sikre sig, at projektet ikke vil beskadige
+eller ødelægge yngle- eller rasteområder i det naturlige udbredelsesområde for bilag IV-arter.
+Vurderingen skal fremgå af § 25-tilladelsen, jf. habitatbekendtgørelsens § 10, stk. 2.
+Hvis en eventuel beskadigelse eller ødelæggelse af bilag IV-arters yngle- eller rasteområder ikke med en
+høj grad7 af sikkerhed kan udelukkes eller afværges, kan projektet kun tillades
+efter fravigelsesbestemmelser i habitatbekendtgørelsen § 11 (jf. herom nedenfor under del B, pkt. 6).
+Det er den kompetente myndigheds ansvar i overensstemmelse med det almindelige forvaltningsretlige
+undersøgelsesprincip (officialprincip) at sikre sig, at der er tilvejebragt tilstrækkelige oplysninger til at
+kunne vurdere, om yngle- eller rasteområder for bilag IV-arter beskadiges eller ødelægges. Formålet
+med undersøgelsesprincippet er at understøtte, at der træffes materielt lovlige og rigtige afgørelser.
+Undersøgelsesprincippet betyder dog ikke nødvendigvis, at myndigheden selv skal fremskaffe de
+nødvendige oplysninger. Det fremgår udtrykkeligt af miljøvurderingslovens § 20, stk. 1, at det i sager,
+der er omfattet af kravet om § 25-tilladelse, er bygherren, der har ansvaret for at udarbejde og fremlægge
+en miljøkonsekvensrapport for projektet. Miljøkonsekvensrapporten skal opfylde de indholdsmæssige
+krav, der er angivet i miljøvurderingslovens § 20 samt i lovens bilag 7. Oplysningerne i
+miljøkonsekvensrapporten skal bl.a. på en passende måde påvise, beskrive og vurdere projektets
+væsentlige direkte og indirekte virkninger på den biologiske mangfoldighed med særlig vægt på de
+arter og naturtyper, der er beskyttet i henhold til habitat- og fuglebeskyttelsesdirektivet.8 Men også i
+disse sager, hvor det er bygherren, der har ansvaret for at udarbejde og fremlægge
+miljøkonsekvensrapporten, har myndigheden et selvstændigt ansvar til at foretage en afvejning og
+vurdering af de oplysninger m.v., som bygherren har fremlagt, samt af de øvrige oplysninger, der indgår
+i sagen.9 Det er ligeledes myndigheden, der har ansvaret for at vurdere, hvorvidt der i den konkrete sag
+er behov for at indhente yderligere oplysninger m.v.
+6 C-357/20, Europæisk hamster II, præmis 52.
+7 MFKN afgørelse af 16. november 2022, sag jr. nr. 21/10121, MFKN afgørelse af 13. oktober
+2023, sag jr. nr. 22/11288, 22/11289, MFKN afgørelse af 5. juli 2024, sag jr. nr. 21/09761;
+Meddelelse fra Kommissionen, Vejledning om streng beskyttelse af dyrearter af
+fællesskabsbetydning i henhold til habitatdirektivet, 2021/C 496, pkt. 2-69.
+8 Miljøvurderingslovens § 20, stk. 4, nr. 2.
+9 Miljøvurderingslovens § 5, nr. 5, litra d).
+2
+
+Undersøgelsesprincippet samt omfanget og karateren af de oplysninger, der skal tilvejebringes for at
+kunne vurdere, om et projekt kan beskadige eller ødelægge bilag IV-arters yngle- eller rasteområder,
+uddybes i notatet ”Notat om officialprincippet i miljøvurderingskontekst”10 og behandles derfor ikke
+nærmere i nærværende notat.
+Del B. VURDERINGSPROCESSEN OG DE CENTRALE ELEMENTER I VURDERINGEN AF
+BILAG IV-ARTERS LEVESTEDER
+Udgangspunktet efter habitatbekendtgørelsen er, at der ikke kan gives tilladelse m.v., hvis det ansøgte
+kan beskadige eller ødelægge yngle- eller rasteområder for bilag IV-arter. Der er hverken i
+habitatdirektivet eller habitatbekendtgørelsen fastsat nærmere regler for, hvordan vurderingen af, om
+projektet kan beskadige eller ødelægge bilag IV-arters yngle- eller rasteområder skal foretages.
+Som beskrevet nedenfor er det en forudsætning for meddelelse af en § 25-tilladelse, at myndigheden har
+den nødvendige høje grad af sikkerhed for, at yngle- eller rasteområder for bilag IV-arter ikke
+beskadiges eller ødelægges.
+Der kan ikke fastsættes entydige kriterier for omfanget og karakteren af de oplysninger, der er
+nødvendige for at opnå den nødvendige høje grad af sikkerhed, da dette afhænger af den konkrete sag.
+Vurderingen kræver dog som udgangspunkt et kendskab til det ansøgte projekt, herunder omfanget af
+projektets påvirkning på lokaliteten samt den berørte lokalitets funktion og værdi for bilag IV-arter. Som
+illustreret nedenfor i figur 1, kan en eventuel fravigelse af bilag IV-beskyttelsen først komme på tale, når
+dette er undersøgt og beskrevet, og når det er vurderet, at den identificerede negative påvirkning ikke
+kan afværges ved hjælp af afværgeforanstaltninger.
+Nedenfor (figur 1) illustreres de centrale elementer i vurderingsprocessen.
+10 Under udarbejdelse.
+3
+
+NOTAT Styrelsen for Grøn Arealomlægning
+og Vandmiljø
+Figur 1 Illustration af vurderingsprocessen
+Miljøvurdering og Plan
+J.nr. 2024 - 63244
+Ref. sanfi
+Den 25. oktober 2024
+Styrelsen for Grøn Arealomlægning
+og Vandmiljø • Tolderlundsvej 5 • 5000 Odense C •
+Tlf. 72 54 40 00 • CVR 25798376 • EAN 5798000860810 • mst@mst.dk • www.mst.dk
+
+Styrelsen for Grøn Arealomlægning
+NOTAT
+og Vandmiljø
+Miljøvurdering og Plan
+J.nr. 2024 - 63244
+Ref. sanfi
+Nedenfor gennemgås de enkelte trin fra figur 1. Den 25. oktober 2024
+Trin 1: Kan det udelukkes, at nogle af de lokaliteter, der vil kunne blive påvirket af
+projektet rummer yngle- eller rasteområder for en eller flere af bilag IV-arter?
+Yngle- og rasteområder er afgørende for dyrenes livscyklus og for en arts samlede levested og er tillagt
+en høj grad af beskyttelse mod handlinger, der forårsager, at disse områder beskadiges eller ødelægges.
+Yngle- og rasteområder er beskyttede i henhold til habitatdirektivet uanset hvor mange enheder af den
+berørte bilag IV-art, der findes i det pågældende område.11
+Det naturlige udgangspunkt for vurderingen af, om et projekt kan beskadige eller ødelægge yngle- eller
+rasteområder for bilag IV-arter, er en vurdering af, om nogle af de lokaliteter, der vil kunne blive påvirket
+af projektet (både inden for og uden for projektområdet), tjener som yngle- eller rasteområder for en
+eller flere bilag IV-arter.
+Hverken habitatdirektivet eller habitatbekendtgørelsen indeholder en definition af, hvad der skal forstås
+ved bilag IV-arters ”yngle-” og ”rasteområder”. Det følger af EU-domstolens dom i sag C-357/20,12 at
+begrebet ”yngleområde” skal forstås således, at det omfatter alle de områder, der er nødvendige for, at
+den pågældende dyreart kan yngle med succes, herunder omgivelserne omkring yngleområdet. Sådanne
+områder er beskyttede, så længe de er nødvendige for at arten kan yngle med succes.13 Dette indebærer,
+at beskyttelsen omfatter de yngleområder, som ikke længere benyttes, når der er en tilstrækkelig stor
+sandsynlighed for, at den nævnte dyreart vender tilbage til disse områder. Det vil bero på en konkret
+vurdering ud fra en artsspecifik tilgang, om der er en tilstrækkelig stor sandsynlighed for, at den
+pågældende art vender tilbage til et konkret område.
+”Rasteområder” beskrives i EU-Kommissionens vejledning som de områder, der benyttes af et dyr eller
+en gruppe af dyr, når de ikke er aktive.14 Rasteområder omfatter også strukturer, som dyr etablerer som
+rasteområder, f.eks. reder, huler eller skjulesteder. Rasteområder, der anvendes regelmæssigt, i løbet af
+et år eller over flere år, skal beskyttes, selv om de ikke benyttes. Dette betyder, at hvis f.eks. en bestemt
+grotte bruges hvert år af et antal flagermus til overvintring (fordi arten sædvanligvis vender tilbage til
+samme vinterhi hvert år), bør denne grottes funktion som overvintringssted også beskyttes om
+sommeren, så flagermus kan bruge det igen om vinteren.
+Mens andre elementer i bilag IV-arters levesteder end yngle- og rasteområder, f.eks.
+fourageringsområder, ledelinjer eller vandringsruter, ikke i sig selv er omfattet af habitatdirektivets
+artikel 12, stk. 1, litra d), kan disse elementer efter en konkret vurdering være omfattet af bestemmelsens
+strenge beskyttelse.15 Hvis f.eks. et konkret fourageringsområde er nødvendigt for, at den pågældende
+11 C-441/17, Kommissionen mod Polen (Białowieża-skoven), præmis 237, C-473/19 og C-
+74/19, Föreningen Skydda Skogen, præmis 83.
+12 C-357/20, Europæisk hamster II, præmis 27.
+13 C-357/20, Europæisk hamster II, præmis 43.
+14 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 2-56.
+15 F.eks. C-357/20, Europæisk hamster II, præmis 33, hvor EU-Domstolen fastslog, at
+habitatdirektivets artikel 12, stk. 1, litra d), skal fortolkes således, at beskyttelsen af
+yngleområder for bilag IV-arter også gælder aktiviteter omkring yngleområdet, hvis
+aktiviteterne medfører, at bilag IV-arter ikke vil besøge yngleområdet længere, og begrebet
+Styrelsen for Grøn Arealomlægning
+og Vandmiljø • Tolderlundsvej 5 • 5000 Odense C •
+Tlf. 72 54 40 00 • CVR 25798376 • EAN 5798000860810 • mst@mst.dk • www.mst.dk
+
+dyreart kan yngle med succes, skal dette område beskyttes.16 Ved definitionen af yngle- og rasteområder
+er det således altid nødvendigt at tage udgangspunkt i den konkrete art, herunder den aktuelle viden om
+dens økologi og adfærd.
+Yngle- eller rasteområder kan bestå af flere lokaliteter, der tjener som levesteder for den samme bestand.
+Betydningen af de enkelte lokaliteter i netværket kan afhænge af bestandens tæthed og
+spredningsmuligheder. Et yngle- eller rasteområde forstås således ikke som hver enkelt lokalitet eller
+forekomst men som en samling af lokaliteter, hvor en bestand af en art yngler eller raster, medmindre
+der ikke er økologisk sammenhæng med andre lokaliteter eller forekomster.17
+For så vidt angår omfanget og karakteren af de oplysninger, der er nødvendige for at udelukke, at en
+lokalitet rummer yngle- eller rasteområder for bilag IV-arter, kan der ikke fastlægges entydige kriterier.
+Omfanget og karakteren af oplysninger afhænger altid af det konkrete projekt, jf. herom nærmere i
+”Notat om officialprincippet i miljøvurderingskontekst”.18
+Som anført ovenfor er der hverken i habitatdirektivet eller habitatbekendtgørelsen fastsat nærmere
+regler for, hvordan vurderingen af, om projektet kan beskadige eller ødelægge bilag IV-arters yngle- eller
+rasteområder skal foretages.
+I praksis kan bygherren ofte gennemføre en indledende vurdering på baggrund af eksisterende viden19
+om arternes udbredelse, levevis og krav til levested. Formålet med en sådan vurdering er at fastslå, om
+der er en mulighed for, at bilag IV-arter og/eller deres levesteder vil kunne blive påvirket af projektet.
+Det bemærkes, at en manglende registrering ikke er ensbetydende med, at arten ikke er til stede på
+lokaliteten, hvis lokaliteten ellers opfylder de krav arten stiller til et levested og ligger inden for artens
+udbredelsesområde.
+Hvis en indledende undersøgelse ud fra eksisterende viden peger på at arten kan forekomme, skal
+bygherren som udgangspunkt sørge for, at der gennemføres en konkret undersøgelse af artens
+forekomst i området. Undersøgelserne skal ske målrettet med egnede metoder, og det skal sikres, at
+undersøgelserne foregår på de tidspunkter på året, hvor den pågældende art kan tænkes at udnytte et
+givet område.20
+I sager, hvor det af forskellige årsager ikke er muligt for bygherren at udføre tilstrækkelige
+undersøgelser, eller hvor de undersøgelser, der udføres, ikke med tilstrækkelig sikkerhed kan udelukke,
+at arten alligevel forekommer i en ellers egnet lokalitet (f.eks. hvis der er tale om en art, der er svær at
+”yngleområde” derfor også omfatter områdets omgivelser, når omgivelserne er nødvendige
+for, at bilag IV-arter kan yngle med succes. Se også Vejledning om streng beskyttelse af
+dyrearter af fællesskabsbetydning i henhold til habitatdirektivet, 2021/C 496/01, pkt. 2-56.
+Nationalt kan nævnes f.eks. MFKN afgørelse af 24. juni 2020, sag jr. nr. 18/06079,
+18/04890 og 18/04891, hvor nævnet betragtede som nødvendigt at anse en konkret
+forbindelseskorridor mellem to områder med hasselmus som en del af et samlet yngle- og
+rasteområde.
+16 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 2-56.
+17 F.eks. MFKN afgørelse af d. 29. august 2023, sag jr. nr. 22/10478.
+18 Under udarbejdelse.
+19 Habitatvejledningen s. 66, oplister en række kilder, der kan bruges til at fremsøge
+oplysninger om arternes forekomst og udbredelse.
+20 Se nærmere i Habitatvejledningen, s. 67.
+6
+
+kortlægge), kan det dog ud fra et forsigtighedsprincip foreløbigt lægges til grund, at den pågældende
+lokalitet udgør et yngle- eller rasteområde for en given bilag IV-art. I de tilfælde, hvor
+forsigtighedsprincippet anvendes til at antage, at en bestemt lokalitet udgør et yngle- eller rasteområde,
+behøver vurderingen således ikke indeholde en endelig vurdering af, om en given lokalitet faktisk tjener
+som yngle- eller rasteområde for en given art.21 Det vil dog ofte være nødvendigt at have udført
+tilstrækkelige undersøgelser, så man har bedst muligt kendskab til sit projekt og dets påvirkning, og
+derved mindsker usikkerheden i vurderingerne. Hvis myndigheden har et godt kendskab til arternes
+forekomst, og dermed til omfanget og karakteren af projektets påvirkning på de på berørte arters yngle-
+eller rasteområder, vil det eksempelvis være nemmere at imødekomme kravet om at etablere
+afværgeforanstaltninger, så den økologiske funktionalitet af yngle- eller rasteområdet opretholdes på
+mindst samme niveau som hidtil (se herom nedenfor under pkt. 4).
+Trin 2 og 3: Kan en påvirkning på yngle- eller rasteområdets økologiske funktionalitet
+med en høj grad af sikkerhed afvises?
+Såfremt det ikke kan afvises, at nogle af de berørte lokaliteter tjener som yngle- eller rasteområde for
+bilag IV-arter, er det herefter nødvendigt at vurdere, hvordan disse lokaliteter påvirkes af projektet.
+Kravet om, at bilag IV-arters yngle- og rasteområder ikke beskadiges eller ødelægges, forstås i praksis
+som en målsætning om, at områdernes økologiske funktionalitet bevares.22 Det betyder, at det ved
+vurderingen af, om bilag IV-arters yngle- eller rasteområder beskadiges eller ødelægges, belyses, om
+projektet kan forringe de yngle- eller rastevilkår, som det berørte yngle- eller rasteområde (dvs. den
+samling af lokaliteter, som regelmæssigt bliver anvendt af arten) tilbyder.
+Ved vurderingen af, om et yngle- eller rasteområde beskadiges eller ødelægges, er det afgørende, om den
+økologiske funktionalitet af området (samlingen af lokaliteter) kan opretholdes på mindst samme
+niveau som hidtil. Om der i forbindelse med et projekt er tale om beskadigelse eller ødelæggelse af et
+yngle- eller rasteområde afhænger efter Kommissionens vejledning af, om områdets økologiske
+funktionalitet for den pågældende art vil forblive ”fuldstændig intakt”, når aktiviteten har fundet sted.23
+Ved beskadigelse eller ødelæggelse af dele af bilag IV-arters yngle- eller rasteområder, herunder f.eks.
+ved fældning af træer, der tjener som yngle- og/eller rasteområde for flagermus, vil der derfor som
+udgangspunkt altid være tale om en reduktion eller tab af den økologiske funktionalitet af den
+pågældende arts yngle- eller rasteområde, og dermed en påvirkning, der er forbudt i henhold til
+habitatdirektivets artikel 12, stk. 1, litra d).
+Det er i denne forbindelse vigtigt at tilføje, at både fysiske indgreb i yngle- eller rasteområder, men også
+andre former for påvirkning, f.eks. støj, kan påvirke et områdes økologiske funktionalitet.24 Ved
+vurderingen af, om den økologiske funktionalitet af området kan opretholdes på mindst samme niveau
+som hidtil skal der således altid tages hensyn til de økologiske krav, der gælder for hver enkelt af de
+21 MFKN afgørelse af d. 31. maj 2021, sag jr. nr. 19/06809.
+22 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 2-52.
+23 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 2-73.
+24 Se f.eks. MFKN afgørelse af d. 23. februar 2023, sag jr. nr. 22/02461, hvor nævnet lagde
+vægt på, at der ikke var foretaget en vurdering af, om støjen i projektets anlægsfase fra
+nedramning af spuns vil kunne påvirke yngle- og rasteområder for flagermus.
+7
+
+berørte dyrearter, samt til situationen på individniveau for denne dyreart, som benytter det pågældende
+yngle- eller rasteområde.25
+Viser vurderingen, at projektet kan skade den økologiske funktionalitet af et yngle- eller rasteområde
+for bilag IV-arter, bør man i overensstemmelse med afværgehierarkiet26 søge at tilpasse projektet, så
+man i videst muligt omfang undgår skaden.27 Er det ikke muligt at tilpasse projektet således, at skaden
+på den økologiske funktionalitet undgås, kan det i konkrete tilfælde være muligt at afværge skaden ved
+hjælp af foranstaltninger, der sikrer, at områdets økologiske funktionalitet ikke på noget tidspunkt
+udsættes for en reduktion eller tab. Disse foranstaltninger omtales i det nedenstående som
+”afværgeforanstaltninger”.
+Trin 4 og 5: Er der en høj grad af sikkerhed for, at den økologiske funktionalitet kan
+opretholdes ved hjælp af afværgeforanstaltninger?
+De foranstaltninger, der iværksættes for at opretholde den økologiske funktionalitet i yngle- eller
+rasteområder for de beskyttede arter, betegnes samlet set som "afværgeforanstaltninger".
+Afværgeforanstaltninger har til formål at sikre, at bilag IV-arters yngle- eller rasteområder ikke på noget
+tidspunkt udsættes for en reduktion eller tab af økologisk funktionalitet. Afværgeforanstaltninger bør
+ikke forveksles med ”kompensationsforanstaltninger”, som kan anvendes i de tilfælde, hvor et projekt
+kræver fravigelse efter habitatbekendtgørelsens fravigelsesbestemmelser (se herom nedenfor under pkt.
+6).
+Hvorvidt det i et konkret tilfælde er muligt at afværge skaden på den økologiske funktionalitet ved brug
+af afværgeforanstaltninger, afhænger af sagens konkrete omstændigheder. Afværgeforanstaltninger er
+velegnet for arter, som er hurtige til at kolonisere nye lokaliteter inden for et netværk af lokaliteter, der
+udgør et samlet område for en bestand, og hvor nye egnede levesteder vil kunne skabes over en kortere
+tidsperiode.28 Der kan eksempelvis være tale om foranstaltninger, der erstatter den del eller de dele af
+yngle- eller rasteområdet, der kan blive beskadiget eller ødelagt, og dermed sikrer, at områdets
+økologiske funktionalitet ikke på noget tidspunkt udsættes for en reduktion eller tab. En af
+forudsætninger herfor er, at erstatningen er funktionel senest ved indgrebets start.
+Hvis yngle- eller rasteområdet som følge af afværgeforanstaltninger mindst bevarer den samme
+størrelse (eller udvides) og bevarer den samme (eller bedre) kvalitet for de pågældende arter, vil der ikke
+ske nogen forringelse af områdets funktion, kvalitet eller integritet.29 Det afgørende er, at områdets
+fortsatte økologiske funktionalitet bevares eller forbedres.
+25 C-357/20, Europæisk hamster II, præmis 52.
+26 Afværgehierarkiet betyder, at den første prioritet er at undgå påvirkninger, anden
+prioritet er at minimere påvirkninger osv. Hierarkiet omtales indirekte i
+miljøvurderingslovens bilag 7, pkt. 7, hvorefter en miljøkonsekvensrapport skal indeholde
+en beskrivelse af ”de påtænkte foranstaltninger med henblik på at undgå, forebygge,
+begrænse eller om muligt neutralisere identificerede væsentlige skadelige virkninger på
+miljøet”.
+27 Habitatvejledningen, s. 69.
+28 Se nærmere i Habitatvejledningen, s. 69.
+29 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 2-68.
+8
+
+Bilag IV-håndbogen indeholder anbefalinger til mulige afværgeforanstaltninger for en række bilag IV-
+arter.30 Da Håndbogen kun er vejledende, er det dog altid nødvendigt konkret at vurdere, hvorvidt
+Håndbogens anbefalinger er relevante i den konkrete sag.
+Afværgeforanstaltninger skal i henhold til forsigtighedsprincippet medføre en høj grad af sikkerhed for,
+at de er tilstrækkelige til at undgå enhver beskadigelse eller ødelæggelse. Vurderingen af
+sandsynligheden for afværgeforanstaltningernes succes skal foretages på grundlag af objektive
+oplysninger og det pågældende områdes karakteristika og specifikke miljøforhold.31 Det er således altid
+en konkret vurdering, om der foreligger den nødvendige høje grad af sikkerhed for, at
+afværgeforanstaltningerne er tilstrækkelige.
+Vurderingen af, om den økologiske funktionalitet kan opretholdes på mindst samme niveau som hidtil,
+forudsætter blandt andet et faktisk kendskab til den berørte lokalitets funktion som yngle- og
+rasteområde isoleret set og som del af det samlede yngle- og rasteområde.32 Kendskabet til arternes
+forekomst i projektområdet kan ligeledes have betydning for vurderingen af, om den økologiske
+funktionalitet af et yngle- eller rasteområde opretholdes på mindst samme niveau som hidtil. Er der tale
+om større usikkerhed i kendskabet til arternes konkrete forekomst i et område, eksempelvis hvis arten
+er svær at kortlægge, vil der som udgangspunkt være behov for større sikkerhed i form af flere eller mere
+vidtgående afværgeforanstaltninger. Herved kan man få vished for, at en aktivitet selv i værste fald ikke
+vil skade den økologiske funktionalitet, selvom man ikke er sikker på skadens faktiske størrelse.
+Det er forsigtighedsprincippet, der er styrende for, om afværgeforanstaltningerne kan anses for
+tilstrækkelige i forhold til at opretholde den fortsatte økologiske funktionalitet.33 Dette ændrer dog ikke
+på, at de fastsatte vilkår (om afværgeforanstaltninger) skal, jf. det almindelige forvaltningsretlige
+proportionalitetsprincip, stå i rimeligt forhold til projektets art, placering og dimensioner samt
+omfanget af dets indvirkninger på miljøet.
+I de sager, hvor afværgeforanstaltninger er nødvendige for at opretholde den økologiske funktionalitet,
+skal miljøkonsekvensrapportens vurdering af projektets indvirkning på bilag IV-arter indeholde en
+nærmere redegørelse for, hvordan de konkrete afværgeforanstaltninger effektivt kan sikre, at den
+økologiske funktionalitet af yngle- eller rasteområdet opretholdes på mindst samme niveau som hidtil.34
+I disse sager skal der foreligge en konkret faglig vurdering af sandsynligheden for, at
+afværgeforanstaltninger kan sikre, at den økologiske funktionalitet forbliver fuldstændig intakt, når
+indgrebet har fundet sted. Den faglige vurdering skal som udgangspunkt forholde sig både til størrelsen,
+kvaliteten og funktionen af de berørte lokaliteter, og skal, som anført ovenfor, baseres på objektive
+oplysninger.
+Hvis afværgeforanstaltningerne ikke med høj grad af sikkerhed må forventes at ville virke i tilstrækkeligt
+omfang, skal projektet tilpasses, således at den umiddelbare skade på lokaliteten undgås. Der kan f.eks.
+30 Håndbog om dyrearter på habitatdirektivets bilag IV, Faglig rapport fra DMU nr. 635,
+2007; Opdatering af Håndbog om dyrearter på habitatdirektivets bilag IV, Videnskabelig
+rapport fra DCE nr. 520, 2003; Opdatering af Håndbog om dyrearter på habitatdirektivets
+bilag IV, del 2 – Odder og flagermus, Videnskabelig rapport fra DCE nr. 603, 2024.
+31 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 2-69.
+32 MFKN afgørelse af d. 25. marts 2021, sag jr. nr. 19/09167.
+33 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 2-69.
+34 Se eks. MFKN afgørelse af d. 7. juli 2021, sag jr. nr. 21/05337 og 21/05338.
+9
+
+være tale om en alternativ placering eller alternative aktiviteter, processer eller metoder. Bemærk også
+i denne forbindelse, at det er en af betingelserne for eventuelt at fravige bilag IV-beskyttelsen, jf. herom
+nedenfor, at det påvises, at der ikke findes nogen anden tilfredsstillende eller brugbar løsning, dvs. at
+formålet med projektet ikke kan opnås ved anvendelse af mindre indgribende midler.
+Kan en eventuel beskadigelse eller ødelæggelse af bilag IV-arters yngle- eller rasteområder – på trods af
+projekttilpasninger - ikke med en høj grad af sikkerhed udelukkes eller afværges, kan projektet kun
+tillades efter fravigelsesbestemmelser i habitatbekendtgørelsen § 11. Dette forudsætter dog, at den
+kompetente myndighed vurderer, at alle betingelser, der fremgår af bestemmelsen, er opfyldt (se herom
+nedenfor under pkt. 6).
+Trin 6: Er alle fravigelsesbetingelser opfyldt?
+Hvis en eventuel skade på den økologiske funktionalitet ikke med en høj grad af sikkerhed kan udelukkes
+eller afværges, kan projektet kun tillades efter fravigelsesbestemmelsen i habitatbekendtgørelsen § 11.
+Af habitatbekendtgørelsens § 11, stk. 1, fremgår det, at myndigheden kan fravige beskyttelsen af yngle-
+og rasteområder for bilag IV-arter efter habitatbekendtgørelsens § 10, hvis der ikke findes et
+tilfredsstillende alternativ, og hvis fravigelsen ikke hindrer, at den pågældende bestands bevaringsstatus
+opretholdes i dens naturlige udbredelsesområde. Fravigelse kan herudover kun ske i en række nærmere
+angivne situationer, jf. habitatbekendtgørelsens § 11, stk. 1, nr. 1-4. Det gælder bl.a., når det ansøgte har
+til formål at sikre hensyn til den offentlige sundhed og sikkerhed eller af andre bydende nødvendige
+hensyn til væsentlige samfundsinteresser, herunder af social og økonomisk art, og hensyn til væsentlige
+gavnlige virkninger på miljøet, jf. habitatbekendtgørelsens § 11, stk. 1, nr. 3.
+Det er ikke en betingelse for fravigelse efter habitatbekendtgørelsens § 11, at der gennemføres
+kompensationsforanstaltninger. Eventuelle kompensationsforanstaltninger kan dog indgå i
+vurderingen af, om fravigelsen vil hindre, at den pågældende bestands bevaringsstatus opretholdes, jf.
+habitatbekendtgørelsens § 11. stk. 1, 2. led.35
+For projekter om vedvarende energi gælder der særlige regler for vurderingen af, om
+fravigelsesbetingelserne i habitatbekendtgørelsens § 11 er opfyldt.
+Det følger af § 3, nr. 2, i kontaktpunktsbekendtgørelsen,36 at indtil der er opnået klimaneutralitet,
+formodes planlægning, opførelse og drift af VE-anlæg, sådanne anlægs tilslutning til nettet, selve det
+tilknyttede net og lagringsaktiver at være af væsentlig samfundsmæssig interesse og at tjene den
+offentlige sundhed og sikkerhed i forbindelse med afvejningen af retlige interesser i de individuelle
+tilfælde med henblik på vurdering efter § 11, stk. 1, nr. 3, i habitatbekendtgørelsen.
+For så vidt angår vurderingen af, om der findes et tilfredsstillede alternativ, jf. habitatbekendtgørelsens
+§ 11, stk. 1, fremgår det af § 4, stk. 1, jf. stk. 4, nr. 1, i nødforordningsbekendtgørelsen,37 at når der med
+henblik på § 11, stk. 1, i habitatbekendtgørelsen vurderes, om der ikke findes noget tilfredsstillende
+alternativ til et projekt vedrørende et anlæg eller en installation til produktion af energi fra vedvarende
+35 Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til
+habitatdirektivet, 2021/C 496/01, pkt. 3-84.
+36 Bekendtgørelse nr. 773 af 20. juni 2024 om kontaktpunkt, VE-tilladelsesprocessen og områder til fremme af VE.
+37 Bekendtgørelse nr. 774 af 20. juni 2024 om fastsættelse af supplerende bestemmelser for
+anvendelse af visse dele af Rådets forordning (EU) 2022/2577 om en ramme for
+fremskyndelse af udbredelsen af vedvarende energi og Rådets forordning (EU) 2024/223
+om ændring af EU-forordning 2022/2577.
+10
+
+energikilder og projektets tilslutning til nettet, skal denne betingelse anses for opfyldt, hvis der ikke
+findes en tilfredsstillende alternativ løsning, der kan opfylde det samme mål som det pågældende
+projekt, navnlig hvad angår udvikling af samme kapacitet inden for vedvarende energi ved hjælp af
+samme teknologi til vedvarende energi, inden for samme eller lignende tidshorisont, og uden at det
+medfører væsentligt højere omkostninger.
+Derudover fremgår det af § 4, stk. 2, jf. stk. 4, nr. 2, i nødforordningsbekendtgørelsen, at når der med
+henblik på § 11, stk. 1, i habitatbekendtgørelsen vurderes, om der ikke findes noget tilfredsstillende
+alternativ til et netinfrastrukturprojekt, som er nødvendigt for at integrere vedvarende energikilder i
+elektricitetssystemet, skal denne betingelse anses for opfyldt, hvis der ikke findes nogen tilfredsstillende
+alternativ løsning, der kan opfylde det samme mål som det pågældende projekt inden for samme eller
+lignende tidshorisont, og uden at det medfører væsentligt højere omkostninger.
+Bemærk dog, at bestemmelserne i nødforordningsbekendtgørelsen har en begrænset
+anvendelsesperiode, og bekendtgørelsens § 4, stk. 1 og 2, finder alene anvendelse på tilladelsesprocesser,
+der er påbegyndt i den tidsperiode, der er defineret i nødforordningsbekendtgørelsens § 2.
+Før der træffes afgørelse om at fravige beskyttelsen af bilag IV-arters yngle- og rasteområder skal den
+pågældende myndighed indhente udtalelse fra ministeren for Grøn Trepart (tidligere miljøministeren),
+jf. habitatbekendtgørelsens § 11, stk. 3. I den forbindelse er det vigtigt at fremhæve, at for at ministeren
+for Grøn Trepart kan komme med en udtalelse, er der behov for, at sagen er fuldt oplyst.
+Beslutning om at fravige skal meddeles ministeren for Grøn Trepart med henblik på information af
+Europa-Kommissionen, jf. habitatbekendtgørelsens § 11, stk. 4.
+11
+
+Del C. GODT AT HUSKE
+Tabel 1 Råd og tips
+1. Det er en forudsætning for meddelelse af en tilladelse efter miljøvurderingslovens § 25, at VVM-myndigheden
+vurderer, at det ansøgte projekt ikke kan beskadige eller ødelægge bilag IV-arters yngle- eller rasteområder. Hvis en
+eventuel beskadigelse eller ødelæggelse ikke med en høj grad af sikkerhed kan udelukkes eller afværges, kan
+projektet kun tillades efter habitatbekendtgørelsens fravigelsesbestemmelser.
+2. Habitatbekendtgørelsen foreskriver en vurdering af, om det ansøgte kan beskadige eller ødelægge bilag IV-arters
+yngle- eller rasteområder. Det er således ikke tilstrækkeligt blot at konstatere, at bilag IV-arters yngle- eller
+rasteområder ikke beskadiges eller ødelægges. Vurderingen skal fremgå af afgørelsen.
+3. Det er vigtigt at kende sit projekt, herunder projektets påvirkning på lokaliteten samt den berørte lokalitets funktion
+og værdi for bilag IV-arter. Jo større usikkerhed i kendskabet til lokaliteten, dens værdi og funktion for bilag IV-arter
+og arternes konkrete forekomst, jo større usikkerhed i vurderingerne.
+4. Habitatbekendtgørelsens strenge beskyttelse omfatter både bilag IV-arters yngle- og rasteområder. Andre elementer
+i bilag IV-arters levesteder, f.eks. fourageringsområder, ledelinjer eller vandringsruter, kan efter en konkret
+vurdering være omfattet af beskyttelsen.
+5. En manglende registrering af en bestemt art er ikke ensbetydende med, at arten ikke er til stede på lokaliteten, hvis
+lokaliteten ellers opfylder de krav, arten stiller til et levested, og ligger inden for artens udbredelsesområde.
+6. Ved vurderingen af, om bilag IV-arters yngle- eller rasteområder beskadiges eller ødelægges anvendes princippet om
+økologisk funktionalitet (en bred økologisk betragtning) af yngle- og rasteområder. Ved definitionen af disse
+områder er det altid nødvendigt at tage udgangspunkt i den konkrete art, herunder dens økologi og adfærd.
+7. Overholdelse af forbuddet mod at beskadige eller ødelægge bilag IV-arters yngle- og rasteområder forudsætter, at
+yngle- eller rasteområders økologiske funktionalitet for de berørte arter forbliver fuldstændig intakt, når en given
+aktivitet finder sted og når den har fundet sted. For at opretholde den økologiske funktionalitet ved beskadigelse
+eller ødelæggelse af dele af bilag IV-arters yngle- eller rasteområder er det således ikke tilstrækkeligt blot at henvise
+til, at der efter indgrebet fortsat er en stor del af levestedet tilbage.
+8. Afværgeforanstaltninger kan i visse tilfælde anvendes til at afværge skaden på den økologiske funktionalitet af yngle-
+eller rasteområdet. Overholdelse af forbuddet mod at beskadige eller ødelægge bilag IV-arters yngle- og
+rasteområder forudsætter, at sådanne foranstaltninger garanterer en høj grad af sikkerhed for, at de er
+tilstrækkelige til at sikre, at områdets økologiske funktionalitet ikke på noget tidspunkt udsættes for en reduktion
+eller tab (kvalitativt og kvantitativt).
+9. En fravigelse af beskyttelsen kan anvendes som sidste udvej og forudsætter, at projektets påvirkning på lokaliteten
+samt den berørte lokalitets funktion og værdi for bilag IV-arter er undersøgt og beskrevet, og det er vurderet, at den
+identificerede negative påvirkning ikke kan afværges ved hjælp af afværgeforanstaltninger. En fravigelse forudsætter
+endvidere, at myndigheden vurderer, at alle fravigelsesbetingelser er opfyldt.
+10. Individer af bilag IV-arter er tillige beskyttet mod forsætlig indfangning og drab, forsætlig forstyrrelse samt forsætlig
+ødelæggelse eller indsamling af æg i naturen. Det skal fremgå af miljøkonsekvensrapporten for et projekt, som kan
+skade bilag IV-arter, om projektet faktisk vil kunne gennemføres under overholdelse af disse forbud.
+12

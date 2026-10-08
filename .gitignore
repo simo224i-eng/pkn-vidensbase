@@ -13,3 +13,7 @@ ejnar/.evaluation_tmp/
 ejnar/evaluation/simulation/__pycache__/
 ejnar/evaluation/simulation/runs/
 .venv/
+logs/
+lovgrundlag/_pdf/
+data_2026/korpus_renset.jsonl
+analyser/miljoevurdering/v2/sager/

@@ -167,5 +167,37 @@
   "EndDate": "2026-06-23",
   "DiesSigni": "2019-12-19",
   "DocumentType": "VEJ#LOKDOK15"
+ },
+ {
+  "kode": "bilag4_notat_levesteder_2024",
+  "navn": "Notat om juridisk vurdering af bilag IV-arters yngle- og rasteområder (Miljøstyrelsen/SGAV, 2024)",
+  "url": "https://sgavmst.dk/media/l01h124q/bilag-1_notat-om-juridisk-vurdering-af-bilag-iv-arters-levesteder-3.pdf",
+  "tegn": 36845,
+  "DocumentTitle": "Notat om juridisk vurdering af bilag IV-arters yngle- og rasteområder (Miljøstyrelsen/SGAV, 2024)",
+  "Status": "Valid"
+ },
+ {
+  "kode": "bilag4_vejl_ve_2026",
+  "navn": "Vejledning om beskyttelse af habitatdirektivets bilag IV-arter ved VE-projekter (SGAV, 2026)",
+  "url": "https://sgavmst.dk/media/nzqjibew/vejledning-om-beskyttelse-af-habitatdirektivets-bilag-iv-arter-ved-ve-projekter.pdf",
+  "tegn": 312122,
+  "DocumentTitle": "Vejledning om beskyttelse af habitatdirektivets bilag IV-arter ved VE-projekter (SGAV, 2026)",
+  "Status": "Valid"
+ },
+ {
+  "kode": "bilag4_haandbog_del2_2024",
+  "navn": "DCE: Håndbog om dyrearter på habitatdirektivets bilag IV, del 2 (odder og flagermus), 2024",
+  "url": "https://dmu.au.dk/fileadmin/dce.au.dk/Udgivelser/Videnskabelige_rapporter_600-699/SR603.pdf",
+  "tegn": 475806,
+  "DocumentTitle": "DCE: Håndbog om dyrearter på habitatdirektivets bilag IV, del 2 (odder og flagermus), 2024",
+  "Status": "Valid"
+ },
+ {
+  "kode": "bilag4_haandbog_del1_2023",
+  "navn": "DCE: Håndbog om dyrearter på habitatdirektivets bilag IV, del 1 (opdatering 2023, kopi fra Albertslund Kommune)",
+  "url": "https://albertslund.dk/media/qbna0e3u/dce_2023a_opdatering-af-haandbog-om-dyrearter-paa-habitatsdirektivets-bilag-iv.pdf",
+  "tegn": 717731,
+  "DocumentTitle": "DCE: Håndbog om dyrearter på habitatdirektivets bilag IV, del 1 (opdatering 2023, kopi fra Albertslund Kommune)",
+  "Status": "Valid"
  }
 ]
