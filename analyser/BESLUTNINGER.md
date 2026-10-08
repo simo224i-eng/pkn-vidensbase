@@ -61,7 +61,7 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
   plan_forhold, kompetence_procedure), fordi v1's "andet" var den største kategori.
 
 ## Tjekliste (punkt 4)
-- 19 punkter i 7 grupper, skrevet ud fra lov og vejledning (`ejnar/miljoejurist/tjekliste_grund.py`) og
+- 21 punkter i 7 grupper (19 fra start, A4 og B3 tilføjet efter testrunde 2), skrevet ud fra lov og vejledning (`ejnar/miljoejurist/tjekliste_grund.py`) og
   koblet automatisk til praksis (`byg_tjekliste.py`). Lovuddrag kontrolleres for at stå ordret.
 - Vejledningsafsnit er valgt i hånden pr. punkt (fx 4.5.2.1 "Screeningskriterierne i bilag 6"), fordi
   automatisk søgning ramte afsnit om fx opsættende virkning.
@@ -92,3 +92,5 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
 - Skribenter, model-agenter og revisorer ser blinde id'er (R01…, X01…, Y01…), så de ikke kender gruppen.
 - **Revision:** en revisor-agent (Sonnet) vurderer hvert fund: læst korrekt? relevant? bærer kilderne?
   matcher det nævnets begrundelse/den indsatte fejl? Samme revisormodel i alle runder for sammenlignelighed.
+- **Testen stoppede efter runde 4**, fordi runde 4 (strammere prompt mod falske alarmer) ikke var bedre end
+  runde 3 (færre fundne fejl i T1/T2). Koden er sat tilbage til runde 3's modellag.

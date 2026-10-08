@@ -17,7 +17,7 @@ orden; at der ikke er fundet noget, betyder kun, at kontrollerne ikke slog ud.
 
 | Lag | Hvad | Kræver |
 |---|---|---|
-| Regler (`tjek.py`) | Tjeklistens 19 punkter som mønstre: er emnet behandlet, er der grundlag, er formuleringen svag? Bilag 6-/bilag 3-kriterier. Søgning i praksis. | Intet (kører altid) |
+| Regler (`tjek.py`) | Tjeklistens 21 punkter som mønstre: er emnet behandlet, er der grundlag, er formuleringen svag? Bilag 6-/bilag 3-kriterier. Søgning i praksis. | Intet (kører altid) |
 | Sprogmodel (`llm_tjek.py`) | En model gennemgår dokumentet mod tjeklisten og praksis og returnerer JSON. Citater kontrolleres automatisk, og fund med citater, der ikke står ordret i dokumentet, fjernes. | En konfigureret udbyder (Ejnars `LLM_PROVIDER`), og at brugeren vælger "Brug også sprogmodel" |
 | Citatkontrol (`citatkontrol.py`) | Alle citater fra dokument, lov, vejledning, EU-domme og afgørelser kontrolleres som ordrette (tåler linjeskift, orddeling og "[…]"). | – |
 

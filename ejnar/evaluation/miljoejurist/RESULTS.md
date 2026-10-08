@@ -67,7 +67,7 @@ fund i begge. Det er nyttigt som tjekliste ("er emnet overhovedet behandlet?"), 
 
 - **Citatkontrol:** alle citater i rapporterne kontrolleres automatisk. Modellens fund med citater, der ikke
   står ordret i dokumentet, fjernes; det skete i 8 af 77 dokumenter i runde 2 (typisk ét fund).
-  Lovuddrag i tjeklisten: 21/21 står ordret. Citater fra nævnet i praksisdata: 539/539.
+  Lovuddrag i tjeklisten: 33/33 (fordelt på 21 punkter) står ordret. Citater fra nævnet i praksisdata: 539/539.
 - **Modellens alvorsgrad** (runde 2): fund mærket "høj" var relevante i 96 % (176/183); "lav" kun i 33 %.
   Derfor vises "lav" nu kun som "mindre bemærkninger".
 - **Unit-tests:** `ejnar/tests/test_miljoejurist.py` (9) + Ejnars API-tests (15) består.
