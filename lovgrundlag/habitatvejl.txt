@@ -276,25 +276,13 @@ Referenceliste
 
 Indledning
 
-1.1 Formål, indhold og anvendelsesområde
+## 1.1 Formål, indhold og anvendelsesområde
 
-Vejledningens primære formål er at understøtte en ensartet og korrekt anvendelse af bekendtgørelse om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter (habitatbekendtgørelsen).
+Vejledningens primære formål er at understøtte en ensartet og korrekt anvendelse af bekendtgørelse om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter (habitatbekendtgørelsen). [1]
 
-1
+Habitatbekendtgørelsen udgør en væsentlig del af implementeringen af habitat [2]
 
-Bekendtgørelse nr. 1595 af 6. december 2018 om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter.
-
-Habitatbekendtgørelsen udgør en væsentlig del af implementeringen af habitat
-
-2
-
-Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter.
-
-- og fuglebeskyttelsesdirektiverne
-
-3
-
-Rådets direktiv 2009/147/EF af 30. november 2009 med senere ændringer (tidligere Rådets direktiv nr. 79/409/EF af 2. april 1979) om beskyttelse af vilde fugle.
+- og fuglebeskyttelsesdirektiverne [3]
 
 i dansk ret.
 
@@ -310,27 +298,13 @@ Den kompetente myndighed, dvs. den myndighed, der meddeler afgørelsen, dispensa
 
 Kravet gælder også, hvor myndigheden udøver ejer- eller brugerbeføjelser over fast ejendom eller er bygherre.
 
-Tilsvarende er der i kystbeskyttelsesloven
+Tilsvarende er der i kystbeskyttelsesloven [4]
 
-4
-
-Lovbekendtgørelse nr. 705 af 29. maj 2020 om kystbeskyttelse mv.
-
-regler om vurdering af planer og projekter, hvilket er udmøntet i bekendtgørelse
-
-5
-
-Bekendtgørelse nr. 1062 af 21. august 2018 om administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter for så vidt angår kystbeskyttelsesforanstaltninger samt etablering og udvidelse af visse anlæg på søterritoriet.
+regler om vurdering af planer og projekter, hvilket er udmøntet i bekendtgørelse [5]
 
 om administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter for så vidt angår kystbeskyttelsesforanstaltninger samt etablering og udvidelse af visse anlæg på søterritoriet (kysthabitatbekendtgørelsen).
 
-Inden for andre ministeriers lovgivning findes der tilsvarende regler
-
-6
-
-Bekendtgørelse nr. 1383 af 26. november 2016 om administration af planloven i forbindelse med internationale naturbeskyttelsesområder samt beskyttelse af visse arter (planhabitatbekendtgørelsen).
-
-, som stiller krav til myndighedernes sagsbehandling, når planlægning eller administration berører internationale naturbeskyttelsesområder.
+Inden for andre ministeriers lovgivning findes der tilsvarende regler [6], som stiller krav til myndighedernes sagsbehandling, når planlægning eller administration berører internationale naturbeskyttelsesområder.
 
 De internationale naturbeskyttelsesområder er en samlebetegnelse for habitatområder og fuglebeskyttelsesområder, der tilsammen udgør Natura 2000-områderne samt Ramsarområder.
 
@@ -342,45 +316,19 @@ I Danmark er alle Ramsarområder tillige fuglebeskyttelsesområder.
 
 Vejledningen er ikke bindende, men er et bidrag til fortolkningen af habitatbekendtgørelsen og de EU-regler, der fastsætter kravene til beskyttelse af Natura 2000-områder og en række plante- og dyrearter, de såkaldte bilag IV-arter, der er beskyttet i og uden for Natura 2000-områderne.
 
-Vejledningen er udarbejdet på grundlag af habitat- og fuglebeskyttelsesdirektiverne og den danske lovgivning, der implementerer direktiverne, herunder lovgivningens forarbejder, Europa-Kommissionens vejledninger,
+Vejledningen er udarbejdet på grundlag af habitat- og fuglebeskyttelsesdirektiverne og den danske lovgivning, der implementerer direktiverne, herunder lovgivningens forarbejder, Europa-Kommissionens vejledninger, [7]
 
-7
+EU-Domstolens domme [8]
 
-Meddelelse fra Kommissionen "Forvaltning af Natura 2000-lokaliteter.
+samt afgørelser fra Naturklagenævnet, Natur- og Miljøklagenævnet samt Miljø- og Fødevareklagenævnet. [9]
 
-Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF” af 21. november 2018 og vejledning vedrørende artikel 6, stk. 4, i ’habitatdirektivet’ 92/43/EØF
+Der er hentet inspiration i andre medlemslandes vejledninger, herunder særligt de svenske [10]
 
-EU-Domstolens domme
-
-8
-
-http://ec.europa.eu/environment/nature/legislation/caselaw/index_en.
-
-htm
-
-samt afgørelser fra Naturklagenævnet, Natur- og Miljøklagenævnet samt Miljø- og Fødevareklagenævnet.
-
-9
-
-https://mfkn.naevneneshus.dk/
-
-Der er hentet inspiration i andre medlemslandes vejledninger, herunder særligt de svenske
-
-10
-
-http://www.naturvardsverket.se/Documents/publikationer6400/978-91-620-0180-3.pdf?
-
-pid=21661
-
-og engelske
-
-11
-
-https://www.gov.uk/government/publications/guidance-on-when-new-marine-natura-2000-sites-should-be-taken-into-account-in-offshore-renewable-energy-consents-and-licences
+og engelske [11]
 
 vejledninger.
 
-1.2 Vigtigste ændringer i vejledningen
+## 1.2 Vigtigste ændringer i vejledningen
 
 Denne vejledning afløser ”Vejledning til bekendtgørelse nr. 408 af 1.maj 2007 om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter fra 2011”, der videreførte en vejledning fra 2007.
 
@@ -392,15 +340,9 @@ Vejledningen uddyber endvidere begrebet ”Natura 2000-områdets integritet”.
 
 Der er endvidere foretaget en række ændringer i opsætningen af vejledningen (rækkefølge af afsnit m.v.).
 
-Som følge af ressortomlægning i 2015, hvor lov om planlægning blev overført til Erhvervs- og Vækstministeriet, nu Erhvervsministeriet, er afsnittet om planlægningsforbuddet efter planloven og afsnittet om vurdering af planforslag, der behandles efter planloven
+Som følge af ressortomlægning i 2015, hvor lov om planlægning blev overført til Erhvervs- og Vækstministeriet, nu Erhvervsministeriet, er afsnittet om planlægningsforbuddet efter planloven og afsnittet om vurdering af planforslag, der behandles efter planloven [12], udgået.
 
-12
-
-Lovbekendtgørelse nr. 1157 af 7. januar 2020 om planlægning (planloven)
-
-, udgået.
-
-1.3 Målgruppe
+## 1.3 Målgruppe
 
 Vejledningen henvender sig til alle myndigheder, der skal planlægge efter eller administrere natur- og miljøbeskyttelseslovgivningen i eller i tilknytning til internationale naturbeskyttelsesområder.
 
@@ -420,59 +362,19 @@ Vejledningen vil desuden have relevans for alle erhvervsorganisationer, rådgive
 
 Generelt om direktiverne og den danske gennemførelse
 
-2.1 EU's naturdirektiver og Natura 2000-netværket
+## 2.1 EU's naturdirektiver og Natura 2000-netværket
 
 EU's naturlovgivning omfatter de EU-direktiver og forordninger, der har til formål at beskytte naturen og naturens mangfoldighed i EU's medlemslande og globalt.
 
-Det drejer sig om forordningen om indsatsen mod invasive arter
-
-13
-
-Europa-Parlamentets og Rådets forordning (EU) Nr. 1143/2014 af 22. oktober 2014 om forebyggelse og håndtering af introduktion og spredning af invasive ikkehjemmehørende arter.
+Det drejer sig om forordningen om indsatsen mod invasive arter [13]
 
 samt habitatdirektivet og fuglebeskyttelsesdirektivet, der begge har til formål at bevare naturtype- og artsbeskyttelsen i Europa.
 
-Endvidere omfatter EU’s naturlovgivning også de forordninger, der implementerer Cites-konventionens forbud mod handel med truede arter
+Endvidere omfatter EU’s naturlovgivning også de forordninger, der implementerer Cites-konventionens forbud mod handel med truede arter [14], forordningerne om reguleringen af handel med tømmer, herunder tømmer fra truede træarter [15], og direktivet om zoologiske havers samarbejde for at sikre artsbeskyttelsen. [16]
 
-14
+EU-landenes gennemførelse af habitat- og fuglebeskyttelsesdirektiverne er også afgørende for landenes gennemførelse af internationale konventioner om biodiversitet og naturbeskyttelse, f.eks. Bernkonventionen [17], Biodiversitetskonventionen [18], Bonn-konventionen [19]
 
-Rådets forordning (EF) nr. 338/97 af 9. december 1996, Kommissionens forordning (EF) Nr. 865/2006 af 4. maj 2006 om gennemførelsesbestemmelser til Rådets forordning (EF) nr. 338/97 om beskyttelse af vilde dyr og planter ved kontrol af handelen hermed og Kommissionens gennemførelsesforordning (EU) Nr. 792/2012 af 23. august 2012 om fastsættelse af regler for udformningen af tilladelser, certifikater og andre dokumenter, der er omhandlet i Rådets forordning (EF) nr. 338/97 om beskyttelse af vilde dyr og planter ved kontrol af handelen hermed og om ændring af forordning (EF) nr. 865/2006.
-
-, forordningerne om reguleringen af handel med tømmer, herunder tømmer fra truede træarter
-
-15
-
-Europa-Parlamentets og Rådets forordning (EU) Nr. 995/2010 af 20. oktober 2010 om fastsættelse af krav til virksomheder, der bringer træ og træprodukter i omsætning.
-
-, og direktivet om zoologiske havers samarbejde for at sikre artsbeskyttelsen.
-
-16
-
-Rådets direktiv 1999/22/EF af 29. marts 1999 om hold af vilde dyr i zoologiske haver.
-
-EU-landenes gennemførelse af habitat- og fuglebeskyttelsesdirektiverne er også afgørende for landenes gennemførelse af internationale konventioner om biodiversitet og naturbeskyttelse, f.eks. Bernkonventionen
-
-17
-
-Konvention om beskyttelse af Europas vilde dyr og planter samt naturlige levesteder af 19. september 1979, https://www.coe.int/en/web/bern-convention.
-
-, Biodiversitetskonventionen
-
-18
-
-Convention on biological diversity, United Nations 1992 https://www.cbd.int/convention/text/
-
-, Bonn-konventionen
-
-19
-
-Convention on the Conservation of Migratory Species of Wild Animals, https://www.cms.int/en
-
-og Ramsarkonventionen
-
-20
-
-Konvention af 2. februar 1971 om vådområder af international betydning navnlig som levesteder for vandfugle.
+og Ramsarkonventionen [20]
 
 om vådområder af international betydning.
 
@@ -510,7 +412,7 @@ Der gælder efter direktiverne også forpligtelser til at varetage beskyttelsesh
 
 Se afsnit 2.3.2.
 
-2.2 Natura 2000-netværket i Danmark
+## 2.2 Natura 2000-netværket i Danmark
 
 I Danmark er der udpeget 269 habitatområder og 124 fuglebeskyttelsesområder.
 
@@ -526,17 +428,13 @@ Over 80 % procent af Danmarks landareal afvander til kystnære Natura 2000-områ
 
 Det indebærer, at man skal være opmærksom på Natura 2000-beskyttelse mange steder uden for de egentlige Natura 2000-områder, da påvirkningerne løber med vandet til kystområderne.
 
-Læs mere om de danske Natura 2000-områder på Miljøstyrelsens hjemmeside.
-
-21
-
-www.mst.dk
+Læs mere om de danske Natura 2000-områder på Miljøstyrelsens hjemmeside. [21]
 
 Via hjemmesiden er der også adgang til kort over områderne.
 
 Kortene er udarbejdet i MiljøGis formater.
 
-2.3 Habitatdirektivet
+## 2.3 Habitatdirektivet
 
 Habitatdirektivets formål er at beskytte arter og naturtyper, der er karakteristiske, truede, sårbare eller sjældne i EU.
 
@@ -554,21 +452,13 @@ Habitatdirektivets artikel 6 rummer bestemmelser, der gælder for både habitato
 
 At artikel 6 også gælder for fuglebeskyttelsesområderne, fremgår af habitatdirektivets artikel 7.
 
-Se mere om habitatdirektivet og den danske implementering af direktivet på Miljøstyrelsens hjemmeside.
+Se mere om habitatdirektivet og den danske implementering af direktivet på Miljøstyrelsens hjemmeside. [22]
 
-22
-
-www.mst.dk
-
-2.3.1 Habitatområder
+## 2.3.1 Habitatområder
 
 Et hovedelement i gennemførelsen af habitatdirektivet er udpegning af habitatområder.
 
-Hvert habitatområde er udpeget med hjemmel i miljømålsloven
-
-23
-
-Lovbekendtgørelse nr. 119 af 26. januar 2017 om miljømål mv. for internationale naturbeskyttelsesområder.
+Hvert habitatområde er udpeget med hjemmel i miljømålsloven [23]
 
 for at beskytte bestemte arter og naturtyper.
 
@@ -594,7 +484,7 @@ Der er udpeget områder for alle arter og naturtyper omfattet af habitatdirektiv
 
 Der er udpeget områder for forskellige naturtyper og for dyre- og plantearter, jf. bilag 5 i habitatbekendtgørelsen.
 
-2.3.2 Generelt beskyttede arter
+## 2.3.2 Generelt beskyttede arter
 
 Habitatdirektivet forpligter medlemslandene til at sikre en streng beskyttelsesordning for en række dyr og planter overalt i landet, dvs. uanset om de forekommer inden for et af de udpegede områder eller udenfor.
 
@@ -610,35 +500,19 @@ Habitatbekendtgørelsen rummer bestemmelser, der skal sikre overholdelse af besk
 
 Langt størstedelen af bilag IV-arterne er forholdsvis sjældne arter, men der er også i Danmark en række mere almindelige og ikke truede arter, der er bilag IV-arter, f.eks. stor vandsalamander.
 
-Arterne lever ofte i områder, som i forvejen er beskyttet af f.eks. fredninger, vildtreservater og naturbeskyttelseslovens
-
-24
-
-Lovbekendtgørelse nr. 240 af 13. marts 2019 om naturbeskyttelse.
+Arterne lever ofte i områder, som i forvejen er beskyttet af f.eks. fredninger, vildtreservater og naturbeskyttelseslovens [24]
 
 generelle beskyttelse af naturtyper i § 3.
 
 Danmark har i mange år beskyttet dyr og planter.
 
-Der har længe været regler, som har skullet forhindre, at arter bliver truet som følge af jagt og indsamling, især i jagt og vildtforvaltningsloven
+Der har længe været regler, som har skullet forhindre, at arter bliver truet som følge af jagt og indsamling, især i jagt og vildtforvaltningsloven [25]
 
-25
-
-Lovbekendtgørelse nr. 265 af 31. marts 2019 om jagt og vildtforvaltning.
-
-og i bekendtgørelsen om fredning af visse dyre- og plantearter og pleje af tilskadekommet vildt (artsfredningsbekendtgørelsen).
-
-26
-
-Bekendtgørelse nr. 1466 af 6. december 2018 om fredning af visse dyre- og plantearter og pleje af tilskadekommet vildt.
+og i bekendtgørelsen om fredning af visse dyre- og plantearter og pleje af tilskadekommet vildt (artsfredningsbekendtgørelsen). [26]
 
 I dag findes reglerne især i naturbeskyttelseslovens kapitel 5, jf. lovens bilag 3, 4 og 5, med oversigter over beskyttede dyre- og plantearter, jagt og vildtforvaltningsloven, habitatbekendtgørelsen og artsfredningsbekendtgørelsen.
 
-Den gældende artsbeskyttelse er beskrevet på Miljøstyrelsens hjemmeside.
-
-27
-
-www.mst.dk
+Den gældende artsbeskyttelse er beskrevet på Miljøstyrelsens hjemmeside. [27]
 
 Flere dyre- og plantearter er både omfattet af beskyttelsesbestemmelserne om bevaring af levesteder for arter (habitatdirektivets bilag II) og af den særlige beskyttelse af arter (bilag IV).
 
@@ -658,7 +532,7 @@ Arterne er listet på direktivets bilag V, men disse arter er ikke omfattet af h
 
 Beskyttelsen af bilag V-arterne varetages i stedet af regler i jagt og vildtforvaltningsloven, naturbeskyttelseslovens § 30 og artsfredningsbekendtgørelsen.
 
-2.4 Fuglebeskyttelsesdirektivet
+## 2.4 Fuglebeskyttelsesdirektivet
 
 Fuglebeskyttelsesdirektivet forpligter EU's medlemslande til at træffe alle nødvendige foranstaltninger til at opretholde eller tilpasse bestanden af samtlige fuglearter, som i vild tilstand naturligt opholder sig i medlemsstaterne, jf. fuglebeskyttelsesdirektivets art.
 
@@ -668,7 +542,7 @@ Fuglebeskyttelsesdirektivet forpligter til beskyttelse af de udpegede fuglebesky
 
 Der gælder endvidere en generel beskyttelse af alle fuglearter, herunder regler om jagt, efterstræbelse, forstyrrelser m.v.
 
-2.4.1 Artsbeskyttelse
+## 2.4.1 Artsbeskyttelse
 
 Fuglebeskyttelsesdirektivet fastlægger en generel beskyttelse af alle vilde fugle og deres levesteder i og udenfor Natura 2000-områder.
 
@@ -688,13 +562,7 @@ påvirkning af fugle kunne indgå i begrundelsen for afgørelsen.
 
 Vurderingen skal angive, om der kan ske påvirkning af fuglebestandene i og uden for det pågældende Natura 2000-område, herunder påvirkning af levesteder.
 
-Ifølge EU-Domstolen er medlemslandene især forpligtede til at bevare levesteder og populationer for truede fuglearter eller arter i tilbagegang.
-
-28
-
-Se bl.a. C-117/00 (Kommissionen mod Irland - ”grouse-dommen”), hvor Irland blev dømt for at have tilsidesat fuglebeskyttelsesdirektivets krav i artikel 3 om at sikre tilstrækkeligt forskelligartede og vidtstrakte levesteder - i sagen for fuglen grouse.
-
-Arten er ikke omfattet af forpligtelsen til at udpege og forvalte fuglebeskyttelsesområder.
+Ifølge EU-Domstolen er medlemslandene især forpligtede til at bevare levesteder og populationer for truede fuglearter eller arter i tilbagegang. [28]
 
 Det skal fremhæves, at der gælder generelle forbud mod forsætligt at forstyrre og dræbe vilde fugle samt at ødelægge deres æg og reder, jf. jagt og vildtforvaltningsloven og artsfredningsbekendtgørelsen.
 
@@ -708,13 +576,9 @@ Beskyttelsen af jagtbare fuglearter er i Danmark implementeret i jagt og vildtfo
 
 Regler om handel mv. med fugle fremgår af artsfredningsbekendtgørelsen.
 
-Læs mere om fuglebeskyttelsesdirektivet og den generelle beskyttelse af de vilde fugle på Miljøstyrelsens hjemmeside.
+Læs mere om fuglebeskyttelsesdirektivet og den generelle beskyttelse af de vilde fugle på Miljøstyrelsens hjemmeside. [29]
 
-29
-
-www.mst.dk
-
-2.5 Ramsarområder
+## 2.5 Ramsarområder
 
 Ramsarkonventionen er en international konvention fra 1971 (konvention af 2. februar 1971 om vådområder af international betydning, navnlig som levesteder for vandfugle).
 
@@ -734,19 +598,11 @@ Natura 2000-planerne og beskyttelse af området efter habitatdirektivets bestemm
 
 Habitatbekendtgørelsen bidrager således væsentligt til at opfylde Ramsarkonventionen og til beskyttelsen af Ramsarområderne i Danmark.
 
-Læs mere om Ramsarkonventionen og Ramsarområderne på Miljøstyrelsens hjemmeside
+Læs mere om Ramsarkonventionen og Ramsarområderne på Miljøstyrelsens hjemmeside [30]
 
-30
+og Ramsarkonventionens hjemmeside. [31]
 
-www.mst.dk
-
-og Ramsarkonventionens hjemmeside.
-
-31
-
-https://www.ramsar.org/
-
-2.5.1 Fuglebeskyttelsesområder
+## 2.5.1 Fuglebeskyttelsesområder
 
 Hvert enkelt fuglebeskyttelsesområde er udpeget for at beskytte bestemte fuglearter.
 
@@ -768,7 +624,7 @@ Det gælder beskyttelsen mod forringelser af naturtyper og levesteder og forstyr
 
 Se afsnit 2.3.
 
-2.6 Natura 2000-planlægningen
+## 2.6 Natura 2000-planlægningen
 
 Efter habitatdirektivet skal medlemsstaterne iværksætte de nødvendige bevaringsforanstaltninger for Natura 2000-områderne, herunder forvaltningsplaner som er specifikke for lokaliteterne.
 
@@ -776,19 +632,9 @@ Samtidig skal der træffes passende foranstaltninger for at undgå forringelse a
 
 Der gælder tilsvarende bestemmelser for fuglebeskyttelsesområder i fuglebeskyttelsesdirektivet.
 
-Disse forpligtelser er udmøntet i miljømålsloven
+Disse forpligtelser er udmøntet i miljømålsloven [32]
 
-32
-
-Lovbekendtgørelse nr. 119 af 26. januar 2017 om miljømål mv. for internationale naturbeskyttelsesområder.
-
-og skovloven
-
-33
-
-Lovbekendtgørelse nr. 315 af 28. marts 2019 om skove.
-
-, hvorefter miljøministeren udarbejder en Natura 2000-plan for de enkelte Natura 2000-områder, herunder de marine områder.
+og skovloven [33], hvorefter miljøministeren udarbejder en Natura 2000-plan for de enkelte Natura 2000-områder, herunder de marine områder.
 
 Planen skal indeholde mål for naturtilstanden, de såkaldte bevaringsmålsætninger.
 
@@ -802,11 +648,7 @@ Størstedelen af arealet af de danske Natura 2000-områder er akvatiske, primær
 
 De akvatiske arter og naturtyper er afhængige af, at der sikres en grundlæggende forbedring af vandområdernes tilstand.
 
-Den forbedring tilvejebringes gennem vandområdeplanlægningen efter lov om vandplanlægning.
-
-34
-
-Lovbekendtgørelse nr. 126 af 26. januar 2017 om vandplanlægning.
+Den forbedring tilvejebringes gennem vandområdeplanlægningen efter lov om vandplanlægning. [34]
 
 De indsatser, der er fastlagt i vandområdeplanerne for de akvatiske områder, som også er Natura 2000-områder, kan således betragtes som en del af indsatsprogrammerne i Natura 2000-planerne for disse områder.
 
@@ -814,17 +656,9 @@ Kommunalbestyrelsen og Miljøstyrelsen udarbejder handleplaner på baggrund af N
 
 Der er ikke pligt til at udarbejde handleplaner for de marine områder.
 
-Miljøstyrelsen udarbejder handleplaner for skovbevoksede, fredskovspligtige Natura 2000-områder efter bekendtgørelse om tilvejebringelse af Natura 2000-skovplanlægning.
+Miljøstyrelsen udarbejder handleplaner for skovbevoksede, fredskovspligtige Natura 2000-områder efter bekendtgørelse om tilvejebringelse af Natura 2000-skovplanlægning. [35]
 
-35
-
-Bekendtgørelse nr. 946 af 27. juni 2016 om tilvejebringelse af Natura 2000-skovplanlægning.
-
-Kommunalbestyrelsen udarbejder handleplaner for øvrige Natura 2000-områder på land og de kystnære dele af søterritoriet efter bekendtgørelse om kommunalbestyrelsernes Natura 2000-handleplaner.
-
-36
-
-Bekendtgørelse nr. 944 af 27. juni 2016 om kommunalbestyrelsernes Natura 2000-handleplaner.
+Kommunalbestyrelsen udarbejder handleplaner for øvrige Natura 2000-områder på land og de kystnære dele af søterritoriet efter bekendtgørelse om kommunalbestyrelsernes Natura 2000-handleplaner. [36]
 
 Som nævnt ovenfor realiseres Natura 2000-planens mål om forbedret vandkvalitet i de akvatiske miljøer gennem indsatsen i vandplanlægningen.
 
@@ -842,37 +676,21 @@ De statslige Natura 2000-planer er bindende for statslige myndigheder, regionsr�
 
 Offentlige lodsejere er som følge af bestemmelsen også forpligtet til at iagttage Natura-2000 planen under udøvelse af deres beføjelser.
 
-2.7 Forholdet mellem den danske implementering af vandrammedirektivet og habitat- og fuglebeskyttelsesdirektiverne
+## 2.7 Forholdet mellem den danske implementering af vandrammedirektivet og habitat- og fuglebeskyttelsesdirektiverne
 
-Vandrammedirektivets
-
-37
-
-Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger.
+Vandrammedirektivets [37]
 
 formål er at realisere en ambitiøs og omfattende beskyttelse af vandløb, søer, kystvande og grundvand med henblik på at sikre god økologisk og kemisk tilstand i de akvatiske miljøer, god kvantitativ og kemisk tilstand i grundvandsforekomsterne og en bæredygtig anvendelse af vandressourcerne.
 
-Beskyttelsen realiseres ved planlægning og indsatser for at opnå de fastsatte mål for vandforekomsternes
-
-38
-
-Vandforekomster omfatter grundvandsforekomster og overfladevandområder.
+Beskyttelsen realiseres ved planlægning og indsatser for at opnå de fastsatte mål for vandforekomsternes [38]
 
 tilstand, i udgangspunktet god tilstand, og ved at sikre, at der ikke sker forringelse af vandforekomsternes aktuelle tilstand og mulighederne for at opnå opfyldelse af miljømål Lov om vandplanlægning og reglerne efter loven udgør en væsentlig del af den danske implementering af vandrammedirektivet.
 
-Lov om vandplanlægning
-
-39
-
-Bekendtgørelse nr. 126 af 26. januar 2017 af lov om vandplanlægning.
+Lov om vandplanlægning [39]
 
 er det retlige grundlag for den danske vandplanlægning for de målsatte danske vandforekomster, overfladevandområder (vandløb, søer og kystvande) og grundvandsforekomster.
 
-Vandplanlægningen blev første gang fastsat for planperioden 2009-15, vandplanlægningen er (første gang) revideret og ajourført for planperioden 2015-2021, jf. bekendtgørelse om miljømål for overfladevandområder og grundvandsforekomster og bekendtgørelse om indsatsprogrammer for vandområdedistrikter
-
-40
-
-Bekendtgørelse nr. 448 af 11. april 2019 om miljømål for overfladevandområder og grundvandvandsforekomster og bekendtgørelse nr. 449 af 11. april 2019 om miljømål for indsatsprogrammer for vandområdedistrikter.
+Vandplanlægningen blev første gang fastsat for planperioden 2009-15, vandplanlægningen er (første gang) revideret og ajourført for planperioden 2015-2021, jf. bekendtgørelse om miljømål for overfladevandområder og grundvandsforekomster og bekendtgørelse om indsatsprogrammer for vandområdedistrikter [40]
 
 (indsatsbekendtgørelsen).
 
@@ -882,13 +700,7 @@ Ikke alle – men de væsentligste - danske ferske overfladevandområder, alle d
 
 At vandforekomster er omfattet af vandområdeplanerne betyder, at der er fastsat målsætninger for disse vandforekomsters tilstand, at der er pligt til at vurdere vandforekomsternes tilstand, og at der skal være taget stilling til, hvilke konkrete indsatser, der eventuelt er nødvendige for at realisere målsætningerne for vandforekomsternes tilstand.
 
-Indsatserne bliver derefter fastlagt i vandområdeplanens indsatsprogram, jf. bekendtgørelsen om indsatsprogrammer (indsatsbekendtgørelsen)
-
-41
-
-Bekendtgørelse nr. 449 af 11. april 2019 om indsatsprogrammer for vandområdedistrikter.
-
-, udstedt efter lov om vandplanlægning.
+Indsatserne bliver derefter fastlagt i vandområdeplanens indsatsprogram, jf. bekendtgørelsen om indsatsprogrammer (indsatsbekendtgørelsen) [41], udstedt efter lov om vandplanlægning.
 
 Der er redegjort for indholdet af vandplanlægningen i det enkelte vandområdedistrikt i vandområdeplanerne.
 
@@ -898,15 +710,7 @@ Vandområdeplanerne er dermed et væsentligt bidrag til vandplanlægningens admi
 
 Hvilke vandforekomster, der er omfattet af vandplanlægningen i den gældende planperiode, hvilken tilstand de har, hvilke miljømål, der er fastsat for dem, og hvilke supplerende konkrete indsatser, der evt.
 
-skal gennemføres i områderne kan også ses i de MiljøGIS kort
-
-42
-
-http://miljoegis.mim.dk/cbkort?
-
-profile=vandrammedirektiv2-2016
-
-, der supplerer redegørelserne i vandområdeplanerne.
+skal gennemføres i områderne kan også ses i de MiljøGIS kort [42], der supplerer redegørelserne i vandområdeplanerne.
 
 Hvor naturtyper eller arter i udpegningsgrundlaget for et Natura 2000-område er afhængige af tilstanden i et målsat overfladevandområde eller en grundvandsforekomst, har disse områder og forekomster status som beskyttede i vandplanlægningen.
 
@@ -942,31 +746,17 @@ Stk. 5. I vurderingen af, om der kan træffes afgørelse efter stk. 2-4, skal om
 
 Der er redegjort nærmere for normeringen af myndighedernes forvaltning, herunder meddelelse af tilladelser, som følger af indsatsbekendtgørelsens § 8 i Miljøstyrelsens vejledning til bekendtgørelsen om indsatsprogrammer for vandområdedistrikter, se særligt vejledningens s.
 
-41-51.
-
-43
-
-http://mst.dk/media/133301/bilag-1-vejledning-4-juli-2017.pdf”
+41-51. [43]
 
 Vurderingen af hvorvidt en påvirkning af et målsat overfladevandområde eller en grundvandsforekomst i eller ved et Natura 2000-område er forenelig med det forbud mod forringelse, som er fastlagt i indsatsbekendtgørelsens § 8, kan og bør ske samtidigt med væsentlighedsvurderingen efter habitatbekendtgørelsen.
 
 Der vil som hovedregel være overensstemmelse mellem kravene til beskyttelse af de målsatte vandforekomsters tilstand og den beskyttelse, der skal sikre naturtyper og arter i Natura 2000-områderne.
 
-Særligt for de målsatte overfladevandområder gælder, at indebærer påvirkningen ikke en forringelse af de målsatte overfladevandområders tilstand, er der en god formodning for, at påvirkningen heller ikke indebærer en væsentlig påvirkning af det eller de relevante Natura 2000-områder
+Særligt for de målsatte overfladevandområder gælder, at indebærer påvirkningen ikke en forringelse af de målsatte overfladevandområders tilstand, er der en god formodning for, at påvirkningen heller ikke indebærer en væsentlig påvirkning af det eller de relevante Natura 2000-områder [44].
 
-44
+Der skal dog under alle omstændigheder foretages en selvstændig, konkret væsentligheds- og eventuelt også en konsekvensvurdering efter habitatbekendtgørelsen. [45]
 
-MAD 2014.31.
-
-.
-
-Der skal dog under alle omstændigheder foretages en selvstændig, konkret væsentligheds- og eventuelt også en konsekvensvurdering efter habitatbekendtgørelsen.
-
-45
-
-NMK-10-00904, Onsevig Havbrug.
-
-2.8 Forholdet til andre dele af Miljøministeriets lovgivning
+## 2.8 Forholdet til andre dele af Miljøministeriets lovgivning
 
 Habitatbekendtgørelsen fastsætter rammerne for administrationen af habitatdirektivets artikel 6 og art.
 
@@ -980,7 +770,7 @@ Kravet gælder også, hvor myndigheden udøver ejer- eller brugerbeføjelser ove
 
 Gennemgangen neden for er ikke udtømmende, og omfatter både regler, der direkte fremgår af habitatbekendtgørelsens § 7, og regler, som i øvrigt har et samspil med habitatbekendtgørelsen.
 
-2.8.1 Kystbeskyttelsesloven
+## 2.8.1 Kystbeskyttelsesloven
 
 Der er efter kystbeskyttelsesloven udstedt regler som inden for denne lovs anvendelsesområde svarer til reglerne efter habitatbekendtgørelsen.
 
@@ -988,7 +778,7 @@ Disse regler fremgår af kysthabitatbekendtgørelsen.
 
 Reglerne administreres af kommunerne samt Kystdirektoratet under Naturstyrelsen.
 
-2.8.2 Miljømålsloven
+## 2.8.2 Miljømålsloven
 
 Miljømålsloven indeholder regler om udpegning af Natura 2000-områder, om rammer for Natura 2000-planlægningen samt regler om fastlæggelse af regler om planlægning.
 
@@ -996,7 +786,7 @@ Se afsnit 2.6.
 
 Miljømålsloven fastlægger endvidere, at når et område er udpeget som internationalt naturbeskyttelsesområde, er regionsråd, kommunalbestyrelser og statslige myndigheder, ved udøvelse af beføjelser i medfør af lovgivningen i øvrigt, forpligtet af udpegningen (Natura 2000-planen), jf. § 36, stk. 6.
 
-2.8.3 Naturbeskyttelsesloven
+## 2.8.3 Naturbeskyttelsesloven
 
 Naturbeskyttelseslovens § 19 a fastslår, at kommunalbestyrelsen skal iværksætte de foranstaltninger, som fremgår af handleplanen til gennemførelse af Natura 2000-planen efter miljømålsloven.
 
@@ -1018,19 +808,11 @@ Ikke alle aktiviteter, som er omfattet af habitatdirektivets brede projektbegreb
 
 For at håndtere disse situationer er der i naturbeskyttelseslovens § 19 b og skovlovens § 17 regler, som indebærer en pligt til at forhåndsanmelde en række nærmere angivne aktiviteter til myndighederne.
 
-Det følger af bekendtgørelse om anmeldelsesordningen
-
-46
-
-Bekendtgørelse nr. 1105 af 12. august 2016 om anmeldelsesordningen efter naturbeskyttelseslovens § 19 b og skovlovens § 17.
+Det følger af bekendtgørelse om anmeldelsesordningen [46]
 
 efter naturbeskyttelseslovens § 19 b og skovlovens § 17, at myndigheden efter modtagelsen af en anmeldelse skal vurdere, om aktiviteten kan påvirke et Natura 2000-område væsentligt, om der skal gennemføres en konsekvensvurdering af aktiviteten, og om det vil være nødvendigt at indgå aftale eller pålægge en bestemt drift for at forhindre skade på et Natura 2000-områdes udpegningsgrundlag.
 
-Bestemmelserne er uddybet i Vejledning om reglerne om internationale naturbeskyttelsesområder i naturbeskyttelseslovens § 19 b, § 19 d og § 19 e.
-
-47
-
-https://mst.dk/media/113967/anmeldevejledning.pdf
+Bestemmelserne er uddybet i Vejledning om reglerne om internationale naturbeskyttelsesområder i naturbeskyttelseslovens § 19 b, § 19 d og § 19 e. [47]
 
 Hvis indgreb efter naturbeskyttelseslovens § 19 b og §§ 19 d – 19 f medfører et tab, kan der ydes erstatning, jf. § 19 g.
 
@@ -1040,13 +822,9 @@ Forbuddet har betydning, hvis der opstår en situation, hvor en aktivitet ikke f
 
 ¬
 
-Yderligere oplysninger om det generelle forbud mod at beskadige eller ødelægge yngle- eller rasteområder for bilag IV-arter kan findes på Miljøstyrelsens hjemmeside.
+Yderligere oplysninger om det generelle forbud mod at beskadige eller ødelægge yngle- eller rasteområder for bilag IV-arter kan findes på Miljøstyrelsens hjemmeside. [48]
 
-48
-
-www.mst.dk
-
-2.8.3.1 Særligt om fredningssager og dispensation
+## 2.8.3.1 Særligt om fredningssager og dispensation
 
 Ved fredninger, der omfatter arealer inden for Natura 2000-områder, skal fredningen medvirke til at sikre en gunstig bevaringsstatus for de arter og naturtyper, som områderne er udpeget for, jf. naturbeskyttelseslovens § 36, stk. 2.
 
@@ -1062,7 +840,7 @@ Tilsvarende er det en forudsætning for en dispensation, at det ansøgte ikke me
 
 Derudover er fredningsnævnet forpligtet til ikke at give dispensation fra en fredning eller en foreslået fredning, hvis det ansøgte kan beskadige eller ødelægge yngle- og rasteområder for bilag IV-arter eller ødelægge beskyttede planter, jf. bilag 5 til naturbeskyttelsesloven.
 
-2.8.4 Husdyrbrugloven
+## 2.8.4 Husdyrbrugloven
 
 Husdyrbrugloven har bl.a. som formål at beskytte naturen med dens bestande af vilde planter og dyr og deres levesteder.
 
@@ -1070,11 +848,7 @@ Behandlingen af en række sager efter reglerne om husdyrbrug er omfattet af habi
 
 konsekvensvurdering af anlæggets påvirkning af Natura 2000-områder og kravet om beskyttelse af visse arter.
 
-Dette følger af habitatbekendtgørelsens § 6 og § 7, hvor en række dispensationer, tilladelser eller godkendelser efter lov om husdyrbrug og anvendelse af gødning m.v. (husdyrbrugloven)
-
-49
-
-Lovbekendtgørelse nr. 520 af 5, januar 2019 om husdyrbrug og anvendelse af gødning mv.
+Dette følger af habitatbekendtgørelsens § 6 og § 7, hvor en række dispensationer, tilladelser eller godkendelser efter lov om husdyrbrug og anvendelse af gødning m.v. (husdyrbrugloven) [49]
 
 er omfattet af habitatbekendtgørelsen.
 
@@ -1084,91 +858,51 @@ I husdyrbrugloven og regler udstedt i medfør heraf, er der fastsat beskyttelses
 
 Normalt vil en overholdelse af beskyttelsesniveauerne betyde, at man på forhånd kan udelukke, at husdyrbruget vil påvirke Natura 2000-områdets integritet væsentligt.
 
-Der kan dog i helt særlige tilfælde være sager, hvor der er behov for, at kommunen supplerer sagen med oplysninger om særlig viden i relation til forekomsten af ammoniakfølsom natur og yngle- og rasteområder for bilag IV-arter og fastsætter vilkår herom, jf. bekendtgørelse om godkendelse og tilladelse mv. af husdyrbrug (husdyrgodkendelsesbekendtgørelsen)
-
-50
-
-Bekendtgørelse nr. 1261 af 29. november 2019 om godkendelse og tilladelse mv. af husdyrbrug
+Der kan dog i helt særlige tilfælde være sager, hvor der er behov for, at kommunen supplerer sagen med oplysninger om særlig viden i relation til forekomsten af ammoniakfølsom natur og yngle- og rasteområder for bilag IV-arter og fastsætter vilkår herom, jf. bekendtgørelse om godkendelse og tilladelse mv. af husdyrbrug (husdyrgodkendelsesbekendtgørelsen) [50]
 
 § 36, jf. § 34.
 
-I de helt særlige tilfælde, hvor kommunen har kendskab til habitatnaturtyper, der vil lide skade som følge af anlægsudvidelsen, og som ikke er kategori 1-natur
-
-51
-
-Kategori 1-natur er ammoniakfølsom natur inden for Natura 2000-områder.
-
-, og dermed ikke omfattet af husdyrbruglovens generelle beskyttelsesniveau, skal kommunen som myndighed meddele afslag.
+I de helt særlige tilfælde, hvor kommunen har kendskab til habitatnaturtyper, der vil lide skade som følge af anlægsudvidelsen, og som ikke er kategori 1-natur [51], og dermed ikke omfattet af husdyrbruglovens generelle beskyttelsesniveau, skal kommunen som myndighed meddele afslag.
 
 Ved skade forstås, at det på et konkret eksperimentelt videnskabeligt grundlag kan dokumenteres, at ammoniakpåvirkningen fra husdyrbruget med det ansøgte vil medføre en påviselig biologisk ændring af et internationalt naturbeskyttelsesområde, herunder beskyttede arter, selvom beskyttelsesniveauet i husdyrgodkendelsesbekendtgørelse er overholdt, jf. husdyrgodkendelsesbekendtgørelsens § 36, stk. 7.
 
-2.8.5 Skovloven
+## 2.8.5 Skovloven
 
 Skovloven har bestemmelser om pligt til indgreb og om forhåndsanmeldelse af en række aktiviteter, som efter naturbeskyttelseslovens § 17, retter sig mod skovbevoksede, fredskovspligtige arealer i Natura 2000-områder.
 
-Bestemmelsen er uddybet i Miljøministeriets ”Vejledning om Skovloven”.
-
-52
-
-www.mst.dk
+Bestemmelsen er uddybet i Miljøministeriets ”Vejledning om Skovloven”. [52]
 
 Skovloven rummer endvidere bestemmelser om Natura 2000-skovplanlægning for skovbevoksede, fredskovpligtige arealer, der supplerer miljømålslovens bestemmelser om Natura 2000-planlægning.
 
-2.8.6 Jagt og vildtforvaltningsloven og artsfredningsbekendtgørelsen
+## 2.8.6 Jagt og vildtforvaltningsloven og artsfredningsbekendtgørelsen
 
 Jagt og vildtforvaltningsloven indeholder en række af de regler, der implementerer habitat- og fuglebeskyttelsesdirektivernes bestemmelser om artsbeskyttelse for dyr, herunder særligt fugle.
 
 Loven indeholder også regler om vildtreservater, hvor Naturstyrelsen er myndighed, som spiller en stor rolle i beskyttelsen af Natura 2000-områder mod forstyrrelser.
 
-Artsfredningsbekendtgørelsen
-
-53
-
-Bekendtgørelse nr. 1466 af 6. december 2018 om fredning af visse dyre- og plantearter og pleje af tilskadekommet vildt.
+Artsfredningsbekendtgørelsen [53]
 
 supplerer jagt og vildtforvaltningsloven og naturbeskyttelseslovens kapitel 5, og indeholder regler om fredning af vildtlevende fugle (og deres reder) samt arter, der er beskyttet af habitatdirektivet, forbud mod jagt på visse arter, forbud mod handel med arterne m.v.
 
-2.8.7 Havstrategiloven
+## 2.8.7 Havstrategiloven
 
-Det følger af havstrategilovens
+Det følger af havstrategilovens [54]
 
-54
-
-Lovbekendtgørelse nr. 1161 af 25. november 2019 om havstrategi.
-
-§ 18, at statslige, regionale og kommunale myndigheder ved udøvelse af beføjelser i medfør af lovgivningen er bundet af havstrategiens miljømål.
-
-55
-
-Danmarks Havstrategi II 2018-2024:
+§ 18, at statslige, regionale og kommunale myndigheder ved udøvelse af beføjelser i medfør af lovgivningen er bundet af havstrategiens miljømål. [55]
 
 Havstrategiloven omfatter danske havområder, men finder ikke anvendelse på havområder, der strækker sig ud til 1 sømil uden for basislinjen, i det omfang de er omfattet af lov om vandplanlægning og indsatser, der indgår i en Natura 2000-plan efter miljømålsloven.
 
-2.8.8 Lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM)
+## 2.8.8 Lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM)
 
-Lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM), (miljøvurderingsloven
-
-56
-
-Lovbekendtgørelse nr. 973 af 25. juni 2020 om miljøvurdering af planer og programmer og af konkrete projekter (VVM).
-
-), samler sektorimplementeringen af VVM-direktivet
-
-57
-
-Direktiv 2011/92/EU om vurdering af visse offentlige og private projekters indvirkning på miljøet.
+Lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM), (miljøvurderingsloven [56]), samler sektorimplementeringen af VVM-direktivet [57]
 
 i en hovedlov, som med få undtagelser finder anvendelse på alle projekter, som er omfattet af VVM-direktivet.
 
-Loven implementerer også miljøvurderingsdirektivet
-
-58
-
-Direktiv 2001/42/EF om strategisk miljøvurdering.
+Loven implementerer også miljøvurderingsdirektivet [58]
 
 om miljøvurdering af planer og programmer, da de to processer har mange lighedspunkter.
 
-2.8.8.1 Forholdet til reglerne om miljøvurdering af konkrete projekter (VVM)
+## 2.8.8.1 Forholdet til reglerne om miljøvurdering af konkrete projekter (VVM)
 
 Projekter omfattet af miljøvurderingslovens VVM-regler kan samtidig være omfattet af krav om habitatvurdering.
 
@@ -1186,13 +920,7 @@ Vurderingen af projektets virkninger på Natura 2000-området skal fremgå af mi
 
 I tilladelsen, der skal gives efter miljøvurderingsloven, fastsættes de nødvendige vilkår for at sikre, at projektet ikke skader Natura 2000-områdets integritet eller beskyttede arter.
 
-Se i den forbindelse Natur- og Miljøklagenævnets afgørelse fra 29. maj 2013
-
-59
-
-NMK-34-00143 (MAD 2013.1346).
-
-, der hjemviste en afgørelse, hvor 1. instansen havde stillet vilkår om monitering af udledningen af en række metaller.
+Se i den forbindelse Natur- og Miljøklagenævnets afgørelse fra 29. maj 2013 [59], der hjemviste en afgørelse, hvor 1. instansen havde stillet vilkår om monitering af udledningen af en række metaller.
 
 Hjemvisningen skete bl.a. med den begrundelse, at det var en fejl, at der alene blev udarbejdet en konsekvensvurdering af projektets udvidelse, da det var det samlede projekt, der skulle konsekvensvurderes, og at man ikke kunne udskyde en stillingtagen til, hvad der kunne påvirke Natura 2000-områdets integritet.
 
@@ -1212,17 +940,13 @@ Det kan have betydning i sager, hvor der ikke kræves andre former for tilladels
 
 Det ændrede VVM-direktiv fra 2014 indeholder krav om, at myndighederne skal foretage en koordineret sagsbehandling, hvor et projekt kræver miljøvurdering efter reglerne i VVM-direktivet, habitatdirektivet og/eller fuglebeskyttelsesdirektivet.
 
-Reglerne om koordineringen (også kaldet one-stop-shop) findes i bekendtgørelse om samordning af miljøvurderinger og digital selvbetjening m.v. for planer, programmer og konkrete projekter omfattet af lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM) (miljøvurderingsbekendtgørelsen).
-
-60
-
-Bekendtgørelse nr. 913 af 30. august 2019 om samordning af miljøvurderinger og digital selvbetjening mv. for planer, programmer og konkrete projekter omfattet af lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM).
+Reglerne om koordineringen (også kaldet one-stop-shop) findes i bekendtgørelse om samordning af miljøvurderinger og digital selvbetjening m.v. for planer, programmer og konkrete projekter omfattet af lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM) (miljøvurderingsbekendtgørelsen). [60]
 
 For nærmere gennemgang af miljøvurderingsreglerne henvises der til Miljøstyrelsens Vejledning til lov om miljøvurdering af planer og programmer og af konkrete projekter.
 
 Vejledningen er under revision (status 2020).
 
-2.8.8.2 Forholdet til reglerne om miljøvurdering af planer og programmer
+## 2.8.8.2 Forholdet til reglerne om miljøvurdering af planer og programmer
 
 Miljøvurderingsloven rummer en række krav til miljøvurderinger af planer og programmer, herunder en vurdering af den sandsynlige væsentlige indvirkning på miljøet af planens gennemførelse og rimelige alternativer.
 
@@ -1240,7 +964,7 @@ I lighed med miljøvurdering af konkrete projekter giver også miljøvurdering a
 
 Reglerne om koordineringen (også kaldet one-stop-shop) findes i miljøvurderingsbekendtgørelsen.
 
-2.9 Andre ministeriers lovgivning af betydning for Natura 2000 og beskyttede arter
+## 2.9 Andre ministeriers lovgivning af betydning for Natura 2000 og beskyttede arter
 
 Habitatdirektivet er også gennemført inden for andre ministeriers ressort, så der i en række sektorlove er indarbejdet selvstændige bestemmelser om konsekvensvurdering i forhold til Natura 2000-områder og beskyttede arter.
 
@@ -1252,15 +976,11 @@ Habitatvejledningens gennemgang neden for af andre ministeriers lovgivning af be
 
 Gennemgangen viser således blot et udsnit af relevant sektorlovgivning for Natura 2000.
 
-2.9.1 Planloven og tilhørende bekendtgørelse
+## 2.9.1 Planloven og tilhørende bekendtgørelse
 
 Planloven blev i juni 2015 ressortoverført fra Miljøministeriet til Erhvervs- og Vækstministeriet (nu Erhvervsministeriet).
 
-Reglerne, som implementer habitatdirektivet på planområdet, er fastlagt i bekendtgørelse om administration af planloven i forbindelse med internationale naturbeskyttelsesområder samt beskyttelse af visse arter
-
-61
-
-Bekendtgørelse nr. 1383 af 26. november 2016 om administration af planloven i forbindelse med internationale naturbeskyttelsesområder samt beskyttelse af visse arter (planhabitatbekendtgørelsen).
+Reglerne, som implementer habitatdirektivet på planområdet, er fastlagt i bekendtgørelse om administration af planloven i forbindelse med internationale naturbeskyttelsesområder samt beskyttelse af visse arter [61]
 
 (planhabitatbekendtgørelsen).
 
@@ -1268,13 +988,9 @@ Planhabitatbekendtgørelsen indeholder blandt andet krav til vurdering af mulige
 
 Ansøgninger om fravigelse af planlægningsforbuddet behandles af erhvervsministeren.
 
-2.9.2 Fiskeriloven
+## 2.9.2 Fiskeriloven
 
-Der er i fiskeriloven
-
-62
-
-Lovbekendtgørelse nr. 261 af 21. marts 2019 om fiskeri og fiskeopdræt.
+Der er i fiskeriloven [62]
 
 fastsat regler vedrørende fiskeri og fiskeriopdrætsaktiviteter for at undgå forringelse af naturtyper og levesteder for arterne i internationale naturbeskyttelsesområder samt forstyrrelse af de arter, som områderne er udpeget for, hvis disse forstyrrelser har betydelige konsekvenser for målsætningerne i habitatdirektivet.
 
@@ -1294,99 +1010,37 @@ Bekendtgørelsen rummer også regler, der sikrer, at der i forhold til forsvaret
 
 Reglerne administreres af Forsvarsministeriets Ejendomsstyrelse.
 
-2.9.4 Undergrundsloven, elforsyningsloven m.fl.
+## 2.9.4 Undergrundsloven, elforsyningsloven m.fl.
 
-Habitatdirektivets krav om beskyttelse mod skade som følge af planer eller projekter på havet og mod forringelse og væsentlig forstyrrelser af arter i Natura 2000-områder er implementeret i lov om anvendelse af Danmarks undergrund (undergrundsloven)
+Habitatdirektivets krav om beskyttelse mod skade som følge af planer eller projekter på havet og mod forringelse og væsentlig forstyrrelser af arter i Natura 2000-områder er implementeret i lov om anvendelse af Danmarks undergrund (undergrundsloven) [63], lov om kontinentalsoklen og visse rørledningsanlæg på søterritoriet [64], lov om elforsyning [65], lov om energinet [66]
 
-63
+og lov om fremme af vedvarende energi. [67]
 
-Lovbekendtgørelse nr. 1533 af 16. december 2019 om anvendelse af Danmarks undergrund.
+Reglerne suppleres af bekendtgørelse om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder samt beskyttelse af visse arter ved projekter om etablering m.v. af elproduktionsanlæg og elforsyningsnet på havet [68]
 
-, lov om kontinentalsoklen og visse rørledningsanlæg på søterritoriet
-
-64
-
-Lovbekendtgørelse nr. 1189 af 21. september 2018 om kontinentalsoklen og visse rørledningsanlæg på søterritoriet.
-
-, lov om elforsyning
-
-65
-
-Lovbekendtgørelse nr. 119, 6. februar 2020 om elforsyning.
-
-, lov om energinet
-
-66
-
-Lovbekendtgørelse nr. 118 af 6. februar 2020 om Energinet.
-
-og lov om fremme af vedvarende energi.
-
-67
-
-Lovbekendtgørelse nr. 125 af 7. februar 2020 om fremme af vedvarende energi
-
-Reglerne suppleres af bekendtgørelse om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder samt beskyttelse af visse arter ved projekter om etablering m.v. af elproduktionsanlæg og elforsyningsnet på havet
-
-68
-
-Bekendtgørelse nr.1476 af 13. december 2010 om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder samt beskyttelse af visse arter ved projekter om etablering m.v. af elproduktionsanlæg og elforsyningsnet på havet.
-
-og bekendtgørelse om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder og beskyttelse af visse arter ved forundersøgelser, efterforskning og indvinding af kulbrinter, lagring i undergrunden, rørledninger, m.v. offshore (offshorekonsekvensvurderingsbekendtgørelsen).
-
-69
-
-Bekendtgørelse nr. 434 af 2. maj 2017 om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder og beskyttelse af visse arter ved forundersøgelser, efterforskning og indvinding af kulbrinter, lagring i undergrunden, rørledninger, m.v. offshore.
+og bekendtgørelse om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder og beskyttelse af visse arter ved forundersøgelser, efterforskning og indvinding af kulbrinter, lagring i undergrunden, rørledninger, m.v. offshore (offshorekonsekvensvurderingsbekendtgørelsen). [69]
 
 Lovgivningen administreres af Energistyrelsen.
 
-2.9.5 Havneloven
+## 2.9.5 Havneloven
 
-Med hjemmel i lov om havne (havneloven)
+Med hjemmel i lov om havne (havneloven) [70]
 
-70
-
-Lovbekendtgørelse nr. 457 af 23. maj 2012 om havne.
-
-er der fastsat regler om administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter ved anlæg, udvidelse m.v. af havne i bekendtgørelse om vurdering af virkning på miljøet (VVM) af projekter vedrørende erhvervshavne og Københavns Havn samt om administration af internationale naturbeskyttelsesområder og beskyttelse af visse arter for så vidt angår anlæg og udvidelse af havne.
-
-71
-
-Bekendtgørelse nr. 930 af 18. juni 2020 om vurdering af virkning på miljøet (VVM) af projekter vedrørende erhvervshavne og Københavns Havn samt om administration af internationale naturbeskyttelsesområder og beskyttelse af visse arter for så vidt angår anlæg og udvidelse af havne.
+er der fastsat regler om administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter ved anlæg, udvidelse m.v. af havne i bekendtgørelse om vurdering af virkning på miljøet (VVM) af projekter vedrørende erhvervshavne og Københavns Havn samt om administration af internationale naturbeskyttelsesområder og beskyttelse af visse arter for så vidt angår anlæg og udvidelse af havne. [71]
 
 Reglerne implementerer bestemmelser om beskyttelse af Natura 2000-områder og visse arter i habitat- og fuglebeskyttelsesdirektiverne.
 
 Lovgivningen administreres af Trafik-, Bygge- og Boligstyrelsen.
 
-2.9.6 Byggeloven
+## 2.9.6 Byggeloven
 
-I byggeloven
-
-72
-
-Lovbekendtgørelse nr. 1178 af 23. september 2016 Byggeloven.
+I byggeloven [72]
 
 er der fastsat regler om vurdering af planer og projekter, der kan skade et Natura 2000-område.
 
-Reglerne fremgår af bekendtgørelse om bygningsreglement 2018 (BR18)
+Reglerne fremgår af bekendtgørelse om bygningsreglement 2018 (BR18) [73], hvor der i § 38 er angivet, hvilke vurderinger der skal foretages.
 
-73
-
-Bekendtgørelse nr. 1399 af 13. december 2019 om bygningsreglement 2018 (BR18)
-
-, hvor der i § 38 er angivet, hvilke vurderinger der skal foretages.
-
-Reglerne er nærmere beskrevet i vejledning til kommunerne om behandling af byggeansøgninger i internationale naturbeskyttelsesområder (Natura 2000-områder) af 29. oktober 2010.
-
-74
-
-Notat af 29. oktober 2010 Vejledning til kommunerne om behandling af byggeansøgninger i internationale
-
-naturbeskyttelsesområder (Natura 2000-områder).
-
-https://historisk.bygningsreglementet.dk/file/128139/vejledning_om_habitatdirektiv.
-
-pdf
+Reglerne er nærmere beskrevet i vejledning til kommunerne om behandling af byggeansøgninger i internationale naturbeskyttelsesområder (Natura 2000-områder) af 29. oktober 2010. [74]
 
 Af denne vejledning fremgår, at der i byggesager, ofte kan være foretaget en habitatvurdering forud for en byggetilladelse, som byggemyndigheden som hovedregel kan lægge til grund.
 
@@ -1396,35 +1050,19 @@ Byggelovens regler gælder alene i forhold til beskyttelsen af internationale na
 
 Bygningsreglementet er udstedt af Trafik-, Bygge- og Boligstyrelsen og administreres af kommunerne.
 
-2.9.7 Vejloven
+## 2.9.7 Vejloven
 
-Med hjemmel i lov om offentlige veje
+Med hjemmel i lov om offentlige veje [75]
 
-75
+og lov om private fællesveje [76]
 
-Lov nr. 1520 af 27. december 2014 om offentlige veje m.v.
-
-og lov om private fællesveje
-
-76
-
-Lovbekendtgørelse nr. 1234 af 4. november 2015 om private fællesveje.
-
-er fastsat regler om vurdering af planer og projekter, der kan skade et Natura 2000-område, jf. bekendtgørelse om godkendelse af visse vejanlæg m.v.
-
-77
-
-Bekendtgørelse nr. 508 af 18. maj 2011 om godkendelse af visse vejanlæg mv.
+er fastsat regler om vurdering af planer og projekter, der kan skade et Natura 2000-område, jf. bekendtgørelse om godkendelse af visse vejanlæg m.v. [77]
 
 Reglerne administreres af kommunerne.
 
-2.9.8 Museumsloven
+## 2.9.8 Museumsloven
 
-Det følger af museumsloven
-
-78
-
-Lovbekendtgørelse nr. 358 af 8. april 2014 om museumsloven.
+Det følger af museumsloven [78]
 
 § 29 a, at tilstanden af sten- og jorddiger ikke må ændres.
 
@@ -1432,11 +1070,7 @@ Sten- og jorddiger kan være yngle- eller rasteområde for beskyttede bilag IV-a
 
 Ved behandlingen af ansøgninger om dispensationer efter museumslovens § 29 j, stk. 2, skal kommunalbestyrelsen varetage hensynet til Natura 2000-områder og beskyttede arter.
 
-Se nærmere i § 7 i Kulturministeriets bekendtgørelse om beskyttede sten- og jorddiger og lignende
-
-79
-
-Bekendtgørelse nr. 1190 af 26. september 2013 om beskyttede sten- og jorddiger og lignende.
+Se nærmere i § 7 i Kulturministeriets bekendtgørelse om beskyttede sten- og jorddiger og lignende [79]
 
 (digebekendtgørelsen).
 
@@ -1446,7 +1080,7 @@ Reglerne administreres af Slots- og Kulturstyrelsen og kommunerne.
 
 Udpegning af internationale naturbeskyttelsesområder
 
-3.1 Udpegning og afgrænsning af områderne
+## 3.1 Udpegning og afgrænsning af områderne
 
 Alle EU’s medlemslande har udpeget særlige beskyttelsesområder for de arter og naturtyper, som er omfattet af EU’s habitatdirektiv og fuglebeskyttelsesdirektiv.
 
@@ -1476,7 +1110,7 @@ Afgrænsningen er ikke fysisk markeret i landskabet, men følger typisk topograf
 
 Når et område er udpeget som internationalt naturbeskyttelsesområde, er kommunalbestyrelser, regionsråd og statslige myndigheder forpligtet af udpegningen ved udøvelse af beføjelser i medfør af lovgivningen.
 
-3.2 Ændring af områdeudpegninger
+## 3.2 Ændring af områdeudpegninger
 
 Områdernes afgrænsning er fastlagt med udpegningen i habitatbekendtgørelsen, jf. § 1.
 
@@ -1486,13 +1120,7 @@ Det er kun miljøministeren, der kan ændre på afgrænsningen af Natura 2000-om
 
 Ændring af et udpeget Natura 2000-område skal godkendes af Europa-Kommissionen.
 
-Muligheden for at ændre i udpegede Natura 2000-områder er begrænset.
-
-80
-
-Commission note to the Habitats Committee of 21/6/2005 (Doc Hab 05-06-02) and its annex (DOC: Orn.
-
-00/07).
+Muligheden for at ændre i udpegede Natura 2000-områder er begrænset. [80]
 
 3.
 
@@ -1528,25 +1156,13 @@ Det er Miljøstyrelsen, der meddeler ændringer til Europa-Kommissionen.
 
 Ændrede udpegninger godkendes en gang årligt af Europa-Kommissionen, og der kan således gå op mod et år, før den endelige opdatering af udpegningsgrundlaget formelt er omfattet af kravene om bl.a. konsekvensvurdering m.v. Det skal dog bemærkes, at selvom ændringer af udpegningsgrundlaget endnu ikke formelt er godkendt af Europa-Kommissionen, skal myndighederne også varetage hensynet til eventuelt nye arter og naturtyper, der er foreslået til udpegningsgrundlaget, når der gennemføres en vurdering af et plan eller projekts eventuelle påvirkning af et Natura 2000-områdes integritet.
 
-Det følger af EU-Domstolens praksis.
-
-81
-
-C-117/03, pr. 26 (Dragaggi)
+Det følger af EU-Domstolens praksis. [81]
 
 Offentliggjorte forslag om opdatering af et områdes udpegningsgrundlag har således betydning for myndighedernes administration af Natura 2000-områderne.
 
-De offentliggjorte forslag om opdatering af udpegningsgrundlaget kan findes på Miljøstyrelsens hjemmeside.
+De offentliggjorte forslag om opdatering af udpegningsgrundlaget kan findes på Miljøstyrelsens hjemmeside. [82]
 
-82
-
-www.mst.dk
-
-Naturklagenævnet (nu Miljø-og Fødevareklagenævnet) har i en afgørelse fra 2004
-
-83
-
-MAD 2005.928.
+Naturklagenævnet (nu Miljø-og Fødevareklagenævnet) har i en afgørelse fra 2004 [83]
 
 konkluderet, at kravet om vurdering af eventuelle påvirkninger som følge af en plan eller et projekt derfor også gælder i forhold til foreslåede ændringer i udpegningsgrundlaget, selv om forslaget om justering af udpegningsgrundlag endnu ikke er endeligt besluttet og meddelt Europa-Kommissionen.
 
@@ -1558,21 +1174,9 @@ Også disse områder udpeges af miljøministeren i habitatbekendtgørelsen.
 
 Beskyttelse af Natura 2000-områder
 
-4.1 Beskyttelse mod skade på Natura 2000-områders integritet som følge af planer og projekter
+## 4.1 Beskyttelse mod skade på Natura 2000-områders integritet som følge af planer og projekter
 
-Et helt afgørende element i beskyttelsen af områderne i Natura 2000-netværket er kravet i habitatdirektivets artikel 6, stk. 3, om, at der ikke må vedtages planer eller iværksættes projekter, der kan skade et Natura 2000-områdes integritet.
-
-84
-
-Kravet følger direkte af art.
-
-6, stk. 3, fsva.
-
-habitatområderne og af art.
-
-7 fsva.
-
-fuglebeskyttelsesområderne.
+Et helt afgørende element i beskyttelsen af områderne i Natura 2000-netværket er kravet i habitatdirektivets artikel 6, stk. 3, om, at der ikke må vedtages planer eller iværksættes projekter, der kan skade et Natura 2000-områdes integritet. [84]
 
 I dansk ret er habitatdirektivets art.
 
@@ -1588,7 +1192,7 @@ Ved behandlingen af ansøgninger om godkendelse mv. efter natur- og miljølovgiv
 
 Selvom en plan eller et projekt ikke påvirker et Natura 2000-område eller visse arters yngle- og rasteområder, kan der således godt være andre natur- eller miljøhensyn, der skal varetages efter lovgivningen i form af nationale hensyn til landskab, fredninger, fredede arter m.v., eksempelvis den samtidige vurdering af overensstemmelse med vandplanlægningen, se afsnit 4.6.2.1.
 
-4.2 Oversigt over vurderinger af planer og projekter efter habitatbekendtgørelsens § 6
+## 4.2 Oversigt over vurderinger af planer og projekter efter habitatbekendtgørelsens § 6
 
 Samspillet mellem vurderingerne af mulige påvirkninger af et Natura 2000-områdes integritet og sagsbehandlingen i øvrigt har flere faser og mulige udfald.
 
@@ -1616,13 +1220,7 @@ Hvis det vurderes, at en væsentlig påvirkning af Natura 2000-områdets bevarin
 
 a.
 
-Hvis væsentlighedsvurderingens konklusion er, at det ikke kan udelukkes
-
-85
-
-C-127/02, pr. 44 (Waddenzee/Muslingedommen) og C-323/17, pr. 34 (Sweetman).
-
-, at en plan eller et projekt kan påvirke et Natura 2000-områdes bevaringsmålsætning væsentligt, skal der gennemføres en konsekvensvurdering.
+Hvis væsentlighedsvurderingens konklusion er, at det ikke kan udelukkes [85], at en plan eller et projekt kan påvirke et Natura 2000-områdes bevaringsmålsætning væsentligt, skal der gennemføres en konsekvensvurdering.
 
 Forsigtighedsprincippet anvendes ved en sådan vurdering.
 
@@ -1634,11 +1232,7 @@ Hvis myndigheden ud fra konsekvensvurderingen, har opnået vished for, at aktivi
 
 Det er tilfældet, når det ud fra den bedste videnskabelige viden på området uden rimelig tvivl kan fastslås, at der ikke er sådanne virkninger, idet vurderingen skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl.
 
-Om konsekvensvurderingen og vurderingen som grundlag for afgørelser, se afsnit 4.7.
-
-86
-
-C-127/02, pr. 52-54, 59
+Om konsekvensvurderingen og vurderingen som grundlag for afgørelser, se afsnit 4.7. [86]
 
 Hvis en aktivitet kan skade et Natura 2000-områdes integritet, kan der ikke meddeles tilladelse.
 
@@ -1646,43 +1240,29 @@ Det er i særlige tilfælde muligt at fravige den beskyttelse, der følger af ha
 
 Om denne fravigelse og de strenge betingelser for at opnå en sådan tilladelse, se afsnit 5.
 
-4.3 Forsigtighedsprincippet
+## 4.3 Forsigtighedsprincippet
 
 Myndigheden skal sikre sig, at det kan afvises, at en plan eller et projekt skader områdets integritet, dvs. myndigheden skal have vished for, at aktiviteten ikke har skadelige virkninger.
 
-Bevisbyrden omhandler således at kunne dokumentere fravær af skadelige virkninger snarere end deres forekomst, hvilket afspejler forsigtighedsprincippet.
+Bevisbyrden omhandler således at kunne dokumentere fravær af skadelige virkninger snarere end deres forekomst, hvilket afspejler forsigtighedsprincippet. [87]
 
-87
-
-C-157/96, pr. 63 (Kogalskab).
-
-Heraf følger, at konsekvensvurderingen skal være tilstrækkelig detaljeret og begrundet til at kunne dokumentere fravær af skadelige virkninger på baggrund af den bedste tilgængelige videnskabelige viden på området
-
-88
-
-C-127/02, pr. 61 (
-
-.
+Heraf følger, at konsekvensvurderingen skal være tilstrækkelig detaljeret og begrundet til at kunne dokumentere fravær af skadelige virkninger på baggrund af den bedste tilgængelige videnskabelige viden på området [88].
 
 Der er altså tale om en høj prioritering af et sikkert fagligt grundlag.
 
-Dette særlige forsigtighedsprincip er fastslået af EU-Domstolen.
-
-89
-
-C-127/02, pr. 57-61 (
+Dette særlige forsigtighedsprincip er fastslået af EU-Domstolen. [89]
 
 Forsigtighedsprincippet indebærer, at hvis der er videnskabeligt grundlag for rimelig tvivl om skadevirkninger, skal denne tvivl komme Natura 2000-området til gode.
 
 Hensynet til de udpegede områder skal vægtes højest.
 
-4.4 Planer og projekter
+## 4.4 Planer og projekter
 
 Kravet om habitatvurdering efter habitatbekendtgørelsens § 6 gælder for planer og projekter inden for et Natura 2000-område og for planer og projekter, der ligger geografisk placeret uden for et Natura 2000-område.
 
 Det afgørende er, om planen eller projektet kan påvirke Natura 2000-områdets bevaringsmålsætninger væsentligt.
 
-4.4.1 Påvirkning i et Natura 2000-område, selvom projektet foretages uden for Natura 2000-området
+## 4.4.1 Påvirkning i et Natura 2000-område, selvom projektet foretages uden for Natura 2000-området
 
 Det er ikke muligt at opstille udtømmende lister over hvilke planer og projekter, der vedrører forhold uden for et Natura 2000-område, som kan skade Natura 2000-områdets integritet.
 
@@ -1704,27 +1284,19 @@ Planer og projekter, som er direkte forbundne med eller nødvendige for et Natur
 
 Det kan gælde for bl.a. projekter, som er forudsat i Natura 2000-planerne, eksempelvis LIFE-projekter eller støtteordningen med tilsagn om tilskud til pleje af græs- og naturarealer og andre ordninger under det danske landdistriktsprogram, som entydigt har til formål at understøtte bevaringsmålsætningen for området.
 
-Det beror dog på en konkret vurdering, da der kan være dele af et projekt, der ikke har direkte tilknytning til bevaringsforvaltningen, eller som kan berøre en anden lokalitet.
-
-90
-
-Se C-241/08, pr. 55 (Kommissionen mod Frankrig), og C-441/17, pr. 123 (Kommissionen mod Polen).
+Det beror dog på en konkret vurdering, da der kan være dele af et projekt, der ikke har direkte tilknytning til bevaringsforvaltningen, eller som kan berøre en anden lokalitet. [90]
 
 I disse tilfælde kan der være krav om miljøvurdering efter anden lovgivning.
 
 Dog vurderes vandområdeplanerne efter habitatbekendtgørelsen, selvom de i vidt omfang er nødvendige for Natura 2000-områdernes udvikling.
 
-4.4.2 Planer
+## 4.4.2 Planer
 
 Begrebet "plan" i habitatdirektivets artikel 6, stk. 3, har en meget bred betydning.
 
 Begrebet er ikke defineret i habitatdirektivet.
 
-I SMV-direktivets
-
-91
-
-Europa-Parlamentets og Rådets direktiv af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (2001/42).
+I SMV-direktivets [91]
 
 artikel 2, litra a, fremgår følgende definition af ”plan”:
 
@@ -1743,11 +1315,7 @@ som udarbejdes af en myndighed med henblik på vedtagelse af parlament eller reg
 som kræves ifølge love og administrative bestemmelser.
 
 I denne forbindelse har EU-Domstolen fastslået, at
-"Henset til formålet med direktiv 2001/42, som består i at sikre et højt miljøbeskyttelsesniveau, skal bestemmelser, der afgrænser direktivets anvendelsesområde, og særligt bestemmelser, der fastsætter definitioner på de retsakter, der er omfattet heraf, fortolkes bredt".
-
-92
-
-C-567/10, pr. 24-43 (Inter-Environnement Bruxelles ASBL, Pétitions-Patrimoine ASBL, Atelier de Recherche et d’Action Urbaines ASBL mod Région de Bruxelles-Capitale).
+"Henset til formålet med direktiv 2001/42, som består i at sikre et højt miljøbeskyttelsesniveau, skal bestemmelser, der afgrænser direktivets anvendelsesområde, og særligt bestemmelser, der fastsætter definitioner på de retsakter, der er omfattet heraf, fortolkes bredt". [92]
 
 For fortolkning af plan/program-begrebet i SMV-direktivet, som er implementeret i miljøvurderingsloven, henvises der til Miljøstyrelsens vejledning til miljøvurderingsloven.
 
@@ -1759,39 +1327,19 @@ Begge former for fysisk planlægning bør betragtes som omfattet af artikel 6, s
 
 EU-Domstolen har bekræftet dette synspunkt, og angiver, at selv om arealanvendelsesplaner ikke altid giver tilladelse til udviklingsprojekter, og byggetilladelsen skal indhentes til udviklingsprojekter på almindelig vis, har de større indflydelse på udviklingsafgørelser.
 
-Arealanvendelsesplaner skal derfor underkastes en konsekvensvurdering af virkningerne på den pågældende lokalitet.
-
-93
-
-C-6/04, pr. 52 (Kommissionen mod Storbritannien og Nordirland).
+Arealanvendelsesplaner skal derfor underkastes en konsekvensvurdering af virkningerne på den pågældende lokalitet. [93]
 
 Sektorplaner bør også betragtes som omfattet af anvendelsesområdet for artikel 6, stk. 3, i det omfang, de sandsynligvis vil have en væsentlig indvirkning på en Natura 2000- lokalitet.
 
-Eksempler herpå kan omfatte planer for transportnet, energiplanlægning, affaldshåndtering, vandforvaltning eller skovforvaltningsplaner
+Eksempler herpå kan omfatte planer for transportnet, energiplanlægning, affaldshåndtering, vandforvaltning eller skovforvaltningsplaner [94].
 
-94
-
-C-441/17, pr. 122-124 (Kommissionen mod Polen).
-
-.
-
-4.4.3 Projekter
+## 4.4.3 Projekter
 
 Habitatdirektivet definerer ikke nærmere, hvad et projekt er.
 
 I en række EU-domme er der imidlertid taget stilling til begrebet og dets indhold.
 
-EU-Domstolen har i en sag
-
-95
-
-C-127/02, pr. 25, (
-
-, lagt til grund, at et anlæg, en virksomhed eller anden aktivitet, der vil være omfattet af VVM-direktivets
-
-96
-
-Europa-Parlamentets og Rådets direktiv af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (2011/92)
+EU-Domstolen har i en sag [95], lagt til grund, at et anlæg, en virksomhed eller anden aktivitet, der vil være omfattet af VVM-direktivets [96]
 
 definition af et projekt, også vil være et projekt, omfattet af habitatdirektivets art.
 
@@ -1799,27 +1347,19 @@ definition af et projekt, også vil være et projekt, omfattet af habitatdirekti
 
 Men projektbegrebet efter habitatdirektivet er bredere, idet det skal fortolkes i lyset af habitatdirektivets og bestemmelsens formål, som er at forhindre, at projekter, der kan skade et Natura 2000-områdes integritet, tillades.
 
-EU-Domstolen har taget stilling til, at aktiviteter, som gentages gennem en årrække efter omstændighederne kan vurderes som et samlet projekt.
-
-97
-
-C-226/08, pr.35-51 (Stadt Papenburg).
+EU-Domstolen har taget stilling til, at aktiviteter, som gentages gennem en årrække efter omstændighederne kan vurderes som et samlet projekt. [97]
 
 Afgørende er, om den samlede aktivitets mulige påvirkning af Natura 2000-områdets bevaringsmålsætninger kan beskrives og vurderes på det tidspunkt, hvor tilladelsen gives.
 
 EU-Domstolen har tillige fastslået, at et projekts størrelse ikke i sig selv er afgørende for, om projektet skal konsekvensvurderes.
 
-Af EU-Domstolens praksis fremgår det, at der ikke generelt kan undtages bestemte aktiviteter fra kravet om vurdering af mulige påvirkninger af Natura 2000-områdets integritet.
-
-98
-
-C-98/03, pr. 41 (Kommissionen mod Tyskland) og C-418/04, pr. 244 (Kommissionen mod Irland).
+Af EU-Domstolens praksis fremgår det, at der ikke generelt kan undtages bestemte aktiviteter fra kravet om vurdering af mulige påvirkninger af Natura 2000-områdets integritet. [98]
 
 Habitatbekendtgørelsen indeholder i §§ 7-8 planer og afgørelser om projekter efter miljø- og naturlovgivningen, som er omfattet af habitatbekendtgørelsens vurderingskrav.
 
 En række planer og projekter, der vedtages, godkendes m.v. efter anden lovgivning, er omfattet af tilsvarende krav i sektorlovgivningen om vurderinger af påvirkninger af Natura 2000-områder, jf. afsnit 2.9.
 
-4.4.3.1 Særligt om fornyelse af tidsbegrænsede tilladelser og godkendelser m.v.
+## 4.4.3.1 Særligt om fornyelse af tidsbegrænsede tilladelser og godkendelser m.v.
 
 Fornyelse af en tilladelse eller godkendelse er omfattet af habitatbekendtgørelsens krav om konsekvensvurdering, hvis planen eller projektet kan påvirke et Natura 2000-områdes bevaringsmålsætninger væsentligt.
 
@@ -1827,31 +1367,15 @@ Kravet gælder også i situationer, hvor en tidsbegrænset tilladelse skal forl�
 
 Det gælder, uanset om tilladelsen er udløbet på ansøgningstidspunktet eller ej.
 
-Det gælder derudover, hvis der søges om fornyet tilladelse, fordi en eksisterende tilladelse er udløbet uden at være udnyttet eller hvis en lovlig, ikke hidtil godkendt aktivitet skal have en godkendelse af de eksisterende aktiviteter.
+Det gælder derudover, hvis der søges om fornyet tilladelse, fordi en eksisterende tilladelse er udløbet uden at være udnyttet eller hvis en lovlig, ikke hidtil godkendt aktivitet skal have en godkendelse af de eksisterende aktiviteter. [99]
 
-99
+Som konkrete eksempler på tidsbegrænsede tilladelser, der er omfattet af kravet om habitatvurdering efter habitatbekendtgørelsens § 6, kan nævnes tilladelse til råstofindvinding efter råstofloven [100]
 
-MAD 2015.83.
+og tilladelse til vandindvinding efter vandforsyningsloven. [101]
 
-Som konkrete eksempler på tidsbegrænsede tilladelser, der er omfattet af kravet om habitatvurdering efter habitatbekendtgørelsens § 6, kan nævnes tilladelse til råstofindvinding efter råstofloven
+Se hertil bl.a. Natur og Miljøklagenævnets afgørelse af 26. juni 2006, hvor Nordjyllands Amts afslag på ansøgning om fortsat indvinding af råstoffer blev stadfæstet, eftersom aktiviteten vurderedes at ville have skadelig virkning i forhold til de omgivende højmosearealers bevaringsstatus. [102]
 
-100
-
-Lovbekendtgørelse nr. 124 af 26. januar 2017 om råstoffer.
-
-og tilladelse til vandindvinding efter vandforsyningsloven.
-
-101
-
-Lovbekendtgørelse nr. 118 af 22. februar 2018 om vandforsyning mv.
-
-Se hertil bl.a. Natur og Miljøklagenævnets afgørelse af 26. juni 2006, hvor Nordjyllands Amts afslag på ansøgning om fortsat indvinding af råstoffer blev stadfæstet, eftersom aktiviteten vurderedes at ville have skadelig virkning i forhold til de omgivende højmosearealers bevaringsstatus.
-
-102
-
-MAD 2006.968 (j.nr. 03-41/800-0027).
-
-4.5 Anmeldepligtige aktiviteter
+## 4.5 Anmeldepligtige aktiviteter
 
 Ved siden af habitatbekendtgørelsen gælder naturbeskyttelseslovens § 19 b og skovlovens § 17, som stiller krav om forhåndsanmeldelse af en række bestemte aktiviteter (projekter) i Natura 2000-områder.
 
@@ -1865,7 +1389,7 @@ Vurderingen skal ske efter samme principper, som fremgår af denne vejledning.
 
 Se nærmere i afsnit 2.8.3.
 
-4.6 Væsentlighedsvurdering
+## 4.6 Væsentlighedsvurdering
 
 Habitatbekendtgørelsen stiller krav om, at myndigheden - som første sagsbehandlingsskridt - foretager en væsentlighedsvurdering af ansøgte planer og projekter, jf. habitatbekendtgørelsens § 6 stk. 1.
 
@@ -1877,43 +1401,21 @@ Som omtalt ovenfor i afsnit 4.3. spiller forsigtighedsprincippet en central roll
 
 Forsigtighedsprincippet skal anvendes allerede i forbindelse med væsentlighedsvurderingen, dvs. ved vurderingen af, om en plan eller et projekt i sig selv eller i forbindelse med andre planer og projekter kan antages at påvirke Natura 2000-områdes bevaringsmålsætninger væsentligt.
 
-Det fremgår af EU-Domstolens praksis
+Det fremgår af EU-Domstolens praksis [103]
 
-103
-
-C 127/02, pr. 39-49, afgørelsens punkt 3 a (
-
-og Europa-Kommissionens vejledning
-
-104
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018” afsnit 3.5.1.
-
-, at det følger af forsigtighedsprincippet, at der skal udarbejdes en konsekvensvurdering, hvis en væsentlig påvirkning af Natura 2000-områdets bevaringsmålsætninger ikke kan udelukkes.
+og Europa-Kommissionens vejledning [104], at det følger af forsigtighedsprincippet, at der skal udarbejdes en konsekvensvurdering, hvis en væsentlig påvirkning af Natura 2000-områdets bevaringsmålsætninger ikke kan udelukkes.
 
 Der kræves ikke vished for, at der en væsentlig påvirkning, idet den blotte sandsynlighed eller risiko for en væsentlig påvirkning er tilstrækkelig til at udløse en konsekvensvurdering.
 
 Hvis der ikke er risiko for at skade bevaringsmålsætningen for en lokalitet, er der ikke tale om en væsentlig påvirkning.
 
-I tilfælde af tvivl om der er væsentlige påvirkninger af Natura 2000-områdets integritet, skal der foretages en konsekvensvurdering.
+I tilfælde af tvivl om der er væsentlige påvirkninger af Natura 2000-områdets integritet, skal der foretages en konsekvensvurdering. [105]
 
-105
+## 4.6.1 Om væsentlighed
 
-C 127/02, pr. 41-49 (
+Vurderingen af, om en plan eller et projekt påvirker et Natura 2000-områdes bevaringsmålsætninger væsentligt, retter sig mod påvirkningen af de karakteristika og miljømæssige forhold, der kendetegner det konkrete Natura 2000-område, og herunder særligt de konkret fastsatte bevaringsmålsætninger for de arter og naturtyper, der er på Natura 2000-områdets udpegningsgrundlag. [106]
 
-4.6.1 Om væsentlighed
-
-Vurderingen af, om en plan eller et projekt påvirker et Natura 2000-områdes bevaringsmålsætninger væsentligt, retter sig mod påvirkningen af de karakteristika og miljømæssige forhold, der kendetegner det konkrete Natura 2000-område, og herunder særligt de konkret fastsatte bevaringsmålsætninger for de arter og naturtyper, der er på Natura 2000-områdets udpegningsgrundlag.
-
-106
-
-C-127/02, pr. 46-49 (Waddenzee/Muslingedommen), Kommissionens vejledning til habitatdirektivets artikel 6, afsnit 3.5.2
-
-EU-Domstolen har fastslået, at det skal anses som en væsentlig påvirkning , hvis en plan eller et projekt risikerer at skade bevaringsmålsætningen for det pågældende Natura 2000-område.
-
-107
-
-C 127/02, pr. 49
+EU-Domstolen har fastslået, at det skal anses som en væsentlig påvirkning , hvis en plan eller et projekt risikerer at skade bevaringsmålsætningen for det pågældende Natura 2000-område. [107]
 
 EU-Domstolen har dermed understreget, at påvirkningen skal vurderes ud fra, om den er så væsentlig, at de bevaringsmålsætninger, der opstilles i Natura 2000-planen ikke kan opnås, hvorefter naturtyperne og arterne skal være stabile eller i fremgang.
 
@@ -1921,13 +1423,7 @@ Ud over denne dom er der i Europa-Kommissionens vejledning til habitatdirektivet
 
 Heraf fremgår:
 
-”Væsentlighed varierer afhængigt af faktorer såsom en virknings omfang, type, udbredelse, varighed, intensitet, tidspunkt, sandsynlighed, kumulative virkninger og de pågældende naturtypers og arters sårbarhed.
-
-108
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, s.
-
-42.
+”Væsentlighed varierer afhængigt af faktorer såsom en virknings omfang, type, udbredelse, varighed, intensitet, tidspunkt, sandsynlighed, kumulative virkninger og de pågældende naturtypers og arters sårbarhed. [108]
 
 Af Kommissionens vejledning fremgår videre:
 
@@ -1935,34 +1431,18 @@ Af Kommissionens vejledning fremgår videre:
 
 Betydningen af virkninger skal fastsættes i henhold til de særlige egenskaber og miljømæssige betingelser for den beskyttede lokalitet, der berøres af planen eller projektet, og navnlig tage lokalitetens bevaringsmålsætninger og økologiske kendetegn i betragtning.
 
-”
-
-109
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, s.
-
-43.
+” [109]
 
 Som eksempel herpå fremhæves:
 
 ”
 et tab på et hundrede kvadratmeter naturtype kan fx være væsentlig i forbindelse med en lille lokalitet for en sjælden orkide, mens et tilsvarende tab af stor steppelokalitet kan være uvæsentlig, hvis den ikke har nogen indvirkninger på lokalitetens bevaringsmålsætninger.
 
-”
-
-110
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, s.
-
-43.
+” [110]
 
 Det må imidlertid være en væsentlig påvirkning, hvis påvirkningen kan få betydning f.eks. ved at skade beskyttede arter eller naturtyper.
 
-Således har EU-domstolen i en dom slået fast, at en lille, men varig og uoprettelig reduktion af en prioriteret naturtype kan udgøre en væsentlig påvirkning, og dermed anses som en skade på et Natura 2000-områdes integritet.
-
-111
-
-C-258/11, pr. 46 (Sweetman).
+Således har EU-domstolen i en dom slået fast, at en lille, men varig og uoprettelig reduktion af en prioriteret naturtype kan udgøre en væsentlig påvirkning, og dermed anses som en skade på et Natura 2000-områdes integritet. [111]
 
 I den anden ende af skalaen må det antages, at en påvirkning som udgangspunkt ikke er væsentlig, f.eks.
 
@@ -1976,7 +1456,7 @@ hvis den beskyttede naturtype eller art efter en konkret vurdering skønnes hurt
 
 Midlertidige forringelser eller forstyrrelser i en eventuel anlægsfase, der ikke har efterfølgende konsekvenser for de arter og naturtyper Natura 2000-området er udpeget for at beskytte, er almindeligvis ikke væsentlig påvirkning.
 
-4.6.2 Om at gennemføre en væsentlighedsvurdering
+## 4.6.2 Om at gennemføre en væsentlighedsvurdering
 
 -
 
@@ -1992,11 +1472,7 @@ Vurderingen skal ud over effekten af planen eller projektet i sig selv, også in
 
 Sådanne mulige kumulative effekter kan eksempelvis være eksisterende belastninger og belastninger fra allerede vedtagne planer, som endnu ikke er realiserede samt planer og projekter, som foreligger i forslag.
 
-Ved planer og projekter, der foreligger i forslag, forstås f.eks. forslag til planer og projekter, som en myndighed har sendt i høring.
-
-112
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, afsnit 3.5.2 og 3.5.3.
+Ved planer og projekter, der foreligger i forslag, forstås f.eks. forslag til planer og projekter, som en myndighed har sendt i høring. [112]
 
 Spørgsmålet om vurdering i forhold til eksisterende belastninger er bl.a. relevant, hvor planen eller projektet er en udvidelse af en allerede eksisterende virksomhed.
 
@@ -2010,21 +1486,13 @@ I en række situationer vil det for visse arter og naturtyper helt kunne afvises
 
 Det fremgår af EU-Domstolens praksis, at for så vidt angår det geografiske anvendelsesområde er, er det geografiske anvendelsesområde ikke begrænset til planer og projekter, der udelukkende forekommer i eller omfatter et beskyttet Natura 2000-område.
 
-De gælder også for planer og projekter, der ligger uden for Natura 2000-området, men som kan have væsentlig indvirkning på Natura 2000-områdets bevaringsmålsætninger, uanset afstanden fra det pågældende Natura 2000-område.
-
-113
-
-C-98/03, pr. 51 (Kommissionen mod Tyskland) og C-418/04, pr. 232-233 (Kommissionen mod Irland).
+De gælder også for planer og projekter, der ligger uden for Natura 2000-området, men som kan have væsentlig indvirkning på Natura 2000-områdets bevaringsmålsætninger, uanset afstanden fra det pågældende Natura 2000-område. [113]
 
 ¬
 
 Der kan findes yderligere om væsentlighedsvurderingen i Kommissionens vejledning til habitatdirektivets art.
 
-6, stk. 3 og 4, og i Kommissionens meddelelse om forvaltning af Natura 2000-lokaliteter – bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF.
-
-114
-
-Assessment of plans and projects siginificantly affecting Natura 2000 sites - Methodological guidance on the provisions of Article 6(3) and (4) of the Habitats Directive 92/43/EEC og Meddelelse fra Kommissionen “Forvaltning af Natura 2000-lokaliteter - Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF” af 21. november 2018.
+6, stk. 3 og 4, og i Kommissionens meddelelse om forvaltning af Natura 2000-lokaliteter – bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF. [114]
 
 4.6.2.1 Væsentlighedsvurdering og en
 samtidig
@@ -2050,37 +1518,19 @@ Der skal dog foretages en konkret habitatvurdering efter habitatbekendtgørelsen
 
 Særligt i sager om udledningstilladelser efter miljøbeskyttelseslovens § 27, stk. 2, og § 28, stk. 1 og 2, samt i sager om udledning i forbindelse med miljøgodkendelser efter miljøbeskyttelseslovens § 33 er det åbenbart, at der bør være samtidighed i vurderinger efter indsatsbekendtgørelsen og vurderinger af, om påvirkninger af et Natura 2000-områdes integritet er væsentlig.
 
-4.6.2.1.1 Vurdering af påvirkning af vandforekomsters tilstand
+## 4.6.2.1.1 Vurdering af påvirkning af vandforekomsters tilstand
 
 For de målsatte overfladevandområder – vandløb, søer og kystvande - indebærer målet ”god tilstand”, at både overfladevandområdets kemiske tilstand og økologiske tilstand skal være god.
 
-Den kemiske tilstand bestemmes af, om indholdet af miljøfremmede stoffer i vand, sediment eller biota overskrider EU-fastsatte miljøkvalitetskrav, jf. bekendtgørelse om fastlæggelse af miljømål for vandløb, søer, overgangsvande, kystvande og grundvand.
+Den kemiske tilstand bestemmes af, om indholdet af miljøfremmede stoffer i vand, sediment eller biota overskrider EU-fastsatte miljøkvalitetskrav, jf. bekendtgørelse om fastlæggelse af miljømål for vandløb, søer, overgangsvande, kystvande og grundvand. [115]
 
-115
+Den økologiske tilstand bestemmes ved vurderinger af især biologiske kvalitetselementer som omfang og karakter af flora og fauna i overfladevandområderne efter standarder fastsat i bekendtgørelse om fastsættelse af miljømål [116]
 
-Bekendtgørelse nr. 653 af 189. maj 2020 om fastlæggelse af miljømål for vandløb, søer, overgangsvande, kystvande og grundvand.
-
-Den økologiske tilstand bestemmes ved vurderinger af især biologiske kvalitetselementer som omfang og karakter af flora og fauna i overfladevandområderne efter standarder fastsat i bekendtgørelse om fastsættelse af miljømål
-
-116
-
-Bekendtgørelse nr. 945 af 27. juni 2016 om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder.
-
-og i bekendtgørelsen om overvågning af overfladevandets, grundvandets og beskyttede områders tilstand og om naturovervågning af internationale naturbeskyttelsesområder (overvågningsbekendtgørelsen).
-
-117
-
-Bekendtgørelse nr. 1001 af 29. juni 2016 om overvågning af overfladevandets, grundvandets og beskyttede områders tilstand og om naturovervågning af internationale naturbeskyttelsesområder.
+og i bekendtgørelsen om overvågning af overfladevandets, grundvandets og beskyttede områders tilstand og om naturovervågning af internationale naturbeskyttelsesområder (overvågningsbekendtgørelsen). [117]
 
 Den økologiske tilstand er dog tillige afhængig af de fysiske og kemiske forhold i øvrigt i overfladevandområdet.
 
-Det følger således af bekendtgørelse om krav til udledning af visse forurenende stoffer til vandløb, søer overgangsvande, kystvande og havområder
-
-118
-
-Bekendtgørelse nr. 1433 af 21. november 2017 om krav til udledning af visse forurenende stoffer til vandløb, søer overgangsvande, kystvande og havområder.
-
-, at der stilles krav om national fastsættelse af miljøkvalitetskrav for miljøfarlige forurenende stoffer, der udledes i signifikante mængder, og for hvilke et miljøkvalitetskrav endnu ikke er fastsat.
+Det følger således af bekendtgørelse om krav til udledning af visse forurenende stoffer til vandløb, søer overgangsvande, kystvande og havområder [118], at der stilles krav om national fastsættelse af miljøkvalitetskrav for miljøfarlige forurenende stoffer, der udledes i signifikante mængder, og for hvilke et miljøkvalitetskrav endnu ikke er fastsat.
 
 Disse krav er også fastsat i bekendtgørelse om fastsættelse af miljømål.
 
@@ -2110,7 +1560,7 @@ Dette kan f.eks. være i forhold til specifikke forekomster af arter eller f.eks
 
 Dette skal vurderes i hver enkelt sag.
 
-4.6.2.1.2 Om brug af modelberegninger ved vurdering af påvirkningen
+## 4.6.2.1.2 Om brug af modelberegninger ved vurdering af påvirkningen
 
 Der findes flere almindeligt anerkendte og vidt udbredte modelberegningsværktøjer, der kan bruges ved vurderingen af påvirkningen af målsatte vandforekomster ved behandlingen af Natura 2000-sager.
 
@@ -2124,13 +1574,7 @@ Det er også vigtigt, at myndigheden forholder sig til, om modellens resultater 
 
 Herudover skal myndigheden i hver enkelt sag tage stilling til, om der er behov for yderligere vurderinger og analyser end blot modelleringen.
 
-Natur- og Miljøklagenævnet (nu Miljø- og Fødevareklagenævnet) har i flere sager om etablering af havbrug
-
-119
-
-NMK-10-00807 og NMK-34-00371 - Endelave Havbrug, afgørelse af 23. december 2014.
-
-NMK-10-00927 - Fejø havbrug, afgørelse af 27. marts 2018.
+Natur- og Miljøklagenævnet (nu Miljø- og Fødevareklagenævnet) har i flere sager om etablering af havbrug [119]
 
 forholdt sig til brugen af modelværktøjer.
 
@@ -2140,7 +1584,7 @@ af grundlaget for en vurdering af, om udledning af en given mængde af næringss
 
 Anvendelse af modelværktøjer kan således ikke stå alene, men kan anvendes i vurdering af overensstemmelse med vandplanlægningen og i den konkrete væsentlighedsvurdering.
 
-4.6.3 Væsentlighedsvurderingens konklusion
+## 4.6.3 Væsentlighedsvurderingens konklusion
 
 Hvis det i væsentlighedsvurderingen ikke kan udelukkes, at den pågældende plan eller projekt kan påvirke et Natura 2000-områdes bevaringsmålsætninger væsentligt, skal der udarbejdes en konsekvensvurdering, se afsnit 4.7.
 
@@ -2156,7 +1600,7 @@ Det er ikke tilstrækkeligt blot at foretage en overordnet vurdering af en plan 
 
 Væsentlighedsvurderingen indgår som led i myndighedens samlede afgørelse om planen eller projektet, og kan påklages som led i den samlede afgørelse.
 
-4.7 Konsekvensvurdering
+## 4.7 Konsekvensvurdering
 
 Et hovedelement i beskyttelsen af Natura 2000-områder er, at myndighederne i deres administration og planlægning ikke må vedtage planer eller projekter, der kan skade de arter og naturtyper, som områderne er udpeget for at bevare.
 
@@ -2168,7 +1612,7 @@ Alle aspekter af en plan eller projekt, som i sig selv eller i forbindelse med a
 
 Disse aspekter skal identificeres under hensyn til den bedste videnskabelige viden på området.
 
-4.7.1 Krav til konsekvensvurdering
+## 4.7.1 Krav til konsekvensvurdering
 
 Det er vigtigt at skelne mellem bevaringsmålsætninger for de konkrete Natura 2000-områder, der fremgår af Natura 2000-områdets Natura 2000-plan og den overordnede målsætning som fremgår af habitatdirektivets artikel 1, litra e og i, om at opnå en gunstig bevaringsstatus for naturtyper og arter.
 
@@ -2226,13 +1670,7 @@ Der kan være tale om areal-, karakter- eller kvalitetsmæssige ændringer i for
 
 Påvirkningen på arterne og de forventede eller forudsigelige indvirkninger på f.eks. bestandsstørrelse, sårbarhed, artens fødegrundlag, yngleaktivitet og yngelpleje, muligheder for at raste, fouragere, overvintre eller skifte svingfjer (fælde), samt oplysninger om hvorvidt artens konkurrenceevne ændres som følge af ændrede levestedsvilkår, f.eks. på grund af mindre eller fragmenterede levesteder, væsentlige forstyrrelser mv.
 
-Se desuden afsnit 3.2. i Europa-Kommissionens vejledning.
-
-120
-
-Assessment of plans and projects significantly affecting Natura 2000 sites – Methodological guidance on the provisions of Article 6(3) and (4) of the Habitats Directive 92/43/EEC, november 2001.
-
-Vejledningen er under revision og en ny udgave forventes i 2020.
+Se desuden afsnit 3.2. i Europa-Kommissionens vejledning. [120]
 
 Se i øvrigt også denne vejlednings afsnit 4.7.2. om skadesbegrebet.
 
@@ -2276,49 +1714,23 @@ Det er ikke tilstrækkeligt blot at medtage en konklusion fra en vurdering af en
 
 Natur- og Miljøklagenævnet (nu Miljø-og Fødevareklagenævnet) har i en række sager kendt planer eller tilladelser til projekter ugyldige, da vurderingerne ikke fremgik af afgørelserne som påkrævet.
 
-Se bl.a. Naturklagenævnets afgørelse om opførelse af sommerhus på et hedeareal.
+Se bl.a. Naturklagenævnets afgørelse om opførelse af sommerhus på et hedeareal. [121]
 
-121
-
-MAD2007.
-
-2209 (NKN-131-00055).
-
-4.7.2 Skadesbegrebet og områdets integritet
+## 4.7.2 Skadesbegrebet og områdets integritet
 
 Myndigheder kan først godkende en plan eller et projekt, der kan påvirke et Natura 2000-områdes bevaringsmålsætninger væsentligt, når myndigheden har sikret sig, at planen eller projektet ikke skader Natura 2000-områdets integritet.
 
-EU-Domstolen har i flere domme udtalt, at de kompetente nationale myndigheder kun kan give ”tilladelse til en aktivitet på den beskyttede lokalitet på betingelse af, at de har opnået vished for, at aktiviteten ikke har skadelige virkninger for den pågældende lokalitets integritet”, og at det forholder sig således, ”når det ud fra et videnskabeligt synspunkt uden rimelig tvivl kan fastslås, at der ikke er sådanne virkninger”, idet vurderingen skal indeholde ”fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl”.
+EU-Domstolen har i flere domme udtalt, at de kompetente nationale myndigheder kun kan give ”tilladelse til en aktivitet på den beskyttede lokalitet på betingelse af, at de har opnået vished for, at aktiviteten ikke har skadelige virkninger for den pågældende lokalitets integritet”, og at det forholder sig således, ”når det ud fra et videnskabeligt synspunkt uden rimelig tvivl kan fastslås, at der ikke er sådanne virkninger”, idet vurderingen skal indeholde ”fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl”. [122]
 
-122
+Kravet om, at der skal foreligge sikker dokumentation indebærer, at myndigheden skal afvise at give tilladelse til en plan eller et projekt, når der er usikkerhed om, hvorvidt der vil være virkninger, der skader det pågældende Natura 2000-områdes integritet. [123]
 
-C-258/11, pr. 40-44 (Sweetman), C-323/17, pr. 29-30 (Sweetman), C-127/02, pr. 55-59 (Waddenzee/Muslingedommen) og C-404/09, pr. 99-100 (Kommissionen mod Spanien).
+Et Natura 2000-områdes integritet kan defineres ud fra den samlede sum af et områdets økologiske struktur, funktion og de økologiske processer i hele områdets udstrækning, som gør det muligt at opretholde de levesteder og bestande af arter, som området er udpeget for. [124]
 
-Kravet om, at der skal foreligge sikker dokumentation indebærer, at myndigheden skal afvise at give tilladelse til en plan eller et projekt, når der er usikkerhed om, hvorvidt der vil være virkninger, der skader det pågældende Natura 2000-områdes integritet.
-
-123
-
-C-258/11, pr. 41 (Sweetman).
-
-Et Natura 2000-områdes integritet kan defineres ud fra den samlede sum af et områdets økologiske struktur, funktion og de økologiske processer i hele områdets udstrækning, som gør det muligt at opretholde de levesteder og bestande af arter, som området er udpeget for.
-
-124
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018
-
-Eksempelvis vil det ikke være en skade på et områdes integritet, hvis områdets bevaringsmålsætninger ikke påvirkes væsentligt, eller hvis en plan eller et projekt kun vil have negativ på indvirkning på området i visuel forstand.
-
-125
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018
+Eksempelvis vil det ikke være en skade på et områdes integritet, hvis områdets bevaringsmålsætninger ikke påvirkes væsentligt, eller hvis en plan eller et projekt kun vil have negativ på indvirkning på området i visuel forstand. [125]
 
 Omvendt kan der være tale om en skade, hvis blot én art eller naturtype på udpegningsgrundlaget påvirkes væsentligt.
 
-Spørgsmålet om, hvorvidt der kan ske skade på Natura 2000-områdets integritet, knytter sig til, hvordan planen eller projektet kan påvirke Natura 2000-områdets bevaringsmålsætninger.
-
-126
-
-C-258/11, pr. 30 og 39 (Sweetman).
+Spørgsmålet om, hvorvidt der kan ske skade på Natura 2000-områdets integritet, knytter sig til, hvordan planen eller projektet kan påvirke Natura 2000-områdets bevaringsmålsætninger. [126]
 
 Den overordnede bevaringsmålsætning forudsætter, at arten eller naturtypen opretholdes i (eller bevæger sig i retning af) en gunstig bevaringsstatus jf. definitionerne heraf i § 4, stk. 3, i habitatbekendtgørelsen.
 
@@ -2332,11 +1744,7 @@ EU-Domstolen har præciseret, at planer eller projekter ikke må medføre varige
 
 Det er den konkrete konsekvensvurdering, der viser, om der vil ske varig skade på et Natura 2000-områdes integritet.
 
-Vurderingen skal holdes op mod bevaringsmålsætningen for Natura 2000-området, og herunder skal det vurderes, om den pågældende plan eller projektet hindrer opnåelse af bevaringsmålsætningerne for Natura 2000-området.
-
-127
-
-C-258/11, pr. 31, 39 og 40 (Sweetman).
+Vurderingen skal holdes op mod bevaringsmålsætningen for Natura 2000-området, og herunder skal det vurderes, om den pågældende plan eller projektet hindrer opnåelse af bevaringsmålsætningerne for Natura 2000-området. [127]
 
 Udtrykket "områdets integritet" indebærer, at der fokuseres på det konkrete Natura 2000-områdes bevaringsmålsætninger.
 
@@ -2350,25 +1758,9 @@ påvirkning ikke er til stede, er ubetydelig, eller falder inden for rammen af, 
 
 Acceptabel påvirkning er især relevant i forhold til potentiel skade ved forurening, og hvor forureningen er under kravværdier for forureningen, typisk fastsat på grundlag af anden EU-lovgivning.
 
-F.eks. er der fastsat miljøkvalitetskrav, grundvandskvalitetskrav og tærskelværdier i eller efter regler i vandrammedirektivet
+F.eks. er der fastsat miljøkvalitetskrav, grundvandskvalitetskrav og tærskelværdier i eller efter regler i vandrammedirektivet [128], miljøkvalitetskravdirektivet [129]
 
-128
-
-Europa-Parlamentets og Rådets direktiv af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger (2000/60)
-
-, miljøkvalitetskravdirektivet
-
-129
-
-Europa-Parlamentets og Rådets direktiv 2008/105/EF af 16. december 2008 om miljøkvalitetskrav inden for vandpolitikken, om ændring og senere ophævelse af Rådets direktiv 82/176/EØF, 83/513/EØF, 84/156/EØF, 84/491/EØF og 86/280/EØF og om ændring af Europa-Parlamentets og Rådets direktiv 2000/60/EF.
-
-og grundvandsdirektivet
-
-130
-
-Europa-Parlamentets og Rådets direktiv 2006/118/EF af 12. december 2006 om beskyttelse af grundvandet mod forurening og forringelse.
-
-.
+og grundvandsdirektivet [130].
 
 Disse krav/værdier fungerer som kriterier for, hvornår koncentrationen af et forurenende stof i vandmiljøet ikke har et niveau, der forhindrer, at der er eller opnås god tilstand i de målsatte vandforekomster.
 
@@ -2376,59 +1768,31 @@ Niveauerne fastsættes konservativt, så der er god sikkerhed for, at vandmiljø
 
 Inddragelse af et Natura 2000-områdes integritet kan således medføre en fleksibilitet, der kan rummes inden for Natura 2000-områdets robusthed, i forhold til om en plan eller et projekt medfører skade på udpegningsgrundlaget for Natura 2000-området.
 
-Hvis arter og naturtyper på Natura 2000-områdets udpegningsgrundlag fortsat kan være i gunstig bevaringsstatus eller bevæge sig i retning deraf, jf. Natura 2000-planens bevaringsmålsætninger, vil en række aktiviteter således kunne iværksættes uden at disse betragtes som en varig skade på Natura 2000-områdets integritet.
+Hvis arter og naturtyper på Natura 2000-områdets udpegningsgrundlag fortsat kan være i gunstig bevaringsstatus eller bevæge sig i retning deraf, jf. Natura 2000-planens bevaringsmålsætninger, vil en række aktiviteter således kunne iværksættes uden at disse betragtes som en varig skade på Natura 2000-områdets integritet. [131]
 
-131
-
-C-258/11, pr. 39 (Sweetman).
-
-4.7.3 Arealreduktion af naturtype eller levested
+## 4.7.3 Arealreduktion af naturtype eller levested
 
 Det er et væsentligt og målbart parameter i spørgsmålet om hvorvidt der sker en skade, om arealet af en naturtype eller et levested for en art på udpegningsgrundlaget påvirkes.
 
-Om en arealreduktion kan tillades, beror på en konkret vurdering, jf. Natura 2000-områdets bevaringsmålsætninger.
+Om en arealreduktion kan tillades, beror på en konkret vurdering, jf. Natura 2000-områdets bevaringsmålsætninger. [132]
 
-132
+I forhold til naturtyper er det afgørende, at arealet er stabilt eller i udbredelse. [133]
 
-C-258/11, pr. 30 (Sweetman).
+## 4.7.3.1 Arealreduktion af prioriterede naturtyper eller levesteder
 
-I forhold til naturtyper er det afgørende, at arealet er stabilt eller i udbredelse.
-
-133
-
-C-258/11, pr. 37 (Sweetman).
-
-4.7.3.1 Arealreduktion af prioriterede naturtyper eller levesteder
-
-I forhold til prioriterede naturtyper har EU-Domstolen har i en konkret dom fundet, at såfremt en plan eller et projekt medfører et varigt og uopretteligt tab af hele eller en del af en prioriteret naturtype på Natura 2000-områdets udpegningsgrundlag, anses planen eller projektet for at skade det pågældende Natura 2000-områdes integritet.
-
-134
-
-C-258/11, pr. 39 (Sweetman).
+I forhold til prioriterede naturtyper har EU-Domstolen har i en konkret dom fundet, at såfremt en plan eller et projekt medfører et varigt og uopretteligt tab af hele eller en del af en prioriteret naturtype på Natura 2000-områdets udpegningsgrundlag, anses planen eller projektet for at skade det pågældende Natura 2000-områdes integritet. [134]
 
 Det skal ses i sammenhæng med, at arealet skal være stabilt eller i udbredelse, jf. Natura 2000-områdets bevaringsmålsætninger, som fremgår af Natura 2000-planen.
 
-I samme dom fastslås, at et sådant projekt kun kan tillades, såfremt fravigelsesproceduren i artikel 6, stk. 4, som implementeret i habitatbekendtgørelsens § 9, følges.
-
-135
-
-C-258/11, pr. 46 og 47.
+I samme dom fastslås, at et sådant projekt kun kan tillades, såfremt fravigelsesproceduren i artikel 6, stk. 4, som implementeret i habitatbekendtgørelsens § 9, følges. [135]
 
 Dommen omhandlede et projekt om anlæggelsen af en omfartsvej, som medførte et varigt tab af 1,47 ha af den prioriterede naturtype kalkstensplateau, svarende til en reduktion på ca. 0,5 % af naturtypens forekomst i det konkrete område.
 
 Hvorvidt en reduktion af arealet af en prioriteret naturtype eller levesteder for en prioriteret art under det i dommen nævnte niveau vil være at betragte som en skade, kommer således an på en konkret vurdering.
 
-Det er i en sag fastslået af Miljø- og Fødevareklagenævnet, at den i sagen anførte arealreduktion var at betragte som en skade, selvom reduktionen udgjorde mindre end 0,5 % af det samlede areal.
+Det er i en sag fastslået af Miljø- og Fødevareklagenævnet, at den i sagen anførte arealreduktion var at betragte som en skade, selvom reduktionen udgjorde mindre end 0,5 % af det samlede areal. [136]
 
-136
-
-Sag 18/09816 af 12. april 2019.
-
-Natur- og Miljøklagenævnet har i en anden sag anført, at det forhold, at den mulige påvirkning alene vedrørte en relativ lille andel af det samlede Natura 2000-område, ikke var ensbetydende med, at der ikke kunne være tale om en skade på områdets integritet.
-
-137
-
-NMK-34-00448, afgørelse af 6. december 2016.
+Natur- og Miljøklagenævnet har i en anden sag anført, at det forhold, at den mulige påvirkning alene vedrørte en relativ lille andel af det samlede Natura 2000-område, ikke var ensbetydende med, at der ikke kunne være tale om en skade på områdets integritet. [137]
 
 I udgangspunktet skal arealet være stabilt eller i udbredelse, jf. Natura 2000-områdets bevaringsmålsætninger, som fremgår af Natura 2000-planen, men i konsekvensvurderingen kan indgå forhold som:
 
@@ -2456,7 +1820,7 @@ andre forhold, f.eks. at der er truffet tilsvarende andre afgørelser, som samle
 
 Det er vigtigt at sikre, at der ikke gradvist sker en reduktion af arealet.
 
-4.7.3.2 Arealreduktion af ikke-prioriterede naturtyper eller levesteder
+## 4.7.3.2 Arealreduktion af ikke-prioriterede naturtyper eller levesteder
 
 Der er ikke domspraksis for så vidt ikke-prioriterede naturtyper og levesteder for arter (status 2020).
 
@@ -2470,7 +1834,7 @@ Se afsnit 4.7.2 om acceptabel påvirkning.
 
 Det er vigtigt at være opmærksom på, at der herved ikke skabes flere situationer med på hinanden følgende marginale reduktioner af naturtype- eller levestedsareal, der til sammen kumulativt kan påvirke naturtypen eller arten negativt (salami-effekt).
 
-4.7.4 Kvaliteten af naturtype eller levested
+## 4.7.4 Kvaliteten af naturtype eller levested
 
 Bekendtgørelse om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder indeholder regler om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder som led i Natura 2000-planlægningen og Natura 2000-skovplanlægningen.
 
@@ -2478,11 +1842,7 @@ Af hensyn til den tilbagevendende opdatering af Natura 2000-planerne vurderes de
 
 Tilstanden inden for Natura 2000-områderne vurderes på grundlag af et naturtilstandsvurderingssystem, som opererer med 5 tilstandsklasser.
 
-Hvis en naturtype er i – og fremadrettet forbliver i – tilstandsklasse I-II, vurderes tilstanden at opfylde kravene til at være i gunstig bevaringsstatus, forudsat at der gennemføres den indsats, der er nødvendig for naturtypen.
-
-138
-
-§ 2, stk. 2, i bekendtgørelse nr. 653 af 19. maj 2020 om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder.
+Hvis en naturtype er i – og fremadrettet forbliver i – tilstandsklasse I-II, vurderes tilstanden at opfylde kravene til at være i gunstig bevaringsstatus, forudsat at der gennemføres den indsats, der er nødvendig for naturtypen. [138]
 
 Det må bero på en konkret vurdering, om en påvirkning medfører skade, men som udgangspunkt må påvirkningen ikke have en karakter, så den medfører en nedgang fra en tilstandsklasse til en anden, jf. områdets Natura 2000-plan.
 
@@ -2490,9 +1850,9 @@ Der er endvidere tilstandsvurderingssystemer under implementering og udvikling f
 
 For marine naturtyper og øvrige arter er der kun i begrænset omfang udviklet tilstandsvurderingssystemer, der understøtter vurderingen af påvirkningen af planer og projekter.
 
-4.7.5 Afhjælpende foranstaltninger og erstatningsnatur
+## 4.7.5 Afhjælpende foranstaltninger og erstatningsnatur
 
-4.7.5.1 Afhjælpende foranstaltninger
+## 4.7.5.1 Afhjælpende foranstaltninger
 
 Afhjælpende foranstaltninger kan i visse tilfælde sikre, at planen eller projektet ikke skader Natura 2000-områdets integritet.
 
@@ -2520,15 +1880,11 @@ Helt at lukke for adgang til et område (f.eks. en dyrearts overvintringshuler).
 
 Sikre, at der ikke sker en merudledning af forurenende stoffer til et Natura 2000-vandområde, hvor målsætningen ikke er opfyldt, eller hvor det vil kunne forringe den aktuelle tilstand yderligere.
 
-4.7.5.2 Erstatningsnatur
+## 4.7.5.2 Erstatningsnatur
 
 EU-Domstolen har fastslået, at det ikke er muligt at anvende erstatningsnatur for ødelagt habitatnatur (naturtyper eller levesteder for arter), uden at påvirke Natura 2000-områdets integritet.
 
-EU-Domstolens afgørelse vedrørte en sag, hvor de pågældende erstatningsarealer først ville udvikle sig til naturtype i de efterfølgende år, hvilket efter domstolens opfattelse ikke ville være acceptabelt.
-
-139
-
-C-521/12, pr. 32 (Briels).
+EU-Domstolens afgørelse vedrørte en sag, hvor de pågældende erstatningsarealer først ville udvikle sig til naturtype i de efterfølgende år, hvilket efter domstolens opfattelse ikke ville være acceptabelt. [139]
 
 Hvis der sker skade på et Natura 2000-områdes integritet, og habitatnatur dermed ødelægges, kan der kun anvendes erstatningsnatur som led i en fravigelse af beskyttelsen af Natura 2000-området.
 
@@ -2544,19 +1900,11 @@ EU-Domstolen har fastslået, at afhjælpende foranstaltninger ikke kan omfatte e
 
 6, stk. 4, som ikke kan gennemføres inden for habitatdirektivets art.
 
-6, stk. 3.
-
-140
-
-C-521/12, pr. 29-31 (Briels).
+6, stk. 3. [140]
 
 Det er således ikke muligt at integrere erstatningsnatur i planen eller projektet for at opveje tab af naturtypeareal, der følger af realiseringen af en plan eller et projekt (se afsnit 4.7.2. om skadesbegrebet og integritet).
 
-Erstatningsnatur kan dog anvendes som kompenserende foranstaltning i en situation hvor der sker en fravigelse af beskyttelsen, jf. afsnit 5.1.
-
-141
-
-C-521/12, pr. 39 (Briels).
+Erstatningsnatur kan dog anvendes som kompenserende foranstaltning i en situation hvor der sker en fravigelse af beskyttelsen, jf. afsnit 5.1. [141]
 
 Kompenserende foranstaltninger kan ikke anvendes til at opnå en tilladelse, godkendelse eller dispensation ift.
 
@@ -2566,7 +1914,7 @@ habitatdirektivets art.
 
 6, stk. 4.
 
-4.8 Afgørelse på grundlag af en konsekvensvurdering
+## 4.8 Afgørelse på grundlag af en konsekvensvurdering
 
 I sager, som er omfattet af habitatbekendtgørelsen, skal vurderingen af, om en plan eller et projekt medfører skade på et Natura 2000-områdes integritet, fremgå af afgørelsen.
 
@@ -2578,9 +1926,9 @@ Sagen skal være tilstrækkeligt oplyst til, at myndigheden kan vurdere den muli
 
 Hvis der ikke kan afvises skade på et Natura 2000-områdets integritet, uden rimelig videnskabelig tvivl, kan myndigheden undersøge muligheden for at opveje skaden ved at anmode ansøger om at justere projektet eller indarbejde afværgeforanstaltninger, som eksempelvis afhjælpende foranstaltninger, jf. afsnit 4.7.5.1.
 
-4.9 Oplysning af sagen ved vurderinger efter habitatbekendtgørelsens § 6
+## 4.9 Oplysning af sagen ved vurderinger efter habitatbekendtgørelsens § 6
 
-4.9.1 Natura 2000 områdets udpegningsgrundlag
+## 4.9.1 Natura 2000 områdets udpegningsgrundlag
 
 Til brug for udarbejdelse af en habitatvurdering efter habitatbekendtgørelsens § 6, kan der skaffes oplysninger om de arter og naturtyper, som Natura 2000-området er udpeget for, fra forskellige kilder, herunder:
 
@@ -2588,37 +1936,21 @@ Til brug for udarbejdelse af en habitatvurdering efter habitatbekendtgørelsens 
 
 Natura 2000-planernes basisanalyser med tillæg, der rummer oplysninger om udpegningsgrundlaget og kortlægning af naturtyper og levesteder for arter.
 
-Basisanalyserne kan bl.a. findes på Miljøstyrelsens hjemmeside, der indeholder GIS-baserede oplysninger.
-
-142
-
-https://mst.dk/natur-vand/natur/natura-2000/natura-2000-planer/natura-2000-planer-2016-21/
+Basisanalyserne kan bl.a. findes på Miljøstyrelsens hjemmeside, der indeholder GIS-baserede oplysninger. [142]
 
 -
 
-Natura 2000-områder - søgning via digitale kort, hvor der kan søges efter områder og udpegningsgrundlag.
-
-143
-
-https://mst.dk/natur-vand/natur/natura-2000/natura-2000-omraaderne/
+Natura 2000-områder - søgning via digitale kort, hvor der kan søges efter områder og udpegningsgrundlag. [143]
 
 -
 
-DMUs faglige rapport nr. 457, 2003: ”Kriterier for gunstig bevaringsstatus”
-
-144
-
-https://www2.
-
-dmu.dk/1_viden/2_Publikationer/3_fagrapporter/rapporter/FR457_2udg_www.pdf
-
-, der rummer DMUs forslag til relevante parametre for vurdering af arter og naturtypers levesteder.
+DMUs faglige rapport nr. 457, 2003: ”Kriterier for gunstig bevaringsstatus” [144], der rummer DMUs forslag til relevante parametre for vurdering af arter og naturtypers levesteder.
 
 -
 
 Rapporter og andre oplysninger fra konsulenter, naturorganisationer m.fl. Det er myndighedens ansvar, at oplysningerne er kvalitetssikrede.
 
-4.9.2 Bevaringsmålsætninger for Natura 2000-området og gunstig bevaringsstatus
+## 4.9.2 Bevaringsmålsætninger for Natura 2000-området og gunstig bevaringsstatus
 
 Den overordnede bevaringsmålsætning for Natura 2000-områderne er at sikre eller genoprette gunstig bevaringsstatus for de arter og naturtyper, som områderne er udpeget for.
 
@@ -2686,11 +2018,7 @@ En arts bevaringsstatus udgøres af resultatet af alle de forhold, der indvirker
 
 Forudsætningen for at en naturtype vurderes at være i gunstig bevaringsstatus er bl.a. at den aktuelle naturtilstand er gunstig, og at naturtypen også fremover forventes at kunne opretholdes i en gunstig naturtilstand.
 
-Der er i bekendtgørelse om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder (målbekendtgørelsen)
-
-145
-
-Bekendtgørelse nr. 945 af 27. juni 2016 om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder.
+Der er i bekendtgørelse om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder (målbekendtgørelsen) [145]
 
 defineret en række tilstandsklasser til vurdering af naturtilstanden, hvor tilstandsklasse I og II svarer til gunstig bevaringsstatus, forudsat at den nødvendige indsats for naturtypen gennemføres, jf. afsnit 4.7.4.
 
@@ -2700,7 +2028,7 @@ Det vil for naturtypernes og levestedernes vedkommende ofte kræve en aktiv inds
 
 Endvidere må der ikke iværksættes aktiviteter, der kan forhindre, at gunstig bevaringsstatus opnås.
 
-4.9.3 Undersøgelser skal foretages på et relevant tidspunkt
+## 4.9.3 Undersøgelser skal foretages på et relevant tidspunkt
 
 Hvis en vurdering af en plan eller et projekts mulige påvirkning af et Natura 2000-område forudsætter, at der skal foretages undersøgelser, så skal disse foretages på et relevant tidspunkt.
 
@@ -2712,7 +2040,7 @@ For naturtyperne er det vigtigt, at undersøgelsen sker, når de typiske arter e
 
 Det er vigtigt, at der i undersøgelserne tages højde for behov i alle faser af arternes livscyklus.
 
-4.9.4 Påvirkninger af Natura 2000-områdets integritet som følge af plan eller projekt
+## 4.9.4 Påvirkninger af Natura 2000-områdets integritet som følge af plan eller projekt
 
 For at kunne vurdere den mulige påvirkning af et Natura 2000-områdes integritet, skal det undersøges hvilken effekt alle relevante aspekter af en plan eller et projekt har på et berørt Natura 2000-områdes udpegningsgrundlag.
 
@@ -2724,11 +2052,7 @@ Vurderingen skal ud over effekten af planen eller projektet i sig selv også ind
 
 Sådanne mulige kumulative effekter kan eksempelvis være eksisterende belastninger og belastninger fra allerede vedtagne planer som endnu ikke er realiserede, samt planer og projekter som foreligger i forslag.
 
-Ved planer og projekter, der foreligger i forslag, forstås f.eks. forslag til planer og projekter som en myndighed har sendt i høring.
-
-146
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018
+Ved planer og projekter, der foreligger i forslag, forstås f.eks. forslag til planer og projekter som en myndighed har sendt i høring. [146]
 
 Spørgsmålet om vurdering i forhold til eksisterende belastninger er bl.a. relevant, hvor planen eller projektet er en udvidelse af en allerede eksisterende virksomhed.
 
@@ -2738,25 +2062,15 @@ påvirkninger fra den eksisterende del af virksomheden.
 
 Det skal på baggrund af lokalitetens aktuelle kendetegn og miljømæssige vilkår vurderes, om der kan gives tilladelse til det ansøgte.
 
-Vurderingen skal efter EU-domspraksis foretages på baggrund af de bedste videnskabelige data, som er tilgængelige på afgørelsestidspunktet, og som er tilstrækkeligt opdaterede og troværdige.
-
-147
-
-C-43/10, pr. 117.
+Vurderingen skal efter EU-domspraksis foretages på baggrund af de bedste videnskabelige data, som er tilgængelige på afgørelsestidspunktet, og som er tilstrækkeligt opdaterede og troværdige. [147]
 
 Der er således i lighed med almindelige forvaltningsretlige principper krav om, at der skal foreligge et tilstrækkeligt oplyst grundlag for at kunne træffe en afgørelse.
 
-4.9.5 Forpligtelser ved oplysning af sagen
+## 4.9.5 Forpligtelser ved oplysning af sagen
 
 Det er myndighedens ansvar, at en sag afgøres på et tilstrækkeligt oplyst grundlag.
 
-Myndigheden skal således påse, at der er tilvejebragt tilstrækkelige oplysninger til at afgøre, om en plan eller et projekt skader et Natura 2000-områdes integritet.
-
-148
-
-C-461/17, pr. 41-47 (Holohan).
-
-Dommen forholder sig til, hvem der er ansvarlig for at opfylde myndighedsforpligtelserne i habitatdirektivets artikel 6, stk. 3, men ikke til nationale regler om sagsoplysning og betaling,
+Myndigheden skal således påse, at der er tilvejebragt tilstrækkelige oplysninger til at afgøre, om en plan eller et projekt skader et Natura 2000-områdes integritet. [148]
 
 Vurderingerne skal fremgå af afgørelsen, jf. habitatbekendtgørelsens § 6 stk. 4.
 
@@ -2764,17 +2078,9 @@ Naturklagenævnet (nu Miljø- og Fødevareklagenævnet) har i flere sager fremh�
 
 Der er ikke egentlige formelle krav til omfanget af undersøgelser.
 
-Se nærmere om officialprincippet på Ombudsmandens hjemmeside.
+Se nærmere om officialprincippet på Ombudsmandens hjemmeside. [149]
 
-149
-
-www.ombudsmanden.dk
-
-EU-Domstolen har i flere sager
-
-150
-
-C-127/02, pr. 56, 59 og 61 (Waddenzee/Muslingedommen), C-404/09, pr. 99 (Kommissionen mod Spanien), C-43/10, pr. 113 (
+EU-Domstolen har i flere sager [150]
 
 fastslået, at den bedste videnskabelige viden på området skal inddrages i vurderingen, og at myndigheden skal opnå vished for, at aktiviteten ikke skader Natura 2000-områdets integritet.
 
@@ -2794,21 +2100,13 @@ Miljøvurderingsloven (jf. miljøvurderingslovens § 24, stk. 1).
 
 -
 
-Vandløbsloven
-
-151
-
-Lovbekendtgørelse nr. 1217 af 25. november 2019 om vandløb.
+Vandløbsloven [151]
 
 (jf. vandløbslovens § 58).
 
 -
 
-Okkerloven
-
-152
-
-Lovbekendtgørelse nr. 1581 af 10. december 2015 om okker.
+Okkerloven [152]
 
 (jf. okkerlovens § 11, stk. 1).
 
@@ -2818,51 +2116,23 @@ Vandforsyningsloven (jf. vandforsyningslovens § 8).
 
 -
 
-Havmiljøloven
-
-153
-
-Lovbekendtgørelse nr. 1165 af 25. november 2019 om havmiljø.
+Havmiljøloven [153]
 
 (klapning) (jf. havmiljølovens § 26, stk. 4, og § 28).
 
 -
 
-Lov om husdyrbrug og anvendelse af gødning mv. (jf. husdyrgodkendelsesbekendtgørelsen § 4, stk. 1, jf. lovens §§ 16 a eller 16b, samt brugerbetalingsbekendtgørelsen
+Lov om husdyrbrug og anvendelse af gødning mv. (jf. husdyrgodkendelsesbekendtgørelsen § 4, stk. 1, jf. lovens §§ 16 a eller 16b, samt brugerbetalingsbekendtgørelsen [154]
 
-154
-
-Bekendtgørelse nr. 1475 af 12. december 2017 om brugerbetaling for godkendelse mv. og tilsyn efter lov om miljøbeskyttelse og lov om husdyrbrug og anvendelse af gødning mv.
-
-bilag 2, afsnit 2, jf. lovens § 72 og § 78)
-
-155
-
-Behandling af sager om tilladelse efter husdyrgodkendelseslovens § 10 er ikke brugerbetalingsbelagt, jf. brugerbetalingsbekendtgørelsens bilag 2, afsnit 2.
-
-Hvis en ansøgning efter § 10 vurderes at kræve en behandling efter lovens § 11, gælder reglerne om brugerbetaling.
-
-Der er endvidere særskilte regler om refusionskrav efter selvhjælpshandlinger.
-
-.
+bilag 2, afsnit 2, jf. lovens § 72 og § 78) [155].
 
 -
 
-Miljø- og genteknologiloven
-
-156
-
-Lovbekendtgørelse nr. 9 af 4. januar 2017 om miljø- og genteknologi.
-
-, (jf. miljø- og genteknologilovens § 15)
+Miljø- og genteknologiloven [156], (jf. miljø- og genteknologilovens § 15)
 
 -
 
-Miljøbeskyttelsesloven (jf. bekendtgørelse om godkendelse af listevirksomhed, § 6, stk. 9).
-
-157
-
-Bekendtgørelse nr. 1534 af 9. december 2019 om godkendelse af listevirksomhed.
+Miljøbeskyttelsesloven (jf. bekendtgørelse om godkendelse af listevirksomhed, § 6, stk. 9). [157]
 
 For alle lovområder gælder dog det almindelige forvaltningsretlige proportionalitetsprincip, hvilket bl.a. indebærer at ansøgers eventuelle udgifter til at fremskaffe oplysninger til brug for sagsbehandlingen skal stå i rimeligt forhold til ansøgningens omfang.
 
@@ -2874,17 +2144,13 @@ Habitatbekendtgørelsen fastsætter ikke særlige krav til omfanget af eller met
 
 Det er myndigheden, der i sidste ende tager stilling til, om sagen er tilstrækkeligt oplyst.
 
-4.9.6 Høring af offentligheden
+## 4.9.6 Høring af offentligheden
 
 Det følger af habitatbekendtgørelsens § 6, stk. 6, der implementerer habitatdirektivets artikel 6, stk. 3, 2. pkt., sidst led, at offentligheden skal høres, inden der træffes endelig afgørelse i sagen, hvis myndigheden vurderer, at inddragelse af offentligheden kan tilføre sagen nye oplysninger.
 
 Denne forpligtelse omfatter alle afgørelser både i forhold til væsentlighedsvurderingen og konsekvensvurderingen.
 
-Forpligtelsen skal fortolkes i overensstemmelse med EU-Domstolens praksis.
-
-158
-
-Se C-243/15, pr. 45-49, 56 og 61 (Lesoochranárske zoskupenie VLK mod Obvodný úrad Trenčín - Århuskonventionen – offentlig deltagelse i beslutningsprocesser samt adgang til klage og domstolsprøvelse på miljøområdet)
+Forpligtelsen skal fortolkes i overensstemmelse med EU-Domstolens praksis. [158]
 
 En lang række af de love, der er omfattet af habitatbekendtgørelsens §§ 7-8, har krav om høring af offentligheden, inden der træffes en afgørelse.
 
@@ -2894,25 +2160,7 @@ For de typer af sager, hvor myndigheden kan træffe en afgørelse uden et krav o
 
 Hvis det vurderes at være tilfældet, skal offentligheden høres, inden der træffes en endelig afgørelse.
 
-Det samme må antages også at gælde, hvis offentligheden anmoder om at blive hørt, eller der er tvivl om, om en høring kan tilføre nye oplysninger.
-
-159
-
-I C-243/15 peger EU-Domstolen på, at bestemmelsen i direktivets artikel 6, stk. 3, om, at de kompetente nationale myndigheder skal have hørt offentligheden, inden de giver deres tilslutning til en plan eller et projekt, skal ses i sammenhæng med Århuskonventionens artikel 6, stk. 1, litra b, om offentlig deltagelse i afgørelser vedrørende konkrete aktiviteter, som kan have væsentlig indvirkning på miljøet.
-
-Det indebærer, at offentligheden har ret til at opnå ”reel deltagelse under hele miljøbeslutningsprocessen” ved at fremkomme ”med enten skriftligt eller, efter omstændighederne, ved en offentlig høring med ansøgeren, enhver kommentar, oplysning, analyse eller mening, som den finder relevant for den foreslåede aktivitet”.
-
-Denne inddragelse skal ske ”tidligt i processen, mens alle muligheder stadig er åbne, og effektiv offentlig deltagelse kan finde sted”.
-
-Det fremgår videre af dommen, at ”en miljøbeskyttelsesorganisation, der opfylder kravene i Århuskonventionens artikel 2, stk. 5, (den berørte offentlighed) har en ret i henhold til artikel 6, stk. 3, sammenholdt med Århuskonventionens artikel 6, stk. 1, litra b, til at deltage (som nævnt i foregående afsnit) i en procedure for vedtagelse af en afgørelse om en ansøgning om tilladelse til et projekt eller en plan, der kan have en væsentlig indvirkning på miljøet, for så vidt som der inden for rammerne af denne procedure skal træffes en af de i artikel 6, stk. 3, nævnte afgørelser.
-
-”
-
-”De afgørelser, der træffes af de kompetente nationale myndigheder inden for rammerne af artikel 6, stk. 3, – uanset om de vedrører en anmodning om deltagelse i en tilladelsesprocedure, vurderingen af behovet for en miljøvurdering af en plan eller et projekts indvirkninger på en beskyttet lokalitet, eller om konklusionerne af en sådan vurdering vedrørende risiciene ved et sådan projekt eller en sådan plan for lokalitetens integritet er passende, og uanset om de er uafhængige eller indarbejdet i afgørelsen om tilladelse – er afgørelser, der er omfattet af anvendelsesområdet for Århuskonventionens artikel 9, stk. 2.
-
-” Århuskonventionens artikel 9, stk. 2, giver de miljøbeskyttelsesorganisationer, der opfylder artikel 2, stk. 5, adgang til domstolsprøvelse.
-
-Miljøbeskyttelsesorganisationer skal ”inden for rammerne af en domstolsprøvelse kunne anfægte ikke blot afgørelsen om ikke at foretage en passende vurdering af den påtænkte plan eller det påtænkte projekts indvirkninger på den pågældende lokalitet, men ligeledes i givet fald vurderingen af, om den er behæftet med mangler”.
+Det samme må antages også at gælde, hvis offentligheden anmoder om at blive hørt, eller der er tvivl om, om en høring kan tilføre nye oplysninger. [159]
 
 Myndigheden er ifølge officialprincippet forpligtet til at sikre sig, at en sag afgøres på et tilstrækkeligt oplyst grundlag.
 
@@ -2936,90 +2184,43 @@ Der skal foreligge tungtvejende grunde og omfattende vurderinger, før der kan f
 
 Det er en forudsætning for fravigelse af habitatbeskyttelsen, at der forinden har været foretaget en vurdering efter habitatdirektivets artikel 6, stk. 3 (habitatbekendtgørelsens § 6), før fravigelse efter artikel.
 
-6, stk. 4 (habitatbekendtgørelsens § 9), kan overvejes.
-
-160
-
-C-304/05, pr. 83 (Kommissionen mod Italien), C-404/09, pr. 109 (Kommissionen mod Spanien) og C-521/12, pr. 35-37 (Briels).
+6, stk. 4 (habitatbekendtgørelsens § 9), kan overvejes. [160]
 
 Vurderingen af alternative løsninger er ikke en del af vurderingen efter artikel 6, stk. 3, men er en del af vurderingen efter artikel.
 
-6, stk. 4.
+6, stk. 4. [161]
 
-161
+Kommissionen har i 2007 udgivet en vejledning om fravigelsesbestemmelsen i habitatdirektivets artikel 6, stk. 4. [162]
 
-C-241/08, pr. 69-72 (Kommissionen mod Frankrig), C-441/03, pr. 15-29 (Kommissionen mod Nederlandene) og C-239/04, pr. 25-39 (Kommissionen mod Portugal)
+Kommissionens vejledning om habitatdirektivets artikel 6 gennemgår endvidere betingelserne for fravigelse af habitatbeskyttelsen. [163]
 
-Kommissionen har i 2007 udgivet en vejledning om fravigelsesbestemmelsen i habitatdirektivets artikel 6, stk. 4.
-
-162
-
-Europa-Kommissionens vejledning nr. 2007/2012 vedrørende artikel 6, stk. 4, i ”habitatdirektivet” 92/43/EØF.
-
-Kommissionens vejledning om habitatdirektivets artikel 6 gennemgår endvidere betingelserne for fravigelse af habitatbeskyttelsen.
-
-163
-
-https://ec.europa.eu/environment/nature/natura2000/management/docs/art6/Provisions_Art_6_nov_
-
-2018_da.
-
-pdf
-
-5.1 Betingelser for fravigelse
+## 5.1 Betingelser for fravigelse
 
 Habitatbeskyttelsen kan kun fraviges i tilfælde, hvor der foreligger bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af økonomisk eller social art, og hvor der ikke findes alternativer til gennemførelse af planen eller projektet.
 
 Fravigelse er betinget af, at der træffes alle de nødvendige kompensationsforanstaltninger for at sikre, at sammenhængen i Natura 2000-netværket bevares.
 
-EU-Domstolen har vurderet, at permanent ødelæggelse af en lille andel af arealet af en prioriteret naturtype i et Natura 2000-område (ca. 0,5 % af det samlede areal af naturtypen i området) beror på en konkret vurdering, og kun kan ske, hvis betingelserne for en fravigelse er opfyldt.
-
-164
-
-C-258/11, pr. 47 (Sweetman).
+EU-Domstolen har vurderet, at permanent ødelæggelse af en lille andel af arealet af en prioriteret naturtype i et Natura 2000-område (ca. 0,5 % af det samlede areal af naturtypen i området) beror på en konkret vurdering, og kun kan ske, hvis betingelserne for en fravigelse er opfyldt. [164]
 
 Se afsnit 4.7.3 om arealreduktion af naturtype eller levested.
 
 EU-Domstolen har endvidere vurderet, at erstatning af arealer med en naturtype, der vil blive skadet som følge af et projekt, ligeledes vil kræve, at betingelserne for fravigelse er opfyldt.
 
-Anvendelsen af erstatningsnatur vil derfor forudsætte, at betingelserne for en egentlig fravigelse af beskyttelsen er opfyldt.
-
-165
-
-C-521/12, pr. 34, 38-39 (Briels).
+Anvendelsen af erstatningsnatur vil derfor forudsætte, at betingelserne for en egentlig fravigelse af beskyttelsen er opfyldt. [165]
 
 Se afsnit 4.7.5.2 om erstatningsnatur.
 
-5.1.1 Bydende nødvendige hensyn til væsentlige samfundsinteresser
+## 5.1.1 Bydende nødvendige hensyn til væsentlige samfundsinteresser
 
 Med bydende nødvendige hensyn til væsentlige samfundsinteresser henvises til situationer, hvor en plan eller et projekt må anses for uundværlig som led i foranstaltninger eller politikker, der beskytter grundlæggende værdier for borgeres liv, statens og samfundets grundlæggende politik eller udførelsen af aktiviteter af økonomisk eller social art, der opfylder specifikke forpligtigelser til offentlig service.
 
 Projekter, der opfylder kravet om at være af bydende nødvendige hensyn til væsentlig samfundsinteresser, vil almindeligvis være projekter af national eller regional karakter.
 
-Dermed kan hensynet til privatøkonomiske interesser og kortsigtede økonomiske samfundsinteresser normalt ikke begrunde en fravigelse.
+Dermed kan hensynet til privatøkonomiske interesser og kortsigtede økonomiske samfundsinteresser normalt ikke begrunde en fravigelse. [166]
 
-166
+Som eksempel på en sag hvor betingelsen om hensyn til væsentlige samfundsinteresser var opfyldt, kan nævnes fjordforbindelsen ved Frederikssund (Kronprinsesse Marys bro). [167]
 
-Jf. afsnit 1.3.2 i Europa-Kommissionens vejledning nr. 2007/2012 vedrørende artikel 6, stk. 4, i ”habitatdirektivet” 92/43/EØF: […] ”at samfundsinteresser kun kan være væsentlige, hvis der er tale om interesser på lang sigt.
-
-Kortsigtede økonomiske interesser eller andre interesser, som kun kan have fordele for samfundet på kort sigt, vil ikke være tilstrækkelige til at opveje de langsigtede bevaringsinteresser, direktivet varetager.
-
-”
-
-Som eksempel på en sag hvor betingelsen om hensyn til væsentlige samfundsinteresser var opfyldt, kan nævnes fjordforbindelsen ved Frederikssund (Kronprinsesse Marys bro).
-
-167
-
-www.vejdirektoratet.dk
-
-Et andet eksempel er udledning af kølevand fra Fynsværket, hvor el -og varmeforsyningssikkerheden blev betragtet som væsentlige samfundsinteresser, men hvor privatøkonomiske hensyn ikke blev betragtet som væsentlige samfundsinteresser.
-
-168
-
-18/
-05346 (tidl.
-
-NMK-10-01053),om stadfæstelse af Miljøstyrelsens afgørelse om miljøgodkendelse til Fjernvarme Fyn til udledning af kølevand fra blok 7 med ændring af vilkår.
+Et andet eksempel er udledning af kølevand fra Fynsværket, hvor el -og varmeforsyningssikkerheden blev betragtet som væsentlige samfundsinteresser, men hvor privatøkonomiske hensyn ikke blev betragtet som væsentlige samfundsinteresser. [168]
 
 Habitatdirektivet rummer ikke præcise definitioner på, hvad der kan betragtes som bydende nødvendige hensyn til væsentlige samfundsinteresser.
 
@@ -3033,13 +2234,9 @@ For områder, hvor prioriterede arter og naturtyper berøres, gælder, at bydend
 
 Det er Miljøministeriet, der forestår kontakten til Europa-Kommissionen, jf. habitatbekendtgørelsens § 9, stk. 6.
 
-5.1.2 Alternative løsninger
+## 5.1.2 Alternative løsninger
 
-EU-Domstolen har fastslået, at fravigelse endvidere kun kan finde sted, hvis det er bevist, at der ikke findes alternative løsninger.
-
-169
-
-C-239/04, pr. 36 og 40 (Kommissionen mod Portugal)
+EU-Domstolen har fastslået, at fravigelse endvidere kun kan finde sted, hvis det er bevist, at der ikke findes alternative løsninger. [169]
 
 Mulighederne for at anvende alternative løsninger skal derfor undersøges grundigt.
 
@@ -3049,17 +2246,13 @@ Undersøgelsen af alternative løsninger skal, til forskel fra eksempelvis milj�
 
 Alle alternative løsninger skal vurderes ligeværdigt i forhold til det ansøgte projekt.
 
-I vurderingsfasen og ved sammenligningen af alternative løsninger må omkostninger ikke være den eneste afgørende faktor ved valg af alternative løsninger.
-
-170
-
-C-399/14, pr. 77 (Grüne Liga Sachsen)
+I vurderingsfasen og ved sammenligningen af alternative løsninger må omkostninger ikke være den eneste afgørende faktor ved valg af alternative løsninger. [170]
 
 Der skal herefter tages stilling til, om en alternativ løsning skal anvendes i stedet for den oprindelige plan eller det oprindelige projekt.
 
 Hvis der er flere alternative løsninger, har myndigheden en pligt til at vælge den alternative løsning, der er mindst indgribende i forhold til Natura 2000-området.
 
-5.1.3 Kompenserende foranstaltninger
+## 5.1.3 Kompenserende foranstaltninger
 
 I sager, hvor fravigelse er nødvendig, skal alle de nødvendige kompensationsforanstaltninger gennemføres for at opveje en skade, der ikke har kunnet forhindres eller forebygges ved at integrere afværgeforanstaltninger i planen eller projektet.
 
@@ -3067,22 +2260,11 @@ Kompenserende foranstaltninger er således forskellige fra afværgeforanstaltnin
 
 Eksempler på kompensationsforanstaltninger kan f.eks. være at genskabe eller forbedre en naturtype, eller at ændre et områdes afgrænsning og eventuelt at inddrage erstatningsarealer.
 
-Der er tale om ”de kompensationsforanstaltninger, der er nødvendige for at sikre, at den globale sammenhæng i Natura 2000 beskyttes”.
-
-171
-
-18/
-05346 (tidl.
-
-NMK-10-01053), om stadfæstelse af Miljøstyrelsens afgørelse om miljøgodkendelse til Fjernvarme Fyn til udledning af kølevand fra blok 7 med ændring af vilkår og sag C-521/12, pr. 34 (Briels) og de forenede sager C-387/15 og C-388/15, pr. 62 (Orleans).
+Der er tale om ”de kompensationsforanstaltninger, der er nødvendige for at sikre, at den globale sammenhæng i Natura 2000 beskyttes”. [171]
 
 En kompenserende foranstaltning er en foranstaltning, der skal opveje de skader, som en plan eller et projekt medfører på Natura 2000-netværket i den biogeografiske region.
 
-De kompenserende foranstaltninger skal være specifikke for planen eller projektet, og skal gå ud over de normale forpligtelser, der følger af habitatdirektivet.
-
-172
-
-Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018,
+De kompenserende foranstaltninger skal være specifikke for planen eller projektet, og skal gå ud over de normale forpligtelser, der følger af habitatdirektivet. [172]
 
 De kompenserende foranstaltninger må således ikke træde i stedet for den indsats, der i forvejen er pligt til at gennemføre i medfør af habitatdirektivets artikel 6, stk. 1 og 2, i forhold til at sikre eller genoprette gunstig bevaringsstatus.
 
@@ -3094,13 +2276,9 @@ Det skal dog tilstræbes, at kompensationen sker så tæt på skaden som muligt 
 
 Kompensationsforanstaltningen skal normalt være tilendebragt, inden skaden som følge af planen eller projektet indtræder, med mindre det kan bevises, at samtidighedskravet ikke er nødvendigt for at sikre, at det pågældende områdes bidrag til Natura 2000-nettet opretholdes.
 
-Hvis det ikke er muligt at lave en kompensationsforanstaltning, som er funktionsdygtig på det tidspunkt, hvor skaden gør sig gældende i det pågældende område, skal der kræves overkompensation for de tab, der er indtrådt i mellemtiden.
+Hvis det ikke er muligt at lave en kompensationsforanstaltning, som er funktionsdygtig på det tidspunkt, hvor skaden gør sig gældende i det pågældende område, skal der kræves overkompensation for de tab, der er indtrådt i mellemtiden. [173]
 
-173
-
-Jf. afsnit 1.4.3 i Europa-Kommissionens vejledning nr. 2007/2012 vedrørende artikel 6, stk. 4, i ”habitatdirektivet” 92/43/EØF.
-
-5.2 Procedure ved fravigelse
+## 5.2 Procedure ved fravigelse
 
 Før der træffes afgørelse vedrørende en plan eller et projekt, der i sig selv eller i forbindelse med andre planer og projekter kan påvirke et Natura 2000-områdes bevaringsmålsætninger væsentligt, skal der foretages en konsekvensvurdering af den pågældende aktivitet.
 
@@ -3186,11 +2364,7 @@ Hvis der efter sektorlovgivningen er fastlagt et krav om, at en eksisterende vir
 
 Det kan dog ikke uden videre lægges til grund, at overgang fra én tilladelsesordning til en anden indebærer, at habitatreglerne skal iagttages.
 
-Miljø- og Fødevareklagenævnet har taget stilling til problemstillingen i en afgørelse, som nu er indbragt for domstolene og parterne har anmodet om præjudiciel forelæggelse for EU-Domstolen.
-
-174
-
-NMK-10-00904, om miljøgodkendelse af Onsevig Havbrug
+Miljø- og Fødevareklagenævnet har taget stilling til problemstillingen i en afgørelse, som nu er indbragt for domstolene og parterne har anmodet om præjudiciel forelæggelse for EU-Domstolen. [174]
 
 Hvis en myndighed f.eks. gennem tilsyn eller i forbindelse med revurdering af en miljøgodkendelse bliver opmærksom på lovlige igangværende forhold, der forårsager en forringelse af naturtyper og levestederne for arterne, skal myndigheden vurdere, om der er grundlag for at meddele et påbud.
 
@@ -3206,17 +2380,9 @@ Kommunen kan således efter omstændighederne være forpligtet til at benytte be
 
 Tilsvarende gælder for Miljøstyrelsen på skovbevoksede arealer i fredskov, jf. skovlovens § 17.
 
-Der kan hentes yderligere information i anmeldevejledningen.
+Der kan hentes yderligere information i anmeldevejledningen. [175]
 
-175
-
-http://mst.dk/media/113967/anmeldevejledning.pdf
-
-EU-Domstolen har præciseret, at igangværende projekter, som måtte være tilladt eller etableret før udpegning af Natura 2000-området, og hvor der måtte være risiko for forringelser eller betydelige forstyrrelser, kan være omfattet af et krav om en vurdering for deres indvirkning på et Natura 2000-områdes integritet.
-
-176
-
-C-399/14, præmis 52, (Grüne Liga Sachsen)
+EU-Domstolen har præciseret, at igangværende projekter, som måtte være tilladt eller etableret før udpegning af Natura 2000-området, og hvor der måtte være risiko for forringelser eller betydelige forstyrrelser, kan være omfattet af et krav om en vurdering for deres indvirkning på et Natura 2000-områdes integritet. [176]
 
 Vurderingen skal i givet fald opfylde de samme krav, som gælder for konsekvensvurderinger omfattet af habitatbekendtgørelsen.
 
@@ -3226,11 +2392,7 @@ Klage og domstolsprøvelse
 
 Habitatbekendtgørelsen rummer ingen klageregler, men hovedparten af de sektorlove, der træffes afgørelse efter, har klageregler, hvorefter afgørelser kan påklages til klagenævn.
 
-Der er omfattende praksis fra Miljø- og Fødevareklagenævnet og tilsvarende tidligere klageinstanser (Naturklagenævnet, Miljøklagenævnet og Natur- og Miljøklagenævnet) om Natura 2000 og artsbeskyttelse.
-
-177
-
-Miljø- og Fødevareklagenævnets afgørelsesportal
+Der er omfattende praksis fra Miljø- og Fødevareklagenævnet og tilsvarende tidligere klageinstanser (Naturklagenævnet, Miljøklagenævnet og Natur- og Miljøklagenævnet) om Natura 2000 og artsbeskyttelse. [177]
 
 Praksis præciserer bl.a., at konsekvensvurderingers tilstrækkelighed er afgørende for, om afgørelser, der kan påvirke Natura 2000-områders integritet, er gyldige.
 
@@ -3254,7 +2416,7 @@ Der må ikke gives tilladelse til projekter eller vedtages planer, der kan ødel
 
 Beskyttelsen kan kun fraviges i helt særlige tilfælde.
 
-9.1 Indledning
+## 9.1 Indledning
 
 Habitatbekendtgørelsen fastlægger i § 10, stk. 1 og stk. 2, en pligt for myndigheder til at varetage beskyttelseshensyn i forhold til yngle- eller rasteområder for arter på habitatdirektivets bilag IV samt beskyttelsen af planter.
 
@@ -3274,15 +2436,7 @@ Der findes tilsvarende implementering af regler om bilag IV-arter efter sektorlo
 
 Habitatdirektivets regler om artsbeskyttelse er efter ordlyden restriktive.
 
-Europa-Kommissionen har udarbejdet en vejledning
-
-178
-
-Guidance document on the strict protection of animal species of Community interest under the Habitats Directive 92/43/EEC.
-
-Vejledningen er under revision.
-
-Kommissionen forventes at udstede en opdateret vejledning i 2020.
+Europa-Kommissionen har udarbejdet en vejledning [178]
 
 om, hvordan artikel 12-beskyttelsen skal fortolkes, og har introduceret muligheden for en mere fleksibel beskyttelse af yngle- eller rasteområder baseret på en vedvarende økologisk funktionalitet (en bredere økologisk forståelse af yngle- og rasteområder).
 
@@ -3308,7 +2462,7 @@ Hvis en myndighed i en afgørelse efter habitatbekendtgørelsen skal vurdere pla
 
 Aktiviteter, der ikke er omfattet af habitatbekendtgørelsens §§ 10 og 11 eller tilsvarende regler, kan være omfattet af det generelle forbud i henholdsvis naturbeskyttelsesloven § 29 a og jagt og vildtforvaltningslovens § 6 a.
 
-9.2 Beskyttelse af bilag IV-arter i Natura 2000-områder
+## 9.2 Beskyttelse af bilag IV-arter i Natura 2000-områder
 
 Flere bilag IV-arter indgår i udpegningsgrundlaget for en række Natura 2000-områder.
 
@@ -3332,7 +2486,7 @@ Det gælder også, hvis det besluttes at forbedre forholdene for en bilag IV-art
 
 Også her vil det dog i langt de fleste tilfælde være muligt at kombinere beskyttelseshensynene.
 
-9.3 Hvilke arter skal beskyttes
+## 9.3 Hvilke arter skal beskyttes
 
 Habitatbekendtgørelsens §§ 10-11 retter sig mod visse arter, som fremgår af habitatdirektivets bilag IV.
 
@@ -3340,11 +2494,7 @@ De danske arter fremgår af habitatbekendtgørelsens bilag 7.
 
 Listen over arter rummer både sjældne og mere udbredte arter, som marsvin og bæver.
 
-Læs mere om bilag IV-arterne på Miljøstyrelsens hjemmeside.
-
-179
-
-www.mst.dk
+Læs mere om bilag IV-arterne på Miljøstyrelsens hjemmeside. [179]
 
 Til de sjældne bilag IV-arter hører bl.a. billearten eremit, fiskearten snæbel og klokkefrøen, der kun findes ganske få steder i Danmark.
 
@@ -3368,31 +2518,21 @@ Det påhviler myndigheden at afklare, om en aktivitet vil skade en bilag IV-arts
 
 Selvom arterne stadig lokalt eller regionalt kan være forholdsvis almindelige i Danmark, kan arten eller artens levesteder samlet set være i tilbagegang i Danmark og/eller i EU.
 
-Danmarks Miljøundersøgelser har lavet et katalog over de enkelte dyrearter, hvor arternes udbredelse, levevis og yngle- eller rasteområder beskrives
-
-180
-
-Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning.
-
-.
+Danmarks Miljøundersøgelser har lavet et katalog over de enkelte dyrearter, hvor arternes udbredelse, levevis og yngle- eller rasteområder beskrives [180].
 
 Der kan hentes inspiration til praktisk håndtering af problemstillinger omkring arterne i dette katalog.
 
 Desuden beskriver kataloget mulige konflikter mellem arterne og administration/planlægning, og der gives forslag til konkrete afværgeforanstaltninger.
 
-Der er endvidere udarbejdet informationsmateriale til lodsejere og andre om beskyttelsen af bilag IV-arter, ligesom der er udarbejdet informationsmateriale om god praksis i skovdriften af hensyn til flagermus, som findes på Miljøstyrelsens hjemmeside.
-
-181
-
-https://mst.dk/natur-vand/natur/international-naturbeskyttelse/eu-direktiver/naturbeskyttelsesdirektiver/bilag-iv-arter/
+Der er endvidere udarbejdet informationsmateriale til lodsejere og andre om beskyttelsen af bilag IV-arter, ligesom der er udarbejdet informationsmateriale om god praksis i skovdriften af hensyn til flagermus, som findes på Miljøstyrelsens hjemmeside. [181]
 
 Arterne er meget forskellige.
 
 Det er derfor meget forskelligt, hvilke potentielle konflikter der kan opstå i forbindelse med ansøgte eller planlagte ændringer i arealanvendelse eller igangsætning af aktiviteter m.v.
 
-9.4 Yngle- eller rasteområder for de beskyttede dyrearter
+## 9.4 Yngle- eller rasteområder for de beskyttede dyrearter
 
-9.4.1 Definitioner af yngle- eller rasteområder
+## 9.4.1 Definitioner af yngle- eller rasteområder
 
 Yngle- eller rasteområderne er en vigtig del af bilag IV-arternes levesteder.
 
@@ -3473,19 +2613,9 @@ Områderne skal være nødvendige for bestandene af de pågældende arter, dvs. 
 
 Områderne skal kunne stedfæstes og med rimelighed afgrænses.
 
-Se også Kommissionens vejledning om artikel 12.
+Se også Kommissionens vejledning om artikel 12. [182]
 
-182
-
-Guidance document on the strict protection of animal species of Community interest under the Habitats Directive 92/43/EEC,
-
-http://ec.europa.eu/environment/nature/conservation/species/guidance/pdf/guidance_en.
-
-pdf afsnit II.
-
-3.
-
-9.4.2 Afgrænsning af områderne – enkeltlokaliteter eller funktionelle enheder?
+## 9.4.2 Afgrænsning af områderne – enkeltlokaliteter eller funktionelle enheder?
 
 Ynglelokaliteter er for flere bilag IV-arter lette at afgrænse (vandhullet, træet, reden, hulen, evt.
 
@@ -3515,7 +2645,7 @@ Princippet er således baseret på en bredere økologisk forståelse for arten o
 
 For flere oplysninger om de enkelte arters yngle- eller rasteområder kan henvises til DMU's håndbog om bilag IV-arter.
 
-9.5 Planterne på bilag IV
+## 9.5 Planterne på bilag IV
 
 Plantearter på habitatdirektivets bilag IV, må ikke ødelægges, uanset hvilket livsstadie, de er i, jf. habitatbekendtgørelsens § 10, stk. 1, nr. 2.
 
@@ -3531,15 +2661,11 @@ Da alle de omfattede plantearter i forvejen er fredede, jf. artsfredningsbekendt
 
 Er disse planter i spil, skal det dog under alle omstændigheder fremgå af afgørelsen, at den også er truffet i overensstemmelse med bekendtgørelsens § 10.
 
-På Miljøstyrelsens hjemmeside er der oplysninger om, i hvilke habitatområder, de pågældende arter er på udpegningsgrundlaget.
+På Miljøstyrelsens hjemmeside er der oplysninger om, i hvilke habitatområder, de pågældende arter er på udpegningsgrundlaget. [183]
 
-183
+## 9.6 Grundlaget for at træffe afgørelse
 
-www.mst.dk
-
-9.6 Grundlaget for at træffe afgørelse
-
-9.6.1 Hvornår i en beslutningsproces skal en sag vurderes?
+## 9.6.1 Hvornår i en beslutningsproces skal en sag vurderes?
 
 Habitatbekendtgørelsen indeholder i § 10 et krav om, at ved administration af bekendtgørelsens §§ 7 og 8, skal planer og projekter vurderes i forhold til deres virkning på bilag IV-arter.
 
@@ -3565,7 +2691,7 @@ De efterfølgende tilladelser/detailplaner er selvstændigt bundet af kravet om 
 
 Det bør i givet fald fremgå af den overordnede plan, at denne risiko foreligger.
 
-9.6.2 Ikke muligt at udskyde stillingtagen i forhold til Natura 2000-områder
+## 9.6.2 Ikke muligt at udskyde stillingtagen i forhold til Natura 2000-områder
 
 Muligheden for at udskyde stillingtagen er ikke til stede, når der vurderes om planer eller projekter, kan påvirke et Natura 2000-områdes udpegningsgrundlag, dvs. reglerne i habitatbekendtgørelsens §§ 6-9.
 
@@ -3575,7 +2701,7 @@ Det har betydning for bilag IV-arter, som tillige er arter, der kan være på ud
 
 For Natura 2000-områderne gælder endvidere et særligt forsigtighedsprincip, hvor det ikke kan afvises, at en plan eller et projekt kan påvirke udpegningsgrundlaget, uanset hvor overordnet f.eks. en plan måtte være.
 
-9.6.3 Indledende vurdering som grundlag for afgørelse
+## 9.6.3 Indledende vurdering som grundlag for afgørelse
 
 I en lang række sager, omfattet af habitatbekendtgørelsens § 10 vil det i en indledende vurdering (en slags ”screening”) ud fra en faglig viden om arternes overordnede fordeling, levevis og levesteder som regel hurtigt kunne afgøres, om det ansøgte kan beskadige eller ødelægge yngle- eller rasteområder eller ødelægge plantearter i alle livsstadier.
 
@@ -3593,7 +2719,7 @@ Hvis det allerede i den indledende vurdering er åbenbart, at områderne kan bes
 
 Se nærmere om fravigelse af habitatbekendtgørelsens § 10 i afsnit 9.8.
 
-9.6.4 Forpligtelser ved oplysning af sagen
+## 9.6.4 Forpligtelser ved oplysning af sagen
 
 Det er den kompetente myndigheds ansvar, at en sag afgøres på et tilstrækkeligt oplyst grundlag.
 
@@ -3603,11 +2729,7 @@ Myndigheden skal således sikre sig, at der er tilvejebragt tilstrækkelige oply
 
 Vurderingen skal fremgå af afgørelsen om dispensationen, godkendelsen eller tilladelsen mv., jf. habitatbekendtgørelsens § 10, stk. 2.
 
-Naturklagenævnet (nu Miljø- og Fødevareklagenævnet) har i flere sager fremhævet, at generelle forvaltningsretlige principper, herunder officialprincippet, forudsætter, at myndigheden skal søge sagen tilstrækkeligt oplyst, inden der træffes afgørelse, men at der ikke er egentlige formelle krav til omfanget af undersøgelser.
-
-184
-
-03-33/200-0064,
+Naturklagenævnet (nu Miljø- og Fødevareklagenævnet) har i flere sager fremhævet, at generelle forvaltningsretlige principper, herunder officialprincippet, forudsætter, at myndigheden skal søge sagen tilstrækkeligt oplyst, inden der træffes afgørelse, men at der ikke er egentlige formelle krav til omfanget af undersøgelser. [184]
 
 I det omfang myndigheden ikke har adgang til de for sagsbehandlingen nødvendige oplysninger, vil myndigheden kunne pålægge ansøger at tilvejebringe disse oplysninger.
 
@@ -3637,15 +2759,7 @@ Havmiljøloven (klapning) (jf. havmiljølovens § 26, stk. 4, og § 28).
 
 -
 
-Lov om husdyrbrug og anvendelse af gødning mv. (jf. husdyrgodkendelsesbekendtgørelsen § 4, stk. 1, jf. lovens §§ 16 a eller 16b, samt brugerbetalingsbekendtgørelsen bilag 2, afsnit 2, jf. lovens § 72 og § 78).
-
-185
-
-Behandling af sager om tilladelse efter husdyrgodkendelseslovens § 10 er ikke brugerbetalingsbelagt, jf. brugerbetalingsbekendtgørelsens bilag 2, afsnit 2.
-
-Hvis en ansøgning efter § 10 vurderes at kræve en behandling efter lovens § 11, gælder reglerne om brugerbetaling.
-
-Der er endvidere særskilte regler om refusionskrav efter selvhjælpshandlinger.
+Lov om husdyrbrug og anvendelse af gødning mv. (jf. husdyrgodkendelsesbekendtgørelsen § 4, stk. 1, jf. lovens §§ 16 a eller 16b, samt brugerbetalingsbekendtgørelsen bilag 2, afsnit 2, jf. lovens § 72 og § 78). [185]
 
 -
 
@@ -3661,7 +2775,7 @@ Det beror på en konkret vurdering, om det er tilfældet.
 
 For de lovområder, hvor der ikke er en hjemmel til at pålægge ansøger udgifter, afholder myndigheden som udgangspunkt udgifterne.
 
-9.6.5 Hvilke oplysninger er nødvendige?
+## 9.6.5 Hvilke oplysninger er nødvendige?
 
 Der kan ikke fastlægges entydige kriterier for omfanget og karakteren af de oplysninger, der er nødvendige.
 
@@ -3673,25 +2787,17 @@ Der kan ikke fastsættes præcise kriterier for, hvornår oplysninger er for gam
 
 Natur- og Miljøklagenævnet (nu Miljø- og Fødevareklagenævnet) har i en sag fundet, at det imidlertid ikke er tilstrækkeligt, at kommunen alene havde lagt generelle oplysninger fra bl.a. Dansk Pattedyrsatlas til grund for sin vurdering af et konkret vindmølleprojekts påvirkning på flagermusarter, som kommunen indledningsvis havde vurderet potentielt kunne forekomme.
 
-I den konkrete sag om et lokalplanforslag kom nævnet således frem til, at kommunens afgørelse ikke var truffet på et tilstrækkeligt oplyst grundlag.
-
-186
-
-NMK-34-00322
+I den konkrete sag om et lokalplanforslag kom nævnet således frem til, at kommunens afgørelse ikke var truffet på et tilstrækkeligt oplyst grundlag. [186]
 
 Naturklagenævnet (nu Miljø- og Fødevareklagenævnet) har understreget, at de almindelige forvaltningsretlige krav til sagens oplysning skal være opfyldt.
 
 Hvad der kan anses for en fuldt forsvarlig oplysning af en sag, afhænger af sagens karakter.
 
-Jo mere betydningsfuld eller indgribende en afgørelse, der er tale om, jo mere øges kravene til undersøgelsen udstrækning og sikkerheden for de relevante oplysningers rigtighed.
-
-187
-
-03-33/200-0064,
+Jo mere betydningsfuld eller indgribende en afgørelse, der er tale om, jo mere øges kravene til undersøgelsen udstrækning og sikkerheden for de relevante oplysningers rigtighed. [187]
 
 Habitatbekendtgørelsen fastsætter ikke særlige krav til omfanget af eller metode til undersøgelser m.v. Det er således fortsat op til myndighederne at afgøre de konkrete behov i den konkrete situation, ligesom det er myndigheden, der i sidste ende tager stilling til, om sagen er tilstrækkeligt oplyst til at kunne vurdere, om en handling vil beskadige eller ødelægge yngle- eller rasteområder.
 
-9.6.6 Hvor skaffes oplysninger om arten?
+## 9.6.6 Hvor skaffes oplysninger om arten?
 
 Hvis naturområder berøres af det ansøgte, kan der være risiko for, at bilag IV-arters yngle- eller rasteområder kan blive berørt.
 
@@ -3711,69 +2817,33 @@ Det kan eksempelvis ske gennem:
 
 a.
 
-DMU-håndbogen om dyrearter på habitatdirektivets bilag IV.
-
-188
-
-Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning
+DMU-håndbogen om dyrearter på habitatdirektivets bilag IV. [188]
 
 a.
 
-Naturdatabasen, oprettet i et samarbejde mellem Miljøministeriet og Kommunernes Landsforening, der indeholder GIS-baserede oplysninger om bl.a. artsregistreringer, som måtte være foretaget af DMU, amter, Miljøministeriet eller andre.
-
-189
-
-http://prior.dmu.dk/
+Naturdatabasen, oprettet i et samarbejde mellem Miljøministeriet og Kommunernes Landsforening, der indeholder GIS-baserede oplysninger om bl.a. artsregistreringer, som måtte være foretaget af DMU, amter, Miljøministeriet eller andre. [189]
 
 a.
 
-Biodiversitetskortet udarbejdet for Miljøstyrelsen.
-
-190
-
-http://miljoegis.mim.dk/cbkort?
-
-profile=miljoegis-planroendk
+Biodiversitetskortet udarbejdet for Miljøstyrelsen. [190]
 
 a.
 
-EU’s Natura 2000-database,
+EU’s Natura 2000-database, [191]
 
-191
-
-http://natura2000.
-
-eea.europa.eu/
-
-hvor der kan søges efter områder, hvor relevante bilag IV-arter samtidig er på udpegningsgrundlaget for habitatområder, suppleret med oplysninger fra basisanalyserne.
-
-192
-
-https://mst.dk/natur-vand/natur/natura-2000/natura-2000-planer/
+hvor der kan søges efter områder, hvor relevante bilag IV-arter samtidig er på udpegningsgrundlaget for habitatområder, suppleret med oplysninger fra basisanalyserne. [192]
 
 a.
 
-Arter.dk.
-
-193
-
-Forventet opstart ultimo 2020.
+Arter.dk. [193]
 
 a.
 
 Oplysninger fra lokale organisationer og enkeltpersoner eller lignende for de enkelte områder.
 
-Sådanne oplysninger kan bl.a. findes i databaser på internettet, som f.eks. Dansk Ornitologisk forenings database
+Sådanne oplysninger kan bl.a. findes i databaser på internettet, som f.eks. Dansk Ornitologisk forenings database [194]
 
-194
-
-www.dofbasen.dk
-
-eller Naturbasen.
-
-195
-
-www.fugleognatur.dk.
+eller Naturbasen. [195]
 
 Det er myndighedens ansvar, at oplysningerne er kvalitetssikrede.
 
@@ -3795,13 +2865,13 @@ Myndigheden kan som led i en langsigtet strategi for fysisk planlægning vælge 
 
 Myndigheden kan også vælge fra sag til sag at sikre, at de nødvendige oplysninger tilvejebringes.
 
-9.7 Vurdering af om yngle- eller rasteområder beskadiges eller ødelægges
+## 9.7 Vurdering af om yngle- eller rasteområder beskadiges eller ødelægges
 
 Myndigheden skal sikre, at yngle- eller rasteområder for bilag IV-dyrearter ikke beskadiges eller ødelægges af det ansøgte.
 
 Habitatbekendtgørelsen kræver, at vurderingen af hensynet til artsbeskyttelsen skal fremgå af afgørelsen, jf. § 10, stk. 2.
 
-9.7.1 Principper for at træffe afgørelse eller planlægge
+## 9.7.1 Principper for at træffe afgørelse eller planlægge
 
 Der kan indarbejdes hensyn til arterne i planer eller projekter.
 
@@ -3813,7 +2883,7 @@ Samtidig er der dog tale om arter, hvor der i mange situationer forholdsvis enke
 
 Vurderingen efter habitatbekendtgørelsens § 10 bygger på en række forudsætninger, som beskrives i det følgende.
 
-9.7.1.1 Klar årsagssammenhæng
+## 9.7.1.1 Klar årsagssammenhæng
 
 Der skal være en klar årsagssammenhæng mellem det ansøgte og vurderingen af, om det ansøgte kan beskadige eller ødelægge yngle- og rasteområder.
 
@@ -3823,7 +2893,7 @@ Således kan også f.eks. forurening mv. påvirke yngle- eller rasteområder.
 
 I forbindelse med eksempelvis tekniske anlæg (veje, broer, kabelføring), byudvikling og lignende er det ofte ret åbenlyst, om yngle- eller rasteområder kan blive beskadiget eller ødelagt som følge af de fysiske påvirkninger fra planen eller projektet.
 
-9.7.1.2 Gradvise forringelser af yngle- eller rasteområder er omfattet, men diffus forurening er ikke omfattet
+## 9.7.1.2 Gradvise forringelser af yngle- eller rasteområder er omfattet, men diffus forurening er ikke omfattet
 
 Beskadigelser kan både omfatte
 
@@ -3835,11 +2905,7 @@ Det kan eksempelvis have betydning i sager, hvor der skal tages stilling til ans
 
 Myndigheden skal være opmærksom på, at selvom en udledning bidrager til en diffus forurening, hvor påvirkningen vil indgå i en samlet belastning af f.eks. større vandområder, kan forureningen også have direkte påvirkning på nærliggende naturområder.
 
-Der kan i den sammenhæng henvises til Miljøstyrelsens vejledning om godkendelse af husdyrbrug.
-
-196
-
-https://husdyrvejledning.mst.dk/
+Der kan i den sammenhæng henvises til Miljøstyrelsens vejledning om godkendelse af husdyrbrug. [196]
 
 Andre eksempler på gradvise forringelser kan være tilladelser til vandindvinding, der kan medføre gradvis udtørring af yngle- eller rasteområder for padder, eller tilladelser til direkte udledninger, der kan ophobe forurenende stoffer i et yngle- eller rasteområde til skade for arter.
 
@@ -3851,19 +2917,13 @@ En administration i overensstemmelse med denne målsætning, som også omfatter 
 
 Det gælder f.eks. sager om udledning af spildevand (miljøbeskyttelsesloven), ændring af vandløb og vandføring (vandløbsloven), tilladelse til dræning (okkerloven) og tilladelser til vandindvinding (vandforsyningsloven).
 
-9.7.1.4 Princippet om vedvarende økologisk funktionalitet kan øge fleksibiliteten
+## 9.7.1.4 Princippet om vedvarende økologisk funktionalitet kan øge fleksibiliteten
 
 Yngle- eller rasteområder kan bestå af flere lokaliteter, der tjener som levesteder for den samme bestand.
 
 En bredere økologisk forståelse af yngle- eller rasteområder giver mulighed for en mere fleksibel tilgang i områder med især mere udbredte bilag IV-arter.
 
-Forudsætningen er, at den økologiske funktionalitet af et yngle- eller rasteområde for bilag IV-arter opretholdes på mindst samme niveau som hidtil.
-
-197
-
-Guidance document on the strict protection of animal species of Community interest under the Habitats Directive 92/43/EEC, II.
-
-3.4.d) Measures to ensure the continued ecological functionality of breeding sites or resting places
+Forudsætningen er, at den økologiske funktionalitet af et yngle- eller rasteområde for bilag IV-arter opretholdes på mindst samme niveau som hidtil. [197]
 
 Nogle arter er organiseret i delbestande, som står i forbindelse med hinanden gennem udvandring og indvandring, og som benytter et netværk af levesteder over tid og rum (eksempelvis padder og flagermus).
 
@@ -3879,17 +2939,13 @@ Det kan eksempelvis efter en konkret vurdering accepteres at nedlægge et vandhu
 
 Det kan i mange tilfælde også være muligt at forbedre kvaliteten af et nuværende yngle- eller rasteområde, f.eks. ved at rense et "dårligt" vandhul op, fjerne vegetation, der skygger for vandfladen, udlægge mere dødt ved, forbedre ledelinjer m.m.
 
-9.7.1.5 Afværgeforanstaltninger kan anvendes til at opretholde vedvarende økologisk funktionalitet
+## 9.7.1.5 Afværgeforanstaltninger kan anvendes til at opretholde vedvarende økologisk funktionalitet
 
 De foranstaltninger, der iværksættes for at opretholde den økologiske funktionalitet i yngle- eller rasteområder for de beskyttede arter, betegnes her samlet som "afværgeforanstaltninger".
 
 Foranstaltningerne skal afværge, at yngle- eller rasteområder samlet set beskadiges eller ødelægges.
 
-I DMU-håndbogen
-
-198
-
-Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning.
+I DMU-håndbogen [198]
 
 er der eksempler på afværgeforanstaltninger for enkelte arter, som myndigheden kan anvende, hvis der konstateres bilag IV-arter på et område.
 
@@ -3915,11 +2971,7 @@ Jo større usikkerhed i kendskabet til arternes konkrete forekomst i et område,
 
 For padder er der stort kendskab til og fast tradition for at etablere velegnede nye lokaliteter.
 
-I DMU-håndbogen
-
-199
-
-Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning.
+I DMU-håndbogen [199]
 
 er der art for art eksempler på afværgeforanstaltninger eller henvisninger til, hvor der kan findes oplysninger herom.
 
@@ -3953,9 +3005,9 @@ Hvis det på trods af planlagte afværgeforanstaltninger ikke vurderes muligt at
 
 Hvis planen eller projektet alligevel overvejes gennemført på trods af beskadigelse eller ødelæggelse, kan dette kun ske på grundlag af fravigelsesbestemmelsen i habitatbekendtgørelsens § 11, jf. afsnit 9.8. nedenfor.
 
-9.8 Fravigelser
+## 9.8 Fravigelser
 
-9.8.1 Restriktive betingelser for at fravige beskyttelsen
+## 9.8.1 Restriktive betingelser for at fravige beskyttelsen
 
 Der er restriktive betingelser for at fravige beskyttelsen af bilag IV-arter.
 
@@ -3979,17 +3031,13 @@ Der skal være tungtvejende grunde til at fravige beskyttelsen.
 
 På baggrund af EU-Domstolens domme om den tilsvarende undtagelsesbestemmelse i fuglebeskyttelsesdirektivets artikel 9, fremgår det dog, at alternative løsninger kan forkastes af videnskabelige, tekniske eller andre objektivt dokumenterbare grunde.
 
-Samtidig skal der være tungtvejende grunde til at fravige, og fravigelsen må ikke række videre, end hvad der er nødvendigt for at imødekomme det ansøgte projekt.
-
-200
-
-C-79/03, pr. 19, 24-29 og 34-41 (Kommissionen mod Spanien), og C-10/96, pr. 17-22, 25 og 27 (Ligue royale belge pour la protectoing des oiseaux ASBL)
+Samtidig skal der være tungtvejende grunde til at fravige, og fravigelsen må ikke række videre, end hvad der er nødvendigt for at imødekomme det ansøgte projekt. [200]
 
 Begrebet bydende nødvendige hensyn til væsentlige samfundsinteresser er ikke defineret i habitatdirektivet eller EU-Domstolens praksis.
 
 Projekter og planer, der opfylder kravet om at være af bydende nødvendige hensyn til væsentlig samfundsinteresser, vil almindeligvis være projekter af national eller regional karakter.
 
-9.8.2 Fravigelse kræver udtalelse fra Miljøministeriet
+## 9.8.2 Fravigelse kræver udtalelse fra Miljøministeriet
 
 Det er den myndighed, der har kompetencen til at træffe afgørelse eller vedtage en plan, der tager stilling til evt.
 
@@ -4007,13 +3055,13 @@ Miljøstyrelsen får planforslag til gennemgang fra kommunerne, og Miljøstyrels
 
 Miljøstyrelsen vil benytte sin ret til at gøre indsigelse over for planforslag og påklage afgørelser, hvis det vurderes nødvendigt for at sikre, at hensynet til bilag IV-arter varetages i overensstemmelse med forpligtelserne.
 
-9.8.3 Oplysningspligt om fravigelse af beskyttelsen af bilag IV-arter
+## 9.8.3 Oplysningspligt om fravigelse af beskyttelsen af bilag IV-arter
 
 Hvis en myndighed har truffet afgørelse om at fravige beskyttelsen efter at have hørt Miljøministeriet, skal Miljøministeriet tilsendes kopi af den endelige afgørelse, jf. § 11, stk. 4.
 
 Baggrunden herfor er, at Miljøministeriet regelmæssigt skal rapportere fravigelser af beskyttelsen til Europa-Kommissionen.
 
-9.9 Klage
+## 9.9 Klage
 
 Der er ikke fastsat klageregler i habitatbekendtgørelsen.
 
@@ -4022,3 +3070,5 @@ Klagereglerne følger de klageregler, som gælder for den lovgivning, myndighede
 Vurderinger, grundlaget herfor og eventuelle beslutninger om fravigelse er i den sammenhæng at betragte som integrerede dele af afgørelsen, og kan således påklages som led i klage over den samlede afgørelse.
 
 I tilfælde af klage er det klageinstansen, der skal tage stilling til, om den kompetente myndighed har opfyldt forpligtelserne til at beskytte bilag IV-arter.
+
+## Noter [1] Bekendtgørelse nr. 1595 af 6. december 2018 om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter. [2] Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter. [3] Rådets direktiv 2009/147/EF af 30. november 2009 med senere ændringer (tidligere Rådets direktiv nr. 79/409/EF af 2. april 1979) om beskyttelse af vilde fugle. [4] Lovbekendtgørelse nr. 705 af 29. maj 2020 om kystbeskyttelse mv. [5] Bekendtgørelse nr. 1062 af 21. august 2018 om administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter for så vidt angår kystbeskyttelsesforanstaltninger samt etablering og udvidelse af visse anlæg på søterritoriet. [6] Bekendtgørelse nr. 1383 af 26. november 2016 om administration af planloven i forbindelse med internationale naturbeskyttelsesområder samt beskyttelse af visse arter (planhabitatbekendtgørelsen). [7] Meddelelse fra Kommissionen "Forvaltning af Natura 2000-lokaliteter. Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF” af 21. november 2018 og vejledning vedrørende artikel 6, stk. 4, i ’habitatdirektivet’ 92/43/EØF [8] http://ec.europa.eu/environment/nature/legislation/caselaw/index_en. htm [9] https://mfkn.naevneneshus.dk/ [10] http://www.naturvardsverket.se/Documents/publikationer6400/978-91-620-0180-3.pdf? pid=21661 [11] https://www.gov.uk/government/publications/guidance-on-when-new-marine-natura-2000-sites-should-be-taken-into-account-in-offshore-renewable-energy-consents-and-licences [12] Lovbekendtgørelse nr. 1157 af 7. januar 2020 om planlægning (planloven) [13] Europa-Parlamentets og Rådets forordning (EU) Nr. 1143/2014 af 22. oktober 2014 om forebyggelse og håndtering af introduktion og spredning af invasive ikkehjemmehørende arter. [14] Rådets forordning (EF) nr. 338/97 af 9. december 1996, Kommissionens forordning (EF) Nr. 865/2006 af 4. maj 2006 om gennemførelsesbestemmelser til Rådets forordning (EF) nr. 338/97 om beskyttelse af vilde dyr og planter ved kontrol af handelen hermed og Kommissionens gennemførelsesforordning (EU) Nr. 792/2012 af 23. august 2012 om fastsættelse af regler for udformningen af tilladelser, certifikater og andre dokumenter, der er omhandlet i Rådets forordning (EF) nr. 338/97 om beskyttelse af vilde dyr og planter ved kontrol af handelen hermed og om ændring af forordning (EF) nr. 865/2006. [15] Europa-Parlamentets og Rådets forordning (EU) Nr. 995/2010 af 20. oktober 2010 om fastsættelse af krav til virksomheder, der bringer træ og træprodukter i omsætning. [16] Rådets direktiv 1999/22/EF af 29. marts 1999 om hold af vilde dyr i zoologiske haver. [17] Konvention om beskyttelse af Europas vilde dyr og planter samt naturlige levesteder af 19. september 1979, https://www.coe.int/en/web/bern-convention. [18] Convention on biological diversity, United Nations 1992 https://www.cbd.int/convention/text/ [19] Convention on the Conservation of Migratory Species of Wild Animals, https://www.cms.int/en [20] Konvention af 2. februar 1971 om vådområder af international betydning navnlig som levesteder for vandfugle. [21] www.mst.dk [22] www.mst.dk [23] Lovbekendtgørelse nr. 119 af 26. januar 2017 om miljømål mv. for internationale naturbeskyttelsesområder. [24] Lovbekendtgørelse nr. 240 af 13. marts 2019 om naturbeskyttelse. [25] Lovbekendtgørelse nr. 265 af 31. marts 2019 om jagt og vildtforvaltning. [26] Bekendtgørelse nr. 1466 af 6. december 2018 om fredning af visse dyre- og plantearter og pleje af tilskadekommet vildt. [27] www.mst.dk [28] Se bl.a. C-117/00 (Kommissionen mod Irland - ”grouse-dommen”), hvor Irland blev dømt for at have tilsidesat fuglebeskyttelsesdirektivets krav i artikel 3 om at sikre tilstrækkeligt forskelligartede og vidtstrakte levesteder - i sagen for fuglen grouse. Arten er ikke omfattet af forpligtelsen til at udpege og forvalte fuglebeskyttelsesområder. [29] www.mst.dk [30] www.mst.dk [31] https://www.ramsar.org/ [32] Lovbekendtgørelse nr. 119 af 26. januar 2017 om miljømål mv. for internationale naturbeskyttelsesområder. [33] Lovbekendtgørelse nr. 315 af 28. marts 2019 om skove. [34] Lovbekendtgørelse nr. 126 af 26. januar 2017 om vandplanlægning. [35] Bekendtgørelse nr. 946 af 27. juni 2016 om tilvejebringelse af Natura 2000-skovplanlægning. [36] Bekendtgørelse nr. 944 af 27. juni 2016 om kommunalbestyrelsernes Natura 2000-handleplaner. [37] Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger. [38] Vandforekomster omfatter grundvandsforekomster og overfladevandområder. [39] Bekendtgørelse nr. 126 af 26. januar 2017 af lov om vandplanlægning. [40] Bekendtgørelse nr. 448 af 11. april 2019 om miljømål for overfladevandområder og grundvandvandsforekomster og bekendtgørelse nr. 449 af 11. april 2019 om miljømål for indsatsprogrammer for vandområdedistrikter. [41] Bekendtgørelse nr. 449 af 11. april 2019 om indsatsprogrammer for vandområdedistrikter. [42] http://miljoegis.mim.dk/cbkort? profile=vandrammedirektiv2-2016 [43] http://mst.dk/media/133301/bilag-1-vejledning-4-juli-2017.pdf” [44] MAD 2014.31. [45] NMK-10-00904, Onsevig Havbrug. [46] Bekendtgørelse nr. 1105 af 12. august 2016 om anmeldelsesordningen efter naturbeskyttelseslovens § 19 b og skovlovens § 17. [47] https://mst.dk/media/113967/anmeldevejledning.pdf [48] www.mst.dk [49] Lovbekendtgørelse nr. 520 af 5, januar 2019 om husdyrbrug og anvendelse af gødning mv. [50] Bekendtgørelse nr. 1261 af 29. november 2019 om godkendelse og tilladelse mv. af husdyrbrug [51] Kategori 1-natur er ammoniakfølsom natur inden for Natura 2000-områder. [52] www.mst.dk [53] Bekendtgørelse nr. 1466 af 6. december 2018 om fredning af visse dyre- og plantearter og pleje af tilskadekommet vildt. [54] Lovbekendtgørelse nr. 1161 af 25. november 2019 om havstrategi. [55] Danmarks Havstrategi II 2018-2024: [56] Lovbekendtgørelse nr. 973 af 25. juni 2020 om miljøvurdering af planer og programmer og af konkrete projekter (VVM). [57] Direktiv 2011/92/EU om vurdering af visse offentlige og private projekters indvirkning på miljøet. [58] Direktiv 2001/42/EF om strategisk miljøvurdering. [59] NMK-34-00143 (MAD 2013.1346). [60] Bekendtgørelse nr. 913 af 30. august 2019 om samordning af miljøvurderinger og digital selvbetjening mv. for planer, programmer og konkrete projekter omfattet af lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM). [61] Bekendtgørelse nr. 1383 af 26. november 2016 om administration af planloven i forbindelse med internationale naturbeskyttelsesområder samt beskyttelse af visse arter (planhabitatbekendtgørelsen). [62] Lovbekendtgørelse nr. 261 af 21. marts 2019 om fiskeri og fiskeopdræt. [63] Lovbekendtgørelse nr. 1533 af 16. december 2019 om anvendelse af Danmarks undergrund. [64] Lovbekendtgørelse nr. 1189 af 21. september 2018 om kontinentalsoklen og visse rørledningsanlæg på søterritoriet. [65] Lovbekendtgørelse nr. 119, 6. februar 2020 om elforsyning. [66] Lovbekendtgørelse nr. 118 af 6. februar 2020 om Energinet. [67] Lovbekendtgørelse nr. 125 af 7. februar 2020 om fremme af vedvarende energi [68] Bekendtgørelse nr.1476 af 13. december 2010 om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder samt beskyttelse af visse arter ved projekter om etablering m.v. af elproduktionsanlæg og elforsyningsnet på havet. [69] Bekendtgørelse nr. 434 af 2. maj 2017 om konsekvensvurdering vedrørende internationale naturbeskyttelsesområder og beskyttelse af visse arter ved forundersøgelser, efterforskning og indvinding af kulbrinter, lagring i undergrunden, rørledninger, m.v. offshore. [70] Lovbekendtgørelse nr. 457 af 23. maj 2012 om havne. [71] Bekendtgørelse nr. 930 af 18. juni 2020 om vurdering af virkning på miljøet (VVM) af projekter vedrørende erhvervshavne og Københavns Havn samt om administration af internationale naturbeskyttelsesområder og beskyttelse af visse arter for så vidt angår anlæg og udvidelse af havne. [72] Lovbekendtgørelse nr. 1178 af 23. september 2016 Byggeloven. [73] Bekendtgørelse nr. 1399 af 13. december 2019 om bygningsreglement 2018 (BR18) [74] Notat af 29. oktober 2010 Vejledning til kommunerne om behandling af byggeansøgninger i internationale naturbeskyttelsesområder (Natura 2000-områder). https://historisk.bygningsreglementet.dk/file/128139/vejledning_om_habitatdirektiv. pdf [75] Lov nr. 1520 af 27. december 2014 om offentlige veje m.v. [76] Lovbekendtgørelse nr. 1234 af 4. november 2015 om private fællesveje. [77] Bekendtgørelse nr. 508 af 18. maj 2011 om godkendelse af visse vejanlæg mv. [78] Lovbekendtgørelse nr. 358 af 8. april 2014 om museumsloven. [79] Bekendtgørelse nr. 1190 af 26. september 2013 om beskyttede sten- og jorddiger og lignende. [80] Commission note to the Habitats Committee of 21/6/2005 (Doc Hab 05-06-02) and its annex (DOC: Orn. 00/07). [81] C-117/03, pr. 26 (Dragaggi) [82] www.mst.dk [83] MAD 2005.928. [84] Kravet følger direkte af art. 6, stk. 3, fsva. habitatområderne og af art. 7 fsva. fuglebeskyttelsesområderne. [85] C-127/02, pr. 44 (Waddenzee/Muslingedommen) og C-323/17, pr. 34 (Sweetman). [86] C-127/02, pr. 52-54, 59 [87] C-157/96, pr. 63 (Kogalskab). [88] C-127/02, pr. 61 ( [89] C-127/02, pr. 57-61 ( [90] Se C-241/08, pr. 55 (Kommissionen mod Frankrig), og C-441/17, pr. 123 (Kommissionen mod Polen). [91] Europa-Parlamentets og Rådets direktiv af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (2001/42). [92] C-567/10, pr. 24-43 (Inter-Environnement Bruxelles ASBL, Pétitions-Patrimoine ASBL, Atelier de Recherche et d’Action Urbaines ASBL mod Région de Bruxelles-Capitale). [93] C-6/04, pr. 52 (Kommissionen mod Storbritannien og Nordirland). [94] C-441/17, pr. 122-124 (Kommissionen mod Polen). [95] C-127/02, pr. 25, ( [96] Europa-Parlamentets og Rådets direktiv af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (2011/92) [97] C-226/08, pr.35-51 (Stadt Papenburg). [98] C-98/03, pr. 41 (Kommissionen mod Tyskland) og C-418/04, pr. 244 (Kommissionen mod Irland). [99] MAD 2015.83. [100] Lovbekendtgørelse nr. 124 af 26. januar 2017 om råstoffer. [101] Lovbekendtgørelse nr. 118 af 22. februar 2018 om vandforsyning mv. [102] MAD 2006.968 (j.nr. 03-41/800-0027). [103] C 127/02, pr. 39-49, afgørelsens punkt 3 a ( [104] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018” afsnit 3.5.1. [105] C 127/02, pr. 41-49 ( [106] C-127/02, pr. 46-49 (Waddenzee/Muslingedommen), Kommissionens vejledning til habitatdirektivets artikel 6, afsnit 3.5.2 [107] C 127/02, pr. 49 [108] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, s. 42. [109] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, s. 43. [110] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, s. 43. [111] C-258/11, pr. 46 (Sweetman). [112] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, afsnit 3.5.2 og 3.5.3. [113] C-98/03, pr. 51 (Kommissionen mod Tyskland) og C-418/04, pr. 232-233 (Kommissionen mod Irland). [114] Assessment of plans and projects siginificantly affecting Natura 2000 sites - Methodological guidance on the provisions of Article 6(3) and (4) of the Habitats Directive 92/43/EEC og Meddelelse fra Kommissionen “Forvaltning af Natura 2000-lokaliteter - Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF” af 21. november 2018. [115] Bekendtgørelse nr. 653 af 189. maj 2020 om fastlæggelse af miljømål for vandløb, søer, overgangsvande, kystvande og grundvand. [116] Bekendtgørelse nr. 945 af 27. juni 2016 om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder. [117] Bekendtgørelse nr. 1001 af 29. juni 2016 om overvågning af overfladevandets, grundvandets og beskyttede områders tilstand og om naturovervågning af internationale naturbeskyttelsesområder. [118] Bekendtgørelse nr. 1433 af 21. november 2017 om krav til udledning af visse forurenende stoffer til vandløb, søer overgangsvande, kystvande og havområder. [119] NMK-10-00807 og NMK-34-00371 - Endelave Havbrug, afgørelse af 23. december 2014. NMK-10-00927 - Fejø havbrug, afgørelse af 27. marts 2018. [120] Assessment of plans and projects significantly affecting Natura 2000 sites – Methodological guidance on the provisions of Article 6(3) and (4) of the Habitats Directive 92/43/EEC, november 2001. Vejledningen er under revision og en ny udgave forventes i 2020. [121] MAD2007. 2209 (NKN-131-00055). [122] C-258/11, pr. 40-44 (Sweetman), C-323/17, pr. 29-30 (Sweetman), C-127/02, pr. 55-59 (Waddenzee/Muslingedommen) og C-404/09, pr. 99-100 (Kommissionen mod Spanien). [123] C-258/11, pr. 41 (Sweetman). [124] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018 [125] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018 [126] C-258/11, pr. 30 og 39 (Sweetman). [127] C-258/11, pr. 31, 39 og 40 (Sweetman). [128] Europa-Parlamentets og Rådets direktiv af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger (2000/60) [129] Europa-Parlamentets og Rådets direktiv 2008/105/EF af 16. december 2008 om miljøkvalitetskrav inden for vandpolitikken, om ændring og senere ophævelse af Rådets direktiv 82/176/EØF, 83/513/EØF, 84/156/EØF, 84/491/EØF og 86/280/EØF og om ændring af Europa-Parlamentets og Rådets direktiv 2000/60/EF. [130] Europa-Parlamentets og Rådets direktiv 2006/118/EF af 12. december 2006 om beskyttelse af grundvandet mod forurening og forringelse. [131] C-258/11, pr. 39 (Sweetman). [132] C-258/11, pr. 30 (Sweetman). [133] C-258/11, pr. 37 (Sweetman). [134] C-258/11, pr. 39 (Sweetman). [135] C-258/11, pr. 46 og 47. [136] Sag 18/09816 af 12. april 2019. [137] NMK-34-00448, afgørelse af 6. december 2016. [138] § 2, stk. 2, i bekendtgørelse nr. 653 af 19. maj 2020 om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder. [139] C-521/12, pr. 32 (Briels). [140] C-521/12, pr. 29-31 (Briels). [141] C-521/12, pr. 39 (Briels). [142] https://mst.dk/natur-vand/natur/natura-2000/natura-2000-planer/natura-2000-planer-2016-21/ [143] https://mst.dk/natur-vand/natur/natura-2000/natura-2000-omraaderne/ [144] https://www2. dmu.dk/1_viden/2_Publikationer/3_fagrapporter/rapporter/FR457_2udg_www.pdf [145] Bekendtgørelse nr. 945 af 27. juni 2016 om klassificering og fastsættelse af mål for naturtilstanden i internationale naturbeskyttelsesområder. [146] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018 [147] C-43/10, pr. 117. [148] C-461/17, pr. 41-47 (Holohan). Dommen forholder sig til, hvem der er ansvarlig for at opfylde myndighedsforpligtelserne i habitatdirektivets artikel 6, stk. 3, men ikke til nationale regler om sagsoplysning og betaling, [149] www.ombudsmanden.dk [150] C-127/02, pr. 56, 59 og 61 (Waddenzee/Muslingedommen), C-404/09, pr. 99 (Kommissionen mod Spanien), C-43/10, pr. 113 ( [151] Lovbekendtgørelse nr. 1217 af 25. november 2019 om vandløb. [152] Lovbekendtgørelse nr. 1581 af 10. december 2015 om okker. [153] Lovbekendtgørelse nr. 1165 af 25. november 2019 om havmiljø. [154] Bekendtgørelse nr. 1475 af 12. december 2017 om brugerbetaling for godkendelse mv. og tilsyn efter lov om miljøbeskyttelse og lov om husdyrbrug og anvendelse af gødning mv. [155] Behandling af sager om tilladelse efter husdyrgodkendelseslovens § 10 er ikke brugerbetalingsbelagt, jf. brugerbetalingsbekendtgørelsens bilag 2, afsnit 2. Hvis en ansøgning efter § 10 vurderes at kræve en behandling efter lovens § 11, gælder reglerne om brugerbetaling. Der er endvidere særskilte regler om refusionskrav efter selvhjælpshandlinger. [156] Lovbekendtgørelse nr. 9 af 4. januar 2017 om miljø- og genteknologi. [157] Bekendtgørelse nr. 1534 af 9. december 2019 om godkendelse af listevirksomhed. [158] Se C-243/15, pr. 45-49, 56 og 61 (Lesoochranárske zoskupenie VLK mod Obvodný úrad Trenčín - Århuskonventionen – offentlig deltagelse i beslutningsprocesser samt adgang til klage og domstolsprøvelse på miljøområdet) [159] I C-243/15 peger EU-Domstolen på, at bestemmelsen i direktivets artikel 6, stk. 3, om, at de kompetente nationale myndigheder skal have hørt offentligheden, inden de giver deres tilslutning til en plan eller et projekt, skal ses i sammenhæng med Århuskonventionens artikel 6, stk. 1, litra b, om offentlig deltagelse i afgørelser vedrørende konkrete aktiviteter, som kan have væsentlig indvirkning på miljøet. Det indebærer, at offentligheden har ret til at opnå ”reel deltagelse under hele miljøbeslutningsprocessen” ved at fremkomme ”med enten skriftligt eller, efter omstændighederne, ved en offentlig høring med ansøgeren, enhver kommentar, oplysning, analyse eller mening, som den finder relevant for den foreslåede aktivitet”. Denne inddragelse skal ske ”tidligt i processen, mens alle muligheder stadig er åbne, og effektiv offentlig deltagelse kan finde sted”. Det fremgår videre af dommen, at ”en miljøbeskyttelsesorganisation, der opfylder kravene i Århuskonventionens artikel 2, stk. 5, (den berørte offentlighed) har en ret i henhold til artikel 6, stk. 3, sammenholdt med Århuskonventionens artikel 6, stk. 1, litra b, til at deltage (som nævnt i foregående afsnit) i en procedure for vedtagelse af en afgørelse om en ansøgning om tilladelse til et projekt eller en plan, der kan have en væsentlig indvirkning på miljøet, for så vidt som der inden for rammerne af denne procedure skal træffes en af de i artikel 6, stk. 3, nævnte afgørelser. ” ”De afgørelser, der træffes af de kompetente nationale myndigheder inden for rammerne af artikel 6, stk. 3, – uanset om de vedrører en anmodning om deltagelse i en tilladelsesprocedure, vurderingen af behovet for en miljøvurdering af en plan eller et projekts indvirkninger på en beskyttet lokalitet, eller om konklusionerne af en sådan vurdering vedrørende risiciene ved et sådan projekt eller en sådan plan for lokalitetens integritet er passende, og uanset om de er uafhængige eller indarbejdet i afgørelsen om tilladelse – er afgørelser, der er omfattet af anvendelsesområdet for Århuskonventionens artikel 9, stk. 2. ” Århuskonventionens artikel 9, stk. 2, giver de miljøbeskyttelsesorganisationer, der opfylder artikel 2, stk. 5, adgang til domstolsprøvelse. Miljøbeskyttelsesorganisationer skal ”inden for rammerne af en domstolsprøvelse kunne anfægte ikke blot afgørelsen om ikke at foretage en passende vurdering af den påtænkte plan eller det påtænkte projekts indvirkninger på den pågældende lokalitet, men ligeledes i givet fald vurderingen af, om den er behæftet med mangler”. [160] C-304/05, pr. 83 (Kommissionen mod Italien), C-404/09, pr. 109 (Kommissionen mod Spanien) og C-521/12, pr. 35-37 (Briels). [161] C-241/08, pr. 69-72 (Kommissionen mod Frankrig), C-441/03, pr. 15-29 (Kommissionen mod Nederlandene) og C-239/04, pr. 25-39 (Kommissionen mod Portugal) [162] Europa-Kommissionens vejledning nr. 2007/2012 vedrørende artikel 6, stk. 4, i ”habitatdirektivet” 92/43/EØF. [163] https://ec.europa.eu/environment/nature/natura2000/management/docs/art6/Provisions_Art_6_nov_ 2018_da. pdf [164] C-258/11, pr. 47 (Sweetman). [165] C-521/12, pr. 34, 38-39 (Briels). [166] Jf. afsnit 1.3.2 i Europa-Kommissionens vejledning nr. 2007/2012 vedrørende artikel 6, stk. 4, i ”habitatdirektivet” 92/43/EØF: […] ”at samfundsinteresser kun kan være væsentlige, hvis der er tale om interesser på lang sigt. Kortsigtede økonomiske interesser eller andre interesser, som kun kan have fordele for samfundet på kort sigt, vil ikke være tilstrækkelige til at opveje de langsigtede bevaringsinteresser, direktivet varetager. ” [167] www.vejdirektoratet.dk [168] 18/ 05346 (tidl. NMK-10-01053),om stadfæstelse af Miljøstyrelsens afgørelse om miljøgodkendelse til Fjernvarme Fyn til udledning af kølevand fra blok 7 med ændring af vilkår. [169] C-239/04, pr. 36 og 40 (Kommissionen mod Portugal) [170] C-399/14, pr. 77 (Grüne Liga Sachsen) [171] 18/ 05346 (tidl. NMK-10-01053), om stadfæstelse af Miljøstyrelsens afgørelse om miljøgodkendelse til Fjernvarme Fyn til udledning af kølevand fra blok 7 med ændring af vilkår og sag C-521/12, pr. 34 (Briels) og de forenede sager C-387/15 og C-388/15, pr. 62 (Orleans). [172] Meddelelse fra Kommissionen ”Forvaltning af Natura 2000-lokaliteter – Bestemmelserne i artikel 6 i habitatdirektivet 92/43/EØF af 21. november 2018, [173] Jf. afsnit 1.4.3 i Europa-Kommissionens vejledning nr. 2007/2012 vedrørende artikel 6, stk. 4, i ”habitatdirektivet” 92/43/EØF. [174] NMK-10-00904, om miljøgodkendelse af Onsevig Havbrug [175] http://mst.dk/media/113967/anmeldevejledning.pdf [176] C-399/14, præmis 52, (Grüne Liga Sachsen) [177] Miljø- og Fødevareklagenævnets afgørelsesportal [178] Guidance document on the strict protection of animal species of Community interest under the Habitats Directive 92/43/EEC. Vejledningen er under revision. Kommissionen forventes at udstede en opdateret vejledning i 2020. [179] www.mst.dk [180] Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning. [181] https://mst.dk/natur-vand/natur/international-naturbeskyttelse/eu-direktiver/naturbeskyttelsesdirektiver/bilag-iv-arter/ [182] Guidance document on the strict protection of animal species of Community interest under the Habitats Directive 92/43/EEC, http://ec.europa.eu/environment/nature/conservation/species/guidance/pdf/guidance_en. pdf afsnit II. 3. [183] www.mst.dk [184] 03-33/200-0064, [185] Behandling af sager om tilladelse efter husdyrgodkendelseslovens § 10 er ikke brugerbetalingsbelagt, jf. brugerbetalingsbekendtgørelsens bilag 2, afsnit 2. Hvis en ansøgning efter § 10 vurderes at kræve en behandling efter lovens § 11, gælder reglerne om brugerbetaling. Der er endvidere særskilte regler om refusionskrav efter selvhjælpshandlinger. [186] NMK-34-00322 [187] 03-33/200-0064, [188] Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning [189] http://prior.dmu.dk/ [190] http://miljoegis.mim.dk/cbkort? profile=miljoegis-planroendk [191] http://natura2000. eea.europa.eu/ [192] https://mst.dk/natur-vand/natur/natura-2000/natura-2000-planer/ [193] Forventet opstart ultimo 2020. [194] www.dofbasen.dk [195] www.fugleognatur.dk. [196] https://husdyrvejledning.mst.dk/ [197] Guidance document on the strict protection of animal species of Community interest under the Habitats Directive 92/43/EEC, II. 3.4.d) Measures to ensure the continued ecological functionality of breeding sites or resting places [198] Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning. [199] Faglig rapport fra DMU nr. 635, 2007 Håndbog om dyrearter på habitatdirektivets bilag IV – til brug i administration og planlægning. [200] C-79/03, pr. 19, 24-29 og 34-41 (Kommissionen mod Spanien), og C-10/96, pr. 17-22, 25 og 27 (Ligue royale belge pour la protectoing des oiseaux ASBL)

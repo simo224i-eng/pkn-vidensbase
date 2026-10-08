@@ -1,4 +1,4 @@
-Indledning
+## Indledning
 
 Den 16. maj 2017 fik Danmark en ny miljøvurderingslov.
 
@@ -6,13 +6,13 @@ Loven, der samler reglerne for miljøvurdering af planer/programmer med reglerne
 
 Loven afløser lov om miljøvurdering af planer og programmer
 
-1) Bekendtgørelse af lov nr. 1533 af 10. december 2015 om miljøvurdering af planer og programmer.
+[1)]
 
 .
 
 Loven er en hovedlov, og i forhold til planer/programmer den eneste lov, der regulerer plan- og programbegrebet, som det er fastsat i EU’s miljøvurderingsdirektiv
 
-2) Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet, EF-Tidende 2001, nr. L 197, side 30.
+[2)]
 
 .
 
@@ -36,13 +36,13 @@ Den anvendte terminologi
 
 I denne vejledning kaldes miljøvurderingsloven
 
-3) Bekendtgørelse nr. 1976 af 27. oktober 2021 af lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM).
+[3)]
 
 for ’loven’.
 
 Miljøvurderingsbekendtgørelsen
 
-4) Bekendtgørelse nr. 1376 af 21. juni 2021 om miljøvurdering af planer og programmer og af konkrete projekter.
+[4)]
 
 kaldes for ’bekendtgørelsen’.
 
@@ -52,123 +52,75 @@ EU-Domstolen er konsekvent omtalt som sådan, selvom den rettelig indtil 1. dece
 
 Afsnit 1: Indledende bemærkninger og vejledningens struktur 7
 
-1.1.
+## 1.1. Lovens formål 7
 
-Lovens formål 7
+## 1.2. Det brede miljøbegreb 7
 
-1.2.
+## 1.3. Terminologi og begreber for miljøvurdering af planer/programmer 8
 
-Det brede miljøbegreb 7
+## 1.3.1. Flowchart for miljøvurdering/screening af planer/programmer og af konkrete projekter 10
 
-1.3.
+## 1.4. Overblik over fremgangsmåde og procestrin 11
 
-Terminologi og begreber for miljøvurdering af planer/programmer 8
-
-1.3.1.
-
-Flowchart for miljøvurdering/screening af planer/programmer og af konkrete projekter 10
-
-1.4.
-
-Overblik over fremgangsmåde og procestrin 11
-
-1.4.1.
-
-Er en plan/et program omfattet af loven?
+## 1.4.1. Er en plan/et program omfattet af loven?
 
 11
 
-1.4.2.
-
-Skal en plan/et program miljøvurderes eller screenes?
+## 1.4.2. Skal en plan/et program miljøvurderes eller screenes?
 
 11
 
-1.4.3.
-
-Hvordan foretages en miljøvurdering eller en screening af en plan/et program?
+## 1.4.3. Hvordan foretages en miljøvurdering eller en screening af en plan/et program?
 
 11
 
-1.4.4.
+## 1.4.4. Oplysninger, høringer og offentliggørelse 12
 
-Oplysninger, høringer og offentliggørelse 12
+## 1.4.5. Klage over miljøvurdering eller screening af en plan/et program 13
 
-1.4.5.
-
-Klage over miljøvurdering eller screening af en plan/et program 13
-
-1.5.
-
-Miljøvurderingens sammenhæng med andre vurderinger 13
+## 1.5. Miljøvurderingens sammenhæng med andre vurderinger 13
 
 Afsnit 2: Hvornår er en plan/et program omfattet af loven?
 
 14
 
-2.1.
+## 2.1. Lovens betingelser 14
 
-Lovens betingelser 14
+## 2.1.1. Første betingelse: fastlægger rammerne for fremtidige anlægstilladelser til projekter 15
 
-2.1.1.
+## 2.1.1.1. ”… fastlægger rammerne for fremtidige anlægstilladelser…” 15
 
-Første betingelse: fastlægger rammerne for fremtidige anlægstilladelser til projekter 15
+## 2.1.1.2. ” … til projekter…” 18
 
-2.1.1.1.
-
-”… fastlægger rammerne for fremtidige anlægstilladelser…” 15
-
-2.1.1.2.
-
-” … til projekter…” 18
-
-2.1.1.3.
-
-”… eller medfører krav om en vurdering af virkningen på et internationalt naturbeskyttelsesområde under hensyntagen til områdets bevaringsmålsætninger…” 20
+## 2.1.1.3. ”… eller medfører krav om en vurdering af virkningen på et internationalt naturbeskyttelsesområde under hensyntagen til områdets bevaringsmålsætninger…” 20
 
 2.1.2.
 
 Anden betingelse: udarbejdes eller vedtages af en myndighed, udarbejdes med henblik på Folketingets vedtagelse af planer/programmer via en lovgivningsprocedure samt udarbejdes i henhold til love, administrative retsforskrifter eller administrative beslutninger 21
 
-2.1.2.1.
+## 2.1.2.1. ”… udarbejdes eller vedtages…” 21
 
-”… udarbejdes eller vedtages…” 21
+## 2.1.2.2. ”… af en myndighed…” 24
 
-2.1.2.2.
-
-”… af en myndighed…” 24
-
-2.1.2.3.
-
-”… love, administrative forskrifter eller administrative beslutninger.
+## 2.1.2.3. ”… love, administrative forskrifter eller administrative beslutninger.
 
 ” 24
 
-2.2.
+## 2.2. Andre forhold, der skal tages i betragtning 24
 
-Andre forhold, der skal tages i betragtning 24
+## 2.2.1. Ændringer til en plan 24
 
-2.2.1.
-
-Ændringer til en plan 24
-
-2.2.2.
-
-Nationalt forsvarsformål eller civilt beredskabsformål?
+## 2.2.2. Nationalt forsvarsformål eller civilt beredskabsformål?
 
 25
 
-2.3.
-
-Eksempler på planer/programmer, der konkret kan være omfattet af loven 26
+## 2.3. Eksempler på planer/programmer, der konkret kan være omfattet af loven 26
 
 Afsnit 3: Skal planen/programmet miljøvurderes eller screenes?
 
 28
 
-3.1.
-
-Obligatorisk miljøvurdering 28
+## 3.1. Obligatorisk miljøvurdering 28
 
 3.1.1.
 
@@ -178,17 +130,13 @@ Betingelserne efter lovens § 8, stk. 1, nr. 1 28
 
 Betingelserne efter lovens § 8, stk. 1, nr. 2 30
 
-3.1.2.1.
-
-Eksempler på klagenævnenes praksis kan 31
+## 3.1.2.1. Eksempler på klagenævnenes praksis kan 31
 
 3.1.3.
 
 Betingelsen efter § 8, stk. 1, nr. 3 31
 
-3.2.
-
-Screening 32
+## 3.2. Screening 32
 
 3.2.1.
 
@@ -198,331 +146,189 @@ Betingelserne efter § 8, stk. 2, nr. 1 32
 
 Betingelserne efter § 8, stk. 2, nr. 2 36
 
-3.3.
-
-Kriterier og bagatelgrænser 36
+## 3.3. Kriterier og bagatelgrænser 36
 
 Afsnit 4: Miljøvurdering eller screening af en plan/et program 38
 
-4.1.
+## 4.1. Opmærksomhedspunkter ved tilrettelæggelsen af processen 38
 
-Opmærksomhedspunkter ved tilrettelæggelsen af processen 38
+## 4.1.1. Inhabilitet 38
 
-4.1.1.
+## 4.1.2. Forskellige vurderinger (one stop shop) og sammenskrivning af vurderinger 40
 
-Inhabilitet 38
+## 4.1.2.1. Forskellige vurderinger (one stop shop) 40
 
-4.1.2.
+## 4.1.2.2. Sammenskrivning af vurderinger (plan, program, konkret projekt) 42
 
-Forskellige vurderinger (one stop shop) og sammenskrivning af vurderinger 40
+## 4.1.3. Væsentlighedsbegrebet 43
 
-4.1.2.1.
+## 4.1.4. Planer/programmer i sammenhængende hierarkier 46
 
-Forskellige vurderinger (one stop shop) 40
+## 4.1.5. Ændringer under udarbejdelse af planen eller programmet 47
 
-4.1.2.2.
+## 4.2. Miljøvurdering af en plan/et program 49
 
-Sammenskrivning af vurderinger (plan, program, konkret projekt) 42
+## 4.2.1. Overordnede krav til miljøvurdering og miljørapport 49
 
-4.1.3.
+## 4.2.1.1. Eksempler på klagenævnenes praksis 50
 
-Væsentlighedsbegrebet 43
+## 4.2.2. Det brede miljøbegreb 52
 
-4.1.4.
+## 4.2.3. Afgrænsning af miljørapporten 54
 
-Planer/programmer i sammenhængende hierarkier 46
+## 4.2.3.1. Afgrænsning af alternativer 55
 
-4.1.5.
+## 4.2.3.2. Fleksibel afgrænsning 57
 
-Ændringer under udarbejdelse af planen eller programmet 47
+## 4.2.3.3. Afgrænsningsrapport/-notat og høring 57
 
-4.2.
+## 4.2.4. Miljørapportens indhold 57
 
-Miljøvurdering af en plan/et program 49
+## 4.2.4.1. Inddragelse af konsekvensvurdering efter habitatbekendtgørelsen 58
 
-4.2.1.
+## 4.2.4.2. Miljøstatus, miljøproblemer og miljømål 59
 
-Overordnede krav til miljøvurdering og miljørapport 49
+## 4.2.4.3. Vurdering af konsekvenser 60
 
-4.2.1.1.
+## 4.2.4.4. Sekundære, kumulative og synergistiske virkninger 60
 
-Eksempler på klagenævnenes praksis 50
+## 4.2.4.5. Planlagte foranstaltninger til at imødegå væsentlig negativ indvirkning 62
 
-4.2.2.
+## 4.2.4.6. Alternativer 63
 
-Det brede miljøbegreb 52
+## 4.2.4.7. Forslag til overvågningsprogram 65
 
-4.2.3.
+## 4.2.4.8. Ikke-teknisk resume 65
 
-Afgrænsning af miljørapporten 54
+## 4.2.5. Sammenfattende redegørelse 66
 
-4.2.3.1.
-
-Afgrænsning af alternativer 55
-
-4.2.3.2.
-
-Fleksibel afgrænsning 57
-
-4.2.3.3.
-
-Afgrænsningsrapport/-notat og høring 57
-
-4.2.4.
-
-Miljørapportens indhold 57
-
-4.2.4.1.
-
-Inddragelse af konsekvensvurdering efter habitatbekendtgørelsen 58
-
-4.2.4.2.
-
-Miljøstatus, miljøproblemer og miljømål 59
-
-4.2.4.3.
-
-Vurdering af konsekvenser 60
-
-4.2.4.4.
-
-Sekundære, kumulative og synergistiske virkninger 60
-
-4.2.4.5.
-
-Planlagte foranstaltninger til at imødegå væsentlig negativ indvirkning 62
-
-4.2.4.6.
-
-Alternativer 63
-
-4.2.4.7.
-
-Forslag til overvågningsprogram 65
-
-4.2.4.8.
-
-Ikke-teknisk resume 65
-
-4.2.5.
-
-Sammenfattende redegørelse 66
-
-4.2.6.
-
-Afgørelse som afslutning på miljøvurderingsprocessen?
+## 4.2.6. Afgørelse som afslutning på miljøvurderingsprocessen?
 
 67
 
-4.3.
+## 4.3. Screening af plan/program 67
 
-Screening af plan/program 67
+## 4.3.1. Særligt om planer der kan påvirke Natura 2000-områder 67
 
-4.3.1.
+## 4.3.2. Myndighedens screening af planen/programmet 68
 
-Særligt om planer der kan påvirke Natura 2000-områder 67
+## 4.3.3. Screeningskriterierne i bilag 3 70
 
-4.3.2.
+## 4.3.3.1. Planernes/programmernes karakteristika, jf. lovens bilag 3 71
 
-Myndighedens screening af planen/programmet 68
+## 4.3.3.2. Kendetegn ved indvirkningen og det område, som kan blive berørt, jf. lovens bilag 3 72
 
-4.3.3.
+## 4.3.3.3. Eksempler på klagenævnenes praksis 73
 
-Screeningskriterierne i bilag 3 70
+## 4.3.4. Screeningsafgørelsen 74
 
-4.3.3.1.
+## 4.3.4.1. Screeningsafgørelse om at der ikke skal gennemføres en miljøvurdering 75
 
-Planernes/programmernes karakteristika, jf. lovens bilag 3 71
-
-4.3.3.2.
-
-Kendetegn ved indvirkningen og det område, som kan blive berørt, jf. lovens bilag 3 72
-
-4.3.3.3.
-
-Eksempler på klagenævnenes praksis 73
-
-4.3.4.
-
-Screeningsafgørelsen 74
-
-4.3.4.1.
-
-Screeningsafgørelse om at der ikke skal gennemføres en miljøvurdering 75
-
-4.3.4.2.
-
-Screeningsafgørelse om at der skal gennemføres en miljøvurdering 76
+## 4.3.4.2. Screeningsafgørelse om at der skal gennemføres en miljøvurdering 76
 
 Afsnit 5: Oplysninger, høringer og offentliggørelse 77
 
-5.1.
-
-Hvem har ret til at modtage oplysninger og deltage i høringer?
+## 5.1. Hvem har ret til at modtage oplysninger og deltage i høringer?
 
 77
 
-5.1.1.
+## 5.1.1. Offentligheden 77
 
-Offentligheden 77
+## 5.1.2. Parter 78
 
-5.1.2.
+## 5.1.3. Berørte myndigheder 79
 
-Parter 78
+## 5.1.4. Berørte stater og deres inddragelse i miljøvurderingsprocessen 81
 
-5.1.3.
+## 5.1.4.1. Hvem er berørte stater 82
 
-Berørte myndigheder 79
+## 5.1.4.2. Point of Contact (PoC) og Focal Point (FP) 82
 
-5.1.4.
-
-Berørte stater og deres inddragelse i miljøvurderingsprocessen 81
-
-5.1.4.1.
-
-Hvem er berørte stater 82
-
-5.1.4.2.
-
-Point of Contact (PoC) og Focal Point (FP) 82
-
-5.1.4.3.
-
-Hvordan inddrages stater i miljøvurderingen?
+## 5.1.4.3. Hvordan inddrages stater i miljøvurderingen?
 
 83
 
-5.1.4.4.
+## 5.1.4.4. Notifikation af berørte stater 84
 
-Notifikation af berørte stater 84
+## 5.1.4.5. Konsultationsbrevet til berørte stater ved høring over miljørapporten 85
 
-5.1.4.5.
+## 5.1.4.6. Høringsfristen for berørte stater 86
 
-Konsultationsbrevet til berørte stater ved høring over miljørapporten 85
-
-5.1.4.6.
-
-Høringsfristen for berørte stater 86
-
-5.1.4.7.
-
-Hvem foretager høringen af de berørte stater?
+## 5.1.4.7. Hvem foretager høringen af de berørte stater?
 
 86
 
-5.1.4.8.
+## 5.1.4.8. Afholdelse af samråd/dialog og den videre proces 86
 
-Afholdelse af samråd/dialog og den videre proces 86
+## 5.1.4.9. Tvistløsningsmuligheder 87
 
-5.1.4.9.
-
-Tvistløsningsmuligheder 87
-
-5.2.
-
-Hvad er forskellen på oplysninger og høringsmateriale?
+## 5.2. Hvad er forskellen på oplysninger og høringsmateriale?
 
 88
 
-5.2.1.
-
-Hvad er oplysninger?
+## 5.2.1. Hvad er oplysninger?
 
 88
 
-5.2.2.
-
-Hvad er høringsmateriale?
+## 5.2.2. Hvad er høringsmateriale?
 
 89
 
-5.2.2.1.
+## 5.2.2.1. Screening 89
 
-Screening 89
+## 5.2.2.2. Miljøvurdering 89
 
-5.2.2.2.
-
-Miljøvurdering 89
-
-5.3.
-
-Hvad er høringsfristerne?
+## 5.3. Hvad er høringsfristerne?
 
 91
 
-5.4.
-
-Hvor skal materialet offentliggøres?
+## 5.4. Hvor skal materialet offentliggøres?
 
 92
 
 Afsnit 6: Klage og søgsmål og konsekvenser af manglende miljøvurdering 93
 
-6.1.
+## 6.1. Klage og søgsmål 93
 
-Klage og søgsmål 93
-
-6.1.1.
-
-Hvilke klageregler skal der anvendes?
+## 6.1.1. Hvilke klageregler skal der anvendes?
 
 93
 
-6.1.2.
-
-Hvad kan der klages over?
+## 6.1.2. Hvad kan der klages over?
 
 94
 
-6.1.3.
-
-Hvor kan der klages til?
+## 6.1.3. Hvor kan der klages til?
 
 95
 
-6.1.4.
-
-Hvordan beregnes klagefristen?
+## 6.1.4. Hvordan beregnes klagefristen?
 
 95
 
-6.1.5.
-
-Hvem er klageberettigede?
+## 6.1.5. Hvem er klageberettigede?
 
 95
 
-6.1.5.1.
+## 6.1.5.1. Særlige klageregler for visse kystbeskyttelsesprojekter 96
 
-Særlige klageregler for visse kystbeskyttelsesprojekter 96
-
-6.1.6.
-
-Har en klage opsættende virkning?
+## 6.1.6. Har en klage opsættende virkning?
 
 96
 
-6.2.
+## 6.2. De retlige konsekvenser af ingen eller mangelfuld miljøvurdering 100
 
-De retlige konsekvenser af ingen eller mangelfuld miljøvurdering 100
-
-6.2.1.
-
-Hvad sker der med miljørapporten?
+## 6.2.1. Hvad sker der med miljørapporten?
 
 101
 
-6.3.
-
-Planer/programmer fra før 27. juni 2004 102
+## 6.3. Planer/programmer fra før 27. juni 2004 102
 
 Bilag 1: Forslag til klagevejledning 103
 
-Afsnit 1: Indledende bemærkninger og vejledningens struktur
+## Afsnit 1: Indledende bemærkninger og vejledningens struktur
 
-1.1.
-
-Lovens formål
+## 1.1. Lovens formål
 
 Lovens formålsbestemmelse i § 1 er en implementering af miljøvurderingsdirektivets artikel 1.
 
@@ -542,9 +348,7 @@ Hermed tilvejebringes et miljømæssigt oplyst grundlag for myndighedens beslutn
 
 Overordnet set bidrager miljøvurderinger af planer/programmer derfor til inddragelse af miljøhensyn på et tidligt tidspunkt i planlægningen/udviklingen og til et højt niveau af miljøbeskyttelse og til fremme af en bæredygtig udvikling, som bl.a. er til gavn for menneskers sundhed og biologisk mangfoldighed.
 
-1.2.
-
-Det brede miljøbegreb
+## 1.2. Det brede miljøbegreb
 
 Det brede miljøbegreb i lovens § 1, stk. 2, afspejler EU-rettens overordnede målsætninger for EU’s miljøpolitik, som er »bevarelse, beskyttelse og forbedring af miljøkvaliteten, beskyttelse af menneskers sundhed, en forsigtig og rationel udnyttelse af naturressourcerne, og fremme på internationalt plan af foranstaltninger til løsning af de regionale og globale miljøproblemer, og navnlig bekæmpelse af klimaændringer«, jf. Lissabontraktatens artikel 191.
 
@@ -614,9 +418,7 @@ Den nærmere beskrivelse af de enkelte emner inden for det brede miljøbegreb fr
 
 For så vidt angår screening, henvises der til afsnit 4.3.
 
-1.3.
-
-Terminologi og begreber for miljøvurdering af planer/programmer
+## 1.3. Terminologi og begreber for miljøvurdering af planer/programmer
 
 Til beskrivelsen af processen for miljøvurdering og screening af planer/programmer omfattet af loven anvendes en række centrale begreber.
 
@@ -624,9 +426,9 @@ Dele af den terminologi, som anvendes, er opdateret i forhold til tidligere lovg
 
 Se i øvrigt denne vejlednings forord om den anvendte terminologi.
 
-Begreb
+## Begreb
 
-Forklaring
+## Forklaring
 
 Afgrænsning af miljørapporten
 
@@ -786,17 +588,11 @@ Væsentlige virkninger på miljøet
 
 Væsentlige ændringer i det fysiske miljø og menneskers sundhed som muliggøres af realiseringen af en vedtaget plan (se afsnit 4.1.3. for en nærmere beskrivelse heraf).
 
-1.3.1.
+## 1.3.1. Flowchart for miljøvurdering/screening af planer/programmer og af konkrete projekter
 
-Flowchart for miljøvurdering/screening af planer/programmer og af konkrete projekter
+## 1.4. Overblik over fremgangsmåde og procestrin
 
-1.4.
-
-Overblik over fremgangsmåde og procestrin
-
-1.4.1.
-
-Er en plan/et program omfattet af loven?
+## 1.4.1. Er en plan/et program omfattet af loven?
 
 Det er langt fra alle planer/programmer, som er omfattet af loven.
 
@@ -804,7 +600,7 @@ Det betyder, at inden miljøvurdering eller screening overvejes, skal det afklar
 
 Denne fremgangsmåde anvendes ligeledes af EU-Domstolen, når den skal vurdere, om en plan/et program skulle have været miljøvurderet.
 
-5) Se f.eks. afgørelse af 17. juni 2010 Terre wallonne ASB og Inter-Environnement Wallonie ASBL i de forenede sager C-105 og 110/09, EU:C:2010:355, præmis 34.
+[5)]
 
 Hverken miljøvurderingsdirektivet eller loven indeholder en liste over de planer/programmer, der er omfattet af miljøvurderingsreglerne.
 
@@ -818,9 +614,7 @@ Betingelserne for, at et dokument udgør en plan/et program, som er omfattet af 
 
 Hvordan det nærmere bestemmes, om en plan/et program er omfattet af loven, er beskrevet i afsnit 2.
 
-1.4.2.
-
-Skal en plan/et program miljøvurderes eller screenes?
+## 1.4.2. Skal en plan/et program miljøvurderes eller screenes?
 
 Når det er fastslået, at et dokument udgør en plan/et program omfattet af loven, skal der tages stilling til, om planen eller programmet skal screenes eller miljøvurderes.
 
@@ -828,9 +622,7 @@ Til bestemmelsen af dette er der igen en række betingelser, som skal være opfy
 
 Hvordan det bestemmes, om en plan/et program skal miljøvurderes eller screenes, er beskrevet i afsnit 3.
 
-1.4.3.
-
-Hvordan foretages en miljøvurdering eller en screening af en plan/et program?
+## 1.4.3. Hvordan foretages en miljøvurdering eller en screening af en plan/et program?
 
 Når det er afklaret, om der skal foretages en miljøvurdering eller en screening, skal processen for dette tilrettelægges og gennemføres.
 
@@ -840,15 +632,11 @@ Det fremgår af definitionen på en miljøvurdering af en plan/et program, jf. l
 
 Indholdet af de enkelte procestrin er skematisk beskrevet nedenfor og mere udførligt under afsnit 4.
 
-1.4.4.
-
-Oplysninger, høringer og offentliggørelse
+## 1.4.4. Oplysninger, høringer og offentliggørelse
 
 Kravene til formidling af oplysninger, gennemførelse af høringer samt offentliggørelse af afgørelse og oplysninger i øvrigt er beskrevet selvstændigt i afsnit 5.
 
-1.4.5.
-
-Klage over miljøvurdering eller screening af en plan/et program
+## 1.4.5. Klage over miljøvurdering eller screening af en plan/et program
 
 Endelig er der spørgsmålet om klageadgang, herunder hvad der kan klages over, hvem der kan klage og hvornår der kan klages over en miljøvurdering eller en screeningsafgørelse.
 
@@ -856,9 +644,7 @@ Dertil kommer spørgsmålet om, hvad der sker, hvis der ikke foretages en miljø
 
 Dette beskrives i afsnit 6.
 
-1.5.
-
-Miljøvurderingens sammenhæng med andre vurderinger
+## 1.5. Miljøvurderingens sammenhæng med andre vurderinger
 
 Miljøvurdering af planer/programmer er langt fra den eneste vurdering, som efter EU-miljølovgivning skal foretages, før udkastet til en plan/et program sendes i høring og eventuelt godkendes eller vedtages.
 
@@ -866,23 +652,23 @@ En plan/et program kan påvirke dele af miljøet, hvor der i medfør af EU-lovgi
 
 Her tænkes særligt på habitatdirektivet
 
-6) Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter.
+[6)]
 
 , fugledirektivet
 
-7) Europa-Parlamentets og Rådets direktiv 2009/147/EF af 30. november 2009 om beskyttelse af vilde fugle.
+[7)]
 
 , vandrammedirektivet
 
-8) Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger.
+[8)]
 
 og oversvømmelsesdirektivet
 
-9) Europa-Parlamentets og Rådets direktiv 2007/60/EF af 23. oktober 2007 om vurdering og styring af risikoen for oversvømmelser.
+[9)]
 
 , men efter omstændighederne kan også VVM-direktivet
 
-10) Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (VVM-direktivet), og Europa-Parlamentets og Rådets direktiv 2014/52/EU af 16. april 2014 om ændring af direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet.
+[10)]
 
 være relevant.
 
@@ -896,7 +682,7 @@ Det kræver imidlertid forståelse for, hvordan de respektive vurderinger spille
 
 Dette beskrives nærmere i afsnit 4.1.2.
 
-Afsnit 2: Hvornår er en plan/et program omfattet af loven?
+## Afsnit 2: Hvornår er en plan/et program omfattet af loven?
 
 En plan/et program er et samlebegreb i loven for vidt forskellige dokumenter og beslutninger.
 
@@ -910,9 +696,7 @@ Vær opmærksom på, at nogle plantyper er ”født” til at være omfattet af 
 
 Det gælder for dem som for andre planer/programmer, at den konkrete plan/det konkrete program også skal opfylde betingelsen om at fastlægge rammer for fremtidige anlægstilladelser.
 
-2.1.
-
-Lovens betingelser
+## 2.1. Lovens betingelser
 
 Efter lovens § 2, stk. 1, er en plan/et program omfattet af loven, såfremt planen eller programmet
 
@@ -926,9 +710,7 @@ b) udarbejdes eller vedtages af en myndighed, udarbejdes med henblik på Folketi
 
 Betingelsen a) indeholder to betingelser, som ikke skal være opfyldt samtidig.
 
-11) Sprogligt er sætningen i loven også udformet som et 'enten-eller' og ikke 'enten-og/eller'.
-
-Dette er også EU-Domstolens fortolkning af miljøvurderingsdirektivet, jf. nedenfor i afsnit 2.1.1. og navlig 2.1.1.3.
+[11)]
 
 Det betyder, at en plan/program, som medfører krav om en vurdering af virkningen på et internationalt naturbeskyttelsesområde under hensyntagen til områdets bevaringsmålsætninger ikke samtidigt skal fastlægge rammerne for fremtidige anlægstilladelser til projekter.
 
@@ -938,17 +720,13 @@ således at der fastsættes rammer for fremtidige anlægstilladelser og samtidig
 
 Dog skal begge betingelser – a) og b) – skal være opfyldt før plan/program-beslutningen er omfattet af lovens regler.
 
-2.1.1.
+## 2.1.1. Første betingelse: fastlægger rammerne for fremtidige anlægstilladelser til projekter
 
-Første betingelse: fastlægger rammerne for fremtidige anlægstilladelser til projekter
-
-2.1.1.1.
-
-”… fastlægger rammerne for fremtidige anlægstilladelser…”
+## 2.1.1.1. ”… fastlægger rammerne for fremtidige anlægstilladelser…”
 
 Her har EU-Domstolen fastsat, at betingelsen ikke indeholder en henvisning til national ret og er derfor et selvstændigt begreb i EU-retten, som skal fortolkes ensartet på Unionens område.
 
-12) EU-Domstolens afgørelse af 25. juni 2020, A m.fl., C-24/19, EU:C:2020:503, præmis 75.
+[12)]
 
 Det betyder, at der ikke kan fastsættes nationale fortolkninger af betingelsen, der vil være i strid med EU-Domstolens retspraksis.
 
@@ -962,25 +740,25 @@ EU-Domstolen har følgende overvejelser, som kan indgå i den nærmere forståel
 
 Der fastlægges en betydningsfuld helhed af kriterier og fremgangsmåder for tilladelse og iværksættelse af et eller flere projekter
 
-13) C-24/19, præmis 67.
+[13)]
 
 -
 
 Den betydningsfulde helhed skal forstås kvalitativt og ikke kvantitativt
 
-14) C-24/19, præmis 70
+[14)]
 
 -
 
 Helheden må ikke søges omgået ved bevidst at opdele den (salami)
 
-15) C-24/19, præmis 70
+[15)]
 
 -
 
 Helheden behøver ikke at være udtømmende, men den skal være tilstrækkeligt betydningsfuld til at fastlægge betingelserne for udstedelse af tilladelser til projekterne
 
-16) C-24/19, præmis 71
+[16)]
 
 -
 
@@ -990,7 +768,7 @@ Kriterierne kan være udformet for at bevare visse egenskaber ved det pågælden
 
 Kriterierne kan indgå i et hierarki af foranstaltninger, der har til formål at beskytte miljøet, hvor der indgår en beføjelse til at fravige de pågældende foranstaltninger.
 
-17) C-160/17, præmis 67.
+[17)]
 
 En betydningsfuld helhed
 behøver ikke at være udtømmende eller at udgøre det tilstrækkelige hjemmelsgrundlag for en tilladelse eller afvisning.
@@ -999,7 +777,7 @@ En betydningsfuld helhed kan således bidrage til eksisterende eller fremtidige 
 
 En betydningsfuld helhed skal forstås som krav til indholdet dvs. af kvalitativ karakter og ikke til antallet af kriterier, procedurer eller retningslinjer, der har betydning for navnlig de miljømæssigt begrundede valg
 
-18) C-24/19, præmis 72.
+[18)]
 
 for projekters beliggenhed, art, størrelse og eventuelle øvrige driftsbetingelser.
 
@@ -1007,11 +785,11 @@ Det er med andre ord ikke et krav, at en plan/et program skal indeholde udtømme
 
 EU-Domstolens Store Afdeling har endvidere udtalt,
 
-19) EU-Domstolens afgørelse af 22. februar 2022, Bund Naturschutz in Bayern eV, C-300/20, ECLI:EU:C:2022:102.
+[19)]
 
 at en national foranstaltning [bekendtgørelse], som havde til formål at beskytte natur og landskab, og som med henblik herpå fastsatte generelle forbud og krav om tilladelse uden at indføre tilstrækkeligt detaljerede bestemmelser om indholdet, udarbejdelsen og iværksættelsen af de projekter, der var omhandlet i bilag I og II i VVM-direktivet, fastsatte ikke en betydningsfuld helhed af kriterier og fremgangsmåder for tilladelse og iværksættelse af et eller flere af de projekter, der er omhandlet i VVM-direktivets bilag I og II og derfor heller ikke en ramme for fremtidige anlægstilladelser.
 
-20) C-300/20, præmis 69-70.
+[20)]
 
 For så vidt angår ’tildeling af ressourcer’, er dette ikke defineret og kan være økonomiske eller naturlige måske også menneskelige).
 
@@ -1019,7 +797,7 @@ Tildelingen skal være på en bestemt, identificerbar måde og knytte sig til be
 
 I EU-Kommissionens vejledning om gennemførelse af direktiv 2001/42 om vurdering af bestemte planers og programmers indvirkning på miljøet
 
-21) https://ec.europa.eu/environment/archives/eia/pdf/030923 sea guidance da.pdf
+[21)]
 
 fremgår følgende bemærkninger om ’tildeling af ressourcer:
 
@@ -1027,7 +805,7 @@ fremgår følgende bemærkninger om ’tildeling af ressourcer:
 
 Som det hedder i bilag II [i miljøvurderingsdirektivet], kan en måde at "danne grundlag" på være gennem den måde, hvorpå midlerne tildeles, idet man dog bør være opmærksom på undtagelserne i artikel 3, stk. 8.
 
-22) Disse undtagelser fremgår af lovens § 3.
+[22)]
 
 Direktivet definerer ikke betydningen af "midler", og i princippet kan de være finansielle eller naturlige (eller eventuelt menneskelige).
 
@@ -1051,7 +829,7 @@ Planer eller programmer, hvis eneste mål eller hovedformål er at fastlægge gr
 
 ”
 
-PKN afgørelse af 12. marts 2020, j.nr. 18/06439,18/05802 og 18/05839
+## PKN afgørelse af 12. marts 2020, j.nr. 18/06439,18/05802 og 18/05839
 
 Beboerne i kommunen havde påklaget kommunens vedtagelse af tillæg til planstrategi om udpegning af udviklingsområder i kystnærhedszonen og anførte bl.a., at en generel henvisning til den tidligere miljøvurdering af kommuneplanforslaget ikke var tilstrækkelig, samt at miljøvurderingen var utilstrækkelig.
 
@@ -1079,7 +857,7 @@ Det bemærke, at det i den konkrete sag var det ligeledes et spørgsmål, om pla
 
 Mere om dette i afsnit 3.2. og 4.3.
 
-MFKN afgørelse af 8. september 2020, j.nr. 19/00675
+## MFKN afgørelse af 8. september 2020, j.nr. 19/00675
 
 En kommune havde udarbejdet og vedtaget en støjhandlingsplan i overensstemmelse med bekendtgørelsen om kortlægning af ekstern støj og udarbejdelse af støjhandlingsplaner.
 
@@ -1117,7 +895,7 @@ Det blev endvidere bemærket, at planen på daværende tidspunkt ikke havde udpe
 
 Da planen derover alene indeholdte en helt overordnet oplistning af en række konkrete tiltag, der var gennemført, og som kommunen agtede at fortsætte med generelt i byen, fandt nævnet, at planen ikke fastsatte rammer for fremtidige anlægstilladelser, jf. loven § 2, stk. 1, første led, og derfor ikke udgjorde en plan/et program i lovens forstand.
 
-MFKN af 31. august 2020, j.nr. 20/10588
+## MFKN af 31. august 2020, j.nr. 20/10588
 
 En klager havde anmodet nævnet om at genoptage behandlingen af en klagesag, hvor klagenævnet havde stadfæstet en styrelses afgørelse om at nægte dispensation.
 
@@ -1131,9 +909,7 @@ Nævnet har således ikke lagt særligt vægt på styrelsens administrationsgrun
 
 Derudover bemærkede nævnet, at administrationsgrundlaget var at betragte som en generel sagsbehandlingsvejledning og at afsnittet vedrørende bådlifte ikke var en plan, der fastlagde rammerne for fremtidige anlægstilladelser.
 
-2.1.1.2.
-
-” … til projekter…”
+## 2.1.1.2. ” … til projekter…”
 
 Efter lovens § 5, nr. 6, defineres ”et projekt” omfattet af loven som følgende:
 
@@ -1147,7 +923,7 @@ EU-Domstolen har forholdt sig til, hvad der nærmere ligger i projektbegrebet, i
 
 ”… forlængelsen af en eksisterende godkendelse til drift af en lufthavn hverken kan kvalificeres som et »projekt« eller som et »nyanlæg« som omhandlet i disse bestemmelser, eftersom der ikke er tale om arbejder eller indgreb, som ændrer områdets fysiske karakteristika…”
 
-23) Afgørelse af 17. marts 2010, Brussels Hoofdstedelijk Gewest, C-275/09, EU:C:2011:154, præmis 38.
+[23)]
 
 Et projekt skal med andre ord medføre arbejder eller indgreb, som ændrer områdets fysiske karakter og ikke blot være en administrativ forlængelse af en eksisterende gældende tilladelse, i hvilken forbindelse, der ikke gennemføres arbejder eller indgreb relateret til projektet eller andre projekter.
 
@@ -1157,11 +933,11 @@ EU-Domstolen vurderede, at tilførsel af gødning kan forandre jordens egenskabe
 
 EU-Domstolen fandt derfor, at det ikke udelukkes, at de nævnte under alle omstændigheder er omfattet af projektbegrebet i VVM-direktivet.
 
-24) Afgørelse af 7. november 2018, Coöperatie Mobilisation for the Environment and Vereniging Leefmilieu, de forenede sager C-293/17 og 294/17, ECLI:EU:C:2018:882, præmis 71 og 72.
+[24)]
 
 EU-Domstolen har yderligere taget stilling til, at mekanisk fiskeri efter hjertemuslinger udgør et projekt, da der er tale om ’andre indgreb i det naturlige miljø eller i landskaber, der tager sigte på udnyttelse af ressourcer i undergrunden’.
 
-25) Afgørelse af 7. september 2004, Landelijke Vereniging tot Behoud van de Waddenzee, C-127/02, ECLI:EU:C:2004:482, præmis 25.
+[25)]
 
 Det bemærkes, at det generelle projektbegreb indsnævres, såfremt der er tale om en obligatorisk miljøvurdering efter lovens § 8, stk. 1, nr. 1, idet der her vil være tale om projekter omfattet af lovens bilag 1 og 2, se mere herom i afsnit 3.1.1.
 
@@ -1169,9 +945,9 @@ Til gengæld er det det generelle projektbegreb, som finder anvendelse ved fastl
 
 Med hensyn til fortolkningen af, hvilket indhold de enkelte projekttyper omfattet af lovens bilag 1 eller 2 har, fremgår det af EU-Domstolens retspraksis, at der er tale om EU-retlige begreber, som skal fortolkes selvstændigt.
 
-26) Afgørelse af 25. juli 2008, Ecologistas en Acción-CODA, C-142/07, ECLI:EU:C:2008:445, præmis 29, og afgørelse af 8. august Prenninger, C-329/17, ECLI:EU:C:2018:640, præmis 30.
+[26)]
 
-MFKN afgørelse af 23. juni 2020, j.nr. 19/07253
+## MFKN afgørelse af 23. juni 2020, j.nr. 19/07253
 
 Nævnet fandt, at et fredningsforslag ikke fastlagde rammer for nogen af projekttyperne på lovens bilag 1 eller 2.
 
@@ -1179,15 +955,13 @@ Derimod ansås forslaget for at fastlægge rammer for visse mindre anlægsarbejd
 
 Det bemærkes, at selvom VVM-direktivets projekttyper for intensiv husdyravl, statslige vej-, jernbane- og havneprojekter samt miljøvurderingsprocessen for anlægslove er implementeret i anden lovgivning end loven, finder lovens bestemmelser for planer/programmer og hermed også projektbegrebet anvendelse for disse særskilt implementerede projekttyper.
 
-2.1.1.3.
-
-”… eller medfører krav om en vurdering af virkningen på et internationalt naturbeskyttelsesområde under hensyntagen til områdets bevaringsmålsætninger…”
+## 2.1.1.3. ”… eller medfører krav om en vurdering af virkningen på et internationalt naturbeskyttelsesområde under hensyntagen til områdets bevaringsmålsætninger…”
 
 Pligten til at foretage en miljøvurdering en sådan plan eller et sådant program afhænger af habitatdirektivets krav om udarbejdelse af en konsekvensvurdering, herunder betingelsen om, at planen kan få væsentlig indflydelse på det pågældende sted, er opfyldt med hensyn til planen/programmet.
 
 Dette fremgår af EU-Domstolens praksis, hvorefter der skal foretages en miljøvurdering, hver gang der kræves en konsekvensvurdering i henhold til habitatdirektivets artikel 6 og 7.
 
-27) Afgørelse af 21. juni 2021, Sillogos Ellinon Poleodomon kai Khorotakton, C-177/11, EU:C:2012:378, præmis 19.
+[27)]
 
 Denne betingelse er også omtalt under afsnit 3.1.2. i forbindelse med beskrivelsen af miljøvurdering af planer/programmer efter lovens § 8, stk. 1, nr. 2.
 
@@ -1201,11 +975,7 @@ Det betyder, at planer/programmer, der er omfattet af lovens § 2, stk. 1, litra
 
 Se også Generaladvokatens forslag til afgørelse til C-24/19.
 
-28) Forslag til afgørelse af 3. marts 2020, ECLI:EU:C:2020:143, punkt 84, note 41, 2. afsnit: "For at være udtømmende bør det bemærkes, at der findes mindst én yderligere forpligtelse til at gennemføre en strategisk miljøvurdering af planer og programmer, som ikke afhænger af, at de fastlægger en ramme for tilladelser til projekter.
-
-Det drejer sig om SMV-direktivets artikel 3, stk. 2, litra b), hvorefter der skal foretages en vurdering af planer og programmer, som er underlagt den specifikke vurdering af virkninger på lokaliteten i artikel 6, stk. 3, i Rådets direktiv 92/43/EØF af 21.5.1992 om bevaring af naturtyper samt vilde dyr og planter (EFT 1992, L 206, s.
-
-7), som kun omfatter en del af indvirkningen på miljøet."
+[28)]
 
 Som eksempel på klagenævnenes praksis i forhold til bestemmelsen, henvises der til PKN afgørelse af 14. december 2021, j.nr. 21/03709, 21/03708, 21/03706 og 21/03705 (Amager Fælled byggeri)
 
@@ -1215,19 +985,13 @@ Anden betingelse: udarbejdes eller vedtages af en myndighed, udarbejdes med henb
 
 Denne anden betingelse er en samlet implementering af miljøvurderingsdirektivets artikel 2, litra a, og skønt den delvist har en lidt anden formulering, fremgår det af lovens forarbejder til bestemmelsen, at bestemmelsen skal fortolkes i overensstemmelse med EU-Domstolen retspraksis.
 
-2.1.2.1.
-
-”… udarbejdes eller vedtages…”
+## 2.1.2.1. ”… udarbejdes eller vedtages…”
 
 Denne betingelse er den danske implementering af ordet ’kræves’ i miljøvurderingsdirektivets artikel 2, litra a.
 
 Betingelsen ’kræves’ er af EU-Domstolen
 
-29) Den første afgørelse om dette var 22. marts 2012, Inter-Environnement Bruxelles ASBL m.fl., C-567/ 10, EU:C:2012:159, præmis 31.
-
-Den af Domstolen anvendte definition, der senest er bekræftet i C-300/20, præmis 37, er endvidere omtalt i C-24/19, præmis 52, og i afgørelserne af 12. juni 2019 Terre wallonne ASBL, C-321/18, ECLI:EU:C:2019:484, præmis 34, og 7. juni.
-
-2018, Thybaut m.fl., C-160/17, EU:C:2018:401, præmis 43.
+[29)]
 
 givet det udvidende indhold, at planer/programmer,
 hvis vedtagelse er reguleret ved nationale love og administrative bestemmelser, som fastlægger, hvilke myndigheder der har beføjelse til at vedtage dem, samt proceduren for deres udarbejdelse
@@ -1235,31 +999,31 @@ hvis vedtagelse er reguleret ved nationale love og administrative bestemmelser, 
 
 Baggrunden for Domstolens fortolkning er, at formålet med miljøvurderingsdirektivets artikel 1 er at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer/programmer med henblik på at fremme bæredygtig udvikling,
 
-30) C-24/19, præmis 45.
+[30)]
 
 jf. således også lovens § 1.
 
 Direktivets formål afspejler Unionens politik på miljøområdet, som efter artikel 3, stk. 3 TEU og artikel 191 TEU er at arbejde for et højt niveau for beskyttelse og forbedring af miljøkvaliteten.
 
-31) C-24/19, præmis 47.
+[31)]
 
 Til opfyldelse af disse formål fremgår det derfor af miljøvurderingsdirektivet, at planer og programmer, der kan få væsentlig indvirkning på miljøet, skal underlægges en miljøvurdering i forbindelse med deres udarbejdelse og inden deres vedtagelse.
 
-32) C-24/19, præmis 46.
+[32)]
 
 Varetagelsen af disse hensyn kunne lide skade, hvis definitionen af plan/program-begrebet i miljøvurderingsdirektivets artikel 2, litra a, (og lovens § 2, stk. 1), kun omfattede planer/programmer, hvis vedtagelse var obligatorisk.
 
 Herved ville der alene være tale om en definition med en marginal rækkevidde og en nem mulighed for medlemsstaterne til at omgå forpligtelsen til miljøvurdering ved forsætligt at afstå fra foreskrive, at de kompetente myndigheder har pligt til at vedtage sådanne planer eller programmer.
 
-33) C-24/19, præmis 48 og 50.
+[33)]
 
 Denne udvidende fortolkning anser EU-Domstolen ligeledes for at være i overensstemmelse med Unionens internationale forpligtelser, som de bl.a. følger af Espookonventionens artikel 2, stk. 7.
 
-34) C-24/19, præmis 48 og 50.
+[34)]
 
 Endelig lægger EU-Domstolen også vægt på, at miljøvurderingsdirektivet ikke indeholder særlige bestemmelser om politikker eller generel lovgivning, som i givet fald ville kræve en afgrænsning i forhold til planer og programmer som omfattet af direktivet.
 
-35) C-24/19, præmis 61.
+[35)]
 
 EU-Domstolen uddyber ikke, hvad der nærmere skal forstås ved
 hvis vedtagelse er reguleret ved nationale love og administrative bestemmelser, som fastlægger, hvilke myndigheder der har beføjelse til at vedtage dem, samt proceduren for deres udarbejdelse
@@ -1309,13 +1073,13 @@ Det skal bemærkes, at såvel EU-Domstolens som Planklagenævnets praksis viser,
 
 I EU-Domstolens retspraksis
 
-36) EU-Domstolens afgørelse af 22. marts 2012, Inter-Environnement Bruxelles ASBL m.fl., C-567/10, EU:C:2012:159, præmis 41-43.
+[36)]
 
 lægger Domstolen til grund, at en procedure til hel eller delvis ophævelse af en plan for arealanvendelse, […], i princippet falder ind under anvendelsesområdet og formålet for miljøvurderingsdirektivet.
 
 Såfremt den ophævede retsakt indgår i et hierarki af arealanvendelsesretsakter, idet disse retsakter fastlægger tilstrækkeligt præcise arealanvendelsesbestemmelser og i sig selv har været genstand for en miljøvurdering, må det med rimelighed kunne antages, at der inden for disse rammer er taget tilstrækkeligt hensyn til de interesser, som miljøvurderingsdirektivet tilsigter at sikre.
 
-PKN afgørelse af 15. april 2020, j.nr. 18/05952
+## PKN afgørelse af 15. april 2020, j.nr. 18/05952
 
 Nævnet lagde til grund, at den retlige konsekvens af ophævelsen af lokalplan nr. 71 vil være, at opstilling af vindmøller, som tidligere både skulle behandles efter lokalplanens regler og landzonereglerne, fremover kun skal håndteres efter landzonereglerne.
 
@@ -1327,9 +1091,7 @@ Lokalplanen, som ophæver lokalplan nr. 71, indgår heller ikke i et hierarki af
 
 Med vedtagelsen af lokalplanen, der ophæver lokalplan nr. 71, sker sådanne ændringer i rammerne for fremtidige anlægstilladelser til vindmøller i området, at lokalplanen er omfattet af lovens regler om screening og miljøvurdering.
 
-2.1.2.2.
-
-”… af en myndighed…”
+## 2.1.2.2. ”… af en myndighed…”
 
 I overensstemmelse med EU-Domstolens retspraksis anvendes der i loven et bredt myndighedsbegreb.
 
@@ -1349,9 +1111,7 @@ Hermed sikres det, at den vurdering/afgørelse, som foretages med screeningen el
 
 Der er ikke i loven hjemmel til, at en myndighed kan pålægge en privat fysisk/juridisk person at udføre myndighedens opgaver i forbindelse med en miljøvurdering.
 
-2.1.2.3.
-
-”… love, administrative forskrifter eller administrative beslutninger.
+## 2.1.2.3. ”… love, administrative forskrifter eller administrative beslutninger.
 
 ”
 
@@ -1361,13 +1121,9 @@ Det medfører, at planer/programmer, der udarbejdes i henhold til en bekendtgør
 
 Med hensyn til vejledningsbegrebet er udgangspunktet, at sådanne retsakter alene er vejledende, men der udarbejdes vejledninger, som har en bindende karakter som f.eks. Miljøstyrelsens vejledning nr. 14018 af 1. november 1984 om ekstern støj fra virksomheder.
 
-2.2.
+## 2.2. Andre forhold, der skal tages i betragtning
 
-Andre forhold, der skal tages i betragtning
-
-2.2.1.
-
-Ændringer til en plan
+## 2.2.1. Ændringer til en plan
 
 Loven sondrer ikke mellem ’hele’ planer og ’ændring’ af planer.
 
@@ -1397,21 +1153,19 @@ Et eksempel herpå er vedtagelsen af kommuneplantillæg nødvendiggjort af tilko
 
 Andre eksempler er tillæg til spildevandsplaner og vandforsyningsplaner, som typisk rummer mindre vidtgående ændringer af den eksisterende spildevandsplan eller vandforsyningsplan og tillæg til råstofplanen.
 
-2.2.2.
-
-Nationalt forsvarsformål eller civilt beredskabsformål?
+## 2.2.2. Nationalt forsvarsformål eller civilt beredskabsformål?
 
 Efter lovens § 3, stk. 1, finder loven ikke anvendelse på planer/programmer, der alene tjener et nationalt forsvarsformål eller et civilt beredskabsformål.
 
 Undtagelsesbestemmelsen skal fortolkes indskrænkende, da der er tale om en afgrænset undtagelse, som ikke er behæftet med krav om meddelelse til Kommissionen.
 
-37) Jf. den parallelle fortolkning af undtagelsesbestemmelsen i VVM-direktivet efter EU-Domstolens afgørelse af 16. september 1999, WWF m.fl., C-435/97, EU:C:1999:418, præmis 65, hvor Domstolen fastslog følgende vedrørende artikel 1, stk. 4, i direktiv 85/337/ EF (nationale forsvarsformål): »Hermed indfører bestemmelsen en undtagelse fra direktivets hovedregel om, at der skal foretages en forudgående vurdering af projektets indvirkning på miljøet, som følgelig skal fortolkes indskrænkende«.
+[37)]
 
 Det er således anvendelsen af miljøvurderingsprocessen, herunder screeningsprocessen efter loven, som i det konkrete tilfælde vil kunne skade det nationale forsvarsformål eller det civile beredskabsformål.
 
 EU-Kommissionen har i forlængelse af ændringen af VVM-direktivet i 2014 udgivet en vejledning
 
-38) Meddelelse fra Kommissionen af 14. november 2019 C 386/05.
+[38)]
 
 om fortolkning af undtagelserne i henhold til artikel 1, stk. 3, og artikel 2, stk. 4 og 5, i direktivet om vurdering af indvirkningen på miljøet (Europa-Parlamentets og Rådets direktiv 2011/92/EU som ændret ved direktiv 2014/52/EU).
 
@@ -1439,9 +1193,7 @@ Heller ikke finansielle og budgetmæssige planer/programmer, som udarbejdet af s
 
 Finansielle planer/programmer inkluderer planer/programmer, der beskriver, hvorledes projekter eller aktiviteter skal finansieres, eller hvorledes støttebeløb eller tilskud skal fordeles.
 
-2.3.
-
-Eksempler på planer/programmer, der konkret kan være omfattet af loven
+## 2.3. Eksempler på planer/programmer, der konkret kan være omfattet af loven
 
 Nedenfor er der oplistet en række plantyper, som efter deres indhold konkret kan være omfattet af loven.
 
@@ -1517,7 +1269,7 @@ Landsplandirektiver (udstedes i form af bekendtgørelse)
 
 Visse lovforslag
 
-39) Der henvises til afsnit 2.1.2.1. samt forordet til nærværende vejledning.
+[39)]
 
 -
 
@@ -1531,15 +1283,13 @@ Visse forvaltningsplaner
 
 Visse planer for udbud som fastsætter rammer for arealanvendelse
 
-Afsnit 3: Skal planen/programmet miljøvurderes eller screenes?
+## Afsnit 3: Skal planen/programmet miljøvurderes eller screenes?
 
 I dette afsnit beskrives betingelserne for henholdsvis miljøvurdering og screening af en plan/et program.
 
 Det forudsættes med andre ord, at vurderingen af, om en plan/et program i det hele taget opfylder betingelserne for at være omfattet af loven er gennemført, jf. beskrivelsen i kapitel 2 ovenfor, og at svaret på vurderingen er ’ja’.
 
-3.1.
-
-Obligatorisk miljøvurdering
+## 3.1. Obligatorisk miljøvurdering
 
 Efter lovens § 8 skal myndigheden gennemføre en miljøvurdering af planer/programmer, hvor disse
 
@@ -1560,7 +1310,7 @@ Denne bestemmelse indeholder to betingelser:
 For det første
 skal den konkrete plan eller det konkrete program udarbejdes inden for en eller flere af de nævnte sektorer:
 
-40) C-295/10, præmis 41.
+[40)]
 
 landbrug, skovbrug, fiskeri, energi, industri, transport, affaldshåndtering, vandforvaltning, telekommunikation, turisme, fysisk planlægning og arealanvendelse.
 
@@ -1570,7 +1320,7 @@ Efter EU-Domstolens praksis stilles der ikke de store krav til, at den pågælde
 
 Det er således nok, at planen eller programmet vedrører, påvirker, henviser til eller har indvirkning på en af disse sektorer.
 
-41) C-24/19, præmis 66, dom af 8.5.2019, Verdi Ambiente eSocietà – Aps Onlus m.fl., C-305/18, EU:C:2019:384, præmis 48, dom af 7.6.2018, Inter-Environnement Bruxelles m.fl., C-671/16, EU:C:2018:403, præmis 42-45), dom af 7. juni 2018, Thybaut, C-160/17, EU:C:2018:401, præmis 47-49, og dom af 27.10.2016, D’Oultremont m.fl. C-290/15, EU:C:2016:816, præmis 44.
+[41)]
 
 EU-Domstolen har også anlagt en bred fortolkning af sektorkategorierne.
 
@@ -1578,7 +1328,7 @@ Det kan være svært at foretage en sondring mellem fysisk planlægning og areal
 
 Arealanvendelse er ”… opdeling af arealet i områder og definition af de aktiviteter, der er tilladte inden for områderne…” mens fysisk planlægning angår et større område.
 
-42) C-160/17, præmis 48, og C-671/16, EU:C:2018:403, præmis 43.
+[42)]
 
 For det andet
 skal den konkrete plan eller det konkrete program fastlægge rammerne for fremtidige anlægstilladelser til de projekter, der er omfattet af lovens bilag 1 og 2.
@@ -1589,10 +1339,7 @@ Projektbegrebet bag de projekttyper, som fremgår af lovens bilag 1 og 2, er lig
 
 Med henvisningen til projekter omfattet af bilag 1 og 2, som har sin oprindelse i VVM-direktivet (miljøvurdering af konkrete projekter), vil det være EU-Domstolens fortolkning af projekttyperne omfattet af bilag 1 og 2
 
-43) Se EU-Kommissionens vejledning: Interpretation of definitions of project categories of annex I and II of the EIA Directive, 2015.
-
-Vejledningen kan se her:
-https://ec.europa.eu/environment/eia/pdf/cover 2015 en.pdf
+[43)]
 
 samt eventuel klagenævnspraksis, som lægges til grund ved vurderingen af, om en plan/et program fastlægger rammer for fremtidige anlægstilladelser til projekter omfattet af bilag 1 eller 2.
 
@@ -1608,7 +1355,7 @@ Se også lovens § 5, nr. 8, som definerer tilladelsesbegrebet i relation til §
 
 De planer/programmer, som er omfattet af lovens § 8, stk. 1, nr. 1, skal derfor systematisk underkastes en miljøvurdering.
 
-44) C-24/19, præmis 65.
+[44)]
 
 Der kan således ikke foretages en differentiering af planer/programmer i forhold til den forventede væsentlige indvirkning på miljøet.
 
@@ -1640,39 +1387,35 @@ Samtidigt
 
 Der skal således være tale om en bestemt lokalitet og ikke en generel regulering for samtlige lokaliteter i et område.
 
-45) EU-Domstolens afgørelse af 12. juni 2019, Terre wallone ASBL, C-321/18, EU:C:2019:484, præmis 30.
+[45)]
 
 Den undersøgelse, der foretages, er begrænset til spørgsmålet om, hvorvidt det på grundlag af objektive omstændigheder kan udelukkes, at den pågældende plan eller det pågældende projekt påvirker den berørte lokalitet væsentligt.
 
-46) C-177/11, præmis 24.
-
-Se også EU-Domstolens afgørelse af 10. september 2015, Dimos Kropias Attikis, C-473/14, ECLI: EU:C:2015:582, præmis 47.
+[46)]
 
 Det samme gør sig gældende for de områder, der er omfattet af fugledirektivets artikel 4, stk. 1 og 2, under hensyntagen til udvidelsen i henhold til habitatdirektivets artikel 7 af anvendelsesområdet for sidstnævnte direktivs artikel 6, stk. 3, til også at omfatte de nævnte områder.
 
-47) C-177/11, præmis 23, 2. pkt.
+[47)]
 
 I praksis vil en habitatvurdering altid tage højde for både habitatområder og fuglebeskyttelsesområder som måtte være berørt.
 
 I den forbindelse har EU-Domstolen fastslået, at spørgsmålet om, hvorvidt der foreligger en plan, der ikke er direkte forbundet med eller nødvendig for en lokalitets forvaltning, hovedsagelig afhænger af karakteren af det omhandlede indgreb og ikke blot af dets omfang.
 
-48) Afgørelse 17. april 2018, Kommissionen mod Polen, C-441/17, ECLI:EU:C:2018:255, præmis 125, 2. pkt.
+[48)]
 
 Det betyder derfor, at en plan/et program alligevel kan være omfattet af kravet om miljøvurdering, da det ikke kan udelukkes, at planen eller programmet fastsætter bestemmelser, som medfører, at planen eller programmet må ligestilles med dem, for hvilke der er pligt til at gennemføre en vurdering af indvirkningen på miljøet.
 
-49) C-43/18, præmis 51.
+[49)]
 
 Som eksempel kan nævnes, at en bekendtgørelse, som sammenfattede de vejledende bevaringsmålsætninger for Natura2000-netværket i hele regionen Vallonien, ikke ansås for at være en plan, som fastsatte rammer for fremtidige anlægstilladelser.
 
-50) EU-Domstolens afgørelse af 12. juni 2019, Terre wallone ASBL, C-321/18, EU:C:2019:484, præmis 43 og 44.
+[50)]
 
 I forhold til at strømline vurderinger efter loven og habitatreglerne henvises til beskrivelsen i afsnit 4.1.2.
 
-3.1.2.1.
+## 3.1.2.1. Eksempler på klagenævnenes praksis kan
 
-Eksempler på klagenævnenes praksis kan
-
-PKN afgørelse af 10. februar 2021, j.nr. 18/07259 og 19/05296
+## PKN afgørelse af 10. februar 2021, j.nr. 18/07259 og 19/05296
 
 I afgørelsen blev en lokalplan for et nyt boligområde med 17 boliger ophævet, da der ikke var foretaget en væsentlighedsvurdering i forhold til et Natura 2000-område, der forud for den endelige vedtagelse af planen var blevet udvidet til at omfattet skoven omkring lokalplanområdet.
 
@@ -1708,9 +1451,7 @@ Planer/programmer omfattet af lovens § 8, stk. 1, nr. 3, har derfor gennemgået
 
 Bestemmelsen er tilføjet loven for fuldstændighedens skyld, således at det fremgår af lovens § 8, stk. 1, hvilke planer/programmer, der samlet set vil være undergivet kravet om miljøvurdering efter loven.
 
-3.2.
-
-Screening
+## 3.2. Screening
 
 En screening er en vurdering af væsentligheden af en plan/et programs forventede indvirkninger på miljøet.
 
@@ -1744,13 +1485,13 @@ er herefter, at planen eller programmet kun fastlægger anvendelse af ”mindre 
 
 Hvad der nærmere ligger i dette begreb fastsættes af EU-Domstolen under hensyntagen til bestemmelsens kontekst og miljøvurderingsdirektivets formål.
 
-51) EU-Domstolens afgørelse af 21. december 2016, Associazione Italia Nostra Onlus, C-444/15, EU:C:2016:978, præmis 66-67.
+[51)]
 
 For så vidt angår begrebet ”på lokalt plan” har EU-Domstolen peget på, at dette begreb i miljøvurderingsdirektivet har samme betydning som ”en lokal myndighed”, idet der med begrebet henvises til det administrative plan i den pågældende medlemsstat.
 
 For at en plan/et program herefter beskrives som at fastlægge anvendelsen af et mindre område på lokalt plan, skal den konkrete plan eller det konkrete program udarbejdes eller vedtages af en lokal myndighed, i modsætning til en regional eller national myndighed.
 
-52) C-444/15, præmis 69-74.
+[52)]
 
 Denne fortolkning medfører, at selvom en statslig eller regional (region) myndighed udarbejder en plan/et program omfattet af § 8, stk. 1., nr. 1, men som kun angår et mindre område sammenlignet med udbredelsen af hele den statslige eller regionale myndigheds kompetenceområde, vil planen eller programmet ikke kunne screenes med hjemmel i § 8, stk. 2, nr. 1, første led.
 
@@ -1758,7 +1499,7 @@ Med nedenstående afgørelser har Planklagenævnet justeret sin fortolkning i fo
 
 .
 
-PKN afgørelse af 2. december 2021, j.nr. 20/00789 (solceller)
+## PKN afgørelse af 2. december 2021, j.nr. 20/00789 (solceller)
 
 Der skal gennemføres en miljøvurdering af en række nærmere angivne planer/programmer, som fastlægger rammerne for fremtidige anlægstilladelser til projekter, der er omfattet af lovens bilag 1 og 2, jf. § 8, stk. 1, nr. 1 (obligatorisk miljøvurdering).
 
@@ -1780,7 +1521,7 @@ Nævnet har på baggrund af EU-domstolens præmisser tidligere forstået udtrykk
 
 Nævnet er imidlertid blevet opmærksom på, at det med udgangspunkt i de forskellige sproglige versioner af ovennævnte dom, må lægges til grund, at der med udtrykket ”mindre område på lokalt plan” menes, at planen er udarbejdet af en lokal myndighed,
 
-53) I modsætning til regionale og nationale myndigheder.
+[53)]
 
 og at planen omfatter et område, der er af begrænset størrelse set i forhold til hele det område, som hører under den lokale myndigheds stedlige kompetence.
 
@@ -1796,7 +1537,7 @@ Dette indebærer, at der skal gennemføres en miljøvurdering, jf. § 8, stk. 1,
 
 Dette udgør en væsentlig retlig mangel ved afgørelsen, som medfører ugyldighed.
 
-PKN afgørelse af 9. december 2021, j.nr. 20/09399 (solceller)
+## PKN afgørelse af 9. december 2021, j.nr. 20/09399 (solceller)
 
 Nævnet fandt ikke, at planforslaget i den konkrete sag er omfattet af miljøvurderingslovens § 8, stk. 2, nr. 1.
 
@@ -1806,7 +1547,7 @@ Nævnet har endvidere lagt vægt på, at kommuneplantillægget udlægger hidtil 
 
 Nævnet finder i øvrigt, at ovennævnte også gør sig gældende i forhold til et samlet planområde på 153 ha.
 
-PKN afgørelse af 17. februar 2021, j.nr. 19/08888
+## PKN afgørelse af 17. februar 2021, j.nr. 19/08888
 
 En kommune havde udarbejdet og vedtaget en lokalplan, som omfattet ca. 6,8 ha med det formål, jf. lokalplanens § 1, at sikre de overordnede rammer for anvendelse og disponering af arealet til udvikling af et nyt boligområde, samt principielt beliggenhed og udformning af veje, stier og torvet og rammer til efterfølgende projektlokalplanlægning.
 
@@ -1845,7 +1586,7 @@ Det vil altid bero på en konkret vurdering, hvorvidt om, der er tale om ”mind
 
 Der skal foreligge en begrundelse for, hvorfor kommunen har valgt at henføre kommuneplanen under reglen i lovens § 8, stk. 2, nr. 1.
 
-Natur- og Miljøklagenævnets afgørelse af 28. marts 2014, j.nr. NMK-34-00161 (trafik)
+## Natur- og Miljøklagenævnets afgørelse af 28. marts 2014, j.nr. NMK-34-00161 (trafik)
 
 Kommunen havde gennemført en screening af forslaget til lokalplan, der skulle muliggøre etableringen af en infoportal.
 
@@ -1881,9 +1622,9 @@ Det kan være planer/programmer, som ikke udarbejdes inden for de sektorer, som 
 
 Den tidligere omtalte afgørelse fra EU-Domstolens Store Afdeling, jf. afsnit 2.1.1.1., har også fastslået, at en national foranstaltning [bekendtgørelse], der ikke ansås at fastlægge rammer for fremtidige anlægstilladelser, heller ikke kunne anses for omfattet af screeningsbestemmelsen.
 
-54) C-300/20. præmis 74
+[54)]
 
-PKN afgørelse af 13. december 2019, j.nr. 18/05998
+## PKN afgørelse af 13. december 2019, j.nr. 18/05998
 
 Afgørelsen vedrørte et kommuneplantillæg og en lokalplan for et nyt boligområde med op til 20 boliger.
 
@@ -1891,9 +1632,7 @@ Nævnet fandt, at de aktuelle planforslag var omfattet af § 8, stk. 2, nr. 2, o
 
 Nævnet lagde vægt på, at planerne fastlagde rammerne for fremtidige anlægstilladelser til projekter, og at projekterne ikke var omfattet af bilag 1 eller 2.
 
-3.3.
-
-Kriterier og bagatelgrænser
+## 3.3. Kriterier og bagatelgrænser
 
 Miljøvurderingsdirektivets artikel 3, stk. 5, giver mulighed for, at screeningen af planer/programmer omfattet af artikel 3, stk. 3 og 4, som svarer til lovens § 8, stk. 2, kan foretages ved hjælp af
 
@@ -1919,17 +1658,17 @@ Grundlaget for at træffe såvel en screeningsafgørelse som fastsætte tærskel
 
 Uanset hvilken fremgangsmåde, jf. ovenfor a)-c), der måtte blive valgt, må den ikke medføre, at miljøvurderingsdirektivets artikel 3, stk. 1, som fastslår, at screeningspligtige planer og programmer, der kan få en væsentlig indvirkning på miljøet, skal gennemgå en miljøvurdering, mister enhver effektiv virkning.
 
-55) EU-Domstolens afgørelse af 18. april 2013, L mod M, C-463/11, ECLI:EU:C:2013:247, præmis 38.
+[55)]
 
 EU-Domstolens retspraksis viser, at fastsættelsen af et kriterium, som i praksis medfører, at en hel kategori af planer på forhånd vil være undtaget fra kravet om miljøvurdering, overskrider grænserne for medlemsstatens skønsbeføjelse i henhold til miljøvurderingsdirektivets artikel 3, stk. 5, medmindre alle fritagne planer kunne på grundlag af relevante kriterier, såsom blandt andet deres formål, omfanget af det omfattede område eller det pågældende landskabs følsomhed, anses for ikke at have væsentlig virkninger på miljøet.
 
-56) EU-Domstolens afgørelse af 22. september 2011, Valčiukienė m.fl., C-295/10, EU:C:2011:608, præmis 44, 47 og 48.
+[56)]
 
 Der henvises i øvrigt til Vejledning til lov om miljøvurdering af planer og programmer og af konkrete projekter: Konkrete projekter, afsnit 3.3. for en nærmere gennemgang af rammerne for fastsættelse af tærskelværdier mv.
 
 Af EU-Domstolens retspraksis fremgår det, at når en plan eller et program skulle have været underkastet en forudgående vurdering af indvirkningerne på miljøet i henhold til kravene i direktivet, er de nationale retsinstanser i forbindelse med et søgsmål om annullation af en sådan plan forpligtede til at træffe alle almindelige eller særlige foranstaltninger for at råde bod på, at der ikke er blevet foretaget en sådan vurdering.
 
-57) EU-Domstolens afgørelse af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne, C-41/11, ECLI:EU:C:2012:103, præmis 44-46.
+[57)]
 
 I øvrigt henvises der til afsnit 6.2. i denne vejledning.
 
@@ -1939,7 +1678,7 @@ Det betyder, at det ikke er den enkelte kommunale forvaltning, region eller styr
 
 Det vil være at betragte som ’skøn under regel’.
 
-NKN afgørelse af 21. juni 2006 (omtalt i NKO 389), j.nr. 03-33/800-0405
+## NKN afgørelse af 21. juni 2006 (omtalt i NKO 389), j.nr. 03-33/800-0405
 
 Det fremgik, at et amt havde vedtaget en ny administrationspraksis for miljøvurderingssager, hvorefter alle husdyrbrugssager, der havde udbringningsarealer inden for indsatsområder med stor nitratsårbarhed, altid var miljøvurderingspligtige.
 
@@ -1949,7 +1688,7 @@ Nævnet fandt, at isoleret set måtte konsekvenserne heraf være, at afgørelsen
 
 På den baggrund og efter en konkret vurdering af sagen ændrede nævnet amtets afgørelse til, at der ikke var miljøvurderingspligt.
 
-Afsnit 4: Miljøvurdering eller screening af en plan/et program
+## Afsnit 4: Miljøvurdering eller screening af en plan/et program
 
 I dette afsnit beskrives processerne for henholdsvis miljøvurdering og screening.
 
@@ -1967,13 +1706,9 @@ gennemførelse af flere vurderinger samtidig.
 
 Disse to forhold beskrives i de følgende afsnit og endeligt - som en indledning til procesbeskrivelserne – gennemgås væsentlighedsbegrebet og hvad der sker, hvis udkastet til en plan/et program ændres undervejs i processen.
 
-4.1.
+## 4.1. Opmærksomhedspunkter ved tilrettelæggelsen af processen
 
-Opmærksomhedspunkter ved tilrettelæggelsen af processen
-
-4.1.1.
-
-Inhabilitet
+## 4.1.1. Inhabilitet
 
 Inden den praktiske gennemførelse af miljøvurderingen eller screeningen iværksættes, skal der foretages en vurdering af, om processen med inddragelse af berørte myndigheder kan medføre inhabilitet.
 
@@ -1983,7 +1718,7 @@ Efter lovens § 40, stk. 1, skal den myndighed, der udarbejder planer eller prog
 
 Efter lovens § 40, stk. 2, må den myndighed, der udarbejder planer eller programmer, ikke udføre opgaver og udøve beføjelser som berørt myndighed i forhold til disse planer/programmer, medmindre der inden for myndigheden er sikret en passende adskillelse mellem uforenelige funktioner i forbindelse med varetagelsen af disse opgaver og beføjelser.
 
-58) Dette følger af EU-Domstolens afgørelse af 20. oktober 2011, Seaport, C-474/10, EU:C:2011:681, præmis 43.
+[58)]
 
 Såfremt der er overlappende opgaver og beføjelser mellem dem, som udarbejder planen eller programmet og de opgaver og beføjelser, der udføres som berørt myndighed, er der tale om inhabilitet.
 
@@ -1993,7 +1728,7 @@ Hvis substitution ikke er mulig, fastsætter bekendtgørelsens § 15, stk. 3, at
 
 I lighed med den almindelige håndtering af inhabilitet efter forvaltningsloven fremgår af bekendtgørelsens § 15, stk. 4, at årsagen til myndighedsinhabiliteten og den konkrete håndtering heraf skal noteres på sagen og fremgå af afgørelsen.
 
-PKN afgørelse 2. juli 2021, j.nr. 18/06229 om loven § 40 og myndighedshabilitet i øvrigt
+## PKN afgørelse 2. juli 2021, j.nr. 18/06229 om loven § 40 og myndighedshabilitet i øvrigt
 
 Nævnet fandt ikke, at der forelå inhabilitet.
 
@@ -2027,13 +1762,9 @@ Nævnet lægger vægt på, at en ophævelse af handlen ikke nødvendigvis medfø
 
 ”
 
-4.1.2.
+## 4.1.2. Forskellige vurderinger (one stop shop) og sammenskrivning af vurderinger
 
-Forskellige vurderinger (one stop shop) og sammenskrivning af vurderinger
-
-4.1.2.1.
-
-Forskellige vurderinger (one stop shop)
+## 4.1.2.1. Forskellige vurderinger (one stop shop)
 
 Efter miljøvurderingsdirektivets artikel 11, stk. 2, er det også et formål med direktivet, at der kan fastsættes koordinerende eller fælles procedurer for vurderinger i situationer, hvor der efter miljøvurderingsdirektivet og efter andre direktiver som f.eks. habitat-, fugle- og vandrammedirektivet er pligt til at gennemføre vurderinger af indvirkningen på miljøet, med henblik på at undgå dobbeltvurdering.
 
@@ -2043,7 +1774,7 @@ En sådan procedure kaldes ’one stop shop’.
 
 One stop shop giver ikke muligheden for at lade en vurdering erstatte vurderinger efter anden lovgivning eller flere miljøvurderinger af samme plan/program, men one stop shop giver myndigheden et valg med henblik på at lette processen for håndteringen af andre vurderinger, som foretages af f.eks. konkrete projekter, vandområdeplaner og konsekvensvurderinger efter habitatreglerne.
 
-59) Dette er i overensstemmelse med miljøvurderingsdirektivets artikel 11, stk. 2, og C-295/10, præmis 58-61 og 65.
+[59)]
 
 Vurderingerne, som skal foretages efter de respektive nationale love, kan have forskelligt niveau for oplysningsgraden og afhænger af, om det er en plan/et program eller et projekt.
 
@@ -2051,11 +1782,7 @@ En plan/et program er traditionelt kvalitativ, potentiel og retningsgivende med 
 
 Et projekt, derimod, er traditionelt kvantitativ, aktuel og absolut med få valgmuligheder, et lavt niveau af usikkerhed og et højt detaljeringsniveau.
 
-60) Bearbejdet beskrivelse efter The relationship between the EIA and SEA Directives.
-
-Final Report to the European Commission, August 2005, s.
-
-16.
+[60)]
 
 Når det kommer til de øvrige naturdirektiver (habitater, fugle, hav og vandramme) som på forskellig vis har til opgave at beskytte områder og arter i forbindelse med, at de miljømæssige indvirkninger af henholdsvis en plan, et program og et projekt vurderes.
 
@@ -2085,11 +1812,7 @@ Hvis to statslige myndigheder, to regioner eller to kommuner som foretage en vur
 
 EU-Kommissionen har udarbejdet en figur,
 
-61) Meddelelse fra Kommissionen, C(2021) 6913 final, Vurdering af planer og projekter i forbindelse med Natura 2000-lokaliteter — Metodisk vejledning om artikel 6, stk. 3 og 4, i habitatdirektivet 92/43/EØF, s.
-
-112.
-
-Se særligt afsnit 5, side 103, om forbindelser til andre miljøvurderingsprocedurer: VVM-direktivet, direktivet om strategiske miljøvurderinger og vandrammedirektivet.
+[61)]
 
 jf. nedenfor, som beskriver forskellen mellem vandrammedirektivet, habitatdirektivet og VVM-direktivet.
 
@@ -2103,9 +1826,7 @@ Vær også opmærksom på havstrategidirektivet, der er udmøntet i lov om havst
 
 Statslige, regionale og kommunale myndigheder er ved udøvelse af beføjelser i medfør af lovginingen bundet af de miljømål og indsatsprogrammer, der fastsættes efter havstrategiloven.
 
-4.1.2.2.
-
-Sammenskrivning af vurderinger (plan, program, konkret projekt)
+## 4.1.2.2. Sammenskrivning af vurderinger (plan, program, konkret projekt)
 
 Det fremgår af lovens § 6, at en miljøvurdering af en plan/program ikke kan træde i stedet for en miljøvurdering (VVM) af et konkret projekt.
 
@@ -2115,7 +1836,7 @@ I de talrige situationer, hvor navnlig inden for planlovens område, at et proje
 
 Det gælder også i visse tilfælde sammenskrivningen af
 
-PKN afgørelse af 21. oktober 2020, j.nr. 19/04619
+## PKN afgørelse af 21. oktober 2020, j.nr. 19/04619
 
 Nævnet vurderede, at miljørapporten og miljøkonsekvensrapporten under visse omstændigheder kan sammenskrives.
 
@@ -2129,9 +1850,7 @@ Det afgørende er derimod, at de processuelle og indholdsmæssige krav til milj�
 
 I forlængelse af reglen i loven § 6 bør det ligeledes stå klart, at den hidtidige praksis, hvorefter der blev udarbejdet en fælles miljørapport for planen og projektet forudsætter, at myndigheden har overblik over, hvilke dele i rapporten der forholder sig til miljøvurdering af planen og, hvilke dele af rapporten der forholder sig til miljøkonsekvensvurdering af projektet, hvis ikke der er et fuldstændigt sammenfald.
 
-4.1.3.
-
-Væsentlighedsbegrebet
+## 4.1.3. Væsentlighedsbegrebet
 
 Væsentlighedsbegrebet i loven er det samme som miljøvurderingsdirektivets væsentlighedsbegreb.
 
@@ -2175,7 +1894,7 @@ I nederste kasse er forsøgt gengivet de fortolknings-målestokke, som typisk an
 
 I vurderingen af en påvirkning anvendes så vidt muligt en autoritativ målestok, som f.eks. en vejledende grænseværdi for f.eks. støjpåvirkning (det understreges i denne sammenhæng, at en vejledende grænseværdi ikke i sig selv udgør en endelig målestok for, om en sandsynlig miljøpåvirkning er væsentlig, men det tillægges i praksis meget stor betydning).
 
-PKN afgørelse af 4. maj 2021, j.nr. 19/03416
+## PKN afgørelse af 4. maj 2021, j.nr. 19/03416
 
 Nævnet vurderede, at lokalplanen og kommuneplantillægget i Kolding Kommune led af en væsentlig retlig mangel og derfor var ugyldig.
 
@@ -2183,7 +1902,7 @@ Kommunen havde forud for vedtagelsen af lokalplanforslaget foretaget en screenin
 
 Kommunen havde ikke lagt de korrekte støjgrænser til grund for sin screening, hvilket nævnet vurderede var en væsentlig mangel.
 
-PKN afgørelse af 22. oktober 2020, j.nr. 19/00072
+## PKN afgørelse af 22. oktober 2020, j.nr. 19/00072
 
 I denne sag vurderede nævnet, at overskridelsen af anbefalede afstande i forhold til miljøklasser ikke udløste en pligt til miljøvurdering.
 
@@ -2218,7 +1937,7 @@ I mange situationer findes der ikke vejledende grænseværdier, man kan læne si
 
 Endelig bør det ikke glemmes, at en væsentlig del af vurderingen af en påvirkning oftest hviler på inddragelsen af offentligheden.
 
-PKN afgørelse af 21. december 2020, j.nr. 18/05980 (se også afsnit 4.3.2.)
+## PKN afgørelse af 21. december 2020, j.nr. 18/05980 (se også afsnit 4.3.2.)
 
 Sagen omhandlede spørgsmålet om lovens minimumskrav til en miljøvurdering var opfyldt i forhold til udledning af mikroplast fra kunstgræsplaner til omgivelserne.
 
@@ -2230,9 +1949,7 @@ Nævnet vurderede, at miljørapporten skulle have indeholdt oplysninger om den s
 
 Lovens minimumskrav til en miljørapport var således ikke opfyldt.
 
-4.1.4.
-
-Planer/programmer i sammenhængende hierarkier
+## 4.1.4. Planer/programmer i sammenhængende hierarkier
 
 Forudsætningen for enhver miljøvurdering af planer/programmer er, at miljøvurderingen sker på det vidensniveau, som med rimelighed kan forlanges med hensyntagen til den aktuelle viden og gængse vurderingsmetoder og til, hvor detaljeret planen eller programmet er, hvad planen eller programmet indeholder, på hvilket trin i et beslutningsforløb planen eller programmet befinder sig, og hvorvidt bestemte forhold vurderes bedre på et andet trin i det pågældende forløb, og oplysninger om planens/programmets indvirkning på miljøet, der er indhentet på et andet trin af beslutningsforløbet eller som følge af anden lovgivning, og som er omfattet af bilag 4, kan anvendes i miljørapporten, jf. lovens § 12, stk. 2 og 3.
 
@@ -2240,7 +1957,7 @@ Det medfører, at flere planer eller programmer inden for samme geografiske omr�
 
 Sådanne hierarkier af planer kan udløse krav om miljøvurderinger af de forskellige planer efterhånden, som de udarbejdes og bliver mere specifikke.
 
-62) I EU-retten taler man om kaskader af planer og programmer og dermed kaskader af miljøvurderinger.
+[62)]
 
 Kravet om miljøvurdering af planer eller programmer, der tilsammen udgør et sammenhængende hierarki af planer, indebærer, at hver enkelt plan, der skal miljøvurderes, bidrager med nye kriterier, som indgår i de samlede rammer for anlægstilladelser.
 
@@ -2296,9 +2013,7 @@ Kommuneplan-niveau  hvilke miljøpåvirkninger vil opstå, såfremt der vedta
 
 Lokalplan-niveau  hvilke miljøpåvirkninger vil opstå, såfremt der vedtages lokalplanbestemmelser/-retningslinjer, der fastlægger bebyggelsestæthed, herunder maksimale bygningshøjder, tilvejebringelse af nødvendig vejadgang, udlæg af friarealer, udmøntning af kommunens parkeringsnorm i lyset af bymidtens publikumsvendte funktioner, klima- og vandhåndtering, støjhåndtering hvis der er miljøfølsom arealanvendelse, m.v.
 
-4.1.5.
-
-Ændringer under udarbejdelse af planen eller programmet
+## 4.1.5. Ændringer under udarbejdelse af planen eller programmet
 
 Spørgsmålet er ofte, om en ændring eller justering under udarbejdelsen af planen/programmet giver anledning til en fornyet høring.
 
@@ -2318,7 +2033,7 @@ Hvis der i forbindelse med høringen viser sig behov for at foretage ændringer 
 
 Derimod kan der være friere rammer til at foretage planændringer, så længe disse ikke fører til ændringer af miljøpåvirkningerne i en sådan grad, at der skal foretages ændringer i miljørapporten.
 
-PKN afgørelse af 1. juli 2019, j.nr. 18/06046
+## PKN afgørelse af 1. juli 2019, j.nr. 18/06046
 
 I forbindelse med offentlighedsfasen for en plan med en tilhørende miljørapport, var kommunen blevet opmærksom på, at der var en fejl i miljørapportens oplysninger om transporter pr. år.
 
@@ -2342,9 +2057,7 @@ Der fremgik ikke i den forbindelse et tal for, hvor mange transporter om pr. hve
 
 Nævnet lagde derfor til grund, at byrådet havde et tilstrækkeligt grundlag for en korrekt forståelse af transportantallet, da planerne blev vedtaget.
 
-4.2.
-
-Miljøvurdering af en plan/et program
+## 4.2. Miljøvurdering af en plan/et program
 
 Miljøvurderingsprocessen er en proces, som skal sikre, at planer/programmer, som er omfattet af loven, vurderes i forhold til væsentligheden af deres indvirkning på miljøet.
 
@@ -2388,9 +2101,7 @@ Derudover henvises til procesdiagrammet i afsnit 1.
 
 Forud for en gennemgang af de enkelte trin, vil de overordnede krav til miljøvurdering og miljørapport samt det brede miljøbegreb blive beskrevet.
 
-4.2.1.
-
-Overordnede krav til miljøvurdering og miljørapport
+## 4.2.1. Overordnede krav til miljøvurdering og miljørapport
 
 Som udgangspunkt består en miljøvurdering af en plan/program af to vurderinger.
 
@@ -2442,15 +2153,13 @@ Det er i sig selv et mål at begrænse miljørapportens omfang således, at den 
 
 Det er dog samtidig lige så væsentligt, at der i afgrænsningskapitlet i miljørapporten er redegjort for valg og fravalg af de indvirkninger, som har været overvejet, samt begrundelserne for disse valg.
 
-4.2.1.1.
+## 4.2.1.1. Eksempler på klagenævnenes praksis
 
-Eksempler på klagenævnenes praksis
-
-Natur- og Miljøklagenævnets afgørelse af 7. juli 2011, j.nr. NMK-41-00023
+## Natur- og Miljøklagenævnets afgørelse af 7. juli 2011, j.nr. NMK-41-00023
 
 Nævnet har udtalt, at loven fastlægger ikke, hvilke konkrete undersøgelser en myndighed skal foretage eller hvilke metoder, der skal anvendes (…) Navnlig når der er tale om en helt overordnet planlægning, bør der efter nævnets opfattelse efter omstændighederne indrømmes den ansvarlige myndighed et vist råderum ved vurderingen af, hvilke oplysninger det vil være nødvendigt at indhente til brug for en miljørapport.
 
-PKN afgørelse af 3. november 2020, j.nr. 18/06074 (bilag 4-arter) og 18/06434 (bilag 4) om flagermus
+## PKN afgørelse af 3. november 2020, j.nr. 18/06074 (bilag 4-arter) og 18/06434 (bilag 4) om flagermus
 
 Nævnet ophævede i denne sag miljørapporten og kommuneplanen.
 
@@ -2472,7 +2181,7 @@ Nævnet fandt ikke, at kommunen på det foreliggende grundlag kunne konkludere, 
 
 Miljøvurderingen og vedtagelsen af planerne led derfor af en væsentlig retlig mangel, hvorfor de var ugyldige.
 
-PKN af 25. november 2020, j.nr. 19/00803 (flagermusundersøgelse)
+## PKN af 25. november 2020, j.nr. 19/00803 (flagermusundersøgelse)
 
 Sagen omhandlede kommunernes undersøgelser af vindmøllers virkninger på bl.a. flagermus.
 
@@ -2486,13 +2195,13 @@ Herunder blev der konstateret forekomst af damflagermus, som er på udpegningsgr
 
 Den vurdering, som var foretaget, var efter nævnets opfattelse ikke egnet til at fjerne enhver rimelig videnskabelig tvivl om, at de planlagte vindmøller ikke havde skadelige virkninger for integriteten af Natura 2000- område N16.
 
-PKN afgørelse af 12. oktober 2017, j.nr. NMK-41-00426 (vindmøller)
+## PKN afgørelse af 12. oktober 2017, j.nr. NMK-41-00426 (vindmøller)
 
 En lang række forhold var påklaget, og nævnet gennemgik alle disse forhold og konstaterede, at kommunens miljøvurdering var i overensstemmelse med kravene i loven.
 
 Afgørelsen vedrørte bl.a. vurderingen i forhold til aktiviteter i anlægsfasen, tekniske anlæg, diger, landskabelig påvirkning (herunder fotostandpunkter og visualiseringer), støj, skyggekast, reflekser, belysning, naboernes sundhed, fugle, grundvand, radio- og telekæder og socioøkonomiske forhold.
 
-PKN afgørelse af 14. december 2020, j.nr. 18/06434 (vindmøller)
+## PKN afgørelse af 14. december 2020, j.nr. 18/06434 (vindmøller)
 
 Nævnet gav ikke medhold i klagerne over miljørapporten og kommuneplantillægget og lokalplanerne, som var en del af et projekt, hvor der skulle opstilles 10 vindmøller langs den Midtjyske Motorvej.
 
@@ -2508,9 +2217,7 @@ Planmyndighedens/bygherrens visualisering skal være gennemarbejdet og så vidt 
 
 Endvidere bør eventuelle usikkerheder og unøjagtigheder ved visualiseringen oplyses i forbindelse med visualiseringen.
 
-4.2.2.
-
-Det brede miljøbegreb
+## 4.2.2. Det brede miljøbegreb
 
 Det brede miljøbegreb er afspejlet i lovens formålsbestemmelse, jf. § 1, og det omfatter f.eks. den biologiske mangfoldighed, befolkningen, menneskers sundhed, fauna, flora, jordbund, vand, luft, klimatiske faktorer, materielle goder, landskab, kulturarv.
 
@@ -2580,13 +2287,13 @@ Det er vigtigt at være opmærksom på, at det brede miljøbegreb finder anvende
 
 Det brede miljøbegreb skal således umiddelbart afspejles i miljørapporten, hvilket især har betydning for afgrænsningen af miljørapporten.
 
-PKN afgørelse af 8. december 2020, j.nr. 18/06354 (vindturbulens)
+## PKN afgørelse af 8. december 2020, j.nr. 18/06354 (vindturbulens)
 
 Det konkrete byggeri havde efter nævnets opfattelse ikke en sådan karakter, at vindturbulens burde have været undersøgt nærmere, og nævnet fandt heller ikke, at planen burde have været miljøvurderet som følge af vindturbulens.
 
 Nævnet lagde vægt på, at randbebyggelsen skærmede det store centrale opholdsareal fra vind, og at bygningerne i øvrigt dannede et irregulært mønster.
 
-PKN afgørelse af 23. maj 2019, j.nr. 18/06024 (nabogener, skyggekast og visuelle gener)
+## PKN afgørelse af 23. maj 2019, j.nr. 18/06024 (nabogener, skyggekast og visuelle gener)
 
 Nævnet udtalte: ”
 Loven kræver dermed oplysninger og vurderinger, som relaterer sig til planens væsentlige indvirkninger på miljøet.
@@ -2606,7 +2313,7 @@ Planklagenævnet har derfor ikke fundet anledning til at foretage en nærmere vu
 
 ”
 
-PKN afgørelse af 30. juni 2021, j.nr. 20/03789 (udsigt)
+## PKN afgørelse af 30. juni 2021, j.nr. 20/03789 (udsigt)
 
 Nævnet udtalte om udsigten: ”
 Det har umiddelbart formodningen imod sig, at en gene i form af en forringelse af udsigt skal indgå i en screening, eller at den kan udløse et krav om miljøvurdering.
@@ -2626,9 +2333,7 @@ De visuelle gener i den konkrete sag, som måtte opstå som følge af træer, de
 
 ”
 
-4.2.3.
-
-Afgrænsning af miljørapporten
+## 4.2.3. Afgrænsning af miljørapporten
 
 I lovens § 11 beskrives afgrænsningen af miljørapportens indhold.
 
@@ -2682,11 +2387,11 @@ Miljøvurderingen af spildevandsplanen bør derfor som udgangspunkt indeholde en
 
 I fortsættelse af denne redegørelse skal der i miljøvurderingen af spildevandsplanens redegøres for, hvorledes forventede nye påvirkninger af miljøet som følge af planen vil påvirke tilstanden i de berørte overfladevandområder, og hvordan konsekvenserne af disse påvirkninger kan håndteres således, at spildevandsplanens virkeliggørelse vil være i overensstemmelse med vandplanlægningen i form af de fastsatte miljømål for og indsatserne i de berørte overfladevandområder, jf. bekendtgørelse om miljømål for overfladevandområder og grundvandsforekomster
 
-63) Bekendtgørelse nr. 448 af 11. april 2019 om miljømål for overfladevandområder og grundvandsforekomster
+[63)]
 
 og bekendtgørelse om indsatsprogrammer for vandområdedistrikter
 
-64) Bekendtgørelse nr. 449 af 11. april 2019 om indsatsprogrammer for vandområdedistrikter
+[64)]
 
 .
 
@@ -2696,9 +2401,7 @@ Inddragelsen af målsætninger bør tage udgangspunkt i en indledende kortlægni
 
 På baggrund af denne kortlægning skal de relevante miljømålsætninger udvælges og der udarbejdes dernæst en kort redegørelse for sammenhæng mellem planens indhold/initiativer der muliggøres af planen og den der til knyttede indvirkning på de kortlagte målsætningers opnåelse.
 
-4.2.3.1.
-
-Afgrænsning af alternativer
+## 4.2.3.1. Afgrænsning af alternativer
 
 I miljørapporten skal myndigheden vurdere indvirkninger på miljøet som følge af planen/programmets gennemførelse og ”rimelige alternativer under hensyn til planens/programmets mål og geografiske anvendelsesområde”, jf. lovens § 12, stk. 1.
 
@@ -2726,7 +2429,7 @@ Alternativer er ikke altid relevante.
 
 Det er navnlig i de tilfælde, hvor planens/programmets mål eller den geografiske placering ikke kan ændres, fordi formålet eller placeringen er obligatorisk, dvs. fastsat ved lov eller andre generelt bindende retsakter.
 
-PKN afgørelse af 22. januar 2021, j.nr. 18/05771 m.fl. (vindmøller)
+## PKN afgørelse af 22. januar 2021, j.nr. 18/05771 m.fl. (vindmøller)
 
 Nævnet vurderede, at lovens minimumskrav til beskrivelse af alternativer var opfyldt.
 
@@ -2746,7 +2449,7 @@ vælge de alternativer, der har været behandlet
 fravælge
 at behandle bestemte alternativer.
 
-PKN afgørelse af 17. december 2020, j.nr. 18/06454 m.fl. (vindmøller)
+## PKN afgørelse af 17. december 2020, j.nr. 18/06454 m.fl. (vindmøller)
 
 Nævnet udtalte, at
 
@@ -2775,7 +2478,7 @@ I lovliggørelsessituationer vil referencealternativet altid være den eksistere
 
 I nogle tilfælde vil en tilbagevenden til den eksisterende miljøtilstand ikke være mulig eller vil ikke kunne opnå tilladelse.
 
-PKN afgørelse af 7. juli 2021, j.nr. 20/12346 m.fl. (vindmøller)
+## PKN afgørelse af 7. juli 2021, j.nr. 20/12346 m.fl. (vindmøller)
 
 Nævnet havde tidligere ophævet kommunens screeningsafgørelse og hjemvist sagen til fornyet behandling med henblik på, at kommunen skulle foretage en konsekvensvurdering og en miljøvurdering af planforslagene samt en fornyet vurdering i forhold til bilag VI-arter.
 
@@ -2789,9 +2492,7 @@ Nævnet fandt ikke grundlag for at tilsidesætte kommunens vurdering i forhold t
 
 Nævnet lagde vægt på, at det fremgik af den sammenfattende redegørelse til miljørapporten, at kommunen forud for igangsætningen af den første planproces for de konkrete vindmøller havde overvejet alternative placeringer af vindmøller.
 
-4.2.3.2.
-
-Fleksibel afgrænsning
+## 4.2.3.2. Fleksibel afgrænsning
 
 Miljøvurderingen er en fortløbende proces og derfor vil fastlæggelse af miljørapportens indhold ofte fortsætte gennem hele processen.
 
@@ -2801,9 +2502,7 @@ Afgrænsningen af miljøvurderingen skal derfor i princippet anses som fleksibel
 
 I praksis vil de fleste forhold dog være på plads i starten af processen.
 
-4.2.3.3.
-
-Afgrænsningsrapport/-notat og høring
+## 4.2.3.3. Afgrænsningsrapport/-notat og høring
 
 På grundlag af lovens bilag 4 skal den planlæggende myndighed udarbejde en afgrænsningsrapport/-notat, hvoraf det fremgår, hvorledes myndigheden påtænker at afgrænse miljøvurderingen, jf. lovens § 11.
 
@@ -2815,9 +2514,7 @@ Det bør ligeledes fremgå hvilke årsager/begrun-delser, den planlæggende mynd
 
 Om høringen over afgrænsningsrapporten henvises der til afsnit 5.
 
-4.2.4.
-
-Miljørapportens indhold
+## 4.2.4. Miljørapportens indhold
 
 På baggrund af den gennemførte høring i forbindelse med afgrænsningen, udarbejdes miljørapporten.
 
@@ -2825,11 +2522,7 @@ Efter lovens § 12, stk. 1, skal miljørapporten indeholde vurderingen af den sa
 
 Grundlaget for miljørapportens vurdering, jf. lovens § 12, stk. 2, er de miljøoplysninger,
 
-65) Miljøvurderingsdirektivets præambel, betragtning 5: ”Vedtagelsen af miljøvurderingsprocedurer i forbindelse med udarbejdelsen af planer og programmer vil gavne erhvervslivet, idet det får en mere ensartet ramme at arbejde indenfor, når de relevante miljøoplysninger inddrages i beslutningsprocessen.
-
-Medtagelse af en bredere række faktorer i beslutningsprocessen vil bidrage til mere bæredygtige og effektive løsninger.
-
-”
+[65)]
 
 som fremgår af lovens bilag 4, og som med rimelighed kan forlanges med hensyntagen til den aktuelle viden og gængse vurderingsmetoder og til, hvor detaljeret planen/programmet er, hvad planen/programmet indeholder, på hvilket trin i et beslutningsforløb planen/programmet befinder sig, og hvorvidt bestemte forhold vurderes bedre på et andet trin i det pågældende forløb.
 
@@ -2839,9 +2532,7 @@ Da miljørapporten med dens vurderinger og oplysninger samt udkastet til planen/
 
 I modsat fald kan det betyde, at miljørapporten eventuelt må justeres og høringsperioden forlænges.
 
-4.2.4.1.
-
-Inddragelse af konsekvensvurdering efter habitatbekendtgørelsen
+## 4.2.4.1. Inddragelse af konsekvensvurdering efter habitatbekendtgørelsen
 
 Hvis planen/programmet udløser krav om en konsekvensvurdering efter habitatbekendtgørelsen, jf. lovens § 8, stk. 1, nr. 2, skal denne vurdering inddrages i miljøvurderingen.
 
@@ -2867,9 +2558,7 @@ Hvis habitatreglerne bliver aktuelle i den konkrete sag, vil der skulle ske en s
 
 Der henvises til afsnit 4.1.2. herom.
 
-4.2.4.2.
-
-Miljøstatus, miljøproblemer og miljømål
+## 4.2.4.2. Miljøstatus, miljøproblemer og miljømål
 
 Det fremgår af lovens bilag 4, at miljørapporten skal indeholde
 
@@ -2911,7 +2600,7 @@ Endvidere beskrives i miljørapporten
 
 d) ethvert eksisterende miljøproblem, som er relevant for planen/programmet, herunder navnlig problemer på områder af særlig betydning for miljøet som f.eks. de områder, der er udpeget efter habitatdirektivet.
 
-66) Direktiv 2009/147/EF og 92/43/EØF.
+[66)]
 
 Hermed er det sikret, at det i miljørapporten for en plan/et program skal indgå oplysninger om ethvert eksisterende miljøproblem, som er relevant for planen, herunder navnlig problemer på områder af særlig betydning for miljøet, som f.eks. de områder, der er udpeget efter direktiv habitatdirekivet, det vil sige Natura 2000-områder.
 
@@ -2925,9 +2614,7 @@ For at synliggøre planen/programmets miljømæssige samspil med allerede fastsa
 
 e) de miljøbeskyttelsesmål, der er fastlagt på internationalt plan, fællesskabsplan eller medlemsstatsplan herunder regionalt og lokalt niveau, og som er relevante for planen/programmet, og hvordan der under udarbejdelsen af den/det er taget hensyn til disse mål og andre miljøhensyn.
 
-4.2.4.3.
-
-Vurdering af konsekvenser
+## 4.2.4.3. Vurdering af konsekvenser
 
 Miljørapporten skal fastlægge, beskrive og vurdere den eller de sandsynlige væsentlige virkninger på miljøet, som må forventes at kunne opstå som følge af planens/programmets vedtagelse.
 
@@ -2949,9 +2636,7 @@ Denne del af vurderingen, som er den samlende beskrivelse, kan først gennemfør
 
 Ellers kan indholdet af den samlende vurdering blive en sammenblanding af de øvrige trin, der er nævnt og den samlede beskrivelse og vurdering.
 
-4.2.4.4.
-
-Sekundære, kumulative og synergistiske virkninger
+## 4.2.4.4. Sekundære, kumulative og synergistiske virkninger
 
 Miljørapporten skal indeholde en beskrivelse af de sekundære, kumulative, synergistiske, kort-, mellem- og langsigtede, vedvarende og midlertidige, positive og negative virkninger, hvor
 
@@ -3017,13 +2702,7 @@ Det betyder endvidere, at væsentlige indvirkninger, der ligger uden for planen/
 
 Resultatet, jf. beskrivelsen under afsnit 3.1.2., af en konsekvensvurdering af planen/programmet i forhold til påvirkningen af et Natura 2000-område eller af processen for bilag IV-arter, jf. Metodisk vejledning om artikel 6, stk. 3 og 4, i habitatdirektivet 92/43/EØF,
 
-67) Meddelelse fra Kommissionen, C(2021) 6913 final, 28. september 2021, Vurdering af planer og projekter i forbindelse med Natura 2000-lokaliteter — Metodisk vejledning om artikel 6, stk. 3 og 4, i habitatdirektivet 92/43/EØF.
-
-Se også Kommissionens Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til habitatdirektivet:
-
-https://ec.europa.eu/environment/nature/conservation/species/guidance/index_en.
-
-htm
+[67)]
 
 afsnit 4.2., og den danske habitatvejledning, afsnit 9.6.3., bør ligeledes fremgå af miljørapporten, vedhæftet som bilag.
 
@@ -3035,19 +2714,17 @@ Der henvises i øvrigt til afsnit 4.1.2. om samordnede eller fælles vurderinger
 
 Klagenævnet ser ikke alene på yngle- og rasteområder for bilag IV-arter men også på, om der er taget stilling til eventuelle forstyrrelser og drab af bilag IV-arter:
 
-PKN afgørelse af 15. juli 2021, j.nr. 20/14000 m.fl. (vindmøller)
+## PKN afgørelse af 15. juli 2021, j.nr. 20/14000 m.fl. (vindmøller)
 
 Nævnet finder […], at en miljørapport for vindmøller, som opføres på et sted, hvor der kan forekomme flagermus, skal indeholde oplysninger om, hvorvidt der forventes at kunne forekomme drab af flagermus, jf. habitatdirektivets artikel 12, stk. 1, litra a, og artsfredningsbekendtgørelsens § 10.
 
-PKN afgørelse af 14. december 2020, j.nr. 18/06434 m.fl. (vindmøller)
+## PKN afgørelse af 14. december 2020, j.nr. 18/06434 m.fl. (vindmøller)
 
 Nævnet finder som følge af fuglebeskyttelsesdirektivets artikel 4, stk. 4, 2. pkt., at det i forbindelse med en miljøvurdering af en plan efter omstændighederne skal inddrages, om realiseringen af planen vil medføre sådanne forringelser af levestederne for en given bilag I-fugleart eller trækfugleart, at det kan påvirke arten på bestandsniveau.
 
 Dette uanset, at det planlagte ikke ligger i eller i nærheden af et fuglebeskyttelsesområde.
 
-4.2.4.5.
-
-Planlagte foranstaltninger til at imødegå væsentlig negativ indvirkning
+## 4.2.4.5. Planlagte foranstaltninger til at imødegå væsentlig negativ indvirkning
 
 På grundlag af de foregående beskrivelser og vurderinger vil det først være muligt at tage stilling til og dermed give en dækkende beskrivelse af de:
 
@@ -3067,11 +2744,7 @@ Det vil i forbindelse med udarbejdelsen af den sammenfattende redegørelse være
 
 Når foranstaltninger kan være nødvendige skal det vurderes i forhold til, hvad der betegnes som hierarki herfor
 
-68) I forhold til bilag IV- arter kan det nævnes, at såfremt forebyggende foranstaltninger ikke kan hindre skade på et yngle-rasteområde, skal der søges dispensation/fravigelse.
-
-Se evt.
-
-kommissionens vejledning herom eller den danske vejledning til habitatdirektivet.
+[68)]
 
 :
 
@@ -3097,9 +2770,7 @@ For at understøtte kommunikationen over for beslutningstagere, berørte myndigh
 
 Endelig anbefales, at afværgeforanstaltninger beskrives så specifikt som muligt, så hensigten er klar, og det er muligt at følge op på dem.
 
-4.2.4.6.
-
-Alternativer
+## 4.2.4.6. Alternativer
 
 I det omfang der har været overvejet alternativer, skal disse beskrives, vurderes og fremgå af miljørapporten i form af
 
@@ -3111,7 +2782,7 @@ Endelig skal miljørapporten give en beskrivelse af, hvorledes miljøvurderingen
 
 Klagenævnet har generelt udtalt følgende om alternativer:
 
-PKN afgørelse af 14. december 2021, j.nr. 21/03709
+## PKN afgørelse af 14. december 2021, j.nr. 21/03709
 
 ”Der er ikke i miljøvurderingsloven et krav om, at der skal vælges en bestemt planlægningsmæssig løsning frem for andre.
 
@@ -3137,7 +2808,7 @@ Disse overvejelser indeholder ofte flere forskellige alternativer eller alternat
 
 Det vil derfor i mange tilfælde være en god ide at dokumentere disse overvejelser, idet de senere til belysning af de alternativer, der har været overvejet i forbindelse med planens/programmets tilvejebringelse.
 
-PKN afgørelse af 29. november 2018, j.nr. 18/06201 og 18/06848 (kystbeskyttelsesanlæg)
+## PKN afgørelse af 29. november 2018, j.nr. 18/06201 og 18/06848 (kystbeskyttelsesanlæg)
 
 Nævnet fandt ikke grundlag for at tilsidesætte en lokalplan (som gav mulighed for etablering af kystsikring af Jyllinge Nordmark i form af digeanlæg m.v.) med tilhørende miljørapport bl.a. fordi krav til vurdering af alternativer var opfyldt.
 
@@ -3145,9 +2816,7 @@ I rapporten indgik en vurdering af 0-alternativet og desuden omtaltes forskellig
 
 Det fremgik bl.a., at fælles for de regionale løsninger var, at de anbefaledes i kombination med mindre lokale løsninger frem for enkeltstående lokale løsninger.
 
-4.2.4.7.
-
-Forslag til overvågningsprogram
+## 4.2.4.7. Forslag til overvågningsprogram
 
 Efter lovens § 12, stk. 4, 1. pkt., skal miljørapporten indeholde en beskrivelse af de påtænkte foranstaltninger vedrørende overvågning af de væsentlige indvirkninger på miljøet ved planens eller programmets gennemførelse.
 
@@ -3179,9 +2848,7 @@ Miljørapportens program for overvågning udarbejdes med henblik på at kunne id
 
 Eksisterende overvågningsordninger kan anvendes, i det omfang det er hensigtsmæssigt.
 
-4.2.4.8.
-
-Ikke-teknisk resume
+## 4.2.4.8. Ikke-teknisk resume
 
 Miljørapporten skal indeholde et:
 
@@ -3203,9 +2870,7 @@ overvågningsforanstaltninger.
 
 Den færdige miljørapport offentliggøres sammen med udkastet/forslaget til den samlede plan eller det samlede program, se hertil afsnit 5.
 
-4.2.5.
-
-Sammenfattende redegørelse
+## 4.2.5. Sammenfattende redegørelse
 
 Når høringen af offentligheden, de berørte myndigheder og berørte stater er afsluttet, udarbejdes en sammenfattende redegørelse, jf. lovens § 13, stk. 2.
 
@@ -3241,9 +2906,7 @@ Derudover er der ingen forskel.
 
 Efter udarbejdelse af den sammenfattende redegørelse og planen/ programmets endelige vedtagelse, offentliggøres planen/programmet og den sammenfattende redegørelse, se nærmere i afsnit 5.
 
-4.2.6.
-
-Afgørelse som afslutning på miljøvurderingsprocessen?
+## 4.2.6. Afgørelse som afslutning på miljøvurderingsprocessen?
 
 I modsætning til miljøvurdering af konkrete projekter er der hverken i miljøvurderingsdirektivet eller loven en bestemmelse, som fastsætter, at myndigheden skal træffe en afgørelse i forbindelse med miljøvurderingen af en plan/et program.
 
@@ -3251,9 +2914,7 @@ Når forslaget til planen eller programmet har været i høring og den sammenfat
 
 Se nærmere om klagereglerne i afsnit 6.
 
-4.3.
-
-Screening af plan/program
+## 4.3. Screening af plan/program
 
 En screening efter lovens § 10 af planer/ programmer skal gennemføres, før planen/programmet udstedes/vedtages endeligt.
 
@@ -3283,9 +2944,7 @@ Det afgørende er, at myndigheden, når den skal træffe en screeningsafgørelse
 
 Det bemærkes, at en afgørelse efter lovens § 10 om, at myndigheden ikke skal gennemføre en miljøvurdering, kan påklages, se herom afsnit 6.1.2.
 
-4.3.1.
-
-Særligt om planer der kan påvirke Natura 2000-områder
+## 4.3.1. Særligt om planer der kan påvirke Natura 2000-områder
 
 Planer/programmer, som på grundlag af en væsentlighedsvurdering efter habitatreglerne ikke kan udelukkes at kunne påvirke et udpeget internationalt naturbeskyttelsesområde væsentligt, vil være planer/programmer, som allerede i henhold til lovens § 8, stk. 1, nr. 2, obligatorisk skal miljøvurderes.
 
@@ -3293,11 +2952,9 @@ Vær opmærksom på, at en plan/program normalt ikke kan gennemføres, hvis en k
 
 Derudover bemærkes det, at implementeringen af habitatdirektivet er en horisontal implementering, hvorfor der for de konkrete planer/programmer inden for det enkelte ressortområde kan være fastsat relevante habitatbestemmelser som f.eks. habitatbekendtgørelsen.
 
-69) Bekendtgørelse nr. 2091 af 12. november 2021 om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter § 8, stk. 8.
+[69)]
 
-4.3.2.
-
-Myndighedens screening af planen/programmet
+## 4.3.2. Myndighedens screening af planen/programmet
 
 Når myndigheden skal foretage en screening af en plan/program, sker dette på grundlag af kriterierne i lovens bilag 3.
 
@@ -3311,7 +2968,7 @@ Der er en konkret vurdering
 
 Nedenfor gennemgås en række klagenævnsafgørelser, hvor spørgsmålet om screeningens omfang har været prøvet.
 
-PKN afgørelse af 3. juli 2020, j.nr. 18/06070 (påvirkning af flagermus)
+## PKN afgørelse af 3. juli 2020, j.nr. 18/06070 (påvirkning af flagermus)
 
 ”Officialprincippet indebærer […] ikke en pligt til at myndigheder – i alle typer sager – altid skal foretage besigtigelser, tilsyn, undersøgelser eller indhente artslister, da dette afhænger af den konkrete sag.
 
@@ -3343,7 +3000,7 @@ Det kan være vanskeligt at foretage en vurdering af et bestemt emne nævnt i bi
 
 Der er imidlertid meget snævre grænser for at udskyde en vurdering af miljøpåvirkninger af et emne nævnt i bilag 3.
 
-Natur- og Miljøklagenævnets afgørelse af 12. marts 2013, j.nr. NMK-41-00002 (projektlokalplan)
+## Natur- og Miljøklagenævnets afgørelse af 12. marts 2013, j.nr. NMK-41-00002 (projektlokalplan)
 
 En kommune havde valgt at udskyde vurderingen af en lokalplans påvirkning af et § 3 område til en senere miljøvurdering af det konkrete projekt.
 
@@ -3357,7 +3014,7 @@ Det har dog i nogle tilfælde betydning, om kommunen har forsøgt at imødegå e
 
 problemer via planlægning, og om det må forventes, at eventuelle problemer håndteres efter miljølovgivningen.
 
-PKN afgørelse af 7. april 2021, j.nr. 20/11167 (jordforurening)
+## PKN afgørelse af 7. april 2021, j.nr. 20/11167 (jordforurening)
 
 (afsnit 3.4.2. i afgørelsen): Nævnet fandt, at kommunen havde foretaget den fornødne vurdering af jordforurening i forbindelse med screeningen.
 
@@ -3373,7 +3030,7 @@ Det fremgik endvidere af screeningen, at der skal søges særskilt tilladelse ti
 
 Nævnet lagde også vægt på, at der med lokalplanen ikke skete en yderligere udledning af forurening til jorden, da der var tale om boligbebyggelse.
 
-PKN afgørelse af 15. maj 2019, j.nr. 18/07256 (jordforurening)
+## PKN afgørelse af 15. maj 2019, j.nr. 18/07256 (jordforurening)
 
 (afsnit 2.4.3. i afgørelsen): Nævnet fandt, at screeningen var gennemført korrekt.
 
@@ -3383,7 +3040,7 @@ Kommunen havde således bl.a. været bekendt med den konkrete ikke ubetydelige f
 
 Nævnet fandt heller ikke grundlag for at tilsidesætte kommunens faglige vurdering af, at der ikke var tale om en så væsentlig påvirkning af miljøet, at der var pligt til at udarbejde en miljøvurdering.
 
-PKN afgørelse af 23. april 2021, j.nr. 18/09945 (afledning af regnvand)
+## PKN afgørelse af 23. april 2021, j.nr. 18/09945 (afledning af regnvand)
 
 (afsnit 3.4.7. i afgørelsen): Kommunen havde forud for vedtagelsen af planforslag om etablering af et boligområde foretaget en screening og truffet afgørelse om, at der ikke skulle gennemføres en miljøvurdering.
 
@@ -3401,7 +3058,7 @@ Der var desuden udlagt et areal til etablering af regnvands/nedsivningsbassin, h
 
 Det fremgik endvidere af screeningsskemaet, at området var velegnet til nedsivning.
 
-PKN afgørelse af 17. februar 2021, j.nr. 19/08888 (afledning af regnvand)
+## PKN afgørelse af 17. februar 2021, j.nr. 19/08888 (afledning af regnvand)
 
 (afsnit 3.4.6. i afgørelsen): Nævnet fandt, at der ikke var grundlag for at tilsidesætte en screeningafgørelse om, at plangrundlag for et nyt boligområde ikke krævede en miljøvurdering.
 
@@ -3417,15 +3074,13 @@ De nærmere detailkrav til et eventuelt regnvandsbassin skulle som udgangspunkt 
 
 Nævnet fandt ikke, at lokalplanen havde en sådan karakter.
 
-PKN afgørelse af 21. december 2021, j.nr. 18/05980 m.fl. (mikroplast) (også omtalt i afsnit 4.1.3.)
+## PKN afgørelse af 21. december 2021, j.nr. 18/05980 m.fl. (mikroplast) (også omtalt i afsnit 4.1.3.)
 
 (afsnit 4.1.3. i afgørelsen): Sagen vedrørte bl.a. en klage over, at miljørapporten ikke belyste konsekvenserne for udledning af miljøskadelige stoffer, herunder mikroplast, fra en kunstgræsbane, som ville blive udskyllet i en beskyttet sø.
 
 Nævnet vurderede, at miljørapporten skulle have indeholdt oplysninger om den sandsynlige væsentlige indvirkning på miljøet i forhold til udledning af miljø- og sundhedsskadelige stoffer.
 
-4.3.3.
-
-Screeningskriterierne i bilag 3
+## 4.3.3. Screeningskriterierne i bilag 3
 
 Den konkrete vurdering tager udgangspunkt i planens/programmets karakteristika, som er beskrevet på grundlag af lovens bilag 3, nr. 1, om
 Planernes og programmernes karakteristika
@@ -3462,9 +3117,7 @@ I nogle tilfælde vil påvirkning af alene et kriterie være tilstrækkeligt til
 
 Kriterierne i lovens bilag 3 er inddelt i to kategorier:
 
-4.3.3.1.
-
-Planernes/programmernes karakteristika, jf. lovens bilag 3
+## 4.3.3.1. Planernes/programmernes karakteristika, jf. lovens bilag 3
 
 I hvilket omfang planen/programmet kan danne grundlag for projekter og andre aktiviteter med hensyn til beliggenhed, art, størrelse og driftsbetingelser eller ved tildeling af midler
 
@@ -3509,9 +3162,7 @@ Planens/programmets relevans for gennemførelsen af anden miljølovgivning, der 
 
 Såvel positive som negative bidrag til gennemførelse af EU-miljølovgivning i sin helhed skal tages i betragtning.
 
-4.3.3.2.
-
-Kendetegn ved indvirkningen og det område, som kan blive berørt, jf. lovens bilag 3
+## 4.3.3.2. Kendetegn ved indvirkningen og det område, som kan blive berørt, jf. lovens bilag 3
 
 -
 
@@ -3553,11 +3204,9 @@ intensiv arealudnyttelse
 
 indvirkningen på områder eller landskaber, som har en anerkendt beskyttelsesstatus på nationalt plan, fællesskabsplan eller international plan.
 
-4.3.3.3.
+## 4.3.3.3. Eksempler på klagenævnenes praksis
 
-Eksempler på klagenævnenes praksis
-
-Natur- og Miljøklagenævnets afgørelse af 14. juli 2014, j.nr. NMK-33-02174 og NMK-41-00190 (trafik)
+## Natur- og Miljøklagenævnets afgørelse af 14. juli 2014, j.nr. NMK-33-02174 og NMK-41-00190 (trafik)
 
 Kommunen ønskede at planlægge for en multihal i et område, der i en eksisterende plan var fastlagt til anden anvendelse.
 
@@ -3569,7 +3218,7 @@ Det fremgik heller ikke, hvilke trafikale påvirkninger eller øvrige påvirknin
 
 Nævnet fandt derfor, at kommunens screening var mangelfuld, da det ikke var muligt at vurdere hvilke miljøpåvirkninger, der lå til grund for kommunens screening for miljøvurdering, og afgørelsen blev hjemvist til fornyet behandling.
 
-Naturklagenævnets afgørelse (omtalt i NKO 461, januar 2009), j.nr. NKN-261-00031 (§ 3-områder)
+## Naturklagenævnets afgørelse (omtalt i NKO 461, januar 2009), j.nr. NKN-261-00031 (§ 3-områder)
 
 Kommunen ønskede at udvide en campingplads med indtil 50 campinghytter, hvilket nødvendiggjorde inddragelse af et areal, der var omfattet af naturbeskyttelseslovens § 3 (strandenge, enge og mosearealer).
 
@@ -3579,7 +3228,7 @@ Nævnet fandt ikke, at kommunens screening i tilstrækkeligt omfang havde taget 
 
 Dette fandt nævnet var en væsentlig mangel og kommunens afgørelse var som følge deraf ugyldig.
 
-Natur- og Miljøklagenævnets afgørelse af 12. oktober 2012 (omtalt i NoMo nr. 100, januar 2013), j.nr. NMK -41-00096 (landskab og kultur)
+## Natur- og Miljøklagenævnets afgørelse af 12. oktober 2012 (omtalt i NoMo nr. 100, januar 2013), j.nr. NMK -41-00096 (landskab og kultur)
 
 Kommunen havde vurderet, at planforslaget, som muliggjorde etablering af et nyt erhvervsområde op til Dybbøl Banke, ikke skulle miljøvurderes, fordi forslaget ikke kunne få væsentlig indvirkning på miljøet.
 
@@ -3589,7 +3238,7 @@ Området havde således karakter af et nationalt monument.
 
 Planforslaget berørte således væsentlige interesser, hvorfor formålet med miljøvurderingsreglerne tilsagde, at der skulle gennemføres en miljøvurdering af planen.
 
-PKN afgørelse af 26. marts 2018, j.nr. MK-41-00414 (skyggediagrammer)
+## PKN afgørelse af 26. marts 2018, j.nr. MK-41-00414 (skyggediagrammer)
 
 En kommune havde truffet screeningsafgørelse om, at der ikke skulle foretages en miljøvurdering af en lokalplan og et kommuneplantillæg for et mindre byområde.
 
@@ -3605,7 +3254,7 @@ Der er ikke efter loven krav om, at der i forbindelse med en screening skal udar
 
 I den konkrete sag fandt nævnet, at kommunen med de udarbejdede skyggediagrammer med tilhørende forklaringer havde haft det fornødne grundlag for at vurdere skyggevirkningerne på det område, som kunne blive berørt, herunder under hensyn til indvirkningens varighed, størrelsesorden og rumlige udstrækning, jf. lovens bilag 2.
 
-PKN afgørelse af 14. maj 2018, j.nr. NMK-41-00409 (trafik)
+## PKN afgørelse af 14. maj 2018, j.nr. NMK-41-00409 (trafik)
 
 En kommune havde truffet screeningsafgørelse om, at der ikke skulle foretages miljøvurdering af en lokalplan for bl.a. etablering af over 90 boliger på et areal, hvor der tidligere havde været et sygehus.
 
@@ -3633,9 +3282,7 @@ Nævnet fandt ikke, at det kunne udelukkes, at etableringen af boliger med 93 le
 
 Nævnet fandt derfor ikke, at kommunen i tilstrækkeligt omfang havde taget hensyn til kriterierne i lovens bilag 2 (nu bilag 3), eller at dette i så fald var blevet tilstrækkeligt begrundet i screeningsafgørelsen.
 
-4.3.4.
-
-Screeningsafgørelsen
+## 4.3.4. Screeningsafgørelsen
 
 Efter høring af berørte myndigheder og på grundlag screeningen kan myndigheden i screeningsafgørelsen nå frem til
 enten,
@@ -3645,9 +3292,7 @@ eller
 
 Der er lidt forskellige krav til de to former for screeningsafgørelser og derfor gennemgås de hver for sig neden for.
 
-4.3.4.1.
-
-Screeningsafgørelse om at der ikke skal gennemføres en miljøvurdering
+## 4.3.4.1. Screeningsafgørelse om at der ikke skal gennemføres en miljøvurdering
 
 Hvis myndigheden efter høring af berørte myndigheder og på grundlag af screeningen finder, at udkastet til planen/programmet ikke vil kunne få væsentlig indvirkning på miljøet, skal myndigheden efter lovens § 10 træffe afgørelse om, at planen/programmet ikke skal miljøvurderes.
 
@@ -3657,7 +3302,7 @@ Loven angiver ikke særlige krav til screeningafgørelsens indhold, men afgørel
 
 Screeningsafgørelsen om, at der ikke skal gennemføres en miljøvurdering, er en forvaltningsretlig afgørelse.
 
-PKN afgørelse af 10. juli 2018, j.nr. NMK-41-00569 (begrundelse)
+## PKN afgørelse af 10. juli 2018, j.nr. NMK-41-00569 (begrundelse)
 
 Nævnet traf beslutning om, at en kommunes afgørelse om ikke-miljøvurdering af en lokalplan, savnede den fornødne begrundelse herunder den nødvendige henvisning til kriterierne i lovens bilag 3.
 
@@ -3677,7 +3322,7 @@ Nævnet afgjorde på denne baggrund, at tilvejebringelsen og vedtagelsen af de k
 
 PKN har i en senere afgørelse, se nedenfor, generelt forholdt sig til, hvad der nærmere kan forlanges i forhold til begrundelsen.
 
-PKN afgørelse af 20. december 2021, j.nr. 20/08859
+## PKN afgørelse af 20. december 2021, j.nr. 20/08859
 
 Uanset, at der ikke er fastsat formkrav til screeningsafgørelser, herunder udtrykkelige krav til begrundelsen for disse, fandt nævnet, at der må stilles krav til begrundelsen således, at der ikke kan opstå tvivl om, hvilke karakteristika ved planen og kendetegn ved indvirkningen og det område, som kan blive berørt, der er indgået i kommunens miljøscreening, jf. lovens bilag 3.
 
@@ -3715,9 +3360,7 @@ En klagevejledning, se forslag til en sådan i bilag 2 til denne vejledning
 
 I øvrigt henvises til afsnit 5 om offentliggørelse og afsnit 6 for de nærmere regler om klage.
 
-4.3.4.2.
-
-Screeningsafgørelse om at der skal gennemføres en miljøvurdering
+## 4.3.4.2. Screeningsafgørelse om at der skal gennemføres en miljøvurdering
 
 I modsætning til afgørelsen om, at
 der ikke skal
@@ -3729,7 +3372,7 @@ En procesledende beslutning er beslutninger, som træffes i forbindelse med bl.a
 
 Sådanne beslutninger fastsætter ikke, hvad der er eller skal være ret ved typisk at afslutte sagen og derfor er de ikke afgørelser i forvaltningslovens forstand.
 
-70) https://www.ombudsmanden.dk/myndighedsguiden/generel-forvaltningsret/afgoerelsesbegrebet/, afsnit 5.
+[70)]
 
 En screeningsafgørelse om, at der skal gennemføres en miljøvurdering, er derfor ikke en afgørelse, som er underlagt de samme formkrav, som afgørelsen om, at der ikke skal gennemføres en miljøvurdering, jf. oven for afsnit 4.3.4.1.
 
@@ -3739,7 +3382,7 @@ Myndigheden kan, i stedet for afgrænsning, vælge at tilpasse forslaget til pla
 
 Såfremt der ændres andre forhold end dem, der er peget på under høringen af de berørte myndigheder, kan myndigheden derefter høre berørte myndigheder og screene igen med henblik på at afklare, om tilpasningen medfører, at forslaget ikke skal underkastes en miljøvurdering.
 
-Afsnit 5: Oplysninger, høringer og offentliggørelse
+## Afsnit 5: Oplysninger, høringer og offentliggørelse
 
 I dette afsnit er der beskrevet følgende:
 
@@ -3759,9 +3402,7 @@ Hvad er høringsfristerne?
 
 Hvor skal materialet offentliggøres?
 
-5.1.
-
-Hvem har ret til at modtage oplysninger og deltage i høringer?
+## 5.1. Hvem har ret til at modtage oplysninger og deltage i høringer?
 
 Med udgangspunkt i lovens § 32, stk. 1, beskrives i det følgende:
 
@@ -3789,9 +3430,7 @@ Disse organisationer kan have viden om vigtige lokale miljømæssige forhold, so
 
 For planer på havet kan det være relevant at høre rørledningsejere eller rettighedshavere, der har en rettighed i det pågældende område og fiskeriforeningen.
 
-5.1.1.
-
-Offentligheden
+## 5.1.1. Offentligheden
 
 Loven definerer begrebet ’offentligheden således, jf. lovens § 5, nr. 1:
 
@@ -3826,9 +3465,7 @@ Forudsætningen er, at den konkrete forening og organisation har vedtægter elle
 
 Fristen for høring af offentligheden fremgår af lovens § 32 og er nærmere beskrevet i afsnit 5.3.
 
-5.1.2.
-
-Parter
+## 5.1.2. Parter
 
 Partsbegrebet er et spørgsmål om, at fysiske eller juridiske personer vil blive berørt af en plan/et program, som medfører, at de vil have en væsentlig individuel interesse i udformningen heraf.
 
@@ -3842,7 +3479,7 @@ For grundejere, andelshavere og lejere kan der være mange berørte, men sædvan
 
 Der kan således f.eks. inden for en gruppe af berørte grundejere foretages en opdeling mellem berørte grundejere og grundejere, som til sammenligning med de berørte grundejere, vil have en væsentlig og individuel interesse, der udløser partsstatus efter forvaltningsloven i den konkrete sag.
 
-PKN afgørelse af 3. juli 2020, j.nr. 18/06070
+## PKN afgørelse af 3. juli 2020, j.nr. 18/06070
 
 (afsnit 3.5.1.-2. i afgørelsen): Nævnet bemærker indledningsvis, at lokalplanområdet er opdelt i to delområder, hvor klagerens ejendom ligger ca. 100 m fra det vestlige område og ligger umiddelbart skråt over for det østlige område, således at klagerens ejendom ligger lige op til hjørnet af lokalplanområdet.
 
@@ -3864,7 +3501,7 @@ i 1 ½ etager, hvilket ikke medfører væsentlige gener for klageren, herunder s
 
 Kommunen har således ikke været forpligtet til at angive en henvisning til retsgrundlaget for afgørelsen (lokalplanen) over for klageren, jf. forvaltningslovens § 24.
 
-PKN afgørelse af 29. juni 2020, j.nr. 18/05816
+## PKN afgørelse af 29. juni 2020, j.nr. 18/05816
 
 (afsnit 3.4.3. i afgørelsen): Nævnet finder ikke, at klageren i den aktuelle sag, som et fællesråd, kan anses for parter i sagen.
 
@@ -3874,7 +3511,7 @@ Det følger af § 4, stk. 4, af miljøvurderingsloven fra 2015, at hvis kommunen
 
 Bekendtgørelsen skal indeholde oplysning om, i hvilket omfang afgørelsen kunne påklages og fristen herfor.
 
-PKN afgørelse af 19. oktober 2018, j.nr. 18/06298
+## PKN afgørelse af 19. oktober 2018, j.nr. 18/06298
 
 (afsnit 3.4.1. i afgørelsen):
 
@@ -3884,9 +3521,7 @@ Nævnet finder derfor heller ikke, at kommunen burde have foretaget partshøring
 
 Frister for høring af parter efter forvaltningsloven følger den gældende praksis herfor, herunder den som følger af Folketingets Ombudsmands udtalelser og domstolenes retspraksis.
 
-5.1.3.
-
-Berørte myndigheder
+## 5.1.3. Berørte myndigheder
 
 Loven anvender begrebet ’berørte myndigheder’, jf. lovens § 5, nr. 2.
 
@@ -3984,9 +3619,7 @@ Fristen for høring af berørte myndigheder er i lovens § 32, stk. 5, angivet s
 
 En passende frist skal fastsættes under hensyntagen til planens/programmets art, omfang, kompleksitet og anvendelsesområde samt formålet med miljøvurderingen, jf. lovens § 32, stk. 5, 2. pkt. Fristen kan også aftales i direkte dialog mellem miljøvurderingsmyndigheden og den berørte myndighed.
 
-5.1.4.
-
-Berørte stater og deres inddragelse i miljøvurderingsprocessen
+## 5.1.4. Berørte stater og deres inddragelse i miljøvurderingsprocessen
 
 En plan/et program kan have en indvirkning på miljø, som ligger uden for Danmarks territorium.
 
@@ -3996,22 +3629,21 @@ Såvel i EU som i international ret er der regler for, hvordan staterne konkret 
 
 Inddragelse af berørte stater i miljøvurderingsprocessen fremgår af en international aftale – SEAprotokollen
 
-71) Implementeret i dansk ret ved Bekendtgørelse nr. 13 af 10. august 2017 af protokol af 21. maj 2003 om strategisk miljøvurdering til konventionen af 25. februar 1991 om vurdering af virkningerne på miljøet på tværs af landegrænserne.
+[71)]
 
 under Espookonventionen – som både Danmark og EU
 
-72) EU har ratificeret Espookonventionen den 24. juni 1997 og SEAprotokollen den 12. november 2008.
+[72)]
 
 har skrevet under på og ratificeret.
 
-73) Konventionen og Protokollen er indgået i regi af UNECE, hvilket er United Nations Economic Commission for Europe:
-https://unece.org/
+[73)]
 
 Når EU tiltræder en international aftale, fremgår det af TEUF artikel 216, stk. 2, at de aftaler, som Unionen indgår, er bindende for EU-institutionerne og medlemsstaterne.
 
 Samtidig har det været EU-lovgivers udtrykkelige ønske at sikre, at SEA-protokollens regler styrkes gennem miljøvurderingsdirektivet.
 
-74) Miljøvurderingsdirektivet (2001/42/EF) betragtning 7.
+[74)]
 
 Med artikel 7 i miljøvurderingsdirektivet er reglerne for navnlig høring af berørte stater, som de fremgår af SEAprotokollen indarbejdet i miljøvurderingsprocessen for planer/programmer og dermed også implementeret i lovens § 38.
 
@@ -4019,9 +3651,7 @@ SEAprotokollen indeholder dog også andre bestemmelser, som danner grundlag for 
 
 Disse procedurer omtales under afsnit 5.1.4.8.-9.
 
-5.1.4.1.
-
-Hvem er berørte stater
+## 5.1.4.1. Hvem er berørte stater
 
 Det fremgår af SEAprotokollens artikel 10, stk. 1, at en stat anses for berørt, når
 
@@ -4045,27 +3675,15 @@ Myndigheden skal derfor tage kontakt til Miljøministeriet, der er Point of Cont
 
 Konkret er denne kompetence delegeret til Miljøstyrelsen, se mere under afsnit 5.1.4.2.
 
-5.1.4.2.
-
-Point of Contact (PoC) og Focal Point (FP)
+## 5.1.4.2. Point of Contact (PoC) og Focal Point (FP)
 
 For at lette andre staters myndigheders indgang til de rette nationale myndigheder, har parterne til Espookonventionen truffet beslutning om, at der skal udpeges ét kontaktpunkt i hver stat.
 
-75) Afgørelse I/3 Points of Contact under Espookonventionen.
-
-Denne afgørelse gælder også for SEAprotokollen.
-
-Der kan aftales særlige ordninger bilateralt eller multilateralt mellem stater.
-
-Såfremt der ikke er udpeget Point of Contact vil den rette modtager af henvendelser fra andre stater eller UNECE være Udenrigsministeriet.
+[75)]
 
 Kontaktpunktet varetages i Danmark af Miljøministeriet og er opdelt på henholdsvis Point of Contact (PoC) og Focal Point of Administrative Matters (FP).
 
-76) 2.
-
-Meeting of the Signatories to the Convention (ENVWA/WG.
-
-3/4, paragraph 21 (d)).
+[76)]
 
 Point of Contact-kompetencen har miljøministeren delegeret til Miljøstyrelsen.
 
@@ -4093,9 +3711,7 @@ Kompetencen som Focal Point for Administrative Matters varetages af Miljøminist
 
 Kompetencen indebærer deltagelse i aktiviteter relateret til implementeringen af SEAprotokollen.
 
-5.1.4.3.
-
-Hvordan inddrages stater i miljøvurderingen?
+## 5.1.4.3. Hvordan inddrages stater i miljøvurderingen?
 
 Når en myndighed i Danmark skal udarbejde en plan/et program og myndigheden vurderer, at planen eller programmet kan have betydning eller kan få væsentlige indvirkninger på miljøet i en eller flere stater, skal myndigheden tage kontakt til Miljøstyrelsen med henblik på særligt at afklare:
 
@@ -4135,22 +3751,13 @@ Det er således den berørte stat, der vurderer, om planen/programmet kan forven
 
 Såfremt den danske myndighed fortsat er uenig i, at den pågældende stat kan være berørt af planen/programmet, skal der gennemføres et samråd, se mere under afsnit 5.1.4.8.
 
-5.1.4.4.
-
-Notifikation af berørte stater
+## 5.1.4.4. Notifikation af berørte stater
 
 Hvis en myndighed sammen med Miljøstyrelsen vurderer, at det ikke kan udelukkes, at en plan/et program kan have væsentlige grænseoverskridende indvirkninger på miljøet, eller den berørte stat selv har bedt om at blive inddraget i høringsprocessen, foretager Miljøstyrelsen en notifikation af den eller de berørte stat(er).
 
 En notifikation er et officielt processkridt i form af en meddelelse fra én stat til en anden.
 
-77) Parterne til SEAprotokollen har vedtaget et særligt format for notifikationen:
-https://unece.org/DAM/env/eia/decisions/Decision II.
-
-7.
-
-.
-
-pdf
+[77)]
 
 Meddelelsen indeholder følgende oplysninger:
 
@@ -4182,7 +3789,7 @@ Notifikationen – som udarbejdes af den planlæggende myndighed – skal foreta
 
 De berørte stater, der skal have en passende frist
 
-78) Ved fastsættelsen af denne frist skal indregnes den/de berørte stat(er)s mulighed for at konsultere relevante miljø- og sundhedsmyndigheder samt at træffe beslutning om, hvorvidt den/de berørte stat(er) ønsker at deltage i den videre miljøvurderingsproces
+[78)]
 
 til at tilkendegive, om de vil deltage i processen og til at afgive høringssvar, sender svar til Miljøstyrelsen, som videresender svarene til den myndighed i Danmark, der forestår miljøvurderingen.
 
@@ -4196,21 +3803,9 @@ Dette skyldes, at der kan være andre tidsfrister i sektorlovgivningen, som sæt
 
 Det vil således være op til den planlæggende myndighed at vurdere, de tidsmæssige aspekter i forhold til høringer samt at konsultere Miljøstyrelsen ved tilrettelæggelsen af grænseoverskridende høringer.
 
-79) Practical guidance on reforming legal and institutional structures with regard to the application of the Protocol on Strategic Environmental Assessment
-, UNECE 2017:
-https://unece.org/DAM/env/eia/Publications/2017/ece.mp.eia.wg.
+[79)]
 
-2.2016.
-
-INF.
-
-9 EN draft practical guidance on reforms FINAL rev LAY OUT 27.05 cover .
-
-pdf
-
-5.1.4.5.
-
-Konsultationsbrevet til berørte stater ved høring over miljørapporten
+## 5.1.4.5. Konsultationsbrevet til berørte stater ved høring over miljørapporten
 
 Når myndigheden har udarbejdet miljørapporten for planforslaget, skal materialet i høring.
 
@@ -4230,8 +3825,7 @@ Der er ikke fra UNECEs side krav om oversættelse til et bestemt sprog, blot all
 
 De berørte stater skal også blive enige om, hvem der afholder udgiften til oversættelse, hvilke dokumenter der skal oversættes, hvem der er ansvarlig for oversættelsen osv.
 
-80) For flere oplysninger omkring oversættelse af dokumenter henvises til UNECEs guideline til den praktiske anvendelse af Espookonventionen, som også gælder for SEAprotokollen:
-https://www.unece.org/fileadmin/DAM/env/eia/documents/practical guide/practical guide.pdf
+[80)]
 
 Også den danske offentlighed har brug for at vide, hvilke grænseoverskridende miljøpåvirkninger planen/programmet kan have.
 
@@ -4245,9 +3839,7 @@ Også her gælder, at der skal fastsættes en passende frist for de berørte sta
 
 De høringssvar, som de berørte stater afgiver, fremsendes til Miljøstyrelsen, som videresender dem til den myndighed, som forestår miljøvurderingsprocessen.
 
-5.1.4.6.
-
-Høringsfristen for berørte stater
+## 5.1.4.6. Høringsfristen for berørte stater
 
 Det fremgår ovenfor, at der fastsættes en passende frist for høring af berørte stater.
 
@@ -4255,17 +3847,13 @@ Som udgangspunkt bør der fastsættes en frist for høring af berørte stater, s
 
 Det er derfor vigtigt, at der i forbindelse med planlægningen af arbejdet med miljøvurderingen sættes tid af til at gennemføre de grænseoverskridende høringer, som skal ske samtidig med de danske høringer.
 
-5.1.4.7.
-
-Hvem foretager høringen af de berørte stater?
+## 5.1.4.7. Hvem foretager høringen af de berørte stater?
 
 Det vil være de berørte stater, der selv bestemmer, hvem der konkret skal høres over en plan/et program.
 
 Det afhænger således af nabostaternes nationale ordninger, men det vil oftest være berørte myndigheder og den berørte offentlighed, dvs. miljøorganisationer, men efter omstændighederne kan der også gennemføres en høring af den brede offentlighed.
 
-5.1.4.8.
-
-Afholdelse af samråd/dialog og den videre proces
+## 5.1.4.8. Afholdelse af samråd/dialog og den videre proces
 
 Efter SEAprotokollens artikel 20 finder artikel 15 i Espookonventionen anvendelse, hvis der opstår uenighed mellem to eller flere parter om fortolkningen eller anvendelsen af konventionen.
 
@@ -4334,9 +3922,7 @@ I forbindelse med den endelige beslutning om vedtagelse/godkendelsen af planen/p
 
 Herefter kan PoC-myndigheden give samtykke til, at proceduren er foregået korrekt og at processen med vedtagelse/godkendelse af planen/programmet kan fortsætte, jf. lovens § 38, stk. 1 og 2, jf. dog stk. 3, som undtager kravet om samtykke, hvis der er tale om miljøvurdering af et lovforslag, se mere om miljøvurdering af generel retlig regulering i afsnit 2.1.1.-2., og forordet til vejledningen.
 
-5.1.4.9.
-
-Tvistløsningsmuligheder
+## 5.1.4.9. Tvistløsningsmuligheder
 
 Hvis parterne ikke er enige om håndtering af de væsentlige indvirkninger på miljøet, eller at den berørte stat anser håndteringen af processen for uacceptabel, er der tre spor:
 
@@ -4376,9 +3962,7 @@ Ad 3) National tvistløsningsspor
 
 En berørt stat, eller dennes offentlighed vil have mulighed for at rejse et søgsmål ved de danske domstole, når planmyndigheden har vedtaget planen/programmet.
 
-5.2.
-
-Hvad er forskellen på oplysninger og høringsmateriale?
+## 5.2. Hvad er forskellen på oplysninger og høringsmateriale?
 
 Med udgangspunkt i lovens § 32, stk. 2, og stk. 4, beskrives i det følgende:
 
@@ -4390,9 +3974,7 @@ Hvad er oplysninger
 
 Hvad er høringsmateriale
 
-5.2.1.
-
-Hvad er oplysninger?
+## 5.2.1. Hvad er oplysninger?
 
 Myndigheden skal efter lovens § 32, stk. 1, sikre, at offentligheden, berørte myndigheder og berørte stater informeres tidligt i beslutningsprocessen og senest, så snart oplysningerne med rimelighed kan gives.
 
@@ -4430,9 +4012,7 @@ Det vigtige i denne sammenhæng er blot, at oplysningerne gøres tilgængelige, 
 
 Hvis planen/programmet udarbejdes i henhold til en anden lovgivning, kan der være regler for, hvilke supplerende oplysninger, der skal offentliggøres i forbindelse med høringerne.
 
-5.2.2.
-
-Hvad er høringsmateriale?
+## 5.2.2. Hvad er høringsmateriale?
 
 Når der efter lovens § 32 skal foretages en høring, er det nødvendigt at fremsende eller offentliggøre materiale, som beskriver, hvad der ønskes kommentarer og ideer til.
 
@@ -4440,17 +4020,13 @@ Med udgangspunkt i lovens krav om høring i forbindelse med henholdsvis screenin
 
 Hvis planen/programmet udarbejdes i henhold til en anden lovgivning, kan der være regler for, hvilket supplerende materiale, der skal offentliggøres i forbindelse med høringerne.
 
-5.2.2.1.
-
-Screening
+## 5.2.2.1. Screening
 
 Myndigheden skal gennemføre en høring, hvor de berørte myndigheder kan afgive bemærkninger til forslaget til planen/programmet, eller til myndighedens udkast til screeningsafgørelse, jf. lovens § 32, stk. 3, nr. 1.
 
 Dette kan ske i form af et screeningsskema, der sendes rundt til de berørte myndigheder (herunder til andre afdelinger i kommunen), eller i andre tilfælde udkast til screeningsafgørelse, som opfylder betingelserne til udformningen af en afgørelse efter lovens § 10.
 
-5.2.2.2.
-
-Miljøvurdering
+## 5.2.2.2. Miljøvurdering
 
 Afgrænsningsrapporten/-notatet:
 
@@ -4460,7 +4036,7 @@ Afgrænsningshøringen efter lovens 32, stk. 3, nr. 2, kan ikke erstattes med an
 
 Det betyder, at manglende høring af berørte myndigheder vil være at betragte som en væsentlig mangel i vurderingen af udkastet til planen/programmet.
 
-NKN afgørelse af 8. juni 2005, j.nr. 03-33/150-0320
+## NKN afgørelse af 8. juni 2005, j.nr. 03-33/150-0320
 
 En kommune havde truffet en screeningsafgørelse, hvorefter en lokalplan ikke skulle miljøvurderes.
 
@@ -4486,11 +4062,11 @@ Miljørapporten skal ledsage forslaget til plan/program, når den/det sendes i o
 
 Plan-/programforslag og miljørapport skal således altid følge hinanden og være tilgængelige i hele høringsperioden.
 
-Udkast til screeningsafgørelse
+## Udkast til screeningsafgørelse
 
-Indkaldelse af forslag/afgrænsning af miljørapporten
+## Indkaldelse af forslag/afgrænsning af miljørapporten
 
-Miljørapporten (den færdige version)
+## Miljørapporten (den færdige version)
 
 Offentligheden
 
@@ -4524,9 +4100,7 @@ Afgrænsningsrapporten/-notatet, jf. lovens § 11, § 32, stk. 3, nr. 2, og stk.
 
 Udkast til planen/programmet og miljørapporten, jf. lovens § 12, § 32, stk. 3, nr. 3, og stk. 4, og § 38, stk. 5.
 
-5.3.
-
-Hvad er høringsfristerne?
+## 5.3. Hvad er høringsfristerne?
 
 I dette afsnit beskrives høringsfristerne efter lovens § 32 ved hjælp af et skema.
 
@@ -4540,11 +4114,11 @@ Der er ikke i loven krav om, at de berørte myndigheder får tilsendt de øvrige
 
 Det skal bemærkes, at en 14 dages høringsfrist under alle omstændigheder må anses for at være minimum, jf. også lovens § 35, stk. 5, 2. pkt.
 
-Udkast til screeningsafgørelse
+## Udkast til screeningsafgørelse
 
-Indkaldelse af forslag/afgrænsning af miljørapporten
+## Indkaldelse af forslag/afgrænsning af miljørapporten
 
-Miljørapporten
+## Miljørapporten
 
 Offentligheden
 
@@ -4578,9 +4152,7 @@ Passende frist, jf. lovens § 38, stk. 5, jf. lovens § 32, stk. 5.
 
 Passende frist, jf. lovens § 38, stk. 5, jf. lovens § 32, stk. 5.
 
-5.4.
-
-Hvor skal materialet offentliggøres?
+## 5.4. Hvor skal materialet offentliggøres?
 
 I dette afsnit beskrives offentliggørelse dels under behandlingen af det konkrete forslag til plan/program og tilhørende miljørapport, dels når udkastet er vedtaget/godkendt.
 
@@ -4604,17 +4176,17 @@ Offentliggørelsen skal oplyse om klagereglerne.
 
 Skema over offentliggørelsesmedier efter bekendtgørelsens § 12:
 
-Oplysninger
+## Oplysninger
 
-Høringer
+## Høringer
 
-Vedtagelser/
+## Vedtagelser/
 
-godkendelser af planer/programmer
+## godkendelser af planer/programmer
 
-Screenings-
+## Screenings-
 
-afgørelser, miljørapporter
+## afgørelser, miljørapporter
 
 Plan/program:
 
@@ -4644,11 +4216,9 @@ Planlæggende myndigheds hjemmeside *)
 
 *) Eventuelt også offentliggørelse ved brug af egnede midler, såsom opslag inden for en vis radius af det berørte område for den pågældende plan eller det pågældende program eller ved opslag i lokale medier.
 
-Afsnit 6: Klage og søgsmål og konsekvenser af manglende miljøvurdering
+## Afsnit 6: Klage og søgsmål og konsekvenser af manglende miljøvurdering
 
-6.1.
-
-Klage og søgsmål
+## 6.1. Klage og søgsmål
 
 Bestemmelserne for klage og søgsmål ved domstolene fremgår af lovens kapitel 18.
 
@@ -4678,9 +4248,7 @@ Hvem er klageberettigede?
 
 Har en klage opsættende virkning?
 
-6.1.1.
-
-Hvilke klageregler skal der anvendes?
+## 6.1.1. Hvilke klageregler skal der anvendes?
 
 Udgangspunktet for klage over screening og miljøvurdering af planer/programmer er, at det er klagebestemmelserne i den lovgivning mv., som planen/programmet udarbejdes i henhold til, der finder anvendelse, jf. lovens § 48 stk. 1.
 
@@ -4690,7 +4258,7 @@ Hvis den lovgivning m.v., som planen/programmet udarbejdes på grundlag af, ikke
 
 Et eksempel herpå er affaldsplaner og spildevandsplaner udarbejdet efter miljøbeskyttelsesloven.
 
-MFKN afgørelse af 23. august 2017, j.nr. NMK-10-01214
+## MFKN afgørelse af 23. august 2017, j.nr. NMK-10-01214
 
 Nævnet kan konstatere, at der i det konkrete tilfælde er klaget over et forslag til et tillæg til en spildevandsplan, og ikke en endelig afgørelse.
 
@@ -4698,7 +4266,7 @@ Nævnet bemærker i øvrigt, at kommunens vedtagelse af spildevandsplaner ikke k
 
 Nævnet afviser derfor klagen fra realitetsbehandling.
 
-MFKN afgørelse af 8. september 2020, j.nr. 19/00675
+## MFKN afgørelse af 8. september 2020, j.nr. 19/00675
 
 Det fremgår af lovens § 48, stk. 4, at er planen eller programmet eller ændringer deri ikke udarbejdet i henhold til lov, eller giver den pågældende lov ikke mulighed for klage, kan myndighedens afgørelse, som træffes ved gennemførelsen af en miljøvurdering efter § 8, stk. 1, påklages til nævnet.
 
@@ -4718,9 +4286,7 @@ Miljøvurdering af planer/programmer, der vedtages af Folketinget ved en lovgivn
 
 Her gælder de almindelige betingelser for adgang til prøvelse.
 
-6.1.2.
-
-Hvad kan der klages over?
+## 6.1.2. Hvad kan der klages over?
 
 I forhold til planer/programmer er der to afgørelser, som kan påklages.
 
@@ -4778,9 +4344,7 @@ Dette er en videreførelse af den hidtil gældende ordning på området.
 
 Det, der kan påklages, er alene retlige spørgsmål, jf. beskrivelsen ovenfor.
 
-6.1.3.
-
-Hvor kan der klages til?
+## 6.1.3. Hvor kan der klages til?
 
 Klageproceduren for screeninger og miljøvurderinger af planer/programmer fremgår af Miljø- og Fødevareklagenævnets samt Planklagenævnets hjemmeside.
 
@@ -4790,9 +4354,7 @@ Er der tale om en plan, som udarbejdes i henhold til lov f.eks. planloven, følg
 
 For miljøvurderinger af planer/programmer, der vedtages af Folketinget ved en lovgivningsprocedure, kan der alene klages til domstolene, jf. lovens § 48, stk. 5.
 
-6.1.4.
-
-Hvordan beregnes klagefristen?
+## 6.1.4. Hvordan beregnes klagefristen?
 
 Beregning af klagefristen ved klage over screeningsafgørelser og miljøvurderinger fremgår af lovens § 51.
 
@@ -4810,9 +4372,7 @@ Hvis klagen angår en miljøvurdering af en plan/program, som ikke udarbejdes me
 
 For søgsmål ved domstolene beregnes fristen på 6 måneder fra nævnets afgørelse eller – hvis der er tale om en afgørelse, som ikke kan påklages til nævnet, jf. lovens § 48, stk. 5, – fra offentliggørelsen af den vedtagne plan/program, jf. lovens § 54, stk. 1.
 
-6.1.5.
-
-Hvem er klageberettigede?
+## 6.1.5. Hvem er klageberettigede?
 
 Bestemmelsen i lovens § 50 om klageberettigede svarer med lidt forskellig variation til miljølovgivningens generelle afgrænsning af klageberettigede i øvrigt.
 
@@ -4856,9 +4416,7 @@ repræsenterer mindst 100 medlemmer.
 
 Bestemmelsen er en gennemførelse af Århus Konventionens artikel 9, stk. 2.
 
-6.1.5.1.
-
-Særlige klageregler for visse kystbeskyttelsesprojekter
+## 6.1.5.1. Særlige klageregler for visse kystbeskyttelsesprojekter
 
 Det skal bemærkes, at der gælder en særlig regel for screening for miljøvurdering og miljøvurdering i forhold til kommune- og lokalplaner, der vedrører et kystbeskyttelsesprojekt eller ændring af et kystbeskyttelsesanlæg efter kystbeskyttelseslovens § 1 a.
 
@@ -4870,9 +4428,7 @@ Konsekvensen heraf er, at såfremt en kommune- eller lokalplan omfatter mere end
 
 Miljøvurderingen af øvrige dele af kommune- eller lokalplanen vil imidlertid kunne påklages til Planklagenævnet.
 
-6.1.6.
-
-Har en klage opsættende virkning?
+## 6.1.6. Har en klage opsættende virkning?
 
 Det fremgår af lovens § 48, stk. 2, at myndighedens afgørelse, som træffes ved at gennemføre miljøvurderingen, kan påklages efter reglerne i den lov, planen/programmet udarbejdes i henhold til.
 
@@ -4884,7 +4440,7 @@ Det fremgår af råstoflovens § 16, stk. 8, 2. pkt., at rettidig klage efter §
 
 Råstofplanen vil altså kunne håndhæves under behandlingen af klagesagen, medmindre Miljø- og Fødevareklagenævnet træffer afgørelse om, at klagen har opsættende virkning.
 
-MFKN afgørelse af 5. december 2017, j.nr. NMK-220-00136
+## MFKN afgørelse af 5. december 2017, j.nr. NMK-220-00136
 
 Råstoflovens hovedregel er, at klager over råstofplaner ikke har opsættende virkning.
 
@@ -4908,7 +4464,7 @@ Loven indeholder imidlertid ikke bestemmelser om opsættende virkning for rettid
 
 Det vil derfor være op til Miljø- og Fødevareklagenævnet at tage stilling hertil efter almindelige retlige principper for opsættende virkning.
 
-PKN afgørelse af 16. marts 2018, j.nr. NMK-41-00537
+## PKN afgørelse af 16. marts 2018, j.nr. NMK-41-00537
 
 En klage efter planlovens § 58, stk. 1, nr. 3, har ikke opsættende virkning, jf. § 7, stk. 1, i lov om Planklagenævnet.
 
@@ -4940,7 +4496,7 @@ Der er dog få eksempler på, at klagenævnene har tillagt klager over vedtaget/
 
 Den retlige konsekvens har været, at planen ikke kunne udnyttes, indtil nævnet traf den endelige afgørelse.
 
-PKN afgørelse af 24. april 2018, j.nr. NMK-33-04511
+## PKN afgørelse af 24. april 2018, j.nr. NMK-33-04511
 
 ”Planklagenævnet tillægger klagerne over miljøvurderingen og lokalplanvedtagelsen opsættende virkning.
 
@@ -4968,7 +4524,7 @@ Afgørelsen betyder, at lokalplanen ikke må udnyttes, mens klagesagen verserer.
 
 ”
 
-PKN afgørelse af 7. juli 2021, j.nr. 21/03705 m.fl.
+## PKN afgørelse af 7. juli 2021, j.nr. 21/03705 m.fl.
 
 ”Planklagenævnet lægger ved vurderingen vægt på, om det er overvejende sandsynligt, at der i forbindelse med sagens behandling eller afgørelse er sket en væsentlig overtrædelse af den lovgivning, som Planklagenævnet påser.
 
@@ -5012,9 +4568,7 @@ Afgørelsen betyder, at lokalplanen og kommuneplantillægget ikke må udnyttes, 
 
 Såfremt der er tale om en miljøvurdering af planer/programmer, som vedtages af Folketinget ved en lovgivningsprocedure, jf. lovens § 48, stk. 5, vil det være domstolene, der skal tage stilling til opsættende virkning.
 
-6.2.
-
-De retlige konsekvenser af ingen eller mangelfuld miljøvurdering
+## 6.2. De retlige konsekvenser af ingen eller mangelfuld miljøvurdering
 
 Grundlaget for at beskrive de retlige konsekvenser af ingen eller manglende miljøvurdering er, at hverken miljøvurderingsdirektivet eller loven indeholder bestemmelser om de konsekvenser, som en tilsidesættelse af de processuelle regler i direktivet/loven skal have.
 
@@ -5026,13 +4580,9 @@ Det betyder, at den pågældende retsinstans (nævn eller domstol) inden for ram
 
 Dette kan for eksempel indebære, at der træffes foranstaltninger med henblik på udsættelse eller annullation af en generel retsakt, samt i at tilbagekalde eller udsætte en tilladelse, der allerede er givet i medfør af planen/programmet, med henblik på at gennemføre en sådan vurdering.
 
-81) EU-Domstolens dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne, C-41/11, EU:C:2012:103, præmis 42-46, og dom af 12. november.
+[81)]
 
-2019, Kommissionen mod Irland, C-261/18, EU:C:2019:955, præmis 75 og den deri nævnte retspraksis.
-
-Se også Vestre Landsrets dom af 22. april 2021 (8. afdeling), j.nr. BS-58974/2019-VLR.
-
-NMKN afgørelse af 15. september 2014, j.nr. NMK-33-02171 m.fl.
+## NMKN afgørelse af 15. september 2014, j.nr. NMK-33-02171 m.fl.
 
 En kommune havde miljøvurderet og endeligt vedtaget kommuneplantillæg og lokalplan samt gennemført en miljøvurdering og meddelt tilladelse til opstillingen af 10 vindmøller.
 
@@ -5050,7 +4600,7 @@ Der kan være tvingende hensyn til miljøet.
 
 Derfor har EU-Domstolen udviklet følgende betingelser
 
-82) C-379/15, præmis 43
+[82)]
 
 for opretholdelsen af planer/programmer:
 
@@ -5062,9 +4612,7 @@ for opretholdelsen af planer/programmer:
 
 4) en undtagelsesvis opretholdelse af virkningerne af en sådan bestemmelse omfatter alene en tidsperiode, som er begrænset til det strengt nødvendige til vedtagelse af foranstaltninger, der kan afhjælpe den konstaterede uregelmæssighed.
 
-6.2.1.
-
-Hvad sker der med miljørapporten?
+## 6.2.1. Hvad sker der med miljørapporten?
 
 Miljørapporten udgør det miljømæssige dokumentationsgrundlag og beslutningsgrundlag for at vedtage eller godkende en plan/et program.
 
@@ -5072,7 +4620,7 @@ På samme måde kan den sammenfattende redegørelse supplere beslutningsgrundlag
 
 En klage over en plan/et program, som har betydning for de miljømæssige vurderinger, der fremgår af miljørapporten og/eller den sammenfattende redegørelse, og som har karakter af en væsentlig mangel og ophævelse af planen/programmet, må medføre, at miljørapporten og den sammenfattende redegørelse også ophæves.
 
-PKN afgørelse af 9. marts 2021, j.nr. 19/00752 m.fl.
+## PKN afgørelse af 9. marts 2021, j.nr. 19/00752 m.fl.
 
 Til et tværkommunalt projekt var der udarbejdet kommune- og lokalplaner for samlet 18 vindmøller.
 
@@ -5082,9 +4630,7 @@ På den baggrund ophævede nævnet miljørapporten samt den udarbejdede og vedta
 
 Derudover konstaterede nævnet, at den anden kommunes kommuneplan og lokalplan var ugyldige som følge af ophævelsen af miljøvurderingen, som også var udarbejdet for disse planer.
 
-6.3.
-
-Planer/programmer fra før 27. juni 2004
+## 6.3. Planer/programmer fra før 27. juni 2004
 
 Miljøvurderingsdirektivet trådte i kraft den 21. juli 2004.
 
@@ -5092,8 +4638,198 @@ Denne dato er skæringsdatoen for dels implementeringen af direktivet, hvilket m
 
 For så vidt angår planer/programmer, hvor den første formelle forberedende retsakt er påbegyndt før den 21. juni 2004, men hvor vedtagelse eller indledning af lovgivningsproceduren sker mere end 24 måneder derefter, dvs. efter den 21. juli 2006, og som anses for omfattet af miljøvurderingsreglerne, skal opfylde kravene til miljøvurdering eller screening efter loven, jf. miljøvurderingsdirektivets artikel 13, stk. 3, 2. pkt. Den omtalte bestemmelse fokuserer på, om planlægningen af relevante planer eller programmer befinder sig på et trin, hvor der kan gennemføres en meningsfuld miljøvurdering.
 
-83) EU-Kommissionens vejledning om gennemførelse af direktiv 2001/42 om vurdering af bestemte planers og programmers indvirkning på miljøet, punkt 3.66.
+[83)]
 
 Da loven også finder anvendelse på ændringer til planer/programmer, jf. lovens § 2, stk. 2, som selvstændige planer eller programmer, er det uden betydning, at ændringen foretages af en plan/et program udarbejdet eller vedtaget før 21. juni 2004.
 
-84) C-473/14, præmis 56.
+[84)]
+
+## Bilag: Bilag 1: Forslag til klagevejledning
+
+Som indledning til klagevejledningen kan der vælges mellem 1-4:
+
+1.
+
+Screeningsafgørelse i forhold til en plan/et program, som kan påklages
+
+[I henhold til miljøvurderingslovens § 48, stk. 1, kan en afgørelse efter miljøvurderingslovens § 10 påklages efter de klageregler, der er fastsat i den lovgivning, som planen er udarbejdet i henhold til.
+
+Forslaget til xxx er udarbejdet i henhold til xxx.
+
+Der kan derfor klages i henhold til disse regler.
+
+]
+
+2.
+
+Miljøvurdering i forhold til en plan/et program, som kan påklages
+
+[I henhold til miljøvurderingslovens § 48, stk. 2, kan myndighedens afgørelse, som træffes ved gennemførelsen af en miljøvurdering efter § 8, stk. 1 påklages efter de klageregler, der er fastsat i den lovgivning, som planen er udarbejdet i henhold til.
+
+Forslaget til xxx er udarbejdet i henhold til xxx.
+
+Der kan derfor klages i henhold til disse regler.
+
+]
+
+3.
+
+Screeningsafgørelse i forhold til en plan/et program, som ikke er udarbejdet i henhold til lov, eller giver den pågældende lov ikke mulighed for klage
+
+[I henhold til miljøvurderingslovens § 48, stk. 3, 1. pkt., kan en afgørelse efter miljøvurderingslovens § 10 påklages til Miljø- og Fødevareklagenævnet efter nedenstående regler.
+
+]
+
+4.
+
+Miljøvurdering i forhold til en plan/et program, som ikke er udarbejdet i henhold til lov, eller giver den pågældende lov ikke mulighed for klage
+
+[I henhold til miljøvurderingslovens § 48, stk. 4, 1. pkt., kan myndighedens afgørelse, som træffes ved gennemførelsen af en miljøvurdering efter § 8, stk. 1, påklages til Miljø- og Fødevareklagenævnet efter nedenstående regler.
+
+]
+
+Vejledning om klage til Miljø- og Fødevareklagenævnet
+
+Hvis du ønsker at klage over denne afgørelse, kan du klage til Miljø- og Fødevareklagenævnet, som behandler sagen i en af nævnets afdelinger.
+
+Du klager via klageportalen, som du finder via borger.dk eller virk.dk.
+
+Du logger på klageportalen med Nem-ID.
+
+En klage er indgivet, når den er tilgængelig for [angiv jeres myndigheds navn] via klageportalen.
+
+I klageportalen sendes din klage automatisk først til [jeres myndigheds navn].
+
+Hvis [jeres myndigheds navn] fastholder afgørelsen, sender [jeres myndigheds navn] klagen videre til behandling i nævnet via klageportalen.
+
+Du får besked om videresendelsen.
+
+Efterfølgende kommunikation om klagesagen sker ved anvendelse af digital selvbetjening.
+
+[Indsæt, hvis der er krav om gebyrbetaling ved klage: Når du klager, skal du betale et gebyr på 900 kr. for borgere og 1.800 kr. for virksomheder, foreninger, organisationer og offentlige myndigheder.
+
+]
+
+Miljø- og Fødevareklagenævnet afviser din klage, hvis du sender den uden om klageportalen, medmindre du er blevet fritaget for brug af klageportalen.
+
+Hvis du ønsker at blive fritaget for at bruge klageportalen, skal du sende en begrundet anmodning til Miljø- og Fødevareklagenævnet.
+
+Nævnet afgør herefter, om du kan fritages for at bruge klageportalen.
+
+Se betingelserne for at blive fritaget, jf. § 21, stk. 2-4, i lov om Miljø- og Fødevareklagenævnet.
+
+Klageberettigede
+
+Klageberettiget er enhver med retlig interesse i sagens udfald.
+
+Klageberettiget er endvidere landsdækkende foreninger og organisationer, der som formål har beskyttelsen af natur og miljø eller varetagelsen af væsentlige brugerinteresser inden for arealanvendelsen og har vedtægter eller love, som dokumenterer dens formål, og som repræsenterer mindst 100 medlemmer, jf. miljøvurderingslovens § 50.
+
+Klagefrist
+
+Klagefristen udløber 4 uger fra afgørelsens offentliggørelse på [hjemmeside m.m.].
+
+Klage skal således senest indsendes inden den [dato] ved kontortids ophør.
+
+Det bemærkes, at Miljø- og Fødevareklagenævnets praksis med hensyn til klagefrister er restriktiv.
+
+En klage, der er indgivet efter udløbet af klagefristen, vil normalt blive afvist, også selv om der er tale om en meget kort overskridelse.
+
+efter, at afgørelsen er meddelt.
+
+Er afgørelsen offentliggjort, regnes klagefristen dog altid fra offentliggørelsen.
+
+Hvis klagefristen udløber på en lørdag eller helligdag, forlænges klagefristen til den følgende hverdag."
+
+Opsættende virkning?
+
+Klagen er som udgangspunkt ikke forbundet med opsættende virkning, men Miljø og Fødevareklagenævnet kan træffe afgørelse herom, jf. § 53 i miljøvurderingsloven.
+
+Søgsmål ved domstolene
+
+Søgsmål til prøvelse af denne afgørelse skal være anlagt inden 6 måneder efter, at afgørelsen er offentliggjort, jf. § 54, stk. 1, i miljøvurderingsloven.
+
+## Noter
+[1)] Bekendtgørelse af lov nr. 1533 af 10. december 2015 om miljøvurdering af planer og programmer.
+[2)] Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet, EF-Tidende 2001, nr. L 197, side 30.
+[3)] Bekendtgørelse nr. 1976 af 27. oktober 2021 af lov om miljøvurdering af planer og programmer og af konkrete projekter (VVM).
+[4)] Bekendtgørelse nr. 1376 af 21. juni 2021 om miljøvurdering af planer og programmer og af konkrete projekter.
+[5)] Se f.eks. afgørelse af 17. juni 2010 Terre wallonne ASB og Inter-Environnement Wallonie ASBL i de forenede sager C-105 og 110/09, EU:C:2010:355, præmis 34.
+[6)] Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter.
+[7)] Europa-Parlamentets og Rådets direktiv 2009/147/EF af 30. november 2009 om beskyttelse af vilde fugle.
+[8)] Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger.
+[9)] Europa-Parlamentets og Rådets direktiv 2007/60/EF af 23. oktober 2007 om vurdering og styring af risikoen for oversvømmelser.
+[10)] Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (VVM-direktivet), og Europa-Parlamentets og Rådets direktiv 2014/52/EU af 16. april 2014 om ændring af direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet.
+[11)] Sprogligt er sætningen i loven også udformet som et 'enten-eller' og ikke 'enten-og/eller'. Dette er også EU-Domstolens fortolkning af miljøvurderingsdirektivet, jf. nedenfor i afsnit 2.1.1. og navlig 2.1.1.3.
+[12)] EU-Domstolens afgørelse af 25. juni 2020, A m.fl., C-24/19, EU:C:2020:503, præmis 75.
+[13)] C-24/19, præmis 67.
+[14)] C-24/19, præmis 70
+[15)] C-24/19, præmis 70
+[16)] C-24/19, præmis 71
+[17)] C-160/17, præmis 67.
+[18)] C-24/19, præmis 72.
+[19)] EU-Domstolens afgørelse af 22. februar 2022, Bund Naturschutz in Bayern eV, C-300/20, ECLI:EU:C:2022:102.
+[20)] C-300/20, præmis 69-70.
+[21)] https://ec.europa.eu/environment/archives/eia/pdf/030923 sea guidance da.pdf
+[22)] Disse undtagelser fremgår af lovens § 3.
+[23)] Afgørelse af 17. marts 2010, Brussels Hoofdstedelijk Gewest, C-275/09, EU:C:2011:154, præmis 38.
+[24)] Afgørelse af 7. november 2018, Coöperatie Mobilisation for the Environment and Vereniging Leefmilieu, de forenede sager C-293/17 og 294/17, ECLI:EU:C:2018:882, præmis 71 og 72.
+[25)] Afgørelse af 7. september 2004, Landelijke Vereniging tot Behoud van de Waddenzee, C-127/02, ECLI:EU:C:2004:482, præmis 25.
+[26)] Afgørelse af 25. juli 2008, Ecologistas en Acción-CODA, C-142/07, ECLI:EU:C:2008:445, præmis 29, og afgørelse af 8. august Prenninger, C-329/17, ECLI:EU:C:2018:640, præmis 30.
+[27)] Afgørelse af 21. juni 2021, Sillogos Ellinon Poleodomon kai Khorotakton, C-177/11, EU:C:2012:378, præmis 19.
+[28)] Forslag til afgørelse af 3. marts 2020, ECLI:EU:C:2020:143, punkt 84, note 41, 2. afsnit: "For at være udtømmende bør det bemærkes, at der findes mindst én yderligere forpligtelse til at gennemføre en strategisk miljøvurdering af planer og programmer, som ikke afhænger af, at de fastlægger en ramme for tilladelser til projekter. Det drejer sig om SMV-direktivets artikel 3, stk. 2, litra b), hvorefter der skal foretages en vurdering af planer og programmer, som er underlagt den specifikke vurdering af virkninger på lokaliteten i artikel 6, stk. 3, i Rådets direktiv 92/43/EØF af 21.5.1992 om bevaring af naturtyper samt vilde dyr og planter (EFT 1992, L 206, s. 7), som kun omfatter en del af indvirkningen på miljøet."
+[29)] Den første afgørelse om dette var 22. marts 2012, Inter-Environnement Bruxelles ASBL m.fl., C-567/ 10, EU:C:2012:159, præmis 31. Den af Domstolen anvendte definition, der senest er bekræftet i C-300/20, præmis 37, er endvidere omtalt i C-24/19, præmis 52, og i afgørelserne af 12. juni 2019 Terre wallonne ASBL, C-321/18, ECLI:EU:C:2019:484, præmis 34, og 7. juni. 2018, Thybaut m.fl., C-160/17, EU:C:2018:401, præmis 43.
+[30)] C-24/19, præmis 45.
+[31)] C-24/19, præmis 47.
+[32)] C-24/19, præmis 46.
+[33)] C-24/19, præmis 48 og 50.
+[34)] C-24/19, præmis 48 og 50.
+[35)] C-24/19, præmis 61.
+[36)] EU-Domstolens afgørelse af 22. marts 2012, Inter-Environnement Bruxelles ASBL m.fl., C-567/10, EU:C:2012:159, præmis 41-43.
+[37)] Jf. den parallelle fortolkning af undtagelsesbestemmelsen i VVM-direktivet efter EU-Domstolens afgørelse af 16. september 1999, WWF m.fl., C-435/97, EU:C:1999:418, præmis 65, hvor Domstolen fastslog følgende vedrørende artikel 1, stk. 4, i direktiv 85/337/ EF (nationale forsvarsformål): »Hermed indfører bestemmelsen en undtagelse fra direktivets hovedregel om, at der skal foretages en forudgående vurdering af projektets indvirkning på miljøet, som følgelig skal fortolkes indskrænkende«.
+[38)] Meddelelse fra Kommissionen af 14. november 2019 C 386/05.
+[39)] Der henvises til afsnit 2.1.2.1. samt forordet til nærværende vejledning.
+[40)] C-295/10, præmis 41.
+[41)] C-24/19, præmis 66, dom af 8.5.2019, Verdi Ambiente eSocietà – Aps Onlus m.fl., C-305/18, EU:C:2019:384, præmis 48, dom af 7.6.2018, Inter-Environnement Bruxelles m.fl., C-671/16, EU:C:2018:403, præmis 42-45), dom af 7. juni 2018, Thybaut, C-160/17, EU:C:2018:401, præmis 47-49, og dom af 27.10.2016, D’Oultremont m.fl. C-290/15, EU:C:2016:816, præmis 44.
+[42)] C-160/17, præmis 48, og C-671/16, EU:C:2018:403, præmis 43.
+[43)] Se EU-Kommissionens vejledning: Interpretation of definitions of project categories of annex I and II of the EIA Directive, 2015. Vejledningen kan se her: https://ec.europa.eu/environment/eia/pdf/cover 2015 en.pdf
+[44)] C-24/19, præmis 65.
+[45)] EU-Domstolens afgørelse af 12. juni 2019, Terre wallone ASBL, C-321/18, EU:C:2019:484, præmis 30.
+[46)] C-177/11, præmis 24. Se også EU-Domstolens afgørelse af 10. september 2015, Dimos Kropias Attikis, C-473/14, ECLI: EU:C:2015:582, præmis 47.
+[47)] C-177/11, præmis 23, 2. pkt.
+[48)] Afgørelse 17. april 2018, Kommissionen mod Polen, C-441/17, ECLI:EU:C:2018:255, præmis 125, 2. pkt.
+[49)] C-43/18, præmis 51.
+[50)] EU-Domstolens afgørelse af 12. juni 2019, Terre wallone ASBL, C-321/18, EU:C:2019:484, præmis 43 og 44.
+[51)] EU-Domstolens afgørelse af 21. december 2016, Associazione Italia Nostra Onlus, C-444/15, EU:C:2016:978, præmis 66-67.
+[52)] C-444/15, præmis 69-74.
+[53)] I modsætning til regionale og nationale myndigheder.
+[54)] C-300/20. præmis 74
+[55)] EU-Domstolens afgørelse af 18. april 2013, L mod M, C-463/11, ECLI:EU:C:2013:247, præmis 38.
+[56)] EU-Domstolens afgørelse af 22. september 2011, Valčiukienė m.fl., C-295/10, EU:C:2011:608, præmis 44, 47 og 48.
+[57)] EU-Domstolens afgørelse af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne, C-41/11, ECLI:EU:C:2012:103, præmis 44-46.
+[58)] Dette følger af EU-Domstolens afgørelse af 20. oktober 2011, Seaport, C-474/10, EU:C:2011:681, præmis 43.
+[59)] Dette er i overensstemmelse med miljøvurderingsdirektivets artikel 11, stk. 2, og C-295/10, præmis 58-61 og 65.
+[60)] Bearbejdet beskrivelse efter The relationship between the EIA and SEA Directives. Final Report to the European Commission, August 2005, s. 16.
+[61)] Meddelelse fra Kommissionen, C(2021) 6913 final, Vurdering af planer og projekter i forbindelse med Natura 2000-lokaliteter — Metodisk vejledning om artikel 6, stk. 3 og 4, i habitatdirektivet 92/43/EØF, s. 112. Se særligt afsnit 5, side 103, om forbindelser til andre miljøvurderingsprocedurer: VVM-direktivet, direktivet om strategiske miljøvurderinger og vandrammedirektivet.
+[62)] I EU-retten taler man om kaskader af planer og programmer og dermed kaskader af miljøvurderinger.
+[63)] Bekendtgørelse nr. 448 af 11. april 2019 om miljømål for overfladevandområder og grundvandsforekomster
+[64)] Bekendtgørelse nr. 449 af 11. april 2019 om indsatsprogrammer for vandområdedistrikter
+[65)] Miljøvurderingsdirektivets præambel, betragtning 5: ”Vedtagelsen af miljøvurderingsprocedurer i forbindelse med udarbejdelsen af planer og programmer vil gavne erhvervslivet, idet det får en mere ensartet ramme at arbejde indenfor, når de relevante miljøoplysninger inddrages i beslutningsprocessen. Medtagelse af en bredere række faktorer i beslutningsprocessen vil bidrage til mere bæredygtige og effektive løsninger. ”
+[66)] Direktiv 2009/147/EF og 92/43/EØF.
+[67)] Meddelelse fra Kommissionen, C(2021) 6913 final, 28. september 2021, Vurdering af planer og projekter i forbindelse med Natura 2000-lokaliteter — Metodisk vejledning om artikel 6, stk. 3 og 4, i habitatdirektivet 92/43/EØF. Se også Kommissionens Vejledning om streng beskyttelse af dyrearter af fællesskabsbetydning i henhold til habitatdirektivet: https://ec.europa.eu/environment/nature/conservation/species/guidance/index_en. htm
+[68)] I forhold til bilag IV- arter kan det nævnes, at såfremt forebyggende foranstaltninger ikke kan hindre skade på et yngle-rasteområde, skal der søges dispensation/fravigelse. Se evt. kommissionens vejledning herom eller den danske vejledning til habitatdirektivet.
+[69)] Bekendtgørelse nr. 2091 af 12. november 2021 om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter § 8, stk. 8.
+[70)] https://www.ombudsmanden.dk/myndighedsguiden/generel-forvaltningsret/afgoerelsesbegrebet/, afsnit 5.
+[71)] Implementeret i dansk ret ved Bekendtgørelse nr. 13 af 10. august 2017 af protokol af 21. maj 2003 om strategisk miljøvurdering til konventionen af 25. februar 1991 om vurdering af virkningerne på miljøet på tværs af landegrænserne.
+[72)] EU har ratificeret Espookonventionen den 24. juni 1997 og SEAprotokollen den 12. november 2008.
+[73)] Konventionen og Protokollen er indgået i regi af UNECE, hvilket er United Nations Economic Commission for Europe: https://unece.org/
+[74)] Miljøvurderingsdirektivet (2001/42/EF) betragtning 7.
+[75)] Afgørelse I/3 Points of Contact under Espookonventionen. Denne afgørelse gælder også for SEAprotokollen. Der kan aftales særlige ordninger bilateralt eller multilateralt mellem stater. Såfremt der ikke er udpeget Point of Contact vil den rette modtager af henvendelser fra andre stater eller UNECE være Udenrigsministeriet.
+[76)] 2. Meeting of the Signatories to the Convention (ENVWA/WG. 3/4, paragraph 21 (d)).
+[77)] Parterne til SEAprotokollen har vedtaget et særligt format for notifikationen: https://unece.org/DAM/env/eia/decisions/Decision II. 7. . pdf
+[78)] Ved fastsættelsen af denne frist skal indregnes den/de berørte stat(er)s mulighed for at konsultere relevante miljø- og sundhedsmyndigheder samt at træffe beslutning om, hvorvidt den/de berørte stat(er) ønsker at deltage i den videre miljøvurderingsproces
+[79)] Practical guidance on reforming legal and institutional structures with regard to the application of the Protocol on Strategic Environmental Assessment , UNECE 2017: https://unece.org/DAM/env/eia/Publications/2017/ece.mp.eia.wg. 2.2016. INF. 9 EN draft practical guidance on reforms FINAL rev LAY OUT 27.05 cover . pdf
+[80)] For flere oplysninger omkring oversættelse af dokumenter henvises til UNECEs guideline til den praktiske anvendelse af Espookonventionen, som også gælder for SEAprotokollen: https://www.unece.org/fileadmin/DAM/env/eia/documents/practical guide/practical guide.pdf
+[81)] EU-Domstolens dom af 28. februar 2012, Inter-Environnement Wallonie og Terre wallonne, C-41/11, EU:C:2012:103, præmis 42-46, og dom af 12. november. 2019, Kommissionen mod Irland, C-261/18, EU:C:2019:955, præmis 75 og den deri nævnte retspraksis. Se også Vestre Landsrets dom af 22. april 2021 (8. afdeling), j.nr. BS-58974/2019-VLR.
+[82)] C-379/15, præmis 43
+[83)] EU-Kommissionens vejledning om gennemførelse af direktiv 2001/42 om vurdering af bestemte planers og programmers indvirkning på miljøet, punkt 3.66.
+[84)] C-473/14, præmis 56.

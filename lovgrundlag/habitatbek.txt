@@ -10,7 +10,7 @@ Bekendtgørelsen udpeger følgende internationale naturbeskyttelsesområder:
 
 3) Ramsarområder.
 
-2) Bekendtgørelsen indeholder bestemmelser, der gennemfører dele af Ramsar-konventionen af 2. februar 1971 om vådområder af international betydning navnlig som levesteder for vandfugle, jf. Udenrigsministeriets bekendtgørelser nr. 26 af 4. april 1978 og senere bekendtgørelser, senest nr. 55 af 11. august 1987 og nr. 109 af 20. oktober 1994.
+[2)]
 
 Stk. 2. Fuglebeskyttelsesområder og habitatområder indgår i det sammenhængende europæiske, økologiske netværk, som betegnes Natura 2000.
 
@@ -363,3 +363,3778 @@ Ikrafttræden
 § 12. Bekendtgørelsen træder i kraft den 1. september 2023.
 
 Stk. 2. Bekendtgørelse nr. 2091 af 12. november 2021 om udpegning og administration af internationale naturbeskyttelsesområder samt beskyttelse af visse arter ophæves.
+
+## Bilag 1: Fortegnelse over internationale naturbeskyttelsesområder
+
+For hvert internationalt naturbeskyttelsesområde er angivet nummer og navn, samt nummeret for det eller de habitatområder (H), fuglebeskyttelsesområder (F) og Ramsarområder (R), som det enkelte internationale naturbeskyttelsesområde rummer.
+
+1:
+
+Skagens Gren og Skagerrak (H1, H258, F126)
+
+2:
+
+Råbjerg Mile og Hulsig Hede (H2, F5)
+
+3:
+
+Jerup Hede, Råbjerg og Tolshave Mose (H3, F6)
+
+4:
+
+Hirsholmene, havet vest herfor og Ellinge Å's udløb (H4, F11, R8)
+
+5:
+
+Uggerby Klitplantage og Uggerby Å's udløb (H5)
+
+6:
+
+Kærsgård Strand, Vandplasken og Liver Å (H6)
+
+7:
+
+Rubjerg Knude og Lønstrup Klit (H7)
+
+8:
+
+Åsted Ådal, Bangsbo Ådal og omliggende overdrevsområder (H8, H216)
+
+9:
+
+(Udgået)
+
+10:
+
+Holtemmen, Højsande og Nordmarken (H10)
+
+11:
+
+Solsbæk (H11)
+
+12:
+
+Store Vildmose (H12)
+
+13:
+
+Svinkløv Klitplantage og Grønne Strand (H13)
+
+14:
+
+Ålborg Bugt, Randers Fjord og Mariager Fjord (H14, F2, F15, R11)
+
+15:
+
+Nibe Bredning, Halkær Ådal og Sønderup Ådal (H15, F1, R7)
+
+16:
+
+Løgstør Bredning, Vejlerne og Bulbjerg (H16, F8, F12, F13, F19, F20, R6)
+
+17:
+
+Lille Vildmose, Tofte Skov og Høstemark Skov (H18, F7, R28)
+
+18:
+
+Rold Skov, Lindenborg Ådal og Madum Sø (H20, F3, F4)
+
+19:
+
+Lundby Hede, Oudrup Østerhede og Vindblæs Hede (H21)
+
+20:
+
+Havet omkring Nordre Rønner (H176, F9, R9)
+
+21:
+
+Ejstrup Klit, Egvands Bakker og Lien med Underlien (H193, H219)
+
+22:
+
+Kielstrup Sø (H22)
+
+23:
+
+Vullum Sø (H23)
+
+24:
+
+Hanstholm Reservatet, Hanstholm Knuden, Nors Sø og Vandet Sø (H24, H220, F22)
+
+25:
+
+Vangså Hede (H25, F18)
+
+26:
+
+Ålvand Klithede og Førby Sø (H26, F17)
+
+27:
+
+Hvidbjerg Å, Ove Sø og Ørum Sø (H27, F21)
+
+28:
+
+Agger Tange, Nissum Bredning, Skibsted Fjord og Agerø (H28, F23, F27, F28, F39, R5)
+
+29:
+
+Dråby Vig (H29, F26)
+
+30:
+
+Lovns Bredning, Hjarbæk Fjord og Skals Ådal (H30, F14, F24)
+
+31:
+
+Kås Hoved (H31)
+
+32:
+
+Sønder Lem Vig og Geddal Strandenge (H32)
+
+33:
+
+Tjele Langsø og Vinge Møllebæk (H33, F16)
+
+34:
+
+Brandstrup Mose (H34)
+
+35:
+
+Hald Ege, Stanghede og Dollerup Bakker (H35)
+
+36:
+
+Nipgård Sø (H36)
+
+37:
+
+Rosborg Sø (H37)
+
+38:
+
+Bredsgård Sø (H38)
+
+39:
+
+Mønsted og Daugbjerg Kalkgruber og Mønsted Ådal (H39)
+
+40:
+
+Karup Å, Kongenshus og Hessellund Heder (H40, H226, H227)
+
+41:
+
+Hjelm Hede, Flyndersø og Stubbergård Sø (H41, F29)
+
+42:
+
+Mågerodde og Karby Odde (H177, F25)
+
+43:
+
+Klitheder mellem Stenbjerg og Lodbjerg (H184, F119)
+
+44:
+
+Lild Strand og Lild Strandkær (H185)
+
+45:
+
+Korsø Knude (H187)
+
+46:
+
+(Udgået)
+
+47:
+
+Eldrup Skov og søer og moser i Løvenholm Skov (H43)
+
+48:
+
+Stubbe Sø (H44)
+
+49:
+
+Gudenå og Gjern Bakker (H45)
+
+50:
+
+Tved Kær (H46)
+
+51:
+
+Begtrup Vig og kystområder ved Helgenæs (H47)
+
+52:
+
+Salten Å, Salten Langsø, Mossø og søer syd for Salten Langsø og dele af Gudenå (H48, F33, F35)
+
+53:
+
+Sepstrup Sande, Vrads Sande, Velling Skov og Palsgård Skov (H49, F34)
+
+54:
+
+Yding Skov og Ejer Skov (H50)
+
+55:
+
+Stavns Fjord, Samsø Østerflak og Nordby Hede (H51, F31, R14)
+
+56:
+
+Horsens Fjord, havet øst for og Endelave (H52, F36, R13)
+
+57:
+
+Silkeborgskovene (H181)
+
+58:
+
+Nordby Bakker (H182)
+
+59:
+
+Kysing Fjord (F30)
+
+60:
+
+Skørsø (H53)
+
+61:
+
+Skånsø og Tranemose (H54)
+
+62:
+
+Venø, Venø Sund (H55, F40)
+
+63:
+
+Sønder Feldborg Plantage (H56, F42)
+
+64:
+
+Heder og klitter på Skovbjerg Bakkeø, Idom Å og Ormstrup Hede (H57, H225)
+
+65:
+
+Nissum Fjord (H58, F38, R4)
+
+66:
+
+Stadil Fjord og Vest Stadil Fjord (H59, F41, R3)
+
+67:
+
+Borris Hede (H60, F37)
+
+68:
+
+Skjern Å (H61, F118)
+
+69:
+
+Ringkøbing Fjord og Nymindestrømmen (H62, F43, R2)
+
+70:
+
+Mose ved Karstoft Å (H63)
+
+71:
+
+Kimmelkær Landkanal (H178)
+
+72:
+
+Husby Sø og Nørresø (H188, F114)
+
+73:
+
+Lønborg Hede (H196)
+
+74:
+
+Husby Klit (H197)
+
+75:
+
+Harrild Hede, Ulvemosen og heder i Nørlund Plantage (H64)
+
+76:
+
+Store Vandskel, Rørbæk Sø, Tinnet Krat og Holtum Ådal øvre del (H65, H235)
+
+77:
+
+Uldum Kær, Tørring Kær og Ølholm Kær (H66, F44)
+
+78:
+
+Skove langs nordsiden af Vejle Fjord (H67, F45)
+
+79:
+
+Munkebjerg Strandskov (H68)
+
+80:
+
+Højen Bæk (H69)
+
+81:
+
+Øvre Grejs Ådal (H70)
+
+82:
+
+Randbøl Hede og klitter i Frederikshåb Plantage (H71, F46)
+
+83:
+
+Blåbjerg Egekrat, Lyngbos Hede og Hennegårds Klitter (H72)
+
+84:
+
+Kallesmærsk Hede, Grærup Langsø, Fiilsø og Kærgård Klitplantage (H73, F50, F56, R1)
+
+85:
+
+Hedeområder ved Store Råbjerg (H74, F48)
+
+86:
+
+Vejen Mose (H75, F54)
+
+87:
+
+Nørrebæk ved Tvilho (H76)
+
+88:
+
+Nørholm Hede, Nørholm Skov og Varde Å øst for Varde (H77)
+
+89:
+
+Vadehavet (H78, H86, H90, H239, F49, F51, F52, F53, F55, F57, F60, F63, F65, F67, R27)
+
+90:
+
+Sneum Å og Holsted Å (H79)
+
+91:
+
+Kongeå (H80)
+
+92:
+
+Pamhule Skov og Stevning Dam (H81, F59)
+
+93:
+
+Lindet Skov, Hønning Mose, Hønning Plantage og Lovrup Skov (H82, F66)
+
+94:
+
+Rinkenæs Skov, Dyrehaven og Rode Skov (H83, F68)
+
+95:
+
+Hostrup Sø, Assenholm Mose og Felsted Vestermark (H84, F58)
+
+96:
+
+Bolderslev Skov og Uge Skov (H85)
+
+97:
+
+Frøslev Mose (H87, F70)
+
+98:
+
+Tinglev Sø og Mose, Ulvemose og Terkelsbøl Mose (F62)
+
+99:
+
+Kongens Mose og Draved Skov (H88, F61)
+
+100:
+
+Sølsted Mose (H89, F122)
+
+101:
+
+(Udgået)
+
+102:
+
+(Udgået)
+
+103:
+
+Kogsbøl og Skast Mose (F69)
+
+104:
+
+Lilleskov og Troldsmose (H189)
+
+105:
+
+Augustenborg Skov (H200)
+
+106:
+
+Mandbjerg Skov (H201)
+
+107:
+
+Fyns Hoved, Lillegrund og Lillestrand (H91)
+
+108:
+
+Æbelø, havet syd for og Nærå (H92, F76, R16)
+
+109:
+
+Havet mellem Romsø og Hindsholm samt Romsø (H93, F77)
+
+110:
+
+Odense Fjord (H94, F75)
+
+111:
+
+Røjle Klint og Kasmose Skov (H95)
+
+112:
+
+Lillebælt (H96, F47, R15)
+
+113:
+
+Urup Dam, Brabæk Mose, Birkende Mose og Illemose (H97)
+
+114:
+
+Odense Å med Hågerup Å, Sallinge Å og Lindved Å (H98)
+
+115:
+
+Østerø Sø (H99)
+
+116:
+
+Centrale Storebælt og Vresen (H100, H149, F73, F98, F128)
+
+117:
+
+Kajbjerg Skov (H101)
+
+118:
+
+Søer ved Tårup og Klintholm (H102)
+
+119:
+
+Storelung (H103)
+
+120:
+
+Skove og søer syd for Brahetrolleborg (H104, F74)
+
+121:
+
+Arreskov Sø (H105, F78)
+
+122:
+
+Store Øresø, Sortesø og Iglesø (H106)
+
+123:
+
+Bøjden Nor (H107, F123)
+
+124:
+
+Maden på Helnæs og havet vest for (H108, F125)
+
+125:
+
+Vestlige del af Avernakø (H109)
+
+126:
+
+Stenrev sydøst for Langeland (H110)
+
+127:
+
+Sydfynske Øhav (H111, F71, F72, R17)
+
+128:
+
+Hesselø med omliggende stenrev (H112)
+
+129:
+
+Gilbjerg Hoved (H113)
+
+130:
+
+Teglstrup Hegn og Hammermølle Skov (H114)
+
+131:
+
+Gurre Sø (H115)
+
+132:
+
+Rusland (H116)
+
+133:
+
+Gribskov, Esrum Sø, Esrum Å og Snævret Skov (H190, H117, F108)
+
+134:
+
+Arresø, Ellemose og Lille Lyngby Mose (H118, F106)
+
+135:
+
+Tisvilde Hegn og Melby Overdrev (H119)
+
+136:
+
+Roskilde Fjord og Jægerspris Nordskov (H120, H199, F105, F107)
+
+137:
+
+Kattehale Mose (H121)
+
+138:
+
+(Udgået)
+
+139:
+
+Øvre Mølleådal, Furesø og Frederiksdal Skov (H123, F109)
+
+140:
+
+Vasby Mose og Sengeløse Mose (H124)
+
+141:
+
+Brobæk Mose og Gentofte Sø (H125)
+
+142:
+
+Saltholm og omliggende hav (H126, F110)
+
+143:
+
+Vestamager og havet syd for (H127, F111)
+
+144:
+
+Nedre Mølleådal og Jægersborg Dyrehave (H191, H251)
+
+145:
+
+Ejby Ådal og omliggende kystskrænter (H128)
+
+146:
+
+Hejede Overdrev, Valborup Skov og Valsølille Sø (H129)
+
+147:
+
+Ølsemagle Strand og Staunings Ø (H130)
+
+148:
+
+Køge Å (H131)
+
+149:
+
+Tryggevælde Ådal (H132)
+
+150:
+
+Gammel Havdrup Mose (F103)
+
+151:
+
+Ramsø Mose (F104)
+
+152:
+
+Vallø Dyrehave (H198)
+
+153:
+
+Havet og kysten mellem Hundested og Rørvig (H134, F102)
+
+154:
+
+Sejerø Bugt, Saltbæk Vig, Bjergene, Diesebjerg og Bollinge Bakke (H135, H244, F94, F99, R18)
+
+155:
+
+Udby Vig (H136)
+
+156:
+
+Store Åmose, Skarresø og Bregninge Å (H137, F117)
+
+157:
+
+Åmose, Tissø, Halleby Å og Flasken (H138, F100)
+
+158:
+
+Allindelille Fredskov (H139)
+
+159:
+
+Bagholt Mose (H140)
+
+160:
+
+Nordlige del af Sorø Sønderskov (H141)
+
+161:
+
+Søer ved Bregentved og Gisselfeld (H142, F101)
+
+162:
+
+Skælskør Fjord og havet og kysten mellem Agersø og Glænø (H143, F95, F96, R19)
+
+163:
+
+Suså, Tystrup-Bavelse Sø, Slagmosen, Holmegårds Mose og Porsmose (H145, H146, H194, F91, F93)
+
+164:
+
+Hov Vig (F97)
+
+165:
+
+(Udgået)
+
+166:
+
+Røsnæs, Røsnæs Rev og Kalundborg Fjord (H195)
+
+167:
+
+Skove ved Vemmetofte (H144)
+
+168:
+
+Havet og kysten mellem Præstø Fjord og Grønsund (H147, F84, F89, R22)
+
+169:
+
+Havet og kysten mellem Karrebæk Fjord og Knudshoved Odde (H148, F81, R20)
+
+170:
+
+(Udgået)
+
+171:
+
+Klinteskoven og Klinteskov kalkgrund (H150, H207, F90)
+
+172:
+
+Lekkende Dyrehave (H151)
+
+173:
+
+Smålandsfarvandet nord for Lolland, Guldborg Sund, Bøtø Nor og Hyllekrog-Rødsand (H152, F82, F83, F85, F86, R21, R25)
+
+174:
+
+Maltrup Skov (H153)
+
+175:
+
+Horreby Lyng og Listrup Lyng (H154, H252, F124)
+
+176:
+
+Krenkerup Haveskov (H155)
+
+177:
+
+Maribosøerne (H156, F87, R24)
+
+178:
+
+Halsted Kloster Dyrehave (H157)
+
+179:
+
+Nakskov Fjord og Indrefjord (H158, F88, R23)
+
+180:
+
+Stege Nor (H179)
+
+181:
+
+Oreby Skov (H180)
+
+182:
+
+Holtug Kridtbrud (H183)
+
+183:
+
+Busemarke Mose og Råby Sø (H192)
+
+184:
+
+Hammeren og Slotslyngen (H160, F116)
+
+185:
+
+Gyldenså (H161)
+
+186:
+
+Almindingen, Ølene og Paradisbakkerne (H162, F80)
+
+187:
+
+Kystskrænter ved Arnager Bugt (H163)
+
+188:
+
+Dueodde (H164)
+
+189:
+
+Ertholmene (H210, F79, R26)
+
+190:
+
+(Udgået)
+
+191:
+
+Herthas Flak (H166)
+
+192:
+
+Læsø Trindel og Tønneberg Banke (H168)
+
+193:
+
+Store Middelgrund (H169)
+
+194:
+
+Mejl Flak (H170)
+
+195:
+
+Gilleleje Flak og Tragten (H171)
+
+196:
+
+Ryggen (H172)
+
+197:
+
+Flensborg Fjord, Bredgrund og farvandet omkring Als (H173, F64)
+
+198:
+
+Hatter Barn (H174)
+
+199:
+
+(Udgået)
+
+200:
+
+Navnsø med hede (H17)
+
+201:
+
+Øster Lovnkær (H19)
+
+202:
+
+Lønstrup Rødgrund (H202)
+
+203:
+
+Knudegrund (H203)
+
+204:
+
+Schultz og Hastens Grund samt Briseis Flak (H204)
+
+205:
+
+Munkegrunde (H205)
+
+206:
+
+Stevns Rev (H206)
+
+207:
+
+Lysegrund (H167)
+
+208:
+
+Bøchers Grund (H208)
+
+209:
+
+Davids Banke (H209)
+
+210:
+
+Spællinge Ådal, Døndal og Helligdomsklipperne (H159)
+
+211:
+
+(Udgået)
+
+212:
+
+(Udgået)
+
+213:
+
+Randkløve Skår (H213)
+
+214:
+
+Tolne Bakker (H214)
+
+215:
+
+Tislum Møllebæk (H215)
+
+216:
+
+Saltum Bjerge (H248)
+
+217:
+
+Nymølle Bæk og Nejsum Hede (H217)
+
+218:
+
+Hammer Bakker, østlig del (H218)
+
+219:
+
+Sandbanker ud for Thyborøn (H253)
+
+220:
+
+Sandbanker ud for Thorsminde (H254)
+
+221:
+
+Risum Enge og Selde Vig (H221)
+
+222:
+
+Villestrup Ådal (H222)
+
+223:
+
+Kastbjerg Ådal (H223)
+
+224:
+
+Flynder Å og heder i Klosterhede Plantage (H224, F115)
+
+225:
+
+Ovstrup Hede med Røjen Bæk (H249)
+
+226:
+
+Svanemose (H250, F120)
+
+227:
+
+Mols Bjerge med kystvande (H186)
+
+228:
+
+Stenholt Skov og Stenholt Mose (H228)
+
+229:
+
+Bjerre Skov og Haslund Skov (H229)
+
+230:
+
+Kaløskovene og Kaløvig (H230)
+
+231:
+
+Kobberhage kystarealer (H231)
+
+232:
+
+Lillering Skov, Stjær Skov, Tåstrup Sø og Tåstrup Mose (H232)
+
+233:
+
+Brabrand Sø med omgivelser (H233)
+
+234:
+
+Giber Å, Enemærket og Skåde Havbakker (H234)
+
+235:
+
+Jægerspris Skydeterræn (H133)
+
+236:
+
+Bygholm Ådal (H236)
+
+237:
+
+Ringive Kommuneplantage (H237)
+
+238:
+
+Egtved Ådal (H238)
+
+239:
+
+Ryegård Dyrehave, Bramsnæs og Garveriskov og Egernæs med holme og Fuglsø (H246, H247)
+
+240:
+
+Svanninge Bakker (H240)
+
+241:
+
+Rødme Svinehaver (H241)
+
+242:
+
+Thurø Rev (H242)
+
+243:
+
+Ebbeløkke Rev (H243)
+
+244:
+
+Kyndby Kyst (H245)
+
+245:
+
+(Udgået)
+
+246:
+
+Sydlige Nordsø (F113, H255)
+
+247:
+
+Thyborøn Stenvolde (H256)
+
+248:
+
+Jyske Rev, Lillefiskerbanke (H257)
+
+249:
+
+(Udgået)
+
+250:
+
+Gule Rev (H259)
+
+251:
+
+Femern Bælt (H260)
+
+252:
+
+Adler Grund og Rønne Banke (H261, H211, H212, F129)
+
+253:
+
+Stensbæk Plantage og Heder (F121, H262)
+
+254:
+
+Sønderskoven og Lambjerg Indtægt (H263)
+
+255:
+
+Stigtehave, Bræmlevænge og Mørkholm Skov (H264)
+
+256:
+
+Bangsebro Skov og Sønder Kohave (H265)
+
+257:
+
+Halskov Vænge (H266)
+
+258:
+
+Rude Skov (H267)
+
+259:
+
+Folehave Skov (H268)
+
+260:
+
+Tokkekøb Hegn, Grønholt Hegn og Ny Hammersholt (H269)
+
+261:
+
+Freerslev Hegn (H270)
+
+262:
+
+Annebjerg Skov og Ulkerup Skov (H271)
+
+263:
+
+Nordvestlige Kattegat (H9, H42, H165, F127, R10, R12)
+
+## Bilag 2: Fortegnelse over habitatområder
+
+For hvert habitatområde er angivet nummer, navn og den såkaldte NATURA 2000 kode.
+
+H1:
+
+Skagens Gren og Skagerrak (DK00FX112)
+
+H2:
+
+Råbjerg Mile og Hulsig Hede (DK00FX005)
+
+H3:
+
+Jerup Hede, Råbjerg og Tolshave Mose (DK00FX342)
+
+H4:
+
+Hirsholmene, havet vest herfor og Ellinge Å's udløb (DK00FX113)
+
+H5:
+
+Uggerby Klitplantage og Uggerby Å's udløb (DK00FX114)
+
+H6:
+
+Kærsgård Strand, Vandplasken og Liver Å (DK00FX115)
+
+H7:
+
+Rubjerg Knude og Lønstrup Klint (DK00FX116)
+
+H8:
+
+Åsted Ådal (DK00FX117)
+
+H9:
+
+Strandenge på Læsø og havet syd herfor (DK00FX010)
+
+H10:
+
+Holtemmen, Højsande og Nordmarken (DK00FX118)
+
+H11:
+
+Solsbæk (DK00FX119)
+
+H12:
+
+Store Vildmose (DK00FX120)
+
+H13:
+
+Svinkløv Klitplantage og Grønne Strand (DK00FX121)
+
+H14:
+
+Ålborg Bugt, Randers Fjord og Mariager Fjord (DK00FX122)
+
+H15:
+
+Nibe Bredning, Halkær Ådal og Sønderup Ådal (DK00FX123)
+
+H16:
+
+Løgstør Bredning, Vejlerne og Bulbjerg (DK00EY124)
+
+H17:
+
+Navnsø med hede (DK00FX295)
+
+H18:
+
+Lille Vildmose, Tofte Skov og Høstemark Skov (DK00FX125)
+
+H19:
+
+Øster Lovnkær (DK00FX296)
+
+H20:
+
+Rold Skov, Lindenborg Ådal og Madum Sø (DK00FX126)
+
+H21:
+
+Lundby Hede, Oudrup Østerhede og Vindblæs Hede (DK00FX127)
+
+H22:
+
+Kielstrup Sø (DK00FX128)
+
+H23:
+
+Vullum Sø (DK00EX129)
+
+H24:
+
+Hanstholm Reservatet, Nors Sø og Vandet Sø (DK00EX130)
+
+H25:
+
+Vangså Hede (DK00EX025)
+
+H26:
+
+Ålvand Klithede og Førby Sø (DK00EB399)
+
+H27:
+
+Hvidbjerg Å, Ove Sø og Ørum Sø (DK00EX132)
+
+H28:
+
+Agger Tange, Nissum Bredning, Skibsted Fjord og Agerø (DK00EY133)
+
+H29:
+
+Dråby Vig (DK00EB400)
+
+H30:
+
+Lovns Bredning, Hjarbæk Fjord og Skals, Simested og Nørre Ådal, samt Skravad Bæk (DK00EY134)
+
+H31:
+
+Kås Hoved (DK00EX135)
+
+H32:
+
+Sønder Lem Vig og Geddal Strandenge (DK00EY136)
+
+H33:
+
+Tjele Langsø og Vinge Møllebæk (DK00EX137)
+
+H34:
+
+Brandstrup Mose (DK00EX138)
+
+H35:
+
+Hald Ege, Stanghede og Dollerup Bakker (DK00EX139)
+
+H36:
+
+Nipgård Sø (DK00EX140)
+
+H37:
+
+Rosborg Sø (DK00EX141)
+
+H38:
+
+Bredsgård Sø (DK00EX142)
+
+H39:
+
+Mønsted og Daugbjerg Kalkgruber og Mønsted Ådal (DK00EX143)
+
+H40:
+
+Karup Å (DK00EY144)
+
+H41:
+
+Hjelm Hede, Flyndersø og Stubbergård Sø (DK00EY145)
+
+H42:
+
+Anholt og havet nord for (DK00DX146)
+
+H43:
+
+Eldrup Skov og søer og moser i Løvenholm Skov (DK00DX147)
+
+H44:
+
+Stubbe Sø (DK00DX148)
+
+H45:
+
+Gudenå og Gjern Bakker (DK00DY149)
+
+H46:
+
+Tved Kær (DK00DX150)
+
+H47:
+
+Begtrup Vig og kystområder ved Helgenæs (DK00DX151)
+
+H48:
+
+Salten Å, Salten Langsø, Mossø og søer syd for Salten Langsø og dele af Gudenå (DK00DY152)
+
+H49:
+
+Sepstrup Sande, Vrads Sande, Velling Skov og Palsgård Skov (DK00DZ153)
+
+H50:
+
+Yding Skov og Ejer Skov (DK00DY154)
+
+H51:
+
+Stavns Fjord, Samsø Østerflak og Nordby Hede (DK00DX155)
+
+H52:
+
+Horsens Fjord, havet øst for og Endelave (DK00DY156)
+
+H53:
+
+Skørsø (DK00CY157)
+
+H54:
+
+Skånsø og Tranemose (DK00CX158)
+
+H55:
+
+Venø, Venø Sund (DK00CB398)
+
+H56:
+
+Sønder Feldborg Plantage (DK00CX042)
+
+H57:
+
+Heder og klitter på Skovbjerg Bakkeø (DK00CX159)
+
+H58:
+
+Nissum Fjord (DK00CX160)
+
+H59:
+
+Stadil Fjord og Vest Stadil Fjord (DK00CB397)
+
+H60:
+
+Borris Hede (DK00CX037)
+
+H61:
+
+Skjern Å (DK00CX162)
+
+H62:
+
+Ringkøbing Fjord og Nymindestrømmen (DK00CY163)
+
+H63:
+
+Mose ved Karstoft Å (DK00CX164)
+
+H64:
+
+Harrild Hede, Ulvemosen og heder i Nørlund Plantage (DK00BY165)
+
+H65:
+
+Store Vandskel, Rørbæk Sø og Tinnet Krat (DK00BX166)
+
+H66:
+
+Uldum Kær, Tørring Kær og Ølholm Kær (DK00BB396)
+
+H67:
+
+Skove langs nordsiden af Vejle Fjord (DK00BX167)
+
+H68:
+
+Munkebjerg Strandskov (DK00BX168)
+
+H69:
+
+Højen Bæk (DK00BX169)
+
+H70:
+
+Øvre Grejs Ådal (DK00BX170)
+
+H71:
+
+Randbøl Hede og klitter i Frederikshåb Plantage (DK00BY171)
+
+H72:
+
+Blåbjerg Egekrat, Lyngbos Hede og Hennegårds Klitter (DK00AX172)
+
+H73:
+
+Kallesmærsk Hede, Grærup Langsø, Fiilsø og Kærgård Klitplantage (DK00AX173)
+
+H74:
+
+Hedeområder ved Store Råbjerg (DK00AB394)
+
+H75:
+
+Vejen Mose (DK00AB395)
+
+H76:
+
+Nørrebæk ved Tvilho (DK00AX174)
+
+H77:
+
+Nørholm Hede, Nørholm Skov og Varde Å øst for Varde (DK00AX175)
+
+H78:
+
+Vadehavet med Ribe Å, Tved Å og Varde Å vest for Varde (DK00AY176)
+
+H79:
+
+Sneum Å og Holsted Ådal (DK00AX177)
+
+H80:
+
+Kongeå (DK00AX178)
+
+H81:
+
+Pamhule Skov og Stevning Dam (DK009B390)
+
+H82:
+
+Lindet Skov, Hønning Mose, Hønning Plantage og Lovrup Skov (DK009X179)
+
+H83:
+
+Rinkenæs Skov, Dyrehaven og Rode Skov (DK009B392)
+
+H84:
+
+Hostrup Sø, Assenholm Mose og Felsted Vestermark (DK009B389)
+
+H85:
+
+Bolderslev Skov og Uge Skov (DK009X180)
+
+H86:
+
+Brede Å (DK009X346)
+
+H87:
+
+Frøslev Mose (DK009B393)
+
+H88:
+
+Kongens Mose og Draved Skov (DK009B391)
+
+H89:
+
+Sølsted Mose (DK009X181)
+
+H90:
+
+Vidå med tilløb, Rudbøl Sø og Magisterkogen (DK009X182)
+
+H91:
+
+Fyns Hoved, Lillegrund og Lillestrand (DK008X183)
+
+H92:
+
+Æbelø, havet syd for og Nærå (DK008X184)
+
+H93:
+
+Havet mellem Romsø og Hindsholm samt Romsø (DK008X185)
+
+H94:
+
+Odense Fjord (DK008B388)
+
+H95:
+
+Røjle Klint og Kasmose Skov (DK008X186)
+
+H96:
+
+Lillebælt (DK008X047)
+
+H97:
+
+Urup Dam, Brabæk Mose, Birkende Mose og Illemose (DK008X187)
+
+H98:
+
+Odense Å med Hågerup Å, Sallinge Å og Lindved Å (DK008X188)
+
+H99:
+
+Østerø Sø (DK008X189)
+
+H100:
+
+Centrale Storebælt og Vresen (DK008X190)
+
+H101:
+
+Kajbjerg Skov (DK008X191)
+
+H102:
+
+Søer ved Tårup og Klintholm (DK008X192)
+
+H103:
+
+Storelung (DK008X193)
+
+H104:
+
+Skove og søer syd for Brahetrolleborg (DK008X194)
+
+H105:
+
+Arreskov Sø (DK008X195)
+
+H106:
+
+Store Øresø, Sortesø og Iglesø (DK008X196)
+
+H107:
+
+Bøjden Nor (DK008X197)
+
+H108:
+
+Maden på Helnæs og havet vest for (DK008X198)
+
+H109:
+
+Vestlige del af Avernakø (DK008X199)
+
+H110:
+
+Stenrev sydøst for Langeland (DK00VA200)
+
+H111:
+
+Sydfynske Øhav (DK008X201)
+
+H112:
+
+Hesselø med omliggende stenrev (DK003X202)
+
+H113:
+
+Gilbjerg Hoved (DK003X203)
+
+H114:
+
+Teglstrup Hegn og Hammermølle Skov (DK003X204)
+
+H115:
+
+Gurre Sø (DK003X205)
+
+H116:
+
+Rusland (DK003X206)
+
+H117:
+
+Gribskov (DK003X207)
+
+H118:
+
+Arresø, Ellemose og Lille Lyngby Mose (DK003X106)
+
+H119:
+
+Tisvilde Hegn og Melby Overdrev (DK003X208)
+
+H120:
+
+Roskilde Fjord (DK003X209)
+
+H121:
+
+Kattehale Mose (DK003X210)
+
+H122:
+
+(Udgået)
+
+H123:
+
+Øvre Mølleådal, Furesø og Frederiksdal Skov (DK002X212)
+
+H124:
+
+Vasby Mose og Sengeløse Mose (DK002X213)
+
+H125:
+
+Brobæk Mose og Gentofte Sø (DK002X214)
+
+H126:
+
+Saltholm og omliggende hav (DK002X110)
+
+H127:
+
+Vestamager og havet syd for (DK002X111)
+
+H128:
+
+Ejby Ådal og omliggende kystskrænter (DK004X215)
+
+H129:
+
+Hejede Overdrev, Valborup Skov og Valsølille Sø (DK004X216)
+
+H130:
+
+Ølsemagle Strand og Staunings Ø (DK004X217)
+
+H131:
+
+Køge Å (DK004X218)
+
+H132:
+
+Tryggevælde Ådal (DK004X219)
+
+H133:
+
+Jægerspris Skydeterræn (DK003X297)
+
+H134:
+
+Havet og kysten mellem Hundested og Rørvig (DK005Y220)
+
+H135:
+
+Sejerø Bugt og Saltbæk Vig (DK005X221)
+
+H136:
+
+Udby Vig (DK005X222)
+
+H137:
+
+Store Åmose, Skarresø og Bregninge Å (DK005X226)
+
+H138:
+
+Åmose, Tissø, Halleby Å og Flasken (DK005X223)
+
+H139:
+
+Allindelille Fredskov (DK005X224)
+
+H140:
+
+Bagholt Mose (DK005X225)
+
+H141:
+
+Nordlige del af Sorø Sønderskov (DK005X227)
+
+H142:
+
+Sø Torup Sø og Ulse Sø (DK005X228)
+
+H143:
+
+Skælskør Fjord og havet og kysten mellem Agersø og Glænø (DK005Y229)
+
+H144:
+
+Skove ved Vemmetofte (DK006X230)
+
+H145:
+
+Holmegårds Mose (DK006Y231)
+
+H146:
+
+Rådmandshave (DK006X232)
+
+H147:
+
+Havet og kysten mellem Præstø Fjord og Grønsund (DK006X233)
+
+H148:
+
+Havet og kysten mellem Karrebæk Fjord og Knudshoved Odde (DK006X234)
+
+H149:
+
+Kirkegrund (DK00VA235)
+
+H150:
+
+Klinteskoven (DK006X090)
+
+H151:
+
+Lekkende Dyrehave (DK006X237)
+
+H152:
+
+Smålandsfarvandet nord for Lolland, Guldborg Sund, Bøtø Nor og Hyllekrog-Rødsand (DK006X238)
+
+H153:
+
+Maltrup Skov (DK006X278)
+
+H154:
+
+Horreby Lyng (DK006X239)
+
+H155:
+
+Krenkerup Haveskov (DK006X240)
+
+H156:
+
+Maribosøerne (DK006B386)
+
+H157:
+
+Halsted Kloster Dyrehave (DK006X241)
+
+H158:
+
+Nakskov Fjord (DK006X242)
+
+H159:
+
+Spællinge Ådal, Døndal og Helligdomsklipperne (DK007X298)
+
+H160:
+
+Hammeren og Slotslyngen (DK007X243)
+
+H161:
+
+Gyldenså (DK007X244)
+
+H162:
+
+Almindingen, Ølene og Paradisbakkerne (DK007B387)
+
+H163:
+
+Kystskrænter ved Arnager Bugt (DK007X245)
+
+H164:
+
+Dueodde (DK007X246)
+
+H165:
+
+Kims Top og den Kinesiske Mur (DK00VA247)
+
+H166:
+
+Herthas Flak (DK00VA248)
+
+H167:
+
+Lysegrund (DK00VA299)
+
+H168:
+
+Læsø Trindel og Tønneberg Banke (DK00VA249)
+
+H169:
+
+Store Middelgrund (DK00VA250)
+
+H170:
+
+Mejl Flak (DK00VA170)
+
+H171:
+
+Gilleleje Flak og Tragten (DK00VA171)
+
+H172:
+
+Ryggen (DK00VA253)
+
+H173:
+
+Flensborg Fjord, Bredgrund og farvandet omkring Als (DK00VA254)
+
+H174:
+
+Hatter Barn (DK00VA255)
+
+H175:
+
+(Udgået)
+
+H176:
+
+Havet omkring Nordre Rønner (DK00FX257)
+
+H177:
+
+Mågerodde og Karby Odde (DK00EB401)
+
+H178:
+
+Kimmelkær Landkanal (DK00CX259)
+
+H179:
+
+Stege Nor (DK006X260)
+
+H180:
+
+Oreby Skov (DK006X261)
+
+H181:
+
+Silkeborgskovene (DK00DY262)
+
+H182:
+
+Nordby Bakker (DK00DX263)
+
+H183:
+
+Holtug Kridtbrud (DK006X264)
+
+H184:
+
+Klitheder mellem Stenbjerg og Lodbjerg (DK00EX265)
+
+H185:
+
+Lild Strand og Lild Strandkær (DK00EX266)
+
+H186:
+
+Mols Bjerge med kystvande (DK00DX300)
+
+H187:
+
+Korsø Knude (DK00EX268)
+
+H188:
+
+Husby Sø og Nørresø (DK00CX270)
+
+H189:
+
+Lilleskov og Troldsmose (DK009X271)
+
+H190:
+
+Esrum Sø, Esrum Å og Snævret Skov (DK003X272)
+
+H191:
+
+Nedre Mølleådal (DK002X273)
+
+H192:
+
+Busemarke Mose og Råby Sø (DK006X279)
+
+H193:
+
+Ejstrup Klit og Egvands Bakker (DK00FX274)
+
+H194:
+
+Suså med Tystrup-Bavelse Sø og Slagmosen (DK006Y275)
+
+H195:
+
+Røsnæs, Røsnæs Rev og Kalundborg Fjord (DK005X276)
+
+H196:
+
+Lønborg Hede (DK00CX277)
+
+H197:
+
+Husby Klit (DK00CX278)
+
+H198:
+
+Vallø Dyrehave (DK004X269)
+
+H199:
+
+Kongens Lyng (DK003X279)
+
+H200:
+
+Augustenborg Skov (DK009X280)
+
+H201:
+
+Mandbjerg Skov (DK009X281)
+
+H202:
+
+Lønstrup Rødgrund (DK00VA301)
+
+H203:
+
+Knudegrund (DK00VA302)
+
+H204:
+
+Schultz og Hastens Grund samt Briseis Flak (DK00VA303)
+
+H205:
+
+Munkegrunde (DK00VA304)
+
+H206:
+
+Stevns Rev (DK00VA305)
+
+H207:
+
+Klinteskov kalkgrund (DK00VA306)
+
+H208:
+
+Bøchers Grund (DK00VA307)
+
+H209:
+
+Davids Banke (DK00VA308)
+
+H210:
+
+Ertholmene (DK007X079)
+
+H211:
+
+Hvideodde Rev (DK00VA309)
+
+H212:
+
+Bakkebrædt og Bakkegrund (DK00VA310)
+
+H213:
+
+Randkløve Skår (DK007X311)
+
+H214:
+
+Tolne Bakker (DK00FX312)
+
+H215:
+
+Tislum Møllebæk (DK00FX313)
+
+H216:
+
+Bangsbo Ådal og omliggende overdrevsområder (DK00FX314)
+
+H217:
+
+Nymølle Bæk og Nejsum Hede (DK00FX315)
+
+H218:
+
+Hammer Bakker, østlig del (DK00FX316)
+
+H219:
+
+Lien med Underlien (DK00FX317)
+
+H220:
+
+Hanstholmknuden (DK00EX283)
+
+H221:
+
+Risum Enge og Selde Vig (DK00EX284)
+
+H222:
+
+Villestrup Ådal (DK00FX318)
+
+H223:
+
+Kastbjerg Ådal (DK00DX319)
+
+H224:
+
+Flynder Å og heder i Klosterhede Plantage (DK00CX285)
+
+H225:
+
+Idom Å og Ormstrup Hede (DK00CX286)
+
+H226:
+
+Kongenshus Hede (DK00EX287)
+
+H227:
+
+Hessellund Hede (DK00EY288)
+
+H228:
+
+Stenholt Skov og Stenholt Mose (DK00DY294)
+
+H229:
+
+Bjerre Skov og Haslund Skov (DK00DX320)
+
+H230:
+
+Kaløskovene og Kaløvig (DK00DX321)
+
+H231:
+
+Kobberhage kystarealer (DK00DX322)
+
+H232:
+
+Lillering Skov, Stjær Skov, Tåstrup Sø og Tåstrup Mose (DK00DX323)
+
+H233:
+
+Brabrand Sø med omgivelser (DK00DX324)
+
+H234:
+
+Giber Å, Enemærket og Skåde Havbakker (DK00DX325)
+
+H235:
+
+Holtum Ådal, øvre del (DK00BX293)
+
+H236:
+
+Bygholm Ådal (DK00BX326)
+
+H237:
+
+Ringive Kommuneplantage (DK00BX289)
+
+H238:
+
+Egtved Ådal (DK00BX290)
+
+H239:
+
+Alslev Ådal (DK00AX291)
+
+H240:
+
+Svanninge Bakker (DK008X327)
+
+H241:
+
+Rødme Svinehaver (DK008X328)
+
+H242:
+
+Thurø Rev (DK008X329)
+
+H243:
+
+Ebbeløkke Rev (DK00VA330)
+
+H244:
+
+Bjergene, Diesebjerg og Bollinge Bakke (DK005X331)
+
+H245:
+
+Kyndby Kyst (DK003X333)
+
+H246:
+
+Ryegård Dyrehave, Bramsnæs og Garveriskov (DK004X334)
+
+H247:
+
+Egernæs med holme og Fuglsø (DK004Y335)
+
+H248:
+
+Saltum Bjerge (DK00FX336)
+
+H249:
+
+Ovstrup Hede med Røjen Bæk (DK00CX292)
+
+H250:
+
+Svanemose (DK00BX337)
+
+H251:
+
+Jægersborg Dyrehave (DK002X338)
+
+H252:
+
+Listrup Lyng (DK006X339)
+
+H253:
+
+Sandbanker ud for Thyborøn (DK00VA340)
+
+H254:
+
+Sandbanker ud for Thorsminde (DK00VA341)
+
+H255:
+
+Sydlige Nordsø (DK00VA347)
+
+H256:
+
+Thyborøn Stenvolde (DK00VA348)
+
+H257:
+
+Jyske Rev, Lillefiskerbanke (DK00VA257)
+
+H258:
+
+Store Rev (DK00VA258)
+
+H259:
+
+Gule Rev (DK00VA259)
+
+H260:
+
+Femern Bælt (DK00VA260)
+
+H261:
+
+Adler Grund og Rønne Banke (DK00VA261)
+
+H262:
+
+Stensbæk Plantage og Heder (DK00AB359)
+
+H263:
+
+Sønderskoven og Lambjerg Indtægt (DK009B360)
+
+H264:
+
+Stigtehave, Bræmlevænge og Mørkholm Skov (DK008B361)
+
+H265:
+
+Bangsebro Skov og Sønder Kohave (DK006B362)
+
+H266:
+
+Halskov Vænge (DK006B363)
+
+H267:
+
+Rude Skov (DK002B364)
+
+H268:
+
+Folehave Skov (DK002B365)
+
+H269:
+
+Tokkekøb Hegn, Grønholt Hegn og Ny Hammersholt (DK003B366)
+
+H270:
+
+Freerslev Hegn (DK003B367)
+
+H271:
+
+Annebjerg Skov og Ulkerup Skov (DK005B368)
+
+## Bilag 3: Fortegnelse over fuglebeskyttelsesområder
+
+For hvert fuglebeskyttelsesområde er angivet nummer, navn og den såkaldte NATURA 2000 kode.
+
+F1:
+
+Ulvedybet og Nibe Bredning (DK00FX001)
+
+F2:
+
+Ålborg Bugt, nordlige del (DK00FX002)
+
+F3:
+
+Madum Sø (DK00FX003)
+
+F4:
+
+Rold Skov (DK00FX004)
+
+F5:
+
+Råbjerg Mile og Hulsig Hede (DK00FX005)
+
+F6:
+
+Råbjerg og Tolshave Mose (DK00FX006)
+
+F7:
+
+Lille Vildmose (DK00FX007)
+
+F8:
+
+Kysten fra Aggersund til Bygholm Vejle (DK00FX008)
+
+F9:
+
+Nordre Rønner (DK00FX009)
+
+F10:
+
+(Udgået)
+
+F11:
+
+Hirsholmene (DK00FX011)
+
+F12:
+
+Løgstør Bredning, Livø, Feggesund og Skarrehage (DK00EY012)
+
+F13:
+
+Østlige Vejler (DK00EY013)
+
+F14:
+
+Lovns Bredning (DK00EY014)
+
+F15:
+
+Randers og Mariager Fjorde og Ålborg Bugt, sydlige del (DK00FY015)
+
+F16:
+
+Tjele Langsø (DK00EX016)
+
+F17:
+
+Ålvand Klithede og Førby Sø (DK00EB383)
+
+F18:
+
+Vangså Hede (DK00EX025)
+
+F19:
+
+Lønnerup Fjord (DK00EX019)
+
+F20:
+
+Vestlige Vejler, Arup Holm og Hovsør Røn (DK00EX020)
+
+F21:
+
+Ovesø (DK00EX021)
+
+F22:
+
+Hanstholm Reservatet (DK00EX022)
+
+F23:
+
+Agger Tange (DK00EX023)
+
+F24:
+
+Hjarbæk Fjord og Simested Fjord (DK00EX024)
+
+F25:
+
+Mågerodde og Karby Odde (DK00EB385)
+
+F26:
+
+Dråby Vig (DK00EB384)
+
+F27:
+
+Glomstrup Vig, Agerø, Munkholm og Katholm Odde, Lindholm og Rotholme (DK00EY027)
+
+F28:
+
+Nissum Bredning (DK00CX028)
+
+F29:
+
+Flyndersø og Skalle Sø (DK00EY029)
+
+F30:
+
+Kysing Fjord (DK00DX030)
+
+F31:
+
+Stavns Fjord (DK00DX031)
+
+F32:
+
+(Udgået)
+
+F33:
+
+Salten Langsø (DK00DY033)
+
+F34:
+
+Skovområde syd for Silkeborg (DK00DZ034)
+
+F35:
+
+Mossø (DK00DY035)
+
+F36:
+
+Horsens Fjord og Endelave (DK00DY036)
+
+F37:
+
+Borris Hede (DK00CX282)
+
+F38:
+
+Nissum Fjord (DK00CX038)
+
+F39:
+
+Harboøre Tange, Plet Enge og Gjeller Sø (DK00CY039)
+
+F40:
+
+Venø, Venø Sund (DK00CB382)
+
+F41:
+
+Stadil Fjord og Vest Stadil Fjord (DK00CB381)
+
+F42:
+
+Sønder Feldborg Plantage (DK00CX042)
+
+F43:
+
+Ringkøbing Fjord (DK00CX043)
+
+F44:
+
+Uldum Kær, Tørring Kær og Ølholm Kær (DK00BB380)
+
+F45:
+
+Skovområde ved Vejle Fjord (DK00BX045)
+
+F46:
+
+Randbøl Hede (DK00BY046)
+
+F47:
+
+Lillebælt (DK008Z047)
+
+F48:
+
+Hedeområder ved Store Råbjerg (DK00AB378)
+
+F49:
+
+Engarealer ved Ho Bugt (DK00AX049)
+
+F50:
+
+Kallesmærsk Hede og Grærup Langsø (DK00AX050)
+
+F51:
+
+Ribe Holme og enge med Kongeåens udløb (DK00AX051)
+
+F52:
+
+Mandø (DK00AX052)
+
+F53:
+
+Fanø (DK00AX053)
+
+F54:
+
+Vejen Mose (DK00AB379)
+
+F55:
+
+Skallingen og Langli (DK00AX055)
+
+F56:
+
+Fiilsø (DK00AX056)
+
+F57:
+
+Vadehavet (DK00AY057)
+
+F58:
+
+Hostrup Sø, Assenholm Mose og Felsted Vestermark (DK009B373)
+
+F59:
+
+Pamhule Skov og Stevning Dam (DK009B374)
+
+F60:
+
+Vidåen, Tøndermarsken og Saltvandssøen (DK009X060)
+
+F61:
+
+Kongens Mose og Draved Skov (DK009B375)
+
+F62:
+
+Tinglev Sø og Mose, Ulvemose og Terkelsbøl Mose (DK009X062)
+
+F63:
+
+Sønder Ådal (DK009X063)
+
+F64:
+
+Flensborg Fjord og Nybøl Nor (DK009X064)
+
+F65:
+
+Rømø (DK009X065)
+
+F66:
+
+Lindet Skov, Hønning Plantage, Lovrup Skov og Skrøp (DK009X066)
+
+F67:
+
+Ballum og Husum Enge og Kamper Strandenge (DK009X067)
+
+F68:
+
+Rinkenæs Skov, Dyrehaven og Rode Skov (DK009B376)
+
+F69:
+
+Kogsbøl og Skast Mose (DK009X069)
+
+F70:
+
+Frøslev Mose (DK009B377)
+
+F71:
+
+Sydfynske Øhav (DK008X071)
+
+F72:
+
+Marstal Bugt og den sydlige del af Langeland (DK008X072)
+
+F73:
+
+Vresen og havet mellem Fyn og Langeland (DK008X073)
+
+F74:
+
+Skove ved Brahetrolleborg (DK008X074)
+
+F75:
+
+Odense Fjord (DK008B372)
+
+F76:
+
+Æbelø og kysten ved Nærå (DK008X076)
+
+F77:
+
+Romsø og sydkysten af Hindsholm (DK008X077)
+
+F78:
+
+Arreskov Sø (DK008X078)
+
+F79:
+
+Ertholmene (DK007X079)
+
+F80:
+
+Almindingen, Ølene og Paradisbakkerne (DK007B371)
+
+F81:
+
+Karrebæk, Dybsø og Avnø Fjorde (DK006X081)
+
+F82:
+
+Bøtø Nor (DK006X082)
+
+F83:
+
+Kyststrækningen v.
+
+Hyllekrog-Rødsand (DK006X083)
+
+F84:
+
+Ulvsund, Grønsund og Fanefjord (DK006X084)
+
+F85:
+
+Smålandshavet nord for Lolland (DK006X085)
+
+F86:
+
+Guldborgsund (DK006X086)
+
+F87:
+
+Maribosøerne (DK006B370)
+
+F88:
+
+Nakskov Fjord og Indrefjord (DK006X088)
+
+F89:
+
+Præstø Fjord, Ulvshale, Nyord og Jungshoved Nor (DK006X089)
+
+F90:
+
+Klinteskoven (DK006X090)
+
+F91:
+
+Holmegårds Mose og Porsmose (DK006Y091)
+
+F92:
+
+(Udgået)
+
+F93:
+
+Tystrup-Bavelse Sø (DK006Y093)
+
+F94:
+
+Sejerø Bugt og Nekselø (DK005X094)
+
+F95:
+
+Skælskør Nor, Skælskør Fjord og Gammelsø (DK005X095)
+
+F96:
+
+Farvandet mellem Skælskør Fjord og Glænø (DK005X096)
+
+F97:
+
+Hov Vig (DK005X097)
+
+F98:
+
+Sprogø og Halskov Rev (DK005X098)
+
+F99:
+
+Saltbæk Vig (DK005X099)
+
+F100:
+
+Tissø, Åmose og Hallenslev Mose (DK005X100)
+
+F101:
+
+Søer ved Bregentved og Gisselfeld (DK005Y101)
+
+F102:
+
+Havet mellem Korshage og Hundested (DK005Y102)
+
+F103:
+
+Gammel Havdrup Mose (DK004X103)
+
+F104:
+
+Ramsø Mose (DK004X104)
+
+F105:
+
+Roskilde Fjord, Kattinge Vig og Kattinge Sø (DK004Y105)
+
+F106:
+
+Arresø (DK003X343)
+
+F107:
+
+Jægerspris Nordskov (DK003X107)
+
+F108:
+
+Gribskov (DK003X108)
+
+F109:
+
+Furesø med Vaserne og Farum Sø (DK002Y109)
+
+F110:
+
+Saltholm og omliggende hav (DK002X110)
+
+F111:
+
+Vestamager og havet syd for (DK002X111)
+
+F112:
+
+(Udgået)
+
+F113:
+
+Sydlige Nordsø (DK00VA347)
+
+F114:
+
+Husby Sø og Nørresø (DK00CB349)
+
+F115:
+
+Flynder Å og heder i Klosterhede Plantage (DK00CB350)
+
+F116:
+
+Hammeren og Slotslyngen (DK007B351)
+
+F117:
+
+Store Åmose (DK005B352)
+
+F118:
+
+Skjern Å (DK00CB353)
+
+F119:
+
+Klitheder mellem Stenbjerg og Lodbjerg (DK00EB354)
+
+F120:
+
+Svanemose (DK00BB355)
+
+F121:
+
+Stensbæk Plantage og Heder (DK00AB356)
+
+F122:
+
+Sølsted Mose (DK009B357)
+
+F123:
+
+Bøjden Nor (DK008B358)
+
+F124:
+
+Listrup Lyng (DK006X339)
+
+F125:
+
+Maden på Helnæs (DK008B369)
+
+F126:
+
+Skagerrak (DK00FC370)
+
+F127:
+
+Nordvestlige Kattegat (DK00FC371)
+
+F128:
+
+Smålandsfarvandet (DK00FC372)
+
+F129:
+
+Rønne Banke (DK00FC373)
+
+## Bilag 4: Fortegnelse over Ramsarområder
+
+For hvert Ramsarområde er angivet nummer og navn.
+
+R1:
+
+Fiilsø
+
+R2:
+
+Ringkjøbing Fjord
+
+R3:
+
+Stadil og Veststadil Fjorde
+
+R4:
+
+Nissum Fjord
+
+R5:
+
+Harboøre og Agger tanger
+
+R6:
+
+Vejlerne og Løgstør Bredning
+
+R7:
+
+Ulvedybet og Nibe Bredning
+
+R8:
+
+Hirsholmene
+
+R9:
+
+Nordre Rønner
+
+R10:
+
+Læsø
+
+R11:
+
+Dele af Randers og Mariager Fjorde og havet udfor
+
+R12:
+
+Farvandet nord for Anholt
+
+R13:
+
+Horsens Fjord og Endelave
+
+R14:
+
+Stavns Fjord med tilstødende farvand
+
+R15:
+
+Lillebælt
+
+R16:
+
+Nærå Strand og Æbelø-området
+
+R17:
+
+Sydfynske Øhav
+
+R18:
+
+Sejerøbugten
+
+R19:
+
+Farvandet mellem Skælskør Nor og Glænø
+
+R20:
+
+Karrebæk, Dybsø og Avnø fjorde
+
+R21:
+
+Farvandet sydøst for Fejø og Femø
+
+R22:
+
+Præstø Fjord, Jungshoved Nor, Ulvshale og Nyord
+
+R23:
+
+Nakskov Fjord og Indrefjord
+
+R24:
+
+Maribosøerne
+
+R25:
+
+Farvandet mellem Lolland og Falster med Rødsand, Guldborgsund og Bøtø Nor
+
+R26:
+
+Ertholmene øst for Bornholm
+
+R27:
+
+Vadehavet
+
+R28:
+
+Lille Vildmose
+
+## Bilag 5: Fortegnelse over naturtyper og i Danmark naturligt hjemmehørende arter omfattet af habitatdirektivets bilag I og II som er relevante ved udpegning af habitatområder i Danmark
+
+For naturtyperne er angivet naturtypekoden, som den fremgår af habitatdirektivets bilag I, samt dansk navn.
+
+Det danske navn forklarer så vidt muligt typen for danske forhold og er ikke i alle tilfælde en eksakt gengivelse af de mere tekniske betegnelser på direktivets bilag.
+
+De særligt truede naturtyper og arter på europæisk plan (såkaldt prioriterede) er angivet med stjerne (*).
+
+## Naturtyper (habitatdirektivets bilag I)
+
+1110
+
+Sandbanker med lavvandet vedvarende dække af havvand
+
+1130
+
+Flodmundinger
+
+1140
+
+Mudder- og sandflader blottet ved ebbe
+
+1150
+
+* Kystlaguner og strandsøer
+
+1160
+
+Større lavvandede bugter og vige
+
+1170
+
+Rev
+
+1180
+
+Boblerev
+
+1210
+
+Enårig vegetation på stenede strandvolde
+
+1220
+
+Flerårig vegetation på stenede strande
+
+1230
+
+Klinter eller klipper ved kysten
+
+1310
+
+Vegetation af kveller eller andre enårige strandplanter, der koloniserer mudder og sand
+
+1320
+
+Vadegræssamfund
+1) 1330
+
+Strandenge
+
+1340
+
+* Indlands saltenge
+
+2110
+
+Forstrand og begyndende klitdannelser
+
+2120
+
+Hvide klitter og vandremiler
+
+2130
+
+* Stabile kystklitter med urteagtig vegetation (grå klit og grønsværklit)
+
+2140
+
+* Kystklitter med dværgbuskvegetation (klithede)
+
+2160
+
+Kystklitter med havtorn
+
+2170
+
+Kystklitter med gråris
+
+2180
+
+Kystklitter med selvsåede bestande af hjemmehørende træarter
+
+2190
+
+Fugtige klitlavninger
+
+2250
+
+* Kystklitter med enebær
+
+2310
+
+Indlandsklitter med lyng og visse
+
+2320
+
+Indlandsklitter med lyng og revling
+
+2330
+
+Indlandsklitter med åbne græsarealer med sandskæg og hvene
+
+3110
+
+Kalk- og næringsfattige søer og vandhuller (lobeliesøer)
+
+3130
+
+Ret næringsfattige søer og vandhuller med små amfibiske planter ved bredden
+
+3140
+
+Kalkrige søer og vandhuller med kransnålalger
+
+3150
+
+Næringsrige søer og vandhuller med flydeplanter eller store vandaks
+
+3160
+
+Brunvandede søer og vandhuller
+
+3260
+
+Vandløb med vandplanter
+
+3270
+
+Vandløb med tidvis blottet mudder med enårige planter
+
+4010
+
+Våde dværgbusksamfund med klokkelyng
+
+4030
+
+Tørre dværgbusksamfund (heder)
+
+5130
+
+Enekrat på heder, overdrev eller skrænter
+
+6120
+
+* Meget tør overdrevs- eller skræntvegetation på kalkholdigt sand
+
+6210
+
+Overdrev og krat på mere eller mindre kalkholdig bund (* vigtige orkidélokaliteter)
+
+6230
+
+* Artsrige overdrev eller græsheder på mere eller mindre sur bund
+
+6410
+
+Tidvis våde enge på mager eller kalkrig bund, ofte med blåtop
+
+6430
+
+Bræmmer med høje urter langs vandløb eller skyggende skovbryn
+
+7110
+
+* Aktive højmoser
+
+7120
+
+Nedbrudte højmoser med mulighed for naturlig gendannelse
+
+7140
+
+Hængesæk og andre kærsamfund dannet flydende i vand
+
+7150
+
+Plantesamfund med næbfrø, soldug eller ulvefod på vådt sand eller blottet tørv
+
+7210
+
+* Kalkrige moser og sumpe med hvas avneknippe
+
+7220
+
+* Kilder og væld med kalkholdigt (hårdt) vand
+
+7230
+
+Rigkær
+
+8220
+
+Indlandsklipper af kalkfattige bjergarter
+
+8230
+
+Indlandsklipper af kalkfattige bjergarter med pionerplantesamfund
+
+8330
+
+Havgrotter, der står helt eller delvis under vand
+
+9110
+
+Bøgeskove på morbund uden kristtorn
+
+9120
+
+Bøgeskove på morbund med kristtorn
+
+9130
+
+Bøgeskove på muldbund
+
+9150
+
+Bøgeskove på kalkbund
+
+9160
+
+Egeskove og blandskove på mere eller mindre rig jordbund
+
+9170
+
+Vinteregeskove i østlige (subkontinentale) egne
+
+9190
+
+Stilkegeskove og -krat på mager sur bund
+
+91D0
+
+* Skovbevoksede tørvemoser
+
+91E0
+
+* Elle- og askeskove ved vandløb, søer og væld
+
+## Dyre- og plantearter (habitatdirektivets bilag II)
+
+## Dyr
+
+Bredøret flagermus
+2) Barbastella barbastellus
+
+Bechsteins flagermus
+2) Myotis bechsteinii
+
+Damflagermus
+
+Myotis dasycneme
+
+Odder
+
+Lutra lutra
+
+Gråsæl
+
+Halichoerus grypus
+
+Spættet sæl
+
+Phoca vitulina
+
+Marsvin
+
+Phocoena phocoena
+
+Bæver
+
+Castor fiber
+
+Stor vandsalamander
+
+Triturus cristatus
+
+Klokkefrø
+
+Bombina bombina
+
+Flodlampret
+
+Lampetra fluviatilis
+
+Bæklampret
+
+Lampetra planeri
+
+Havlampret
+
+Petromyzon marinus
+
+Stavsild
+
+Alosa fallax
+
+Majsild
+
+Alosa alosa
+
+Laks
+
+Salmo salar (kun i ferskvand)
+
+* Snæbel
+
+* Coregonus oxyrhynchus
+
+Stør
+2) Acipense r sturio
+
+Hvidfinnet ferskvandsulk
+3) Cottus gobio
+
+Pigsmerling
+
+Cobitis taenia
+
+Dyndsmerling
+
+Misgurnus fossilis
+
+Bred vandkalv
+
+Dytiscus latissimus
+
+Lys skivevandkalv
+
+Graphoderus bilineatus
+
+* Eremit
+
+* Osmoderma eremita
+
+Eghjort
+2) Lucanus cervus
+
+Violsmælder
+3) Limoniscus violaceus
+
+Hedepletvinge
+
+Euphydryas aurinia
+
+Stor ildfugl
+3) Lycaena dispar
+
+Stor kærguldsmed
+
+Leucorrhinia pectoralis
+
+Grøn kølleguldsmed
+
+Ophiogomphus cecilia
+
+Stellas mosskorpion
+
+Anthrenochernes stellae
+
+Skæv vindelsnegl
+
+Vertigo angustior
+
+Kildevælds-vindelsnegl
+
+Vertigo geyeri
+
+Sump-vindelsnegl
+
+Vertigo moulinsiana
+
+Flodperlemusling
+
+Margaritifera margaritifera
+
+Tykskallet malermusling
+
+Unio crassus
+
+## Planter
+
+Enkelt månerude
+
+Botrychium simplex
+
+Vandranke
+
+Luronium natans
+
+Liden Najade
+
+Najas flexilis
+
+Fruesko
+
+Cypripedium calceolus
+
+Mygblomst
+
+Liparis loeselii
+
+Gul stenbræk
+
+Saxifraga hirculus
+
+Krybende Sumpskærm
+2) Helosciadium repens (= Apium repens)
+
+Grøn Buxbaumia
+
+Buxbaumia viridis
+
+Blank Seglmos
+
+Drepanocladus vernicosus
+
+Slank Klomos
+3) Dichelyma capillaceum
+
+Langbørstet Meesia
+3) Meesia longiseta
+
+Rogers Furehætte
+3) Orthotrichum rogeri
+
+1) Vadegræs er indført (ca. 1930) til Danmark og er ikkehjemmehørende.
+
+Typen kræver derfor ikke beskyttelse.
+
+2) Sporadisk/uregelmæssig forekomst i Danmark.
+
+Områder kræves derfor ikke udpeget.
+
+3) Betragtes som uddød i Danmark, men kan evt.
+
+dukke op igen.
+
+## Bilag 6: Fortegnelse over danske fuglearter omfattet af EF-fuglebeskyttelsesdirektivet, som er relevante ved udpegning af fuglebeskyttelsesområder i Danmark
+
+Fuglearter angivet med + omfatter arter på fuglebeskyttelsesdirektivets bilag I, som har regelmæssig forekomst i et eller flere fuglebeskyttelsesområder.
+
+De øvrige forekommer regelmæssigt på en eller flere lokaliteter i antal, der har international betydning.
+
+Rødstrubet lom
+
+Gavia stellata +
+
+Sortstrubet lom
+
+Gavia arctica +
+
+Gråstrubet lappedykker
+
+Podiceps grisegena
+
+Mallemuk
+
+Fulmarus glacialis
+
+Sule
+
+Morus bassanus
+
+Skarv
+
+Phalacrocorax carbo
+
+Rørdrum
+
+Botaurus stellaris +
+
+Sort stork
+
+Ciconia nigra +
+
+Hvid stork
+
+Ciconia ciconia +
+
+Skestork
+
+Platalea leucorodia +
+
+Knopsvane
+
+Cygnus olor
+
+Pibesvane
+
+Cygnus columbianus bewickii +
+
+Sangsvane
+
+Cygnus cygnus +
+
+Sædgås
+
+Anser fabalis
+
+Kortnæbbet gås
+
+Anser brachyrhynchus
+
+Blisgås
+
+Anser albifrons
+
+Grågås
+
+Anser anser
+
+Bramgås
+
+Branta leucopsis +
+
+Lysbuget knortegås
+
+Branta bernicla hrota
+
+Mørkbuget knortegås
+
+Branta bernicla bernicla
+
+Gravand
+
+Tadorna tadorna
+
+Pibeand
+
+Mareca penelope (=Anas penelope)
+
+Knarand
+
+Anas strepera
+
+Krikand
+
+Anas crecca
+
+Gråand
+
+Anas platyrhynchos
+
+Spidsand
+
+Anas acuta
+
+Skeand
+
+Spatula clypeata (=Anas clypeata)
+
+Taffeland
+
+Aythya ferina
+
+Troldand
+
+Aythya fuligula
+
+Bjergand
+
+Aythya marila
+
+Ederfugl
+
+Somateria mollissima
+
+Havlit
+
+Clangula hyemalis
+
+Sortand
+
+Melanitta nigra
+
+Fløjlsand
+
+Melanitta fusca
+
+Hvinand
+
+Bucephala clangula
+
+Lille skallesluger
+
+Mergus albellus +
+
+Toppet skallesluger
+
+Mergus serrator
+
+Stor skallesluger
+
+Mergus merganser
+
+Hvepsevåge
+
+Pernis apivorus +
+
+Rød glente
+
+Milvus milvus +
+
+Havørn
+
+Haliaeetus albicilla +
+
+Rørhøg
+
+Circus aeruginosus +
+
+Blå kærhøg
+
+Circus cyaneus +
+
+Hedehøg
+
+Circus pygargus +
+
+Kongeørn
+
+Aquila chrysaetos +
+
+Fiskeørn
+
+Pandion haliaetus +
+
+Vandrefalk
+
+Falco peregrinus +
+
+Plettet rørvagtel
+
+Porzana porzana +
+
+Engsnarre
+
+Crex crex +
+
+Blishøne
+
+Fulica atra
+
+Trane
+
+Grus grus +
+
+Strandskade
+
+Haematopus ostralegus
+
+Klyde
+
+Recurvirostra avosetta +
+
+Hvidbrystet Præstekrave
+
+Charadrius alexandrinus +
+
+Pomeransfugl
+
+Eudromius morinellus + (=Charadrius morinellus)
+
+Hjejle
+
+Pluvialis apricaria +
+
+Strandhjejle
+
+Pluvialis squatarola
+
+Islandsk Ryle
+
+Calidris canutus
+
+Sandløber
+
+Calidris alba
+
+Almindelig Ryle
+
+Calidris alpina
+
+Engryle
+
+Calidris alpina schinzii +
+
+Brushane
+
+Calidris pugnax + (=Philomachus pugnax)
+
+Lille kobbersneppe
+
+Limosa lapponica +
+
+Storspove
+
+Numenius arquata
+
+Sortklire
+
+Tringa erythropus
+
+Hvidklire
+
+Tringa nebularia
+
+Tinksmed
+
+Tringa glareola +
+
+Rødben
+
+Tringa totanus
+
+Storkjove
+
+Stercorarius skua
+
+Hættemåge
+
+Larus ridibundus
+
+Dværgmåge
+
+Hydrocoloeuos minutus + (=Larus minutus)
+
+Sorthovedet måge
+
+Larus melanocephalus +
+
+Dværgterne
+
+Sterna albifrons +
+
+Sandterne
+
+Gelochelidon nilotica +
+
+Rovterne
+
+Hydroprogne caspia + (Sterna caspia)
+
+Sortterne
+
+Chlidonias niger +
+
+Splitterne
+
+Thallasseus sandvicensis + (Sterna sandvicensis)
+
+Fjordterne
+
+Sterna hirundo +
+
+Havterne
+
+Sterna paradisaea +
+
+Lomvie
+
+Uria aalge
+
+Alk
+
+Alca torda
+
+Tejst
+
+Cepphus grylle
+
+Stor hornugle
+
+Bubo bubo +
+
+Mosehornugle
+
+Asio flammeus +
+
+Perleugle
+
+Aegolius funereus +
+
+Natravn
+
+Caprimulgus europaeus +
+
+Isfugl
+
+Alcedo atthis +
+
+Sortspætte
+
+Dryocopus martius +
+
+Hedelærke
+
+Lullula arborea +
+
+Markpiber
+
+Anthus campestris +
+
+Blåhals
+
+Luscinia svecica +
+
+Høgesanger
+
+Sylvia nisoria +
+
+Rødrygget tornskade
+
+Lanius collurio +
+
+## Bilag 7: Fortegnelse over i Danmark naturligt hjemmehørende arter omfattet af habitatdirektivets bilag IV
+
+For arterne er angivet både det danske og det latinske navn.
+
+## Dyrearter
+
+## Pattedyr
+
+Alle arter af flagermus
+
+Microchiroptera spp.
+
+Hasselmus
+
+Muscardinus avellanarius
+
+Birkemus
+
+Sicista betulina
+
+Odder
+
+Lutra lutra
+
+Marsvin
+
+Phocoena phocoena
+
+Alle andre arter af hvaler
+
+Cetacea spp.
+
+Bæver
+
+Castor fiber
+
+Ulv
+
+Canis lupus
+
+## Krybdyr
+
+Markfirben
+
+Lacerta agilis
+
+## Padder
+
+Stor vandsalamander
+
+Triturus cristatus
+
+Klokkefrø
+
+Bombina bombina
+
+Løgfrø
+
+Pelobates fuscus
+
+Løvfrø
+
+Hyla arborea
+
+Spidssnudet frø
+
+Rana arvalis
+
+Springfrø
+
+Rana dalmatina
+
+Strandtudse
+
+Epidalea calamita (=Bufo calamita)
+
+Grønbroget tudse
+
+Bufotes viridis (=Bufo viridis)
+
+## Fisk
+
+Snæbel
+
+Coregonus oxyrhynchus
+
+## Insekter
+
+Bred vandkalv
+
+Dytiscus latissimus
+
+Lys skivevandkalv
+
+Graphoderus bilineatus
+
+Eremit
+
+Osmoderma eremita
+
+Sortplettet blåfugl
+
+Maculinea arion
+
+Grøn mosaikguldsmed
+
+Aeshna viridis
+
+Stor kærguldsmed
+
+Leucorrhinia pectoralis
+
+Grøn kølleguldsmed
+
+Ophiogomphus cecilia
+
+Natlyssværmer
+
+Proserpinus proserpina
+
+## Bløddyr
+
+Tykskallet malermusling
+
+Unio crassus
+
+## Planter
+
+Enkelt månerude
+
+Botrychium simplex
+
+Vandranke
+
+Luronium natans
+
+Liden Najade
+
+Najas flexilis
+
+Fruesko
+
+Cypripedium calceolus
+
+Mygblomst
+
+Liparis loeselii
+
+Gul stenbræk
+
+Saxifraga hirculus
+
+Krybende sumpskærm
+
+Helosciadium repens (= Apium repens)
+
+## Bilag 8: Internationale naturbeskyttelsesområder
+
+## Bilag 9: Habitatområder
+
+## Bilag 10: Fuglebeskyttelsesområder
+
+## Bilag 11: Ramsarområder
+
+## Noter
+[2)] Bekendtgørelsen indeholder bestemmelser, der gennemfører dele af Ramsar-konventionen af 2. februar 1971 om vådområder af international betydning navnlig som levesteder for vandfugle, jf. Udenrigsministeriets bekendtgørelser nr. 26 af 4. april 1978 og senere bekendtgørelser, senest nr. 55 af 11. august 1987 og nr. 109 af 20. oktober 1994.

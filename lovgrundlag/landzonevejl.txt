@@ -1,8 +1,8 @@
-Forord
+## Forord
 
 Folketinget har vedtaget en modernisering af planloven den 1. juni 2017
 
-1) Lovforslag L 121 fremsat 25/01/2017, lovbekendtgørelse nr. 287 af 16/04/2018.
+[1)]
 
 , der trådte i kraft den 15. juni 2017.
 
@@ -24,7 +24,7 @@ Vejledningen er en praktisk vejledning rettet mod kommunalbestyrelsens sagsbehan
 
 Hensigten er at give et overblik over rammerne for kommunernes landzoneadministration og beskrive relevante emneområder og procedurer mv., der er relevante i forbindelse med kommunalbestyrelsens sagsbehandling.
 
-Indledning
+## Indledning
 
 Med moderniseringen af planloven får kommunerne bedre muligheder for at skabe vækst og udvikling i hele Danmark, samtidig med at der fortsat skal værnes om landets natur og miljø.
 
@@ -87,7 +87,7 @@ landzonebestemmelserne.
 Orientering om nævnets afgørelser og praksis kan ses på:
 http://pknafgoerelser.dk/
 
-Vejledningens opbygning
+## Vejledningens opbygning
 
 Vejledningen er opdelt i fire kapitler og opbygget, så den følger de krav og opgaver, som planlovens landzoneregler definerer.
 
@@ -125,15 +125,15 @@ Lovtekst er i vejledningen henholdsvis anført på grå baggrund og angivet med 
 
 Øvrig tekst i vejledningen er vejledningstekst.
 
-Kapitel 1 Planlovens landzonebestemmelser - §§ 34-38
+## Kapitel 1 Planlovens landzonebestemmelser - §§ 34-38
 
-1.1
+## 1.1
 
-Zoneinddelingen - § 34
+## Zoneinddelingen - § 34
 
-1.2
+## 1.2
 
-Krav om landzonetilladelse - § 35, stk. 1
+## Krav om landzonetilladelse - § 35, stk. 1
 
 1.2.1
 
@@ -171,9 +171,9 @@ Tilladelse til etablering af flere boligenheder i eksisterende bygninger - § 35
 
 Eksisterende vognmandsvirksomheder - § 35 a
 
-1.3
+## 1.3
 
-Undtagelser fra kravet om landzonetilladelse - § 36
+## Undtagelser fra kravet om landzonetilladelse - § 36
 
 1.3.1
 
@@ -207,9 +207,9 @@ Fleksboliger - § 36, stk. 7
 
 Særlige regler vedrørende pensionister - § 36, stk. 8-12
 
-1.4
+## 1.4
 
-Ibrugtagning af overflødiggjorte bygninger - § 37
+## Ibrugtagning af overflødiggjorte bygninger - § 37
 
 1.4.1
 
@@ -223,23 +223,23 @@ Mindre ikke skæmmende oplag - § 37, stk. 3
 
 Områder hvor § 37 ikke finder anvendelse - § 37, stk. 2, nr. 3, stk. 4-6
 
-1.5
+## 1.5
 
-Anmeldelsespligt - § 38
+## Anmeldelsespligt - § 38
 
-1.6
+## 1.6
 
-Indberetning til Plandataregisteret - § 54 b, stk. 4
+## Indberetning til Plandataregisteret - § 54 b, stk. 4
 
-Kapitel 2 Rammer for administration af landzonesager
+## Kapitel 2 Rammer for administration af landzonesager
 
-2.1
+## 2.1
 
-Konkret vurdering
+## Konkret vurdering
 
-2.2
+## 2.2
 
-Overordnede hensyn
+## Overordnede hensyn
 
 2.2.1
 
@@ -301,11 +301,11 @@ Individuelle sociale og menneskelige hensyn
 
 Nabohensyn
 
-Kapitel 3 Særlige emneområder
+## Kapitel 3 Særlige emneområder
 
-3.1
+## 3.1
 
-Boliger
+## Boliger
 
 3.1.1
 
@@ -339,27 +339,27 @@ Udstykning til boliger
 
 Ændret anvendelse af boliger
 
-3.2
+## 3.2
 
 Garager, carporte, udhuse, drivhuse o.lign.
 
 (småbygninger)
 
-3.3
+## 3.3
 
-Landbrug
+## Landbrug
 
-3.4
+## 3.4
 
-Gartnerier og frugtplantager
+## Gartnerier og frugtplantager
 
-3.5
+## 3.5
 
-Skovbrug
+## Skovbrug
 
-3.6
+## 3.6
 
-Jordtilknyttede erhverv
+## Jordtilknyttede erhverv
 
 3.6.1
 
@@ -369,9 +369,9 @@ Pelsdyrfarme
 
 Rideskoler, hestestutterier, dyrepensioner m.v.
 
-3.7
+## 3.7
 
-Fiskeri og dambrug
+## Fiskeri og dambrug
 
 3.7.1
 
@@ -381,13 +381,13 @@ Fiskeri
 
 Dambrug
 
-3.8
+## 3.8
 
-Råstofindvinding
+## Råstofindvinding
 
-3.9
+## 3.9
 
-Andre Erhverv
+## Andre Erhverv
 
 3.9.1
 
@@ -401,13 +401,13 @@ Detailsalg
 
 Institutioner
 
-3.10
+## 3.10
 
-Vognmandsvirksomheder
+## Vognmandsvirksomheder
 
-3.11
+## 3.11
 
-Tekniske anlæg mv.
+## Tekniske anlæg mv.
 
 3.11.1
 
@@ -433,9 +433,9 @@ Spildevandsanlæg m.v.
 
 Søer
 
-3.12
+## 3.12
 
-Rekreative formål
+## Rekreative formål
 
 3.12.1
 
@@ -445,27 +445,27 @@ Rekreative parceller
 
 Ferie- og fritidsformål
 
-3.13
+## 3.13
 
-Ændret anvendelse af overflødiggjorte bygninger - § 37, stk. 1 og 2
+## Ændret anvendelse af overflødiggjorte bygninger - § 37, stk. 1 og 2
 
-3.14
+## 3.14
 
-Pensionisters anvendelse af fritidshuse til helårsbeboelse
+## Pensionisters anvendelse af fritidshuse til helårsbeboelse
 
-3.15
+## 3.15
 
-Omdannelseslandsbyer
+## Omdannelseslandsbyer
 
-Kapitel 4 Proces og procedurer
+## Kapitel 4 Proces og procedurer
 
-4.1
+## 4.1
 
-Modtagelse og behandling af ansøgning
+## Modtagelse og behandling af ansøgning
 
-4.2
+## 4.2
 
-Formkrav m.v. til landzoneafgørelser
+## Formkrav m.v. til landzoneafgørelser
 
 4.2.1
 
@@ -487,13 +487,13 @@ Indberetning til Plandataregisteret
 
 Forældelse - § 56, stk. 2, stk. 3 og stk. 4
 
-4.3
+## 4.3
 
-Håndhævelse og tilsyn § 51
+## Håndhævelse og tilsyn § 51
 
-4.4
+## 4.4
 
-Klageregler §§ 58-59 og § 62
+## Klageregler §§ 58-59 og § 62
 
 4.4.1
 
@@ -531,13 +531,13 @@ Søgsmål - § 62, stk. 1
 
 Klagevejledning - § 35, stk. 7 og stk. 9
 
-Bilag 1 Oversigtsskema over undtagelser fra landzonekravet
+## Bilag 1 Oversigtsskema over undtagelser fra landzonekravet
 
-Bilag 2 Revisionshistorik
+## Bilag 2 Revisionshistorik
 
-Kapitel 1
+## Kapitel 1
 
-Planlovens landzonebestemmelser - §§ 34-38
+## Planlovens landzonebestemmelser - §§ 34-38
 
 Overblik over planlovens landzonebestemmelser
 
@@ -569,7 +569,7 @@ Overblik over planlovens landzonebestemmelser
 
 § 58: Klageregler
 
-1.1 Zoneinddelingen - § 34
+## 1.1 Zoneinddelingen - § 34
 
 Planlovens § 34
 
@@ -608,11 +608,7 @@ Efter planlovens § 34 er hele landet inddelt i tre zoner: Byzone, sommerhusomr�
 
 Denne zoneinddeling blev oprindelig indført med den tidligere by- og landzonelov
 
-2) Inddelingen af landet i by- og landzoner i by- og landzoneloven fra 1970 blev videreført i planloven, der trådte i kraft 1. januar 1992.
-
-Planloven samlede by- og landzoneloven, kommuneplanloven og lands- og regionplanloven.
-
-Zoneinddelingen er videreført i de senere ændringer til planloven.
+[2)]
 
 .
 
@@ -648,9 +644,7 @@ byzone og sommerhusområde, jf. § 34, stk. 2, nr. 5, og stk. 3, nr. 3.
 
 Arealer, der som led i godkendte frikommuneforsøg i henhold til § 16 i lov om frikommuner
 
-3) Lov om frikommuner er ophævet med lov om frikommunenetværk (lovbek.
-
-nr. 831 af 25/06/2018).
+[3)]
 
 er overført til byzone uden forudgående lokalplan, opretholder status som byzone også efter forsøgsperioden er afsluttet, jf. § 34, stk. 5.
 
@@ -664,9 +658,7 @@ Områder i landzone kan tillige være omfattet af en lokalplan (se afsnit 1.2.4 
 
 Arealer, der indvindes ved opfyldning på søterritoriet
 
-4) Opfyldning på søterritoriet kræver Kystdirektoratets tilladelse efter kystbeskyttelsesloven (lbk.
-
-nr. 78 af 19/01/2017 af lov om kystbeskyttelse).
+[4)]
 
 , er landzone, indtil zonestatus ændres ved lokalplanlægning.
 
@@ -684,7 +676,7 @@ For mange af aftaleområderne har kommunalbestyrelserne siden lavet lokalplaner,
 
 Planlovens regler om anvendelse af ejendomme i sommerhusområder
 
-5) Jf. kapitel 8 i planloven.
+[5)]
 
 gælder ikke for sommerhuse i landzone.
 
@@ -694,7 +686,7 @@ Det bemærkes endvidere, at kommunerne ved boligreguleringsloven har mulighed fo
 
 Fleksboliger
 
-6) Fleksboligordningen er nærmere beskrevet i bemærkningerne til L 149 af 20. februar 2013 (Benyttelse af fritidsboliger til helårsformål) og L 51 af 11. november 2015 (udvidelse af fleksboligordningen).
+[6)]
 
 har ikke formel status som sommerhuse, men er en alternativ mulighed for at tage eksisterende boliger i brug som fritidsboliger i landzone.
 
@@ -726,7 +718,7 @@ Ved tilbageførsel af privatejede arealer til landzone efter § 45 kan der ydes 
 
 Hvis en ejer har betalt en frigørelsesafgift i forbindelse med et areals overgang fra landzone til byzone eller sommerhusområde, tilbagebetales afgiften til ejeren ved tilbageførsel af arealet til landzone, såfremt den pågældende ejer også var ejer af ejendommen på overførselstidspunktet, jf. § 46 a, stk. 1.
 
-1.2 Krav om landzonetilladelse - § 35, stk. 1
+## 1.2 Krav om landzonetilladelse - § 35, stk. 1
 
 Planlovens § 35, stk. 1
 
@@ -788,7 +780,7 @@ Ved begrebet ”bebyggelse” forstås efter landzonebestemmelserne som udgangsp
 
 Det vil sige, at bebyggelse ikke alene omfatter bygninger og mure, men også andre faste konstruktioner og anlæg, f.eks. antennemaster, lysmaster, gyllebeholdere
 
-7) Bebyggelse der er erhvervsmæssigt nødvendig for en ejendoms drift som landbrugsejendom, landbrugsbedrift, bortset fra husdyranlæg, skovbrugsejendom eller udøvelse af fiskerierhvervet er undtaget for landzonetilladelse, jf. § 36, stk. 1, nr. 3, men kræver landzonetilladelse til beliggenhed og udformning, hvis den opføres uden tilknytning til ejendommens hidtidige bebyggelsesarealer, jf. § 36, stk. 2.
+[7)]
 
 , jordbærtunneler og vindmøller.
 
@@ -832,7 +824,7 @@ Ophævelse af landbrugspligten på en landbrugsejendom betragtes ikke i sig selv
 
 Heller ikke i tilfælde, hvor landbrugspligten ophæves på restparcellen
 
-8) Jf. landbrugslovens § 6, stk. 2 og 3 (LBK nr. 27 af 04/01/2017).
+[8)]
 
 , efter at jorden er frastykket, betragtes det som en ændret anvendelse, der kræver tilladelse.
 
@@ -904,7 +896,7 @@ Som udgangspunkt vil dette skulle ske i tilknytning til eksisterende bymæssig b
 
 Der henvises til planlovens § 11 a, stk. 8, og Vejledning om byvækst
 
-9) Vejledning om byvækst., Erhvervsstyrelsen oktober 2017.
+[9)]
 
 samt til kap.
 
@@ -922,7 +914,7 @@ Planlovens § 15, stk. 5, indeholder begrænsninger for, hvad der kan reguleres 
 
 En sådan lokalplan kan ikke indeholde bestemmelser vedrørende landbrugsejendommes størrelse og afgrænsning, bebyggelsens beliggenhed, anvendelsen af de enkelte bygninger samt udformning, anvendelse og vedligeholdelse af ubebyggede arealer, herunder terrænregulering, beplantning m.v.
 
-10) Se endvidere § 6 i cirkulære om varetagelsen af de jordbrugsmæssige interesser under kommune- og lokalplanlægningen (cirkulære nr. 9174 af 19/04/2010).
+[10)]
 
 Hvis der er fremlagt et forslag til lokalplan for et område i landzone, skal meddelelsen af en landzonetilladelse til ikke-lokalplanpligtigt byggeri eller anlæg normalt afvente den endelige vedtagelse af lokalplanen.
 
@@ -942,7 +934,7 @@ Hovedkriteriet for afgrænsning af lokalplanpligten, jf. § 13, stk. 2, i landzo
 
 Der er ikke nogen eksakt grænse for, hvornår noget er lokalplanpligtigt (se vejledning om lokalplanlægning
 
-11) Vejledning om lokalplanlægning, Miljøministeriet, september 2009.
+[11)]
 
 ).
 
@@ -996,7 +988,7 @@ Det er hensigten, at de udpegede udviklingsområder vil være områder i kystnæ
 
 Begrænsningen i landzoneadministrationen i kystnærhedszonen efter planlovens § 35, stk. 3, om, at der kun kan meddeles landzonetilladelse, hvis forholdet er af helt underordnet betydning i forhold til de nationale interesser i kystnærhedszonen, omfatter ikke de udpegede udviklingsområder i kystnærhedszonen
 
-12) Se vejledning om udviklingsområder, Erhvervsstyrelsen, juni 2017.
+[12)]
 
 .
 
@@ -1108,7 +1100,7 @@ Hvis der er tale om en virksomhed, der falder inden for bestemmelsens anvendelse
 
 Der henvises til afsnit 3.10.
 
-1.3 Undtagelser fra kravet om landzonetilladelse - § 36
+## 1.3 Undtagelser fra kravet om landzonetilladelse - § 36
 
 Planlovens § 36, stk. 1
 
@@ -1206,7 +1198,7 @@ Efter bestemmelserne i § 36, stk. 1, nr. 1 og 2, er visse udstykninger dog undt
 
 Undtagelsen i nr. 1 omhandler udstykninger i forbindelse med samdrift med en bestående landbrugsejendom efter landbrugsloven
 
-13) LBK nr. 27 af 04/01/2017 af lov om landbrugsejendomme.
+[13)]
 
 .
 
@@ -1230,7 +1222,7 @@ Udstykning af en skovejendom efter § 6, stk. 1, nr. 6 og 7, i lov om landbrugse
 
 Undtagelsen i planlovens § 36, stk. 1, nr. 2, omhandler udstykning af skovarealer over 20 ha, der efter skovloven er pålagt fredskovspligt
 
-14) Jf. kapitel 2 i skovloven.
+[14)]
 
 , jf. landbrugslovens § 6, stk. 1, nr. 6 og 7.
 
@@ -1248,9 +1240,7 @@ Bestemmelsen gælder generelt ikke for de forhold, der kræver godkendelse og ti
 
 Som overordnet princip skal husdyrbrug ikke have tilladelse efter både husdyrbrugloven og planloven
 
-15) Jf. lovbemærkningerne til ændring af husdyrbrugloven (L 114 fremsat 12/01/2017).
-
-Se også Miljøstyrelsens husdyrvejledning (se http://husdyrvejledning.mst.dk/).
+[15)]
 
 .
 
@@ -1260,13 +1250,7 @@ De forhold, der fremgår af bestemmelsen i § 36, stk. 1, nr. 3, er derfor alene
 
 Hvis der er tale om opførelse af gyllebeholdere på en landbrugsejendom med planteavl og uden dyrehold, er gyllebeholderen ikke omfattet af husdyrbrugloven, men af planlovens regler
 
-16) Planlovens landzoneregler finder anvendelse i det omfang, der er tale om dispositioner, der ikke er omfattet af husdyrbruglovens tiladelses-/godkendelsesordning.
-
-Det betyder, at etablering, udvidelse og ændring af husdyranlæg og gødnings- og ensilageopbevaringsanlæg, som ikke skal godkendes eller tillades efter husdyrbruglovens §§ 16 a og 16 b, vil være omfattet af landzonereglerne i planloven.
-
-Det gælder f.eks. gyllebeholdere på planteavlsbrug eller stalde på ejendomme, hvor produktionsarealet ikke overstiger grænsen for krav om tilladelse efter husdyrbruglovens § 16 b.
-
-Sådanne anlæg omfattes og af husdyrbruglovens og husdyrbekendtgørelsens krav om placering af anlæg m.v.
+[16)]
 
 .
 
@@ -1286,9 +1270,7 @@ Der henvises til afsnit 3.1.2 og 3.3.
 
 Ved en landbrugsejendom forstås en ejendom, der er noteret som en landbrugsejendom i Geodatastyrelsens matrikelregister.
 
-17) Jf. § 2, stk. 1, i lov om landbrugsejendomme (lbk.
-
-nr. 27 af 04/01/2017).
+[17)]
 
 Ved ”landbrugsbedrift” forstås efter landbrugslovens § 2, stk. 3, en driftsenhed, der anvendes til jordbrugsmæssige formål, som for jordernes vedkommende er fastsat i lov om drift af landbrugsjorder, og som drives af samme fysiske eller juridiske person.
 
@@ -1312,25 +1294,24 @@ Der henvises til afsnit 1.3.2.
 
 Det kræver desuden Kystdirektoratets tilladelse efter naturbeskyttelsesloven til den nærmere beliggenhed og udformning, hvis erhvervsmæssigt nødvendige bygninger ønskes opført inden for strandbeskyttelses- eller klitfredningslinjen, også selv om de opføres i tilknytning til eksisterende bygninger
 
-18) Jf. § 8 a, stk. 1, nr. 7, og § 15 a, stk. 1, nr. 6, i naturbeskyttelsesloven (LBK nr. 934 af 27/06/2017).
-
-19) Det bemærkes, at undtagelserne i naturbeskyttelseslovens bestemmelser om bygge- og beskyttelseslinjer, der er nødvendige for driften af en landbrugsejendom, kun gælder for den pågældende landbrugsejendom (og dermed ikke i forhold til en landbrugsbedrift).
+[18)]
+[19)]
 
 .
 
 Det kræver kommunalbestyrelsens dispensation efter naturbeskyttelsesloven til at opføre de nævnte bygninger inden for beskyttelseslinjer omkring fortidsminder
 
-20) Jf. § 18 i naturbeskyttelsesloven.
+[20)]
 
 og til ethvert byggeri over 8,5 m inden for kirkebyggelinjen
 
-21) Jf. § 19 i naturbeskyttelsesloven.
+[21)]
 
 .
 
 Det kan endelig kræve dispensation fra naturbeskyttelsesloven, hvis byggeriet opføres inden for sø- og åbeskyttelseslinjen
 
-22) Jf. § 16 i naturbeskyttelsesloven.
+[22)]
 
 og skovbyggelinjen, medmindre byggeriet er erhvervsmæssigt for den pågældende landbrugs- eller skovbrugsejendom.
 
@@ -1554,7 +1535,7 @@ Genoptagelse af helårsbeboelse af boliger, som midlertidigt har været anvendt 
 
 En fleksboligtilladelse
 
-23) Fleksboligordningen er nærmere beskrevet i bemærkningerne til L 149 af 20. februar 2013 (Benyttelse af fritidsboliger til helårsformål) og L 51 af 11. november 2015 (udvidelse af fleksboligordningen).
+[23)]
 
 er en tilladelse efter boligreguleringslovens § 50, stk. 2, der giver boligejeren mulighed for midlertidigt at anvende en helårsbolig til fritidsbolig med ret til senere at genoptage helårsanvendelsen uden på ny at skulle søge kommunen om tilladelse hertil.
 
@@ -1798,7 +1779,7 @@ Undtagelsen i nr. 20 omfatter udvidelse af en erhvervsvirksomhed i landzone etab
 anden overflødiggjort bygning
 end en landbrugsbygning
 
-24) Der er tale om særskilte bestemmelser, fordi undtagelsen i nr. 15 ikke gælder inden for naturbeskyttelseslovens klitfrednings- og strandbeskyttelseslinje, jf. § 36, stk. 4, mens undtagelsen i nr. 20 heller ikke gælder inden for kystnærhedszonen uden for udviklingsområder, jf. stk. 5.
+[24)]
 
 .
 
@@ -2018,9 +1999,7 @@ Bestemmelsen fastsætter, at opførelse eller indretning af boliger i forbindels
 
 Efter naturbeskyttelseslovens §§ 8 og 15 må der ikke foretages ændringer i tilstanden af arealer omfattet af klitfredning og inden for strandbeskyttelseslinjen.
 
-25) Jf. naturbeskyttelseslovens §§ 8 og 15 (lbk.
-
-nr. 934 af 27/06/2017 med senere ændringer).
+[25)]
 
 Det forudsætter Kystdirektoratets dispensation eller tilladelse til ændringer i tilstanden, herunder opførelse af nye bygninger og tilbygninger, jf. naturbeskyttelseslovens § 65, stk. 1 og § 65 a, stk. 1 og § 65 b, stk. 1.
 
@@ -2062,7 +2041,7 @@ Formålet med bestemmelsen er derfor, at byggearbejder ved campinghytter på en 
 
 Det bemærkes, at campinghytter er defineret i campingreglementet
 
-26) Bekendtgørelse nr. 844 af 30. juni 2010 om tilladelse til udlejning af arealer til campering og om indretning og benyttelse af campingpladser.
+[26)]
 
 .
 
@@ -2179,7 +2158,7 @@ Yderligere gælder den umiddelbare ret ikke omkring forsvarets øvelsespladser s
 
 Formålet med undtagelserne er, at virksomheders drift eller udviklingsmuligheder ikke begrænses af støjfølsom anvendelse (helårsbeboelse), samt at forsvaret ikke begrænses i anvendelsen af øvelsespladser og skyde- og øvelsesterræner m.v.
 
-1.4 Ibrugtagning af overflødiggjorte bygninger - § 37
+## 1.4 Ibrugtagning af overflødiggjorte bygninger - § 37
 
 Planlovens § 37
 
@@ -2373,7 +2352,7 @@ E-handelsvirksomheder kan have en begrænset kundestrøm til et showroom eller l
 
 Hvis der derimod sker mere end et ubetydeligt salg af varer til kunder, der kommer fysisk i butikken, betragtes det som detailhandel.
 
-27) Vejledning om detailhandelsplanlægning, Erhvervsstyrelsen, september 2017.
+[27)]
 
 Der kan ikke uden landzonetilladelse indrettes mindre butikker i overflødiggjorte bygninger, der er beliggende inden for klitfrednings- og strandbeskyttelseslinjen, jf. § 37, stk. 5 (se afsnit 3.12).
 
@@ -2474,7 +2453,7 @@ Støjkonsekvensområder udgør områder omkring anlæg af national interesse, hv
 
 Formålet med § 37, stk. 6, er således, at den umiddelbare ret i § 37, stk. 1 og 2, til ændret anvendelse af bygninger ikke begrænser de støjende aktiviteter i området.
 
-1.5 Anmeldelsespligt - § 38
+## 1.5 Anmeldelsespligt - § 38
 
 Planlovens § 38
 
@@ -2620,13 +2599,13 @@ I medfør af planlovens § 54 b, stk. 4, skal landzonetilladelser pr. 1. januar 
 
 Se mere herom i afsnit 4.2.4.
 
-Kapitel 2
+## Kapitel 2
 
-Rammer for administration af landzonesager
+## Rammer for administration af landzonesager
 
 I dette kapitel gennemgås de hensyn, der normalt skal indgå i kommunalbestyrelsens afgørelser efter § 35.
 
-2.1 Konkret vurdering
+## 2.1 Konkret vurdering
 
 Hvis et forhold er omfattet af kravet om landzonetilladelse i planlovens § 35, stk. 1, træffer kommunalbestyrelsen afgørelse om, hvorvidt der kan meddeles landzonetilladelse.
 
@@ -2710,13 +2689,7 @@ Kommunernes administration af landzonebestemmelserne skal ske under hensyntagen 
 
 Det kan f.eks. være landsplandirektiv for naturgasnettet, hvor der er restriktioner på muligheden for bebyggelse og anvendelse inden for et afgrænset område omkring gasledningerne
 
-28) Iflg.
-
-Energinet er den geografiske visning af planlægningsbælterne i landsplandirektiv for olie- og gasrør ikke ajourført.
-
-Den er ikke alle steder i overensstemmelse med den endelige placering af anlæggene.
-
-Der henvises derfor til registreringen af tekniske anlæg iPlandata.dk.
+[28)]
 
 , eller det kan være Landsplandirektivet for hovedstadsområdets planlægning (Fingerplanen), som bl.a. fastlægger regler for bebyggelse og anvendelse i hovedstadsområdet.
 
@@ -2730,7 +2703,7 @@ Det kan således ikke udelukkes, at der vil kunne opstå situationer, hvor der i
 
 Et af formålene med landzonebestemmelserne er at sikre hensyn til jordbrugserhvervet, så de bedst egnede jorder forbeholdes jordbrugsdriften, og der skal i videst muligt omfang tages hensyn til landbrugsejendommenes struktur- og arronderingsforhold samt til de foretagne bygnings- og kulturtekniske investeringer i jordbruget
 
-29) Jf. cirkulære nr. 9174 af 19/04/2010 om varetagelsen af de jordbrugsmæssige interesser under kommune- og lokalplanlægningen m.v. § 1.
+[29)]
 
 .
 
@@ -2846,9 +2819,7 @@ Myndighederne skal i deres administration sikre, at der ikke gennemføres planer
 
 Områderne skal derfor tillægges betydelig vægt i landzoneadministrationen
 
-31) Se bek.
-
-nr. 1697 af 21. december 2016 om krav til kommuneplanlægning inden for områder med særlige drikkevandsinteresser og indvindingsoplande til almene vandforsyninger uden for disse, med tilhørende vejledning nr. 9320 af 31. marts 2017.
+[31)]
 
 .
 
@@ -2880,9 +2851,7 @@ Ud over at sikre miljøet er det også med til at skabe investeringssikkerhed fo
 
 De miljømæssige hensyn kan være udtrykt i kommuneplanlægningen eller fremgå af anden lovgivning, herunder miljøbeskyttelses- og husdyrbruglovgivningens støj- og lugtgrænser og afstandskrav for lokalisering af erhvervsmæssige anlæg samt hensyn til grundvandsinteresser
 
-31) Se bek.
-
-nr. 1697 af 21. december 2016 om krav til kommuneplanlægning inden for områder med særlige drikkevandsinteresser og indvindingsoplande til almene vandforsyninger uden for disse, med tilhørende vejledning nr. 9320 af 31. marts 2017.
+[31)]
 
 .
 
@@ -2908,7 +2877,7 @@ Museumslovens § 24 indeholder krav om underretning af vedkommende kulturhistori
 
 Som led i gennemførelsen af Vandmiljøplan II er der udpeget lavbundsarealer, der er potentielt egnede som vådområder
 
-32) Jf. cirkulære om regionplanlægning og landzoneadministration for lavbundsarealer, der er potentielt egnede som våd- områder (CIRK nr. 132 af 15/07/1998).
+[32)]
 
 .
 
@@ -2918,7 +2887,7 @@ Udpegningerne skal fremgå af kommuneplanerne, jf. § 11 a, stk. 1, nr. 13.
 
 Inden for de lavbundsarealer, der i kommuneplanen er udpeget som lavbundsarealer, der kan genoprettes som vådområder, må der ikke meddeles landzonetilladelse til byggeri og anlæg m.v., som kan forhindre, at områderne genoprettes som vådområder med genskabelse af det naturlige vandstandsniveau
 
-33) Se endvidere vejledning om regionplanlægning og landzoneadministration for lavbundsarealer, der er potentielt egnede som vådområder (VEJ nr. 133 af 15/07/1998).
+[33)]
 
 .
 
@@ -2970,19 +2939,7 @@ Kommunerne bør være opmærksomme på at inddrage Forsvarsministeriet ved behan
 
 For etablering af søer inden for en radius af 13 km fra en civil flyveplads bør kommunerne være opmærksomme på at høre den civile flyveplads.
 
-34) Jf. EU-forordning 139/2014 om fastsættelse af krav og administrative procedurer for flyvepladser iht.
-
-forordning om civil luftfart – ”ADR-forordningen”, skal en flyvepladsoperatør vurdere anlæg i lufthavnens nærzone (13 km), der potentielt kan udgøre en risiko for flyvesikkerhed ift.
-
-at tiltrække fugle og/eller vildt.
-
-Ligeledes skal medlemsstaterne sikre, at der sker fornøden høring mht.
-
-bl.a. fysisk planlægning i den forbindelse, og at risikoen for sammenstød vurderes.
-
-Det er Trafik-, Bygge- og Boligstyrelsen, der er kompetent myndighed ift.
-
-forordningen.
+[34)]
 
 2.2.11 Placering af virksomheder med særlige beliggenhedskrav
 
@@ -3036,11 +2993,11 @@ Hensynet til naboer kan indgå i kommunalbestyrelsens vurdering efter planlovens
 
 Det må normalt forudsættes, at der er tale om særlige og væsentlige nabogener, hvis de alene skal kunne begrunde et afslag på landzonetilladelse.
 
-Kapitel 3
+## Kapitel 3
 
-Særlige emneområder
+## Særlige emneområder
 
-3.1 Boliger
+## 3.1 Boliger
 
 3.1.1 Opførelse af nye boliger
 
@@ -3160,7 +3117,7 @@ Ved landzoneadministrationen bør der anlægges samme synspunkter både for fred
 
 Der skal gøres opmærksom på, at der tillige kræves en tilladelse efter skovloven, og praksis er mere restriktiv end planloven.
 
-35) Der skal søges om dispensation fra skovlovens § 11, stk. 1, jf. § 38, eller ophævelse af fredskovspligten efter skovlovens § 6 (LBK nr. 122 af 26/01/2017).
+[35)]
 
 For at en beboelsesbygning kan være nødvendig, skal den bebos af en person, der ejer skoven eller har sin hovedbeskæftigelse i skoven.
 
@@ -3336,7 +3293,7 @@ Kommunalbestyrelsen skal foretage en vurdering af, om de bygningsændringer, som
 
 De lokale kulturmiljøråd
 
-36) Jf. museumslovens § 23 a (LBK nr. 358 af 08/04/2014).
+[36)]
 
 kan give vejledende udtalelser herom.
 
@@ -3434,7 +3391,7 @@ Overflødiggjorte ferieboliger er ikke omfattet af planlovens § 37, stk. 2.
 
 Hvis et helårshus efter mere end 3 års benyttelse
 
-37) Jf. § 56, stk. 4, i planloven.
+[37)]
 
 som fritidshus igen ønskes anvendt til helårsbrug, foreligger der således en ændret anvendelse, som kræver landzonetilladelse.
 
@@ -3494,7 +3451,7 @@ I den konkrete vurdering indgår bl.a. ejendommens størrelse, omfanget af eksis
 
 Der kan normalt meddeles tilladelse til opførelse af nye udhuse og garager m.v. i størrelsesordenen 50 – 100 m² i tilknytning til enfamiliehuse, afhængig af den eksisterende bebyggelse på ejendommen, hvorimod der ikke bør gives tilladelse til garager og udhuse på mere end 100 m², medmindre der foreligger helt særlige omstændigheder.
 
-3.3 Landbrug
+## 3.3 Landbrug
 
 For så vidt angår stuehuse, medhjælperboliger og aftægtsboliger i tilknytning til landbrug henvises til afsnit 3.1.2 og 3.1.3.
 
@@ -3512,10 +3469,7 @@ Det er op til kommunen ud fra en konkret vurdering at afgøre, om der kan meddel
 
 Generelt gælder, at de forhold, der kræver tilladelse og godkendelse efter husdyrbrugloven, ikke er omfattet af planlovens bestemmelser
 
-38) Jf. lovbemærkningerne til husdyrbrugloven (L 114 fremsat 12/01/2017).
-
-Se også Miljøstyrelsens husdyrvejledning (
-http://husdyrvejledning.mst.dk/).
+[38)]
 
 .
 
@@ -3557,15 +3511,13 @@ hvor store arealer, der anvendes til bygninger, dyrefolde m.v., og hvor store ar
 
 Kommunerne kan anmode Landbrugsstyrelsen om en vejledende udtalelse om, hvorvidt en bebyggelse må anses for at være erhvervsmæssig nødvendig for driften af en ejendom eller en bedrift, jf. cirkulære om varetagelse af de jordbrugsmæssige interesser under kommune- og lokalplanlægningen
 
-39) Jf. § 17, stk. 1, i cirkulære om varetagelse af de jordbrugsmæssige interesser under kommune- og lokalplanlægningen (Cirkulære nr. 9174 af 19704/20109).
+[39)]
 
 .
 
 Ved en landbrugsejendom forstås en ejendom, der er noteret som en landbrugsejendom i Geodatastyrelsens matrikelregister.
 
-40) Jf. § 2, stk. 1, i lov om landbrugsejendomme (lbk.
-
-nr. 27 af 04/01/2017).
+[40)]
 
 Ved ”landbrugsbedrift” forstås efter landbrugslovens § 2, stk. 3, en driftsenhed, der anvendes til jordbrugsmæssige formål, som for jordernes vedkommende er fastsat i lov om drift af landbrugsjorder, og som drives af samme fysiske eller juridiske person.
 
@@ -3609,7 +3561,7 @@ Der kan være tale om driftsmæssige, tekniske og/eller miljømæssige forhold, 
 
 Det kan f.eks. være afstandskrav for lokalisering af erhvervsmæssigt dyrehold
 
-41) Fodnote 34: Jf. husdyrgødningsbekendtgørelsen.
+[41)]
 
 eller veterinære forhold.
 
@@ -3637,17 +3589,17 @@ I nedenstående skema er en oversigt over, om byggeri på landbrugsejendomme er 
 
 husdyrbrugloven og planloven:
 
-Husdyrbruglov
+## Husdyrbruglov
 
-Planlovens landzonebestemmelser
+## Planlovens landzonebestemmelser
 
-omfattet af husdyrbruglovens tilladelses- eller godkendelsesordning
+## omfattet af husdyrbruglovens tilladelses- eller godkendelsesordning
 
-omfattet af planlovens regler
+## omfattet af planlovens regler
 
-hvis omfattet af planlovens regler, kræves så lzs-till?
+## hvis omfattet af planlovens regler, kræves så lzs-till?
 
-bemærkninger
+## bemærkninger
 
 Landbrugsejendomme omfattet af husdyrbruglovens tilladelses- og godkendelsesordning
 1
@@ -3688,7 +3640,7 @@ ja
 
 nej
 
-Landbrugsejendomme ikke omfattet af husdyrbruglovens tilladelses- og godkendelsesordning
+## Landbrugsejendomme ikke omfattet af husdyrbruglovens tilladelses- og godkendelsesordning
 
 (med planteavl og evt.
 
@@ -3754,7 +3706,7 @@ ja
 
 ja – til beliggenhed og udformning
 
-Pelsdyrfarme
+## Pelsdyrfarme
 
 farm som er husdyrbrug efter husdyrbruglovens def.
 
@@ -3810,7 +3762,7 @@ kræver tilladelse til udformning og beliggenhed, hvis opførelse ikke sker i ti
 
 bebyggelsesarealer
 
-Akvakulturer og dambrug
+## Akvakulturer og dambrug
 
 dambrug
 
@@ -3832,7 +3784,7 @@ ja
 
 ja
 
-Andet
+## Andet
 
 hestestutteri, ridehaller ifm.
 
@@ -3967,7 +3919,7 @@ I alle andre tilfælde forudsætter bygninger opført af en lejer landzonetillad
 
 I det omfang det ansøgte byggeri kunne have været opført frit af ejendommens ejer, bør der meddeles tilladelse til lejeren.
 
-3.4 Gartnerier og frugtplantager
+## 3.4 Gartnerier og frugtplantager
 
 Gartneriejendomme og frugtplantager er oftest noteret med landbrugspligt, og der gælder derfor for disse ejendomme de samme regler i forhold til planloven som for landbrugsejendomme i almindelighed.
 
@@ -4005,7 +3957,7 @@ Det anses ikke for erhvervsmæssigt nødvendigt for driften, at sæsonarbejdere 
 
 De må derfor som udgangspunkt henvises til boliger i nærtliggende bygninger, campingpladser m.v.
 
-3.5 Skovbrug
+## 3.5 Skovbrug
 
 Ved skovbrug forstås såvel skovbrug, der i medfør af skovloven er underlagt fredskovspligt, som skovbrug på ikke-fredskovspligtige arealer.
 
@@ -4063,7 +4015,7 @@ For så vidt angår opførelsen af erhvervsmæssigt nødvendige boliger på ejen
 
 Der henvises herudover til afsnit 4.1 om forhold til anden lovgivning.
 
-3.6 Jordtilknyttede erhverv
+## 3.6 Jordtilknyttede erhverv
 
 3.6.1 Pelsdyrfarme
 
@@ -4093,7 +4045,7 @@ Ridebaner i tilknytning til hestestutterier vil tilsvarende som udgangspunkt kun
 
 Ridebaner, der etableres i tilknytning til rideskoler, vil derimod som udgangspunkt være omfattet af planloven og forudsætte landzonetilladelse.
 
-3.7 Fiskeri og dambrug
+## 3.7 Fiskeri og dambrug
 
 Opførelse og ibrugtagning af byggeri, der er erhvervsmæssigt nødvendigt for udøvelsen af fiskerierhvervet, kan ske uden landzonetilladelse, jf. lovens § 36, stk. 1, nr. 3 og 5.
 
@@ -4111,7 +4063,7 @@ Ligeledes kan mindre byggeri, der er erhvervsmæssigt nødvendigt for driften af
 
 Større og mere intensivt drevne dambrug, overdækkede dambrugsbassiner og landbaserede saltvandsbrug kræver tilladelse på grund af virksomhedens industrielle eller atypiske præg.
 
-3.8 Råstofindvinding
+## 3.8 Råstofindvinding
 
 Indvinding af råstoffer kan ske uden landzonetilladelse, jf. § 36, stk. 1, nr. 7, om end indvinding som regel kræver tilladelse efter råstofloven.
 
@@ -4127,7 +4079,7 @@ I forbindelse med udnyttelse af råstoffer i jorden kan det være nødvendigt at
 
 Tilladelsen bør gives, medmindre særlige forhold gør sig gældende.
 
-3.9 Andre Erhverv
+## 3.9 Andre Erhverv
 
 3.9.1 Erhvervsvirksomheder
 
@@ -4199,15 +4151,15 @@ I skemaet er oversigtligt vist, hvilke bestemmelser der gælder for hhv.
 
 overflødiggjorte landbrugsbygninger og for andre overflødiggjorte bygninger:
 
-§
+## §
 
-gælder i det åbne land
+## gælder i det åbne land
 
-gælder i landsbyer
+## gælder i landsbyer
 
-gælder i kystnærhedszonen
+## gælder i kystnærhedszonen
 
-gælder inden for klitfrednings- og strandbesk.linje
+## gælder inden for klitfrednings- og strandbesk.linje
 
 udv.
 
@@ -4216,7 +4168,7 @@ op til
 500 m
 2
 
-uden tilladelse
+## uden tilladelse
 
 udv.
 
@@ -4379,7 +4331,7 @@ Ved vurderingen bør der lægges vægt på, om institutionen etableres i eksiste
 
 Etablering af opholds-/behandlingssteder kan udløse lokalplanpligt.
 
-3.10 Vognmandsvirksomheder
+## 3.10 Vognmandsvirksomheder
 
 Det gælder generelt, at vognmandsvirksomheder typisk ikke kan etableres i bestående bygninger, men har behov for oplagsplads til biler, containere m.v., ligesom de ofte medfører en betydelig tung trafik.
 
@@ -4403,7 +4355,7 @@ Det er derfor fortsat ikke hensigten, at større vognmandsvirksomheder kan få l
 
 Der vil fortsat skulle ske en afvejning af landskabelige, rekreative og arealressourcemæssige hensyn og andre samfundsmæssige interesser, f.eks. trafikale hensyn og hensyn til naboer (se kapitel 2).
 
-3.11 Tekniske anlæg mv.
+## 3.11 Tekniske anlæg mv.
 
 Udstykning, opførelse af bebyggelse samt ibrugtagning af bebyggelse og arealer til tekniske anlæg m.v. kræver som udgangspunkt landzonetilladelse.
 
@@ -4427,7 +4379,7 @@ Opstilling af større vindmøller kræver normalt både udarbejdelse af lokalpla
 
 Vindmøllebekendtgørelsen
 
-42) Bekendtgørelse nr. 1736 af 21/12/2015.
+[42)]
 
 regulerer planlægningen for opstilling af vindmøller med henblik på at fremme en bæredygtig udvikling med vindmøller, hvor der tages omfattende hensyn til ikke alene muligheden for at udnytte vindressourcen, men også til nabobeboelse, natur, landskab, kulturhistoriske værdier samt til de jordbrugsmæssige interesser, jf. bekendtgørelsens § 1.
 
@@ -4443,7 +4395,7 @@ Vindmøller opstillet i grupper skal endvidere opstilles i et i forhold til land
 
 Desuden skal støjkrav i henhold til bekendtgørelse om støj fra vindmøller overholdes.
 
-43) Bekendtgørelse nr. 1736 af 21/12/2015.
+[43)]
 
 Desuden bør vindmøller placeres mindst 200 m fra en radiokædes sigtelinje, da vindmøller kan forringe signalet væsentligt.
 
@@ -4625,15 +4577,7 @@ En udstykning af sådanne arealer i selvstændigt matrikulerede ejendomme vil v�
 
 Ferieboliger
 
-44) Udlejning af fast ejendom til ferieboligformål er reguleret i sommerhusloven (LBK nr. 949 af 03/07/2013).
-
-Erhvervsmæssig ferieboligudlejning kræver tilladelse efter sommerhuslovens § 1, stk. 1, nr. 1.
-
-Reglerne administreres af Erhvervsstyrelsen og praksis er generelt restriktiv.
-
-Grundet strukturforandringerne i det åbne land vil praksis i henhold til sommerhusloven dog blive lempet i overensstemmelse med de politisk aftalte lempelser af landzoneadministrationen i forhold til etablering af ferieboliger i overflødiggjorte bygninger.
-
-Efter fast praksis meddeles ikke udlejningstilladelse efter sommerhusloven til nyopførte ferieboliger, medmindre disse drives som enten hotel eller campingplads.
+[44)]
 
 I henhold til § 36, stk. 1, nr. 11, kan helårsboliger i landzone, herunder medhjælperboliger, overgå til anvendelse som fritidsboliger uden krav om landzonetilladelse.
 
@@ -4717,7 +4661,7 @@ eller besøgende på havnen m.v. Det kan f.eks. være kiosker, souvenirbutikker,
 
 Herudover kan der meddeles landzonetilladelse til etablering og udvidelse af mindre anlæg i landzonehavne som f.eks. legepladser, baderamper, shelters
 
-45) Ved et shelter forstås et ly for vejret til ophold og overnatning i jordniveau, som ikke må være hyttelignende, dvs. det skal være åbent (typisk med en åben facade, der ikke kan lukkes med låger o.l.), lavt (typisk ikke ståhøjde) og primitivt (ingen faciliteter).
+[45)]
 
 , bålhytter, madpakkehytter og bålpladser alene til brug for børneinstitutioner, daginstitutioner, folkeskoler o.
 
@@ -4743,9 +4687,7 @@ På primitive overnatningssteder kan der således ikke opstilles faste konstrukt
 
 4 indeholder generelle regler om offentlighedens adgang.
 
-46) Naturbeskyttelsesloven (LBK nr. 934 af 27/06/2017 med senere ændringer) kapitel 4 indeholder generelle regler om offentlighedens adgang til strande (§ 22), skove (§ 23), udyrkede arealer (§ 24), klitfredede arealer (§ 25) og veje og stier i det åbne land (§ 26).
-
-Der er primært adgang
+[46)]
 
 Helt primitive overnatningssteder – som f.eks. i statsskovene, der ofte er vanskeligt tilgængelige og uden faciliteter af nogen art – kan også etableres uden landzonetilladelse, selv om arealet ikke er entydigt afgrænset, men alene markeret ved en pæl.
 
@@ -4783,7 +4725,7 @@ Der bør lægges vægt på, at anlægget placeret i forhold til transportmulighe
 
 Etablering af større idrætsanlæg, som f.eks. golfbaner, skydebaner og motocrossbaner, kan udløse lokalplanpligt.
 
-3.13 Ændret anvendelse af overflødiggjorte bygninger - § 37, stk. 1 og 2
+## 3.13 Ændret anvendelse af overflødiggjorte bygninger - § 37, stk. 1 og 2
 
 Med henblik på at skabe vækst og udvikling uden for byerne kan overflødiggjorte bygninger, herunder andre overflødiggjorte bygninger end overflødiggjorte landbrugsbygninger, tages i brug til en række nærmere angivne formål uden landzonetilladelse efter forudgående anmeldelse.
 
@@ -4831,7 +4773,7 @@ For ændret anvendelse af overflødiggjorte bygninger i Natura 2000-områder ska
 
 Der henvises i øvrigt til afsnit 3.9.1.
 
-3.14 Pensionisters anvendelse af fritidshuse til helårsbeboelse
+## 3.14 Pensionisters anvendelse af fritidshuse til helårsbeboelse
 
 For at gøre det nemmere og mere attraktivt for pensionister at bosætte sig i landdistrikterne har pensionister som hovedregel ret til at anvende fritidsboliger i landzone (og i sommerhusområder) som helårsbeboelse efter 1 års ejerskab, jf. § 36, stk. 1, nr. 18.
 
@@ -4855,7 +4797,7 @@ Hvis kommunalbestyrelsen meddeler en pensionist en personlig tilladelse efter §
 
 Inden for sikkerhedsafstanden til risikovirksomheder skal risikoen for uheld lægges til grund for afgørelsen om, hvorvidt der kan meddeles landzonetilladelse.
 
-3.15 Omdannelseslandsbyer
+## 3.15 Omdannelseslandsbyer
 
 Kommunalbestyrelsen kan udpege op til to omdannelseslandsbyer i hver kommuneplan med henblik på at skabe og fastholde vækst og udvikling i landsbyer.
 
@@ -4882,11 +4824,11 @@ Figur 1 – principskitse for omdannelseslandsbyer.
 
 Der henvises i øvrigt til rapport fra april 2018 fra Udvalget for levedygtige landsbyer.
 
-Kapitel 4
+## Kapitel 4
 
-Proces og procedurer
+## Proces og procedurer
 
-4.1 Modtagelse og behandling af ansøgning
+## 4.1 Modtagelse og behandling af ansøgning
 
 Landzonemyndighed
 
@@ -4902,7 +4844,7 @@ En landzonesag kan desuden begynde ved, at kommunalbestyrelsen i forbindelse med
 
 Inden der kan gives byggetilladelse, skal kommunalbestyrelsen i henhold til bygningsreglementet undersøge, om byggearbejdet er i strid med anden lovgivning (bl.a. planloven).
 
-47) Jf. Trafik-, Bygge- og Boligstyrelsens Vejledning om byggesagsbehandling efter BR18.
+[47)]
 
 I en ansøgning om byggetilladelse til en bolig, der ønskes opført efter planlovens § 36, stk. 1, nr. 14, skal ansøgeren redegøre for, hvorfor byggeriet ikke kræver landzonetilladelse.
 
@@ -4998,7 +4940,7 @@ Kommunalbestyrelsen skal endvidere være opmærksom på, om der skal foretages e
 
 Desuden skal kommunalbestyrelsen være opmærksom på, at der kan være forhold, som kræver Kystdirektoratets tilladelse, herunder bl.a. opfyldning på søterritoriet.
 
-4.2 Formkrav m.v. til landzoneafgørelser
+## 4.2 Formkrav m.v. til landzoneafgørelser
 
 4.2.1 Skriftlighed og underretning - § 35, stk. 6 og stk. 7
 
@@ -5140,7 +5082,7 @@ Kommunalbestyrelsen kan i tilladelser efter § 35, stk. 1, fastsætte en længer
 
 Efter § 56, stk. 4, bortfalder en hidtidig ret til at udnytte en ejendom på en måde, som ville kræve tilladelse efter § 35, stk. 1, når retten ikke har været udnyttet i 3 på hinanden følgende år.
 
-4.3 Håndhævelse og tilsyn § 51
+## 4.3 Håndhævelse og tilsyn § 51
 
 Tilsyn
 
@@ -5156,7 +5098,7 @@ Samtidig har kommunalbestyrelsen pligt til at foranledige et ulovligt forhold lo
 
 Der henvises i øvrigt til Vejledning om håndhævelse af Naturbeskyttelsesloven, Planloven og Byggeloven, Erhvervs- og Byggestyrelsen og Skov- og Naturstyrelsen, maj 2007.
 
-4.4 Klageregler §§ 58-59 og § 62
+## 4.4 Klageregler §§ 58-59 og § 62
 
 Bestemmelser om klage og søgsmål i forhold til planloven fremgår af planlovens §§ 58-62, lov om Planklagenævnet og i bekendtgørelse om udnyttelse af tilladelser, frist for indgivelse af klage til Planklagenævnet og opsættende virkning af klage for visse afgørelse truffet efter lov om planlægning og visse andre love.
 
@@ -5317,3 +5259,334 @@ klagefristens længde
 at klagen skal være tilgængelig inden klagefristens udløb.
 
 Klagevejledningen skal endvidere oplyse om søgsmålsfristen i planlovens § 62, stk. 1, jf. forvaltningslovens § 26.
+
+## Bilag 1: Oversigtsskema over undtagelser fra landzonekravet
+
+## Undtagelse efter § 36
+
+## Paragraf
+
+## Undtagelse gælder ikke inden for klitfrednings- og strandbeskyttelseslinje
+
+## Undtagelse gælder ikke i kystnærheds-zone uden for udviklingsområder
+
+## Støj undtagelse gælder ikke
+
+Anmelde
+­
+pligt
+
+## Andet
+
+Udstykning efter § 10, stk. 1 og 3, i lov om landbrugsejendomme til samdrift med en bestående landbrugsejendom.
+
+§ 36, stk. 1, nr. 1
+
+Udstykning af en skovejendom efter § 6, stk. 1, nr. 6 og 7, i lov om landbrugsejendomme
+
+§ 36, stk. 1, nr. 2
+
+Byggeri, der er erhvervsmæssigt nødvendigt for driften af den pågældende landbrugsejendom, landbrugsbedrift, bortset fra husdyranlæg, eller skovbrugsejendom eller for udøvelse af fiskerierhvervet, jf. dog stk. 2.
+
+§ 36, stk. 1, nr. 3
+
+§ 38, stk. 2, (2 ugers frist)
+
+§ 36, stk. 2 (beliggenhed, herunder 50 m regel)
+
+Mindre byggeri, der er erhvervsmæssigt nødvendigt for driften af eksisterende dambrug på en landbrugsejendom.
+
+§ 36, stk. 1, nr. 4
+
+§ 38, stk. 2, (45-dages frist)
+
+Ibrugtagen af bebyggelse eller arealer til landbrug eller skovbrug eller til brug for udøvelse af fiskerierhvervet.
+
+§ 36, stk. 1, nr. 5
+
+Udstykning, byggeri eller ændret anvendelse i det omfang, dette er påbudt i en afgørelse efter §§ 19 d – 19 f eller bestemt i en fredning efter lov om naturbeskyttelse eller udtrykkeligt er tilladt i en lokalplan, der er tilvejebragt efter reglerne i denne lov.
+
+§ 36, stk. 1, nr. 6
+
+Indvinding af råstoffer i jorden.
+
+§ 36, stk. 1, nr. 7
+
+Opførelse af garager, carporte, udhuse, drivhuse og lignende bygninger på højst 50 m
+2
+, når disse opføres i tilknytning til enfamiliehuse eller sommerhuse og byggeriet ikke medfører oprettelse af en ny bolig.
+
+§ 36, stk. 1, nr. 8
+
+§ 36, stk. 6
+
+Byggeri, der i bygningsreglement er fritaget for krav om byggetilladelse, og som etableres til brug for offentlige trafik-, forsynings- eller varslingsanlæg eller radio- og tv-modtagelse.
+
+§ 36, stk. 1, nr. 9
+
+§ 36, stk. 7
+
+Til- og ombygning af helårshus, hvorved husets samlede bruttoetageareal ikke overstiger 500 m
+2
+, jf. dog stk. 7
+
+§ 36, stk. 1, nr. 10
+
+§ 36, stk. 7, (gælder som udgangspunkt ikke fleksboliger)
+
+Helårsboligs overgang til anvendelse som fritidsbolig.
+
+§ 36, stk. 1, nr. 11
+
+Genoptagelse af helårsbeboelse af boliger, som midlertidigt har været anvendt til fritidsformål i henhold til et af kommunalbestyrelsen meddelt samtykke i medfør af lov om midlertidig regulering af boligforholdene.
+
+§ 36, stk. 1, nr. 12
+
+Udstykning, der foretages på grundlag af en erhvervelse efter lov om jordfordeling og offentligt køb og salg af fast ejendom til jordbrugsmæssige formål m.m. (jordfordelingsloven) til et regionalt jordkøbsnævns formål.
+
+§ 36, stk. 1, nr. 13
+
+Opførelse eller indretning i eksisterende bebyggelse af en bolig på en landbrugsejendom, hvis areal overstiger 30 ha, når den nye bolig skal benyttes i forbindelse med et generationsskifte eller til en medhjælper.
+
+§ 36, stk. 1, nr. 14
+
+nej
+
+§ 36, stk. 4
+
+§ 36, stk. 2 (beliggenhed)
+
+Tilbygning med indtil 500 m
+2
+på en ejendom, jf. stk. 4 og § 37, stk. 1, til udvidelse af en mindre erhvervsvirksomhed i det åbne land, som lovligt er etableret i en tidligere landbrugsbygning.
+
+§ 36, stk. 1, nr. 15
+
+nej
+
+§ 36, stk. 4
+
+§ 36, stk. 2 (beliggenhed)
+
+Helårsboligs overgang til anvendelse som fritidsbolig.
+
+§ 36, stk. 1, nr. 11
+
+Genoptagelse af helårsbeboelse af boliger, som midlertidigt har været anvendt til fritidsformål i henhold til et af kommunalbestyrelsen meddelt samtykke i medfør af lov om midlertidig regulering af boligforholdene.
+
+§ 36, stk. 1, nr. 12
+
+Udstykning, der foretages på grundlag af en erhvervelse efter lov om jordfordeling og offentligt køb og salg af fast ejendom til jordbrugsmæssige formål m.m. (jordfordelingsloven) til et regionalt jordkøbsnævns formål.
+
+§ 36, stk. 1, nr. 13
+
+Opførelse eller indretning i eksisterende bebyggelse af en bolig på en landbrugsejendom, hvis areal overstiger 30 ha, når den nye bolig skal benyttes i forbindelse med et generationsskifte eller til en medhjælper.
+
+§ 36, stk. 1, nr. 14
+
+nej
+
+§ 36, stk. 4
+
+§ 36, stk. 2 (beliggenhed)
+
+Tilbygning med indtil 500 m
+2
+på en ejendom, jf. stk. 4 og § 37, stk. 1, til udvidelse af en mindre erhvervsvirksomhed i det åbne land, som lovligt er etableret i en tidligere landbrugsbygning.
+
+§ 36, stk. 1, nr. 15
+
+nej
+
+§ 36, stk. 4
+
+§ 36, stk. 2 (beliggenhed)
+
+Tilbygning til en mindre butik i landzone, der er etableret i en overflødiggjort bygning, når butikkens samlede bruttoetageareal efter udvidelsen ikke overstiger 250 m
+2
+, jf. stk. 4 og 5.
+
+§ 36, stk. 1, nr. 16
+
+nej
+
+§ 36, stk. 5
+
+nej
+
+§ 36, stk. 5
+
+Panelantenner til mobilkommunikation med tilhørende radiomoduler og transmissionslinks i neutrale farver, som opsættes på eksisterende master, der anvendes til offentlig mobilkommunikation, siloer eller høje skorstene, når bebyggelsens højde ikke dermed forøges.
+
+§ 36, stk. 1, nr. 17
+
+En pensionists personlige ret til at benytte en fritidsbolig, herunder en lokalplanlagt fritidsbolig, til helårsbeboelse, når pensionisten har ejet ejendommen i 1 år, jf. dog stk. 8-11.
+
+§ 36, stk. 1, nr. 18
+
+nej
+
+§ 36, stk. 12
+
+§ 36, stk. 8 - 11
+
+Teknikskabe i neutrale farver med en grundplan på maksimalt 2 m
+2
+og en højde på maksimalt 2,5 m til brug for de antenner, der er nævnt i nr. 17, og som opsættes på eller umiddelbart ved masten, siloen eller skorstenen.
+
+§ 36, stk. 1, nr. 19
+
+Tilbygning med indtil 500 m
+2
+på en ejendom til udvidelse af en erhvervsvirksomhed i landzone, som lovligt er etableret i en overflødiggjort bygning, jf. dog stk. 5 og § 37, stk. 2.
+
+§ 36, stk. 1, nr. 20
+
+nej
+
+§ 36, stk. 5
+
+nej
+
+§ 36, stk. 5
+
+## Undtagelse efter § 37
+
+Bygninger, der ikke længere er nødvendige for driften af en landbrugsejendom, kan uden tilladelse efter § 35, stk. 1, tages i brug til håndværks- og industrivirksomhed, mindre butikker, liberale erhverv, forenings- og fritidsformål og en bolig, jf. dog stk. 4, samt lager- og kontorformål m.v. på betingelse af
+
+at virksomheden eller boligen etableres i bestående bygninger, der ikke om- eller tilbygges i væsentligt omfang,
+
+at bygningerne ikke er opført inden for de seneste 5 år, og
+
+at byggeriet ikke er opført uden landzonetilladelse i henhold til § 36, stk. 1, nr. 3, som erhvervsmæssigt nødvendigt for en bedrift.
+
+§ 37, stk. 1
+
+delvist nej
+
+§ 37, stk. 5
+
+(Der kan ikke efter stk. 1 indrettes mindre butikker og en bolig i tidligere landbrugsbygninger, der er beliggende inden for klitfrednings- og strandbeskyttelseslinjen)
+
+§ 38, stk. 1
+
+Andre overflødiggjorte bygninger end de i stk. 1 nævnte kan uden tilladelse efter § 35, stk. 1, tages i brug til håndværks- og industrivirksomhed, mindre butikker, liberale erhverv, forenings- og fritidsformål og en bolig, jf. dog stk. 4, samt lager- og kontorformål m.v., hvis
+
+at virksomheden eller boligen etableres i bestående bygninger, der ikke om- eller tilbygges i væsentligt omfang,
+
+at bygningerne ikke er opført inden for de seneste 5 år, og
+
+at bygningen ikke er beliggende inden for klitfrednings- og strandbeskyttelseslinjen eller i kystnærhedszonen uden for udviklingsområder.
+
+§ 37, stk. 2
+
+nej
+
+§ 37, stk. 2, nr. 3
+
+§ 37, stk. 5
+
+nej
+
+§ 37, stk. 2, nr. 3
+
+§ 37, stk. 6
+
+§ 38, stk. 1
+
+Mht.
+
+etablering af butikker og en bolig følger det af § 37, stk. 5, at de ikke kan indrettes efter § 37, stk. 1 og 2 inden for klitfrednings- og strandbeskyttelseslinjen.
+
+Det følger af § 37, stk. 2, nr. 3, at det heller ikke gælder i kystnærhedszonen uden for udviklingsområder.
+
+## Bilag 2: Revisionshistorik
+
+Her vil ændringer i vejledningens forskellige versioner fremgå.
+
+## Versionsnummer
+
+## Dato
+
+## Beskrivelse af ændringer
+
+1.0.0
+
+17/7 2018
+
+1.0.1
+
+22/10 2018
+
+Rettelse af skrivefejl i skema s.
+
+79 over snitflade mellem husdyrbrugloven og planloven.
+
+1.0.2
+
+november 2019
+
+Opdatering som følge af lov nr. 1714 af 27/12/2018 og lov nr. 1715 af 27/12/2018.
+
+Visionsnummereringen følger følgende regler:
+
+1) Mindre rettelser af fejl og mangler, herunder stavefejl og mindre tilføjelser af forklarende tekst.
+
+Udgivelseskode 0.0.1.
+
+2) Større uddybende og præciserende tilføjelser og rettelser.
+
+Udgivelseskode 0.1.0
+
+3) Ændringer og/eller tilføjelser i indhold i teksten.
+
+Udgivelseskode 1.0.0
+
+## Noter
+[1)] Lovforslag L 121 fremsat 25/01/2017, lovbekendtgørelse nr. 287 af 16/04/2018.
+[2)] Inddelingen af landet i by- og landzoner i by- og landzoneloven fra 1970 blev videreført i planloven, der trådte i kraft 1. januar 1992. Planloven samlede by- og landzoneloven, kommuneplanloven og lands- og regionplanloven. Zoneinddelingen er videreført i de senere ændringer til planloven.
+[3)] Lov om frikommuner er ophævet med lov om frikommunenetværk (lovbek. nr. 831 af 25/06/2018).
+[4)] Opfyldning på søterritoriet kræver Kystdirektoratets tilladelse efter kystbeskyttelsesloven (lbk. nr. 78 af 19/01/2017 af lov om kystbeskyttelse).
+[5)] Jf. kapitel 8 i planloven.
+[6)] Fleksboligordningen er nærmere beskrevet i bemærkningerne til L 149 af 20. februar 2013 (Benyttelse af fritidsboliger til helårsformål) og L 51 af 11. november 2015 (udvidelse af fleksboligordningen).
+[7)] Bebyggelse der er erhvervsmæssigt nødvendig for en ejendoms drift som landbrugsejendom, landbrugsbedrift, bortset fra husdyranlæg, skovbrugsejendom eller udøvelse af fiskerierhvervet er undtaget for landzonetilladelse, jf. § 36, stk. 1, nr. 3, men kræver landzonetilladelse til beliggenhed og udformning, hvis den opføres uden tilknytning til ejendommens hidtidige bebyggelsesarealer, jf. § 36, stk. 2.
+[8)] Jf. landbrugslovens § 6, stk. 2 og 3 (LBK nr. 27 af 04/01/2017).
+[9)] Vejledning om byvækst., Erhvervsstyrelsen oktober 2017.
+[10)] Se endvidere § 6 i cirkulære om varetagelsen af de jordbrugsmæssige interesser under kommune- og lokalplanlægningen (cirkulære nr. 9174 af 19/04/2010).
+[11)] Vejledning om lokalplanlægning, Miljøministeriet, september 2009.
+[12)] Se vejledning om udviklingsområder, Erhvervsstyrelsen, juni 2017.
+[13)] LBK nr. 27 af 04/01/2017 af lov om landbrugsejendomme.
+[14)] Jf. kapitel 2 i skovloven.
+[15)] Jf. lovbemærkningerne til ændring af husdyrbrugloven (L 114 fremsat 12/01/2017). Se også Miljøstyrelsens husdyrvejledning (se http://husdyrvejledning.mst.dk/).
+[16)] Planlovens landzoneregler finder anvendelse i det omfang, der er tale om dispositioner, der ikke er omfattet af husdyrbruglovens tiladelses-/godkendelsesordning. Det betyder, at etablering, udvidelse og ændring af husdyranlæg og gødnings- og ensilageopbevaringsanlæg, som ikke skal godkendes eller tillades efter husdyrbruglovens §§ 16 a og 16 b, vil være omfattet af landzonereglerne i planloven. Det gælder f.eks. gyllebeholdere på planteavlsbrug eller stalde på ejendomme, hvor produktionsarealet ikke overstiger grænsen for krav om tilladelse efter husdyrbruglovens § 16 b. Sådanne anlæg omfattes og af husdyrbruglovens og husdyrbekendtgørelsens krav om placering af anlæg m.v.
+[17)] Jf. § 2, stk. 1, i lov om landbrugsejendomme (lbk. nr. 27 af 04/01/2017).
+[18)] Jf. § 8 a, stk. 1, nr. 7, og § 15 a, stk. 1, nr. 6, i naturbeskyttelsesloven (LBK nr. 934 af 27/06/2017).
+[19)] Det bemærkes, at undtagelserne i naturbeskyttelseslovens bestemmelser om bygge- og beskyttelseslinjer, der er nødvendige for driften af en landbrugsejendom, kun gælder for den pågældende landbrugsejendom (og dermed ikke i forhold til en landbrugsbedrift).
+[20)] Jf. § 18 i naturbeskyttelsesloven.
+[21)] Jf. § 19 i naturbeskyttelsesloven.
+[22)] Jf. § 16 i naturbeskyttelsesloven.
+[23)] Fleksboligordningen er nærmere beskrevet i bemærkningerne til L 149 af 20. februar 2013 (Benyttelse af fritidsboliger til helårsformål) og L 51 af 11. november 2015 (udvidelse af fleksboligordningen).
+[24)] Der er tale om særskilte bestemmelser, fordi undtagelsen i nr. 15 ikke gælder inden for naturbeskyttelseslovens klitfrednings- og strandbeskyttelseslinje, jf. § 36, stk. 4, mens undtagelsen i nr. 20 heller ikke gælder inden for kystnærhedszonen uden for udviklingsområder, jf. stk. 5.
+[25)] Jf. naturbeskyttelseslovens §§ 8 og 15 (lbk. nr. 934 af 27/06/2017 med senere ændringer).
+[26)] Bekendtgørelse nr. 844 af 30. juni 2010 om tilladelse til udlejning af arealer til campering og om indretning og benyttelse af campingpladser.
+[27)] Vejledning om detailhandelsplanlægning, Erhvervsstyrelsen, september 2017.
+[28)] Iflg. Energinet er den geografiske visning af planlægningsbælterne i landsplandirektiv for olie- og gasrør ikke ajourført. Den er ikke alle steder i overensstemmelse med den endelige placering af anlæggene. Der henvises derfor til registreringen af tekniske anlæg iPlandata.dk.
+[29)] Jf. cirkulære nr. 9174 af 19/04/2010 om varetagelsen af de jordbrugsmæssige interesser under kommune- og lokalplanlægningen m.v. § 1.
+[31)] Se bek. nr. 1697 af 21. december 2016 om krav til kommuneplanlægning inden for områder med særlige drikkevandsinteresser og indvindingsoplande til almene vandforsyninger uden for disse, med tilhørende vejledning nr. 9320 af 31. marts 2017.
+[31)] Se bek. nr. 1697 af 21. december 2016 om krav til kommuneplanlægning inden for områder med særlige drikkevandsinteresser og indvindingsoplande til almene vandforsyninger uden for disse, med tilhørende vejledning nr. 9320 af 31. marts 2017.
+[32)] Jf. cirkulære om regionplanlægning og landzoneadministration for lavbundsarealer, der er potentielt egnede som våd- områder (CIRK nr. 132 af 15/07/1998).
+[33)] Se endvidere vejledning om regionplanlægning og landzoneadministration for lavbundsarealer, der er potentielt egnede som vådområder (VEJ nr. 133 af 15/07/1998).
+[34)] Jf. EU-forordning 139/2014 om fastsættelse af krav og administrative procedurer for flyvepladser iht. forordning om civil luftfart – ”ADR-forordningen”, skal en flyvepladsoperatør vurdere anlæg i lufthavnens nærzone (13 km), der potentielt kan udgøre en risiko for flyvesikkerhed ift. at tiltrække fugle og/eller vildt. Ligeledes skal medlemsstaterne sikre, at der sker fornøden høring mht. bl.a. fysisk planlægning i den forbindelse, og at risikoen for sammenstød vurderes. Det er Trafik-, Bygge- og Boligstyrelsen, der er kompetent myndighed ift. forordningen.
+[35)] Der skal søges om dispensation fra skovlovens § 11, stk. 1, jf. § 38, eller ophævelse af fredskovspligten efter skovlovens § 6 (LBK nr. 122 af 26/01/2017).
+[36)] Jf. museumslovens § 23 a (LBK nr. 358 af 08/04/2014).
+[37)] Jf. § 56, stk. 4, i planloven.
+[38)] Jf. lovbemærkningerne til husdyrbrugloven (L 114 fremsat 12/01/2017). Se også Miljøstyrelsens husdyrvejledning ( http://husdyrvejledning.mst.dk/).
+[39)] Jf. § 17, stk. 1, i cirkulære om varetagelse af de jordbrugsmæssige interesser under kommune- og lokalplanlægningen (Cirkulære nr. 9174 af 19704/20109).
+[40)] Jf. § 2, stk. 1, i lov om landbrugsejendomme (lbk. nr. 27 af 04/01/2017).
+[41)] Fodnote 34: Jf. husdyrgødningsbekendtgørelsen.
+[42)] Bekendtgørelse nr. 1736 af 21/12/2015.
+[43)] Bekendtgørelse nr. 1736 af 21/12/2015.
+[44)] Udlejning af fast ejendom til ferieboligformål er reguleret i sommerhusloven (LBK nr. 949 af 03/07/2013). Erhvervsmæssig ferieboligudlejning kræver tilladelse efter sommerhuslovens § 1, stk. 1, nr. 1. Reglerne administreres af Erhvervsstyrelsen og praksis er generelt restriktiv. Grundet strukturforandringerne i det åbne land vil praksis i henhold til sommerhusloven dog blive lempet i overensstemmelse med de politisk aftalte lempelser af landzoneadministrationen i forhold til etablering af ferieboliger i overflødiggjorte bygninger. Efter fast praksis meddeles ikke udlejningstilladelse efter sommerhusloven til nyopførte ferieboliger, medmindre disse drives som enten hotel eller campingplads.
+[45)] Ved et shelter forstås et ly for vejret til ophold og overnatning i jordniveau, som ikke må være hyttelignende, dvs. det skal være åbent (typisk med en åben facade, der ikke kan lukkes med låger o.l.), lavt (typisk ikke ståhøjde) og primitivt (ingen faciliteter).
+[46)] Naturbeskyttelsesloven (LBK nr. 934 af 27/06/2017 med senere ændringer) kapitel 4 indeholder generelle regler om offentlighedens adgang til strande (§ 22), skove (§ 23), udyrkede arealer (§ 24), klitfredede arealer (§ 25) og veje og stier i det åbne land (§ 26). Der er primært adgang
+[47)] Jf. Trafik-, Bygge- og Boligstyrelsens Vejledning om byggesagsbehandling efter BR18.

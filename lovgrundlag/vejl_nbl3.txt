@@ -970,9 +970,7 @@ Der henvises til byretsdommene i MAD2016.
 
 280 og MAD.
 
-2015.24.
-
-Der henvises også til NKN-131-00445, NYT nr. 189 og NMK-510-00928.
+## 2015.24. Der henvises også til NKN-131-00445, NYT nr. 189 og NMK-510-00928.
 
 For nærmere om dette emne, skal der henvises til registreringsvejledningens afsnit herom.
 
@@ -5036,19 +5034,19 @@ Teknisk anvisning til besigtigelse af naturarealer omfattet af Naturbeskyttelses
 
 DCE – Nationalt Center for Miljø og Energi, Aarhus Universitet.
 
-Hovednaturtype
+## Hovednaturtype
 
-Undertype
+## Undertype
 
 Nygaard et al.
 
 /Ejrnæs et al.
 
-Habitatnaturtypekoder
+## Habitatnaturtypekoder
 
-1300
+## 1300
 
-Strandeng
+## Strandeng
 
 1301
 
@@ -5062,9 +5060,9 @@ Strandsump
 
 1330
 
-2100
+## 2100
 
-Klit
+## Klit
 
 2101
 
@@ -5090,9 +5088,9 @@ Kystnært krat
 
 2160, 2170, 2250
 
-3100
+## 3100
 
-Sø/vandhul
+## Sø/vandhul
 
 3101
 
@@ -5118,9 +5116,9 @@ Brunvandet sø
 
 3160
 
-4000
+## 4000
 
-Hede
+## Hede
 
 4001
 
@@ -5142,9 +5140,9 @@ Hedekrat
 
 5130
 
-6200
+## 6200
 
-Overdrev
+## Overdrev
 
 6201
 
@@ -5170,9 +5168,9 @@ Tørt overdrev, sandoverdrev
 
 6120
 
-6400
+## 6400
 
-Fersk eng
+## Fersk eng
 
 6401
 
@@ -5196,9 +5194,9 @@ Kultureng
 
 Kultureng, fugtig brakmark,
 
-7000
+## 7000
 
-Mose og kær
+## Mose og kær
 
 7001
 
@@ -5252,9 +5250,9 @@ Avneknippemose, sumpet bræmme, eutrof højstaude
 
 Fugtig krat
 
-9100
+## 9100
 
-Skov
+## Skov
 
 9101
 
@@ -5282,17 +5280,17 @@ Skematisk oversigt over udviklingen af naturtyperne beskyttet efter naturfrednin
 
 Nærmere beskrivelse af udviklingen findes i vejledningens afsnit om de enkelte naturtyper.
 
-Naturtype
+## Naturtype
 
-1972
+## 1972
 
-1978
+## 1978
 
-1984
+## 1984
 
-1992
+## 1992
 
-2004
+## 2004
 
 Søer
 
@@ -6113,9 +6111,7 @@ Hvad angår spørgsmålet om definition af de enkelte naturtyper og beregning af
 
 Definition af naturtyperne
 
-3.1.
-
-Søer og vandhuller
+## 3.1. Søer og vandhuller
 
 Begrebsmæssigt har naturfredningsloven omfattet »naturlige søer«, dvs. søer, der traditionelt indgår i det pågældende landskab eller miljø.
 
@@ -6143,9 +6139,7 @@ Det bemærkes i øvrigt, at småsøer, der er mindre end 100 m2, men som er beli
 
 Det vil umiddelbart følge af arealberegningsreglerne, jf. afsnit 3.2.4 nedenfor.
 
-3.2.
-
-Vandløb
+## 3.2. Vandløb
 
 Offentlige vandløb, private vandløb med en bundbredde på mindst 1,5 m samt visse nærmere angivne private vandløb med en bundbredde på under 1,5 m har med baggrund i ændringen af naturfredningsloven i 1979 været omfattet af de generelle beskyttelsesbestemmelser.
 
@@ -6167,9 +6161,7 @@ Også almindelige vedligeholdelsesarbejder for private vandløb kan udføres ude
 
 Der tilsigtes ikke nogen ændring i den eksisterende praksis i, hvad der kan betragtes som vandløbsvedligeholdelse.
 
-3.3.
-
-Heder
+## 3.3. Heder
 
 I Miljøministeriets cirkulære nr. 103 af 27. marts 1984, afsnit 3.2 er heder beskrevet således:
 
@@ -6211,9 +6203,7 @@ Sondringen mellem hede og overdrev eller hede og krat er dog, under forudsætnin
 
 På samme måde har sondringen mellem moser og heder mindre betydning, efter at begge naturtyper er blevet omfattet af § 3, og arealgrænsen nu foreslås at være den samme for disse.
 
-3.4.
-
-Moser og lignende
+## 3.4. Moser og lignende
 
 I den hidtidige § 43, stk. 2, er fastsat, at »moser« er omfattet af beskyttelsen.
 
@@ -6267,9 +6257,7 @@ Moser beliggende i sommerhusområder og byzone har - på samme måde som vandlø
 
 Ved fastsættelsen af de nærmere regler i henhold til §§ 5 og 6 vil denne ordning i videst muligt omfang blive søgt opretholdt, og det vil således i denne henseende fortsat kunne være nødvendigt nærmere at afgøre, om et givet område må karakteriseres som en mose i modsætning til f.eks. en hede.
 
-3.5.
-
-Strandenge
+## 3.5. Strandenge
 
 I Miljøministeriets cirkulære nr. 103 af 27. marts 1984 er strandenge beskrevet således i afsnit 3.3:
 
@@ -6305,9 +6293,7 @@ Ved ophør af græsning eller høslæt kan ske en tilgroning med de mere højtvo
 
 Denne begrebsfastlæggelse, der - på samme måde som definitionen af moser - bygger på bemærkningerne til 1978-loven, og som i praksis har medført, bl.a. at visse af de inddæmmede arealer på Amager er blevet anset som omfattet af § 43 b, gælder således fortsat.
 
-3.6.
-
-Strandsumpe
+## 3.6. Strandsumpe
 
 Begrebet strandsumpe skal forstås som hidtil.
 
@@ -6323,13 +6309,9 @@ Sondringen mellem de to begreber vil imidlertid i praksis kun have mindre betydn
 
 Hvor sondringen har betydning, må den foretages på grundlag af områdernes beliggenhed henholdsvis ved kysten eller inde i landet, og i tvivlstilfælde ud fra dominansen af salttålende planter som strandkogleaks, blågrøn kogleaks, strandasters m.fl. i strandsumpene.
 
-3.7.
+## 3.7. Ferske enge og overdrev
 
-Ferske enge og overdrev
-
-3.7.1.
-
-Indledning
+## 3.7.1. Indledning
 
 Disse arealer omfatter fugtige, ferske enge samt tørre enge, ofte kaldet overdrev.
 
@@ -6351,9 +6333,7 @@ Dyrkning af korn og andre sædskifteafgrøder på enge i større omfang end hidt
 
 Det samme gælder, såfremt man ønsker at omlægge eller på anden måde foretage jordbearbejdning i ferske enge, som ikke hidtil har været regelmæssigt omlagt, hvorved normalt forstås inden for de sidste 7-10 år.
 
-3.7.2.
-
-Ferske enge
+## 3.7.2. Ferske enge
 
 Ferske enge skabes ved menneskets påvirkning.
 
@@ -6385,9 +6365,7 @@ Overgangen mellem engen og sådanne relativt uforstyrrede plantesamfund kan ofte
 
 Da de nævnte naturtyper imidlertid også - under forudsætning af at størrelseskriteriet er opfyldt - omfattes af bestemmelserne i loven, er disse grænsedragninger i det store og hele af mindre betydning administrativt set.
 
-3.7.3.
-
-Overdrev
+## 3.7.3. Overdrev
 
 I den oprindelige betydning var overdrevet den del af en landsbys jorder, der som »udmark« lå udenfor vangene, og som ikke var eng eller skov.
 
@@ -6421,9 +6399,7 @@ Derimod vil der oftest omkring overdrevet være tydelige terrænskel i form af v
 
 Visse hårdt græssede overdrev kan være næsten uden opvækst af vedplanter (buske, træer).
 
-3.8.
-
-Særligt om arealberegning
+## 3.8. Særligt om arealberegning
 
 Mellem de fleste af de ovenfor nævnte naturtyper er der i mange tilfælde meget jævne og glidende overgange, f.eks. fra eng til mose.
 
@@ -6645,13 +6621,9 @@ Bemærkning til ændring af lov om naturbeskyttelse, lov om planlægning, lov om
 
 ….
 
-2.2.
+## 2.2. Overdrev og ferske enge.
 
-Overdrev og ferske enge.
-
-2.2.1.
-
-Baggrund
+## 2.2.1. Baggrund
 
 Den generelle beskyttelse af naturtyper i naturbeskyttelseslovens § 3 blev i 1992 udvidet til at omfatte ferske enge og overdrev og på grundlag af en vejledning fra Skov- og Naturstyrelsen gennemførte amterne en registrering og administrerede beskyttelsesordningen som omfattende alle biologiske overdrev, uanset deres historiske oprindelse.
 
@@ -6679,9 +6651,7 @@ Wilhjelm-udvalget anbefalede bl.a., at der ikke generelt udlægges bufferzoner o
 
 bufferzoner vil i overensstemmelse med princippet i miljøbeskyttelseslovens § 26 a udløse erstatning for tabet.
 
-2.2.2.
-
-Ændringsforslaget
+## 2.2.2. Ændringsforslaget
 
 Det foreslås, at den generelle beskyttelse af visse overdrev efter lovens § 3 udvides til at omfatte alle biologiske overdrev (hvoraf historiske overdrev er en delmængde), der – i overensstemmelse med størrelsesgrænsen i § 3 – er større end 2.500 m2.
 
