@@ -191,11 +191,19 @@ def _eu_kilder(p: dict, n: int = 1) -> list[Kilde]:
     return [Kilde("eu", e["ref"], e["url"], e["citat"], True) for e in (p.get("eu_citat") or [])[:n]]
 
 
-def _praksis_kilder(p: dict, dtype: str, kontekst: str, udeluk: set[str], n: int = 2) -> list[Kilde]:
-    q = f"{p.get('søg', '')} {kontekst[:400]}"
-    res = praksis.lignende(q, kategorier=p.get("fejlkategorier"), dokumenttype=dtype, k=n, udeluk=udeluk)
+MIN_LIGHED_ANDET = 1.15  # andet praksiseksempel vises kun, hvis det ligner tilstrækkeligt
+
+
+def praksis_kilder(q: str, kategorier, dtype: str, dok_tekst: str, udeluk: set[str], n: int = 2) -> list[Kilde]:
+    res = praksis.lignende(q, kategorier=kategorier, dokumenttype=dtype, k=n, udeluk=udeluk,
+                           kontekst=dok_tekst[:2500])
+    res = [r for j, r in enumerate(res) if j == 0 or r["score"] >= MIN_LIGHED_ANDET]
     return [Kilde("praksis", f"{r['naevn']} {r['dato']}: {r['titel'][:140]}", r["link"], r["citat"], True,
-                  {"id": r["id"], "fejl": r["fejl"], "regel": r["regel"]}) for r in res]
+                  {"id": r["id"], "fejl": r["fejl"], "regel": r["regel"], "lighed": r["score"]}) for r in res]
+
+
+def _praksis_kilder(p: dict, dtype: str, kontekst: str, udeluk: set[str], dok_tekst: str = "", n: int = 2) -> list[Kilde]:
+    return praksis_kilder(f"{p.get('søg', '')} {kontekst[:400]}", p.get("fejlkategorier"), dtype, dok_tekst, udeluk, n)
 
 
 def _kriterier(dok: Dokument, dtype: str) -> list[tuple[str, str]]:
@@ -273,7 +281,7 @@ def tjek_regler(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None
         for art, citat, tekst in fund:
             kontekst = citat or p["titel"]
             kilder = (_lov_kilder(p, dtype) + _vejl_kilder(p, dtype) + _eu_kilder(p)
-                      + _praksis_kilder(p, dtype, kontekst, udeluk))
+                      + _praksis_kilder(p, dtype, kontekst, udeluk, dok.tekst))
             svagheder.append(Svaghed(
                 punkt=p["id"], titel=p["titel"], art=art, svaghed=tekst,
                 citat_dokument=citat, citat_ok=(citatkontrol.find(citat, dok.tekst) if citat else None),

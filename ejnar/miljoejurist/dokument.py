@@ -79,7 +79,7 @@ def tekst_fra_fil(navn: str, data: bytes) -> str:
 
 
 _SÆT = re.compile(r"(?<=[.!?:;])\s+(?=[A-ZÆØÅ0-9•\-–(\"»“])|\n\s*\n|\n(?=\s*[•\-–]\s)")
-_FORK = re.compile(r"(?:\b(?:jf|nr|stk|bl\.a|f\.eks|ca|mv|pkt|m\.fl|evt|inkl|ift|vedr|kap|afs)\.|\b[a-z]\.)$", re.I)
+_FORK = re.compile(r"\b(?:jf|nr|stk|bl\.a|f\.eks|ca|mv|pkt|m\.fl|evt|inkl|ift|vedr|kap|afs)\.$", re.I)
 
 
 def sætninger(tekst: str) -> list[Sætning]:

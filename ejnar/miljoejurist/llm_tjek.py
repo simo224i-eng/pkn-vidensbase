@@ -13,7 +13,7 @@ from __future__ import annotations
 import json
 import re
 
-from . import citatkontrol, lovkilder, praksis
+from . import citatkontrol, praksis
 from .dokument import Dokument
 from .tjek import FORBUDT, Kilde, Rapport, Svaghed, tjekliste
 
@@ -26,8 +26,8 @@ def byg_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None) 
     linjer = []
     for p in punkter:
         eks = praksis.lignende(p.get("søg", p["titel"]), kategorier=p.get("fejlkategorier"),
-                               dokumenttype=dtype, k=2, udeluk=udeluk)
-        eks_txt = " | ".join(f"[{e['id']}] {e['fejl']}" for e in eks)
+                               dokumenttype=dtype, k=1, udeluk=udeluk, kontekst=dok.tekst[:2500])
+        eks_txt = " | ".join(f"(en anden sag: {e['titel'][:90]}) {e['fejl']}" for e in eks)
         lov = "; ".join(f"{kode} {nr}" for kode, nr, _ in p.get("lov", []))
         linjer.append(f"- {p['id']} {p['titel']}: {p['spørgsmål']} (Lov: {lov}) Eksempler fra praksis: {eks_txt}")
     regelfund = "\n".join(f"- {s.punkt}: {s.svaghed}" + (f" «{s.citat_dokument[:200]}»" if s.citat_dokument else "")
@@ -55,7 +55,8 @@ REGLER
 - Henvis kun til de bestemmelser, der står i tjeklisten.
 - Ingen personnavne i svaret.
 
-TJEKLISTE
+TJEKLISTE (eksemplerne er fra ANDRE sager og viser kun, hvad nævnene har underkendt; bland dem ikke
+sammen med dokumentet)
 {chr(10).join(linjer)}
 
 REGELLAGETS FUND (kan være fejl eller mangle noget; brug dem som udgangspunkt)
@@ -108,17 +109,15 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
             afvist += 1
             continue
         p = punkter.get(s.get("punkt"), {"id": s.get("punkt") or "?", "titel": "Andet", "spørgsmål": "",
-                                         "lov": [], "fejlkategorier": None, "søg": s.get("svaghed", "")})
+                                         "lov": [], "fejlkategorier": None, "søg": s.get("svaghed", ""),
+                                         "gælder": []})
         hvorfor = FORBUDT.sub("[udeladt formulering]", s.get("hvorfor") or "")
+        from .tjek import _eu_kilder, _lov_kilder, _vejl_kilder, praksis_kilder
         kilder = []
-        for kode, nr, uddrag in p.get("lov", []):
-            st = lovkilder.slå_op(kode, nr)
-            if st:
-                kilder.append(Kilde("lov", st.ref, st.url, uddrag, citatkontrol.find(uddrag, st.tekst)))
-        for r in praksis.lignende(f"{s.get('svaghed', '')} {citat or ''}", kategorier=p.get("fejlkategorier"),
-                                  dokumenttype=rapport.dokumenttype, k=2, udeluk=udeluk):
-            kilder.append(Kilde("praksis", f"{r['naevn']} {r['dato']}: {r['titel'][:140]}", r["link"],
-                                r["citat"], True, {"id": r["id"], "fejl": r["fejl"]}))
+        if p.get("lov"):
+            kilder += _lov_kilder(p, rapport.dokumenttype) + _vejl_kilder(p, rapport.dokumenttype) + _eu_kilder(p)
+        kilder += praksis_kilder(f"{s.get('svaghed', '')} {s.get('hvorfor', '')} {citat or ''}",
+                                 p.get("fejlkategorier"), rapport.dokumenttype, dok.tekst, udeluk or set())
         nye.append(Svaghed(punkt=p["id"], titel=p["titel"], art="model",
                            svaghed=FORBUDT.sub("[udeladt formulering]", s.get("svaghed") or ""),
                            citat_dokument=citat, citat_ok=ok, hvorfor=hvorfor,

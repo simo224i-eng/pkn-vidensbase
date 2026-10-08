@@ -864,7 +864,7 @@
 "titel": "Ophævelse og hjemvisning i sag om § 25-tilladelse til etablering af et solcelleanlæg med tilhørende kabelanlæg i Helsingør Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/676f9df3-5a23-4af7-84e4-7eccb501af89",
 "dokumenttype": "projekttilladelse",
-"projekttype": "solcelleanlæg med kabelkorridor (§ 25-tilladelse)",
+"projekttype": "solceller",
 "resume": "Helsingør Kommune gav § 25-tilladelse til et ca. 50 ha solcelleanlæg med 6 km kabelkorridor, der krydser Natura 2000-område nr. 130. Væsentlighedsvurderingen byggede på styret underboring som afværgeforanstaltning og konsekvensvurdering mangledes, og der manglede overvågningsvilkår. Tilladelsen blev ophævet og hjemvist; klagernes øvrige punkter (bilag IV-arter, støj, landskab, alternativer m.m.) fik ikke medhold.",
 "eu_domme": [
 "C-323/17",
@@ -946,7 +946,7 @@
 "titel": "Stadfæstelse med ændring af § 25-tilladelse til etablering af solcellepark med tilhørende anlæg i Svendborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/7b1e0cae-8b5e-42b5-aa3c-df20bb3d0e20",
 "dokumenttype": "projekttilladelse",
-"projekttype": "solcellepark",
+"projekttype": "solceller",
 "resume": "Svendborg Kommune gav § 25-tilladelse til en solcellepark med kabeltracé. Nævnet stadfæstede, men fandt at underboringstiltag, som bilag IV-vurderingen forudsatte, skulle fastsættes som vilkår, og indsatte vilkår 17-19. Øvrige klagepunkter (høring, fugle, grundvand) gav ikke medhold.",
 "eu_domme": [
 "C-357/20"
@@ -971,7 +971,7 @@
 "titel": "Ophævelse og hjemvisning i sag om § 25-tilladelse til etablering af vindmøller og et solcelleanlæg i Viborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/8a5ac069-ddbb-40f2-9e88-3bb4000fca99",
 "dokumenttype": "projekttilladelse",
-"projekttype": "vindmøller og solcelleanlæg (energipark)",
+"projekttype": "vindmoeller",
 "resume": "Viborg Kommune gav § 25-tilladelse til tre vindmøller og et solcelleanlæg. Nævnet afviste klagerne over indholdet i miljøkonsekvensrapporten, Natura 2000, bilag IV-arter og projektopdeling, men fandt, at et byrådsmedlem var inhabil på grund af bygherres betalinger til en forening, hvor medlemmet var projektchef; tilladelsen blev ophævet og hjemvist.",
 "eu_domme": [
 "C-205/08"
@@ -1057,7 +1057,7 @@
 "titel": "Afgørelse i klagesag om Viborg Kommunes endelige vedtagelse af kommuneplantillæg nr. 111 og lokalplan nr. 611 med tilhørende miljørapport",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/73dc1c0e-93c0-4b53-9db8-743a5bd35703",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "solcelleanlaeg",
+"projekttype": "solceller",
 "resume": "Viborg Kommune vedtog lokalplan og kommuneplantillæg for et solcelleanlæg på ca. 62 ha med miljørapport. Væsentlighedsvurderingen for damflagermus i to Natura 2000-områder byggede på afværgeforanstaltninger i form af tidspunkt for nedramning, hvilket ikke er tilladt uden konsekvensvurdering. Lokalplanen og miljørapporten blev ophævet; tillægget var allerede aflyst.",
 "eu_domme": [
 "C-142/16",
@@ -1097,7 +1097,7 @@
 "titel": "Ophævelse og hjemvisning i genoptaget sag om, at omlægning af tennisbaner til padeltennisbaner i Odense Kommune ikke er omfattet af reglerne i miljøvurderingsloven",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/26bac803-90db-4328-a0f7-c5cae0a3a8dc",
 "dokumenttype": "screening_projekt",
-"projekttype": "idraetsanlaeg",
+"projekttype": "fritid_turisme",
 "resume": "Nævnet genoptog sagen og fandt, at omlægning af to tennisbaner til tre padelbaner er en ændring omfattet af bilag 2, pkt. 13, litra a, som skulle være screenet. Kommunens afgørelse om, at projektet ikke var omfattet af loven, blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -1396,7 +1396,7 @@
 "titel": "Ophævelse og hjemvisning i genoptaget sag om, at etablering af aktivitetspark i Guldborgsund Kommune ikke er omfattet af miljøvurderingsloven",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/f4dabfd6-0c2c-43d7-b513-5cc49edd7f0e",
 "dokumenttype": "andet",
-"projekttype": "aktivitetspark / forlystelsespark og lignende (bilag 2, pkt. 12, litra e)",
+"projekttype": "fritid_turisme",
 "resume": "Guldborgsund Kommune gav byggetilladelser til en aktivitetspark med labyrint og vurderede indirekte, at projektet ikke var omfattet af miljøvurderingsloven, uden screening. Efter genoptagelse fandt nævnet, at parken er omfattet af bilag 2, pkt. 12, litra e, og ophævede og hjemviste sagen.",
 "eu_domme": [],
 "fejl": [
@@ -1622,7 +1622,7 @@
 "titel": "Afgørelse i klagesag om Aalborg Kommunes screeningsafgørelse om, at forslag til lokalplan nr. 1-3-129 ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/e5072919-3d88-4d2f-8e71-0a0815143a99",
 "dokumenttype": "screening_plan",
-"projekttype": "byudvikling_lokalplan",
+"projekttype": "bolig_byudvikling",
 "resume": "Aalborg Kommune screenede et lokalplanforslag for etageboliger i en støjbelastet bymidte og fandt ingen miljøvurderingspligt. Nævnet fandt, at altanerne reelt er opholdsarealer, hvor støjgrænsen ikke kan overholdes, hvilket kommunen ikke havde vurderet. Screeningsafgørelsen blev ophævet.",
 "eu_domme": [],
 "fejl": [
@@ -1645,7 +1645,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelser om ikke miljø-vurderingspligt for vandindvindingstilladelse og tilladelse til indvinding af drikkevand til husholdninger og dyrehold og markvanding af landbrugsafgrøder og nyttehaver i Lejre Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/a9fdf3f6-287b-498e-b905-4e7190a75577",
 "dokumenttype": "screening_projekt",
-"projekttype": "vandindvinding (grundvand)",
+"projekttype": "vand_natur_klima",
 "resume": "Lejre Kommune screenede og tillod en grundvandsindvinding til husholdning, dyr og nyttehaver uden at bygherren havde indgivet skriftlig ansøgning efter miljøvurderingsloven. Nævnet fandt en væsentlig retlig mangel, der også ramte vandindvindingstilladelsen, og ophævede begge afgørelser og hjemviste.",
 "eu_domme": [],
 "fejl": [
@@ -1923,7 +1923,7 @@
 "titel": "Ophævelse og hjemvisning af § 25-tilladelse til solcelleanlæg med tilhørende kabelanlæg i Odder Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/32fa2ae8-82ff-4933-ad39-c6636e4ba44c",
 "dokumenttype": "projekttilladelse",
-"projekttype": "solcelleanlaeg",
+"projekttype": "solceller",
 "resume": "Odder Kommune meddelte § 25-tilladelse til et solcelleanlæg med kabelanlæg. Nævnet ophævede og hjemviste, fordi plangrundlaget var ophævet af Planklagenævnet, og fordi afværgeforanstaltningerne for flagermus og stor vandsalamander ikke sikrede økologisk funktionalitet. Øvrige klagepunkter om bl.a. grundvand, støj, landskab, trafik og habilitet gav ikke medhold.",
 "eu_domme": [
 "C-357/20"
@@ -2021,7 +2021,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for projekt for indvinding af grundvand i Ikast-Brande Kommune. Ophævelse og hjemvisning af afgørelse om tilladelse til indvinding af grundvand til markvanding i Ikast-Brande Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/f5c80a87-5378-433c-9a3b-ceb3727c7475",
 "dokumenttype": "screening_projekt",
-"projekttype": "vandindvinding (grundvand til markvanding)",
+"projekttype": "vand_natur_klima",
 "resume": "Ikast-Brande Kommune fornyede en tilladelse til grundvandsindvinding til markvanding og afgjorde, at projektet ikke var miljøvurderingspligtigt, fordi mængden var nedsat i forhold til den tidligere tilladelse. Nævnet fandt, at de faktiske indvindinger var lavere end 14.400 m3, så screeningen hvilede på forkert grundlag; screening og tilladelse blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -2087,7 +2087,7 @@
 "titel": "Afgørelse i klagesag om Mariagerfjord Kommunes endelige vedtagelse af lokalplan nr. 196/2023 og kommuneplantillæg nr. 79 med tilhørende miljørapport",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/304cd4f9-fb7e-4d3c-8e89-a85b0daef9d4",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "andet",
+"projekttype": "vej_infrastruktur",
 "resume": "Mariagerfjord Kommune vedtog lokalplan og kommuneplantillæg for et 15-etagers boligbyggeri i Hobro med en miljørapport, der kun vurderede driftsfasen. Nævnet fandt, at anlægsfasens støj og trafik skulle have været vurderet, og ophævede miljøvurderingen og planvedtagelsen.",
 "eu_domme": [],
 "fejl": [
@@ -2471,7 +2471,7 @@
 "titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for etablering af en kunstgræsbane i Albertslund Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/f3c61716-57c5-4b26-9307-db9dcded6de7",
 "dokumenttype": "screening_projekt",
-"projekttype": "kunstgræsbane / idrætsanlæg (bilag 2, pkt. 10 b)",
+"projekttype": "andet",
 "resume": "Albertslund Kommune besluttede, at en ny kunstgræsbane ikke skulle miljøvurderes. Kommunens egne beregninger viste støj op til 12 dB(A) over de vejledende grænser, og nævnet fandt støjen utilstrækkeligt vurderet. Afgørelsen blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -2589,7 +2589,7 @@
 "titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for etablering af minivådområde i Vejle Kommune og ophævelse og hjemvisning i sag om tilladelse til regulering af vandløb samt anlæggelse af opstemningsanlæg i forbindelse med etablering af minivådområde i Vejle Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/c110062f-0c4b-4f39-96e4-600e82d3b662",
 "dokumenttype": "screening_projekt",
-"projekttype": "minivådområde / vandløbsregulering",
+"projekttype": "vand_natur_klima",
 "resume": "Vejle Kommune screenede et minivådområde på privat drænsystem og vurderede, at det ikke krævede miljøvurdering. Nævnet fandt vurderingen af påvirkning af Halskov Bæk (vandføring og temperatur) utilstrækkelig og ophævede både screeningen og vandløbstilladelsen.",
 "eu_domme": [],
 "fejl": [
@@ -2728,7 +2728,7 @@
 "titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for omlægning af regn- og spildevandsledninger i Halsnæs Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/215f75c3-718a-431b-b19b-59b5265d91c0",
 "dokumenttype": "screening_projekt",
-"projekttype": "andet",
+"projekttype": "vand_natur_klima",
 "resume": "Halsnæs Kommune screenede midlertidig grundvandssænkning og flytning af ledninger nær en § 3-sø og fandt ikke miljøvurderingspligt, men stillede vilkår om overvågning og tilbageledning af vand. Nævnet ophævede og hjemviste, fordi der ikke kan stilles vilkår i en screeningsafgørelse.",
 "eu_domme": [],
 "fejl": [
@@ -2784,7 +2784,7 @@
 "titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for råstofindvinding i Jammerbugt Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/6ecc6160-5384-4433-bd04-c0543b9e08ff",
 "dokumenttype": "screening_projekt",
-"projekttype": "råstofindvinding",
+"projekttype": "raastof",
 "resume": "Region Nordjylland screenede en råstofindvinding ved Gøttrup Sø og fandt ingen miljøvurderingspligt. Nævnet fandt, at regionen ikke havde sikret sig tilstrækkelige oplysninger om flagermus' yngle- og rasteområder i en ejendom, der skulle nedrives, og ophævede og hjemviste.",
 "eu_domme": [
 "C-420/11"
@@ -3054,7 +3054,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for projekt for indvinding af grundvand i Kalundborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/2ba88282-ae27-4528-882d-ec9bce7966ba",
 "dokumenttype": "screening_projekt",
-"projekttype": "vandindvinding (grundvand til almen vandforsyning)",
+"projekttype": "vand_natur_klima",
 "resume": "Kalundborg Kommune screenede en grundvandsindvinding på op til 600.000 m3/år nær Natura 2000-område nr. 156 og konkluderede, at der ikke var væsentlig påvirkning, under forudsætning af vilkår om neddrosling og kompensation. Nævnet fandt, at afværgeforanstaltninger ikke må indgå i væsentlighedsvurderingen, og at der skal foretages en konsekvensvurdering; screening og tilladelse blev ophævet og hjemvist.",
 "eu_domme": [
 "C-127/02",
@@ -3179,7 +3179,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse i sag om ikke miljøvurderingspligt for spildevandsplan 2020-2029 i Fanø Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/d7c0f43a-8409-4b68-bfd3-9f74fef18811",
 "dokumenttype": "screening_plan",
-"projekttype": "spildevandsplan",
+"projekttype": "vand_natur_klima",
 "resume": "Fanø Kommune screenede spildevandsplan 2020-2029 og fandt den ikke miljøvurderingspligtig. Nævnet fandt, at planen gælder hele kommunen, rummer mere end mindre ændringer og fastlægger rammer for bilag 2-projekter, så obligatorisk miljøvurdering var påkrævet. Afgørelsen blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -3270,7 +3270,7 @@
 "titel": "Ophævelse og hjemvisning i sag om Vordingborg Kommunes miljøvurdering af Spildevandsplan 2021-2032",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/a89731ae-5597-44b4-a8bf-5cea7e4c059d",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "spildevandsplan",
+"projekttype": "vand_natur_klima",
 "resume": "Vordingborg Kommune vedtog Spildevandsplan 2021-2032 med miljørapport, men udarbejdede ikke en sammenfattende redegørelse og offentliggjorde kun miljørapporten. Nævnet fandt det en væsentlig retlig mangel, ophævede miljøvurderingen og hjemviste sagen.",
 "eu_domme": [],
 "fejl": [
@@ -3303,7 +3303,7 @@
 "titel": "Ophævelse af indirekte afgørelse om at restaurationsforskrift i Frederikshavn Kommune ikke er omfattet af reglerne i miljøvurderingsloven",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/f96997ef-9c01-4463-b486-72fe53b564ec",
 "dokumenttype": "andet",
-"projekttype": "andet",
+"projekttype": "vej_infrastruktur",
 "resume": "Frederikshavn Kommune vedtog og revideret en restaurationsforskrift med krav til ventilation, lydisolering og støj uden at vurdere den efter miljøvurderingsloven. Nævnet fandt, at forskriften fastlægger rammer for anlægstilladelser og skulle screenes, og ophævede den indirekte afgørelse.",
 "eu_domme": [
 "C-300/20"
@@ -3414,7 +3414,7 @@
 "titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for etablering af en kunstgræsbane i Københavns Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/042f59cb-608c-42c0-8e29-e7e5f0ee71e8",
 "dokumenttype": "screening_projekt",
-"projekttype": "kunstgræsbane / idrætsanlæg",
+"projekttype": "vej_infrastruktur",
 "resume": "Københavns Kommune afgjorde, at en ny kunstgræsbane med lysanlæg ikke krævede miljøvurdering, selv om støjgrænserne ikke kunne overholdes. Nævnet fandt støjvurderingen utilstrækkelig, ophævede og hjemviste, og bemærkede, at partshøring skal overvejes.",
 "eu_domme": [],
 "fejl": [
@@ -3447,7 +3447,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for ændring af eksisterende ferskvandsdambrug i Vejen Kommune  Ophævelse og hjemvisning i sag om miljøgodkendelse til et ferskvandsdambrug i Vejen Kommune  Ophævelse og hjemvisning af afgørelse om tilladelse til indvinding af overfladevand til et ferskvandsdambrug i Vejen Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/5e3520dc-61ff-48e1-be16-f8056136c945",
 "dokumenttype": "screening_projekt",
-"projekttype": "dambrug",
+"projekttype": "vand_natur_klima",
 "resume": "Vejen Kommune screenede ændring af et ferskvandsdambrug i Natura 2000-område som ikke miljøvurderingspligtigt og meddelte miljøgodkendelse og vandindvindingstilladelse. Nævnet fandt væsentlighedsvurderingen mangelfuld, da arter var registreret og afværgevilkår var medregnet, og ophævede og hjemviste alle tre afgørelser.",
 "eu_domme": [
 "C-127/02",
@@ -3709,7 +3709,7 @@
 "titel": "Ophævelse og hjemvisning i genoptaget sag om, at en rækkehusbebyggelse i Halsnæs Kommune ikke er omfattet af reglerne i miljøvurderingsloven",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/087740e7-bc8b-4eab-9767-c88f9902f6e6",
 "dokumenttype": "screening_projekt",
-"projekttype": "byudvikling_boliger",
+"projekttype": "bolig_byudvikling",
 "resume": "Halsnæs Kommune gav dispensation fra en lokalplan for en rækkehusbebyggelse og lagde til grund, at projektet ikke var omfattet af miljøvurderingsloven. Nævnet fandt, at de 62 boliger i byzonen er omfattet af bilag 2, pkt. 10, litra b og skulle screenes. Den indirekte afgørelse blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -3813,7 +3813,7 @@
 "titel": "Ophævelse og hjemvisning i sag om Region Midtjyllands Råstofplan 2020 med tilhørende miljøvurdering",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/5c74ff6b-c1ea-4bfa-a729-c047e69e13ba",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "råstofplan (graveområde)",
+"projekttype": "raastof",
 "resume": "Region Midtjylland udlagde graveområdet Addit Syd i Råstofplan 2020 og konkluderede uden konsekvensvurdering, at Natura 2000-område nr. 52 ikke ville blive væsentligt påvirket. Nævnet fandt, at regionen havde taget afhjælpende foranstaltninger i betragtning og udskudt dele af vurderingen, og ophævede planen og miljøvurderingen og hjemviste sagen.",
 "eu_domme": [
 "C-127/02",
@@ -3940,7 +3940,7 @@
 "titel": "Afgørelse i klagesag om Vallensbæk Kommunes endelige vedtagelse af lokalplan 108 med tilhørende miljørapport",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/ca50a1ef-5fa9-4ab9-8cc4-f0785fe4616e",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "byudvikling_lokalplan",
+"projekttype": "bolig_byudvikling",
 "resume": "Vallensbæk Kommune vedtog en lokalplan for 200 etageboliger med miljørapport. Rapporten sammenlignede trafikken med en ikke længere eksisterende trælasthandel og konkluderede aflastning. Nævnet fandt, at vurderingen byggede på en forkert forudsætning, og ophævede planen.",
 "eu_domme": [],
 "fejl": [
@@ -3963,7 +3963,7 @@
 "titel": "Ophævelse og hjemvisning i sag om § 25-tilladelse til udvidelse af biogasanlæg i Hjørring Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/da4ca454-4f85-4116-b532-42f588cb159b",
 "dokumenttype": "projekttilladelse",
-"projekttype": "biogasanlaeg",
+"projekttype": "energi_oevrig",
 "resume": "Hjørring Kommune gav § 25-tilladelse til udvidelse af Sindal Biogasanlæg. Miljøkonsekvensrapporten vurderede ikke pumpeledningen, som var en nødvendig del af projektet, og den begrundede konklusion var uklar. Tilladelsen blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -3996,7 +3996,7 @@
 "titel": "Afgørelse i klagesag om Assens Kommunes screeningsafgørelse om, at lokalplan 2.2-13 og kommuneplantillæg nr. 20, ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/1e849b3a-c52e-481e-8944-c905cb2b2379",
 "dokumenttype": "screening_plan",
-"projekttype": "infrastruktur_byggeri",
+"projekttype": "bolig_byudvikling",
 "resume": "Assens Kommune screenede lokalplan og kommuneplantillæg for et boligområde i Vissenbjerg og fandt ikke miljøvurderingspligt, selvom et ynglevandhul for stor vandsalamander lå i området og planen krævede afværgeforanstaltninger. Nævnet ophævede screeningen og fandt planerne ugyldige, da miljøvurdering var påkrævet.",
 "eu_domme": [
 "C-142/16",
@@ -4042,7 +4042,7 @@
 "titel": "Afgørelse i klagesag om Slagelse Kommunes screeningsafgørelse om, at lokalplan nr. 1235, Tidselbjerget, etape 2, ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/15950b82-881f-4a0d-a30a-7a56fd6d38ed",
 "dokumenttype": "screening_plan",
-"projekttype": "boligbebyggelse (lokalplan)",
+"projekttype": "bolig_byudvikling",
 "resume": "Slagelse Kommune screenede en lokalplan for 250-300 boliger på ca. 15 ha og fandt, at miljøvurdering ikke var nødvendig. Nævnet fandt, at planen ikke var et mindre område på lokalt plan eller en mindre ændring, så miljøvurdering var obligatorisk; screeningsafgørelsen blev ophævet og lokalplanen erklæret ugyldig.",
 "eu_domme": [
 "C-444/15"
@@ -4194,7 +4194,7 @@
 "titel": "Afgørelse i klagesag om Vallensbæk Kommunes endelige vedtagelse af lokalplan nr. 112, Egeskov Byhave med tilhørende miljørapport",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/0f60a95e-49c6-448f-b014-c64d59758223",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "byudvikling_lokalplan_blandet_by",
+"projekttype": "bolig_byudvikling",
 "resume": "Vallensbæk Kommune vedtog lokalplan 112 med miljørapport for en ny bydel ved Køge Bugt Motorvejen. Nævnet fandt, at trafikafsnittet i miljørapporten var utilstrækkeligt, da det byggede på ældre tællinger og ikke inddrog nyligt vedtagne byudviklingsplaner. Lokalplanens vedtagelse blev ophævet, og kommuneplantillægget erklæret ugyldigt; støj og planlovens § 15 a gav ikke medhold.",
 "eu_domme": [],
 "fejl": [
@@ -4217,7 +4217,7 @@
 "titel": "Afgørelse i klagesag om Brønderslev Kommunes endelige vedtagelse af kommuneplantillæg nr. 1 og lokalplan nr. 32-T-33.01, med tilhørende miljørapport.",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/8cff770c-f27b-484b-8d04-cbc22f6531f0",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "solcelleanlaeg",
+"projekttype": "solceller",
 "resume": "Brønderslev Kommune vedtog lokalplan og kommuneplantillæg for et ca. 140 ha solcelleanlæg op til Natura 2000-område Store Vildmose med miljørapport. Væsentlighedsvurderingen for odder i anlægsfasen manglede en nærmere vurdering af anlægsarbejdets omfang og placering. Planerne blev ugyldige; klager fik ikke medhold i fugle- og alternativpunkterne.",
 "eu_domme": [
 "C-142/16",
@@ -4358,7 +4358,7 @@
 "titel": "Afgørelse i klagesag om Varde Kommunes miljøvurdering af kommuneplantillæg nr. 02 til kommuneplan 2021 og lokalplan nr. 05.01.L16",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/dcd2d087-385e-4730-ace3-2dacdb2bce3b",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "parkeringsanlaeg",
+"projekttype": "andet",
 "resume": "Varde Kommune vedtog kommuneplantillæg og lokalplan om parkering til et museum med miljørapport. Rapporten vurderede ikke påvirkningen af naturstien i klitfredningslinjen, og nævnet ophævede miljørapporten, hvorved planerne blev ugyldige.",
 "eu_domme": [],
 "fejl": [
@@ -4650,7 +4650,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for etablering af ferieboliger i Kalundborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/a31be082-3a60-47f0-bfef-b9b9da959cdb",
 "dokumenttype": "screening_projekt",
-"projekttype": "feriebolig_ferieby",
+"projekttype": "fritid_turisme",
 "resume": "Kalundborg Kommune afgjorde, at 62 ferieboliger ikke krævede miljøvurdering. Nævnet fandt, at kommunen ikke havde vurderet tilstrækkeligt, om markfirben (bilag IV) havde yngle- eller rasteområder, og pegede også på dige og spildevand som forhold til fornyet behandling. Afgørelsen blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -4736,7 +4736,7 @@
 "titel": "Afgørelse i klagesag om Faxe Kommunes endelige vedtagelse af kommuneplan 2021-2033 med tilhørende miljørapport",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/4d844d8c-1ead-4867-8af4-94f45b604d81",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "kommuneplan (vejreservation til omfartsvej)",
+"projekttype": "vej_infrastruktur",
 "resume": "Faxe Kommune vedtog kommuneplan 2021-2033 med vejreservation til østlig omfartsvej ved Haslev uden konkret væsentlighedsvurdering for Natura 2000-område N161 og uden konkret vurdering af bilag IV-arter. Nævnet ophævede alene retningslinjen om omfartsvejen og afviste øvrige klagepunkter.",
 "eu_domme": [
 "C-142/16",
@@ -5134,7 +5134,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse i sag om lovliggørende tilladelse til skråningsbeskyttelse samt tilladelse til etablering af skråningsbeskyttelse i Halsnæs Kommune. Ikke medhold i klage over afgørelse om ikke miljøvurderingspligt til lovliggørende tilladelse til skråningsbeskyttelse samt tilladelse til etablering af skråningsbeskyttelse i Halsnæs Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/0f87d01e-4baf-42a1-877d-a22b823c35d8",
 "dokumenttype": "projekttilladelse",
-"projekttype": "kystbeskyttelse (skråningsbeskyttelse)",
+"projekttype": "vand_natur_klima",
 "resume": "Halsnæs Kommune gav lovliggørende tilladelse og tilladelse til skråningsbeskyttelse og fandt projektet ikke miljøvurderingspligtigt; nævnet stadfæstede screeningen, men ophævede tilladelsen, fordi vilkåret om strandfodring var mangelfuldt og ikke konkret sikret.",
 "eu_domme": [],
 "fejl": [
@@ -5306,7 +5306,7 @@
 "titel": "Afgørelse i klagesag om Rebild Kommunes screeningsafgørelse om, at forslag til lokalplan nr. 351, ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/4497879c-d65b-4d7b-9445-4bb61d7825f4",
 "dokumenttype": "screening_plan",
-"projekttype": "byudvikling_lokalplan",
+"projekttype": "bolig_byudvikling",
 "resume": "Rebild Kommune screenede et lokalplanforslag for boligbebyggelse uden miljøvurdering. Kommunen indrømmede selv, at screeningen ikke omtalte flagermus, og trak afgørelsen tilbage. Nævnet ophævede afgørelsen som behæftet med en væsentlig retlig mangel.",
 "eu_domme": [],
 "fejl": [
@@ -5622,7 +5622,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for etablering af minivådområde med pumpe i Aalborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/8cd03212-cffd-49f7-a6b0-7afd048e11d4",
 "dokumenttype": "screening_projekt",
-"projekttype": "minivådområde med pumpe / dræning",
+"projekttype": "vand_natur_klima",
 "resume": "Aalborg Kommune screenede et minivådområde med pumpe og fandt det ikke miljøvurderingspligtigt, bl.a. fordi Landbrugsstyrelsen havde givet tilsagn, og fordi kvælstofreduktion opvejede usikker udledning af drivhusgasser. Nævnet fandt det en væsentlig retlig mangel, ophævede afgørelsen og hjemviste sagen.",
 "eu_domme": [],
 "fejl": [
@@ -5777,7 +5777,7 @@
 "titel": "Afgørelse i klagesag om Ikast-Brande Kommunes endelige vedtagelse af lokalplan nr. 276 og kommuneplantillæg nr. 41 med tilhørende miljørapport",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/874ae0dd-b91e-41b8-b590-28f043c1e4c5",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "vindmøller (lokalplan og kommuneplantillæg)",
+"projekttype": "vindmoeller",
 "resume": "Ikast-Brande Kommune vedtog lokalplan for 11 vindmøller ved Ulkær Mose med miljørapport. Nævnet fandt, at grundlaget for vurderingen af Natura 2000-arter (F34 og H49) var utilstrækkeligt, og at miljørapporten ikke behandlede okkerudvaskning fra grundvandssænkning i okkerpotentielt område. Lokalplanen og miljøvurderingen blev ophævet.",
 "eu_domme": [
 "C-258/11",
@@ -5926,7 +5926,7 @@
 "titel": "Ophævelse og hjemvisning af § 25-tilladelse til opstilling af vindmøller ved Bogø Inddæmning i Lolland Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/0f9bd2e1-339a-4551-ad3e-59b063ee0378",
 "dokumenttype": "projekttilladelse",
-"projekttype": "vindmøller (otte møller nær fuglebeskyttelsesområde)",
+"projekttype": "vindmoeller",
 "resume": "Lolland Kommune gav § 25-tilladelse til otte vindmøller 80 m fra et fuglebeskyttelsesområde. Nævnet ophævede, fordi plangrundlaget var ophævet af Planklagenævnet, og fordi konsekvensvurderingen hvilede på en utilstrækkeligt begrundet 2 %-kollisionsgrænse, så skade på Natura 2000-området ikke uden rimelig tvivl var udelukket.",
 "eu_domme": [
 "C-127/02",
@@ -6107,7 +6107,7 @@
 "titel": "Afgørelse i klagesag om Esbjerg Kommunes miljøvurdering af lokalplan nr. 40-010-0008",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/42432eda-5a88-486b-966c-69cd4bc2ed1d",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "lokalplan (byomdannelse, bolig- og centerområde)",
+"projekttype": "erhverv_industri",
 "resume": "Esbjerg Kommune vedtog lokalplan for omdannelse af Ribe Jernstøberi med miljørapport. Nævnet fandt, at kommunen ikke havde undersøgt flagermus' yngle- og rasteområder i bygninger og træer, der skulle nedrives/fældes, hvorfor miljøvurderingen og lokalplanen var ugyldige; øvrige klagepunkter (Natura 2000, jordforurening, hugorme) gav ikke medhold.",
 "eu_domme": [
 "C-142/16",
@@ -6168,7 +6168,7 @@
 "titel": "Genoptagelse af Planklagenævnets afgørelse om Kerteminde Kommunes screeningsafgørelse om, at lokalplan nr. 310, ikke skal miljøvurderes samt endelig vedtagelse af planen og kommuneplantillæg nr. 54, sagsnr. 21/01013",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/288e0bb3-56d4-4e5e-883f-180f6852acef",
 "dokumenttype": "screening_plan",
-"projekttype": "solcelleanlæg (lokalplan og kommuneplantillæg)",
+"projekttype": "solceller",
 "resume": "Kerteminde Kommune screenede lokalplan 310 og kommuneplantillæg 54 for et 28 ha solcelleanlæg og vurderede, at miljøvurdering ikke var nødvendig. Efter genoptagelse fandt nævnet, at 28 ha ikke er et mindre område, så planen skulle miljøvurderes obligatorisk, og at lokalplanen desuden stred mod kommuneplanen. Screeningsafgørelsen, lokalplanen og tillægget blev ophævet.",
 "eu_domme": [
 "C-444/15"
@@ -6400,7 +6400,7 @@
 "titel": "Afgørelse i klagesag om Helsingør Kommunes endelige vedtagelse af kommuneplantillæg  nr. 39 og lokalplan nr. 3.42 med tilhørende miljørapport",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/88ef764d-97a6-4687-b796-dce3b9b05a65",
 "dokumenttype": "miljoerapport_plan",
-"projekttype": "boligbebyggelse",
+"projekttype": "erhverv_industri",
 "resume": "Helsingør Kommune vedtog kommuneplantillæg og lokalplan for 400 boliger med miljørapport. Nævnet afviste klagerne over miljørapporten og de øvrige planforhold, men ophævede en passage i lokalplanens § 6.2, der udskød støjvurderingen i strid med planlovens § 15 a, stk. 1.",
 "eu_domme": [],
 "fejl": [
@@ -6423,7 +6423,7 @@
 "titel": "Afgørelse i klagesag om Frederikshavn Kommunes screeningsafgørelse om, at tillæg til udviklingsstrategi 2015-2019, ikke skal miljøvurderes, samt vedtagelse af planen",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/c17d2a39-64c3-4761-8f72-4ab380106aa3",
 "dokumenttype": "screening_plan",
-"projekttype": "andet",
+"projekttype": "vej_infrastruktur",
 "resume": "Frederikshavn Kommune screenede et tillæg til planstrategien om nye sommerhusområder nær et fuglebeskyttelsesområde og fandt ikke miljøvurderingspligt. Nævnet fandt, at påvirkningen af traner ikke var belyst og ingen væsentlighedsvurdering foretaget, og ophævede screeningen og planen.",
 "eu_domme": [],
 "fejl": [
@@ -6456,7 +6456,7 @@
 "titel": "Afgørelse i klagesag om Ballerup Kommune screeningsafgørelse om, at forslag til lokalplan nr. 175 og kommuneplantillæg nr. 14, ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/ba8eea03-9cec-4eab-9b85-4987f312b21e",
 "dokumenttype": "screening_plan",
-"projekttype": "boligbebyggelse og erhverv/uddannelse (lokalplan og kommuneplantillæg)",
+"projekttype": "bolig_byudvikling",
 "resume": "Ballerup Kommune screenede en lokalplan og et kommuneplantillæg for ca. 400 boliger og DTU-udbygning uden miljøvurdering. Nævnet fandt, at kommunen ikke havde belyst eller vurderet, om saltholdigt overfladevand ville skade padder og andet liv i Sømosen; screeningen blev ophævet og lokalplanen er ugyldig.",
 "eu_domme": [],
 "fejl": [
@@ -6557,7 +6557,7 @@
 "titel": "Afgørelse i klagesag om Holstebro Kommunes screeningsafgørelse om, at kommuneplanstrategi 2019, ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/982eace9-4d83-4a20-ac4b-4ec394989a9c",
 "dokumenttype": "screening_plan",
-"projekttype": "sommerhusområde (kommuneplanstrategi)",
+"projekttype": "vej_infrastruktur",
 "resume": "Holstebro Kommune screenede kommuneplanstrategi 2019 (nye sommerhusområder ved Fjand, op til fuglebeskyttelsesområde og i habitatområde) uden miljøvurdering. Nævnet fandt væsentlighedsvurderingen mangelfuld, ophævede screeningen og konstaterede, at strategien var ugyldig.",
 "eu_domme": [
 "C-142/16"
@@ -6670,7 +6670,7 @@
 "titel": "Afgørelse i klagesag om Frederikshavn Kommunes screeningsafgørelse om, at forslag til Kommuneplantillæg nr. 15.80, ikke skal miljøvurderes.",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/7d08f41c-b849-45fe-9798-75af2ef47fe1",
 "dokumenttype": "screening_plan",
-"projekttype": "solcelleanlaeg_kommuneplan",
+"projekttype": "vej_infrastruktur",
 "resume": "Frederikshavn Kommune screenede et kommuneplantillæg om solcelleanlæg på 220 ha uden miljøvurdering. Nævnet fandt, at området ikke var et mindre område på lokalt plan, så obligatorisk miljøvurdering var påkrævet. Screeningsafgørelsen blev ophævet og tillægget erklæret ugyldigt.",
 "eu_domme": [
 "C-444/15"
@@ -6730,7 +6730,7 @@
 "titel": "Afgørelse i klagesag om Syddjurs Kommunes screeningsafgørelse om, at forslag til lokalplan nr. 420 og kommuneplantillæg nr. 17 til kommuneplan 2016, ikke skal miljøvurderes, samt endelig vedtagelse af planerne",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/7063f89e-abcb-4239-8e96-ea4f26e6df1d",
 "dokumenttype": "screening_plan",
-"projekttype": "velkomstcenter og parkeringsareal i nationalpark (lokalplan og kommuneplantillæg)",
+"projekttype": "vej_infrastruktur",
 "resume": "Syddjurs Kommune screenede lokalplan 420 for et velkomstcenter og 160 parkeringspladser tæt på kysten i et Natura 2000-område og vurderede, at miljøvurdering ikke var nødvendig. Nævnet fandt, at planerne kunne få væsentlig landskabelig påvirkning og skulle miljøvurderes, og at kystnærhedsbegrundelsen og visualiseringerne var utilstrækkelige. Screening og lokalplan blev ophævet; Natura 2000-klagen fik ikke medhold.",
 "eu_domme": [],
 "fejl": [
@@ -6943,7 +6943,7 @@
 "titel": "Afgørelse i klagesag om Aabenraa Kommunes screeningsafgørelse om, at lokalplan nr. 115 og kommuneplantillæg nr. 25 ikke skal miljøvurderes samt endelig vedtagelse af lokalplanen",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/71c4eda3-b733-4b6b-a041-292a177722f7",
 "dokumenttype": "screening_plan",
-"projekttype": "boligområde (lokalplan og kommuneplantillæg)",
+"projekttype": "bolig_byudvikling",
 "resume": "Aabenraa Kommune screenede lokalplan 115 for 27 boliger ved Vennersminde og vurderede, at miljøvurdering ikke var nødvendig. Screeningen indeholdt ingen vurdering af sundhedspåvirkning fra den nærliggende transformatorstation. Screeningsafgørelsen og den endelige lokalplan blev ophævet, og screeningen hjemvist.",
 "eu_domme": [
 "C-444/15"
@@ -6978,7 +6978,7 @@
 "titel": "Afgørelse i klagesag om Horsens Kommunes screeningsafgørelse om, at lokalplan nr. 344, ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/6c0d7f4c-fc8a-4bc6-827b-e82f7684e251",
 "dokumenttype": "screening_plan",
-"projekttype": "erhverv/industri (asfaltanlæg, lokalplan og kommuneplantillæg)",
+"projekttype": "erhverv_industri",
 "resume": "Horsens Kommune screenede en lokalplan, der muliggjorde et asfaltanlæg i miljøklasse 7 op til 35 m højt ca. 400 m fra nærmeste bolig, og afgjorde, at miljøvurdering ikke var nødvendig. Nævnet fandt støjvurderingen utilstrækkelig (afstandskrav overskredet, ingen kumulation, ændring fra klasse 6 til 7 ikke vurderet); screeningen blev ophævet og planerne er ugyldige.",
 "eu_domme": [
 "C-444/15"
@@ -7023,7 +7023,7 @@
 "titel": "Stadfæstelse med ændringer af  § 25-tilladelse (VVM-tilladelse) til 3 vindmøller og 12 ha solceller ved Marsvinslund i Silkeborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/0f3815ed-e6b7-4cfd-922d-fb0f32245c96",
 "dokumenttype": "projekttilladelse",
-"projekttype": "vindmoeller_solceller",
+"projekttype": "solceller",
 "resume": "Silkeborg Kommune gav § 25-tilladelse til tre vindmøller og 12 ha solceller. Nævnet fandt, at flagermusbeskyttelsen ikke var sikret for den midterste mølle, og ændrede vilkår 4 om driftsstop til at omfatte alle møller; øvrige klagepunkter gav ikke medhold. Tilladelsen blev stadfæstet med ændring.",
 "eu_domme": [
 "C-201/02",
@@ -7103,7 +7103,7 @@
 "titel": "Ophævelse af afgørelse om ikke miljøvurderingspligt for etablering af etageboliger i Skanderborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/fce1089a-4817-408a-8c8e-24e7ed66f2ee",
 "dokumenttype": "screening_projekt",
-"projekttype": "infrastruktur_byggeri",
+"projekttype": "bolig_byudvikling",
 "resume": "Skanderborg Kommune screenede et etagebyggeri med parkeringskælder ved søen og fandt ikke miljøvurderingspligt, men vurderede indbliksgener kun ved henvisning til den senere byggesagsbehandling. Nævnet ophævede og hjemviste, da vurderingen ikke kan udskydes til separate tilladelser.",
 "eu_domme": [
 "C-420/11"
@@ -7218,7 +7218,7 @@
 "titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for ændring af støjniveau i forlystelsespark i Københavns Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/5be25c9a-816c-4ce1-b5f9-78b863f6efa3",
 "dokumenttype": "screening_projekt",
-"projekttype": "forlystelsespark_stoej",
+"projekttype": "fritid_turisme",
 "resume": "Københavns Kommune screenede en forhøjelse af støjgrænsen for store koncerter i en forlystelsespark og fandt ingen miljøvurderingspligt. Nævnet fandt, at kommunen havde lagt vægt på usaglige hensyn (parkens betydning som attraktion) og anvendt eksisterende støjoverskridelser forkert, og ophævede og hjemviste afgørelsen.",
 "eu_domme": [],
 "fejl": [
@@ -7284,7 +7284,7 @@
 "titel": "Ophævelse og hjemvisning af VVM-tilladelse til projekt om opførelse af Vesterhav Nord Havmøllepark landanlæg",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/20194771-4475-4095-a139-676bc05b8bb8",
 "dokumenttype": "projekttilladelse",
-"projekttype": "havvindmoellepark_landanlaeg_kabel",
+"projekttype": "vindmoeller",
 "resume": "Miljøstyrelsen gav VVM-tilladelse til landanlæg for Vesterhav Nord havvindmøllepark. Nævnet fandt, at væsentlighedsvurderingen ikke længere kunne udelukke væsentlig påvirkning af et udvidet Natura 2000-område 150 m fra projektet, og ophævede og hjemviste tilladelsen.",
 "eu_domme": [
 "C-127/02",
@@ -7332,7 +7332,7 @@
 "titel": "Ophævelse og hjemvisning i sag om § 25-tilladelse efter miljøvurderingsloven til Baltic Pipe-projektet",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/8027f331-6db4-4b88-9876-e7e4767c19e9",
 "dokumenttype": "projekttilladelse",
-"projekttype": "gasroerledning_baltic_pipe",
+"projekttype": "erhverv_industri",
 "resume": "Miljøstyrelsen gav § 25-tilladelse til Baltic Pipe-landdelen. Nævnet fandt, at tilladelsen led af væsentlige retlige mangler: manglende undersøgelse og utilstrækkelig sikkerhed for afværgeforanstaltninger for birkemus, hasselmus og flagermus, samt manglende væsentlighedsvurdering for to snegle. Tilladelsen blev ophævet og hjemvist.",
 "eu_domme": [],
 "fejl": [
@@ -7647,7 +7647,7 @@
 "titel": "Ophævelse og hjemvisning i klage over afgørelse om ikke miljøvurderingspligt for etablering af skovrejsning i Vordingborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/22661a23-5aa1-4044-ac1d-ba67877fe56f",
 "dokumenttype": "screening_projekt",
-"projekttype": "skovrejsning",
+"projekttype": "vand_natur_klima",
 "resume": "Vordingborg Kommune screenede en skovrejsning på ca. 4,25 ha og fandt den ikke miljøvurderingspligtig uden at partshøre en nabo 69 m væk. Nævnet fandt manglen væsentlig og ophævede og hjemviste afgørelsen.",
 "eu_domme": [],
 "fejl": [
@@ -7670,7 +7670,7 @@
 "titel": "Afgørelse i klagesag om Kolding Kommunes screeningsafgørelse om, at lokalplan nr. 1013-12 og kommuneplantillæg nr. 33, ikke skal miljøvurderes",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/b0d3219e-a907-4660-9b1d-4ffdf8933b43",
 "dokumenttype": "screening_plan",
-"projekttype": "byudvikling_lokalplan_etagebolig",
+"projekttype": "bolig_byudvikling",
 "resume": "Kolding Kommune screenede lokalplan og kommuneplantillæg for etageboliger uden miljøvurdering. Nævnet fandt, at kommunen brugte de forkerte, lempede støjgrænseværdier og tog højde for fremtidige trafiktiltag. Screeningsafgørelsen blev ophævet, og planerne er ugyldige.",
 "eu_domme": [
 "C-444/15"
@@ -7728,7 +7728,7 @@
 "titel": "Ophævelse af VVM-tilladelse (§ 25-tilladelse) og miljøgodkendelse til biogasanlæg i Sønderborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/33f1e738-d466-4748-9dfb-c7f401908b8f",
 "dokumenttype": "projekttilladelse",
-"projekttype": "andet",
+"projekttype": "energi_oevrig",
 "resume": "Sønderborg Kommune meddelte miljøgodkendelse og VVM-tilladelse til et biogasanlæg, men uden konkret vurdering af udledning af overfladevand til et overbelastet vandløb. Nævnet ophævede og hjemviste; øvrige klagepunkter om bl.a. alternativer, landskab, trafik, støj og lugt gav ikke medhold.",
 "eu_domme": [],
 "fejl": [
@@ -8234,7 +8234,7 @@
 "titel": "Stadfæstelse med ændring af VVM-tilladelse til opstilling af tre vindmøller ved Torrild i Odder Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/501af9f1-42c0-4251-b805-f217fadbf278",
 "dokumenttype": "projekttilladelse",
-"projekttype": "vindmøller (3 stk.)",
+"projekttype": "vindmoeller",
 "resume": "Odder Kommune gav fornyet VVM-tilladelse til tre vindmøller ved Torrild. Nævnet afviste klagerne over høring, redegørelse, støj og visuel påvirkning, men fandt vilkår 1, 3 og 5 mangelfulde og stadfæstede tilladelsen med ændrede vilkår, herunder driftsstop for flagermus fra opstilling.",
 "eu_domme": [],
 "fejl": [
@@ -8498,7 +8498,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for projekt om skovfældning i Silkeborg Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/96327b5a-fe53-42f8-81da-4b27b1221043",
 "dokumenttype": "screening_projekt",
-"projekttype": "skovrydning",
+"projekttype": "bolig_byudvikling",
 "resume": "Silkeborg Kommune screenede en allerede gennemført skovrydning på ca. 10 ha til byudvikling og fandt ingen miljøvurderingspligt. Nævnet fandt, at lovliggørelsesbetingelserne ikke var vurderet, at kumulation med byudviklingen manglede, og at flagermus ikke var tilstrækkeligt belyst. Afgørelsen blev ophævet og hjemvist.",
 "eu_domme": [
 "C-196/16",
@@ -8544,7 +8544,7 @@
 "titel": "Ophævelse og hjemvisning i sag om ikke miljøvurderingspligt for etablering af en forbindelsesgang og opfyldning på søterritoriet i Københavns Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/b5427ccf-ec87-41a7-a1fd-2a65d2af3362",
 "dokumenttype": "screening_projekt",
-"projekttype": "andet",
+"projekttype": "vej_infrastruktur",
 "resume": "Kystdirektoratet afgjorde, at en forbindelsesgang og opfyldning på søterritoriet ved Operaen ikke krævede miljøvurdering. Nævnet fandt, at kumulation med andre projekter og den vedtagne lokalplan for Papirøen ikke var tilstrækkeligt belyst, og ophævede og hjemviste.",
 "eu_domme": [],
 "fejl": [
@@ -8638,7 +8638,7 @@
 "titel": "Ophævelse og hjemvisning af afgørelse om ikke miljøvurderingspligt for ændringer i driften af forlystelsespark i Lyngby-Taarbæk Kommune",
 "link": "https://mfkn.naevneneshus.dk/afgoerelse/1413fb0a-54a4-404a-9440-69a110652c13",
 "dokumenttype": "screening_projekt",
-"projekttype": "forlystelsespark_driftsaendring",
+"projekttype": "fritid_turisme",
 "resume": "Lyngby-Taarbæk Kommune screenede ændret sæsonlængde, åbningstid og støjgrænser for en forlystelsespark uden at inddrage parkeringspladserne i Gentofte Kommune og efter forkert retsgrundlag. Nævnet fandt, at screeningen skulle omfatte hele anlægget, og ophævede og hjemviste afgørelsen.",
 "eu_domme": [
 "C-275/09"
@@ -8724,7 +8724,7 @@
 "titel": "Afgørelse i klagesag om Egedal Kommunes endelige vedtagelse af lokalplan nr. 52, Affaldshåndtering ved Toppevad",
 "link": "https://pkn.naevneneshus.dk/afgoerelse/3d028454-3a74-48b3-904d-fb0a885e2fdb",
 "dokumenttype": "andet",
-"projekttype": "affaldshaandtering",
+"projekttype": "andet",
 "resume": "Egedal Kommune vedtog lokalplan for affaldshåndtering, der tillod en genbrugsbutik på 500 m2. Nævnet ophævede § 6.4, fordi butikken ikke var omfattet af planlovens § 5 o. Klagen over screeningsafgørelsen blev afvist som for sen.",
 "eu_domme": [],
 "fejl": [

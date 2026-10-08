@@ -80,19 +80,20 @@ def main():
     a = ap.parse_args()
     pk = punkt_kategorier()
     (WORK / "prompts").mkdir(exist_ok=True)
-    (WORK / "sb").mkdir(exist_ok=True)
+    sb, pb = ("sb", "pb") if a.runde == "1" else (f"sb{a.runde}", f"pb{a.runde}")
+    (WORK / sb).mkdir(exist_ok=True)
     ud_dir = WORK / f"runde{a.runde}"
     ud_dir.mkdir(exist_ok=True)
     docs = testdokumenter()
     res = []
     for d in docs:
-        sp = WORK / "sb" / f"{d['blind']}.json"
+        sp = WORK / sb / f"{d['blind']}.json"
         svar = sp.read_text(encoding="utf-8") if (a.trin == "score" and sp.exists()) else None
         r, rm, prompt, dok = kør(d, svar)
         if a.trin == "prompts":
             (WORK / "prompts" / f"{d['tid']}.txt").write_text(prompt, encoding="utf-8")
-            (WORK / "pb").mkdir(exist_ok=True)
-            (WORK / "pb" / f"{d['blind']}.txt").write_text(prompt, encoding="utf-8")
+            (WORK / pb).mkdir(exist_ok=True)
+            (WORK / pb / f"{d['blind']}.txt").write_text(prompt, encoding="utf-8")
         kat = set(d.get("kategorier") or [])
         row = {"tid": d["tid"], "gruppe": d["gruppe"], "type": d.get("dokumenttype"), "kategorier": sorted(kat),
                "ord": dok.ord, "regler_n": len(r.svagheder),

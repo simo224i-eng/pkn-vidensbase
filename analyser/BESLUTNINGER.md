@@ -67,3 +67,28 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
   automatisk søgning ramte afsnit om fx opsættende virkning.
 - EU-domme: for de vigtigste punkter er præmissen valgt ved en ordret frase (C-127/02 præmis 45,
   C-323/17 præmis 37, C-473/19 præmis 83, C-142/07 præmis 44), ellers ved søgning i punktets domme.
+
+## Værktøj (punkt 5)
+- **To lag:** et regellag, der altid kører uden nøgler, og et valgfrit modellag via Ejnars udskiftelige
+  LLM-udbyder. Modellens citater kontrolleres automatisk; fund med citater, der ikke står ordret, fjernes.
+  Ingen betalte nøgler er brugt i udvikling og test: i testen spiller en agent modellen og får præcis
+  den prompt, appen sender (`llm_tjek.byg_prompt`).
+- **Aldrig frikendelse:** rapportens egne tekster filtreres for formuleringer som "er i orden", "er lovlig",
+  "ingen fejl" (`tjek.FORBUDT`), og en tom rapport siger, at kontrollerne ikke slog ud – ikke at
+  afgørelsen holder.
+- **Prioritering (efter runde 1):** højst 6 fund vises som "svagheder", resten som "øvrige
+  opmærksomhedspunkter". Konstateringen af, at noget ikke er nævnt, vægter lavere end en konkret svag
+  formulering med citat.
+
+## Test (punkt 6)
+- Testen ligger i `ejnar/evaluation/miljoejurist/` med resultater i `RESULTS.md` dér (og et kort afsnit i
+  `ejnar/evaluation/simulation/RESULTS.md`). Arbejdsfiler med sagstekster ligger i `work/` (gitignoreret).
+- **T1:** 30 underkendte screeninger rekonstrueret af en agent, der KUN så sagsfremstillingen (nævnets
+  vurdering, indledning og titel fjernet). Sagens egen afgørelse udelukkes fra praksissøgningen.
+- **T2:** 20 stadfæstede screeninger (rekonstrueret på samme måde) med én indsat fejl af en kendt type.
+- **T3:** de samme 20 stadfæstede screeninger uden ændringer (falske alarmer).
+- **T4:** 8 ægte oprindelige screeninger/planforslag fundet online (sikkerhed høj/middel/lav for, at det er
+  netop den behandlede version).
+- Skribenter, model-agenter og revisorer ser blinde id'er (R01…, X01…, Y01…), så de ikke kender gruppen.
+- **Revision:** en revisor-agent (Sonnet) vurderer hvert fund: læst korrekt? relevant? bærer kilderne?
+  matcher det nævnets begrundelse/den indsatte fejl? Samme revisormodel i alle runder for sammenlignelighed.

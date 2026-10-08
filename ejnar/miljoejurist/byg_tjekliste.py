@@ -78,8 +78,12 @@ def byg_praksis() -> list[dict]:
                 f["citat_myndighed"] = None
         if not fejl:
             continue
+        from .praksis import PROJEKTTYPER, projekttype
+        pt = d.get("projekttype")
+        if pt not in {n for n, _ in PROJEKTTYPER}:
+            pt = projekttype(f"{meta['titel']} {d.get('resume', '')} {pt or ''}") or "andet"
         ud.append({"id": d["id"], "naevn": meta["naevn"], "dato": meta["dato"], "titel": meta["titel"],
-                   "link": meta["link"], "dokumenttype": d.get("dokumenttype"), "projekttype": d.get("projekttype"),
+                   "link": meta["link"], "dokumenttype": d.get("dokumenttype"), "projekttype": pt,
                    "resume": d.get("resume", ""), "eu_domme": d.get("eu_domme") or [], "fejl": fejl})
     ud.sort(key=lambda s: s["dato"], reverse=True)
     return ud

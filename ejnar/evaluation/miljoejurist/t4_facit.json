@@ -1,0 +1,112 @@
+{
+ "T4_01": {
+  "sag": "M416133fa",
+  "dokumenttype": "screening_projekt",
+  "kategorier": [
+   "afvaergeforanstaltninger"
+  ],
+  "fejl": [
+   "Kommunen screenede renovering af en kildeplads som ikke miljøvurderingspligtig med den begrundelse, at afværgeforanstaltninger (tømning af området for spidssnudet frø, paddehegn, erstatningsbiotop) sikrede den økologiske funktionalitet for bilag IV-arten. Når sådanne foranstaltninger er nødvendige, skal projektet miljøvurderes, så der kan fastsættes vilkår i en § 25-tilladelse.",
+   "Der kan ikke fastsættes vilkår i en screeningsafgørelse; vilkår om afværgeforanstaltninger forudsætter en miljøkonsekvensrapport og en § 25-tilladelse med klare vilkår og overvågning."
+  ],
+  "sikkerhed": "høj",
+  "kilde": "VVM-afgørelse om ikke VVM-pligt, renovering af Hove Kildeplads"
+ },
+ "T4_02": {
+  "sag": "M0a8994d5",
+  "dokumenttype": "screening_projekt",
+  "kategorier": [
+   "afgraensning_opsplitning"
+  ],
+  "fejl": [
+   "Kommunen udelod de forberedende anlægsarbejder (kabelomlægning, fjernelse af forurenet jord m.m.) fra screeningen, selvom de er en integreret del af hovedprojektet, og vurderede dermed ikke projektet som helhed.",
+   "Screeningen blev foretaget efter projektets påbegyndelse (støbning af fundamenter), og kommunen behandlede den ikke som lovliggørelse, hvor allerede udførte forhold også skal inddrages."
+  ],
+  "sikkerhed": "høj",
+  "kilde": "§ 21 afgørelse om ikke VVM-pligt for etablering af lynladestation på Roskildevej 91"
+ },
+ "T4_03": {
+  "sag": "P058e19c1",
+  "dokumenttype": "screening_plan",
+  "kategorier": [
+   "bilagIV_arter",
+   "materiel_vaesentlighed"
+  ],
+  "fejl": [
+   "Kommunen screenede lokalplanen for kollegieboliger som ikke miljøvurderingspligtig, selv om den selv fandt egnede yngle- og rasteområder for flagermus i bygninger, der skulle nedrives, og forudsatte afværgeforanstaltninger (nedrivningsperioder, flagermuskasser) uden at begrunde, at de sikrer økologisk funktionalitet; flagermuskasser kan være kompensation, ikke afværge.",
+   "Det fremgik ikke af screeningen, hvordan de beskrevne tiltag effektivt sikrer opretholdelse af den økologiske funktionalitet for flagermus.",
+   "Lokalplanen muliggør boliger, hvor Miljøstyrelsens vejledende støjgrænser for virksomhedsstøj fra det eksisterende kulturhus ikke kan overholdes; det er en sandsynlig væsentlig påvirkning, og den foreslåede løsning (lydsluser ved kulturhuset) var ikke tilstrækkelig sikring.",
+   "Fordi planen skulle have været miljøvurderet før endelig vedtagelse, er lokalplanen ugyldig."
+  ],
+  "sikkerhed": "høj",
+  "kilde": "Forundersøgelse (screening) af miljøpåvirkning, forslag til lokalplan 4.1-10 Kollegieboliger ved Mølby og Rebslagergade"
+ },
+ "T4_04": {
+  "sag": "Mdc595285",
+  "dokumenttype": "screening_plan",
+  "kategorier": [
+   "materiel_vaesentlighed",
+   "omfattet_bilag_projektbegreb"
+  ],
+  "fejl": [
+   "Kommunen screenede tillæg til spildevandsplan som en plan under § 8, stk. 2 (mindre område/mindre ændringer), selvom planen rammesætter flere bilag 2-projekter (regnvandsbassiner, rensning, trykledninger) og ikke angår et mindre område; planen skulle miljøvurderes obligatorisk.",
+   "Planen omfatter ti projekter, ca. 30 ha kloakoplande og ca. 150 matrikler samt en trykledning til mindst 11.005 PE, så den kan ikke anses for at fastlægge anvendelsen af et mindre område eller kun mindre ændringer."
+  ],
+  "sikkerhed": "middel",
+  "kilde": "Screening for miljøvurdering af Tillæg nr. 6 til Spildevandsplan 2019-2027 (rev. 9. juni 2022)"
+ },
+ "T4_05": {
+  "sag": "P16930ba0",
+  "dokumenttype": "screening_plan",
+  "kategorier": [
+   "omfattet_bilag_projektbegreb"
+  ],
+  "fejl": [
+   "Kommunen screenede den lokale del af kommuneplan 2025 og konkluderede, at der ikke skulle miljøvurderes, selvom planen omfatter hele kommunen og indeholder mere end mindre ændringer (nye retningslinjer, rammeområder og rammebestemmelser, 40 indarbejdede tillæg hvoraf kun syv var miljøvurderet). Planen var derfor omfattet af obligatorisk miljøvurdering."
+  ],
+  "sikkerhed": "middel",
+  "kilde": "Miljøscreening af forslag til Kommuneplan 2025, Vejle Kommunes lokale del (COWI, v2.0, 2. okt 2024) med screeningsafgøre"
+ },
+ "T4_06": {
+  "sag": "M6b8ec3a1",
+  "dokumenttype": "screening_projekt",
+  "kategorier": [
+   "materiel_vaesentlighed"
+  ],
+  "fejl": [
+   "Kommunen vurderede ændringen (7 dB(A) højere støjgrænse for 20 koncerter) ikke korrekt i kumulation med den eksisterende støjbelastning; den samlede overskridelse af de vejledende støjgrænser på 27 dB(A) udgør en væsentlig indvirkning, trods begrænset hyppighed og varighed.",
+   "Kommunen undersøgte ikke projektet i kumulation med det eksisterende projekt, men vurderede ændringen isoleret og lagde vægt på tidsbegrænsning og afværgende tiltag."
+  ],
+  "sikkerhed": "lav",
+  "kilde": "VVM-screening, afgørelse om ændring af støjniveau ved udendørs koncerter på Plænen i Tivoli - UDKAST af 8. okt 2021 (m. "
+ },
+ "T4_07": {
+  "sag": "Pa5ae18a7",
+  "dokumenttype": "screening_plan",
+  "kategorier": [
+   "natur_paragraf3",
+   "sagsoplysning_dokumentation"
+  ],
+  "fejl": [
+   "Screeningen indeholdt forkerte oplysninger om den § 3-beskyttede sø, som på grund af den foreslåede vejforbindelse lå inden for lokalplanområdet, så vurderingen af § 3-natur hvilede på utilstrækkeligt grundlag.",
+   "Trafikpåvirkningen blev vurderet ud fra et for lavt antal sengepladser, og kommunen foretog først en ny vurdering efter planvedtagelsen, i klagesvaret."
+  ],
+  "sikkerhed": "høj",
+  "kilde": "Lokalplan 3.3-1 Sommerhusområde ved Fiskerløkken (vedtaget 29.03.2023, med Miljøscreening som bilag)"
+ },
+ "T4_08": {
+  "sag": "P1e849b3a",
+  "dokumenttype": "screening_plan",
+  "kategorier": [
+   "afvaergeforanstaltninger",
+   "bilagIV_arter"
+  ],
+  "fejl": [
+   "Kommunen undersøgte ikke tilstrækkeligt forekomst, bestandsstørrelse, rasteområder og vandhuller omkring planområdet for stor vandsalamander (bilag IV) før screeningen; der var kun foretaget besigtigelse på et tidspunkt, hvor arten ikke kunne konstateres.",
+   "Planerne forudsatte afværgeforanstaltninger (nyt vandhul og spredningskorridor) for at undgå skade på yngle- og rasteområder for bilag IV-arten, hvilket udløser miljøvurderingspligt og ikke kan indgå i en screening; effekten var heller ikke nærmere begrundet.",
+   "Der var ikke foretaget en konkret vurdering af vandhullerne øst for planområdet som del af det samlede yngle- og rasteområde, selvom lokalplanen forudsætter en adgangsvej mellem to af dem."
+  ],
+  "sikkerhed": "lav",
+  "kilde": "Forslag til Lokalplan 2.2-13 Boligområde i Duedalen, Vissenbjerg (forslag okt. 2021)"
+ }
+}
