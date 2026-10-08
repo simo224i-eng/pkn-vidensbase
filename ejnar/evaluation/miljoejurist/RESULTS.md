@@ -126,3 +126,33 @@ En Haiku-agent sammenlignede hver original med nævnets afgørelse (`PROMPT_SAMM
 **Konklusion:** rekonstruktionerne er en brugbar erstatning i test, så originalerne er ikke nødvendige for at
 måle kvaliteten. Til gengæld er de værdifulde som opslag ved siden af afgørelsen. Derfor høstes de som et
 link-indeks (sag → kommunens dokument), ikke som tekst i repoet.
+
+### Kontrol af originalindekset (Haiku, 20 stikprøver)
+
+En Haiku-agent læste 20 fundne dokumenter (`tools/originaler/PROMPT_KONTROL.md`) og vurderede, om de er den
+rigtige screening til den rigtige sag.
+
+| Sikkerhed | ok | delvist | forkert |
+|---|---|---|---|
+| høj (screeningsbilag på dagsordenen) | 8 | 1 | 1 |
+| middel (mest planforslag fra plandata) | 3 | 7 | 0 |
+
+- "høj" er rigtig i 8/10 (9/10 rigtig sag). Den ene fejl var en anden lokalplan i samme kommune; den er nu
+  markeret "forkert" og vises ikke.
+- "middel" er altid den rigtige plan, men i 7/10 er screeningen kun resumeret i planforslaget. Linket vises
+  derfor med teksten "screeningen er ofte kun resumeret".
+- Kontrollerede links (11) vises som "kontrolleret". Resultaterne ligger i `tools/originaler/kontrol.json`.
+
+## Stedtjek (kort over beskyttede områder og planer)
+
+`stedtjek.py` finder stedet (kommune + plannr. via plandata, adresse via Nominatim eller koordinat) og slår op i
+Danmarks Miljøportal (Natura 2000, § 3, beskyttede vandløb, fredninger, bygge- og beskyttelseslinjer) og
+plandata.dk (kommuneplanrammer, landskab, kulturmiljø, lavbund, oversvømmelse, økologiske forbindelser,
+naboplaner). Det sammenligner med dokumentet: er et område tæt på ikke nævnt, eller er en påstået afstand
+meget større end den målte? Kortopslag sker direkte mod kilderne med 24 timers cache (ca. 2,4 s pr. dokument).
+
+- Backtest på testdokumenterne: ca. 1 stedfund pr. dokument efter stramning (først 5–10).
+- Haiku-revision af 16 stedfund: **14/16 korrekte og relevante**.
+- På den ægte screening T4_07 (§ 3-sag) ramte stedtjekket nævnets fejl.
+- Forbehold: kortlagene er vejledende (fx § 3 er registrerede, ikke alle beskyttede arealer), og stedet skal
+  kunne findes. Fundene vises som "stedtjek" med kortlaget som kilde.

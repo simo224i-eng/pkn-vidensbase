@@ -46,18 +46,22 @@ def main():
     for sid, hits in pd.items():
         for h in hits[:2]:
             status = {"V": "vedtaget", "F": "forslag", "A": "aflyst"}.get(str(h.get("status")), str(h.get("status") or ""))
-            indeks.setdefault(sid, []).append({"type": f"planens PDF på plandata ({status})",
+            indeks.setdefault(sid, []).append({"type": f"planens PDF på plandata ({status}; screeningen er ofte kun resumeret)",
                                                "titel": f"{h['plan']} {h.get('plannavn') or ''}".strip(),
                                                "url": h["url"], "sikkerhed": "middel"})
     # Manuel/agent-kontrol kan nedgradere eller bekræfte (kontrol.json: {sag: {url: "ok"|"forkert"}})
     for sid, links in indeks.items():
+        # Er dagsordenens screeningsbilag forkert, er hele dagsordenpunktet det som regel også
+        fa_forkert = any(kontrol.get(sid, {}).get(l["url"]) == "forkert" for l in links if "plandata" not in l["type"])
         for l in links:
             vurd = kontrol.get(sid, {}).get(l["url"])
+            if fa_forkert and "plandata" not in l["type"] and vurd != "ok":
+                vurd = "forkert"
             if vurd == "forkert":
                 l["sikkerhed"] = "forkert"
             elif vurd == "ok":
                 l["sikkerhed"] = "kontrolleret"
-    UD.write_text(json.dumps(indeks, ensure_ascii=False, indent=1), encoding="utf-8")
+    UD.write_text(json.dumps(indeks, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
     import collections
     c = collections.Counter(max((l["sikkerhed"] for l in v), key=["forkert", "lav", "middel", "høj", "kontrolleret"].index)
                             for v in indeks.values())

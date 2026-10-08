@@ -377,8 +377,10 @@ PUNKTER = [
 
 # Hvad værktøjet ikke vurderer (vises altid i rapporten)
 IKKE_VURDERET = [
-    "Om faktum i dokumentet er rigtigt (afstande, arealer, beregninger, artsfund). Værktøjet læser kun teksten.",
-    "Kort, tegninger, bilag og billeder, som ikke er en del af den uploadede tekst.",
+    "Om faktum i dokumentet er rigtigt (arealer, beregninger, artsfund). Er stedtjekket slået til, er afstande "
+    "til registrerede beskyttede områder og planer kontrolleret mod kortene; ellers læser værktøjet kun teksten.",
+    "Tegninger, bilag og billeder, som ikke er en del af den uploadede tekst. Kortlagene er vejledende: "
+    "ikke-registrerede § 3-arealer og bilag IV-arters levesteder vises ikke.",
     "Om konklusionen om væsentlighed er rigtig. Værktøjet peger kun på steder, hvor grundlaget kan være svagt.",
     "Andre lovkrav end dem på tjeklisten, fx planlovens krav (kystnærhedszonen, Fingerplanen, høringsfrister, "
     "redegørelseskrav), byggeloven og lokale planbestemmelser.",

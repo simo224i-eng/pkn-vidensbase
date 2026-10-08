@@ -103,3 +103,14 @@ Løbende log over de valg, der er truffet uden at spørge. Nyeste nederst.
 - 66 af de 92 myndigheder i sagerne bruger **FirstAgenda**, som har et åbent søge-API
   (`/api/agenda/soeg`, `/api/agenda/dagsorden/{id}`, bilag på `/vis/pdf/bilag/{id}`). Én hentefunktion dækker dem
   (`tools/originaler/hent_firstagenda.py`). Fredningssager springes over (fredningsnævnet er myndighed).
+- Originalindekset blev kontrolleret af Haiku på 20 stikprøver: "høj" 8 ok/1 delvist/1 forkert, "middel" 3 ok/
+  7 delvist. Forkerte links skjules (hele dagsordenpunktet, når bilaget er forkert); plandata-links mærkes
+  "screeningen er ofte kun resumeret". Indekset gemmer kun links og titler (ingen personoplysninger).
+
+## Stedtjek
+- Kortdata **slås op direkte** (WFS hos Miljøportalen og plandata.dk) med 24 timers cache frem for at hente alt
+  ned: lagene ændres løbende og er store, og et opslag pr. dokument tager ca. 2,4 s. Nævns- og lovdata hentes
+  derimod ned (de skal søges i som helhed). Originaler indekseres som links og hentes efter behov.
+- DAWA er lukket; adresser slås op i Nominatim (OpenStreetMap) og omregnes selv til UTM32.
+- Tærskler (`SVAGHEDSGRÆNSE_M`) blev strammet, så der kommer ca. 1 fund pr. dokument; kumulation tæller kun
+  planforslag inden for 500 m. Bilag IV-artsfund (arter.dk) er udskudt.

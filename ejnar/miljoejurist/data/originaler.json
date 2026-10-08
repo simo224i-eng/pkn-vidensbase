@@ -4,7 +4,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "lokalplan 1214 inkl screening",
    "url": "https://dagsordener.skanderborg.dk/vis/pdf/bilag/29556f4a-fa58-458e-bbb5-61b276fcbbbc/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "dagsordenpunkt",
@@ -13,13 +13,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1214 Boligområde vest for Blegsø Banke",
    "url": "https://dokument.plandata.dk/20_12105616_1762245275354.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1214 Boligområde vest for Blegsø Banke",
    "url": "https://dokument.plandata.dk/20_12105616_1782895593353.pdf",
    "sikkerhed": "middel"
@@ -53,13 +53,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 12.B7.4 Boligområde ved Engholm Søpark i Herning",
    "url": "https://dokument.plandata.dk/20_12137705_1762416293870.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 12.B7.4 Boligområde ved Engholm Søpark i Herning",
    "url": "https://dokument.plandata.dk/20_12137705_1790147521649.pdf",
    "sikkerhed": "middel"
@@ -79,13 +79,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 19-041 Teknisk anlæg, Hunetorp Klitvej, Blokhus",
    "url": "https://dokument.plandata.dk/20_12139035_1764580476573.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 19-041 Teknisk anlæg, Hunetorp Klitvej, Blokhus",
    "url": "https://dokument.plandata.dk/20_12139035_1775550497668.pdf",
    "sikkerhed": "middel"
@@ -99,13 +99,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 500-98 Boliger ved Skovholmslund, etape IV",
    "url": "https://dokument.plandata.dk/20_null_1757053112357.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 500-98 Boliger ved Skovholmslund, etape IV",
    "url": "https://dokument.plandata.dk/20_12125692_1768555592690.pdf",
    "sikkerhed": "middel"
@@ -131,13 +131,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 154 for Vesterhave Vingaard",
    "url": "https://dokument.plandata.dk/20_11317447_1714725431379.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 154 for Vesterhave Vingaard",
    "url": "https://dokument.plandata.dk/20_11317447_1743149799780.pdf",
    "sikkerhed": "middel"
@@ -148,7 +148,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Screeningsskema - §10_Peter Løthsvej",
    "url": "https://dagsordener.jammerbugt.dk/vis/pdf/bilag/63b1d965-7dc5-466a-a503-c80f06ca8f60/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "dagsordenpunkt",
@@ -157,13 +157,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 27-042 Område til offentlige formål og tæt-lav boliger, Peter Løthsvej, Aabybro",
    "url": "https://dokument.plandata.dk/20_11979175_1750946976458.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 27-042 Område til offentlige formål og tæt-lav boliger, Peter Løthsvej, Aabybro",
    "url": "https://dokument.plandata.dk/20_11979175_1760344197766.pdf",
    "sikkerhed": "middel"
@@ -174,19 +174,19 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Bilag 2 - Screeningsafgørelse Lokalplan 04.86 for Rådhusparken",
    "url": "https://dagsorden.halsnaes.dk/vis/pdf/bilag/006b06ae-8a9c-4905-8c62-189536d6c984/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "forkert"
   },
   {
    "type": "screening (bilag til dagsorden)",
    "titel": "Bilag 3 - Miljøscreeningsskema - Lokalplan 04.86 for Rådhusparken",
    "url": "https://dagsorden.halsnaes.dk/vis/pdf/bilag/fa1361df-722d-4cd2-90e2-f89a14f912de/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "forkert"
   },
   {
    "type": "dagsordenpunkt",
    "titel": "Udvalget for Plan og Byg 2022-2025 2025-12-01: Forslag til Lokalplan 04.86 for Rådhusparken og afgørelse om ikke miljøvurdering",
    "url": "https://dagsorden.halsnaes.dk/vis?id=0c7cfb34-78d3-4b58-bd4e-bdbd8a07ff65",
-   "sikkerhed": "høj"
+   "sikkerhed": "forkert"
   }
  ],
  "P0f2ba8c8": [
@@ -211,7 +211,7 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 445 Krøyersvej 5 A-B, SIF",
    "url": "https://dokument.plandata.dk/20_11918231_1744263498875.pdf",
    "sikkerhed": "middel"
@@ -287,13 +287,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2024-9 Mindre boligområde ved Jydby i Otterup",
    "url": "https://dokument.plandata.dk/20_11623263_1738761711168.pdf",
-   "sikkerhed": "middel"
+   "sikkerhed": "kontrolleret"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2024-9 Mindre boligområde ved Jydby i Otterup",
    "url": "https://dokument.plandata.dk/20_11623263_1767598341268.pdf",
    "sikkerhed": "middel"
@@ -307,13 +307,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 428 Serviceområde ved E45 nær Hadsten",
    "url": "https://dokument.plandata.dk/20_11912917_1741172922180.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 428 Serviceområde ved E45 nær Hadsten",
    "url": "https://dokument.plandata.dk/20_11912917_1766147884546.pdf",
    "sikkerhed": "middel"
@@ -333,13 +333,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 11-030-0006 Bolig ved Novrupvej 81 Esbjerg",
    "url": "https://dokument.plandata.dk/20_10335647_1739946443789.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 11-030-0006 Bolig ved Novrupvej 81 Esbjerg",
    "url": "https://dokument.plandata.dk/20_10335647_1769427757577.pdf",
    "sikkerhed": "middel"
@@ -393,7 +393,7 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 700-L04 Sommerhusområde ved Vester Klitvej, Tversted",
    "url": "https://dokument.plandata.dk/20_11184995_1666871470555.pdf",
    "sikkerhed": "middel"
@@ -427,13 +427,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1221 Tillæg 2 til lokalplan 411 - Erhvervsområde ved Kattrup med tillæg 1",
    "url": "https://dokument.plandata.dk/20_11317390_1714721226928.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 411 Erhvervsområde ved Kattrup i Hasselager-Kolt",
    "url": "https://dokument.plandata.dk/20_1207827_APPROVED_1247058894266.pdf",
    "sikkerhed": "middel"
@@ -483,13 +483,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 231 Boligbebyggelse ved Kong Georgs Vej",
    "url": "https://dokument.plandata.dk/20_10631182_1614247370194.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 231 Boligbebyggelse ved Kong Georgs Vej",
    "url": "https://dokument.plandata.dk/20_10631182_1630478471860.pdf",
    "sikkerhed": "middel"
@@ -508,7 +508,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Miljøscreening Ny Sportshal Nykøbing Katedralskole",
    "url": "https://dagsordener.guldborgsund.dk/vis/pdf/bilag/b026fd5d-a061-41bf-a81c-cb241802be72/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "dagsordenpunkt",
@@ -517,13 +517,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 211 Sportshal ved Katedralskolen",
    "url": "https://dokument.plandata.dk/20_10916065_1641291579148.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 211 Sportshal ved Katedralskolen",
    "url": "https://dokument.plandata.dk/20_10916065_1647255203761.pdf",
    "sikkerhed": "middel"
@@ -551,13 +551,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1293 Boligbyggeri på Rosenkildevej",
    "url": "https://dokument.plandata.dk/20_11306822_1710500490725.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1293 Boligbyggeri på Rosenkildevej",
    "url": "https://dokument.plandata.dk/20_11306822_1719228797149.pdf",
    "sikkerhed": "middel"
@@ -591,13 +591,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 143-510 Marsk Camp A/S, Hjemstedvej",
    "url": "https://dokument.plandata.dk/20_9675064_1570709263049.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 143-510 Marsk Camp A/S, Hjemstedvej",
    "url": "https://dokument.plandata.dk/20_9675064_1576830283155.pdf",
    "sikkerhed": "middel"
@@ -619,7 +619,7 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 13.03 13.03 Knabstrup Hallen",
    "url": "https://dokument.plandata.dk/20_11707012_1740727667964.pdf",
    "sikkerhed": "middel"
@@ -650,7 +650,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Miljøscreening - Lokalplan 196, Døllefjelde Maskinstation & Kommuneplantillæg nr. 2",
    "url": "https://dagsordener.guldborgsund.dk/vis/pdf/bilag/54635954-3241-4ea3-b3a2-b98f56e919bb/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "dagsordenpunkt",
@@ -659,13 +659,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 196 Døllefjelde Maskinstation",
    "url": "https://dokument.plandata.dk/20_10823600_1632225685243.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 196 Døllefjelde Maskinstation",
    "url": "https://dokument.plandata.dk/20_10823600_1624956447877.pdf",
    "sikkerhed": "middel"
@@ -685,13 +685,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1278 Dagligvarebutik og boligområde ved Ndr. Ringgade",
    "url": "https://dokument.plandata.dk/20_11191948_1669709929969.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1278 Dagligvarebutik og boligområde ved Ndr. Ringgade",
    "url": "https://dokument.plandata.dk/20_11191948_1683204026800.pdf",
    "sikkerhed": "middel"
@@ -743,7 +743,7 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1235 Tidselbjerget, etape 2 - Nyt boligområde i Slagelse",
    "url": "https://dokument.plandata.dk/20_11021180_1690457930269.pdf",
    "sikkerhed": "middel"
@@ -763,13 +763,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 23.03.L08 Erhvervsområde til datacentre",
    "url": "https://dokument.plandata.dk/20_10643968_1614255570775.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 23.03.L08 Erhvervsområde til datacentre",
    "url": "https://dokument.plandata.dk/20_10643968_1632222024809.pdf",
    "sikkerhed": "middel"
@@ -800,7 +800,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Miljøvurdering",
    "url": "https://dagsordener.rebild.dk/vis/pdf/bilag/403ec5be-4bfd-4982-9bc7-26105bbf99e7/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "dagsordenpunkt",
@@ -809,13 +809,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 312 Centerområde, Støvring Ådale",
    "url": "https://dokument.plandata.dk/20_9688240_1570787549289.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 312 Centerområde, Støvring Ådale",
    "url": "https://dokument.plandata.dk/20_9688240_1764236227147.pdf",
    "sikkerhed": "middel"
@@ -835,13 +835,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 420 Boligområde, Nordlundvej, Brande",
    "url": "https://dokument.plandata.dk/20_10907202_1634626268034.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 420 Boligområde, Nordlundvej, Brande",
    "url": "https://dokument.plandata.dk/20_10907202_1644308060566.pdf",
    "sikkerhed": "middel"
@@ -861,13 +861,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 146 Nyt boligområde i Spodsbjerg",
    "url": "https://dokument.plandata.dk/20_11304289_1709216407222.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 146 Nyt boligområde i Spodsbjerg",
    "url": "https://dokument.plandata.dk/20_11304289_1719823316941.pdf",
    "sikkerhed": "middel"
@@ -895,13 +895,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 417 Offentligt formål, Frisenborgparken",
    "url": "https://dokument.plandata.dk/20_10809939_1622713869339.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 417 Offentligt formål, Frisenborgparken",
    "url": "https://dokument.plandata.dk/20_10809939_1632291757617.pdf",
    "sikkerhed": "middel"
@@ -927,13 +927,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 684 Boligområde i Vejstrup",
    "url": "https://dokument.plandata.dk/20_11283043_1712142411990.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 684 Boligområde i Vejstrup",
    "url": "https://dokument.plandata.dk/20_11283043_1727263331714.pdf",
    "sikkerhed": "middel"
@@ -961,13 +961,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 64 Smørum - Boligområde ved Råbrovej og Skebjergvej",
    "url": "https://dokument.plandata.dk/20_10773493_1635774139246.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 64 Smørum - Byudvikling ved Råbrovej og Skebjergvej",
    "url": "https://dokument.plandata.dk/20_10773493_1620132132222.pdf",
    "sikkerhed": "middel"
@@ -995,13 +995,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 367 Boliger, Kragelundvej, Engesvang",
    "url": "https://dokument.plandata.dk/20_10694925_1616671668072.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 367 Boliger, Kragelundvej, Engesvang",
    "url": "https://dokument.plandata.dk/20_10694925_1624968155496.pdf",
    "sikkerhed": "middel"
@@ -1029,13 +1029,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 669 For en udvidelse af eksisterende dagligvarebutik, Vestergade",
    "url": "https://dokument.plandata.dk/20_10901443_1633941974840.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 669 For en udvidelse af eksisterende dagligvarebutik, Vestergade",
    "url": "https://dokument.plandata.dk/20_10901443_1664880366504.pdf",
    "sikkerhed": "middel"
@@ -1063,13 +1063,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 555.13 Lejet i Tisvilde",
    "url": "https://dokument.plandata.dk/20_11214682_1680177288246.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 555.13 Lejet i Tisvilde",
    "url": "https://dokument.plandata.dk/20_11252002_1684317284014.pdf",
    "sikkerhed": "middel"
@@ -1083,13 +1083,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1-025 Thisted Bryghus",
    "url": "https://dokument.plandata.dk/20_9538750_1542209660309.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1-025 Thisted Bryghus",
    "url": "https://dokument.plandata.dk/20_9538750_1547557689324.pdf",
    "sikkerhed": "middel"
@@ -1137,13 +1137,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 555.13 Lejet i Tisvilde",
    "url": "https://dokument.plandata.dk/20_11214682_1680177288246.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 555.13 Lejet i Tisvilde",
    "url": "https://dokument.plandata.dk/20_11252002_1684317284014.pdf",
    "sikkerhed": "middel"
@@ -1185,13 +1185,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 389 Erhverv, Europavej, Ikast",
    "url": "https://dokument.plandata.dk/20_10073719_1593165750344.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 389 Erhverv, Europavej, Ikast",
    "url": "https://dokument.plandata.dk/20_10073719_1605687223537.pdf",
    "sikkerhed": "middel"
@@ -1239,13 +1239,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 516.12 Fjernvarmeanlæg på Ridebanevej",
    "url": "https://dokument.plandata.dk/20_11243552_1685603086904.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 516.12 Fjernvarmeanlæg på Ridebanevej",
    "url": "https://dokument.plandata.dk/20_11243552_1700204166274.pdf",
    "sikkerhed": "middel"
@@ -1265,13 +1265,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 265 for et område ved Borgmester Schneiders Vej samt Tillæg 6 til Kommuneplan 2017",
    "url": "https://dokument.plandata.dk/20_9607875_1553781328473.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 265 for et område ved Borgmester Schneiders Vej samt Tillæg 6 til Kommuneplan 2017",
    "url": "https://dokument.plandata.dk/20_9607875_1562135463984.pdf",
    "sikkerhed": "middel"
@@ -1285,13 +1285,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 205 Hotel ved Teglgårdsvej, Middelfart",
    "url": "https://dokument.plandata.dk/20_10644076_1614780905462.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 205 Hotel ved Teglgårdsvej, Middelfart",
    "url": "https://dokument.plandata.dk/20_10644076_1625146369366.pdf",
    "sikkerhed": "middel"
@@ -1317,13 +1317,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 295 Lokalplan for blandet bolig og erhverv samt offentlige formål ved Odensevej i Kerteminde",
    "url": "https://dokument.plandata.dk/20_11268429_1692782601534.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 295 Lokalplan for blandet bolig og erhverv samt offentlige formål ved Odensevej i Kerteminde",
    "url": "https://dokument.plandata.dk/20_11268429_1758276720252.pdf",
    "sikkerhed": "middel"
@@ -1373,13 +1373,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 656 Etageboliger ved Tvedvej, Svendborg",
    "url": "https://dokument.plandata.dk/20_10072395_1594119527096.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 656 Etageboliger ved Tvedvej, Svendborg",
    "url": "https://dokument.plandata.dk/20_11125305_1655387220543.pdf",
    "sikkerhed": "middel"
@@ -1399,13 +1399,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 0-1049 Boliger på Falen 20",
    "url": "https://dokument.plandata.dk/20_11020009_1651137449491.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 0-1049 Boliger på Falen 20",
    "url": "https://dokument.plandata.dk/20_11020009_1665643940397.pdf",
    "sikkerhed": "middel"
@@ -1416,7 +1416,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Screening af F126 og KPT4",
    "url": "https://dagsordener.fredensborg.dk/vis/pdf/bilag/ec28af11-50e5-4407-852f-807dd2c7a730/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "screening (bilag til dagsorden)",
@@ -1431,13 +1431,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan F126 For et område til tekniske anlæg ved Højvangen i Fredensborg",
    "url": "https://dokument.plandata.dk/20_11234640_1678264002689.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan F126 For et område til tekniske anlæg ved Højvangen i Fredensborg",
    "url": "https://dokument.plandata.dk/20_11234640_1691573600177.pdf",
    "sikkerhed": "middel"
@@ -1457,13 +1457,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 309.07 Campingplads og Badehotel i Dronningmølle",
    "url": "https://dokument.plandata.dk/20_10714403_1618834513043.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 309.07 Campingplads i Dronningmølle",
    "url": "https://dokument.plandata.dk/20_10714403_1636557162388.pdf",
    "sikkerhed": "middel"
@@ -1483,13 +1483,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 389 Erhverv, Europavej, Ikast",
    "url": "https://dokument.plandata.dk/20_10073719_1593165750344.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 389 Erhverv, Europavej, Ikast",
    "url": "https://dokument.plandata.dk/20_10073719_1605687223537.pdf",
    "sikkerhed": "middel"
@@ -1500,7 +1500,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Screeningsskema  miljøvurdering",
    "url": "https://dagsordener.rudersdal.dk/vis/pdf/bilag/c0703a65-f92b-4ae5-aa9e-cc9c80f4829c/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "dagsordenpunkt",
@@ -1539,13 +1539,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan H116 Erhvervsområde ved Kromosevej",
    "url": "https://dokument.plandata.dk/20_11249132_1683192611189.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan H116 Erhvervsområde ved Kromosevej",
    "url": "https://dokument.plandata.dk/20_11271709_1695018591303.pdf",
    "sikkerhed": "middel"
@@ -1559,13 +1559,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 340.04 Boliger på Smidstrup Strandvej 79-83",
    "url": "https://dokument.plandata.dk/20_10908108_1636026673148.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 340.04 Boliger på Smidstrup Strandvej 79-83",
    "url": "https://dokument.plandata.dk/20_10908108_1649245657395.pdf",
    "sikkerhed": "middel"
@@ -1593,13 +1593,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 164/2023 Institution på Ålborgvej i Hadsund",
    "url": "https://dokument.plandata.dk/20_11239396_1679897637615.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 164/2023 Institution på Ålborgvej i Hadsund",
    "url": "https://dokument.plandata.dk/20_11239396_1694417509843.pdf",
    "sikkerhed": "middel"
@@ -1639,13 +1639,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 634 For et etageboligområde ved Søkildevej, Svendborg",
    "url": "https://dokument.plandata.dk/20_9534311_1539325362527.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 634 For et etageboligområde ved Søkildevej, Svendborg",
    "url": "https://dokument.plandata.dk/20_9534311_1545207283551.pdf",
    "sikkerhed": "middel"
@@ -1671,13 +1671,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 19-006 Tillæg til Lokalplan 19-006, Centerområde, Stenmarksvej, Hune",
    "url": "https://dokument.plandata.dk/20_10835947_1625679792279.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 19-006 Tillæg 1 til Lokalplan 19-006, Centerområde, Stenmarksvej, Hune",
    "url": "https://dokument.plandata.dk/20_10835947_1636103000902.pdf",
    "sikkerhed": "middel"
@@ -1703,13 +1703,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 1292 Boligområde ved Hørgyden, Gauerslund",
    "url": "https://dokument.plandata.dk/20_9584739_1551184031735.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 1292 Boligområde ved Hørgyden, Gauerslund",
    "url": "https://dokument.plandata.dk/20_9584739_1591780068042.pdf",
    "sikkerhed": "middel"
@@ -1723,13 +1723,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 184/2023 Trætophytter ved Als Odde",
    "url": "https://dokument.plandata.dk/20_11214674_1674728896046.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 184/2023 Trætophytter ved Als Odde",
    "url": "https://dokument.plandata.dk/20_11214674_1689147902466.pdf",
    "sikkerhed": "middel"
@@ -1743,13 +1743,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 98 De tre søstre",
    "url": "https://dokument.plandata.dk/20_10899502_1678703558782.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 98 De tre søstre",
    "url": "https://dokument.plandata.dk/20_10899502_1653397153956.pdf",
    "sikkerhed": "middel"
@@ -1795,13 +1795,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 632 Boligområde øst for Gambøtvej og syd for Søndervej",
    "url": "https://dokument.plandata.dk/20_9416074_1522930053207.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 632 Boligområde øst for Gambøtvej og syd for Søndervej",
    "url": "https://dokument.plandata.dk/20_9416074_1537252426989.pdf",
    "sikkerhed": "middel"
@@ -1821,13 +1821,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 32.B14.1 Boligområde nord for Nørretorp i Gjellerup",
    "url": "https://dokument.plandata.dk/20_11183685_1673947381461.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 32.B14.1 Boligområde nord for Nørretorp i Gjellerup",
    "url": "https://dokument.plandata.dk/20_11183685_1704202491857.pdf",
    "sikkerhed": "middel"
@@ -1853,13 +1853,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 329 Område til erhvervsformål ved Jels Søvej",
    "url": "https://dokument.plandata.dk/20_11006257_1649336154952.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 329 Område til erhvervsformål ved Jels Søvej",
    "url": "https://dokument.plandata.dk/20_11006257_1656577666818.pdf",
    "sikkerhed": "middel"
@@ -1879,13 +1879,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 06-030-0005 Boliger ved Sjelborg Strandvej",
    "url": "https://dokument.plandata.dk/20_10275301_1656931122303.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 06-030-0005 Boliger ved Sjelborg Strandvej",
    "url": "https://dokument.plandata.dk/20_10275301_1702289805765.pdf",
    "sikkerhed": "middel"
@@ -1911,13 +1911,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1260 Boligområde ved Havneparken",
    "url": "https://dokument.plandata.dk/20_9403366_1520014667813.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1260 Boligområde ved Havneparken",
    "url": "https://dokument.plandata.dk/20_9403366_1527076218893.pdf",
    "sikkerhed": "middel"
@@ -1937,13 +1937,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 164/2022 Institution på Ålborgvej i Hadsund",
    "url": "https://dokument.plandata.dk/20_10914413_1638450710692.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 164/2022 Institution på Ålborgvej i Hadsund",
    "url": "https://dokument.plandata.dk/20_10914413_1656048316252.pdf",
    "sikkerhed": "middel"
@@ -1969,13 +1969,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 08-006 Blandet bolig og erhverv, Slettestrandvej, Slettestrand",
    "url": "https://dokument.plandata.dk/20_9716199_1587114477008.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 08-006 Blandet bolig og erhverv, Slettestrandvej, Slettestrand",
    "url": "https://dokument.plandata.dk/20_9716199_1593420936795.pdf",
    "sikkerhed": "middel"
@@ -1995,13 +1995,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 409 409 - Boligområde i Lading nord inkl. tillæg nr. 4 til KP21",
    "url": "https://dokument.plandata.dk/20_11014939_1649144539964.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 409 Boligområde i Lading nord",
    "url": "https://dokument.plandata.dk/20_11014939_1696428193539.pdf",
    "sikkerhed": "middel"
@@ -2021,13 +2021,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 164/2022 Institution på Ålborgvej i Hadsund",
    "url": "https://dokument.plandata.dk/20_10914413_1638450710692.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 164/2022 Institution på Ålborgvej i Hadsund",
    "url": "https://dokument.plandata.dk/20_10914413_1656048316252.pdf",
    "sikkerhed": "middel"
@@ -2067,7 +2067,7 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 310 Vikingeskibshallen",
    "url": "https://dokument.plandata.dk/20_1031832_APPROVED_1174479950164.pdf",
    "sikkerhed": "middel"
@@ -2093,13 +2093,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 5039 Hou Nordstrand i Hou",
    "url": "https://dokument.plandata.dk/20_11454626_1732017882978.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 5039 Hou Nordstrand i Hou",
    "url": "https://dokument.plandata.dk/20_11454626_1743756107509.pdf",
    "sikkerhed": "middel"
@@ -2125,13 +2125,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 23-020-0002 Gørding Landområde, Konferencecenter og bolig ved Gørdinglund.",
    "url": "https://dokument.plandata.dk/20_9548733_1544430487360.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 23-020-0002 Gørding Landområde, Konferencecenter og bolig ved Gørdinglund.",
    "url": "https://dokument.plandata.dk/20_9548733_1549888955980.pdf",
    "sikkerhed": "middel"
@@ -2157,13 +2157,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2.2-13 for boligområde i Duedalen, Vissenbjerg",
    "url": "https://dokument.plandata.dk/20_10851264_1628761282482.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2.2-13 for boligområde i Duedalen, Vissenbjerg",
    "url": "https://dokument.plandata.dk/20_10907223_1634815393391.pdf",
    "sikkerhed": "middel"
@@ -2183,13 +2183,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 51.B14.1 Bolig og erhverv ved Langvadbjergvej og Ringkøbingvej i Snejbjerg",
    "url": "https://dokument.plandata.dk/20_10907192_1634636828869.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 51.B14.1 Bolig og erhverv ved Langvadbjergvej og Ringkøbingvej i Snejbjerg",
    "url": "https://dokument.plandata.dk/20_10907192_1704267221979.pdf",
    "sikkerhed": "middel"
@@ -2223,13 +2223,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2021-9 Sommerhusområde i Hasmark Strand",
    "url": "https://dokument.plandata.dk/20_10907072_1635490620935.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2021-9 Sommerhusområde i Hasmark Strand",
    "url": "https://dokument.plandata.dk/20_10907072_1643210117586.pdf",
    "sikkerhed": "middel"
@@ -2257,13 +2257,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 511.03 Boliger i Ammendrup Park ved Helsinge",
    "url": "https://dokument.plandata.dk/20_9953620_1591623931405.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 511.03 Boliger i Ammendrup Park ved Helsinge",
    "url": "https://dokument.plandata.dk/20_9953620_1596615506226.pdf",
    "sikkerhed": "middel"
@@ -2283,13 +2283,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 175 Campusområde ved DTU Ballerup",
    "url": "https://dokument.plandata.dk/20_9675081_1567081810043.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 175 Campusområde ved DTU Ballerup",
    "url": "https://dokument.plandata.dk/20_11228250_1678184340514.pdf",
    "sikkerhed": "middel"
@@ -2309,7 +2309,7 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 123-6 Lokalplan for et område til tæt-lav boligbyggeri i Marstal - Ellenet",
    "url": "https://dokument.plandata.dk/20_9732045_1643716380505.pdf",
    "sikkerhed": "middel"
@@ -2323,13 +2323,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 315.23 for Rostgårdsvej 2 og 5 i Gilleleje",
    "url": "https://dokument.plandata.dk/20_10247349_1598863091004.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 315.23 for Rostgårdsvej 2 og 5 i Gilleleje",
    "url": "https://dokument.plandata.dk/20_10247349_1603965480317.pdf",
    "sikkerhed": "middel"
@@ -2340,7 +2340,7 @@
    "type": "bilag til dagsorden",
    "titel": "Forslag til tillæg 55 til Kommuneplan 2017",
    "url": "https://dagsordener.randers.dk/vis/pdf/bilag/9b4c11ca-a3a4-414a-9595-5c9e64ea2f71/?redirectDirectlyToPdf=false",
-   "sikkerhed": "middel"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "bilag til dagsorden",
@@ -2355,13 +2355,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 711 Teknisk område ved Dyssevej i Mejlby - Mejlby varmeværk",
    "url": "https://dokument.plandata.dk/20_9713041_1580890981030.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 711 Teknisk område ved Dyssevej i Mejlby - Mejlby varmeværk",
    "url": "https://dokument.plandata.dk/20_9713041_1589876771872.pdf",
    "sikkerhed": "middel"
@@ -2381,13 +2381,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 535 Boligområde nord for Randersvej i Taphede, Viborg Øst",
    "url": "https://dokument.plandata.dk/20_9719042_1585221509294.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 535 Boligområde nord for Randersvej i Taphede, Viborg Øst",
    "url": "https://dokument.plandata.dk/20_9719042_1593088298614.pdf",
    "sikkerhed": "middel"
@@ -2415,13 +2415,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 03-020-0001 Gjesing Nord, Plejecenter og boligområde ved Krebsestien",
    "url": "https://dokument.plandata.dk/20_9532038_1539174930251.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 03-020-0001 Gjesing Nord, Plejecenter og boligområde ved Krebsestien",
    "url": "https://dokument.plandata.dk/20_9532038_1550646273892.pdf",
    "sikkerhed": "middel"
@@ -2447,13 +2447,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 19-012 Centerformål, Vesterhavsvej, Hune",
    "url": "https://dokument.plandata.dk/20_9716226_1590049964734.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 19-012 Centerområde, Vesterhavsvej, Hune",
    "url": "https://dokument.plandata.dk/20_10269166_1608642340612.pdf",
    "sikkerhed": "middel"
@@ -2467,13 +2467,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 512.24 Boliger på Engerødvej 43 i Helsinge",
    "url": "https://dokument.plandata.dk/20_10072403_1593160871147.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 512.24 Boliger på Engerødvej 43 i Helsinge",
    "url": "https://dokument.plandata.dk/20_10072403_1603969483705.pdf",
    "sikkerhed": "middel"
@@ -2487,7 +2487,7 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 102 Vallensbæk Byhave",
    "url": "https://dokument.plandata.dk/20_9604574_1631878847819.pdf",
    "sikkerhed": "middel"
@@ -2535,13 +2535,13 @@
    "sikkerhed": "lav"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 106 Emiliehaven",
    "url": "https://dokument.plandata.dk/20_9576927_1551351715004.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 106 Emiliehaven",
    "url": "https://dokument.plandata.dk/20_9576927_1559638116136.pdf",
    "sikkerhed": "middel"
@@ -2595,13 +2595,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 06-030-0004 Marbæk, To fritidshuse i Sjelborg",
    "url": "https://dokument.plandata.dk/20_9538597_1544164762428.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 06-030-0004 Marbæk, To fritidshuse i Sjelborg",
    "url": "https://dokument.plandata.dk/20_9538597_1567589180920.pdf",
    "sikkerhed": "middel"
@@ -2612,7 +2612,7 @@
    "type": "screening (bilag til dagsorden)",
    "titel": "Screening for miljøvurdering maj 2021",
    "url": "https://dagsordener.skanderborg.dk/vis/pdf/bilag/70ef422b-5862-4556-bb8a-ad94ba595deb/?redirectDirectlyToPdf=false",
-   "sikkerhed": "høj"
+   "sikkerhed": "kontrolleret"
   },
   {
    "type": "dagsordenpunkt",
@@ -2621,13 +2621,13 @@
    "sikkerhed": "høj"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1172 Boliger og Institution ved Horsegaard i Galten",
    "url": "https://dokument.plandata.dk/20_10498193_1624456045566.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1172 Boliger og Institution ved Horsegaard i Galten",
    "url": "https://dokument.plandata.dk/20_10840048_1626766666710.pdf",
    "sikkerhed": "middel"
@@ -2647,13 +2647,13 @@
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1013 Lille Nyhavn",
    "url": "https://dokument.plandata.dk/20_1813902_PROPOSAL_1355322174612.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1013 Lille Nyhavn",
    "url": "https://dokument.plandata.dk/20_1813902_1383038355882.pdf",
    "sikkerhed": "middel"
@@ -2681,13 +2681,13 @@
  ],
  "Pd8045b7d": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 3.1-9 Boligområde ved Klinteskoven, Høruphav",
    "url": "https://dokument.plandata.dk/20_11339572_1759325721658.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 3.1-9 Boligområde ved Klinteskoven, Høruphav",
    "url": "https://dokument.plandata.dk/20_11339572_1771327867695.pdf",
    "sikkerhed": "middel"
@@ -2695,13 +2695,13 @@
  ],
  "P9519f154": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 0831-33-01 Tillæg 1 til Lokalplan 0831-33 Ved Nova Boulevard – et erhvervsområde",
    "url": "https://dokument.plandata.dk/20_12129885_1759478537410.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "Lokalplan 0831-33 Ved Nova Boulevard - et erhvervsområde",
    "url": "https://dokument.plandata.dk/20_10734804_1619075858234.pdf",
    "sikkerhed": "middel"
@@ -2709,13 +2709,13 @@
  ],
  "P5894059a": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2024-2 Tæt-lav boligområde Golfparken, Ringe",
    "url": "https://dokument.plandata.dk/20_11342100_1725537403823.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2024-2 Tæt-lav boligområde Golfparken, Ringe",
    "url": "https://dokument.plandata.dk/20_11342100_1744359752106.pdf",
    "sikkerhed": "middel"
@@ -2723,13 +2723,13 @@
  ],
  "P7e505b94": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 24.01.L13 24.01.L13 - Ølgod Kulturhus",
    "url": "https://dokument.plandata.dk/20_11628906_1736497176295.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 24.01.L13 24.01.L13 - Ølgod Kulturhus",
    "url": "https://dokument.plandata.dk/20_11628906_1744286901197.pdf",
    "sikkerhed": "middel"
@@ -2737,7 +2737,7 @@
  ],
  "P058e19c1": [
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 4.1-10 Kollegieboliger ved Mølby og Rebslagergade, Sønderborg",
    "url": "https://dokument.plandata.dk/20_11300170_1756808736158.pdf",
    "sikkerhed": "middel"
@@ -2745,7 +2745,7 @@
  ],
  "Pe5072919": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1-3-129 Boliger og kulturelle institutioner, Hasserisgade 18, Vestbyen",
    "url": "https://dokument.plandata.dk/20_11366429_1725260986478.pdf",
    "sikkerhed": "middel"
@@ -2753,13 +2753,13 @@
  ],
  "P1c6ce5a5": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 467 Lokalplan nr. 467 - Et boligområde ved Kjærvej i Thorsager",
    "url": "https://dokument.plandata.dk/20_11426789_1727696162538.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 467 Lokalplan nr. 467 - Et boligområde ved Kjærvej i Thorsager",
    "url": "https://dokument.plandata.dk/20_11426789_1774362176907.pdf",
    "sikkerhed": "middel"
@@ -2767,13 +2767,13 @@
  ],
  "P151203ef": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 4.10-17 Boligområde på Bülowsvej, Sønderborg",
    "url": "https://dokument.plandata.dk/20_11317441_1733293911541.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 4.10-17 Boligområde på Bülowsvej, Sønderborg",
    "url": "https://dokument.plandata.dk/20_11317441_1727856325745.pdf",
    "sikkerhed": "middel"
@@ -2781,7 +2781,7 @@
  ],
  "P828afc0f": [
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 7-9-102 Sommerhuse, Lundby Bakker, Landområde Sydøst",
    "url": "https://dokument.plandata.dk/20_11338643_1719387099468.pdf",
    "sikkerhed": "middel"
@@ -2789,13 +2789,13 @@
  ],
  "P102e0753": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1.85 Blåkildegård",
    "url": "https://dokument.plandata.dk/20_11255867_1687426756142.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1.85 Blåkildegård",
    "url": "https://dokument.plandata.dk/20_11255867_1701360098159.pdf",
    "sikkerhed": "middel"
@@ -2803,13 +2803,13 @@
  ],
  "P70b6f16e": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 4-2-123 Boliger, C. P. Holbølls Plads, Grønlandskvarteret",
    "url": "https://dokument.plandata.dk/20_11268241_1692261197889.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 4-2-123 Boliger, C. P. Holbølls Plads, Grønlandskvarteret",
    "url": "https://dokument.plandata.dk/20_11268241_1701259143959.pdf",
    "sikkerhed": "middel"
@@ -2817,13 +2817,13 @@
  ],
  "Pc51db416": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 01-B-10.05 Tæt-lave boliger Ådalen, Brønderslev",
    "url": "https://dokument.plandata.dk/20_11285545_1700827656351.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplanforslag 01-B-10.05 Tæt-lave boliger Ådalen, Brønderslev",
    "url": "https://dokument.plandata.dk/20_11285545_1715083839329.pdf",
    "sikkerhed": "middel"
@@ -2831,13 +2831,13 @@
  ],
  "P3fe83515": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1129 Hotel og erhverv i Gatten",
    "url": "https://dokument.plandata.dk/20_11253021_1685443288720.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1129 Hotel og erhverv i Gatten",
    "url": "https://dokument.plandata.dk/20_11253021_1692863929943.pdf",
    "sikkerhed": "middel"
@@ -2845,13 +2845,13 @@
  ],
  "Pb6e66dc3": [
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 3.3-1 Sommerhusområde ved Fiskerløkken, Sarup, Lysabild",
    "url": "https://dokument.plandata.dk/20_11019969_1683119641293.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 3.3-1 Sommerhusområde ved Fiskerløkken, Sarup, Lysabild",
    "url": "https://dokument.plandata.dk/20_11249004_1683183803820.pdf",
    "sikkerhed": "middel"
@@ -2859,13 +2859,13 @@
  ],
  "Pa6dcfa3d": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1183 Boliger i Kysthaven - mindre ændringer af lokalplan 1031",
    "url": "https://dokument.plandata.dk/20_11235733_1678788882663.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1183 Boliger i Kysthaven - mindre ændringer af lokalplan 1031",
    "url": "https://dokument.plandata.dk/20_11235733_1686228203659.pdf",
    "sikkerhed": "middel"
@@ -2873,13 +2873,13 @@
  ],
  "Pf716c00f": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1171 Udvidelse af efterskolen True North i Snaptun",
    "url": "https://dokument.plandata.dk/20_11194043_1674122362023.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1171 Udvidelse af efterskolen True North i Snaptun",
    "url": "https://dokument.plandata.dk/20_11194043_1670493142364.pdf",
    "sikkerhed": "middel"
@@ -2887,13 +2887,13 @@
  ],
  "P81ecf86e": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 01-E-18.01 Erhvervsområde Øster Brønderslevvej syd",
    "url": "https://dokument.plandata.dk/20_11183550_1665658488616.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 01-E-18.01 Erhvervsområde Øster Brønderslevvej syd",
    "url": "https://dokument.plandata.dk/20_11183550_1674807005585.pdf",
    "sikkerhed": "middel"
@@ -2901,13 +2901,13 @@
  ],
  "Pa5ae18a7": [
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 3.3-1 Sommerhusområde ved Fiskerløkken, Sarup, Lysabild",
    "url": "https://dokument.plandata.dk/20_11019969_1683119641293.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 3.3-1 Sommerhusområde ved Fiskerløkken, Sarup, Lysabild",
    "url": "https://dokument.plandata.dk/20_11249004_1683183803820.pdf",
    "sikkerhed": "middel"
@@ -2915,13 +2915,13 @@
  ],
  "Pcd53125d": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 332 Sønder Omme fængsel",
    "url": "https://dokument.plandata.dk/20_11183491_1665571748814.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 332 Sønder Omme fængsel",
    "url": "https://dokument.plandata.dk/20_11183491_1684919413182.pdf",
    "sikkerhed": "middel"
@@ -2929,13 +2929,13 @@
  ],
  "Pe7ad4945": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 40.6.1 Lokalplan(tillæg) 40.6.1 for refugium på Sognevej 15 i Smidstrup",
    "url": "https://dokument.plandata.dk/20_10918127_1639643534728.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 40.6.1 Lokalplan(tillæg) 40.6.1 for refugium på Sognevej 15 i Smidstrup",
    "url": "https://dokument.plandata.dk/20_10918127_1649315535531.pdf",
    "sikkerhed": "middel"
@@ -2943,13 +2943,13 @@
  ],
  "Pa169bffc": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 436 For boligområde ved Egsmarklund, Ebeltoft",
    "url": "https://dokument.plandata.dk/20_10496362_1612425515757.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 436 For boligområde ved Egsmarklund, Ebeltoft",
    "url": "https://dokument.plandata.dk/20_10496362_1624435658969.pdf",
    "sikkerhed": "middel"
@@ -2957,13 +2957,13 @@
  ],
  "Pfbf94c1c": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1011-12 Ved Violvej - et område til etageboliger",
    "url": "https://dokument.plandata.dk/20_10423513_1608537358752.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1011-12 Ved Violvej - et område til etageboliger",
    "url": "https://dokument.plandata.dk/20_10423513_1626671970851.pdf",
    "sikkerhed": "middel"
@@ -2971,13 +2971,13 @@
  ],
  "P288e0bb3": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 310 Solcelleanlæg ved Birkende",
    "url": "https://dokument.plandata.dk/20_10357461_1611834108424.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 310 Solcelleanlæg ved Birkende",
    "url": "https://dokument.plandata.dk/20_10357461_1620375314811.pdf",
    "sikkerhed": "middel"
@@ -2985,13 +2985,13 @@
  ],
  "P831401d9": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan SKA.E.05.06.01 Erhvervsområde ved Buttervej, Skagen",
    "url": "https://dokument.plandata.dk/20_10691997_1616149016408.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan SKA.E.05.06.01 Erhvervsområde ved Buttervej, Skagen",
    "url": "https://dokument.plandata.dk/20_10691997_1623918471574.pdf",
    "sikkerhed": "middel"
@@ -2999,13 +2999,13 @@
  ],
  "Pc23fbc5a": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 136 Fællesmagasin i Vinge",
    "url": "https://dokument.plandata.dk/20_9602419_1577086756450.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 136 Fællesmagasin i Vinge",
    "url": "https://dokument.plandata.dk/20_9602419_1588314721570.pdf",
    "sikkerhed": "middel"
@@ -3013,13 +3013,13 @@
  ],
  "Pe5c30019": [
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2018-12 Forstbotanisk center ved Øxenhaverne 10, Faaborg",
    "url": "https://dokument.plandata.dk/20_9551915_1548409737087.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 2018-12 Mindre videns- og kursuscenter ved Øksnehaveskoven",
    "url": "https://dokument.plandata.dk/20_9668838_1566215934159.pdf",
    "sikkerhed": "middel"
@@ -3027,13 +3027,13 @@
  ],
  "Pfb7b4d4f": [
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1.88 Ørnekærs Vænge Syd",
    "url": "https://dokument.plandata.dk/20_9666507_1579078371508.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1.88 Ørnekærs Vænge Syd",
    "url": "https://dokument.plandata.dk/20_9666507_1567673292630.pdf",
    "sikkerhed": "middel"
@@ -3041,13 +3041,13 @@
  ],
  "P7063f89e": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 420 Velkomstcenter for Nationalpark Mols Bjerge ved Kalø Slotsruin",
    "url": "https://dokument.plandata.dk/20_9537253_1541422922958.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 420 Velkomstcenter for Nationalpark Mols Bjerge ved Kalø Slotsruin",
    "url": "https://dokument.plandata.dk/20_9537592_1756300229472.pdf",
    "sikkerhed": "middel"
@@ -3055,13 +3055,13 @@
  ],
  "P38ef3f43": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 307 Solcelleanlæg, Skovsbo",
    "url": "https://dokument.plandata.dk/20_9641102_1560425802221.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 307 Solcelleanlæg, Skovsbo",
    "url": "https://dokument.plandata.dk/20_9641102_1576227784480.pdf",
    "sikkerhed": "middel"
@@ -3069,7 +3069,7 @@
  ],
  "Pca6ed49d": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 127 Lokalplan 127 for boliger ved Græse Strandvej - Thorstedlund",
    "url": "https://dokument.plandata.dk/20_9651744_1562143710086.pdf",
    "sikkerhed": "middel"
@@ -3077,13 +3077,13 @@
  ],
  "P164b47bc": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 309.04 Antennemast i Dronningmølle",
    "url": "https://dokument.plandata.dk/20_9543896_1543325878065.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 309.04 Antennemast i Dronningmølle",
    "url": "https://dokument.plandata.dk/20_9543896_1575894730040.pdf",
    "sikkerhed": "middel"
@@ -3091,13 +3091,13 @@
  ],
  "Peadb0fee": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 413.2 Jersie Strand Kystområde",
    "url": "https://dokument.plandata.dk/20_9573840_1572510594410.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 413.2 Jersie Strand Kystområde",
    "url": "https://dokument.plandata.dk/20_9573840_1583327058487.pdf",
    "sikkerhed": "middel"
@@ -3105,13 +3105,13 @@
  ],
  "P6c0d7f4c": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 344 Lokalplan 344, Erhverv, Titanvej, Horsens",
    "url": "https://dokument.plandata.dk/20_9684182_1576852423970.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 344 Lokalplan 344, Erhverv, Titanvej, Horsens",
    "url": "https://dokument.plandata.dk/20_9684182_1588238008736.pdf",
    "sikkerhed": "middel"
@@ -3119,13 +3119,13 @@
  ],
  "P78110625": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 17.134 Erhvervsområde ved Nørrebro",
    "url": "https://dokument.plandata.dk/20_3964660_1515003743001.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 17.134 Erhvervsområde ved Nørrebro",
    "url": "https://dokument.plandata.dk/20_3964660_1527580486722.pdf",
    "sikkerhed": "middel"
@@ -3133,13 +3133,13 @@
  ],
  "P0d470ec9": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 310 Solcelleanlæg ved Birkende",
    "url": "https://dokument.plandata.dk/20_10357461_1611834108424.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 310 Solcelleanlæg ved Birkende",
    "url": "https://dokument.plandata.dk/20_10357461_1620375314811.pdf",
    "sikkerhed": "middel"
@@ -3147,13 +3147,13 @@
  ],
  "P998018a5": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 533.04 for Refugium på Stuebjerggaard, Tisvilde",
    "url": "https://dokument.plandata.dk/20_9605892_1554813228154.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 533.04 for Refugium på Stuebjerggaard, Tisvilde",
    "url": "https://dokument.plandata.dk/20_9605892_1566477278500.pdf",
    "sikkerhed": "middel"
@@ -3161,7 +3161,7 @@
  ],
  "Pb0d3219e": [
   {
-   "type": "planens PDF på plandata (aflyst)",
+   "type": "planens PDF på plandata (aflyst; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1013-12 Ved Skamlingvejen - et etageboligområde",
    "url": "https://dokument.plandata.dk/20_9584738_1628511436716.pdf",
    "sikkerhed": "middel"
@@ -3169,13 +3169,13 @@
  ],
  "Pc62c7ac2": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1012-16 Ved Kløvervej, Kolding - et boligområde for etageboliger",
    "url": "https://dokument.plandata.dk/20_10247415_1599047227209.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 1012-16 Ved Kløvervej, Kolding - et boligområde for etageboliger",
    "url": "https://dokument.plandata.dk/20_10247415_1609763348180.pdf",
    "sikkerhed": "middel"
@@ -3183,13 +3183,13 @@
  ],
  "P85d67642": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 301 Ringsted Sport Center",
    "url": "https://dokument.plandata.dk/20_9580532_1549447965647.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 301 Ringsted Sport Center",
    "url": "https://dokument.plandata.dk/20_9580532_1557137812651.pdf",
    "sikkerhed": "middel"
@@ -3197,13 +3197,13 @@
  ],
  "Pbc185eb0": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 433 Forslag til lokalplan 433 for Markedspladsen i Hillerød",
    "url": "https://dokument.plandata.dk/20_9639921_1561623653459.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 433 Lokalplan 433 for Markedspladsen i Hillerød",
    "url": "https://dokument.plandata.dk/20_9639921_1573214144165.pdf",
    "sikkerhed": "middel"
@@ -3211,13 +3211,13 @@
  ],
  "Pd0cb94d6": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 0521-51-01 Ved Fjordvej - et grønt område",
    "url": "https://dokument.plandata.dk/20_9537166_1542178217157.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 0521-51-01 Ved Fjordvej - et grønt område",
    "url": "https://dokument.plandata.dk/20_9537166_1549521131079.pdf",
    "sikkerhed": "middel"
@@ -3225,13 +3225,13 @@
  ],
  "Pb4b666ad": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 302 Boliger i Benløse - langagerområdet",
    "url": "https://dokument.plandata.dk/20_9648092_1561973907711.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 302 Boliger i Benløse - langagerområdet",
    "url": "https://dokument.plandata.dk/20_9648092_1575018472189.pdf",
    "sikkerhed": "middel"
@@ -3239,7 +3239,7 @@
  ],
  "Pf8eacaa5": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 404 Boligområde ved Roddkovvej i Rodskov",
    "url": "https://dokument.plandata.dk/20_3659454_1494318490348.pdf",
    "sikkerhed": "middel"
@@ -3247,13 +3247,13 @@
  ],
  "P4ffb925f": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan SAE.B.04.16.02 Boliger ved Solsbæk Strand",
    "url": "https://dokument.plandata.dk/20_3548579_1490955078101.pdf",
-   "sikkerhed": "middel"
+   "sikkerhed": "kontrolleret"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan SAE.B.04.16.02 Boliger ved Solsbæk Strand",
    "url": "https://dokument.plandata.dk/20_3548579_1570085988092.pdf",
    "sikkerhed": "middel"
@@ -3261,13 +3261,13 @@
  ],
  "P48f59341": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 126 Lokalplan 126 for ny boligbebyggelse på Øvej 36",
    "url": "https://dokument.plandata.dk/20_9533686_1539171344987.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 126 Lokalplan 126 for ny boligbebyggelse på Øvej 36",
    "url": "https://dokument.plandata.dk/20_9533686_1599729765386.pdf",
    "sikkerhed": "middel"
@@ -3275,13 +3275,13 @@
  ],
  "P675c2d86": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 500-84 Boliger ved Nordskovvej, Haslev",
    "url": "https://dokument.plandata.dk/20_3816125_1518459526555.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 500-84 Boliger ved Nordskovvej, Haslev",
    "url": "https://dokument.plandata.dk/20_3816125_1522775810703.pdf",
    "sikkerhed": "middel"
@@ -3289,13 +3289,13 @@
  ],
  "Pf3354458": [
   {
-   "type": "planens PDF på plandata (forslag)",
+   "type": "planens PDF på plandata (forslag; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 187 Heliport v. ærtebjergvej syd for Lyderslev",
    "url": "https://dokument.plandata.dk/20_3801128_1504032203941.pdf",
    "sikkerhed": "middel"
   },
   {
-   "type": "planens PDF på plandata (vedtaget)",
+   "type": "planens PDF på plandata (vedtaget; screeningen er ofte kun resumeret)",
    "titel": "lokalplan 187 Heliport v. ærtebjergvej syd for Lyderslev",
    "url": "https://dokument.plandata.dk/20_3801128_1515005763381.pdf",
    "sikkerhed": "middel"

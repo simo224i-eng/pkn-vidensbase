@@ -11,9 +11,11 @@ rørt). Beslutninger undervejs står i [`BESLUTNINGER.md`](BESLUTNINGER.md).
 | 1 | Data: lov og vejledning | `lovgrundlag/`, `fetch_lovgrundlag.py` | Miljøvurderingsloven med bilag, miljøvurderingsbekendtgørelsen, habitatbekendtgørelsen, planhabitatbekendtgørelsen, planloven, naturbeskyttelsesloven, husdyrbrugloven, vejledning 2024/9093 og 9094, Habitatvejledningen, landzonevejledningen, §3-vejledningen og Miljøstyrelsens/DCE's bilag IV-materiale. |
 | 1 | Data: EU-domme | `eu_domme/`, `fetch_eu_domme.py` | De 30 hyppigst citerede domme, på dansk fra EUR-Lex, opdelt i præmisser. |
 | 1 | Data: oprindelige screeninger | `screeninger_originale/` (kun lokalt) | 11 dokumenter fundet til de nyeste underkendte sager; 8 brugt i testen. De fleste kommunale screeninger ligger ikke online. |
+| 1 | Originalindeks | `tools/originaler/`, `ejnar/miljoejurist/data/originaler.json` | Links til kommunens oprindelige screening/dagsorden/planforslag for 178 nævnssager (FirstAgenda-dagsordener og plandata.dk). 138 vises (høj/middel/kontrolleret). Haiku-stikprøve: "høj" rigtig i 8/10, "middel" er rigtig plan men screeningen ofte kun resumeret. Projektscreeninger findes sjældent (27/175), da de afgøres administrativt. |
 | 2 | Analyse v2 | `analyser/miljoevurdering/v2/` (`RESULTAT.md`) | 1.050 sager (2020–2026). Trin 2 lavet om med HELE nævnets vurdering for alle 283 sager med medhold: 239 brugbare, **539 fejl**, alle nævnscitater kontrolleret ordret. |
 | 3 | Tjekliste | `analyser/TJEKLISTE.md` (+ `ejnar/miljoejurist/data/tjekliste.json`) | 21 punkter i 7 grupper, hvert med lovuddrag (ordret), vejledningsafsnit, EU-dom og eksempler fra nævnene med links. |
 | 4 | Værktøj: Miljøjuristen | `ejnar/miljoejurist/` (se `README.md` dér), fane i webappen, API `/v1/miljoejurist/*` | Upload PDF/Word/tekst → rapport "svaghed → hvorfor → kilder" + "hvad er ikke vurderet". Regellag (altid) og valgfrit sprogmodellag. Automatisk citatkontrol. Skriver aldrig, at en afgørelse er i orden. |
+| 4 | Stedtjek | `ejnar/miljoejurist/stedtjek.py` | Kortopslag i Miljøportalen og plandata.dk ud fra kommune + plannr. eller adresse; melder ikke-nævnte områder tæt på og forkerte afstande. 14/16 fund relevante (Haiku); ramte nævnets fejl i ægte § 3-sag. |
 | 5 | Test | `ejnar/evaluation/miljoejurist/RESULTS.md` | 4 testsæt, 77 dokumenter, 4 runder med revision. Se nedenfor. |
 
 ## Hovedtal fra analysen
@@ -55,6 +57,9 @@ Alle tal er målt af AI-agenter (rekonstruktion, model og revision). De er en in
    analysen bruger modelmærker.
 8. Teksterne i `data_2026/` indeholder navne på nævnsmedlemmer, som nævnene selv offentliggør. Sagsparter er
    anonymiseret af nævnene. De lokalt hentede oprindelige screeninger kan indeholde navne og er derfor ikke i git.
+
+9. **Stedtjek** bygger på registrerede kortlag; uregistreret § 3-natur og bilag IV-levesteder (arter.dk) er ikke med.
+10. **Originalindekset** dækker mest planer; projektscreeninger og de 26 kommuner uden FirstAgenda mangler.
 
 ## Det bør du tjekke fagligt
 
