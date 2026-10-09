@@ -1,0 +1,312 @@
+62021CJ0721
+DOMSTOLENS DOM (Anden Afdeling)
+15. juni 2023 (
+*1
+)
+»Præjudiciel forelæggelse – miljø – direktiv 92/43/EØF – bevaring af naturtyper samt vilde dyr og planter – særlige bevaringsområder – artikel 6, stk. 3 – forudgående vurdering af en plan eller et projekt med henblik på at afgøre, om det er nødvendigt at foretage en vurdering af denne plans eller dette projekts virkninger på et særligt bevaringsområde – begrundelse – foranstaltninger, der kan tages i betragtning – opførelse af en boligbebyggelse – procesautonomi – ækvivalensprincippet og effektivitetsprincippet – processuelle regler, hvorefter sagens genstand fastlægges på grundlag af de anbringender, der gøres gældende på tidspunktet for sagens anlæg«
+Sag C-721/21,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af High Court (ret i første instans, Irland) ved afgørelse af 4. oktober 2021, indgået til Domstolen den 26. november 2021, i sagen
+Eco Advocacy CLG
+mod
+An Bord Pleanála,
+procesdeltagere:
+Keegan Land Holdings,
+An Taisce – The National Trust for Ireland,
+ClientEarth AISBL,
+har
+DOMSTOLEN (Anden Afdeling),
+sammensat af afdelingsformanden, A. Prechal, og dommerne M.L. Arastey Sahún, F. Biltgen, N. Wahl og J. Passer (refererende dommer),
+generaladvokat: J. Kokott,
+justitssekretær: fuldmægtig C. Strömholm,
+på grundlag af den skriftlige forhandling og efter retsmødet den 27. oktober 2022,
+efter at der er afgivet indlæg af:
+–
+Eco Advocacy CLG ved solicitors O. Clarke og A. O’Connell samt O. Collins, SC, og C. Lenaghan, BL,
+–
+An Bord Pleanála ved D. Browne, BL, og B. Foley, SC, samt solicitors B. Magee og J. Moore,
+–
+An Taisce – The National Trust for Ireland og ClientEarth AISBL ved J. Kenny, BL, og solicitor F. Logue,
+–
+Irland ved M. Browne, A. Joyce og M. Tierney, som befuldmægtigede, bistået af A. Carroll, BL, samt P. Gallagher og B. Kennedy, SC,
+–
+den italienske regering ved G. Palmieri, bistået af avoccato dello Stato G. Palatiello,
+–
+Europa-Kommissionen ved C. Hermes og M. Noll-Ehlers, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 19. januar 2023,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af bl.a. artikel 4, stk. 2-5, i og bilag III til Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (
+EUT 2012, L 26, s. 1
+), som ændret ved Europa-Parlamentets og Rådets direktiv 2014/52/EU af 16. april 2014 (
+EUT 2014, L 124, s. 1
+) (herefter »direktiv 2011/92«), og af artikel 6, stk. 3, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter (
+EFT 1992, L 206, s. 7
+).
+2
+Anmodningen er blevet indgivet i forbindelse med en tvist mellem Eco Advocacy CLG og An Bord Pleanála (naturstyrelsen, Irland) vedrørende gyldigheden af en byggetilladelse, der er udstedt af denne sidstnævnte instans.
+Retsforskrifter
+EU-retten
+Direktiv 92/43
+3
+Artikel 6, stk. 3, i direktiv 92/43 har følgende ordlyd:
+»Alle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som i sig selv eller i forbindelse med andre planer og projekter kan påvirke en sådan lokalitet væsentligt, vurderes med hensyn til deres virkninger på lokaliteten under hensyn til bevaringsmålsætningerne for denne. På baggrund af konklusionerne af vurderingen af virkningerne på lokaliteten, og med forbehold af stk. 4, giver de kompetente nationale myndigheder først deres tilslutning til en plan eller et projekt, når de har sikret sig, at den/det ikke skader lokalitetens integritet, og når de – hvis det anses for nødvendigt – har hørt offentligheden.«
+Direktiv 2011/92
+4
+Artikel 4 i direktiv 2011/92 bestemmer følgende i stk. 2-5:
+»2. Med forbehold af artikel 2, stk. 4, skal medlemsstaterne afgøre, om projektet skal vurderes i henhold til artikel 5-10, for projekter, der er opført i bilag II. Medlemsstaterne skal foretage denne afgørelse ved hjælp af:
+a)
+en undersøgelse i hvert enkelt tilfælde,
+eller
+b)
+tærskelværdier eller kriterier fastsat af medlemsstaten.
+Medlemsstaterne kan beslutte at anvende begge de i litra a) og b) nævnte procedurer.
+3. Ved en undersøgelse i hvert enkelt tilfælde eller ved fastsættelse af grænseværdier eller kriterier i henhold til stk. 2 skal der tages hensyn til de relevante udvælgelseskriterier i bilag III. Medlemsstaterne kan fastsætte tærskelværdier eller kriterier for, hvornår det ikke er nødvendigt at underkaste projekter hverken afgørelsen i henhold til stk. 4 og 5 eller en miljøkonsekvensvurdering, og/eller tærskelværdier eller kriterier for, hvornår projekter under alle omstændigheder skal underkastes en miljøkonsekvensvurdering uden at skulle underkastes en afgørelse i henhold til stk. 4 og 5.
+4. Beslutter medlemsstaterne at kræve en afgørelse for så vidt angår projekter i de kategorier, der er opført i bilag II, skal bygherren fremlægge oplysninger om projektets karakteristika og dets forventede væsentlige indvirkninger på miljøet. En detaljeret oversigt over, hvilke oplysninger der skal fremlægges, findes i bilag II.A. Bygherren skal, hvis det er relevant, tage hensyn til de tilgængelige resultater af andre relevante vurderinger af indvirkninger på miljøet, der er foretaget i medfør af anden EU-lovgivning end dette direktiv. Bygherren kan også fremlægge en beskrivelse af særkender ved projektet og/eller af de foranstaltninger, der påtænkes truffet for at undgå eller forebygge, hvad der ellers kunne have været væsentlige skadelige indvirkninger på miljøet.
+5. Den kompetente myndighed træffer sin afgørelse på grundlag af de oplysninger, som bygherren har fremlagt i overensstemmelse med stk. 4, og, om relevant, under hensyntagen til resultaterne af foreløbig kontrol eller vurderinger af indvirkningen på miljøet, der er foretaget i medfør af anden EU-lovgivning end dette direktiv. Afgørelsen skal gøres offentlig tilgængelig, og:
+a)
+hvis det besluttes, at det er nødvendigt med en miljøkonsekvensvurdering, anføre hovedårsagerne til, at der kræves en sådan vurdering, med henvisning til de i bilag III opførte relevante kriterier, eller
+b)
+hvis det besluttes, at det ikke er nødvendigt med en miljøkonsekvensvurdering, anføre hovedårsagerne til ikke at kræve en sådan vurdering med henvisning til de i bilag III opførte relevante kriterier, og, såfremt bygherren har fremlagt dem, anføre særkender ved projektet og/eller anføre, hvilke foranstaltninger der påtænkes truffet for at undgå eller forebygge, hvad der ellers kunne have været væsentlige skadelige indvirkninger på miljøet.«
+5
+Dette direktivs artikel 11 fastsætter:
+»1. Medlemsstaterne sikrer inden for rammerne af deres relevante nationale lovgivning, at medlemmerne af den berørte offentlighed:
+[…]
+har adgang til ved en domstol eller et andet uafhængigt og upartisk ved lov nedsat organ at få prøvet den materielle og processuelle lovlighed af enhver afgørelse, handling eller undladelse, der er omfattet af dette direktivs bestemmelser om offentlig deltagelse.
+2. Medlemsstaterne afgør, på hvilket stadium der kan rejses indsigelse mod afgørelser, handlinger eller undladelser.
+[…]
+4. […]
+[De sager, der påklages eller indbringes for domstolene,] skal være fair, rimelige, betimelige og ikke uoverkommeligt dyre.
+[…]«
+6
+Bilag III til dette direktiv opstiller kriterierne til bestemmelse af, om de i bilag II opførte projekter skal underkastes en miljøkonsekvensvurdering.
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+7
+Tvisten i hovedsagen vedrører et projekt med opførelse af 320 boliger på Charterschool Land (Trim, County Meath, Irland) i nærheden af det særlige bevaringsområde for floden Boyne og floden Blackwater (IE0002299), der er udpeget i henhold til direktiv 92/43, og det særligt beskyttede område for floden Boyne og floden Blackwater (IE0004232), der er udpeget i henhold til Europa-Parlamentets og Rådets direktiv 2009/147/EF af 30. november 2009 om beskyttelse af vilde fugle (
+EUT 2010, L 20, s. 7
+).
+8
+Den 8. juli 2020 blev der efter forskellige uformelle kontakter indgivet en formel ansøgning om byggetilladelse for det foreliggende projekt.
+9
+Projektet var navnlig udarbejdet således, at det overskydende overfladevand under lokalitetens drift skulle indsamles under jorden i et regnvandsanlæg. Anlægget skulle fungere sammen med styringsventiler, der skulle installeres på servicebrønden i hver enkelt opsamlingstank. En bypassudskiller i klasse 1 skulle monteres på tilløbsrøret til alle tanke for at adskille eventuelle forurenende stoffer fra overfladevandet, inden det skulle ledes ind i tanken, og inden det skulle ledes ud. Det var påtænkt, at vandet skulle løbe ud i et vandløb, der er en biflod til Boyne-floden, ca. 100 meter syd for den omhandlede lokalitet for anlæggets opførelse.
+10
+Der blev fremsat bemærkninger til ansøgningen om byggetilladelse, heriblandt fra An Taisce – The National Trust for Ireland, en ikke-statslig organisation, og Meath County Council (amtsrådet i Meath, Irland), der rejste en del tvivlspunkter med hensyn til dette projekts potentielle indvirkning på de områder, der er nævnt i denne doms præmis 7, navnlig med hensyn til vandkvaliteten i floden Boyne og de berørte beskyttede arter.
+11
+Ved afgørelse af 27. oktober 2020 godkendte naturstyrelsen det nævnte projekt og udstedte den ansøgte byggetilladelse, idet den på grundlag af sin undersøgers rapport af 6. oktober 2020 fandt, at hverken en miljøkonsekvensvurdering i henhold til direktiv 2011/92 eller en vurdering i henhold til direktiv 92/43 var nødvendig.
+12
+I en sag, der var anlagt af sagsøgeren i hovedsagen til prøvelse af denne afgørelse, forkastede den forelæggende ret ved dom af 27. maj 2021 (herefter »dommen af 27. maj 2021«) visse indsigelser mod dette søgsmål og forkastede dernæst søgsmålet, for så vidt som det var baseret på national ret og på visse EU-retlige aspekter.
+13
+Hvad angår de anbringender, som denne ret endnu ikke har truffet afgørelse om, fremgår det af anmodningen om præjudiciel afgørelse, at sagsøgeren med disse bl.a. for det første gjorde gældende, at afgørelsen af 27. oktober 2020 ikke udtrykkeligt udpegede de dokumenter, som gengav naturstyrelsens ræsonnement med hensyn til dens afgørelse om ikke at kræve en miljøkonsekvensvurdering som omhandlet i direktiv 2011/92 eller en vurdering som omhandlet i direktiv 92/43, for det andet, at denne styrelse ikke havde besvaret de tvivlsspørgsmål, som Meath County Council og An Taisce – The National Trust for Ireland havde givet udtrykt for, og, for det tredje, at styrelsen ikke udtrykkeligt havde undersøgt ethvert af de i bilag III til direktiv 2011/92 opstillede kriterier. Den forelæggende ret har desuden anført, at samme styrelse fandt, at det omhandlede bæredygtige afløbssystem ikke udgjorde en afbødningsforanstaltning, men et standardkendetegn i et boligbyggeriprojekt som det, der er genstand for hovedsagen.
+14
+Det fremgår imidlertid af dommen af 27. maj 2021, at sagsøgeren i hovedsagen for første gang i retsmødet for den forelæggende ret fremførte den første og den tredje påstand, der er nævnt i den foregående præmis.
+15
+På denne baggrund har High Court (ret i første instans, Irland) besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Har det generelle princip om EU-rettens forrang og/eller om samarbejde i god tro den konsekvens, at når en part enten generelt eller i en specifik miljøretlig kontekst anlægger sag om gyldigheden af en administrativ foranstaltning ved udtrykkeligt eller implicit at henvise til et bestemt EU-retligt instrument uden at angive, hvilke bestemmelser i instrumentet der er tilsidesat, eller ved at henvise til den eksakte fortolkning, skal eller kan den nationale domstol, hvor sagen er anlagt, behandle søgsmålet, uagtet at der måtte være en national [processuel regel], som foreskriver, at de pågældende konkrete tilsidesættelser skal anføres i partens processkrifter?
+2)
+Såfremt det første spørgsmål besvares bekræftende, er konsekvensen af artikel 4, stk. 2, 3, 4 og/eller 5, i og/eller bilag III til [direktiv 2011/92] og/eller dette direktiv i lyset af princippet om retssikkerhed og retten til god forvaltning i henhold til artikel 41 i Den Europæiske Unions charter om grundlæggende rettigheder, at der skal være en udtrykkelig, separat og/eller konkret angivelse af, hvilke specifikke dokumenter der indeholder en kompetent myndigheds begrundelser, når den kompetente myndighed beslutter ikke at få foretaget en miljøkonsekvensvurdering for at kunne udstede byggetilladelse?
+3)
+Såfremt det første spørgsmål besvares bekræftende, er konsekvensen af artikel 4, stk. 2, 3, 4 og/eller 5, i og/eller bilag III til [direktiv 2011/92] og/eller dette direktiv i lyset af princippet om retssikkerhed og retten til god forvaltning i henhold til artikel 41 i Den Europæiske Unions charter om grundlæggende rettigheder, at der er en forpligtelse til udtrykkeligt at anføre overvejelser vedrørende alle konkrete kriterier og underkriterier fra bilag III til [dette direktiv] af mulig relevans for byggetilladelsen, når en kompetent myndighed beslutter ikke at få foretaget en miljøkonsekvensvurdering for at kunne udstede byggetilladelse?
+4)
+Skal artikel 6, stk. 3, i direktiv [92/43] fortolkes således, at den kompetente myndighed i en medlemsstat i forbindelse med anvendelsen af princippet om, at det ikke er relevant i screeningsfasen at tage højde for foranstaltninger, der har til hensigt at undgå eller begrænse en plans eller et projekts skadelige virkninger på den pågældende lokalitet, for at kunne afgøre, om det efterfølgende er nødvendigt at foretage en vurdering i henhold til [direktiv 92/43], [ikke] har ret til at tage højde for [særkender ved] planen eller projektet, der indebærer en fjernelse af forurenende stoffer, som kan have den virkning, at det reducerer skadelige virkninger på det berørte europæiske beskyttelsesområde, alene med den begrundelse, at disse [særkender] ikke er beregnet som afbødningsforanstaltninger, selv om de har denne virkning, og at de i projektudformningen ville være blevet indarbejdet som [standardkendetegn] uanset eventuelle konsekvenser for det pågældende europæiske beskyttelsesområde?
+5)
+Skal artikel 6, stk. 3, i direktiv [92/43] fortolkes således, at den kompetente myndighed i en medlemsstat skal give en tydelig og detaljeret begrundelse, der kan fjerne enhver rimelig faglig tvivl om [virkningerne] af de påtænkte anlægsarbejder på det berørte europæiske beskyttelsesområde, og som udtrykkeligt og særskilt i hvert enkelt tilfælde afklarer de tvivlsspørgsmål, der er opstået herom under inddragelse af offentligheden, såfremt den pågældende myndighed til trods for de spørgsmål eller betænkeligheder, som ekspertorganer har givet udtryk for i screeningsfasen, finder, at der ikke er behov for en vurdering […]?
+6)
+Såfremt det første spørgsmål besvares bekræftende, er konsekvensen af artikel 6, stk. 3, i [direktiv] 92/43 og/eller dette direktiv i lyset af princippet om retssikkerhed og retten til god forvaltning i henhold til artikel 41 i Den Europæiske Unions charter om grundlæggende rettigheder, at der skal være en udtrykkelig, separat og/eller konkret angivelse af, hvilke specifikke dokumenter der indeholder en kompetent myndigheds begrundelse, når den kompetente myndighed beslutter ikke at få foretaget en vurdering i henhold til [direktiv 92/43] for at kunne udstede byggetilladelse?«
+Om de præjudicielle spørgsmål
+Det første spørgsmål
+16
+Med det første spørgsmål ønsker den forelæggende ret nærmere bestemt oplyst, om EU-retten skal fortolkes således, at når en part, der anlægger en sag med påstand om annullation af en administrativ afgørelse, udtrykkeligt eller implicit til støtte for dette søgsmål påberåber sig et bestemt EU-retligt instrument uden at angive, hvilke bestemmelser i instrumentet der er tilsidesat, eller uden at henvise til den eksakte fortolkning, som denne part støtter sig på, skal eller kan den nationale domstol, for hvilken sagen er anlagt, behandle søgsmålet, uagtet at der måtte være en national processuel regel, som foreskriver, at stævningen skal indeholde en præcis angivelse af de pågældende specifikke tilsidesættelser.
+17
+I sin anmodning om præjudiciel afgørelse har den forelæggende ret ikke angivet, hvilken processuel regel der er tale om. Det fremgår imidlertid af denne anmodning, af de sagsakter, som Domstolen råder over, og af de skriftlige indlæg, der er indgivet i forbindelse med den foreliggende sag, at der er tale om Rules of the Superior Courts (procesreglement for de højere retsinstanser), som indebærer dels, at en anmodning om domstolsprøvelse skal indeholde en fremstilling af de nedlagte påstande og af de anbringender, der er påberåbt til støtte herfor, idet hver påstand klart og tydeligt skal angives, og de faktiske omstændigheder eller beviser, der er påberåbt eller fremlagt til støtte herfor, skal anføres, og dels, at en sagsøger i retsmødet hverken kan gøre andre anbringender gældende eller fremsætte andre påstande end dem, der fremgår af nævnte fremstilling.
+18
+I den foreliggende sag fremgår det af dommen af 27. maj 2021, at det var i strid med de nævnte processuelle regler, at sagsøgeren i hovedsagen for den forelæggende ret gjorde de anbringender, der ligger til grund for det andet, det tredje og det sjette spørgsmål, gældende, hvilket bevirker, at disse anbringender ifølge den forelæggende ret skal afvises fra realitetsbehandling, medmindre den forelæggende ret i medfør af EU-retten skal eller kan undersøge disse anbringender.
+19
+Med henblik på at give den forelæggende ret et hensigtsmæssigt svar, skal det følgelig fastslås, at den forelæggende ret med sit første spørgsmål nærmere bestemt ønsker oplyst, om EU-retten skal fortolkes således, at den er til hinder for en national processuel regel såsom den, der er beskrevet i denne doms præmis 17.
+20
+Som generaladvokaten i det væsentlige har anført i punkt 29 og 30 i forslaget til afgørelse, forholder det sig i denne henseende således, at selv om EU-retten i henhold til artikel 11 i direktiv 2011/92 og artikel 9 i konventionen om adgang til oplysninger, offentlig deltagelse i beslutningsprocesser samt adgang til klage og domstolsprøvelse på miljøområdet, der blev undertegnet i Århus den 25. juni 1998 og godkendt på Det Europæiske Fællesskabs vegne ved Rådets afgørelse 2005/370/EF af 17. februar 2005 (
+EUT 2005, L 124, s. 1
+), ganske vist kræver, at navnlig miljøorganisationer skal sikres adgang til en effektiv og fair kontrolprocedure, er det imidlertid ikke fastsat i bestemmelserne, hvordan og på hvilket tidspunkt anbringenderne til anfægtelse af de pågældende afgørelser, handlinger eller undladelser skal gøres gældende.
+21
+Det følger af fast retspraksis, at det, når der ikke findes EU-retlige bestemmelser på området, tilkommer hver enkelt medlemsstat i sin interne retsorden at udpege de kompetente retter og fastsætte de processuelle regler for sagsanlæg til sikring af beskyttelsen af de rettigheder, som EU-retten medfører for borgerne, men disse regler må dog ikke være mindre gunstige end dem, der gælder for tilsvarende søgsmål på grundlag af national ret (ækvivalensprincippet), og de må heller ikke i praksis gøre det umuligt eller uforholdsmæssigt vanskeligt at udøve de rettigheder, der tillægges i henhold til Unionens retsorden (effektivitetsprincippet) (dom af 7.6.2007, van der Weerd m.fl.,
+C-222/05 – C-225/05
+,
+EU:C:2007:318
+, præmis
+28
+og den deri nævnte retspraksis).
+22
+Hvad for det første angår effektivitetsprincippet fremgår det af retspraksis, at det i princippet ikke stiller krav om, at de nationale domstole af egen drift tager et anbringende om, at EU-retlige bestemmelser er overtrådt, under påkendelse, når en stillingtagen til et sådant anbringende ville tvinge dem til at gå ud over den afgrænsning af sagen, som parterne har foretaget, ved at lægge andre faktiske forhold og omstændigheder til grund end dem, som den part i sagen, der har interesse i, at EU-bestemmelserne anvendes, har fremført til støtte for sin påstand (dom af 26.4.2017, Farkas,
+C-564/15
+,
+EU:C:2017:302
+, præmis
+32
+og den deri nævnte retspraksis).
+23
+Domstolen har i øvrigt allerede fastslået, at nationale processuelle regler, hvorefter sagens genstand fastlægges ved de anbringender, som fremsættes ved indleveringen af anlæggelsen af søgsmålet, er forenelige med effektivitetsprincippet, eftersom de sikrer en hensigtsmæssig sagsbehandling, navnlig således, at forsinkelser som følge af en stillingtagen til nye anbringender undgås (dom af 6.10.2021, Consorzio Italian Management og Catania Multiservizi,
+C-561/19
+,
+EU:C:2021:799
+, præmis
+64
+og den deri nævnte retspraksis).
+24
+I det foreliggende tilfælde synes de omhandlede processuelle regler, således som de er beskrevet i denne doms præmis 17, ikke i praksis at gøre det umuligt eller uforholdsmæssigt vanskeligt at udøve de rettigheder, der er tillagt i henhold til direktiv 2011/92 og 92/43, og som er genstand for hovedsagen, men tværtimod at fremme en hensigtsmæssig sagsbehandling ved at kræve, at de anbringender, der gøres gældende i søgsmålet, skal være tilstrækkeligt præcise.
+25
+Endelig skal det bemærkes, at selv om Domstolen har fastslået, at inden for visse områder, navnlig på området for forbrugerbeskyttelse, kan de nationale retsinstanser have pligt til ex officio at vurdere overholdelsen af krav, der følger af EU-standarder på det pågældende område (jf. i denne retning dom af 21.4.2016, Radlinger og Radlingerová,
+C-377/14
+,
+EU:C:2016:283
+, præmis
+66
+og den deri nævnte retspraksis), er det ikke muligt på baggrund af de EU-retlige principper, som er nævnt i de i denne doms præmis 18 nævnte anbringender, at udlede et sådan krav, der udspringer af de særlige kendetegn ved de nævnte områder og de relevante EU-retlige bestemmelser, såsom behovet for at afhjælpe den manglende ligevægt mellem forbrugeren og den erhvervsdrivende.
+26
+For så vidt som de i hovedsagen omhandlede processuelle regler ifølge de oplysninger, som Domstolen råder over, finder anvendelse, uanset om de hævdede tilsidesættelser vedrører irsk ret eller EU-retten, synes de for det andet heller ikke at være i strid med ækvivalensprincippet.
+27
+Overholdelse af ækvivalensprincippet kræver, at når bestemmelserne i national ret om de processuelle regler pålægger en ret en forpligtelse til af egen drift at rejse et anbringende vedrørende en tilsidesættelse af national ret, bør en sådan forpligtelse på samme måde gælde for et anbringende af samme art vedrørende en tilsidesættelse af EU-retten. Det samme gælder, såfremt national ret giver retten mulighed for af egen drift at tage et sådant anbringende under påkendelse (dom af 26.4.2017, Farkas,
+C-564/15
+,
+EU:C:2017:302
+, præmis
+35
+og den deri nævnte retspraksis).
+28
+I det foreliggende tilfælde er der imidlertid intet i de sagsakter, som Domstolen råder over, der tyder på, at den forelæggende ret i henhold til irsk ret har en sådan forpligtelse eller en sådan mulighed. Det følger tværtimod af dommen af 27. maj 2021, at de nationale retsinstanser skal afvise alle anbringender af samme art som dem, der er nævnt i nærværende doms præmis 18, uanset om de vedrører en tilsidesættelse af EU-retten eller af national ret, hvis de ikke er blevet formuleret tilstrækkelig præcist.
+29
+Henset til ovenstående betragtninger skal det første spørgsmål besvares med, at EU-retten skal fortolkes således, at den ikke er til hinder for en national processuel regel, som indebærer dels, at en anmodning om domstolsprøvelse i henhold til såvel national ret som EU-retlige bestemmelser, såsom artikel 4, stk. 2-5, i og bilag III til direktiv 2011/92 eller artikel 6, stk. 3, i direktiv 92/43, skal indeholde en fremstilling af de nedlagte påstande og de påberåbte anbringender til støtte herfor, idet hver påstand klart og tydeligt skal angives, og de faktiske omstændigheder eller beviser, der er påberåbt eller fremlagt til støtte herfor, skal anføres, og dels, at en sagsøger i retsmødet hverken kan gøre andre anbringender gældende eller fremsætte andre påstande end dem, der fremgår af nævnte fremstilling.
+Det andet, det tredje og det sjette spørgsmål
+30
+Henset til besvarelsen af det første spørgsmål er det ufornødent at besvare det andet, det tredje og det sjette spørgsmål.
+Det femte spørgsmål
+31
+Med det femte spørgsmål, som skal behandles før det fjerde spørgsmål, ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 6, stk. 3, i direktiv 92/43 skal fortolkes således, at den kompetente myndighed i en medlemsstat skal give en tydelig og detaljeret begrundelse, der kan fjerne enhver rimelig faglig tvivl om virkningerne af de påtænkte anlægsarbejder på det berørte beskyttelsesområde, og som udtrykkeligt og særskilt i hvert enkelt tilfælde afklarer de tvivlsspørgsmål, der er opstået herom under inddragelse af offentligheden, såfremt den pågældende myndighed finder, at der ikke er behov for en vurdering.
+32
+Hverken artikel 6, stk. 3, i direktiv 92/43 eller nogen anden bestemmelse heri fastsætter krav til begrundelsen for de afgørelser, der træffes i henhold til denne artikel 6, stk. 3.
+33
+Når dette er sagt, skal det for det første bemærkes, at for så vidt som den afspejler en almindelig retsgrundsætning i EU-retten, medfører retten til god forvaltningsskik krav, som medlemsstaterne skal tage hensyn til ved anvendelsen af EU-retten. Blandt disse krav har forpligtelsen til at begrunde de afgørelser, som de nationale myndigheder træffer, en særlig betydning, da den sætter modtageren i stand til at forsvare sine rettigheder bedst muligt og træffe afgørelse om, hvorvidt sagen bør prøves retsligt, på grundlag af et fuldt kendskab til sagen. Begrundelsen er ligeledes nødvendig for retternes udøvelse af kontrollen med afgørelsernes lovlighed (dom af 9.11.2017, LS Customs Services,
+C-46/16
+,
+EU:C:2017:839
+, præmis
+39
+og
+40
+og den deri nævnte retspraksis).
+34
+Det skal for det andet bemærkes, at artikel 6, stk. 3, i direktiv 92/43 fastsætter en procedure for vurdering med henblik på ved hjælp af en forudgående kontrol at sikre, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendigt for lokalitetens forvaltning, men som kan påvirke en sådan lokalitet væsentligt, alene godkendes, såfremt denne plan eller dette projekt ikke skader lokalitetens integritet (dom af 29.7.2019, Inter-Environnement Wallonie og Bond Beter Leefmilieu Vlaanderen,
+C-411/17
+,
+EU:C:2019:622
+, præmis
+117
+og den deri nævnte retspraksis).
+35
+Denne artikel 6, stk. 3, sondrer mellem to faser i den vurderingsprocedure, som bestemmelsen foreskriver.
+36
+Den første fase, der fremgår af bestemmelsens første punktum, kræver af medlemsstaterne, at de foretager en vurdering af en plans eller et projekts virkninger på en beskyttet lokalitet, når der er en sandsynlighed for, at planen eller projektet vil kunne påvirke den omhandlede lokalitet væsentligt. Den anden fase, der er omhandlet i bestemmelsens andet punktum, og som tidsmæssigt ligger efter den nævnte vurdering, indebærer, at der kun kan gives tilladelse til planen eller projektet, hvis planen eller projektet ikke skader den berørte lokalitets integritet, medmindre andet følger af artikel 6, stk. 4, i direktiv 92/43 (dom af 29.7.2019, Inter-Environnement Wallonie og Bond Beter Leefmilieu Vlaanderen,
+C-411/17
+,
+EU:C:2019:622
+, præmis
+119
+og den deri nævnte retspraksis).
+37
+I denne henseende bemærkes for det første, at det af Domstolens faste praksis fremgår, at det i artikel 6, stk. 3, i direktiv 92/43 fastsatte krav om en vurdering med hensyn til en plans eller et projekts virkninger er betinget af, at der er en sandsynlighed eller en risiko for, at planen eller projektet påvirker den omhandlede lokalitet væsentligt. Navnlig henset til forsigtighedsprincippet skal en sådan risiko anses at foreligge, når det ikke på grundlag af den bedste videnskabelige viden på området kan udelukkes, at nævnte plan eller projekt kan påvirke den omhandlede lokalitet væsentligt. Bedømmelsen af risikoen skal bl.a. foretages i lyset af den i en sådan plan eller et sådant projekt omhandlede lokalitets særlige kendetegn og miljømæssige vilkår (dom af 29.7.2019, Inter-Environnement Wallonie og Bond Beter Leefmilieu Vlaanderen,
+C-411/17
+,
+EU:C:2019:622
+, præmis
+134
+og den deri nævnte retspraksis).
+38
+For det andet følger det af fast retspraksis, at en vurdering af en plans eller et projekts virkning indebærer, at alle de aspekter af denne plan eller dette projekt, som i sig selv eller i forbindelse med andre planer og projekter vil kunne påvirke bevaringsmålsætningen for den beskyttede lokalitet, skal identificeres før godkendelsen heraf under hensyn til den bedste videnskabelige viden på området. De kompetente nationale myndigheder giver kun tilladelse til en aktivitet på betingelse af, at de har opnået vished for, at aktiviteten ikke har skadelige virkninger for denne lokalitets integritet. Sådan forholder det sig, når det ud fra et videnskabeligt synspunkt uden rimelig tvivl kan fastslås, at der ikke er sådanne virkninger (dom af 29.7.2019, Inter-Environnement Wallonie og Bond Beter Leefmilieu Vlaanderen,
+C-411/17
+,
+EU:C:2019:622
+, præmis
+120
+og den deri nævnte retspraksis).
+39
+I henhold til praksis må denne vurdering ikke medføre lakuner og skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl for så vidt angår virkningerne af de arbejder, som var påtænkt på det pågældende beskyttede område (dom af 25.7.2018, Grace og Sweetman,
+C-164/17
+,
+EU:C:2018:593
+, præmis
+39
+og den deri nævnte retspraksis 39, og af 7.11.2018, Holohan m.fl.,
+C-461/17
+,
+EU:C:2018:883
+, præmis
+49
+).
+40
+Et sådant krav indebærer, at den kompetente myndighed efter en vurdering og inden udstedelsen af tilladelsen på tilfredsstillende vis er i stand til at angive de forhold, som gjorde, at den – til trods for eventuelle modstridende udtalelser – opnåede vished for, at der ikke findes nogen rimelig videnskabelig tvivl for så vidt angår de miljømæssige virkninger af de påtænkte arbejder på den berørte lokalitet (jf. i denne retning dom af 7.11.2018, Holohan m.fl.,
+C-461/17
+,
+EU:C:2018:883
+, præmis
+51
+).
+41
+Sådanne begrundelseskrav skal ligeledes være opfyldt, når den kompetente myndighed som i det foreliggende tilfælde godkender et projekt, der kan påvirke en beskyttet lokalitet, uden i forbindelse hermed at kræve en vurdering som omhandlet i artikel 6, stk. 3, i direktiv 92/43.
+42
+Det følger heraf, at selv om en kompetent myndighed, når den beslutter at godkende et sådant projekt uden i forbindelse hermed at kræve en vurdering som omhandlet i denne bestemmelse, ikke i henhold til EU-retten er forpligtet til i begrundelsen for en sådan afgørelse at besvare ethvert af de retlige og faktiske spørgsmål, som de berørte parter har rejst under den administrative procedure, skal den nævnte myndighed ikke desto mindre inden udstedelsen af en sådan tilladelse på tilfredsstillende vis angive de forhold, som gjorde, at den – til trods for eventuelle modstridende udtalelser og eventuel tvivl – opnåede vished for, at der ikke findes nogen rimelig videnskabelig tvivl for så vidt angår muligheden for, at det pågældende projekt kan påvirke lokaliteten væsentligt.
+43
+Henset til ovenstående betragtninger skal det femte spørgsmål besvares med, at artikel 6, stk. 3, i direktiv 92/43 skal fortolkes således, at selv om en kompetent myndighed, når den beslutter at godkende en plan eller et projekt, der kan påvirke en i henhold til dette direktiv beskyttet lokalitet, uden i forbindelse hermed at kræve en vurdering som omhandlet i denne bestemmelse, ikke er forpligtet til i begrundelsen for sin afgørelse at besvare ethvert af de retlige og faktiske spørgsmål, som er rejst under den administrative procedure, skal den nævnte myndighed ikke desto mindre inden udstedelsen af en sådan tilladelse på tilfredsstillende vis angive de forhold, som gjorde, at den – til trods for eventuelle modstridende udtalelser og eventuel tvivl – opnåede vished for, at der ikke findes nogen rimelig videnskabelig tvivl for så vidt angår muligheden for, at det pågældende projekt kan påvirke lokaliteten væsentligt.
+Det fjerde spørgsmål
+44
+Med det fjerde spørgsmål ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 6, stk. 3, i direktiv 92/43 skal fortolkes således, at der for at kunne afgøre, om det er nødvendigt at foretage en vurdering af en plans eller et projekts virkninger på en i henhold til dette direktiv beskyttet lokalitet, kan tages højde for særkender ved planen eller projektet, der indebærer en fjernelse af forurenende stoffer, som kan have den virkning, at det reducerer skadelige virkninger af denne plan eller dette projekt på den berørte lokalitet, når disse særkender er blevet indarbejdet som standardkendetegn, uanset de eventuelle virkninger på den pågældende lokalitet.
+45
+Det fremgår af anmodningen om præjudiciel afgørelse, at den forelæggende ret bl.a. har rejst dette spørgsmål i lyset af dom af 12. april 2018, People Over Wind og Sweetman (
+C-323/17
+,
+EU:C:2018:244
+). Den forelæggende ret ønsker nærmere bestemt oplyst, om naturstyrelsen i lyset af denne dom kunne tage hensyn til de foranstaltninger, der er beskrevet i denne doms præmis 9, med henblik på sin afgørelse om ikke at kræve en vurdering af det i hovedsagen omhandlede projekts virkninger på de områder, der er nævnt i denne doms præmis 7.
+46
+Det skal i denne henseende bemærkes, at Domstolen i præmis 40 i dom af 12. april 2018, People Over Wind og Sweetman (
+C-323/17
+,
+EU:C:2018:244
+), fastslog, at artikel 6, stk. 3, i direktiv 92/43 skal fortolkes således, at der med henblik på at afgøre, om det er nødvendigt efterfølgende at foretage en vurdering af en plans eller et projekts virkninger på en berørt lokalitet, i screeningsfasen ikke er anledning til at tage foranstaltninger med henblik på at undgå eller reducere denne plans eller dette projekts skadelige virkninger på denne lokalitet i betragtning.
+47
+Domstolen fastslog bl.a. i samme dom, at den omstændighed, at der tages hensyn til foranstaltninger med henblik på at undgå eller reducere en plans eller et projekts skadelige virkninger på den omhandlede lokalitet i forbindelse med vurderingen af, om det er nødvendigt at foretage en vurdering, forudsætter, at det er sandsynligt, at denne lokalitet påvirkes væsentligt, og at der følgelig skal foretages en sådan vurdering, idet denne konklusion understøttes af den omstændighed, at en fuldstændig og præcis analyse af foranstaltninger med henblik på at undgå eller reducere eventuelle væsentlige virkninger på den omhandlede lokalitet ikke skal foretages på tidspunktet for screeningen, men netop på tidspunktet for den vurdering. Såfremt der allerede blev taget hensyn til sådanne foranstaltninger i forbindelse med screeningen, vil dette ifølge Domstolen desuden kunne skade den effektive virkning af direktiv 92/43 i almindelighed, og vurderingsfasen i særdeleshed, eftersom vurderingen dermed ville miste sin genstand, og der ville foreligge en risiko for en fordrejning af denne vurderingsfase, der dog udgør en væsentlig garanti i dette direktiv (jf. i denne retning dom af 12.4.2018, People Over Wind og Sweetman,
+C-323/17
+,
+EU:C:2018:244
+, præmis
+35
+-
+37
+).
+48
+Sådanne betragtninger kan imidlertid ikke have til virkning at udelukke, at der i forbindelse med fasen forud for vurderingen af et projekt tages hensyn til alle de elementer, der indgår i dette projekt, og som bevirker, at dets skadelige virkninger på den omhandlede lokalitet mindskes.
+49
+Når sådanne elementer således ikke indgår i udformningen af et projekt med det formål at mindske dets skadelige virkninger på den omhandlede lokalitet, men som standardkendetegn for alle projekter af samme type, kan disse forhold navnlig ikke anses for at udgøre tegn på, at en sådan lokalitet angiveligt vil blive væsentligt påvirket, i modsætning til de foranstaltninger, der er nævnt i denne doms præmis 46 og 47.
+50
+Med forbehold for den efterprøvelse, som det påhviler den forelæggende ret at foretage, fremgår det imidlertid, at integrationen af de i denne doms præmis 9 nævnte foranstaltninger i forbindelse med udformningen af projekter som det i hovedsagen omhandlede projekt generelt er fastsat i planlægningsretsakter, og at integrationen i det foreliggende tilfælde er påkrævet i henhold til udviklingsplanen for amtet Meath 2013-2019, der i øvrigt har været genstand for en miljøvurdering i henhold til Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (
+EFT 2001, L 197, s. 30
+).
+51
+Artikel 6, stk. 3, i direktiv 92/43, fortolket i lyset af forsigtighedsprincippet, er derfor ikke til hinder for, at der tages hensyn til sådanne foranstaltninger under screeningfasen forud for vurderingen af disse projekter.
+52
+Henset til ovenstående betragtninger skal det fjerde spørgsmål besvares med, at artikel 6, stk. 3, i direktiv 92/43 skal fortolkes således, at der for at kunne afgøre, om det er nødvendigt at foretage en vurdering af en plans eller et projekts virkninger på en lokalitet, kan tages højde for særkender ved planen eller projektet, der indebærer en fjernelse af forurenende stoffer, og som kan have den virkning, at de reducerer skadelige virkninger af planen eller projektet på den berørte lokalitet, når disse særkender er blevet indarbejdet i planen eller projektet som standardkendetegn, uanset de eventuelle virkninger på den pågældende lokalitet.
+Sagsomkostninger
+53
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagsomkostningerne. Bortset fra de nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Anden Afdeling) for ret:
+1)
+EU-retten skal fortolkes således, at den ikke er til hinder for en national processuel regel, som indebærer dels, at en anmodning om domstolsprøvelse i henhold til såvel national ret som EU-retlige bestemmelser, såsom artikel 4, stk. 2-5, i og bilag III til Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13. december 2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet, som ændret ved Europa-Parlamentets og Rådets direktiv 2014/52/EU af 16. april 2014, eller artikel 6, stk. 3, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter, skal indeholde en fremstilling af de nedlagte påstande og de påberåbte anbringender til støtte herfor, idet hver påstand klart og tydeligt skal angives, og de faktiske omstændigheder eller beviser, der er påberåbt eller fremlagt til støtte herfor, skal anføres, og dels, at en sagsøger i retsmødet hverken kan gøre andre anbringender gældende eller fremsætte andre påstande end dem, der fremgår af nævnte fremstilling.
+2)
+Artikel 6, stk. 3, i direktiv 92/43
+skal fortolkes således, at
+selv om en kompetent myndighed, når den beslutter at godkende en plan eller et projekt, der kan påvirke en i henhold til dette direktiv beskyttet lokalitet, uden i forbindelse hermed at kræve en vurdering som omhandlet i denne bestemmelse, ikke er forpligtet til i begrundelsen for sin afgørelse at besvare ethvert af de retlige og faktiske spørgsmål, som er rejst under den administrative procedure, skal den nævnte myndighed ikke desto mindre inden udstedelsen af en sådan tilladelse på tilfredsstillende vis angive de forhold, som gjorde, at den – til trods for eventuelle modstridende udtalelser og eventuel tvivl – opnåede vished for, at der ikke findes nogen rimelig videnskabelig tvivl for så vidt angår muligheden for, at det pågældende projekt kan påvirke lokaliteten væsentligt.
+3)
+Artikel 6, stk. 3, i direktiv 92/43
+skal fortolkes således, at
+der for at kunne afgøre, om det er nødvendigt at foretage en vurdering af en plans eller et projekts virkninger på en lokalitet, kan tages højde for særkender ved planen eller projektet, der indebærer en fjernelse af forurenende stoffer, og som kan have den virkning, at de reducerer skadelige virkninger af planen eller projektet på den berørte lokalitet, når disse særkender er blevet indarbejdet i planen eller projektet som standardkendetegn, uanset de eventuelle virkninger på den pågældende lokalitet.
+Underskrifter
+(
+*1
+) – Processprog: engelsk.

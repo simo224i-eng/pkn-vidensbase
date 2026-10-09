@@ -1,0 +1,227 @@
+62011CJ0258
+DOMSTOLENS DOM (Tredje Afdeling)
+11. april 2013 (
+*1
+)
+»Miljø — direktiv 92/43/EØF — artikel 6 — bevaring af naturtyper — særlige bevaringsområder — vurdering af en plans eller et projekts virkninger på en beskyttet lokalitet — kriterier, der skal anvendes ved vurderingen af sandsynligheden for, at en bestemt plan eller et bestemt projekt vil skade den pågældende lokalitets integritet — lokaliteten Lough Corrib — projekt for omfartsvej N6 ved byen Galway«
+I sag C-258/11,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Supreme Court (Irland) ved afgørelse af 13. maj 2011, indgået til Domstolen den 26. maj 2011, i sagen:
+Peter Sweetman
+Ireland
+Attorney General
+Minister for the Environment, Heritage and Local Government
+mod
+An Bord Pleanála
+procesdeltagere:
+Galway County Council
+Galway City Council,
+har
+DOMSTOLEN (Tredje Afdeling)
+sammensat af dommerne R. Silva de Lapuerta, som fungerende formand for Tredje Afdeling, K. Lenaerts, G. Arestis (refererende dommer), J. Malenovský og T. von Danwitz,
+generaladvokat: E. Sharpston
+justitssekretær: fuldmægtig K. Malacek,
+på grundlag af den skriftlige forhandling og efter retsmødet den 12. september 2012,
+efter at der er afgivet indlæg af:
+—
+Peter Sweetman ved solicitor B. Harrington og R. Lyons, SC
+—
+Ireland, Attorney General og Minister for the Environment, Heritage and Local Government ved E. Creedon, som befuldmægtiget, bistået af G. Simons, SC, og M. Gray, BL
+—
+An Bord Pleanála ved solicitors A. Doyle og O. Doyle samt ved N. Butler, SC
+—
+Galway County Council og Galway City Council ved V. Raine og A. Casey, som befuldmægtigede, bistået af E. Keane, SC, og B. Kennedy, BL
+—
+den græske regering ved G. Karipsiades, som befuldmægtiget
+—
+Det Forenede Kongeriges regering ved H. Walker, som befuldmægtiget, bistået af barrister K. Smith
+—
+Europa-Kommissionen ved S. Petrova og K. Mifsud-Bonnici, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 22. november 2012,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 6 i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter (
+EFT L 206, s. 7
+, herefter »habitatdirektivet«).
+2
+Denne anmodning er indgivet i forbindelse med en tvist mellem på den ene side Peter Sweetman, Ireland, Attorney General og Minister for the Environment, Heritage and Local Government (ministeren for miljø, kulturarv og lokaladministration) og på den anden side An Bord Pleanála (herefter »An Bord«), støttet af Galway County Council og Galway City Council vedrørende An Bords afgørelse om godkendelse af projektet for omfartsvej N6 ved byen Galway.
+Retsforskrifter
+EU-retten
+3
+Tredje betragtning til habitatdirektivet har følgende ordlyd:
+»Da hovedformålet med dette direktiv er at fremme opretholdelsen af den biologiske diversitet under hensyntagen til økonomiske, sociale, kulturelle og regionale behov, bidrager det til en bæredygtig udvikling, hvilket er det overordnede mål; for at opretholde denne biologiske diversitet er det i visse tilfælde nødvendigt at opretholde eller endog at fremme udfoldelsen af menneskelige aktiviteter.«
+4
+Direktivets artikel 1, litra d), e), k) og l), bestemmer:
+»I dette direktiv forstås ved:
+[…]
+d)
+prioriterede naturtyper
+: de naturtyper, der er i fare for at forsvinde på det i artikel 2 nævnte område, og for hvis bevaring Fællesskabet har et særligt ansvar under hensyn til omfanget af andelen af deres naturlige udbredelse inden for det område, der er nævnt i artikel 2; disse prioriterede naturtyper er markeret med en stjerne (*) i bilag I
+e)
+en naturtypes bevaringsstatus
+: resultatet af alle de forhold, der indvirker på en naturtype og på de karakteristiske arter, som lever dér, og som på lang sigt kan påvirke dens naturlige udbredelse, dens struktur og funktion samt de karakteristiske arters overlevelse på lang sigt inden for det område, der er nævnt i artikel 2.
+En naturtypes »bevaringsstatus« anses for »gunstig«, når
+—
+det naturlige udbredelsesområde og de arealer, det dækker inden for dette område, er stabile eller i udbredelse
+og
+—
+den særlige struktur og de særlige funktioner, der er nødvendige for dets opretholdelse på lang sigt, er til stede og sandsynligvis fortsat vil være det i en overskuelig fremtid
+samt når
+—
+bevaringsstatus for de arter, der er karakteristiske for den pågældende naturtype, er gunstig efter litra i)
+[…]
+k)
+lokalitet af fællesskabsbetydning
+: en lokalitet, der i det eller de biogeografiske område(r), som den tilhører, bidrager væsentligt til at opretholde eller genoprette en gunstig bevaringsstatus for en af naturtyperne i bilag I eller for en af arterne i bilag II, og som også kan bidrage væsentligt til at sikre sammenhængen i Natura 2000, jf. artikel 3, og/eller som bidrager væsentligt til at opretholde den biologiske diversitet i det eller de pågældende biogeografiske område(r).
+[…]
+l)
+særligt bevaringsområde
+: et område af fællesskabsbetydning, som medlemsstaterne har udpeget ved en retsakt, en administrativ bestemmelse og/eller en aftale, og hvor der gennemføres de bevaringsforanstaltninger, der er nødvendige for at opretholde eller genoprette en gunstig bevaringsstatus for de naturtyper og/eller de arter, for hvilke lokaliteten er udpeget.«
+5
+Habitatdirektivets artikel 2 har følgende ordlyd:
+»1. Formålet med dette direktiv er at bidrage til at sikre den biologiske diversitet ved at bevare naturtyperne samt de vilde dyr og planter inden for det af medlemsstaternes område i Europa, hvor traktaten finder anvendelse.
+2. De foranstaltninger, der træffes efter dette direktiv, tager sigte på at opretholde eller genoprette en gunstig bevaringsstatus for naturtyper samt vilde dyre- og plantearter af fællesskabsbetydning.
+3. De foranstaltninger, der træffes efter dette direktiv, tager hensyn til de økonomiske, sociale og kulturelle behov og til regionale og lokale særpræg.«
+6
+Direktivets artikel 3, stk. 1, bestemmer:
+»Der oprettes et sammenhængende europæisk økologisk net af særlige bevaringsområder under betegnelsen »Natura 2000«. Dette net […] skal sikre opretholdelse eller i givet fald genopretning af en gunstig bevaringsstatus for de pågældende naturtyper og levestederne for de pågældende arter i deres naturlige udbredelsesområde.
+Natura 2000-nettet omfatter ligeledes de særligt beskyttede områder, som medlemsstaterne har udlagt i medfør af direktiv 79/409/EØF [Rådets direktiv 79/409/EØF af 2. april 1979 om beskyttelse af vilde fugle (
+EFT L 103, s. 1
+)].«
+7
+Habitatdirektivets artikel 6, stk. 2-4, bestemmer:
+»2. Medlemsstaterne træffer passende foranstaltninger for at undgå forringelse af naturtyperne og levestederne for arterne i de særlige bevaringsområder samt forstyrrelser af de arter, for hvilke områderne er udpeget, for så vidt disse forstyrrelser har betydelige konsekvenser for dette direktivs målsætninger.
+3. Alle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som i sig selv eller i forbindelse med andre planer og projekter kan påvirke en sådan lokalitet væsentligt, vurderes med hensyn til deres virkninger på lokaliteten under hensyn til bevaringsmålsætningerne for denne. På baggrund af konklusionerne af vurderingen af virkningerne på lokaliteten, og med forbehold af stk. 4, giver de kompetente nationale myndigheder først deres tilslutning til en plan eller et projekt, når de har sikret sig, at den/det ikke skader lokalitetens integritet, og når de – hvis det anses for nødvendigt – har hørt offentligheden.
+4. Hvis en plan eller et projekt, på trods af at virkningerne på lokaliteten vurderes negativt, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, fordi der ikke findes nogen alternativ løsning, træffer medlemsstaten alle nødvendige kompensationsforanstaltninger for at sikre, at den globale sammenhæng i Natura 2000 beskyttes. Medlemsstaten underretter Kommissionen om, hvilke kompensationsforanstaltninger der træffes.
+Hvis der er tale om en lokalitet med en prioriteret naturtype og/eller en prioriteret art, kan der alene henvises til hensynet til menneskers sundhed og den offentlige sikkerhed eller væsentlige gavnlige virkninger på miljøet, eller, efter udtalelse fra Kommissionen, andre bydende nødvendige hensyn til væsentlige samfundsinteresser.«
+8
+I bilag I til habitatdirektivet med overskriften »Naturtyper af fællesskabsbetydning, hvis bevaring kræver udpegning af særlige bevaringsområder« udpeges under koden 8240 »[k]alkstensplateauer« som prioriteret naturtype.
+Irsk ret
+9
+European Communities (Natural Habitats) Regulations 1997 (De Europæiske Fællesskabers Regulations (Naturtyper) fra 1997) i den affattelse, der var gældende på tidspunktet for de faktiske omstændigheder i hovedsagen (herefter »Regulations fra 1997«), gennemfører habitatdirektivet i irsk ret.
+10
+Regulation 30 i Regulations fra 1997, der gennemfører kravene i habitatdirektivets artikel 6, bestemmer:
+»(1) Hvis et vejprojekt, som kræver godkendelse fra [den kompetente myndighed] i henhold til Section 51 i Roads Act 1993 [den irske vejlov fra 1993], hverken er direkte forbundet med eller nødvendigt for forvaltningen af en europæisk lokalitet, men kan påvirke lokaliteten væsentligt enten alene eller i kombination med andre projekter, skal [den kompetente myndighed] sikre, at der foretages en passende vurdering af virkningerne på lokaliteten under hensyn til lokalitetens bevaringsmålsætning.
+(2) En vurdering af virkningerne på miljøet såsom den, der kræves efter Section 51(2) i vejloven fra 1993 i forbindelse med et vejprojekt som omhandlet i nr. 1), anses for at være en passende vurdering med henblik på denne Regulation.
+(3) [Den kompetente myndighed] må, henset til udfaldet af den vurdering, der er foretaget i henhold til nr. 1), kun give sit samtykke til vejprojektet efter at have sikret sig, at det ikke kan skade den berørte lokalitets integritet.
+(4) [Den kompetente myndighed] skal i forbindelse med undersøgelsen af, om vejprojektet kan skade den berørte lokalitets integritet, tage hensyn til den måde, hvorpå vejprojektet gennemføres, og de vilkår og begrænsninger, hvorunder tilslutningen er givet.
+(5) [Den kompetente myndighed] kan på trods af, at virkningerne på lokaliteten vurderes negativt, såfremt [denne myndighed] er overbevist om, at der ikke findes nogen alternative løsninger, godkende vejprojektet, hvis det er nødvendigt at gennemføre det af bydende nødvendige hensyn til væsentlige samfundsinteresser.
+(a)
+Med forbehold af litra b) omfatter bydende nødvendige hensyn til væsentlige samfundsinteresser interesser af social eller økonomisk art.
+(b)
+Hvis der er tale om en lokalitet med en prioriteret naturtype og/eller en prioriteret art, kan der alene henvises til hensynet til væsentlige samfundsinteresser, hvis disse vedrører:
+(i)
+menneskers sundhed eller den offentlige sikkerhed
+(ii)
+væsentlige gavnlige virkninger på miljøet, eller
+(iii)
+efter udtalelse fra Kommissionen, andre bydende nødvendige hensyn til væsentlige samfundsinteresser.«
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+11
+Ved afgørelse af 20. november 2008 traf An Bord afgørelse om at godkende et projekt for omfartsvej N6 ved byen Galway. Det blev bestemt, at en del af den projekterede vej skulle gå igennem en lokalitet af fællesskabsbetydning Lough Corrib. Efter en udvidelse af denne lokalitets udstrækning omfattede den i alt 14 naturtyper omhandlet i bilag I til habitatdirektivet, hvoraf seks var prioriterede naturtyper, herunder et kalkstensplateau, der er en særligt beskyttet naturtype, og som er genstand for hovedsagen.
+12
+Det nævnte vejprojekt indebærer et varigt tab af ca. 1,47 ha kalkstensplateau i lokaliteten af fællesskabsbetydning Lough Corrib. Dette område på 1,47 ha vil gå tabt i et område, der er beskrevet af inspektøren fra An Bord som værende et »særligt delområde og et område med betydelige prioriterede naturtyper«, der omfatter et samlet areal på 85 ha kalkstensplateau. Dette areal indgår som en del af det samlede areal på 270 ha kalkstensplateau, der er en prioriteret naturtype omhandlet i bilag I til habitatdirektivet, og som i det hele befinder sig i den nævnte lokalitet af fællesskabsbetydning.
+13
+På tidspunktet for vedtagelsen af An Bords afgørelse var dette område allerede blevet opført som potentiel lokalitet af fællesskabsbetydning på en liste over lokaliteter fremsendt af Irland til Kommissionen. Den udvidede lokalitet Lough Corrib blev formelt klassificeret som lokalitet af fællesskabsbetydning ved Kommissionens afgørelse af 12. december 2008. Ifølge den forelæggende ret var An Bord, selv om denne lokalitet først på denne dato af Kommissionen formelt blev klassificeret som en lokalitet af fællesskabsbetydning, forpligtet til i henhold til national ret fra december 2006 at give denne lokalitet en beskyttelse, der svarer til den, der ydes ved habitatdirektivets artikel 6, stk. 2-4.
+14
+I sin afgørelse af 20. november 2008 anførte An Bord bl.a., at »[d]et vurderes, at den del af vejprojektet, der godkendes, tilgodeser det trafikale behov i byen og det omkringliggende område på en passende måde […], og at projektet ikke vil skade Lough Corribs integritet, selv om det stedvis vil få alvorlige virkninger for dette foreslåede særlige bevaringsområde. Det herved godkendte projekt vil derfor ikke få uacceptable virkninger for miljøet, og det opfylder kravet om en hensigtsmæssig planlægning og bæredygtig udvikling af området«.
+15
+Peter Sweetman indgav begæring om tilladelse til at anlægge sag ved High Court, hvorved han anfægtede især An Bords afgørelse af 20. november 2008. Ifølge Peter Sweetman har An Bord foretaget en forkert fortolkning af habitatdirektivets artikel 6 ved bl.a. at konkludere, at vejprojektets indvirkning på den beskyttede lokalitet Lough Corrib ikke kunne »skade lokalitetens integritet«.
+16
+Ved afgørelse af 9. oktober 2009 forkastede High Court begæringen om tilladelse til at anlægge sag og stadfæstede An Bords afgørelse. Den 6. november 2009 fik Peter Sweetman tilladelse til at iværksætte appel af denne afgørelse ved Supreme Court.
+17
+Supreme Court har anført, at den nærer tvivl om, hvornår og under hvilke betingelser en sådan plan eller et sådant projekt kan »skade lokalitetens integritet«, når der i henhold til habitatdirektivets artikel 6, stk. 3, foretages en passende vurdering af planen eller projektet. I denne henseende har Supreme Court anført, at dommen af 7. september 2004, Waddenvereniging og Vogelbeschermingsvereniging (sag
+C-127/02, Sml. I, s. 7405
+), ikke fuldstændig har fjernet dennes tvivl.
+18
+Supreme Court har på denne baggrund besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Hvilke retlige kriterier skal den kompetente myndighed anvende ved vurderingen af, om en plan eller et projekt, der er omfattet af habitatdirektivets artikel 6, stk. 3, kan skade lokalitetens integritet?
+2)
+Medfører forsigtighedsprincippet, at en sådan plan eller et sådant projekt ikke kan tillades, hvis det vil forårsage et varigt og uopretteligt tab af hele den pågældende naturtype eller en del af den?
+3)
+Hvilket forhold er der eventuelt mellem [dette direktivs] artikel 6, stk. 4, og artikel 6, stk. 3, hvorefter der skal træffes beslutning om, at planen eller projektet ikke skader lokalitetens integritet?«
+Om de præjudicielle spørgsmål
+Om Domstolens kompetence
+19
+Galway County Council og Galway City Council har nærmere bestemt gjort gældende, at Domstolen ikke har kompetence til at besvare de præjudicielle spørgsmål, henset til, at habitatdirektivets artikel 6, stk. 3, ikke finder anvendelse i hovedsagen, da An Bords afgørelse vedrørende tilladelsen til projektet for omfartsvej N6 ved byen Galway blev vedtaget inden Kommissionens afgørelse om at klassificere udvidelsen af lokaliteten Lough Corrib, der er berørt af det nævnte projekt som lokalitet af fællesskabsbetydning.
+20
+Det fremgår nemlig af forelæggelsesafgørelsen, at denne udvidelse af lokaliteten Lough Corrib på datoen for An Bords afgørelse, den 20. november 2008, var blevet anmeldt i Irland i overensstemmelse med Regulation 4 i Regulations fra 1997, men endnu ikke var blevet udpeget til lokalitet af fællesskabsbetydning på listen over lokaliteter, der vedtages af Kommissionen. Denne vedtog en sådan afgørelse den 12. december 2008, dvs. tre uger efter An Bords afgørelse.
+21
+I hovedsagen afspejler Regulation 30 i Regulations fra 1997, således som den forelæggende ret selv har oplyst, i meget vid udstrækning ordlyden af habitatdirektivets artikel 6. Det følger endvidere af overskriften til den nævnte Regulation, at den irske lovgiver med vedtagelsen havde til hensigt at gennemføre direktivet i national ret. Således som anført af den forelæggende ret har Irland – ved at tildele en lokalitet, hvorom der er givet meddelelse, en beskyttelse som svarer til den, der ydes ved habitatdirektivets artikel 6, stk. 2-4, inden dens udpegning til lokalitet af fællesskabsbetydning på listen, der vedtages af Kommissionen – vurderet, at den har opfyldt sin forpligtelse til at træffe passende beskyttelsesforanstaltninger, inden det pågældende område udpeges som lokalitet af fællesskabsbetydning,
+22
+Med hensyn til sidstnævnte bemærkes, at Domstolen allerede har fastslået, at selv om beskyttelsesforanstaltningerne i habitatdirektivets artikel 6, stk. 2-4, alene gælder i forhold til lokaliteter, der er opført på listen over lokaliteter af fællesskabsbetydning vedtaget af Kommissionen, følger det imidlertid ikke heraf, at medlemsstaterne ikke skal beskytte lokaliteterne fra det tidspunkt, hvor de i medfør af dette direktivs artikel 4, stk. 1, foreslår dem som lokaliteter af fællesskabsbetydning på den nationale liste, der tilsendes Kommissionen (jf. dom af 13.1.2005, sag
+C-117/03, Dragaggi m.fl., Sml. I, s. 167
+, præmis 25 og 26, og af 14.9.2006, sag
+C-244/05, Bund Naturschutz in Bayern m.fl., Sml. I, s. 8445
+, præmis 36 og 37).
+23
+Det følger heraf, at fra det tidspunkt, hvor en medlemsstat i henhold til habitatdirektivets artikel 4, stk. 1, på den nationale liste, der sendes til Kommissionen, foreslår, at et område udpeges som lokalitet af fællesskabsbetydning, og i det mindste indtil det tidspunkt, hvor Kommissionen træffer afgørelse herom, er denne medlemsstat forpligtet til i henhold til direktivet at træffe beskyttelsesforanstaltninger, der er egnede til at sikre den tilsigtede økologiske interesse (jf. i denne retning dommen i sagen Dragaggi m.fl., præmis 29, og i sagen Bund Naturschutz in Bayern m.fl., præmis 38). En sådan lokalitets situation kan derfor ikke betegnes som værende en situation, der ikke er omfattet af EU-retten.
+24
+Det følger således af ovenstående udredning, at Domstolen har kompetence til at besvare de præjudicielle spørgsmål, der er forelagt af Supreme Court.
+Om realiteten
+25
+Med sine spørgsmål, som behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at planer eller projekter, der ikke er direkte forbundet med eller nødvendige for en lokalitets forvaltning, i en situation som den i hovedsagen foreliggende skader denne lokalitets integritet. Med henblik på en sådan fortolkning ønsker den forelæggende ret oplysning om forsigtighedsprincippets eventuelle betydning og om forholdet mellem stk. 3 og stk. 4 i artikel 6.
+26
+Det fremgår af forelæggelsesafgørelsen, at realiseringen af projektet for omfartsvej N6 ved byen Galway vil medføre, at en del af kalkstensplateauet i lokaliteten af fællesskabsbetydning Lough Corrib, som er en prioriteret naturtype, der er særligt beskyttet af habitatdirektivet, forsvinder permanent og uopretteligt. Efter vurderingen af virkningerne af dette vejprojekt på lokaliteten af fællesskabsbetydning Lough Corrib fastslog An Bord, at der forelå en negativ, lokalt væsentlig, virkning på denne lokalitet, men besluttede, at en sådan virkning ikke var til skade for lokalitetens integritet.
+27
+Ifølge Peter Sweetman, Ireland, Attorney General, Minister for the Environment, Heritage and Local Government og Kommissionen medfører en sådan negativ virkning af vejprojektet på den pågældende lokalitet nødvendigvis en skadelig virkning på lokalitetens integritet. Derimod finder An Bord, Galway County Council, Galway City Council og Det Forenede Kongeriges regering, at konstateringen af, at en lokalitet forringes, ikke nødvendigvis medfører, at der sker skade på lokalitetens integritet.
+28
+Habitatdirektivets artikel 6, stk. 3, fastsætter en procedure for vurdering med henblik på ved hjælp af en forudgående kontrol at sikre, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for lokalitetens forvaltning, men som kan påvirke en sådan lokalitet væsentligt, alene godkendes, såfremt denne plan eller dette projekt ikke skader lokalitetens integritet (dommen i sagen Waddenvereniging og Vogelbeschermingsvereniging, præmis 34, og af 16.2.2012, sag C-182/10, Solay m.fl., præmis 66).
+29
+Den nævnte bestemmelse fastsætter således to faser. Den første, der fremgår af bestemmelsens første punktum, kræver af medlemsstaterne, at de foretager en passende vurdering af en plans eller et projekts virkninger på en beskyttet lokalitet, når der er en sandsynlighed for, at planen eller projektet vil kunne påvirke den omhandlede lokalitet væsentligt (jf. i denne retning dommen i sagen Waddenvereniging og Vogelbeschermingsvereniging, præmis 41 og 43).
+30
+I denne henseende bemærkes, at når en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for en lokalitets forvaltning, risikerer at skade bevaringsmålsætningen for lokaliteten, skal planen eller projektet anses for at kunne påvirke denne lokalitet væsentligt. Bedømmelsen af nævnte risiko skal foretages bl.a. i lyset af den i en sådan plan eller et sådant projekt omhandlede lokalitets særlige kendetegn og miljømæssige vilkår (jf. i denne retning dommen i sagen Waddenvereniging og Vogelbeschermingsvereniging, præmis 49).
+31
+Den anden fase, der er omhandlet i habitatdirektivets artikel 6, stk. 3, andet punktum, og som i tid ligger efter den nævnte passende vurdering, betinger – med forbehold af stk. 4 – tilslutningen til planen eller projektet af, at den eller det ikke skader den berørte lokalitets integritet.
+32
+Med henblik på ud fra en overordnet sammenhæng at vurdere rækkevidden af udtrykket »skader lokalitetens integritet« skal det i denne henseende præciseres, at bestemmelserne i habitatdirektivets artikel 6, således som generaladvokaten har anført i punkt 43 i forslaget til afgørelse, skal fortolkes som et sammenhængende hele med hensyn til bevaringsmålsætningerne i direktivet. Den nævnte artikels stk. 2 og 3 har således til formål at sikre samme beskyttelsesniveau for naturtyper og levesteder (jf. i denne retning dom af 24.11.2011, sag
+C-404/09, Kommissionen mod Spanien, Sml. I, s. 11853
+, præmis 142), mens den nævnte artikels stk. 4 alene udgør en undtagelsesbestemmelse til andet punktum i stk. 3.
+33
+Domstolen har allerede fastslået, at bestemmelserne i habitatdirektivets artikel 6, stk. 2, gør det muligt at opfylde hovedmålsætningen om bevaring og beskyttelse af miljøkvaliteten, herunder bevaring af naturtyper samt vilde dyr og planter, og fastsætter en forpligtelse til generel beskyttelse, der består i at undgå forringelser samt forstyrrelser, der kan få væsentlige virkninger med hensyn til dette direktivs målsætninger (dom af 14.1.2010, sag
+C-226/08, Stadt Papenburg, Sml. I, s. 131
+, præmis 49 og den deri nævnte retspraksis).
+34
+Habitatdirektivets artikel 6, stk. 4, fastsætter, at i tilfælde, hvor en plan eller et projekt trods negative konklusioner i den vurdering, der er gennemført i overensstemmelse med dette direktivs artikel 6, stk. 3, første punktum, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, og fordi der ikke findes nogen alternativ løsning, træffer medlemsstaten de kompensationsforanstaltninger, der er nødvendige for at sikre, at den globale sammenhæng i Natura 2000 beskyttes (jf. dom af 20.9.2007, sag
+C-304/05, Kommissionen mod Italien, Sml. I, s. 7495
+, præmis 81, og dommen i sagen Solvay m.fl., præmis 72).
+35
+I denne henseende må habitatdirektivets artikel 6, stk. 4, eftersom denne bestemmelse er en undtagelse til det i denne artikels stk. 3, andet punktum, nævnte kriterium for at meddele tilladelse, kun finde anvendelse, efter at virkningerne af en plan eller et projekt er blevet undersøgt i henhold til bestemmelserne i det nævnte stk. 3 (jf. dommen i sagen Solvay m.fl., præmis 73 og 74).
+36
+Det følger heraf, at bestemmelserne i habitatdirektivets artikel 6, stk. 2-4, pålægger medlemsstaterne en række forpligtelser og særlige procedurer, der skal sikre, således som det fremgår af direktivets artikel 2, stk. 2, opretholdelse eller i givet fald genoprettelse af en gunstig bevaringsstatus for naturtyper og især for særlige bevaringsområder.
+37
+I denne henseende anses i henhold til habitatdirektivets artikel 1, litra e), en naturtypes bevaringsstatus for »gunstig«, bl.a. når det naturlige udbredelsesområde og de arealer, det dækker inden for dette område, er stabile eller i udbredelse, og den særlige struktur og de særlige funktioner, der er nødvendige for dets opretholdelse på lang sigt, er til stede og sandsynligvis fortsat vil være det i en overskuelig fremtid.
+38
+I denne sammenhæng har Domstolen allerede fastslået, at bestemmelserne i habitatdirektivet har til formål, at medlemsstaterne træffer passende beskyttelsesforanstaltninger for at kunne opretholde de økologiske kendetegn i de lokaliteter, hvor der forefindes naturtyper (jf. dom af 20.5.2010, sag
+C-308/08, Kommissionen mod Spanien, Sml. I, s. 4281
+, præmis 21, og ovennævnte dom af 24.11.2011, Kommissionen mod Spanien, præmis 163).
+39
+Følgelig kan det deraf sluttes, at den omstændighed, at en lokalitets integritet som naturtype ikke skades i den forstand, hvori begrebet anvendes i habitatdirektivets artikel 6, stk. 3, andet punktum, forudsætter, at lokaliteten opretholdes i en gunstig bevaringsstatus, hvilket indebærer, således som generaladvokaten har anført i punkt 54-56 i forslaget til afgørelse, en varig opretholdelse af de grundlæggende kendetegn ved den berørte lokalitet, der er knyttet til tilstedeværelsen af en naturtype, hvis bevaringsmålsætning har medført, at lokaliteten er blevet udpeget til at blive opført på listen over lokaliteter af fællesskabsbetydning som omhandlet i direktivet.
+40
+Tilladelsen til gennemførelsen af en plan eller et projekt i henhold til habitatdirektivets artikel 6, stk. 3, kan således kun udstedes på betingelse af, at de kompetente myndigheder, når de har identificeret alle de aspekter ved denne plan eller dette projekt, som i sig selv eller i kombination med andre planer eller projekter vil kunne indvirke på bevaringsmålsætningerne for den berørte lokalitet, og under hensyn til den seneste videnskabelige viden på området, har opnået vished for, at planen eller projektet ikke har varige skadelige virkninger for den berørte lokalitets integritet. Sådan forholder det sig, når det ud fra et videnskabeligt synspunkt uden rimelig tvivl kan fastslås, at der ikke er sådanne virkninger (jf. i denne retning ovennævnte dom af 24.11.2011, Kommissionen mod Spanien, præmis 99, og dommen i sagen Solvay m.fl., præmis 67).
+41
+Det bemærkes hertil, at myndigheden skal afvise at give tilladelse til en plan eller et projekt, når der er usikkerhed om, hvorvidt der vil være virkninger, der skader den pågældende lokalitets integritet, idet det kriterium for at give tilladelse, der er fastsat i habitatdirektivets artikel 6, stk. 3, andet punktum, integrerer forsigtighedsprincippet og gør det muligt effektivt at forebygge beskadigelser af beskyttede lokaliteters integritet, der skyldes påtænkte planer eller projekter. Et mindre strengt kriterium for at give tilladelse end det her omhandlede ville ikke lige så effektivt kunne sikre realiseringen af målsætningen om beskyttelse af de lokaliteter, som bestemmelsen vedrører (dommen i sagen Waddenvereniging og Vogelbeschermingsvereniging, præmis 57 og 58).
+42
+En sådan vurdering gælder så meget desto mere i hovedsagen, i det omfang den naturtype, der er berørt af det planlagte vejprojekt, omfatter prioriterede naturtyper, som direktivets artikel 1, litra d), definerer som »de naturtyper, der er i fare for at forsvinde«, for hvis bevaring Den Europæiske Union har et »særligt ansvar«.
+43
+De kompetente nationale myndigheder kan derfor ikke give tilladelse til indgreb, der indebærer en risiko for varig skade på de økologiske kendetegn i de lokaliteter, der omfatter prioriterede naturtyper. Dette ville bl.a. være tilfældet, når et indgreb medfører risiko for, at en prioriteret naturtype i den berørte lokalitet vil forsvinde eller blive delvist og uopretteligt ødelagt (jf. for så vidt angår prioriterede arters forsvinden ovennævnte dom af 20.5.2010, Kommissionen mod Spanien, præmis 21, og af 24.11.2011, Kommissionen mod Spanien, præmis 163).
+44
+For så vidt angår vurderingen i henhold til habitatdirektivets artikel 6, stk. 3, må det præciseres, at den ikke må medføre lakuner, og den skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl for så vidt angår virkningerne af de arbejder, der er påtænkt i den berørte beskyttede lokalitet (jf. i denne retning dom af 24.11.2011, Kommissionen mod Spanien, præmis 100 og den deri nævnte retspraksis). Det tilkommer den nationale ret at undersøge om vurderingen af virkningerne på lokaliteten opfylder disse krav.
+45
+Det bemærkes for så vidt angår hovedsagen, at lokaliteten af fællesskabsbetydning Lough Corrib er udpeget som lokalitet med en prioriteret naturtype bl.a. på grund af tilstedeværelsen af kalkstensplateauer, der er en naturlig ressource, som ikke kan erstattes, når den først er ødelagt. Henset til de ovenfor anførte kriterier svarer formålet om bevaring således til opretholdelsen af en gunstig bevaringsstatus for de grundlæggende kendetegn ved lokaliteten, dvs. tilstedeværelsen af kalkstensplateauer.
+46
+Hvis den nationale kompetente myndighed efter en passende vurdering af virkningerne af en plan eller et projekt på en lokalitet i henhold til habitatdirektivets artikel 6, stk. 3, første punktum, således konkluderer, at planen eller projektet medfører et varigt og uopretteligt tab af hele eller en del af en prioriteret naturtype, hvis bevaring har ligget til grund for udpegelsen af lokaliteten med henblik på optagelse på listen over lokaliteter af fællesskabsbetydning, må planen eller projektet anses for at skade den pågældende lokalitets integritet.
+47
+Under disse betingelser må der ikke gives tilladelse til planen eller projektet i henhold til den nævnte bestemmelse. Imidlertid kan den pågældende myndighed i en sådan situation i givet fald udstede en tilladelse i medfør af habitatdirektivets artikel 6, stk. 4, for så vidt som de betingelser, der er fastsat i bestemmelsen, er opfyldt (jf. i denne retning dommen i sagen Waddenvereniging og Vogelbeschermingsvereniging, præmis 60).
+48
+Det følger af ovenstående bemærkninger, at de forelagte spørgsmål skal besvares med, at habitatdirektivets artikel 6, stk. 3, skal fortolkes således, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for en lokalitets forvaltning, skader denne lokalitets integritet, hvis denne plan eller dette projekt vil kunne forhindre en varig opretholdelse af de grundlæggende kendetegn ved den berørte lokalitet, der er knyttet til tilstedeværelsen af en prioriteret naturtype, hvis bevaring har ligget til grund for udpegelsen af lokaliteten med henblik på optagelse på listen over lokaliteter af fællesskabsbetydning som omhandlet i dette direktiv. Forsigtighedsprincippet finder anvendelse ved en sådan vurdering.
+Sagens omkostninger
+49
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagens omkostninger. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Tredje Afdeling) for ret:
+Artikel 6, stk. 3, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter skal fortolkes således, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for en lokalitets forvaltning, skader denne lokalitets integritet, hvis denne plan eller dette projekt vil kunne forhindre en varig opretholdelse af de grundlæggende kendetegn ved den berørte lokalitet, der er knyttet til tilstedeværelsen af en prioriteret naturtype, hvis bevaring har ligget til grund for udpegelsen af lokaliteten med henblik på optagelse på listen over lokaliteter af fællesskabsbetydning som omhandlet i dette direktiv. Forsigtighedsprincippet finder anvendelse ved en sådan vurdering.
+Underskrifter
+(
+*1
+) – Processprog: engelsk.

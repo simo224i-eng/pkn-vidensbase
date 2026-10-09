@@ -59,6 +59,20 @@ containeren mindst 1,5 GB RAM, fordi korpus og indeks holdes i hukommelsen.
 Opstarten tager 1–2 minutter, mens kendelserne indlæses. Imens svarer
 `/health` med `loading`, og webappen viser en ventestatus.
 
+### Hugging Face Space (gratis, kun browser)
+
+Webappen kan køre gratis som Docker-Space på huggingface.co. Det kræver ingen
+installation. `deploy/huggingface/` indeholder `Dockerfile` og `README.md`, der
+kopieres til roden af Space'et. Imaget henter `ejnar/` fra GitHub (`main`) ved build.
+
+1. Opret et Space på huggingface.co/new-space med SDK **Docker** og skabelonen *Blank*.
+2. Upload de to filer fra `deploy/huggingface/` under *Files → Add file*.
+3. Tilføj secrets under *Settings → Variables and secrets*: `EJNAR_API_KEYS` (den
+   adgangskode, man skriver i webappen), `ANTHROPIC_API_KEY` og gerne
+   `LLM_MODEL = claude-sonnet-5-5`. Er GitHub-repoet privat, tilføjes også
+   `GITHUB_TOKEN` (et fine-grained token med læseadgang til repoet).
+4. Space'et bygger i ca. 5 minutter. Genbyg det (*Settings → Factory rebuild*) for at hente ny kode.
+
 | Miljøvariabel | Betydning |
 |---|---|
 | `EJNAR_API_KEYS` | Påkrævet. Kommaseparerede adgangsnøgler (bruges også til login i webappen) |

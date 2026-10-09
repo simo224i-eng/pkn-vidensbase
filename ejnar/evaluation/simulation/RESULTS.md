@@ -166,3 +166,11 @@ at give klager delvis medhold. Kun den samlede konklusion ramte ved siden af.
 - Svarkvaliteten med billigere modeller (fx Gemini Flash) bør måles ved at køre
   trin 3 i `README.md` med den model.
 - 8 sager er et lille udsnit. Kør simulationen igen efter større ændringer.
+
+## Miljøjuristen (screeningstjek), oktober 2026
+
+Den nye funktion Miljøjuristen (`miljoejurist/`) er testet separat: se
+[`miljoejurist/evaluation/RESULTS.md`](../../../miljoejurist/evaluation/RESULTS.md). Kort: på 30 rekonstruerede
+screeninger, som nævnene underkendte, pegede værktøjet (med sprogmodel) på nævnets egen begrundelse i 29;
+95 % af de prioriterede fund var relevante, og kilderne bar påstanden i 91 % (revideret af en AI-revisor).
+Uden sprogmodel finder regellaget kun omkring halvdelen og kan ikke skelne svage fra stærke screeninger.

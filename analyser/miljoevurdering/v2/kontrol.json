@@ -1,0 +1,14 @@
+{
+ "trin1": {
+  "sager": 157,
+  "citat_ok": 157
+ },
+ "trin2": {
+  "sager": 283,
+  "fejl": 539,
+  "citat_naevn_ok": 539,
+  "citat_myndighed": 107,
+  "citat_myndighed_ok": 107,
+  "ukendt_kategori": 0
+ }
+}

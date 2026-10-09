@@ -1,0 +1,403 @@
+62014CJ0399
+DOMSTOLENS DOM (Tredje Afdeling)
+14. januar 2016 (
+*1
+)
+»Præjudiciel forelæggelse — direktiv 92/43/EØF — artikel 6, stk. 2-4 — lokalitet, der er opført på listen over lokaliteter af fællesskabsbetydning efter tilladelsen til et projekt, men inden påbegyndelsen af udførelsen af dette — undersøgelse af projektet efter opførelsen af lokaliteten på den nævnte liste — krav til denne undersøgelse — konsekvenser af projektets afslutning for valget af alternativer«
+I sag C-399/14,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Bundesverwaltungsgericht (forbundsforvaltningsdomstolen, Tyskland) ved afgørelse af 6. marts 2014, indgået til Domstolen den 18. august 2014, i sagen:
+Grüne Liga Sachsen eV m.fl.
+mod
+Freistaat Sachsen,
+procesdeltagere:
+Landeshauptstadt Dresden,
+Vertreter des Bundesinteresses beim Bundesverwaltungsgericht
+har
+DOMSTOLEN (Tredje Afdeling)
+sammensat af formanden for Anden Afdeling, M. Ilešič, som fungerende formand for Tredje Afdeling, og dommerne C. Toader (refererende dommer) og E. Jarašiūnas,
+generaladvokat: E. Sharpston
+justitssekretær: fuldmægtig M. Aleksejev,
+på grundlag af den skriftlige forhandling og efter retsmødet den 17. juni 2015,
+efter at der er afgivet indlæg af:
+—
+Grüne Liga Sachsen eV m.fl. ved Rechtsanwalt M. Gellermann
+—
+Freistaat Sachsen ved Rechtsanwalt F. Fellenberg
+—
+den tjekkiske regering ved M. Smolek, som befuldmægtiget
+—
+Europa-Kommissionen ved C. Hermes og G. Wilms, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 24. september 2015,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 6, stk. 2-4, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter (
+EFT L 206, s. 7
+, herefter »habitatdirektivet«).
+2
+Anmodningen er blevet indgivet inden for rammerne af en sag mellem Grüne Liga Sachsen eV (herefter »Grüne Liga Sachsen«) m.fl. og Freistaat Sachsen (delstaten Sachsen) vedrørende en godkendelsesafgørelse truffet af delstaten Sachsens myndigheder vedrørende opførelsen af en bro over Elben i Dresden (Tyskland).
+Retsforskrifter
+EU-retten
+3
+I første betragtning til habitatdirektivet anføres:
+»Bevaring, beskyttelse og forbedring af kvaliteten af miljøet, herunder bevaring af naturtyper samt vilde dyr og planter, er et yderst vigtigt mål af almen interesse, som Fællesskabet forfølger, og som er anført i […] artikel [191 TEUF]«.
+4
+Tredje betragtning til dette direktiv er affattet således:
+»[D]a hovedformålet med dette direktiv er at fremme opretholdelsen af den biologiske diversitet under hensyntagen til økonomiske, sociale, kulturelle og regionale behov, bidrager det til en bæredygtig udvikling, hvilket er det overordnede mål; for at opretholde denne biologiske diversitet er det i visse tilfælde nødvendigt at opretholde eller endog at fremme udfoldelsen af menneskelige aktiviteter […]«
+5
+Habitatdirektivets artikel 1 bestemmer:
+»I dette direktiv forstås ved:
+[…]
+k)
+lokalitet af fællesskabsbetydning
+[herefter »LAF«]: en lokalitet, der i det eller de biogeografiske område(r), som den tilhører, bidrager væsentligt til at opretholde eller genoprette en gunstig bevaringsstatus for en af naturtyperne i bilag I eller for en af arterne i bilag II, og som også kan bidrage væsentligt til at sikre sammenhængen i Natura 2000, jf. artikel 3, og/eller som bidrager væsentligt til at opretholde den biologiske diversitet i det eller de pågældende biogeografiske område(r)
+[…]
+l)
+særligt bevaringsområde
+: [en LAF], som medlemsstaterne har udpeget ved en retsakt, en administrativ bestemmelse og/eller en aftale, og hvor der gennemføres de bevaringsforanstaltninger, der er nødvendige for at opretholde eller genoprette en gunstig bevaringsstatus for de naturtyper og/eller de arter, for hvilke lokaliteten er udpeget
+[…]«
+6
+Det nævnte direktivs artikel 3, stk. 1, fastætter:
+»Der oprettes et sammenhængende europæisk økologisk net af særlige bevaringsområder under betegnelsen Natura 2000. Dette net, der består af lokaliteter, der omfatter de naturtyper, der er nævnt i bilag I, og levesteder for de arter, der er nævnt i bilag II, skal sikre opretholdelse eller i givet fald genopretning af en gunstig bevaringsstatus for de pågældende naturtyper og levestederne for de pågældende arter i deres naturlige udbredelsesområde.
+[…]«
+7
+Habitatdirektivets artikel 4, stk. 1, første afsnit, bestemmer, at medlemsstaterne foreslår den liste over lokaliteter, som er nævnt i denne bestemmelse, på grundlag af kriterierne i dette direktivs bilag III (etape 1) og de relevante videnskabelige oplysninger.
+8
+I henhold til ordlyden af det nævnte direktivs artikel 4, stk. 1, andet afsnit, skal listen over de foreslåede lokaliteter sendes til Europa-Kommissionen inden tre år efter direktivets meddelelse sammen med oplysninger om hver lokalitet.
+9
+Ifølge habitatdirektivets artikel 4, stk. 2, opstiller Kommissionen i forståelse med hver af medlemsstaterne og på grundlag af medlemsstaternes lister et udkast til en liste over LAF, hvoraf det fremgår, på hvilke lokaliteter der findes en eller flere prioriterede naturtyper, eller hvor der lever en eller flere prioriterede arter.
+10
+Habitatdirektivets artikel 4, stk. 5, har følgende ordlyd:
+»Så snart en lokalitet er opført på listen i stk. 2, tredje afsnit, er den omfattet af artikel 6, stk. 2, 3 og 4.«
+11
+Direktivets artikel 6 fastsætter:
+»1. For de særlige bevaringsområder iværksætter medlemsstaterne de nødvendige bevaringsforanstaltninger, hvilket i givet fald kan indebære hensigtsmæssige forvaltningsplaner, som er specifikke for lokaliteterne eller integreret i andre udviklingsplaner, samt de relevante retsakter, administrative bestemmelser eller aftaler, der opfylder de økologiske behov for naturtyperne i bilag I og de arter i bilag II, der findes på lokaliteterne.
+2. Medlemsstaterne træffer passende foranstaltninger for at undgå forringelse af naturtyperne og levestederne for arterne i de særlige bevaringsområder samt forstyrrelser af de arter, for hvilke områderne er udpeget, for så vidt disse forstyrrelser har betydelige konsekvenser for dette direktivs målsætninger.
+3. Alle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som i sig selv eller i forbindelse med andre planer og projekter kan påvirke en sådan lokalitet væsentligt, vurderes med hensyn til deres virkninger på lokaliteten under hensyn til bevaringsmålsætningerne for denne. På baggrund af konklusionerne af vurderingen af virkningerne på lokaliteten, og med forbehold af stk. 4, giver de kompetente nationale myndigheder først deres tilslutning til en plan eller et projekt, når de har sikret sig, at den/det ikke skader lokalitetens integritet, og når de – hvis det anses for nødvendigt – har hørt offentligheden.
+4. Hvis en plan eller et projekt, på trods af at virkningerne på lokaliteten vurderes negativt, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, fordi der ikke findes nogen alternativ løsning, træffer medlemsstaten alle nødvendige kompensationsforanstaltninger for at sikre, at den globale sammenhæng i Natura 2000 beskyttes. Medlemsstaten underretter Kommissionen om, hvilke kompensationsforanstaltninger der træffes.
+Hvis der er tale om en lokalitet med en prioriteret naturtype og/eller en prioriteret art, kan der alene henvises til hensynet til menneskers sundhed og den offentlige sikkerhed eller væsentlige gavnlige virkninger på miljøet, eller, efter udtalelse fra Kommissionen, andre bydende nødvendige hensyn til væsentlige samfundsinteresser.«
+Tysk ret
+12
+§ 80 i lov om forvaltningsretspleje (Verwaltungsgerichtsordnung) fastsætter:
+»(1) En indsigelse eller et annullationssøgsmål har opsættende virkning. […]
+(2) Den opsættende virkning bortfalder kun
+[…]
+3.
+i andre tilfælde, der er foreskrevet ved forbundslovgivningen eller delstatslovgivningen ved delstatslov, […]
+[…]
+(5) Den ret, der skal tage stilling til sagens realitet, kan på begæring helt eller delvist anordne den opsættende virkning i de tilfælde, der er fastsat i stk. 2, nr. 1-3, […]
+[…]«
+13
+§ 39 i delstaten Sachsens vejlov (Sächsisches Straßengesetz) med overskriften »Plangodkendelse« fastsætter i stk. 10:
+»En klage over en godkendelsesafgørelse […] har ingen opsættende virkning.«
+14
+§ 22b, stk. 1-3, i delstaten Sachsens naturbeskyttelseslov (Sächsisches Naturschutzgesetz) i sin affattelse af 11. oktober 1994, som gennemfører habitatdirektivets artikel 6, stk. 3 og 4, fastsætter i det væsentlige, at der, før der gives tilladelse til eller gennemføres et projekt, skal foretages en vurdering med hensyn til dets virkninger på LAF’er eller de europæiske fuglebeskyttelsesområder under hensyn til bevaringsmålsætningerne for disse lokaliteter. Hvis det følger af vurderingen af virkningerne på en lokalitet som omhandlet i denne lovs § 1, første punktum, at projektet kan skade denne lokalitet alvorligt i dens væsentlige bestanddele, der er nødvendige for bevaringsmålsætningerne eller beskyttelsesmålsætningerne, er projektet forbudt. Som en undtagelse herfra kan et sådant projekt kun tillades eller gennemføres, hvis det er nødvendigt af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, og hvis der ikke findes andre tilfredsstillende løsninger, der ville gøre det muligt at nå det med projektet ønskede resultat på en anden lokalitet uden at medføre nogen skade eller mindre alvorlige skader.
+15
+I kapitel 3.3 i »vejledning i anvendelse af bestemmelserne vedrørende oprettelse og beskyttelse af det europæiske økologiske net Natura 2000« (»Arbeitshilfe zur Anwendung der Vorschriften zum Aufbau und Schutz des Europäischen ökologischen Netzes Natura 2000«), som de kompetente myndigheder på området i Sachsen er forpligtede til at overholde i henhold til landbrugs- og miljøministerens i Sachsens bekendtgørelse nr. 61-8830.10/6 af 27. marts 2003, er anført:
+16
+Ved bekendtgørelse nr. 62-8830.10-6 af 12. maj 2003 erklærede landbrugs- og miljøministeren i delstaten Sachsen, at de foreløbige bevarelsesmålsætninger for de LAF’er, der var blevet foreslået i overensstemmelse med habitatdirektivet, som den myndighed i delstatens Sachsen, der var ansvarlig for miljø og geologi (Sächsisches Landesamt für Umwelt und Geologie), havde opstillet, var obligatoriske. Denne bekendtgørelse, der bl.a. henvendte sig til den myndighed, som skulle godkende planerne for opførelsen af broen kaldet »Waldschlößchenbrücke«, præciserer:
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+17
+Den 25. februar 2004 godkendte regeringspræsidiet i Dresden (Regierungspräsidium Dresden), nu det regionale direktorat i Dresden (Landesdirektion Dresden), som er en myndighed under sagsøgte i hovedsagen, planerne for opførelsen af vejbroen Waldschlößchenbrücke, som går over Elbens flodenge (Elbauen) og selve Elben i den indre by i Dresden.
+18
+Godkendelsesafgørelsen vedrørende de nævnte planer, som kunne fuldbyrdes straks, var støttet på en undersøgelse om indvirkning på dyr, planter og naturtyper fra januar 2003 om virkningerne af projektet med opførelsen af den nævnte bro på beskyttelses- og bevaringsmålsætningerne for lokaliteten kaldet »Elbdalen mellem Schöna og Mühlberg« (»Elbtal zwischen Schöna und Mühlberg«).
+19
+Ved denne undersøgelse – hvori det blev konkluderet, at projektet med den i hovedsagen omhandlede opførelse ikke indebar alvorlige negative eller varige virkninger på den nævnte lokalitets bevaringsformål – tilsigtede den kompetente myndighed at støtte sig på kravene i habitatdirektivets artikel 6, stk. 3 og 4. Ifølge de oplysninger, som den forelæggende ret er fremkommet med, opfyldte den nævnte undersøgelse imidlertid ikke de nævnte krav, men udgjorde alene en forudgående vurdering af risiciene.
+20
+Den 15. april 2004 anlagde Grüne Liga Sachsen, som er en naturbeskyttelsesforening, der har kompetence til at anlægge sag, et annullationssøgsmål til prøvelse af godkendelsesafgørelsen vedrørende planerne af 25. februar 2004, som i henhold til § 80, stk. 2, nr. 3, i lov om forvaltningsretspleje, sammenholdt med § 39 i delstaten Sachsens vejlov, ikke havde opsættende virkning. Parallelt med denne sag indgav Grüne Liga Sachsen en begæring om, at der på grundlag af § 80, stk. 5, i lov om forvaltningsretspleje blev anordnet foreløbige forholdsregler med henblik på at forhindre arbejdets påbegyndelse.
+21
+I december måned 2004 opførte Kommissionen lokaliteten Elbdalen mellem Schöna og Mühlberg som LAF på den liste, der er fastsat i habitatdirektivets artikel 4.
+22
+Ved bekendtgørelse af 19. oktober 2006 erklærede regeringspræsidiet i Dresden den nævnte lokalitet – bortset fra den del af Elbens flodenge, der ligger i den indre by i Dresden – for europæisk fuglebeskyttelsesområde.
+23
+Arbejdet med vejbroen Waldschlößchenbrücke begyndte i november måned 2007, efter at Sächsisches Oberverwaltungsgericht (den øverste forvaltningsdomstol i delstaten Sachsen) ved afgørelse af 12. november 2007 endeligt havde afslået den begæring om, at der blev anordnet foreløbige forholdsregler, som Grüne Liga Sachsen havde indgivet.
+24
+Ved en supplerende ændringsafgørelse af 14. oktober 2008 foretog det regionale direktorat i Dresden en ny vurdering, der var begrænset til de virkninger, der var forbundet med det i hovedsagen omhandlede projekt, idet vurderingens formål var at undersøge, i første omgang om dette projekt kunne påvirke den pågældende lokalitet væsentligt som omhandlet i habitatdirektivets artikel 6, stk. 3, og i anden omgang om betingelserne for en undtagelse som omhandlet i samme artikels stk. 4 var opfyldt for så vidt angår de identificerede negative virkninger vedrørende visse natursteder og arter. Denne vurdering resulterede i, at det nævnte projekt blev tilladt ved den undtagelsesprocedure, der er fastsat i dette direktivs artikel 6, stk. 4, idet der blev anordnet yderligere foranstaltninger.
+25
+Ved dom af 15. december 2011 frifandt Sächsisches Oberverwaltungsgericht (den øverste forvaltningsdomstol i delstaten Sachsen) den sagsøgte i det annullationssøgsmål, som Grüne Liga Sachsen havde anlagt den 15. april 2004.
+26
+Den nævnte forening har herefter indgivet revisionsanke til Bundesverwaltungsgericht (forbundsforvaltningsdomstolen).
+27
+Arbejdet med opførelsen af den nævnte bro blev afsluttet i løbet af 2013. Den blev åbnet for trafik samme år.
+28
+Den forelæggende ret er i det væsentlige af den opfattelse, at afgørelsen i den sag, som den skal behandle, forudsætter en besvarelse af spørgsmålet, under hvilke betingelser et projekt, som der er givet tilladelse til før opførelsen af den pågældende lokalitet på listen over LAF, skal gøres til genstand for en efterfølgende fornyet undersøgelse af dens virkninger i overensstemmelse med habitatdirektivets artikel 6, stk. 2, og hvilke kriterier der i så fald skal anvendes. Den forelæggende ret har forklaret, at disse præciseringer er nødvendige, for at den kan efterprøve lovligheden af den supplerende procedure, der blev gennemført i 2008.
+29
+På denne baggrund har Bundesverwaltungsgericht (forbundsforvaltningsdomstolen) besluttet at udsætte sagen og at forelægge Domstolen følgende præjudicielle spørgsmål:
+»1)
+Skal [habitatdirektivets] artikel 6, stk. 2, [...] fortolkes således, at der er pligt til at undersøge indvirkningen på miljøet fra et brobygningsprojekt, [der ikke direkte tjener forvaltningen af en lokalitet,] inden byggeriet udføres, når projektet var blevet godkendt, inden området omkring broen blev optaget på listen over lokaliteter af fællesskabsbetydning, når det pågældende område blev opført på listen over lokaliteter af fællesskabsbetydning efter godkendelsen, men inden påbegyndelse af byggearbejdet, og når der kun var blevet foretaget en risikovurdering/forundersøgelse inden udstedelsen af godkendelsen?
+2)
+Såfremt spørgsmål 1 besvares bekræftende, spørges:
+Skal den nationale myndighed i forbindelse med den efterfølgende [fornyede] undersøgelse allerede overholde kravene i [habitatdirektivets] artikel 6, stk. 3 og 4, hvis den af forsigtighedsmæssige hensyn ville lægge disse til grund ved den risikovurdering/forundersøgelse, der blev foretaget inden udstedelse af godkendelsen?
+3)
+Såfremt spørgsmål 1 besvares bekræftende og spørgsmål 2 benægtende, spørges:
+Hvilke krav skal der i henhold til [habitatdirektivets] artikel 6, stk. 2, stilles til en efterfølgende [fornyet] undersøgelse af en godkendelse af et projekt, og hvilket tidspunkt skal undersøgelsen tage afsæt i?
+4)
+Skal der inden for rammerne af en supplerende procedure, som har til formål at afhjælpe en fejl ved en efterfølgende [fornyet] undersøgelse i henhold til [habitatdirektivets] artikel 6, stk. 2, eller en vurdering af virkningerne på lokaliteten i henhold til [habitatdirektivets] artikel 6, stk. 3, gennem relevante ændringer af vurderingskravene tages hensyn til, at bygningsværket kunne opføres og tages i brug, fordi godkendelsesafgørelsen kunne fuldbyrdes med det samme, og det ved en afgørelse, som ikke kan anfægtes, var blevet afvist at anordne foreløbige forholdsregler? Gælder dette i hvert fald for så vidt angår en undersøgelse af alternative løsningsmuligheder, der senere bliver nødvendig, og som foretages inden for rammerne af [habitatdirektivets] artikel 6, stk. 4?«
+Om de præjudicielle spørgsmål
+Det første spørgsmål
+30
+Med det første spørgsmål ønsker den forelæggende ret nærmere bestemt oplyst, om habitatdirektivets artikel 6, stk. 2, skal fortolkes således, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for en lokalitets forvaltning, og som er blevet tilladt, efter en undersøgelse, der ikke opfylder kravene i dette direktivs artikel 6, stk. 3, før opførelsen af den pågældende lokalitet på listen over LAF, fra de kompetente myndigheders side skal gøres til genstand for en efterfølgende undersøgelse af sine virkninger på denne lokalitet forud for sin udførelse.
+31
+For at give den forelæggende ret et nyttigt svar skal det først undersøges, om habitatdirektivets artikel 6, stk. 2, finder anvendelse på de faktiske omstændigheder i hovedsagen. Derefter skal det undersøges, om der på grundlag af denne bestemmelse kan være en forpligtelse til at foretage en efterfølgende undersøgelse af virkningerne på den pågældende lokalitet af et projekt som det i hovedsagen omhandlede.
+32
+Ifølge habitatdirektivets artikel 4, stk. 5, som fortolket af Domstolen, er de beskyttelsesforanstaltninger, som er fastsat i dette direktivs artikel 6, stk. 2-4, kun påkrævet i forhold til de lokaliteter, som i overensstemmelse med det nævnte direktivs artikel 4, stk. 2, tredje afsnit, er opført på listen over lokaliteter, der er udvalgt som LAF, som Kommissionen har vedtaget ifølge den procedure, der er omhandlet i samme direktivs artikel 21 (domme Dragaggi m.fl.,
+C-117/03
+,
+EU:C:2005:16
+, præmis
+25
+, og Bund Naturschutz in Bayern m.fl.,
+C-244/05
+,
+EU:C:2006:579
+, præmis
+36
+).
+33
+Domstolen har imidlertid udtalt, at selv hvis et projekt er blevet tilladt, inden den med habitatdirektivets indførte beskyttelsesordning fandt anvendelse på den pågældende lokalitet, og et sådant projekt derfor ikke var underlagt bestemmelserne i dette direktivs artikel 6, stk. 3, om den forudgående vurdering af projektets indvirkninger, er udførelsen af projektet ikke desto mindre omfattet af det nævnte direktivs artikel 6, stk. 2 (jf. i denne retning domme Stadt Papenburg,
+C-226/08
+,
+EU:C:2010:10
+, præmis
+48
+og
+49
+, og Kommissionen mod Spanien,
+C-404/09
+,
+EU:C:2011:768
+, præmis
+124
+og
+125
+).
+34
+I det foreliggende tilfælde følger det af kronologien af de faktiske omstændigheder i hovedsagen, at opførelsen af broen Waldschlößchenbrücke fandt sted mellem 2007 og 2013, dvs. efter opførelsen af den pågældende lokalitet på listen over LAF’er i december måned 2004. Henset til den retspraksis, der er nævnt i nærværende doms præmis 32 og 33, skal det udledes, at udførelsen af dette projekt efter denne opførelse på listen er omfattet af habitatdirektivets artikel 6, stk. 2.
+35
+Hvad angår spørgsmålet, om habitatdirektivets artikel 6, stk. 2, fastsætter en forpligtelse til at foretage en fornyet prøvelse af virkningerne af en plan eller et projekt såsom det i hovedsagen omhandlede, der er blevet godkendt før opførelsen af den pågældende lokalitet på listen over LAF’er på grundlag af en forudgående undersøgelse af risiciene, der ikke er i overensstemmelse med kravene i dette direktivs artikel 6, stk. 3, skal det fastslås, at en sådan forpligtelse ikke kan udledes utvetydigt af ordlyden af den nævnte artikel 6, stk. 2.
+36
+Til forskel fra habitatdirektivets artikel 6, stk. 3, som ifølge sin ordlyd indfører en procedure med henblik på ved hjælp af en forudgående kontrol at sikre, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for lokalitetens forvaltning, men som kan påvirke en sådan lokalitet væsentligt, alene tillades, såfremt denne plan eller dette projekt ikke skader lokalitetens integritet (jf. i denne retning dom Sweetman m.fl.,
+C-258/11
+,
+EU:C:2013:220
+, præmis
+28
+og den deri nævnte retspraksis), fastætter dette direktivs artikel 6, stk. 2, ikke udtrykkeligt præcise beskyttelsesforanstaltninger, såsom en forpligtelse til at undersøge eller at foretage en fornyet undersøgelse af en plans eller et projekts virkninger på naturtyperne og arterne.
+37
+Denne bestemmelse fastsætter en forpligtelse til generel beskyttelse, der tilsigter, at der træffes passende beskyttelsesforanstaltninger for at undgå en forringelse og forstyrrelser, der kan få væsentlige virkninger med hensyn til dette direktivs målsætninger (jf. i denne retning domme Waddenvereniging og Vogelbeschermingsvereniging,
+C-127/02
+,
+EU:C:2004:482
+, præmis
+38
+, Kommissionen mod Italien,
+C-304/05
+,
+EU:C:2007:532
+, præmis
+92
+, og Sweetman m.fl.,
+C-258/11
+,
+EU:C:2013:220
+, præmis
+33
+). Som generaladvokaten har anført i punkt 43 i forslaget til afgørelse, er denne forpligtelse løbende.
+38
+Hvad angår projekter, som ikke opfylder de krav, der følger af habitatdirektivets artikel 6, stk. 3, har Domstolen allerede udtalt, at en forpligtelse til efterfølgende kontrol af virkninger af bestående planer og projekter på den pågældende lokalitet kan være støttet på dette direktivs artikel 6, stk. 2 (jf. i denne retning dom Kommissionen mod Det Forenede Kongerige,
+C-6/04
+,
+EU:C:2005:626
+, præmis
+57
+og
+58
+).
+39
+Som generaladvokaten har anført i punkt 48 og 49 i forslaget til afgørelse, kan der imidlertid ikke deri ligge en absolut forpligtelse til at foretage en sådan efterfølgende kontrol.
+40
+Ordene »passende foranstaltninger«, der er indeholdt i habitatdirektivets artikel 6, stk. 2, indebærer nemlig, at medlemsstaterne har en skønsmargen ved anvendelsen af denne bestemmelse.
+41
+Det skal imidlertid bemærkes, at en virksomhed kun er i overensstemmelse med habitatdirektivets artikel 6, stk. 2, hvis det sikres, at den ikke medfører forstyrrelser, der mærkbart vil kunne påvirke direktivets formål, navnlig de bevarelsesmålsætninger, som det forfølger (dom Kommissionen mod Spanien,
+C-404/09
+,
+EU:C:2011:768
+, præmis
+126
+og den deri nævnte retspraksis).
+42
+Domstolen har ligeledes udtalt, at selve eksistensen af en sandsynlighed eller en risiko for, at en økonomisk aktivitet på en beskyttet lokalitet medfører væsentlige forstyrrelser for en art, kan udgøre en tilsidesættelse af habitatdirektivets artikel 6, stk. 2, uden at det skal bevises, at der er en årsagsforbindelse mellem denne aktivitet og den væsentlige forstyrrelse af den beskyttede art (jf. i denne retning dom Kommissionen mod Spanien,
+C-404/09
+,
+EU:C:2011:768
+, præmis
+142
+og den deri nævnte retspraksis).
+43
+Udførelsen af et projekt, der kan påvirke den pågældende lokalitet væsentligt, og som ikke, før det blev tilladt, var undergivet en vurdering i overensstemmelse med kravene i habitatdirektivets artikel 6, stk. 3, kan efter indførelsen af denne lokalitet på listen over LAF’er følgelig kun fortsættes på den betingelse, at sandsynligheden eller risikoen for forringelse af levesteder eller forstyrrelser, der berører arter, som kan påvirke lokaliteten væsentligt i betragtning af formålene med dette direktiv, udelukkes.
+44
+Når en sådan sandsynlighed eller en sådan risiko kan opstå, fordi der ikke som »passende foranstaltning« som omhandlet i habitatdirektivets artikel 6, stk. 2, er blevet foretaget en efterfølgende undersøgelse af virkningerne af en plan eller et projekt på den pågældende lokalitet på grundlag af den bedste videnskabelige viden, giver den forpligtelse til generel beskyttelse, som er nævnt i nærværende doms præmis 37, sig til udtryk i en forpligtelse til at foretage denne undersøgelse.
+45
+Det påhviler den nationale ret på grundlag af de oplysninger, som denne har til rådighed og selv skal bedømme, at undersøge, om en ny vurdering af en plan eller et projekt, som kan påvirke en LAF, udgør den eneste passende foranstaltning som omhandlet i habitatdirektivets artikel 6, stk. 2, for at undgå sandsynligheden eller risikoen for forringelse af levesteder eller forstyrrelser, der berører arter, som kan påvirke lokaliteten væsentligt i betragtning af formålene med dette direktiv.
+46
+Henset til de ovenstående betragtninger skal det første spørgsmål besvares med, at habitatdirektivets artikel 6, stk. 2, skal fortolkes således, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for en lokalitets forvaltning, og som er blevet tilladt, efter en undersøgelse, der ikke opfylder kravene i dette direktivs artikel 6, stk. 3, før opførelsen af den pågældende lokalitet på listen over LAF, fra de kompetente myndigheders side skal gøres til genstand for en efterfølgende undersøgelse af sine virkninger på denne lokalitet, hvis denne undersøgelse udgør den eneste passende foranstaltning for at undgå, at udførelsen af den nævnte plan eller det nævnte projekt medfører en forringelse eller forstyrrelser, som kan påvirke lokaliteten væsentligt i betragtning af formålene med dette direktiv. Det påhviler den forelæggende ret at efterprøve, om disse betingelser er opfyldt.
+Det tredje spørgsmål
+47
+Med det tredje spørgsmål, som herefter skal behandles, ønsker den forelæggende ret nærmere bestemt oplyst, hvilke krav en efterfølgende undersøgelse, som er foretaget i henhold til habitatdirektivets artikel 6, stk. 2, vedrørende virkningerne på den pågældende lokalitet af en plan eller et projekt, hvis udførelse er påbegyndt efter indførelsen af denne lokalitet på listen over LAF, skal opfylde. Den forelæggende ret ønsker ligeledes oplyst, hvilket tidspunkt undersøgelsen skal tage afsæt i.
+48
+Indledningsvis bemærkes, at habitatdirektivets artikel 6, stk. 3, integrerer forsigtighedsprincippet og gør det muligt effektivt at forebygge, at beskyttede lokaliteters integritet skades som følge af påtænkte planer eller projekter. Et mindre strengt kriterium for at give tilladelse ville ikke lige så effektivt kunne sikre realiseringen af målsætningen om beskyttelse af de lokaliteter, som bestemmelsen vedrører (dom Briels m.fl.,
+C-521/12
+,
+EU:C:2014:330
+, præmis
+26
+og den deri nævnte retspraksis).
+49
+Ifølge fast retspraksis indebærer den passende vurdering af en plans eller et projekts indvirkninger på den pågældende lokalitet, som skal være foretaget i henhold til den nævnte artikel 6, stk. 3, at alle de aspekter af den omhandlede plan eller det omhandlede projekt, som i sig selv eller i forbindelse med andre planer eller projekter kan påvirke bevaringsmålsætningen for denne lokalitet, skal identificeres under hensyn til den bedste videnskabelige viden på området (jf. i denne retning dommeKommissionen mod Frankrig,
+C-241/08
+,
+EU:C:2010:114
+, præmis
+69
+, Kommissionen mod Spanien,
+C-404/09
+,
+EU:C:2011:768
+, præmis
+99
+, og Nomarchiaki Aftodioikisi Aitoloakarnanias m.fl.,
+C-43/10
+,
+EU:C:2012:560
+, præmis
+112
+og
+113
+)
+50
+Vurderingen i henhold til habitatdirektivets artikel 6, stk. 3, må ikke medføre lakuner og skal indeholde fuldstændige, præcise og endelige konstateringer og konklusioner, der kan fjerne enhver rimelig videnskabelig tvivl for så vidt angår virkningerne af de arbejder, som var påtænkt i den pågældende beskyttede lokalitet (dom Briels m.fl.,
+C-521/12
+,
+EU:C:2014:330
+, præmis
+27
+).
+51
+Derimod definerer ordlyden af habitatdirektivets artikel 6, stk. 2, ikke noget særligt kriterium for gennemførelsen af de foranstaltninger, der skal træffes på grundlag af denne bestemmelse.
+52
+Det skal imidlertid bemærkes, at bestemmelserne i habitatdirektivets artikel 6, stk. 2 og 3, skal fortolkes som et sammenhængende hele med hensyn til bevaringsmålsætningerne i direktivet, og at disse bestemmelser har til formål at sikre samme beskyttelsesniveau for naturtyper og levesteder for arterne (jf. i denne retning domme Sweetman m.fl.,
+C-258/11
+,
+EU:C:2013:220
+, præmis
+32
+, og Briels m.fl.,
+C-521/12
+,
+EU:C:2014:330
+, præmis
+19
+).
+53
+Når habitatdirektivets artikel 6, stk. 2, medfører en forpligtelse til at foretage en efterfølgende undersøgelse af virkningerne på den pågældende lokalitet af en plan eller et projekt, skal en sådan undersøgelse sætte den kompetente myndighed i stand til at sikre, at udførelsen af den nævnte plan eller det nævnte projekt ikke vil medføre en forringelse eller forstyrrelser, der kan have betydelige konsekvenser for dette direktivs målsætninger.
+54
+Hvis en efterfølgende undersøgelse på grundlag af habitatdirektivets artikel 6, stk. 2, i det foreliggende tilfælde skulle vise sig at være en »passende foranstaltning« som omhandlet i denne bestemmelse, skal denne undersøgelse derfor på detaljeret måde definere, hvilke risici for ødelæggelse eller forstyrrelser, som kan have betydelige konsekvenser som omhandlet i den nævnte bestemmelse, udførelsen af den pågældende plan eller det pågældende projekt medfører, og være foretaget i overensstemmelse med kravene i dette direktivs artikel 6, stk. 3.
+55
+Det skal i øvrigt bemærkes, at det ifølge Domstolens praksis ikke kan udelukkes, at en medlemsstat analogt med undtagelsesproceduren i habitatdirektivets artikel 6, stk. 4, påberåber sig bydende nødvendige hensyn til væsentlige samfundsinteresser, og at den, såfremt betingelserne i denne bestemmelse er opfyldt i tilstrækkelig grad, kan tillade en plan eller et projekt, der ellers havde kunnet anses for forbudt i henhold til artikel 6, stk. 2 (jf. i denne retning dom Kommissionen mod Spanien,
+C-404/09
+,
+EU:C:2011:768
+, præmis
+156
+).
+56
+En undersøgelse, der opfylder kravene i habitatdirektivets artikel 6, stk. 3, er analogt med habitatdirektivets artikel 6, stk. 4, nødvendig i alle de tilfælde, hvor et projekt, der er uforeneligt med bevarelsesmålsætningerne for den pågældende lokalitet, skal udføres af bydende nødvendige hensyn til væsentlige samfundsinteresser (jf. i denne retning dom Nomarchiaki Aftodioikisi Aitoloakarnanias m.fl.,
+C-43/10
+,
+EU:C:2012:560
+, præmis
+114
+).
+57
+Den nævnte artikel 6, stk. 4, kan nemlig kun finde anvendelse, efter at en plans eller et projekts indvirkninger er blevet analyseret i henhold til habitatdirektivets artikel 6, stk. 3. Kendskab til disse indvirkninger på bevaringsmålsætningen for den pågældende lokalitet er således en nødvendig forudsætning for, at dette direktivs artikel 6, stk. 4, kan finde anvendelse, eftersom man ikke kan vurdere betingelserne for denne undtagelsesbestemmelse, hvis disse forhold ikke foreligger. Undersøgelsen af eventuelle bydende nødvendige hensyn til væsentlige samfundsinteresser og spørgsmålet om eksistensen af mindre skadelige alternativer kræver nemlig en afvejning i forhold til den påtænkte plans eller det påtænkte projekts påvirkning af lokaliteten. Endvidere skal påvirkningerne af lokaliteten identificeres præcist, for at eventuelle kompensationsforanstaltninger kan fastlægges (dom Solvay m.fl.,
+C-182/10
+,
+EU:C:2012:82
+, præmis
+74
+).
+58
+Hvad angår det tidspunkt, som en efterfølgende undersøgelse som den, der er nævnt i nærværende doms præmis 54, skal tage afsæt i, skal det bemærkes, at det følger af habitatdirektivets artikel 4, stk. 5, at en lokalitet først er beskyttet i henhold til dette direktiv fra det tidspunkt, hvor den er opført på listen over LAF.
+59
+En foranstaltning truffet på grundlag af dette direktivs artikel 6, stk. 2, kan derfor ikke vedrøre et tidspunkt fra en periode, hvor den pågældende lokalitet ikke var på listen over LAF.
+60
+Formålet med denne bestemmelse kunne i øvrigt kun ufuldstændigt nås, hvis en sådan foranstaltning hvilede på en bevaringsstatus for levesteder og arter, der ikke tager hensyn til eller som skjuler oplysninger, der har medført eller som kan fortsætte med at medføre en forringelse eller væsentlige forstyrrelser efter tidspunktet for opførelsen af den pågældende lokalitet på den nævnte liste.
+61
+Det følger heraf, at en procedure om efterfølgende undersøgelse af en plan eller et projekt, der kan påvirke den pågældende lokalitet væsentligt, som er blevet nødvendig i henhold til habitatdirektivets artikel 6, stk. 2, skal tage hensyn til alle de oplysninger, der foreligger på tidspunktet for opførelsen af denne lokalitet på listen over LAF, og til alle de indvirkninger, der er indtrådt eller kan indtræde som følge af en delvis eller hel udførelse af denne plan eller dette projekt på den pågældende lokalitet efter dette tidspunkt.
+62
+Henset til de ovenstående betragtninger skal det tredje spørgsmål besvares med, at habitatdirektivets artikel 6, stk. 2, skal fortolkes således, at hvis en efterfølgende undersøgelse af indvirkninger på den pågældende lokalitet af en plan eller et projekt, hvis udførelse er påbegyndt efter opførelsen af denne lokalitet på listen over LAF, under omstændigheder som de i hovedsagen omhandlede viser sig at være nødvendig, skal denne undersøgelse foretages i overensstemmelse med kravene i dette direktivs artikel 6, stk. 3. En sådan undersøgelse skal tage hensyn til alle de oplysninger, der forelå på tidspunktet for denne opførelse, og til alle de indvirkninger, der er indtrådt eller kan indtræde som følge af en delvis eller hel udførelse af denne plan eller dette projekt på den pågældende lokalitet efter dette tidspunkt.
+Det andet spørgsmål
+63
+Henset til besvarelsen af det tredje spørgsmål, hvoraf det følger, at den kompetente administrative myndighed, for så vidt som der er tale om en efterfølgende undersøgelse som den i hovedsagen omhandlede, er bundet af kravene i habitatdirektivets artikel 6, stk. 3, er det ufornødent at besvare det andet forelagte spørgsmål.
+Det fjerde spørgsmål
+64
+Med det fjerde spørgsmål ønsker den forelæggende ret nærmere bestemt oplyst, om habitatdirektivet skal fortolkes således, at kravene til en kontrol foretaget inden for rammerne af en ny undersøgelse af indvirkningerne på den pågældende lokalitet – når der er foretaget en sådan undersøgelse for at afhjælpe fejl, som er blevet konstateret vedrørende den forudgående vurdering, der er blevet foretaget før opførelsen af denne lokalitet på listen over LAF’er, eller vedrørende den efterfølgende undersøgelse i henhold til habitatdirektivets artikel 6, stk. 2, selv om planen eller projektet allerede var blevet udført – kan være ændrede som følge af, at godkendelsesafgørelsen for denne plan eller dette projekt kunne fuldbyrdes straks, at en begæring om, at der blev anordnet foreløbige forholdsregler, var blevet afslået, og at denne afgørelse om afslag ikke længere kunne anfægtes.
+65
+Denne ret ønsker ligeledes oplyst, om habitatdirektivets artikel 6, stk. 4, skal fortolkes således, at kravene til den kontrol, der foretages inden for rammerne af undersøgelsen af alternative løsninger, kan være ændrede af den grund, at planen eller projektet allerede er blevet udført.
+66
+Som det følger af præmisserne i forelæggelseskendelsen, er den forelæggende ret af den opfattelse, at det ganske vist ikke ville have været muligt ved en senere undersøgelse af alternativer at tage hensyn til det forhold, at den i hovedsagen omhandlede bro allerede var blevet opført på grundlag af en tilladelse, men at den omstændighed, at godkendelsesafgørelsen med hensyn til dette arbejde blev fuldbyrdet straks, ikke blot medførte en uberegnelig risiko for dette arbejde og dets ansvarlige, som klart ikke var ønsket af lovgiver, men også, at der ikke ville blive taget fuldt ud hensyn til de økonomiske og økologiske konsekvenser, der var forbundet med en efterfølgende gennemførelse af et alternativ. Den forelæggende ret er derfor i tvivl om, hvorvidt den i undersøgelsen af alternativer kan medtage de omkostninger, økologiske indvirkninger – navnlig på de ved habitatdirektivets beskyttede levesteder og arter – og økonomiske konsekvenser, der er knyttet til indstillingen af et arbejde, hvis konstruktion der allerede er blevet givet tilladelse til, og som er blevet gennemført.
+67
+I denne henseende skal det, således som det fremgår af nærværende doms præmis 54, bemærkes, at en efterfølgende undersøgelse, der er støttet på habitatdirektivets artikel 6, stk. 2, skal opfylde kravene i habitatdirektivets artikel 6, stk. 3.
+68
+Disse krav kan ikke ændres alene af den grund, at det omhandlede arbejde er blevet udført i henhold til en godkendelsesafgørelse, der straks kan fuldbyrdes i henhold til national ret, eller af den grund, at en begæring om, at der anordnes foreløbige forholdsregler med henblik på at hindre påbegyndelsen af det således tilladte arbejde, er blevet afslået, og at denne afgørelse om afslag ikke længere kunne anfægtes.
+69
+Som generaladvokaten i det væsentlige har anført i punkt 64 i forslaget til afgørelse, og henset til bevaringsmålsætningen for naturtyper og vilde dyr og planter, som anført i første betragtning til habitatdirektivet, ville den effektive virkning af sidstnævnte blive bragt i fare, hvis interne procedureregler kunne mindske nødvendigheden af at efterkomme kravene i dette direktiv.
+70
+Som Kommissionen har gjort gældende, skal en ny undersøgelse af indvirkningerne på den pågældende lokalitet af en plan eller et projekt, som allerede er blevet udført, tage hensyn til det tilfælde, at risiciene for ødelæggelse eller forstyrrelser, der kan have betydelige konsekvenser som omhandlet i habitatdirektivets artikel 6, stk. 2, allerede fremkommer på grund af gennemførelsen af det omhandlede arbejde. Denne undersøgelse skal endvidere fastslå, om sådanne risici kan blive konkrete, hvis udnyttelsen af arbejdet fortsætter.
+71
+Hvis det følger af en sådan ny undersøgelse, at opførelsen eller ibrugtagningen af den i hovedsagen omhandlede bro allerede har medført eller risikerer at medføre en ødelæggelse eller forstyrrelser, der kan have betydelige konsekvenser, henset til habitatdirektivets målsætninger, forbliver imidlertid stadig den mulighed, som er anført i nærværende doms præmis 55-59, at dette direktivs artikel 6, stk. 4, anvendes analogt.
+72
+Det fremgår af sidstnævnte bestemmelse, at i tilfælde, hvor en plan eller et projekt trods negative konklusioner i vurderingen, der er gennemført i overensstemmelse med habitatdirektivets artikel 6, stk. 3, første punktum, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, og der ikke findes nogen alternativ løsning, træffer den berørte medlemsstat alle nødvendige kompensationsforanstaltninger for at sikre, at den globale sammenhæng i Natura 2000 beskyttes (dom Solvay m.fl.,
+C-182/10
+,
+EU:C:2012:82
+, præmis
+72
+og den deri nævnte retspraksis).
+73
+Som Domstolen flere gange har udtalt, skal habitatdirektivets artikel 6, stk. 4, imidlertid fortolkes strengt, eftersom bestemmelsen er en undtagelse til det i nævnte artikels stk. 3, andet punktum, nævnte kriterium for at meddele tilladelse (dom Solvay m.fl.,
+C-182/10
+,
+EU:C:2012:82
+, præmis
+73
+og den deri nævnte retspraksis).
+74
+Hvad angår undersøgelsen af alternative løsninger inden for rammerne af en analog anvendelse af habitatdirektivets artikel 6, stk. 4, skal det i det foreliggende tilfælde bemærkes, at søgningen efter et alternativ hverken kan betyde, at der skal ses bort fra en eventuel ødelæggelse eller forstyrrelser, der fremkommer ved opførelsen og ibrugtagningen af det omhandlede arbejde, eller fra eventuelle fordele, som dette indebærer. Undersøgelsen af alternative løsninger kræver således, at der foretages en afvejning af de miljømæssige konsekvenser af opretholdelsen eller begrænsningen af brugen af det omhandlede arbejde, herunder lukningen af dette, eller endda dets nedrivning på den ene side, og de væsentlige samfundsinteresser, der har ført til opførelsen af det, på den anden side.
+75
+Hvad angår de foranstaltninger, der kan tages i betragtning inden for rammerne af undersøgelsen af alternativer, herunder muligheden for nedrivningen af et arbejde som det, der er omhandlet i hovedsagen, skal det bemærkes, at hvis en foranstaltning skulle medføre risici for forringelse eller forstyrrelser, der kunne betydelige konsekvenser som omhandlet i habitatdirektivets artikel 6, stk. 2, ville en sådan foranstaltning, således som Kommissionen har gjort gældende i retsmødet, være i strid med formålet med denne bestemmelse og kunne således ikke anses for at være en alternativ løsning som omhandlet i dette direktivs artikel 6, stk. 4.
+76
+Da det forholder sig således, og som generaladvokaten har anført i punkt 69 i forslaget til afgørelse, skal det bemærkes, at hvis en afvejning af interesser og prioriteter fører til den konklusion, at det allerede udførte arbejde skal nedrives, skal ethvert forslag om nedrivning, ligesom det oprindelige forslag om at opføre dette arbejde, betragtes som »planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som […] kan påvirke en sådan lokalitet væsentligt« som omhandlet i habitatdirektivets artikel 6, stk. 3, som for sit vedkommende skal undergives den undersøgelse, der kræves i denne bestemmelse, inden det kan gennemføres.
+77
+Hvad angår de økonomiske omkostninger ved de foranstaltninger, der kan tages i betragtning inden for rammerne af undersøgelsen af alternativer, herunder en nedrivning af det allerede udførte arbejde, som den forelæggende ret har anført, skal det i lighed med det, som generaladvokaten har anført i punkt 70 i forslaget til afgørelse, bemærkes, at disse ikke har den samme betydning som den bevaringsmålsætning for naturtyper og for vilde dyr og planter, der forfølges med habitatdirektivet. Henset til den strenge fortolkning af dette direktivs artikel 6, stk. 4, jf. nærværende doms præmis 73, kan det således ikke tillades, at alene de økonomiske omkostninger ved sådanne foranstaltninger kan være afgørende for valget af alternative løsninger i henhold til denne bestemmelse.
+78
+Henset til de ovenstående betragtninger skal det fjerde spørgsmål besvares som følger:
+—
+Habitatdirektivet skal fortolkes således, at kravene til en kontrol foretaget inden for rammerne af en ny undersøgelse af indvirkningerne på en lokalitet – når der er foretaget en sådan undersøgelse for at afhjælpe fejl, som er blevet konstateret vedrørende den forudgående vurdering, der er blevet foretaget før opførelsen af denne lokalitet på listen over LAF’er eller vedrørende den efterfølgende undersøgelse i henhold til habitatdirektivets artikel 6, stk. 2, selv om planen eller projektet allerede var blevet udført – ikke kan være ændrede som følge af, at godkendelsesafgørelsen for denne plan eller dette projekt kunne fuldbyrdes straks, at en begæring om, at der blev anordnet foreløbige forholdsregler, var blevet afslået, og at denne afgørelse om afslag ikke længere kunne anfægtes. Den nævnte undersøgelse skal endvidere tage hensyn til de risici for forringelse eller forstyrrelser, der kan have betydelige konsekvenser som omhandlet i den nævnte artikel 6, stk. 2, som eventuelt er opstået på grund af udførelsen af den omhandlede plan eller det omhandlede projekt.
+—
+Habitatdirektivets artikel 6, stk. 4, skal fortolkes således, at kravene til den kontrol, der foretages inden for rammerne af undersøgelsen af alternative løsninger, ikke kan være ændrede af den grund, at planen eller projektet allerede er blevet udført.
+Sagens omkostninger
+79
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagens omkostninger. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Tredje Afdeling) for ret:
+1)
+Artikel 6, stk. 2, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter skal fortolkes således, at en plan eller et projekt, der ikke er direkte forbundet med eller nødvendig for en lokalitets forvaltning, og som er blevet tilladt efter en undersøgelse, der ikke opfylder kravene i dette direktivs artikel 6, stk. 3, før opførelsen af den pågældende lokalitet på listen over lokaliteter af fællesskabsbetydning, fra de kompetente myndigheders side skal gøres til genstand for en efterfølgende undersøgelse af dens virkninger på denne lokalitet, hvis denne undersøgelse udgør den eneste passende foranstaltning for at undgå, at udførelsen af den nævnte plan eller det nævnte projekt medfører en forringelse eller forstyrrelser, som kan påvirke lokaliteten væsentligt i betragtning af formålene med dette direktiv. Det påhviler den forelæggende ret at efterprøve, om disse betingelser er opfyldt.
+2)
+Artikel 6, stk. 2, i direktiv 92/43 skal fortolkes således, at hvis en efterfølgende undersøgelse af indvirkninger på den pågældende lokalitet af en plan eller et projekt, hvis udførelse er påbegyndt efter opførelsen af denne lokalitet på listen over lokaliteter af fællesskabsbetydning, under omstændigheder som de i hovedsagen omhandlede viser sig at være nødvendig, skal denne undersøgelse foretages i overensstemmelse med kravene i dette direktivs artikel 6, stk. 3. En sådan undersøgelse skal tage hensyn til alle de oplysninger, der forelå på tidspunktet for denne opførelse, og til alle de indvirkninger, der er indtrådt eller kan indtræde som følge af en delvis eller hel udførelse af denne plan eller dette projekt på den pågældende lokalitet efter dette tidspunkt.
+3)
+Direktiv 92/43 skal fortolkes således, at kravene til en kontrol foretaget inden for rammerne af en ny undersøgelse af indvirkningerne på en lokalitet – når der er foretaget en sådan undersøgelse for at afhjælpe fejl, som er blevet konstateret vedrørende den forudgående vurdering, der er blevet foretaget før opførelsen af denne lokalitet på listen over lokaliteter af fællesskabsbetydning eller vedrørende den efterfølgende undersøgelse i henhold til artikel 6, stk. 2, i direktiv 92/43, selv om planen eller projektet allerede var blevet udført – ikke kan være ændrede som følge af, at godkendelsesafgørelsen for denne plan eller dette projekt kunne fuldbyrdes straks, at en begæring om, at der blev anordnet foreløbige forholdsregler, var blevet afslået, og at denne afgørelse om afslag ikke længere kunne anfægtes. Den nævnte undersøgelse skal endvidere tage hensyn til de risici for forringelse eller forstyrrelser, der kan have betydelige konsekvenser som omhandlet i den nævnte artikel 6, stk. 2, som eventuelt er opstået på grund af udførelsen af den omhandlede plan eller det omhandlede projekt.
+Artikel 6, stk. 4, i direktiv 92/43 skal fortolkes således, at kravene til den kontrol, der foretages inden for rammerne af undersøgelsen af alternative løsninger, ikke kan være ændrede af den grund, at planen eller projektet allerede er blevet udført.
+Underskrifter
+(
+*1
+) Processprog: tysk.

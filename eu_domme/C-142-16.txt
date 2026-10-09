@@ -1,0 +1,271 @@
+62016CJ0142
+DOMSTOLENS DOM (Anden Afdeling)
+26. april 2017 (
+*1
+)
+»Traktatbrud — miljø — direktiv 92/43/EØF — artikel 6, stk. 3 — bevaring af naturtyper — opførelse af kulkraftværket Moorburg (Tyskland) — Natura 2000-områder, der er beliggende ved Elbens flodleje oven for kulkraftværket — vurdering af en plans eller et projekts virkninger på en beskyttet lokalitet«
+I sag C-142/16,
+angående et traktatbrudssøgsmål i henhold til artikel 258 TEUF, anlagt den 9. marts 2016,
+Europa-Kommissionen
+ved C. Hermes og E. Manhaeve, som befuldmægtigede, og med valgt adresse i Luxembourg,
+sagsøger,
+mod
+Forbundsrepublikken Tyskland
+ved T. Henze og J. Möller, som befuldmægtigede, bistået af Rechtsanwalt W. Ewer,
+sagsøgt,
+har
+DOMSTOLEN (Anden Afdeling)
+sammensat af afdelingsformanden, M. Ilešič, og dommerne A. Prechal, A. Rosas, C. Toader (refererende dommer) og E. Jarašiūnas,
+generaladvokat: H. Saugmandsgaard Øe
+justitssekretær: fuldmægtig I. Illéssy,
+på grundlag af den skriftlige forhandling og efter retsmødet den 12. januar 2017,
+og idet Domstolen efter at have hørt generaladvokaten har besluttet, at sagen skal pådømmes uden forslag til afgørelse,
+afsagt følgende
+Dom
+1
+Europa-Kommissionen har i stævningen nedlagt påstand om, at Domstolen fastslår, at Forbundsrepublikken Tyskland har tilsidesat sine forpligtelser i henhold til artikel 6, stk. 3 og 4, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter (
+EFT 1992, L 206, s. 7
+, herefter »habitatdirektivet«), idet den i forbindelse med tilladelsen til opførelse af kulkraftværket Moorburg, nær Hamburg (Tyskland), ikke foretog en korrekt og fuldstændig vurdering af virkningerne heraf.
+Retsforskrifter
+2
+Første, fjerde og tiende betragtning til habitatdirektivet har følgende ordlyd:
+»Bevaring, beskyttelse og forbedring af kvaliteten af miljøet, herunder bevaring af naturtyper samt vilde dyr og planter, er et yderst vigtigt mål af almen interesse, som [Unionen] forfølger, og som er anført i artikel [191 TEUF].
+[…]
+[P]å medlemsstaternes europæiske område forringes naturtyperne til stadighed, og et stigende antal vilde arter er alvorligt truede; eftersom de truede levesteder og arter er en del af [Unionens] naturarv, og da truslerne mod dem i mange tilfælde er af grænseoverskridende karakter, er det nødvendigt at iværksætte foranstaltninger på [EU-]plan med henblik på at bevare dem.
+[…]
+[A]lle planer eller projekter, der kan påvirke bevaringsmålsætningen for en sådan lokalitet væsentligt, som er udpeget eller i fremtiden vil blive det, må tages op til passende vurdering.«
+3
+Habitatdirektivets artikel 2, stk. 2, fastsætter:
+»De foranstaltninger, der træffes efter dette direktiv, tager sigte på at opretholde eller genoprette en gunstig bevaringsstatus for naturtyper samt vilde dyre- og plantearter af fællesskabsbetydning.«
+4
+Habitatdirektivets artikel 6, stk. 3 og 4, bestemmer:
+»3. Alle planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som i sig selv eller i forbindelse med andre planer og projekter kan påvirke en sådan lokalitet væsentligt, vurderes med hensyn til deres virkninger på lokaliteten under hensyn til bevaringsmålsætningerne for denne. På baggrund af konklusionerne af vurderingen af virkningerne på lokaliteten, og med forbehold af stk. 4, giver de kompetente nationale myndigheder først deres tilslutning til en plan eller et projekt, når de har sikret sig, at den/det ikke skader lokalitetens integritet, og når de – hvis det anses for nødvendigt – har hørt offentligheden.
+4. Hvis en plan eller et projekt, på trods af at virkningerne på lokaliteten vurderes negativt, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, herunder af social eller økonomisk art, fordi der ikke findes nogen alternativ løsning, træffer medlemsstaten alle nødvendige kompensationsforanstaltninger for at sikre, at den globale sammenhæng i Natura 2000 beskyttes. Medlemsstaten underretter Kommissionen om, hvilke kompensationsforanstaltninger der træffes.
+Hvis der er tale om en lokalitet med en prioriteret naturtype og/eller en prioriteret art, kan der alene henvises til hensynet til menneskers sundhed og den offentlige sikkerhed eller væsentlige gavnlige virkninger på miljøet, eller, efter udtalelse fra Kommissionen, andre bydende nødvendige hensyn til væsentlige samfundsinteresser.«
+5
+Habitatdirektivet indeholder seks bilag, herunder bilag II med overskriften »Dyre- og plantearter af betydning [for Unionen], hvis bevaring kræver udpegning af særlige bevaringsområder«.
+Sagens baggrund og den administrative procedure
+6
+Kulkraftværket Moorburg er placeret ved Hamburgs havn på den sydlige bred af Elbens sydlige flodleje, der som vandrerute for visse fisk, nemlig flodlampret (
+Lampetra fluviatilis
+), havlampret (
+Petromyzon marinus
+) og laks (
+Salmo salar
+), der fremgår af bilag II til habitatdirektivet, har en vigtig funktion i forbindelse med en række Natura 2000-områder, hvis bevaringsformål omfatter disse arter, og som er placeret oven for dæmningen Geesthacht (Tyskland). Disse områder befinder sig i delstaterne Niedersachsen, Mechlenburg-Vorpommern, Sachsen-Anhalt, Brandenburg og Sachsen i en afstand af op til ca. 600 kilometer fra dette kraftværk. I Elbens flodleje mellem kraftværket Moorburg og Natura 2000-områderne ligger dæmningen Geesthacht.
+7
+Tilladelsen til opførelse af kraftværket Moorburg, der blev udstedt den 30. september 2008, var baseret på en forudgående vurdering af virkningerne på miljøet (herefter »vurderingen af virkningerne«) i henhold til den tyske vandlovgivning. Det blev i denne vurdering konkluderet, at tilladelsen var forenelig med bevaringsmålsætningerne for Natura 2000-områderne, henset til den forpligtelse, som driftsherren havde påtaget sig til at anlægge endnu en fisketrappe til fiskene ved dæmningen Geesthacht ca. 30 km fra kraftværket med henblik på at opveje tabet af fisk i forbindelse med funktionen af det nævnte kraftværks afkølingsmekanisme, der indebærer indtag af store mængder vand til afkøling af kraftværket Moorburg (herefter »fisketrappen«). Desuden anførtes det i konklusionen i vurderingen af virkningerne, at der skulle foretages overvågning i flere faser med henblik på at undersøge, om denne foranstaltning var effektiv.
+8
+Som følge af to klager vedrørende vurderingen af virkningerne sendte Kommissionen den 27. januar 2014 en åbningsskrivelse til Forbundsrepublikken Tyskland, hvori Kommissionen foreholdt denne at have tilsidesat habitatdirektivets artikel 6, stk. 3 og 4.
+9
+Kommissionen var af den opfattelse, at vurderingen af virkningerne kun i utilstrækkeligt eller ringe omfang havde fastslået virkningerne af kraftværket Moorburg på Natura 2000-områderne oven for dæmningen Geesthacht. For det første havde Behörde für Stadtentwicklung und Umwelt der Freien und Hansestadt Hamburg (regional myndighed for udvikling af by og miljø i Freie Hansestadt Hamburg, Tyskland) med urette anset fisketrappen for en risikobegrænsende foranstaltning, og for det andet havde vurderingen af virkningerne ikke taget hensyn til de kumulative virkninger i forbindelse med andre relevante projekter.
+10
+Forbundsrepublikken Tyskland besvarede ved skrivelse af 11. april 2014 Kommissionens klagepunkter og gjorde gældende, at fisketrappen skulle klassificeres som en risikobegrænsende foranstaltning.
+11
+Den 17. oktober 2014 sendte Kommissionen en begrundet udtalelse til Forbundsrepublikken Tyskland, hvori den opretholdt sine klagepunkter vedrørende tilsidesættelse af habitatdirektivets artikel 6, stk. 3 og 4.
+12
+Forbundsrepublikken Tyskland bekræftede ved skrivelse af 15. december 2014 sin tidligere holdning.
+13
+Da Kommissionen var af den opfattelse, at Forbundsrepublikken Tyskland har tilsidesat sine forpligtelser i henhold til habitatdirektivets artikel 6, stk. 3 og 4, besluttede den den 9. marts 2016 at anlægge dette søgsmål.
+Søgsmålet
+Det første klagepunkt om tilsidesættelse af habitatdirektivets artikel 6, stk. 3, andet punktum
+Parternes argumenter
+14
+Kommissionen har med sit første klagepunkt foreholdt Forbundsrepublikken Tyskland at have tilsidesat habitatdirektivets artikel 6, stk. 3, andet punktum, da den udstedte tilladelsen af 30. september 2008. Driften af kraftværket Moorburg har haft negative virkninger for flere Natura 2000-områder placeret oven for dæmningen Geesthacht. Nærmere bestemt er et stort antal fisk, der er opført i bilag II til habitatdirektivet, blevet dræbt på grund af vandindtaget til afkøling af kraftværket Moorburg.
+15
+Kommissionen har indledningsvis gjort gældende, at det ikke er relevant, at kraftværket Moorburg er beliggende uden for Nature 2000-områder, der er placeret oven for dæmningen Geesthacht. Kommissionen har gjort gældende, at fiskenes død ikke i sig selv udgør en tilsidesættelse af habitatdirektivets artikel 6, stk. 3, andet punktum, men at det derimod kan fastslås, at der er sket en sådan tilsidesættelse på grund af konsekvenserne af et fald i fiskebestanden i Natura 2000-områderne, der er placeret oven for dæmningen Geestacht.
+16
+Kommissionen har anfægtet konklusionen i vurderingen af virkningerne, der ikke angiver, at fisketrappen kan forhindre eller nedbringe de negative virkninger, der er forbundet med driften af kraftværket Moorburg, men blot at den hensigtsmæssigt kan kompensere for disse virkninger ved at gøre det muligt for andre fisk end dem, der er døde eller sårede, at svømme over dæmningen Geesthacht.
+17
+Det er desuden Kommissionens opfattelse, at en sådan vurdering ikke er forenelig med Domstolens praksis ifølge dom af 15. maj 2014, Briels m.fl. (
+C-521/12
+,
+EU:C:2014:330
+). Selv om det antages, at fisketrappen ville kunne fremme en forøgelse af bestanden af vandrefisk, ville den ikke gøre det muligt at skåne vandrefiskene eller dem, der yngler.
+18
+Kommissionen har tilføjet, at tilladelsen af 30. september 2008 udtrykkeligt anerkender, at virkningerne af opførelsen af endnu en fisketrappe ved siden af dæmningen Geesthacht er uafklarede.
+19
+Endelig er det Kommissionens opfattelse, at de konstateringer og ekspertrapporter vedrørende årene 2011-2014, som Forbundsrepublikken Tyskland har fremlagt vedrørende de forudsætninger, der lå til grund for vurderingen af virkningerne, ikke er relevante, for så vidt som de vedrører hændelser, der er indtruffet efter den nævnte vurdering og tilladelsen af 30. september 2008. Forbundsrepublikken Tyskland har heller ikke fremlagt bevis for udviklingen af bestanden i de berørte Natura 2000-områder med henblik på at godtgøre effektiviteten af fisketrappen.
+20
+Forbundsrepublikken Tyskland har bestridt det anførte traktatbrud. Den har gjort gældende, at der ikke er sket en væsentlig påvirkning som omhandlet i habitatdirektivets artikel 6, stk. 3, første punktum. Fra tidspunktet for analysen af virkningerne i den forudgående vurdering, der blev foretaget i forbindelse med den sag, der førte til udstedelse af tilladelsen af 30. september 2008, blev det konstateret, at kun et meget lille antal eksemplarer kunne forventes dræbt.
+21
+Denne medlemsstat er af den opfattelse, at den omstændighed, at et vist antal eksemplarer af forskellige fiskearter dør på grund af vandindtag til afkøling af kraftværket Moorburg, ikke medfører ødelæggelse af levestederne i Natura 2000-områderne, der er placeret i en afstand af op til flere hundrede kilometer fra dette kraftværk. Medlemsstaterne kan ikke i praksis på afstand identificere alle de forventelige virkninger af visse foranstaltninger på Natura 2000-områderne.
+22
+Hvad angår virkningerne af fisketrappen er denne medlemsstat af den opfattelse, at tilladelsen af 30. september 2008 troværdigt sikrer, at antallet af de fisk, der er omfattet af bilag II til habitatdirektivet, og som svømmer op ad floden via fisketrappen, er mindst lige så højt som antallet af fisk, der dør ved kraftværket Moorburg på grund af indtaget af vand til afkøling. De ødelagte fisk og de andre fisk, der svømmer op ad floden, adskiller sig ikke fra hinanden for så vidt angår deres biologiske egenskaber, hvorfor der forefindes en uændret population i de Natura 2000-områder, der er beliggende oven for dæmningen Geesthacht.
+23
+Hvad angår de fiskearter, der er omfattet af bilag II til habitatdirektivet, er det Forbundsrepublikken Tysklands opfattelse, at de ikke henhører under anvendelsesområdet for dette direktivs artikel 6. I forbindelse med beskyttelsen af de i denne artikel omhandlede levesteder er alene bevaringsmålsætningerne for Natura 2000-områderne af afgørende betydning, dvs. den omstændighed, at der i bevaringsområdet forefindes en uændret populationsstruktur.
+24
+Forbundsrepublikken Tyskland har således gjort gældende, at den myndighed, hvortil ansøgningen om tilladelse blev indgivet, har støttet sig på antagelser om den værst mulige situation og desuden betinget idriftsættelsen af den fortløbende afkøling af, at det godtgøres, at fisketrappen fungerer effektivt, hvilket blev godtgjort i årene 2011-2014. Ekspertrapporten af 15. januar 2014 viste nemlig, at et meget lille antal af de berørte fisk dør, og at det takket være fisketrappen lykkes for de øvrige fisk at svømme op til de beskyttede lokaliteter.
+25
+For så vidt angår risikohåndteringen har Forbundsrepublikken Tyskland gjort gældende, at tilladelsen af 30. september 2008 kombinerer prognoseelementer med forebyggende elementer, idet den ligeledes omfatter procedurer, der gør det muligt i fremtiden at begrænse vandindtaget til afkøling i nødvendigt omfang med henblik på beskyttelse af de berørte arter.
+26
+Hvad angår konstateringerne og ekspertrapporterne vedrørende årene 2011-2014 er det Forbundsrepublikken Tysklands opfattelse, at de bør tages i betragtning med henblik på vurderingen af dette traktatbrudssøgsmål, henset til, at den frist, der er fastsat i den begrundede udtalelse, udløb den 16. december 2014. Den er af den opfattelse, at disse konstateringer er relevante, for så vidt som de blev udtalt på tidspunktet for udstedelse af tilladelsen af 30. september 2008 og derfor udgør en integrerende del af vurderingen af virkningerne.
+27
+Den nævnte medlemsstat har endvidere tilføjet, at idriftsættelsen af den fortløbende afkøling er blevet betinget af godtgørelse af fisketrappens effektivitet. Denne godtgørelse blev bestemt ved konstateringerne vedrørende årene 2011-2014. Prognoserne for effektiviteten af skadebegrænsningen ved hjælp af fisketrappen var blevet baseret på en prognosemodel, der skulle gennemføres i to etaper, dvs. for det første de beregninger, der var en følge af planlægningen af projektet og dets endelige godkendelse, og for det andet de konstateringer, der skulle fremlægges på grundlag af overvågningen.
+28
+Endelig har Forbundsrepublikken Tyskland præciseret, at fisketrappen har fungeret siden august 2010, men at normalaktiviteten med vandindtag først er påbegyndt efter afslutningen af overvågningen, nemlig i marts 2015.
+Domstolens bemærkninger
+29
+Det bemærkes indledningsvis, at den omstændighed, at det projekt, hvis miljøvurdering er omtvistet, ikke er beliggende i de berørte Natura 2000-områder, men i væsentlig afstand af disse, længere nede ad Elben, ikke udelukker, at kravene i habitatdirektivets artikel 6, stk. 3, finder anvendelse. Som det nemlig følger af ordlyden af denne bestemmelse, underkastes »alle« planer eller projekter, der ikke er direkte forbundet med eller nødvendige for lokalitetens forvaltning, men som kan påvirke denne væsentligt, den deri fastsatte miljøbeskyttelsesforanstaltning.
+30
+I det foreliggende tilfælde fremgår det af sagen som forelagt for Domstolen, at afkølingsmekanismen i kraftværket Moorburg kan påvirke de fiskearter, der er omfattet af bilag II til habitatdirektivet, og som er beskyttet i de berørte Natura 2000-områder, væsentligt.
+31
+I den vurdering af virkningerne, der blev foretaget af de tyske myndigheder, anføres det, at når de tre berørte fiskearter, der er omfattet af bilag II til habitatdirektivet, dør i forbindelse med vandindtaget fra deres svømmerute med henblik på afkøling af kraftværket Moorburg, påvirkes disse arters reproduktion i de nævnte beskyttede områder. Navnlig fremgår det af denne vurdering, at der foreligger en høj risiko for de store vandrefisk såsom flodlampret, havlampret og laks.
+32
+Henset til denne vurdering af virkningerne kunne de tyske myndigheder i henhold til habitatdirektivets artikel 6, stk. 3, andet punktum, først give deres tilslutning til projektet vedrørende opførelse af kraftværket Moorburg, »når de ha[vde] sikret sig, at […]det ikke skade[de] lokalitete[rnes] integritet […]«.
+33
+Således som Domstolen nemlig allerede har fastslået, giver de kompetente nationale myndigheder kun tilladelse til en aktivitet, der skal evalueres, på betingelse af, at de har opnået vished for, at aktiviteten ikke har skadelige virkninger for den beskyttede lokalitets integritet. Sådan forholder det sig, når det ud fra et videnskabeligt synspunkt uden rimelig tvivl kan fastslås, at der ikke er sådanne virkninger (jf. i denne retning dom af 8.11.2016, Lesoochranárske zoskupenie VLK,
+C-243/15
+,
+EU:C:2016:838
+, præmis
+42
+og den deri nævnte retspraksis).
+34
+For at sikre sig, at projektet vedrørende opførelsen af kraftværket Moorburg ikke skader de berørte Natura 2000-områders integritet, påhviler det de tyske myndigheder at tage hensyn til de beskyttelsesforanstaltninger, der er en del af dette bygningsprojekt. Efter fast praksis kræver forsigtighedsprincippet i forbindelse med gennemførelsen af habitatdirektivets artikel 6, stk. 3, at den kompetente nationale myndighed bl.a. tager hensyn til de beskyttelsesforanstaltninger, der indgår i det nævnte projekt, med henblik på at undgå eller reducere eventuelle direkte skadelige virkninger for lokaliteten, for at sikre, at det ikke skader den nævnte lokalitets integritet (dom af 15.5.2014, Briels m.fl.,
+C-521/12
+,
+EU:C:2014:330
+, præmis
+28
+, og af 21.7.2016, Orleans m.fl.,
+C-387/15 og C-388/15
+,
+EU:C:2016:583
+, præmis
+54
+).
+35
+Det bemærkes, som det fremgår af sagens akter for Domstolen, at der i tillæg til andre foranstaltninger med henblik på at forhindre negative virkninger af vandindtaget, såsom et fremdrivningsanlæg til fisk, uddrivning af fisk og nedsættelse af aktiviteten i kraftværket Moorburg, er placeret en fisketrappe ved dæmningen Geesthacht.
+36
+Denne fisketrappe muliggør en forøgelse af bestanden af vandrefisk, idet disse arter gives mulighed for hurtigere at nå frem til deres yngleområder i det midterste og øverste af Elbens flodlejer. Forøgelsen af bestanden kompenserer for tabene ved kraftværket Moorburg, og på denne måde påvirkes bevaringsmålsætningerne for Natura 2000-områderne, der er placeret oven for dette kraftværk, ikke væsentligt.
+37
+Det fremgår imidlertid af vurderingen af virkningerne, at den ikke indeholder endelige konstateringer for så vidt angår effektiviteten af fisketrappen, men blot præciserer, at denne effektivitet først vil blive bekræftet efter flere års overvågning.
+38
+Det må derfor konstateres, at fisketrappen – selv om den havde til formål at nedbringe de væsentlige direkte virkninger på Natura 2000-områderne oven for kraftværket Moorburg – på tidspunktet for udstedelse af tilladelsen ikke i sig selv eller i forbindelse med de øvrige foranstaltninger, der er nævnt i denne doms præmis 35, kunne sikre, at der ikke forelå nogen rimelig tvivl om det nævnte kraftværks skadevirkninger for lokalitetens integritet, som omhandlet i habitatdirektivets artikel 6, stk. 3.
+39
+Denne konklusion kan ikke afkræftes af Forbundsrepublikken Tysklands argumenter vedrørende risikostyringen og de konstateringer, der er fremlagt for årene 2011-2014.
+40
+Det fremgår af fast retspraksis, at kriteriet for at opnå tilladelse, fastsat i habitatdirektivets artikel 6, stk. 3, andet punktum, integrerer forsigtighedsprincippet og gør det muligt effektivt at forebygge, at beskyttede lokaliteters integritet skades som følge af påtænkte planer eller projekter. Et mindre strengt kriterium for at give tilladelse end det omhandlede ville ikke lige så effektivt kunne sikre realiseringen af målsætningen om beskyttelse af de lokaliteter, som bestemmelsen vedrører (dom af 21.7.2016, Orleans m.fl.,
+C-387/15 og C-388/15
+,
+EU:C:2016:583
+, præmis
+53
+og den deri nævnte retspraksis).
+41
+For så vidt angår de bestemmelser, hvorpå vurderingen af virkningerne var baseret, bemærkes, at de konstateringer, der er fremlagt for årene 2011-2014, er blevet indgivet af Forbundsrepublikken Tyskland efter udstedelsen af tilladelsen af 30. september 2008.
+42
+Med hensyn hertil bemærkes, at det er på det tidspunkt, hvor der træffes afgørelse om tilladelse til gennemførelse af projektet, at der ud fra et videnskabeligt synspunkt ikke må foreligge nogen rimelig tvivl i forhold til skadevirkninger for det omhandlede områdes integritet (dom af 26.10.2006, Kommissionen mod Portugal,
+C-239/04
+,
+EU:C:2006:665
+, præmis
+24
+og den deri nævnte retspraksis).
+43
+Hvad angår overvågningen i flere etaper er den heller ikke tilstrækkelig til at sikre overholdelsen af forpligtelsen i habitatdirektivets artikel 6, stk. 3.
+44
+Som Kommissionen for det første har gjort gældende i retsmødet uden derved at blive modsagt af den sagsøgte medlemsstat, er resultaterne af denne overvågning muligvis ikke relevante i et tilfælde, hvor målingen er pågået i perioder, hvor kraftværket Moorburg ikke har anvendt afkølingsmekanismen fortløbende. For det andet har overvågningen udelukkende til formål at tælle antallet af fisk, der svømmer over dæmningen Geesthacht via fisketrappen. Følgelig er denne overvågning ikke af en art, der kan sikre, at der med fisketrappen undgås skadevirkninger for de beskyttede områders integritet.
+45
+Det følger heraf, at Forbundsrepublikken Tyskland har tilsidesat sine forpligtelser i henhold til habitatdirektivets artikel 6, stk. 3, andet punktum, idet den gav tilladelse til projektet vedrørende opførelse af kraftværket Moorburg ved Elben på grundlag af en vurdering af virkningerne, hvori det blev konkluderet, at der ikke var skadevirkninger for Natura 2000-områdernes integritet.
+Det andet klagepunkt om tilsidesættelse af habitatdirektivets artikel 6, stk. 3, andet punktum, på grund af en manglende undersøgelse af de kumulative virkninger i forbindelse med andre projekter
+Parternes argumenter
+46
+Det er Kommissionens opfattelse, at der er sket endnu en tilsidesættelse af habitatdirektivets artikel 6, stk. 3, andet punktum, idet byen Hamburg udstedte tilladelsen af 30. september 2008 og i vurderingen af virkningerne af kraftværket Moorburg ikke tog hensyn til de eventuelle kumulative virkninger i forbindelse med pumpekraftværket Geesthacht og vandkraftværket ved dæmningen Geesthacht, for hvilket der ligeledes var blevet indgivet en ansøgning om tilladelse til anlæg og drift.
+47
+Hvad angår pumpekraftværket Geesthacht har Kommissionen bemærket, at dette kraftværk har eksisteret siden 1958, og at det ikke har særlige anlæg med henblik på at beskytte fiskearterne. Først i 2014 indgav Forbundsrepublikken Tyskland en ekspertrapport med henblik på at godtgøre, at det nævnte pumpekraftværk ikke udgjorde nogen fare for de berørte vandrende fiskearter.
+48
+Ifølge Kommissionen er det ikke relevant, at pumpekraftværket Geesthacht blev opført inden udløbet af habitatdirektivets gennemførelsesfrist, da bestemmelserne i dette direktivs artikel 6, stk. 3, ikke kun begrænser sig til de planer og projekter, der er blevet godkendt eller afsluttet efter direktivets gennemførelsesfrist.
+49
+For så vidt angår vandkraftværket ved dæmningen Geesthacht, for hvilket der var ansøgt om tilladelse til anlæg og drift den 22. maj 2008, er det Kommissionens opfattelse, at dette vandkraftværk ligeledes burde være taget i betragtning i forbindelse med undersøgelsen af kumulationen af virkningerne af kraftværket Moorburg. Selv om denne ansøgning var blevet trukket tilbage i 2010, er det Kommissionens opfattelse, at virkningerne af vandkraftværket på bestanden af vandrefisk kunne forudses på tidspunktet for udstedelse af tilladelsen af 30. september 2008.
+50
+Forbundsrepublikken Tyskland har for det første gjort gældende angående pumpekraftværket Geesthacht, at det ikke burde tages i betragtning med henblik på vurderingen af virkningerne, idet det allerede eksisterede på tidspunktet for vedtagelsen af habitatdirektivet, og påberåbte sig i den forbindelse Domstolens dom af 14. januar 2016, Grüne Liga Sachsen m.fl. (
+C-399/14
+,
+EU:C:2016:10
+, præmis
+58
+og
+59
+).
+51
+Dernæst er denne medlemsstat for så vidt angår vandkraftværket ved dæmningen Geesthacht af den opfattelse, at det ikke skal tages i betragtning som et »andet projekt«, for så vidt som dette fra begyndelsen ikke skulle ansøge om tilladelse.
+52
+I denne forbindelse har Forbundsrepublikken Tyskland gjort gældende, at et sådant projekt ikke kunne have opnået tilladelse uden Vattenfall Europe AG’s, nu Vattenfall GmbH’s medvirken. Efter tysk ret skal driftsherren af et planlagt vandkraftværk nødvendigvis opnå tilslutning fra ejeren af det pågældende vand, i det foreliggende tilfælde den tyske forbundsstat.
+53
+Ansøgningen af 22. maj 2008 om tilladelse til anlæg af et vandkraftværk var ikke blevet indgivet af Vattenfall Europe eller af en tredjemand i tilknytning til denne, men af Wirtschaftsbetriebe Geesthacht GmbH, som i modsætning til Vattenfall Europe ikke havde nogen brugsret over de områder og anlæg ved dæmningen Geesthacht, der var nødvendige med henblik på opførelsen af et vandkraftværk.
+54
+Således præciserede myndigheden for godkendelse af planer for området Herzogtum Lauenburg (Tyskland) ved e-mail af 26. maj 2008, at den på grund af manglende interesse i at opnå en afgørelse vedrørende realiteten ikke ville indlede nogen sag om godkendelse af planen, så længe Vattenfall Europe ikke gav sin tilslutning til opførelsen af vandkraftværket. Den 20. juni 2008 oplyste Vattenfall Europe, at den ikke ville overføre nogen del af sin brugsret til ansøgeren. Sluttelig påbegyndte godkendelsesmyndigheden ikke en sag vedrørende godkendelse af vandkraftværket.
+55
+Forbundsrepublikken Tyskland har tilføjet, at den ansøgning om en anlægs- og driftstilladelse, der blev indgivet for dette kraftværk, først blev trukket tilbage i 2010 med den begrundelse, at godkendelsesmyndigheden ville undgå et afslag, og den skulle overbevise ansøgeren om selv at trække ansøgningen tilbage.
+Domstolens bemærkninger
+56
+Med det andet klagepunkt, der er opdelt i to led, har Kommissionen foreholdt de tyske myndigheder, at de ikke har vurderet de kumulative virkninger af kraftværket Moorburg i forbindelse med pumpekraftværket Geesthacht og vandkraftværket ved dæmningen Geesthacht for så vidt angår de forstyrrelser, der er opstået for fiskearter som flodlampret, havlampret og laks i de beskyttede områder.
+57
+Ifølge fast retspraksis indebærer den passende vurdering af en plans eller et projekts indvirkninger på en berørt lokalitet, som skal være foretaget i henhold til habitatdirektivets artikel 6, stk. 3, at alle de aspekter af den omhandlede plan eller det omhandlede projekt, som i sig selv eller i forbindelse med andre planer eller projekter kan påvirke bevaringsmålsætningen for denne lokalitet, skal identificeres under hensyn til den bedste videnskabelige viden på området (dom af 14.1.2016, Grüne Liga Sachsen m.fl.,
+C-399/14
+,
+EU:C:2016:10
+, præmis
+49
+og den deri nævnte retspraksis).
+58
+For så vidt angår det andet klagepunkts første led vedrørende pumpekraftværket Geesthacht fremgår det af sagens akter for Domstolen, at dette værk siden 1958 har befundet sig oven for og tæt på dæmningen Geesthacht.
+59
+For det første er det, som bemærket i denne doms præmis 42, tidspunktet for vedtagelsen af afgørelsen om tilladelse til realisering af et projekt, der skal tages i betragtning i forbindelse med vurderingen af de kumulative virkninger af dette projekt og et andet projekt, der kan påvirke en lokalitet væsentligt (jf. i denne retning dom af 26.10.2006, Kommissionen mod Portugal,
+C-239/04
+,
+EU:C:2006:665
+, præmis
+24
+og den deri nævnte retspraksis).
+60
+For det andet bemærkes, at til forskel fra den sag, der gav anledning til dom af 14. januar 2016, Grüne Liga Sachsen m.fl. (
+C-399/14
+,
+EU:C:2016:10
+), drejer det sig i denne sag ikke om en efterfølgende undersøgelse af virkningerne af pumpekraftværket Geesthacht, der har eksisteret siden 1958, men om hensyntagen til dette i forbindelse med vurderingen af virkningerne af et andet projekt, i det foreliggende tilfælde kraftværket Moorburg.
+61
+Habitatdirektivets artikel 6, stk. 3, kræver af de nationale myndigheder, at de i forbindelse med undersøgelsen af den kumulative virkning tager hensyn til alle de projekter, der i forbindelse med det projekt, hvortil der ansøges om tilladelse, vil kunne have en væsentlig virkning med hensyn til de målsætninger, som direktivet forfølger, selv om disse projekter er af ældre dato end datoen for gennemførelse af det nævnte direktiv.
+62
+Projekter, der – ligesom pumpekraftværket Geesthacht – på grund af deres forbindelse med det projekt, hvis virkninger skal vurderes, kan medføre beskadigelse eller forstyrrelser, der kan påvirke vandrefiskene i floden og dermed beskadige den berørte lokalitet i forhold til de målsætninger, som habitatdirektivet forfølger, kan ikke holdes ude fra den vurdering af virkningerne, der er baseret på habitatdirektivets artikel 6, stk. 3.
+63
+Det følger af de ovenstående betragtninger, at Forbundsrepublikken Tyskland har tilsidesat sine forpligtelser i henhold til habitatdirektivets artikel 6, stk. 3, idet den ikke på passende vis har vurderet de kumulative virkninger af kraftværket Moorburg i forbindelse med pumpekraftværket Geesthacht.
+64
+For så vidt angår det andet klagepunkts andet led har Kommissionen foreholdt Forbundsrepublikken Tyskland, at den i forbindelse med vurderingen af de i den foreliggende sag omhandlede kumulative virkninger ikke har taget hensyn til vandkraftværket ved dæmningen Geesthacht, da ansøgningen om tilladelse til anlæg og drift af dette kraftværk efter tysk ret ikke havde nogen chance for at føre til et positivt svar. Brugsretten til vandet og områderne ved den pågældende dæmning udgør efter tysk ret en nødvendig betingelse for, at et projekt kan godkendes.
+65
+Med hensyn hertil fremgår det af sagens akter for Domstolen, at ansøgningen om tilladelse til opførelse af vandkraftværket ved dæmningen Geesthacht var blevet udformet af et selskab, der ikke var indehaver af brugsretten til vandet ved denne dæmning eller til områderne og anlæggene i tilknytning dertil.
+66
+Det fremgår ligeledes, at sagen om godkendelse af planerne i henhold til vandlovgivningen ikke kan påbegyndes, så længe Vattenfall Europe, som indehaver af brugsretten til vandet og områderne ved dæmningen Geesthacht, og den føderale myndighed for vand og skibsfart ikke har oplyst, at dette projekt ikke strider mod andre rettigheder. Vattenfall Europe erklærede efterfølgende, at den ikke vil give den nødvendige godkendelse til opførelsen af vandkraftværket.
+67
+På det grundlag må det konstateres, at der ikke var noget »andet projekt« som omhandlet i habitatdirektivets artikel 6, stk. 3, vedrørende et vandkraftværk ved dæmningen Geesthacht. Følgelig skal det andet klagepunkts andet led forkastes.
+Det tredje klagepunkt om tilsidesættelse af habitatdirektivets artikel 6, stk. 4, på grund af en manglende undersøgelse af betingelserne deri
+Parternes argumenter
+68
+Det er Kommissionens opfattelse, at byen Hamburg, der med urette udstedte en tilladelse på grund af fejl i vurderingen af virkningerne, undlod at overholde kravene i habitatdirektivets artikel 6, stk. 4, i sagen om tilladelsen af 30. september 2008.
+69
+Desangående er det Kommissionens opfattelse, at byen Hamburg burde have søgt alternative løsninger for den fortløbende afkøling. En efterfølgende opførelse af et hybridt afkølingstårn ved kraftværket Moorburg ville have udgjort en alternativ løsning for den fortløbende afkøling og ville have haft færre negative virkninger på de omhandlede Natura 2000-områder. Et sådant anlæg ville have været økonomisk overkommeligt, eller det kunne være blevet pålagt den berørte virksomhed samtidig med udstedelsen af tilladelsen.
+70
+Forbundsrepublikken Tyskland er af den opfattelse, at det ikke er nødvendigt at undersøge spørgsmålet om, hvorvidt de betingelser for en projekttilladelse, der er fastsat i habitatdirektivets artikel 6, stk. 4, var opfyldt, idet byen Hamburg havde lagt til grund, at kraftværket Moorburg ikke forårsagede nogen væsentlig skade på integriteten af Natura 2000-områderne længere oppe ad floden.
+Domstolens bemærkninger
+71
+Habitatdirektivets artikel 6, stk. 4, bestemmer, at hvis en plan eller et projekt, på trods af en negativ vurdering i henhold til habitatdirektivets artikel 6, stk. 3, første punktum, alligevel skal gennemføres af bydende nødvendige hensyn til væsentlige samfundsinteresser, fordi der ikke findes nogen alternativ løsning, træffer den berørte medlemsstat alle nødvendige kompensationsforanstaltninger for at sikre, at den globale sammenhæng i Natura 2000 beskyttes.
+72
+I det foreliggende tilfælde er det under hensyn til den omstændighed, at den kompetente myndighed har konkluderet, at der ikke er sket skade på lokalitetens integritet som omhandlet i habitatdirektivets artikel 6, stk. 3, ikke nødvendigt at undersøge det tredje klagepunkt om tilsidesættelse af dette direktivs artikel 6, stk. 4, i Kommissionens traktatbrudssøgsmål.
+73
+Det må derfor konstateres, at Forbundsrepublikken Tyskland har tilsidesat sine forpligtelser i henhold til habitatdirektivets artikel 6, stk. 3, idet den i forbindelse med tilladelsen til opførelse af kraftværket Moorburg ikke foretog en korrekt og fuldstændig vurdering af virkningerne heraf.
+Sagens omkostninger
+74
+I henhold til artikel 138, stk. 1, i Domstolens procesreglement pålægges det den tabende part at betale sagens omkostninger, hvis der er nedlagt påstand herom. I henhold til denne artikels stk. 3, første punktum, kan Domstolen dog bestemme, at hver part skal bære sine egne omkostninger, hvis hver af parterne henholdsvis taber eller vinder på et eller flere punkter. Da Kommissionen og Forbundsrepublikken Tyskland delvis har tabt sagen, bør det pålægges dem at bære deres egne omkostninger.
+På grundlag af disse præmisser udtaler og bestemmer Domstolen (Anden Afdeling):
+1)
+Forbundsrepublikken Tyskland har tilsidesat sine forpligtelser i henhold til artikel 6, stk. 3, i Rådets direktiv 92/43/EØF af 21. maj 1992 om bevaring af naturtyper samt vilde dyr og planter, idet den i forbindelse med tilladelsen til opførelse af kulkraftværket Moorburg ved Hamburg (Tyskland) ikke foretog en korrekt og fuldstændig vurdering af virkningerne heraf.
+2)
+I øvrigt frifindes Forbundsrepublikken Tyskland.
+3)
+Hver part bærer sine egne omkostninger.
+Underskrifter
+(
+*1
+) – Processprog: tysk.

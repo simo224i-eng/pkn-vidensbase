@@ -12,3 +12,16 @@ ejnar/ejnar_ejerskifteforsikring.csv
 ejnar/.evaluation_tmp/
 ejnar/evaluation/simulation/__pycache__/
 ejnar/evaluation/simulation/runs/
+.venv/
+logs/
+lovgrundlag/_pdf/
+data_2026/korpus_renset.jsonl
+analyser/miljoevurdering/v2/sager/
+screeninger_originale/
+miljoejurist/evaluation/work/
+.claude/
+tools/originaler/cache/
+tools/originaler/fund_firstagenda.json
+tools/originaler/fund_plandata.json
+tools/originaler/kommuner_probe.json
+miljoejurist/cache/

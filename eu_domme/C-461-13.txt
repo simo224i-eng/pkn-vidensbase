@@ -1,0 +1,313 @@
+62013CJ0461
+DOMSTOLENS DOM (Store Afdeling)
+1. juli 2015 (
+*1
+)
+»Præjudiciel forelæggelse — miljø — Den Europæiske Unions vandpolitik — direktiv 2000/60/EF — artikel 4, stk. 1 — miljømål vedrørende overfladevandområder — forringelse af et overfladevandområdes tilstand — projekt vedrørende udbygningen af en vandvej — medlemsstaternes forpligtelse til ikke at tillade projekter, der kan have en negativ indvirkning på overfladevandområders tilstand — kriterier for vurderingen af, om der foreligger en forringelse af et vandområdes tilstand«
+I sag C-461/13,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Bundesverwaltungsgericht (Tyskland) ved afgørelse af 11. juli 2013, indgået til Domstolen den 22. august 2013, i sagen:
+Bund für Umwelt und Naturschutz Deutschland eV
+mod
+Bundesrepublik Deutschland,
+procesdeltager:
+Freie Hansestadt Bremen,
+har
+DOMSTOLEN (Store Afdeling)
+sammensat af præsidenten, V. Skouris, vicepræsidenten, K. Lenaerts, afdelingsformændene A. Tizzano, R. Silva de Lapuerta, M. Ilešič, A. Ó Caoimh, C. Vajda og S. Rodin samt dommerne A. Borg Barthet, J. Malenovský, E. Levits, M. Berger (refererende dommer), C.G. Fernlund, J.L. da Cruz Vilaça og F. Biltgen,
+generaladvokat: N. Jääskinen
+justitssekretær: fuldmægtig K. Malacek,
+på grundlag af den skriftlige forhandling og efter retsmødet den 8. juli 2014,
+efter at der er afgivet indlæg af:
+—
+Bund für Umwelt und Naturschutz Deutschland eV ved Rechtsanwalt, R. Nebelsieck
+—
+Bundesrepublik Deutschland ved Rechtsanwalt W. Ewer
+—
+Freie Hansestadt Bremen ved Rechtsanwalt P. Schütte
+—
+den tjekkiske regering ved M. Smolek, som befuldmægtiget
+—
+den franske regering ved S. Menez, som befuldmægtiget
+—
+den nederlandske regering ved M. Bulterman, B. Koopmann og J. Langer, som befuldmægtigede
+—
+den polske regering ved B. Majczyna, som befuldmægtiget
+—
+Det Forenede Kongeriges regering ved J. Beeko, som befuldmægtiget, bistået af barrister G. Facenna
+—
+Europa-Kommissionen ved E. Manhaeve og G. Wilms, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 23. oktober 2014,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 4, stk. 1, litra a), nr. i)-iii), i Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger (
+EFT L 327, s. 1
+).
+2
+Anmodningen er indgivet i forbindelse med en tvist mellem Bund für Umwelt und Naturschutz Deutschland eV (miljø- og naturbeskyttelsesforening i Tyskland) og Bundesrepublik Tyskland angående et projekt til en uddybning af forskellige dele af floden Weser i Nordtyskland, som skal gøre det muligt for større containerskibe at passere de i Tyskland beliggende havne Bremerhaven, Brake og Bremen.
+Retsforskrifter
+EU-retten
+3
+Følgende fremgår af 16., 25. og 32. betragtning til direktiv 2000/60:
+»(16)
+Der er behov for yderligere integration af vandbeskyttelse og bæredygtig vandforvaltning i andre fællesskabspolitiske områder, navnlig energipolitik, transportpolitik, landbrugspolitik, fiskeripolitik, regionalpolitik og turistpolitik. […]
+[...]
+(25)
+Der bør fastlægges fælles definitioner for vands tilstand med hensyn til kvalitet og, når det er relevant i forbindelse med miljøbeskyttelse, mængde. Der bør fastsættes miljømål, som kan sikre en god tilstand for overfladevand og grundvand i hele Fællesskabet, og som kan forebygge forringelse af vandets tilstand på fællesskabsniveau.
+[…]
+(32)
+Der kan være grunde til undtagelser fra kravet om at undgå yderligere forringelse eller at opnå en god tilstand under specifikke forhold, hvis bestræbelserne mislykkes på grund af uforudsete eller ekstraordinære omstændigheder, navnlig oversvømmelser eller tørke, eller nye ændringer af et overfladevandområdes fysiske karakteristika eller ændringer i grundvandsstanden af hensyn til væsentlige samfundsinteresser. Men der må i så fald træffes enhver rimelig foranstaltning for at afbøde den skadelige virkning på vandområdets tilstand.«
+4
+Artikel 1 i direktiv 2000/60 med overskriften »Formål« fastsætter:
+»Direktivets overordnede formål er at fastlægge en ramme for beskyttelse af vandløb og søer, overgangsvande, kystvande og grundvand, som:
+a)
+forebygger yderligere forringelse og beskytter og forbedrer vandøkosystemernes tilstand og, hvad angår deres vandbehov, også tilstanden for terrestriske økosystemer og vådområder, der er direkte afhængige af vandøkosystemerne
+[...]«
+5
+Artikel 2 i det nævnte direktiv med overskriften »Definitioner« bestemmer i nr. 9), 17) og 21)-23):
+»I dette direktiv gælder følgende definitioner:
+[...]
+9)
+»[s]tærkt modificeret vandområde«: forekomst af overfladevand, der som et resultat af fysiske ændringer som følge af menneskelig aktivitet i væsentlig grad har ændret karakter som angivet af medlemsstaten i henhold til bestemmelserne i bilag II
+[...]
+17)
+»[o]verfladevandstilstand«: det samlede udtryk for et overfladevandområdes tilstand bestemt ved enten vandområdets økologiske tilstand eller dets kemiske tilstand, alt efter hvilken der er ringest
+21)
+»[ø]kologisk tilstand«: et udtryk for kvaliteten af de med overfladevandet forbundne vandøkosystemers struktur og funktion, som klassificeret i henhold til bilag V
+22)
+»[g]od økologisk tilstand«: tilstand for et overfladevandområde, som klassificeret i henhold til bilag V
+23)
+»[g]odt økologisk potentiale«: tilstand for et stærkt modificeret eller et kunstigt vandområde, som klassificeret i henhold til de relevante bestemmelser i bilag V
+[...]«
+6
+Direktivets artikel 3, som har overskriften »Koordinering af administrative ordninger inden for vandområdedistrikter«, bestemmer i stk. 1:
+»Medlemsstaterne afgrænser de enkelte vandløbsoplande inden for deres nationale territorium og henlægger dem med henblik på dette direktiv under særskilte vandområdedistrikter. Små vandløbsoplande kan kombineres med større vandløbsoplande eller føjes til tilstødende små vandløbsoplande, så de tilsammen danner et særskilt vandområdedistrikt, hvor dette findes hensigtsmæssigt. I det omfang grundvand ikke fuldt ud følger et bestemt vandløbsopland, afgrænses og henlægges sådant grundvand under det nærmeste eller mest hensigtsmæssige vandområdedistrikt. Kystvande afgrænses og henlægges under det eller de nærmeste eller mest hensigtsmæssige vandområdedistrikter.«
+7
+Artikel 4 i direktiv 2000/60 med overskriften »Miljømål« bestemmer i stk. 1, litra a), stk. 2 og stk. 6:
+»1. Ved iværksættelsen af de indsatsprogrammer, der er angivet i vandområdeplanerne, gælder følgende:
+a)
+overfladevand
+i)
+[M]edlemsstaterne iværksætter de nødvendige foranstaltninger med henblik på at forebygge forringelse af tilstanden for alle overfladevandområder, med forbehold af anvendelse af stk. 6 og 7, jf. dog stk. 8.
+ii)
+[M]edlemsstaterne beskytter, forbedrer og restaurerer alle overfladevandområder med forbehold af anvendelse af nr. iii) for kunstige og stærkt modificerede vandområder, med henblik på at opnå god tilstand for overfladevand i overensstemmelse med bestemmelserne i bilag V senest 15 år efter datoen for dette direktivs ikrafttræden, med forbehold af eventuelle fristforlængelser i henhold til stk. 4 og anvendelse af stk. 5, 6 og 7, jf. dog stk. 8.
+iii)
+[M]edlemsstaterne beskytter og forbedrer alle kunstige og stærkt modificerede vandområder med henblik på at opnå et godt økologisk potentiale og god kemisk tilstand for overfladevand i overensstemmelse med bestemmelserne i bilag V senest 15 år efter datoen for dette direktivs ikrafttræden, med forbehold af eventuelle fristforlængelser i henhold til stk. 4 og anvendelse af stk. 5, 6 og 7, jf. dog stk. 8.
+[...]
+2. Hvis mere end ét af målene i stk. 1 gælder for en given forekomst af vand, anvendes det strengeste.
+[...]
+6. Midlertidig forringelse af vandforekomsternes tilstand er ikke i modstrid med kravene i dette direktiv, hvis forringelsen skyldes omstændigheder af naturlig art eller force majeure, som er ekstraordinære eller ikke med rimelighed kunne have været forudset, navnlig voldsomme oversvømmelser og langvarig tørke, eller skyldes omstændigheder som følge af ulykker, der ikke med rimelighed kunne have været forudset, såfremt følgende betingelser alle er opfyldt:
+a)
+[D]er tages alle praktisk gennemførlige skridt for at forebygge yderligere forringelse af tilstanden og for ikke at hindre opfyldelse af målene i dette direktiv i andre forekomster af vand, der ikke er berørt af disse omstændigheder.
+b)
+[V]andområdeplanen redegør for de betingelser, hvorunder omstændigheder, der er ekstraordinære eller ikke med rimelighed kunne have været forudset, kan påberåbes, herunder fastlæggelse af passende indikatorer.
+c)
+[F]e foranstaltninger, der skal træffes under sådanne ekstraordinære omstændigheder, indgår i indsatsprogrammet og vil ikke bringe genoprettelsen af vandforekomstens kvalitet i fare, når omstændighederne ikke længere foreligger.
+d)
+[V]irkningerne af de omstændigheder, der er ekstraordinære eller ikke med rimelighed kunne have været forudset, gennemgås årligt, og under hensyn til de årsager, der er fastsat i stk. 4, litra a), træffes alle praktisk gennemførlige foranstaltninger for så hurtigt, som det kan lade sig gøre, at genetablere den tilstand, vandforekomsten havde, inden virkningerne af disse omstændigheder viste sig […]
+e)
+[E]n oversigt over virkningerne af omstændighederne og af de foranstaltninger, der er truffet eller skal træffes i henhold til litra a) og d), medtages i den næste ajourføring af vandområdeplanen.«
+8
+Direktivets artikel 4, stk. 7, bestemmer:
+»Medlemsstaterne misligholder ikke dette direktiv, hvis
+—
+manglende opnåelse af god grundvandstilstand, god økologisk tilstand eller, hvor det er relevant, godt økologisk potentiale, eller manglende forebyggelse af forringelse af et overfladevandområdes eller en grundvandsforekomsts tilstand skyldes nye ændringer af overfladevandområdets fysiske karakteristika eller forandringer i grundvandsforekomsternes niveau, eller hvis
+—
+manglende forebyggelse af et overfladevandområdes forringelse fra tilstanden »høj« til tilstanden »god« skyldes nye bæredygtige menneskelige udviklingsaktiviteter,
+og følgende betingelser alle er opfyldt:
+a)
+[D]er tages alle praktisk gennemførlige skridt for at mindske den skadelige indvirkning på vandforekomstens tilstand.
+b)
+[G]rundene til disse ændringer eller forandringer er specifikt angivet og forklaret i den vandområdeplan, der kræves i henhold til artikel 13, og målene revideres hvert sjette år.
+c)
+[Æ]ndringerne eller forandringerne er begrundet i væsentlige samfundsinteresser, og/eller nyttevirkningerne for miljøet og samfundet ved opnåelse af målene i stk. 1 er mindre end de nyttevirkninger, der følger af de nye ændringer eller forandringer for befolkningens sundhed, opretholdelsen af menneskers sikkerhed og en bæredygtig udvikling […]
+d)
+[D]e nyttige mål, der tilsigtes ved de nye ændringer eller forandringer af vandområdet, kan ikke på grund af tekniske vanskeligheder eller uforholdsmæssigt store omkostninger opnås med andre midler, som miljømæssigt er en væsentligt bedre løsning.«
+9
+Samme direktivs artikel 11 med overskriften »Indsatsprogram« bestemmer i stk. 1:
+»Hver medlemsstat sørger for, at der for hvert vandområdedistrikt eller for den del af et internationalt vandområdedistrikt, der ligger inden for dens område, udarbejdes et indsatsprogram, idet der tages hensyn til resultaterne af de analyser, der kræves i henhold til artikel 5, med henblik på opfyldelse af de mål, der er fastsat i henhold til artikel 4. Sådanne indsatsprogrammer kan referere til foranstaltninger, der følger af lovgivning, vedtaget på nationalt plan, der dækker en medlemsstats samlede område. Hvor det er relevant, kan en medlemsstat vedtage foranstaltninger for alle vandområdedistrikter og/eller for dele af internationale vandområdedistrikter, der ligger inden for dens område.«
+10
+Artikel 13 i direktiv 2000/60 med overskriften »Vandområdeplaner« fastsætter i stk. 1:
+»Medlemsstaterne sørger for, at der udarbejdes en vandområdeplan for hvert vandområdedistrikt, der som helhed ligger inden for deres område.«
+11
+Artikel 14 i direktiv 2000/60, som har overskriften »Offentlig oplysning og høring«, bestemmer i stk. 1:
+»Medlemsstaterne tilskynder til, at alle interesserede parter inddrages aktivt i gennemførelsen af dette direktiv, navnlig i udarbejdelse, revision og ajourføring af vandområdeplanerne. […]«
+Tysk ret
+12
+§ 27 i Wasserhaushaltsgesetz (lov om vandforvaltning, herefter »WHG«) af 31. juli 2009 (BGBl. 2009 I, s. 2585) i den affattelse, der finder anvendelse på de faktiske omstændigheder i hovedsagen, med overskriften »Forvaltningsmål for overfladevandområder« bestemmer:
+»1) For så vidt som overfladevandområderne ikke er klassificeret som kunstige eller stærkt modificerede, jf. § 28, forvaltes de således, at
+1.
+der undgås forringelser af deres økologiske tilstand og kemiske tilstand, og
+2.
+der bevares eller opnås en god økologisk tilstand og god kemisk tilstand.
+2) De overfladevandområder, der er kategoriseret som kunstige eller stærkt modificerede, jf. § 28, forvaltes på en måde,
+1.
+der forhindrer forringelse af deres økologiske potentiale og kemiske tilstand og
+2.
+der bevarer eller opnår et godt økologisk potentiale og god kemisk tilstand.«
+13
+WHG’s § 31, stk. 2, første punktum, bestemmer:
+»Selv om der ikke er opnået god tilstand for overfladevand, eller hvis overfladevandstilstanden forværres, strider dette ikke mod de i §§ 27 og 30 anførte forvaltningsmål, såfremt
+1. dette er resultat af en ny ændring af vandområdets fysiske karakteristika eller grundvandsspejlet tilstand
+2. denne ændring er begrundet i væsentlige samfundsinteresser eller nyttevirkningerne af den nye ændring for befolkningens sundhed eller sikkerhed eller for en bæredygtig udvikling, der er større end de nyttevirkninger for miljøet og samfundet, der er knyttet til opnåelsen af forvaltningsmålene
+3. de mål, som tilsigtes ved ændringen af vandområderne, ikke kan opnås med andre hensigtsmæssige midler, hvis skadevirkninger på miljøet er væsentligt mindre, som er teknisk gennemførlige, og hvis omkostninger ikke er uforholdsmæssigt store, og
+4. der tages alle praktisk gennemførlige skridt for at mindske den skadelige indvirkning på vandområdernes tilstand
+[…]«
+14
+§ 12, stk. 7, tredje punktum, i Bundeswasserstraßengesetz (lov om forbundsvandveje) af 2. april 1968 (BGBl. 1968 II, s. 173) i den affattelse, der finder anvendelse på de faktiske omstændigheder i hovedsagen, bestemmer:
+»Bygningsmæssige foranstaltninger skal tage hensyn til de forvaltningsmål, der finder anvendelse i henhold til § 27-31 i [WHG].«
+15
+§ 14, stk. 1, andet punktum, i den nævnte lov bestemmer:
+»I forbindelse med godkendelse af planen skal der tages hensyn til samtlige de offentlige og private interesser, der berøres af projektet, herunder projektets indvirkning på miljøet.«
+Tvisten i hovedsagen og de præjudicielle spørgsmål
+16
+Ved projekttilladelse af 15. juli 2011 (herefter »projekttilladelsen«) meddelte Wasser- und Schiffahrtsdirektion Nordwest (sø- og skibsfartsdirektoratet nord-vest), en administrativ forbundsmyndighed, tilladelse til tre projekter vedrørende udbygning af forbundsvandvejen Weser. Alle disse projekter, der kan gennemføres uafhængigt af hinanden, forestås af Wasser- und Schifffahrtsverwaltung des Bundes (forbundsstatens vand- og skibsfartsforvaltning).
+17
+Det første projekt vedrører udbygningen af Außenweser fra det åbne hav til Bremerhaven. I denne forbindelse skal sejlrenden i Außenweser gøres indtil 1,16 meter (m) dybere, således at store containerskibe med en lastet dybgang på indtil 13,5 m kan anløbe havnen i Bremerhaven uafhængig af tidevandet. Projektet er forbundet med uddybningen af vendepladsen i havnen i Bremerhaven, som Freie Hansestadt Bremen, der er intervenient i hovedsagen, forestår.
+18
+Det andet projekt vedrører udbygning af Unterweser opstrøms fra Bremerhaven til Brake med en uddybning af sejlrenden på op til 1 meter, således at skibe med en lastet dybgang på maximalt 12,8 m kan anløbe denne havn afhængig af tidevandet.
+19
+Det tredje projekt har til formål at udbygge Unterweser opstrøms fra Brake til Bremen. Sejlrenden skal i denne del af floden gøres dybere, således at havnen i Bremen afhængig af tidevandet kan anløbes af skibe med en lastet dybgang på indtil 11,1 m. Aktuelt kan Bremen havn afhængig af tidevandet anløbes af skibe med en lastet dybgang på indtil 10,7 m.
+20
+Gennemførelse af det pågældende projekt betyder, at der skal foretages en udgravning af flodbunden i sejlrenderne. Når den påtænkte dybde først er nået, er det nødvendigt at foretage regelmæssige vedligeholdelsesopgravninger. Det er planen, at materialet fra opgravning og vedligeholdelse i det væsentlige skal klappes på steder i Außenweser og Unterweser, der allerede tidligere har været benyttet til klapning.
+21
+Foruden de umiddelbare virkninger af udgravning og klapning af materialet herfra har de pågældende projekter ifølge den forelæggende ret yderligere hydrologiske og morfologiske følger for de berørte flodafsnit. Således øges bl.a. strømhastigheden såvel ved ebbe som ved flod, tidevandsniveauet ved højvande bliver højere, tidevandsniveauet ved lavvande bliver lavere, saltindholdet i dele af Unterweser øges, brakvandsgrænsen i Unterweser forskydes opstrøms, og sluttelig vil tilsandingen af flodlejet øges uden for sejlrenden.
+22
+Blandt de berørte vandområder er vandområderne overgangsvande for Weser og tidevandeområde oven for Brake klassificeret som stærkt modificerede i den betydning, hvori dette udtryk er anvendt i artikel 2, nr. 9), i direktiv 2000/60. Außenweser-området er, for så vidt som der er tale om kystvande, klassificeret som et naturligt vandområde. Endvidere berøres en række vandområder i bifloderne, hvor forholdene klassificeres dels som naturlige, dels som stærkt modificerede.
+23
+På dette grundlag har Wasser- und Schifffahrtsdirektion Nordwest i forbindelse med projektgodkendelsen foretaget en vurdering af, hvorvidt de pågældende projekter er forenelige med det formål at forebygge forværringen af vandområder, der følger af direktiv 2000/60. Denne myndighed har konkluderet, at der for så vidt angår kystvandene ikke må forventes en forringelse i dette direktivs forstand.
+24
+Derimod har myndigheden vurderet, at den aktuelle tilstand af visse vandområder i Weser vil vise tendens i retning af en negativ ændring som en følge af de pågældende udbygningsprojekter, uden at dette fører til en ændring i tilstandsklassen i henhold til bilag V til direktiv 2000/60. Ifølge Wasser- und Schifffahrtsdirektion Nordwest betragtes en sådan forringelse inden for en tilstandsklasse ikke som forringelse af det pågældende vandområdes økologiske potentiale eller tilstand.
+25
+Subsidiært efterprøvede den nævnte myndighed, hvorvidt betingelserne for en undtagelse fra forbuddet mod forringelse af vandområder i henhold til § 31, stk. 2, i WHG og artikel 4, stk. 7, i direktiv 2000/06 var opfyldt, og bekræftede, at dette var tilfældet.
+26
+Bund für Umwelt und Naturschutz Deutschland eV har anfægtet projekttilladelsen og har i denne forbindelse påberåbt sig tilsidesættelser af lovbestemmelserne om projektplanlægning, Gesetz über die Umweltverträglichkeitsprüfung (lov om miljøindvirkningsvurdering) og naturbeskyttelseslovgivningen foruden flora-, fauna-, habitat- samt fuglebeskyttelseslovgivningen samt krænkelse af vandbeskyttelsesbestemmelser til gennemførelse af direktiv 2000/60.
+27
+Den forelæggende ret er af den opfattelse, at udfaldet af tvisten i hovedsagen afhænger af fortolkningen af en række bestemmelser i det nævnte direktiv.
+28
+På denne baggrund har Bundesverwaltungsgericht (forbundsforvaltningsdomstolen) besluttet at udsætte sagen og forelægge følgende præjudicielle spørgsmål for Domstolen:
+»1)
+Skal artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 fortolkes således, at medlemsstaterne – medmindre der indrømmes en fravigelse – er forpligtede til at nægte at godkende et projekt, såfremt det kan medføre en forringelse af tilstanden for et overfladevandområde, eller er denne bestemmelse alene udtryk for en målsætning for vandområdeplanen?
+2)
+Skal begrebet »forringelse af tilstanden« i artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 fortolkes således, at det alene omfatter skadelige ændringer, der fører til en lavere klassifikation i henhold til direktivets bilag V?
+3)
+For det tilfælde, at det andet spørgsmål skal besvares benægtende, spørges, under hvilke forudsætninger der foreligger en »forringelse af tilstanden« som omhandlet i artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60?
+4)
+Skal artikel 4, stk. 1, litra a), nr. ii) og iii), i direktiv 2000/60 fortolkes således, at medlemsstaterne – medmindre der indrømmes en fravigelse – er forpligtede til at nægte at godkende et projekt, såfremt det indebærer risiko for, at der ikke opnås henholdsvis en god tilstand for overfladevand eller et godt økologisk potentiale og god kemisk tilstand for overfladevand på den i direktivet fastsatte dato, eller er denne bestemmelse alene udtryk for en målsætning for vandområdeplanen?«
+Om de præjudicielle spørgsmål
+Om det første og det fjerde spørgsmål
+29
+Med sit første og fjerde spørgsmål, der behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om artikel 4, stk. 1, litra a), nr. i)-iii), i direktiv 2000/60 skal fortolkes således, at medlemsstaterne – medmindre der indrømmes en fravigelse – er forpligtede til at nægte at godkende et projekt, såfremt det kan medføre en forringelse af tilstanden for et overfladevandområde, eller når det indebærer risiko for, at der ikke opnås en god tilstand for overfladevand eller et godt økologisk potentiale og god kemisk tilstand for overfladevand på den i direktivet fastsatte dato.
+30
+I henhold til Domstolens faste praksis skal rækkevidden af disse bestemmelser ske under hensyntagen til både disses ordlyd og den sammenhæng, hvori den indgår, samt de mål, der forfølges med den lovgivning, som den er en del af (jf. bl.a. domme Lundberg, C-317/12,
+EU:C:2013:631
+, præmis 19, SFIR m.fl., C-187/12 – C-189/12,
+EU:C:2013:737
+, præmis 24, og Bouman, C-114/13,
+EU:C:2015:81
+, præmis 31), og i den foreliggende sag denne lovgivnings tilblivelse
+31
+Det skal i modsætning til det, Den Tyske Forbundsrepublik og den nederlandske regering har gjort gældende, bemærkes, at ordlyden af artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 underbygger den bindende karakter af denne bestemmelse, hvorefter »medlemsstaterne iværksætter de nødvendige foranstaltninger med henblik på at forebygge forringelse af tilstanden for alle overfladevandområder«. Udtrykket »iværksætter« indebærer en forpligtelse for medlemsstaterne til at træffe foranstaltninger i denne henseende.
+32
+Ligesom den forelæggende ret har gjort det, skal godkendelsen af et enkeltprojekt forstås som en sådan iværksættelse.
+33
+I medfør af artikel 4, stk. 1, litra a), i direktiv 2000/60 er det i øvrigt »[v]ed iværksættelsen af de indsatsprogrammer, der er angivet i vandområdeplanerne«, at medlemsstaterne vedtager de foranstaltninger, der er nødvendige med henblik på at opfylde målsætningerne om forebyggelse af forringelse, beskyttelse og forbedring af overfladevandområders tilstand. Anvendelsen af udtrykket »iværksættelsen af« understøtter en fortolkning af denne bestemmelse, der udmunder i, at denne indeholder forpligtelser, der skal opfyldes af de kompetente myndigheder i forbindelse med godkendelsen af enkeltprojekter inden for rammerne af den retlige ordning med henblik på vandbeskyttelse.
+34
+Det skal ligeledes bemærkes, at direktiv 2000/60 er et rammedirektiv, der er vedtaget på grundlag af artikel 175, stk. 1, EF (nu artikel 192, stk. 1, TEUF). Direktivet fastlægger fælles principper og en overordnet ramme for indsatsen til beskyttelse af vandet og samordner og integrerer samt på lang sigt yderligere udvikler de overordnede principper og strukturer for beskyttelse og bæredygtig anvendelse af vand i Den Europæiske Union. De fælles principper og den overordnede ramme for indsatsen, der fastlægges i direktivet, skal senere udvikles yderligere af medlemsstaterne ved at vedtage en række særlige foranstaltninger under overholdelse af de i direktivet fastsatte frister. Direktivets formål er imidlertid ikke at gennemføre en fuld harmonisering af medlemsstaternes lovgivning på vandområdet (domme Kommissionen mod Luxembourg, C-32/05,
+EU:C:2006:749
+, præmis 41, og Kommissionen mod Tyskland, C-525/12,
+EU:C:2014:2202
+, præmis 50).
+35
+I denne henseende fremgår det af 25. betragtning til dette direktiv, at der bør fastsættes miljømål, som kan sikre en god tilstand for overfladevand og grundvand i hele Unionen, og som kan forebygge forringelse af vandets tilstand på EU-niveau.
+36
+I medfør af artikel 1, litra a), i direktiv 2000/60 har dette direktiv til formål at fastlægge en ramme for beskyttelse af vandløb og søer, overgangsvande, kystvande og grundvand, som forebygger yderligere forringelse og beskytter og forbedrer vandøkosystemernes tilstand og – hvad angår deres vandbehov – også tilstanden for terrestriske økosystemer og vådområder, der er direkte afhængige af vandøkosystemerne.
+37
+Således består endemålet med direktiv 2000/60 i ved en koordineret indsats at opnå en »god tilstand« for alt overfladevand i Unionen inden udgangen af 2015.
+38
+De miljømål, som medlemsstaterne er forpligtede til at opnå, præciseres i artikel 4, stk. 1 i direktiv 2000/60.
+39
+Den nævnte bestemmelse opstiller to særskilte, men indbyrdes tæt forbundne mål. For det første iværksætter medlemsstaterne i henhold til artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 de nødvendige foranstaltninger med henblik på at forebygge forringelse af tilstanden for alle overfladevandområder (forpligtelsen til at forebygge forringelse). Under anvendelse af artikel 4, stk. 1, litra a), nr. ii) og iii), beskytter, forbedrer og restaurerer medlemsstaterne for det andet alle overfladevandområder med henblik på at opnå en god tilstand senest i slutningen af 2015 (forpligtelsen til forbedring).
+40
+Disse to målsætninger fremgår af forarbejderne til direktiv 2000/60. Hvad navnlig angår forpligtelsen til at forebygge forringelse af overfladevand kunne de relevante bestemmelser, i den første version, betyde, at de vandområder, der var klassificeret højere end »god tilstand«, kunne forringes til kategorien »god tilstand«, når direktiv 2000/60 var vedtaget. Som følge heraf foreslog Europa-Parlamentet en ændring, der gjorde det muligt at sondre mellem forpligtelsen til at opnå en »god tilstand« og forpligtelsen til at forebygge forringelser, med indførelsen af et nyt led i artikel 4, stk. 1, i dette direktiv som specifikt vedrørte den sidstnævnte forpligtelse.
+41
+Såvel forpligtelsen til forbedring som forpligtelsen til at forebygge forringelse af tilstanden for vandområder tilsigter at opfylde de kvalitative mål, som EU-lovgiver søger at opnå, dvs. forbedring eller restaurering med henblik på at opnå en god tilstand, et godt økologisk potentiale og god kemisk tilstand for overfladevand.
+42
+For at sikre, at medlemsstaterne opfylder de ovenfor nævnte miljømål, indeholder direktiv 2000/60 en række bestemmelser – bl.a. i artikel 3, 5, 8, 11 og 13 i dette direktiv samt i bilag V hertil – der, som generaladvokaten har bemærket i punkt 43-52 i sit forslag til afgørelse, danner en kompleks proces og omfatter etaper, der er detaljeret reguleret, med henblik på at gøre muligt for medlemsstaterne at gennemføre de foranstaltninger, der er nødvendige på baggrund af de særlige egenskaber og karakteristika, der er identificeret for vandområderne på deres område.
+43
+Disse omstændigheder taler for den fortolkning, hvorefter artikel 4, stk. 1, litra a), i direktiv 2000/60 ikke begrænser sig til ved en programmatisk formulering at anføre simple mål for forvaltningsplaner, men har bindende virkning, så snart det pågældende vandområdes økologiske tilstand er fastslået i alle faser i den procedure, der er fastlagt ved dette direktiv.
+44
+Undtagelsesordningen i artikel 4, stk. 7, i direktiv 2000/60, hvis betingelser for anvendelse blev undersøgt af sagsøgte i hovedsagen, men som ikke er genstand for de spørgsmål, som den forelæggende ret har stillet, udgør ligeledes et element, der taler for den fortolkning, hvorefter forebyggelse af forringelse af et overfladevandområdes tilstand har bindende karakter.
+45
+I denne henseende skal det bemærkes, at den nævnte ordning omfatter flere kategorier. Navnlig følger det af nævnte artikel 4, stk. 7, at »[m]edlemsstaterne [ikke] misligholder dette direktiv, hvis […] manglende forebyggelse af forringelse af et overfladevandområdes eller en grundvandsforekomsts tilstand skyldes nye ændringer af overfladevandområdets fysiske karakteristika eller forandringer i grundvandsforekomsternes niveau«.
+46
+Denne fravigelse gælder imidlertid kun på den betingelse, at der er taget alle praktisk gennemførlige skridt for at mindske den skadelige indvirkning på den pågældende vandforekomsts tilstand, og indsatsprogrammerne og vandområdeplanerne er blevet tilpasset som følge heraf.
+47
+I denne henseende skal det bemærkes, at strukturen for så vidt angår de kategorier af fravigelser, der følger af artikel 4, stk. 7, i direktiv 2000/60, gør det muligt at lægge til grund, at direktivets artikel 4 ikke kun indeholder programmatiske forpligtelser, men også vedrører enkeltprojekter. Som generaladvokaten har anført i punkt 78 i forslaget til afgørelse, finder fravigelsesgrundene bl.a. anvendelse, såfremt den manglende opfyldelse af målsætningerne skyldes nye ændringer af et overfladevandområdes fysiske egenskaber, og dette har skadelige indvirkninger. Dette kan imidlertid være resultat af nye projektgodkendelser. Det er således umuligt at behandle et projekt adskilt fra gennemførelsen af områdevandplaner.
+48
+Følgelig er disse projekter omfattet af forpligtelsen til at forebygge forringelse af tilstanden for vandområder som indeholdt i artikel 4 i direktiv 2000/60. Imidlertid kan de nævnte projekter godkendes under anvendelse af den fravigelsesordning, der følger af nævnte artikel 4.
+49
+Europa-Kommissionen har i sit skriftlige indlæg gjort gældende, at forbuddet mod forringelse af tilstanden for vandområder er et mål, der hører ind under direktivets forpligtelse til forbedring. I denne forbindelse skal det konstateres, at forpligtelsen til at forebygge forringelse af vandområder af EU-lovgiver har fået selvstændig status og ikke blot er et redskab, der kan anvendes i forbindelse med forpligtelsen til forbedring af tilstanden for vandområder.
+50
+Heraf følger det, at enhver forringelse af tilstanden for et vandområde skal undgås, medmindre der indrømmes en fravigelse, uafhængigt af de mere langsigtede planer, der følger af forvaltningsplaner og indsatsprogrammer. Forpligtelsen til at forebygge forringelse af tilstanden for vandområder er bindende i hver fase af gennemførelsen af direktiv 2000/60 og gælder for alle typer overfladevandområder og alle tilstande, for hvilke der er vedtaget eller burde være vedtaget en forvaltningsplan. Den pågældende medlemsstat er følgelig forpligtet til at nægte at godkende et projekt, såfremt sidstnævnte kan medføre en forringelse af tilstanden for et berørt overfladevandområde eller indebærer risiko for, at der ikke opnås en god tilstand for overfladevand, medmindre det pågældende projekt anses for at være omfattet af en undtagelse i henhold til artikel 4, stk. 7, i dette direktiv.
+51
+Henset til samtlige ovenstående betragtninger skal det første og det fjerde spørgsmål besvares med, at artikel 4, stk. 1, litra a), nr. i)-iii), i direktiv 2000/60 skal fortolkes således, at medlemsstaterne – medmindre der indrømmes en fravigelse – er forpligtede til at nægte at godkende et enkeltprojekt, såfremt det kan medføre en forringelse af tilstanden for et overfladevandområde, eller når det indebærer risiko for, at der ikke opnås en god tilstand for overfladevand eller et godt økologisk potentiale og god kemisk tilstand for overfladevand på den i direktivet fastsatte dato.
+Om det andet og det tredje spørgsmål
+52
+Med sit andet og tredje spørgsmål, der behandles samlet, ønsker den forelæggende ret nærmere bestemt oplyst, om begrebet »forringelse af tilstanden« i artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 skal fortolkes således, at det alene omfatter skadelige ændringer, der fører til en lavere klassificering af dette vandområde som omhandlet i direktivets bilag V (klasseteorien). Såfremt svaret er benægtende, med andre ord hvis dette begreb omfatter enhver ændring i det pågældende vandområdes tilstand (status quo-teorien), ønsker den forelæggende ret oplyst, hvilke kriterier der skal lægges til grund for at fastslå, at der foreligger en forringelse af et overfladevandområde.
+53
+Det skal bemærkes, at begrebet »forringelse af tilstanden« af et overfladevandområde ikke er defineret i direktiv 2000/60.
+54
+I denne henseende skal der mindes om, at fastlæggelsen af betydningen og rækkevidden af det nævnte udtryk i mangel af en sådan definition i EU-retten ifølge Domstolens faste retspraksis skal ske under hensyntagen til både den pågældende EU-retlige bestemmelses ordlyd og den sammenhæng, hvori den indgår (jf. bl.a. domme Lundberg, C-317/12,
+EU:C:2013:631
+, præmis 19, SFIR m.fl., C-187/12 – C-189/12,
+EU:C:2013:737
+, præmis 24, og Bouman, C-114/13,
+EU:C:2015:81
+, præmis 31).
+55
+Ordlyden af artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 taler for den fortolkning, hvorefter begrebet »forringelse af tilstanden« af et overfladevandområde ligeledes omfatter forringelser, der ikke fører til en lavere klassifikation af vandområdet. Denne bestemmelse angiver udtrykkeligt, at forringelse af tilstanden for alle overfladevandområder skal forebygges. Ifølge definitionen i nævnte direktivs artikel 2, nr. 17), er overfladevandstilstanden det samlede udtryk for et overfladevandområdes tilstand bestemt ved enten vandområdets økologiske tilstand eller dets kemiske tilstand, alt efter hvilken der er ringest. Således fastlægger artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 generelt forpligtelsen til at forebygge forringelse af tilstanden for overfladevandområder uden at nævne en eventuel ændring af klassen, idet direktivets artikel 4, stk. 1, litra a), nr. ii) og iii), alene henviser til bilag V til nævnte direktiv for så vidt angår forpligtelsen til forbedring af tilstanden for overfladevandområder.
+56
+Inden det undersøges, hvorvidt denne bogstavelige fortolkning underbygges af den sammenhæng, hvori begrebet »forringelse af tilstanden« for et overfladevandområde indgår, såvel som af målene i direktiv 2000/60, skal det bemærkes, at bedømmelsen af overfladevandområders tilstand er baseret på en analyse af den økologiske tilstand, som består af fem klasser, således som generaladvokaten har bemærket i punkt 91-97 i forslaget til afgørelse.
+57
+Det er i fasen for udarbejdelsen af de økologiske kvalitetsratioer, at medlemsstaterne for hver kategori overfladevand inddeler skalaen for de økologiske kvalitetsratioer i fem klasser ved hjælp af grænseværdier for biologiske kvalitetselementer, der angiver grænselinjen mellem de forskellige klasser – dvs. høj, god, moderat og dårlig. Grænseværdierne skal fastsættes ved brug af interkalibrering, der består i at sammenligne klassifikationsresultaterne fra de nationale overvågningssystemer for hvert biologisk element og for hver fælles overfladevandområdetype blandt medlemsstaterne i samme geografiske interkalibreringsgruppe og vurdere, om resultaterne er overensstemmende med de normgivende definitioner fastlagt i punkt 1.2 i bilag V til direktivet.
+58
+Som det dog fremgår af punkt 1.4.1, nr. iii), i bilag V til direktiv 2000/60, tjener interkalibrering alene til at fastsætte grænselinjen mellem tilstandsklasserne »høj«, »god« og »moderat«. Grænseværdierne for medlemsstaterne er indeholdt i Kommissionens afgørelse 2013/480/EU af 20. september 2013 om fastsættelse i overensstemmelse med Europa-Parlamentets og Rådets direktiv 2000/60/EF af værdierne for klassifikationerne i medlemsstaternes overvågningssystemer som resultat af interkalibreringen og om ophævelse af beslutning 2008/915/EF (
+EUT L 266, s. 1
+).
+59
+Endelig gælder i medfør af punkt 1.4.2, nr. i), i bilag V til direktiv 2000/60 for de enkelte kategorier af overfladevand, at et vandområde klassificeres én klasse lavere, når ratio for et af kvalitetselementerne falder under niveauet for den nuværende klasse. Denne regel – dvs. »one out, all out« – hænger sammen med definitionen af »overfladevandstilstand« i direktivets artikel 2, nr. 17), som skal bestemmes ved vandområdets økologiske tilstand eller dets kemiske tilstand, alt efter hvilken der er ringest.
+60
+I henhold til artikel 2, nr. 21), i direktiv 2000/60 er den økologiske tilstand et udtryk for kvaliteten af de med overfladevandet forbundne vandøkosystemers struktur og funktion, som klassificeret i henhold til bilag V i dette direktiv, som kvalificerer sine klassifikationer af den økologiske tilstand som »normgivende definitioner«.
+61
+Som generaladvokaten har bemærket i punkt 99 i forslaget til afgørelse, fører bestemmelsen af grænseværdierne mellem klasserne imidlertid til fastlæggelsen af meget store spænd. Klasserne er således blot et redskab, som indskrænker eller afgrænser medlemsstaternes meget grundige arbejde med bestemmelsen af de kvalitetselementer, som afspejler et bestemt vandområdes faktiske tilstand. Dette er bl.a. grunden til, at artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 ikke henviser til bilag V hertil, da begrebet »forringelse af tilstanden« for et overfladevandområde er et begreb med en global rækkevidde.
+62
+En anden fortolkning af dette begreb ville derimod afskrække medlemsstaterne fra at forebygge forringelser af tilstanden for et overfladevandområde inden for en tilstandsklasse. I det omfang klassifikationen af et overfladevandområde afhænger af den værdi af de relevante parametre, der er ringest, kunne alle de andre værdier sænkes, uden at dette medfører retsvirkninger.
+63
+Anvendelsen af »one out all out«-reglen i forbindelse med klasseteorien ville ligeledes føre til, at vandet i den laveste klasse ikke omfattedes af pligten til at forebygge forringelse af dettes tilstand. Efter at et vandområde er blevet klassificeret i denne tilstandsklasse, ville en ny forringelse af dets tilstand nemlig ikke længere være juridisk mulig. I betragtning af formålet med direktiv 2000/60 fortjener denne type vandområde imidlertid særlig opmærksomhed i forbindelse med vandforvaltningen.
+64
+Denne fortolkning underbygges af artikel 4, stk. 5, litra c), i direktiv 2000/60, der for så vidt angår stærkt modificerede overfladevandområder, i forhold til hvilke medlemsstaterne kan tilstræbe mindre strenge miljømål, udtrykkeligt fastlægger et forbud mod enhver yderligere forringelse.
+65
+I øvrigt ville anvendelsen af klasseteorien svække beskyttelsen af vand, der befinder sig i de højeste klasser. Idet klassifikationen af vand fastsættes ud fra den værdi af de relevante parametre, der er ringest, ville forringelsen af andre elementer ikke ændre noget i forhold til klassifikationen af det pågældende vandområde, for så vidt som den ikke ville føre til en klassifikation i en lavere klasse.
+66
+Som generaladvokaten har bemærket i punkt 105 i forslaget til afgørelse, bevarer forbuddet mod forringelse – såfremt begrebet »forringelse« fortolkes i forhold til et kvalitetselement eller et stof – til gengæld sin fulde effektive virkning, idet det omfatter alle ændringer, som kan indebære risiko for, at direktiv 2000/60’s hovedmål ikke opnås.
+67
+Hvad angår kriterierne for, at det kan fastslås, at der foreligger en forringelse af tilstanden for et vandområde, skal der mindes om, at det fremgår af opbygningen af artikel 4 i direktiv 2000/60, og bl.a. stk. 6 og 7 heri, at – selv midlertidige – forringelser i et vandområde kun er tilladte under ekstraordinære omstændigheder. Heraf følger det, at den tærskel, hvorover der foreligger en tilsidesættelse af forpligtelsen til at forebygge forringelse af et vandområde, skal være lav.
+68
+I modsætning til det, Bundesrepublik Deutschland har gjort gældende, kan en fortolkning, hvorefter alene »alvorlig skade« udgør en forringelse af tilstanden for et vandområde – en fortolkning, der i det væsentlige er baseret på en afbalancering af de negative indvirkninger på vandet på den ene side og de økonomiske interesser forbundet med vandet på den anden side – ikke udledes af ordlyden af artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60. Desuden skal det, som sagsøgeren i hovedsagen har anført, konstateres, at en sådan fortolkning ikke respekterer den ved dette direktiv fastlagte forskel mellem forpligtelsen til at forebygge forringelsen af tilstanden for et vandområde og de fravigelsesgrunde, der følger af artikel 4, stk. 7, i nævnte direktiv, for så vidt som alene disse sidstnævnte er udtryk for en interesseafvejning.
+69
+Når dette er sagt, skal det – i lighed med det af Kommissionen anførte – bemærkes, at der foreligger en »forringelse af tilstanden« for et overfladevandområde som omhandlet i artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60, når tilstanden for mindst et af kvalitetselementerne som omhandlet i direktivets bilag V forringes med en klasse, selv om denne forringelse ikke fører til, at hele overfladevandområdet rykker en klasse ned. Hvis det pågældende kvalitetselement som omhandlet i bilaget allerede befinder sig i den laveste klasse, udgør enhver forringelse af dette element imidlertid en »forringelse af tilstanden« for et overfladevandområde i den forstand, hvori dette udtryk er anvendt i artikel 4, stk. 1, litra a), nr. i).
+70
+Henset til samtlige foregående betragtninger skal det andet og det tredje spørgsmål besvares med, at begrebet »forringelse af tilstanden« af et overfladevandområde i artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 skal fortolkes således, at der foreligger en forringelse, når mindst et af kvalitetselementerne som omhandlet i dette direktivs bilag V falder et niveau, selv om denne forringelse ikke fører til, at hele overfladevandområdet rykker en klasse ned. Hvis det pågældende kvalitetselement som omhandlet i bilaget allerede befinder sig i den laveste klasse, udgør enhver forringelse af dette element imidlertid en »forringelse af tilstanden« for et overfladevandområde i den forstand, hvori dette udtryk er anvendt i artikel 4, stk. 1, litra a), nr. i).
+Sagens omkostninger
+71
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den nationale ret, tilkommer det denne at træffe afgørelse om sagens omkostninger. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Store Afdeling) for ret:
+1)
+Artikel 4, stk. 1, litra a), nr. i)-iii), i Europa-Parlamentets og Rådets direktiv 2000/60/EF af 23. oktober 2000 om fastlæggelse af en ramme for Fællesskabets vandpolitiske foranstaltninger skal fortolkes således, at medlemsstaterne – medmindre der indrømmes en fravigelse – er forpligtede til at nægte at godkende et enkeltprojekt, såfremt det kan medføre en forringelse af tilstanden for et overfladevandområde, eller når det indebærer risiko for, at der ikke opnås en god tilstand for overfladevand eller et godt økologisk potentiale og god kemisk tilstand for overfladevand på den i direktivet fastsatte dato.
+2)
+Begrebet »forringelse af tilstanden« i artikel 4, stk. 1, litra a), nr. i), i direktiv 2000/60 skal fortolkes således, at der foreligger en forringelse, når mindst et af kvalitetselementerne som omhandlet i dette direktivs bilag V falder et niveau, selv om denne forringelse ikke fører til, at hele overfladevandområdet rykker en klasse ned. Hvis det pågældende kvalitetselement som omhandlet i bilaget allerede befinder sig i den laveste klasse, udgør enhver forringelse af dette element imidlertid en »forringelse af tilstanden« for et overfladevandområde i den forstand, hvori dette udtryk er anvendt i artikel 4, stk. 1, litra a), nr. i).
+Underskrifter
+(
+*1
+) – Processprog: tysk.

@@ -849,6 +849,7 @@ function renderAssess() {
   </section>`;
 }
 
+
 // ── Læser ────────────────────────────────────────────────────────────────────
 const STOP = new Set("hvad hvor hvornår hvordan hvilke hvilken være blev bliver eller efter skal kunne ikke også nævnet nævnets praksis dækning dækker forsikring ejerskifteforsikring ejerskifteforsikringen sagen sager klager selskabet mellem under".split(" "));
 function terms(q) {

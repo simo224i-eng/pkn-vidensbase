@@ -1,0 +1,281 @@
+62015CJ0290
+DOMSTOLENS DOM (Anden Afdeling)
+27. oktober 2016 (
+*1
+)
+»Præjudiciel forelæggelse — vurdering af bestemte planers og programmers indvirkning på miljøet — direktiv 2001/42/EF — artikel 2, litra a), og artikel 3, stk. 2, litra a) — begrebet »planer og programmer« — krav til opstilling af vindmøller fastsat i en anordning — bestemmelser, der navnlig vedrører foranstaltninger med henblik på sikkerhed, kontrol, reetablering og sikkerhedsstillelse samt regler for støjniveauet som defineret i forhold til anvendelsen af områderne«
+I sag C-290/15,
+angående en anmodning om præjudiciel afgørelse i henhold til artikel 267 TEUF, indgivet af Conseil d’État (Belgien) (appeldomstol i forvaltningsretlige sager) ved afgørelse af 2. juni 2015, indgået til Domstolen den 15. juni 2015, i sagen:
+Patrice D’Oultremont m.fl.
+mod
+Région wallonne
+procesdeltager:
+Fédération de l’énergie d’origine renouvelable et alternative ASBL (EDORA),
+har
+DOMSTOLEN (Anden Afdeling)
+sammensat af afdelingsformanden, M. Ilešič, og dommerne A. Prechal, A. Rosas, C. Toader (refererende dommer) og E. Jarašiūnas,
+generaladvokat: J. Kokott
+justitssekretær: fuldmægtig V. Tourrès,
+på grundlag af den skriftlige forhandling og efter retsmødet den 7. april 2016,
+efter at der er afgivet indlæg af:
+—
+Patrice D’Oultremont m.fl. ved avocat J. Sambon
+—
+Fédération de l’énergie d’origine renouvelable et alternative ASBL (EDORA) ved avocats J. Sohier, S. Rodrigues, L. Levi, A. Blot og M. Chomé
+—
+den belgiske regering ved J. Van Holm, M. Jacobs og S. Vanrie, som befuldmægtigede, bistået af avocat P. Moërynck
+—
+den franske regering ved D. Colas og J. Traband, som befuldmægtigede
+—
+den nederlandske regering ved M.K. Bulterman, B. Koopman og J. Langer, som befuldmægtigede
+—
+Europa-Kommissionen ved O. Beynet og C. Hermes, som befuldmægtigede,
+og efter at generaladvokaten har fremsat forslag til afgørelse i retsmødet den 14. juli 2016,
+afsagt følgende
+Dom
+1
+Anmodningen om præjudiciel afgørelse vedrører fortolkningen af artikel 2, litra a), og artikel 3, stk. 2, litra a), i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet (
+EFT 2001, L 197, s. 30
+).
+2
+Denne anmodning er blevet indgivet i forbindelse med en tvist mellem Patrice D’Oultremont m.fl. og regionen Vallonien vedrørende gyldigheden af den vallonske regerings anordning af 13. februar 2014 om sektorspecifikke betingelser vedrørende vindmølleparker med en samlet effekt på 0,5 MW eller derover, om ændring af den vallonske regerings anordning af 4. juli 2002 vedrørende proceduren og forskellige gennemførelsesforanstaltninger for dekret af 11. marts 1999 om miljøtilladelse og om ændring af den vallonske regerings anordning af 4. juli 2002, der indeholder en liste over projekter, som undergives et krav om undersøgelse af indvirkningen, samt over klassificerede anlæg og aktiviteter (
+Moniteur belge
+af 7.3.2014, s. 20263, herefter »anordningen af 13. februar 2014«).
+Retsforskrifter
+International ret
+Konventionen om vurdering af virkningerne på miljøet på tværs af landegrænserne
+3
+Konventionen om vurdering af virkningerne på miljøet på tværs af landegrænserne, der blev undertegnet i Espoo (Finland) den 26. februar 1991 (herefter »Espookonventionen«), blev godkendt på Det Europæiske Fællesskabs vegne den 24. juni 1997 og trådte i kraft den 10. september samme år.
+4
+Espookonventionens artikel 2, stk. 7, har følgende ordlyd:
+»Vurderinger af virkningerne på miljøet ifølge denne konvention skal som mindstekrav gennemføres i den påtænkte aktivitets projektfase. I det nødvendige omfang skal parterne bestræbe sig på at overføre principperne om vurdering af virkningerne på miljøet til deres politik, planer og programmer.«
+Protokollen om strategisk miljøvurdering til Espookonventionen
+5
+Protokollen om strategisk miljøvurdering til Espookonventionen blev undertegnet i Kiev (Ukraine) den 21. maj 2003 af Kommissionen på vegne af Det Europæiske Fællesskab (herefter »Kievprotokollen«). Denne protokol blev godkendt ved Rådets afgørelse 2008/871/EF af 20. oktober 2008 (
+EUT 2008, L 308, s. 33
+).
+6
+Kievprotokollens artikel 13, stk. 1, bestemmer:
+»Hver part bestræber sig på at sikre, at miljøhensyn, herunder sundhedshensyn, i passende omfang iagttages og integreres, når den udformer forslag til politikker og lovgivning, der kan få væsentlige virkninger på miljøet, herunder på sundheden.«
+Århuskonventionen
+7
+Konventionen om adgang til oplysninger, offentlig deltagelse i beslutningsprocesser samt adgang til klage og domstolsprøvelse på miljøområdet, som blev godkendt på Det Europæiske Fællesskabs vegne ved Rådets afgørelse 2005/370/EF af 17. februar 2005 (
+EUT 2005, L 124, s. 1
+, herefter »Århuskonventionen«), omfatter ligeledes miljøvurdering.
+8
+Denne konvention indeholder i artikel 6 bestemmelser om offentlig deltagelse i afgørelser vedrørende konkrete aktiviteter. Denne konventions artikel 7 og 8 henviser til denne deltagelse for så vidt angår henholdsvis planer, programmer, politikker og ministerielle bestemmelser og andre generelt anvendelige, juridisk bindende regler.
+EU-retten
+9
+4. betragtning til direktiv 2001/42 har følgende ordlyd:
+»Miljøvurdering er et vigtigt værktøj til integrering af miljøhensyn i udarbejdelsen og vedtagelsen af visse planer og programmer, som kan få væsentlig indvirkning på miljøet i medlemsstaterne, fordi det herved sikres, at der tages hensyn til en sådan indvirkning af gennemførelsen af planer og programmer under deres udarbejdelse, og inden de vedtages.«
+10
+Direktivets artikel 1 med overskriften »Formål« bestemmer:
+»Formålet med dette direktiv er at sikre et højt miljøbeskyttelsesniveau og at bidrage til integrationen af miljøhensyn under udarbejdelsen og vedtagelsen af planer og programmer med henblik på at fremme bæredygtig udvikling ved sikring af, at der i overensstemmelse med dette direktiv gennemføres en miljøvurdering af bestemte planer og programmer, som kan få væsentlig indvirkning på miljøet.«
+11
+Det nævnte direktivs artikel 2 er affattet som følger:
+»I dette direktiv forstås ved:
+a)
+»planer og programmer«: planer og programmer, herunder sådanne der medfinansieres af [Den Europæiske Union], samt ændringer deri
+—
+som udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller som udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, og
+—
+som kræves ifølge love og administrative bestemmelser
+b)
+»miljøvurdering«: udarbejdelse af en miljørapport, gennemførelse af høringer, hensyntagen til miljørapporten og til resultaterne af høringerne ved beslutningstagning samt underretning om afgørelsen i overensstemmelse med artikel 4-9.
+[...]«
+12
+Samme direktivs artikel 3 med overskriften »Anvendelsesområde« har følgende ordlyd:
+»1. Der skal for de i stk. 2-4 omhandlede planer og programmer, som kan få væsentlig indvirkning på miljøet, gennemføres en miljøvurdering, som skal være i overensstemmelse med dette direktivs artikel 4-9.
+2. Med forbehold af stk. 3 gennemføres der en miljøvurdering for alle planer og programmer:
+a)
+som udarbejdes inden for landbrug, skovbrug, fiskeri, energi, industri, transport, affaldshåndtering, vandforvaltning, telekommunikation, turisme, fysisk planlægning og arealanvendelse, og som fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er omhandlet i bilag I og II til [Europa-Parlamentets og Rådets direktiv 2011/92/EU af 13.12.2011 om vurdering af visse offentlige og private projekters indvirkning på miljøet (
+EUT 2012, L 26, s. 1
+), der fra den 17.2.2012 har ophævet og erstattet direktiv 85/337], eller
+[...]
+3. For planer og programmer som omhandlet i stk. 2, der fastlægger anvendelsen af mindre områder på lokalt plan eller angiver mindre ændringer i de pågældende planer og programmer, skal der kun gennemføres en miljøvurdering, hvis medlemsstaten fastslår, at de kan få væsentlig indvirkning på miljøet.
+4. Medlemsstaterne afgør, om planer og programmer, som ikke falder ind under stk. 2, men som fastlægger rammerne for fremtidige anlægstilladelser til projekter, kan forventes at få væsentlig indvirkning på miljøet.
+[...]«
+Belgisk ret
+13
+I henhold til artikel 6, stk. 1, II, i loi spéciale du 8 août 1980 de réformes institutionnelles (særlov af 8.8.1980 om institutionelle reformer) (
+Moniteur belge
+af 15.8.1980, s. 9434) har regionerne enekompetence for så vidt angår miljøbeskyttelse.
+14
+I regionen Vallonien er direktiv 2001/42 blevet gennemført delvist ved artikel D.52 ff. i bog I i code de l’environnement (miljøloven) (
+Moniteur belge
+af 9.7.2004, s. 54654), således som dette fremgår af denne lovs artikel D.51/1.
+15
+Artikel D.6 i den nævnte lovs bog I definerer i stk. 13 »planer og programmer« som »afgørelser, bortset fra dem, der er omhandlet i [code wallon de l’aménagement du territoire, de l’urbanisme, du patrimoine et de l’énergie (den vallonske lov om fysisk planlægning, byplanlægning, kulturarv og energi) (
+Moniteur belge
+af 19.5.1984, s. 6939, og berigtiget i,
+Moniteur belge
+af 25.5.1984, s. 7636)] og ændringer til disse, der har til formål at fastlægge enten en systematisk række af handlinger eller tiltag med henblik på at opnå et eller flere specifikke mål vedrørende miljøkvaliteten, eller formålet med eller beskyttelsesordningen for et eller flere områder eller en lokalitet, navnlig med henblik på at fastlægge rammerne for indrømmelse af tilladelse til iværksættelse af bestemte aktiviteter, og som:
+a.
+udarbejdes og/eller vedtages af en regional eller lokal myndighed, eller som udarbejdes af en myndighed med henblik på vedtagelse af parlamentet eller den vallonske regering
+b.
+og er fastlagt ved dekret- eller lovbestemmelser eller administrative bestemmelser.
+De planer og programmer, der er omhandlet i nærværende dekret, omfatter desuden de planer og programmer, som medfinansieres af [Den Europæiske Union].«
+16
+Ifølge artikel 2 er formålet med décret du gouvernement wallon du 11 mars 1999 relatif au permis d’environnement (den vallonske regerings dekret af 11.3.1999 om miljøtilladelser) (
+Moniteur belge
+af 8.6.1999, s. 21114, og berigtiget i,
+Moniteur belge
+af 22.12.1999, s. 48280, herefter »dekretet af 11. marts 1999«) »ved brug af en integreret tilgang til forebyggelse og bekæmpelse af forurening, at sikre beskyttelsen af mennesker og miljø mod de farer, gener eller ulemper, som en virksomhed direkte eller indirekte kan forårsage under eller efter driften«.
+17
+Dette dekrets artikel 4 bestemmer:
+»Regeringen vedtager de almindelige, sektorspecifikke og samlede betingelser med henblik på at nå de i artikel 2 omhandlede mål. De har forskriftsmæssig karakter.
+[...]
+Disse betingelser kan navnlig vedrøre:
+[...]
+3
+de oplysninger, som regelmæssigt skal meddeles de myndigheder, som regeringen har udpeget, og som vedrører:
+a.
+virksomhedens emissioner
+b.
+de foranstaltninger, der er truffet til begrænsning af miljøgener
+[...]«
+18
+Det nævnte dekrets artikel 5 fastsætter:
+»§ 1 De almindelige betingelser finder anvendelse på alle anlæg og aktiviteter.
+§ 2 De sektorspecifikke betingelser finder anvendelse på anlæg og aktiviteter i en økonomisk eller territorial sektor eller i en sektor, hvor der er opstået eller kan opstå en særlig risiko.
+[...]«
+19
+Artikel 1 i anordningen af 13. februar 2014 har følgende ordlyd:
+»Nærværende sektorspecifikke betingelser finder anvendelse på vindmølleparker med en samlet energieffekt på 0,5 MW eller derover, jf. rubrik 40.10.01.04.02 og 40.10.01.04.03 i bilag I til [arrêté du 4 juillet 2002 fixant les conditions générales d’exploitation des établissements visés par le décret du 11.3.1999 (anordning af 4.7.2002 om fastsættelse af de generelle betingelser for drift af virksomheder, der er omfattet af dekret af 11.3.1999) (
+Moniteur belge
+af 21.9.2002, s. 20264, og berigtigelse,
+Moniteur belge
+af 1.10.2002, s. 44152)].«
+20
+Artikel 5 i anordningen af 13. februar 2014, der fremgår af dennes kapitel III med overskriften »Drift«, fastsætter:
+»Bortset fra i forbindelse med vedligeholdelse kan der ikke tændes nogen lysanordning om natten ved foden af vindmøllen eller omkring den.«
+21
+Denne anordnings artikel 9, der indgår i samme kapitel III, har følgende ordlyd:
+»Inden for vindmølleparken, men uden for vindmøllerne, må magnetfeltet som følge af aktiviteten, målt 1,5 meter fra jorden, ikke overstige grænseværdien på 100 mikrotesla.«
+22
+Samme anordnings artikel 10, der ligeledes fremgår af kapitel III, bestemmer:
+»§ 1 Virkningerne af de stroboskopiske skygger, der opstår, når vindmøllen er i brug, begrænses for ethvert boligområde, der er bygget eller behørigt godkendt ved en byplantilladelse, og som udsættes for disse skygger, til 30 timer/år og 30 minutter/dag. De beregnes efter metoden »det mest ufordelagtige tilfælde«, der er kendetegnet ved følgende parametre:
+1.
+[S]olen skinner fra morgen til aften (hele tiden skyfri himmel).
+2.
+[V]indmøllerne fungerer permanent (vindhastigheden er hele tiden inden for vindmøllernes funktionsområde, og disse er til rådighed 100%).
+3.
+[V]indmøllernes rotor er hele tiden orienteret vinkelret på solens stråler.
+Driftslederen anvender alle midler, der er til rådighed, for at begrænse udsættelsen for den stroboskopiske skygge med henblik på at overholde disse grænser.
+§ 2 Disse grænser finder ikke anvendelse, såfremt den skygge, der opstår på grund af anlæggets funktion, ikke berører beboerne i deres boligområde. Driftslederen fremlægger i givet fald bevis herfor ved hjælp af alle til rådighed stående retsmidler.«
+23
+Del 1 med overskriften »Regler om støjniveau«, der indgår i kapitel V med overskriften »Støj« i anordningen af 13. februar 2014, omfatter bl.a. artikel 20, der definerer grænseværdierne for lydemissioner fra en vindmøllepark, og artikel 21, der fastsætter grænseværdierne bl.a. i forhold til de såkaldte »planzoner«, dvs. geografiske områder, der fastsættes af de kompetente myndigheder på grundlag af en plan i forhold til deres anvendelse (boligområder, landbrugszoner, erhvervszoner mv.).
+Tvisten i hovedsagen og det præjudicielle spørgsmål
+24
+Den 21. februar 2013 vedtog den vallonske regering en »referenceramme«, der efterfølgende blev ændret i juli samme år, og som fastsætter anbefalinger for opførelsen af vindmøller i regionen Vallonien. Dette dokument blev kompletteret med kortmateriale, der havde til formål at fastsætte en ramme for planlægningen af gennemførelsen af vindmølleprogrammet i regionen Vallonien »indtil 2020«, og som bar navnet »referencekort«. Dette kort har været genstand for en rapport om indvirkningerne på miljøet.
+25
+Der blev iværksat en offentlig undersøgelse i alle Valloniens kommuner fra den 16. september til den 30. oktober 2013. Blandt de dokumenter, der blev stillet til rådighed for offentligheden i forbindelse med denne undersøgelse, var bl.a. de dokumenter, der er omhandlet i nærværende doms foregående præmis, dvs. referencerammen, referencekortet og rapporten om indvirkningerne på miljøet.
+26
+Imidlertid blev hverken referencerammen eller referencekortet endeligt vedtaget.
+27
+I mellemtiden vedtog den vallonske regering anordningen af 13. februar 2014.
+28
+Den 6. maj 2014 anlagde Patrice D’Oultremont m.fl. sag ved den forelæggende ret, Conseil d’Etat (øverste domstol i forvaltningsretlige sager, Belgien), med henblik på annullation af denne anordning. Patrice D’Oultremont m.fl. har i deres stævning bl.a. gjort gældende, at anordningen ikke er forenelig med bestemmelserne i direktiv 2001/42, for så vidt som regionen Vallonien har vedtaget den nævnte anordning, uden at bestemmelserne deri har været underkastet en procedure for vurdering af indvirkningen på miljøet eller en procedure med offentlig deltagelse.
+29
+Regionen Valllonien og intervenienten i hovedsagen, Fédération de l’énergie d’origine renouvelable et alternative ASBL, er for deres vedkommende af den opfattelse, at den pågældende anordning ikke er omfattet af begrebet »planer og programmer« som omhandlet i dette direktiv.
+30
+Den forelæggende ret har anført, at svaret på spørgsmålet om, hvorvidt bestemmelserne i anordningen af 13. februar 2014 udgør »planer og programmer«, ikke er umiddelbart indlysende til trods for de præciseringer, som Domstolen har anført i dom af 17. juni 2010, Terre wallonne og Inter-Environnement Wallonie (
+C-105/09 og C-110/09
+,
+EU:C:2010:355
+).
+31
+Ifølge denne ret ligger der et særligt problem i den omstændighed, at bestemmelserne i den nævnte anordning er adskilt fra referencerammen og kortmaterialet for de i nærværende doms præmis 24 omhandlede lokaliteter til opførelse af vindmøllerne, og denne omstændighed fratager i hvert fald delvist de nævnte bestemmelser et programmæssigt indhold for reguleringen af vindenergiproduktionen.
+32
+På den baggrund fastsætter anordningen af 13. februar 2014 ikke en »komplet ramme«, dvs. en helhed af koordinerede foranstaltninger, der regulerer driften af vindmølleparker med henblik på at beskytte miljøet. Efter den forelæggende rets opfattelse er det dog en kendsgerning, at en hensyntagen til reglerne i den nævnte anordning, bl.a. vedrørende støj og virkningerne af de stroboskopiske skygger, der opstår i forbindelse med vindmøllernes funktion, i forbindelse med udstedelsen af godkendelser nødvendigvis har til konsekvens, at stedet for opførelsen af vindmøller i forhold til boligområdet fastlægges.
+33
+Hvis den regionale lovgivers definition i artikel D.6, stk. 13, i miljøbogens bog I, af begrebet »planer og programmer« blev lagt til grund fra det tidspunkt, hvor de adskilles fra referencerammen og kortmaterialet, som beskriver de områder, der er bedst placeret, til opførelsen af vindmøllerne, udgør de sektorspecifikke betingelser ifølge den forelæggende ret ikke i sig selv en »procedure til gradvis og systematisk iværksættelse af midler med henblik på at opnå et specifikt mål i tilknytning til miljøkvaliteten«.
+34
+Den forelæggende ret har endvidere præciseret, at de sektorspecifikke betingelser, der er fastsat i anordningen af 13. februar 2014, heller ikke fastlægger anvendelsen af eller beskyttelsesordningen for et eller flere områder eller en lokalitet. Enhver vindmøllepark er omfattet, uanset det område der vælges, alene med forbehold for en graduering af støjreglerne i forhold til sektorplanens områdeinddeling.
+35
+Ifølge den forelæggende ret synes det at fremgå af bilag I og II til direktiv 2001/42, sammenholdt med præmis 47 i dom af 17. juni 2010, Terre wallonne og Inter-Environnement Wallonie (
+C-105/09 og C-110/09
+,
+EU:C:2010:355
+), at en plan eller et program nødvendigvis vedrører et afgrænset geografisk område som f.eks. »de sårbare zoner, der fastlægges i forbindelse med den bæredygtige forvaltning af kvælstof i landbruget« som omhandlet i Rådets direktiv 91/676/EØF af 12. december 1991 om beskyttelse af vand mod forurening forårsaget af nitrater, der stammer fra landbruget (
+EFT 1991, L 375, s. 1
+), som den nævnte dom især omhandlede.
+36
+På denne baggrund har Conseil d’État (øverste domstol i forvaltningsretlige sager) besluttet at udsætte sagen og forelægge Domstolen følgende præjudicielle spørgsmål:
+»Indebærer artikel 2, litra a), og artikel 3, stk. 2, litra a), i direktiv 2001/42[...] om vurdering af bestemte planers og programmers indvirkning på miljøet, at en lovgivning i form af en anordning, som indeholder forskellige bestemmelser om opstilling af vindmøller, herunder vedrørende sikkerhed, kontrol, reetablering og sikkerhedsstillelse, samt regler for støj, som er fastlagt i forhold til planzoner, bestemmelser gældende for indrømmelse af administrative tilladelser, der giver bygherren ret til at opstille og drive anlæg, som ubetinget underkastes en miljøvurdering i henhold til national ret, skal kvalificeres som »en plan eller et program« i de nævnte bestemmelsers forstand?«
+Om det præjudicielle spørgsmål
+37
+Den forelæggende ret ønsker med sit spørgsmål nærmere bestemt oplyst, om artikel 2, litra a), og artikel 3, stk. 2, litra a), i direktiv 2001/42 skal fortolkes således, at en anordning som den i hovedsagen omhandlede, der indeholder forskellige bestemmelser vedrørende opstilling af vindmøller, som skal overholdes i forbindelse med udstedelsen af administrative godkendelser til opførelse og drift af sådanne anlæg, henhører under begrebet »planer og programmer« i dette direktivs forstand.
+38
+Det bemærkes for det første, at det fremgår af fjerde betragtning til direktiv 2001/42, at miljøvurdering er et vigtigt værktøj til integrering af miljøhensyn i udarbejdelsen og vedtagelsen af visse planer og programmer.
+39
+Dernæst bemærkes, således som generaladvokaten har anført i punkt 34 i forslaget til afgørelse, at afgrænsningen af begrebet »planer og programmer« i forhold til andre foranstaltninger, der ikke falder inden for det materielle anvendelsesområde for direktiv 2001/42, skal tage udgangspunkt i det væsentlige formål, der er anført i direktivets artikel 1, dvs. at der gennemføres en miljøvurdering af planer og programmer, som kan få væsentlig indvirkning på miljøet (jf. i denne retning dom af 28.2.2012, Inter-Environnement Wallonie og Terre wallonne,
+C-41/11
+,
+EU:C:2012:103
+, præmis
+40
+og den deri nævnte retspraksis).
+40
+Det følger heraf, at henset til formålet med dette direktiv, som består i at sikre et højt miljøbeskyttelsesniveau, skal bestemmelser, der afgrænser dets anvendelsesområde, og særligt bestemmelser, der fastsætter definitioner på de retsakter, der er omfattet heraf, fortolkes bredt (jf. i denne retning dom af 22.3.2012, Inter-Environnement Bruxelles m.fl.,
+C-567/10
+,
+EU:C:2012:159
+, præmis
+37
+, og af 10.9.2015, Dimos Kropias Attikis,
+C-473/14
+,
+EU:C:2015:582
+, præmis
+50
+).
+41
+For så vidt angår artikel 2, litra a), i direktiv 2001/42 fastsætter den deri indeholdte definition af begrebet »planer og programmer« en kumulativ betingelse om, at disse dels skal udarbejdes og/eller vedtages af en national, regional eller lokal myndighed, eller udarbejdes af en myndighed med henblik på vedtagelse af parlament eller regering via en lovgivningsprocedure, dels skal kræves ifølge love og administrative bestemmelser.
+42
+Det følger af den forelæggende rets konstateringer, at anordningen af 13. februar 2014 er blevet udarbejdet og vedtaget af en regional myndighed, i dette tilfælde den vallonske regering, og at denne anordning er krævet ifølge bestemmelserne i dekretet af 11. marts 1999.
+43
+Artikel 3, stk. 2, litra a), i direktiv 2001/42 fastsætter for sit vedkommende med forbehold af denne artikels stk. 3, at der gennemføres en miljøvurdering for alle planer og programmer, som udarbejdes bl.a. inden for energi, og som fastlægger rammerne for fremtidige anlægstilladelser til de projekter, der er omhandlet i bilag I og II til direktiv 2011/92.
+44
+Det er også ubestridt, at anordningen af 13. februar 2014 vedrører energi, og at den bidrager til at definere rammerne for gennemførelsen i regionen Vallonien af vindmølleparkprojekter, der indgår blandt de projekter, der er opregnet i bilag II til direktiv 2011/92.
+45
+For så vidt angår begrebet »planer og programmer« bemærkes, at det, selv om dette ganske vist skal omfatte et bestemt område, ikke desto mindre forholder sig således, at det hverken fremgår af ordlyden af artikel 2, litra a), i direktiv 2001/42 eller af ordlyden af samme direktivs artikel 3, stk. 2, litra a), at de nævnte planer eller programmer skal have til formål at planlægge et bestemt område. Det følger nemlig af ordlyden af de nævnte bestemmelser, at disse i bredere forstand omhandler planlægning af områder eller zoner generelt.
+46
+Ifølge den forelæggende rets konstateringer vedrører anordningen af 13. februar 2014 hele regionen Valloniens område, og de grænseværdier, der fastsættes deri på støjområdet, har en tæt forbindelse med det nævnte område, idet disse grænser er fastsat i forhold til de forskellige anvendelsestyper, som de pågældende geografiske zoner har.
+47
+For så vidt angår den omstændighed, at anordningen af 13. februar 2014 ikke definerer en ramme, der er tilstrækkeligt fuldstændig for så vidt angår vindmøllesektoren, skal det bemærkes, at undersøgelsen af de kriterier, der er fastsat i artikel 2, litra a), og artikel 3, stk. 2, litra a), i direktiv 2001/42 med henblik på at afgøre, om en anordning som den i hovedsagen omhandlede kan henhøre under det nævnte begreb, navnlig skal foretages i lyset af dette direktivs formål, der, således som det fremgår af nærværende doms præmis 39, består i at gennemføre en miljøvurdering af de afgørelser, som kan få væsentlig indvirkning på miljøet.
+48
+Som generaladvokaten har påpeget i punkt 55 i forslaget til afgørelse, skal mulige strategier for omgåelse af de forpligtelser, der fremgår af direktiv 2001/42, i øvrigt undgås, idet de kan materialiseres ved en opdeling af foranstaltninger, hvorved den effektive virkning af dette direktiv reduceres (jf. i denne retning dom af 22.3.2012, Inter-Environnement Bruxelles m.fl.,
+C-567/10
+,
+EU:C:2012:159
+, præmis
+30
+og den deri nævnte retspraksis).
+49
+Henset til dette formål bemærkes, at begrebet »planer og programmer« vedrører enhver retsakt, der, idet den definerer de regler og kontrolprocedurer, der skal finde anvendelse på den pågældende sektor, fastlægger en betydningsfuld helhed af kriterier og fremgangsmåder for tilladelse og iværksættelse af et eller flere projekter, der kan have væsentlige indvirkninger på miljøet (jf. i denne retning dom af 11.9.2012, Nomarchiaki Aftodioikisi Aitoloakarnanias m.fl.,
+C-43/10
+,
+EU:C:2012:560
+, præmis
+95
+og den deri nævnte retspraksis).
+50
+I det foreliggende tilfælde skal det bemærkes, at anordningen af 13. februar 2014 navnlig vedrører tekniske regler, nærmere bestemmelser for driften (herunder de stroboskopiske skygger), forebyggelse mod ulykker og brand (herunder standsning af vindmøllen), regler for støjniveauet, reetablering og sikkerhedsstillelse for vindmøllerne. Sådanne regler har en betydning og rækkevidde, der er tilstrækkeligt væsentlig for fastlæggelsen af de betingelser, der skal gælde for den pågældende sektor, og de valg, navnlig af miljømæssig art, der kan træffes i henhold til de nævnte regler, skal afgøre de betingelser, hvorunder de konkrete projekter vedrørende opførelse og drift af vindmøllelokaliteter kan tillades i fremtiden.
+51
+Endelig har den franske regering, idet den har støttet sig på Århuskonventionen og Kievprotokollen, foreslået en sondring mellem begrebet »planer og programmer« og begrebet »generel lovgivning« som omhandlet i anordningen af 13. februar 2014, således at sidstnævnte begreb ikke er omfattet af anvendelsesområdet for direktiv 2001/42.
+52
+I denne forbindelse skal det fremhæves, for det første, at det fremgår af selve ordlyden af dette direktivs artikel 2, litra a), første led, med støtte i den retspraksis, der er anført i nærværende doms præmis 49, at begrebet »planer og programmer« kan omfatte normative retsakter, der er vedtaget ved lov eller administrativt.
+53
+For det andet adskiller direktiv 2001/42 sig fra Århuskonventionen og Kievprotokollen – hvilket generaladvokaten har påpeget i punkt 70 i forslaget til afgørelse – for så vidt som dette direktiv netop ikke indeholder særlige bestemmelser vedrørende politikker eller generel lovgivning, der for disse ville kræve en afgrænsning i forhold til »planer og programmer«.
+54
+Det følger af alle ovenstående betragtninger, at det forelagte spørgsmål skal besvares med, at artikel 2, litra a), og artikel 3, stk. 2, litra a), i direktiv 2001/42 skal fortolkes således, at en anordning som den i hovedsagen omhandlede, der indeholder forskellige bestemmelser vedrørende opstilling af vindmøller, som skal overholdes i forbindelse med udstedelse af administrative godkendelser til opførelse og drift af sådanne anlæg, henhører under begrebet »planer og programmer« i dette direktivs forstand.
+Sagens omkostninger
+55
+Da sagens behandling i forhold til hovedsagens parter udgør et led i den sag, der verserer for den forelæggende ret, tilkommer det denne at træffe afgørelse om sagens omkostninger. Bortset fra nævnte parters udgifter kan de udgifter, som er afholdt i forbindelse med afgivelse af indlæg for Domstolen, ikke erstattes.
+På grundlag af disse præmisser kender Domstolen (Anden Afdeling) for ret:
+Artikel 2, litra a), og artikel 3, stk. 2, litra a), i Europa-Parlamentets og Rådets direktiv 2001/42/EF af 27. juni 2001 om vurdering af bestemte planers og programmers indvirkning på miljøet skal fortolkes således, at en anordning som den i hovedsagen omhandlede, der indeholder forskellige bestemmelser vedrørende opstilling af vindmøller, som skal overholdes i forbindelse med udstedelse af administrative godkendelser til opførelse og drift af sådanne anlæg, henhører under begrebet »planer og programmer« i dette direktivs forstand.
+Underskrifter
+(
+*1
+) – Processprog: fransk
