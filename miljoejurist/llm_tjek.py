@@ -194,3 +194,100 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
     if afvist:
         rapport.note += f" {afvist} af modellens fund blev fjernet, fordi citatet ikke stod ordret i dokumentet."
     return rapport
+
+
+# ── Dommer-trin: ligner risikopunkterne det, nævnet ophævede på, eller det, nævnet godtog? ─────────────
+# Audit v1 og dev-kørslen viste, at modellens frie sandsynlighed er dårligt kalibreret (stadfæstede sager fik
+# ~60 %). Dommeren sammenligner i stedet hvert punkt med de nærmeste underkendte og stadfæstede sager på samme
+# tjekpunkt, og risikoen beregnes i koden ud fra dens afgørelser (`beregn_risiko`).
+MAKS_DOMMER_PUNKTER = 4
+
+
+def byg_dommer_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None) -> str | None:
+    punkter = {p["id"]: p for p in tjekliste()}
+    kand = [s for s in rapport.svagheder if s.kilde_lag == "model" and s.risiko in ("høj", "middel")][:MAKS_DOMMER_PUNKTER]
+    if not kand:
+        return None
+    blokke = []
+    for i, s in enumerate(kand, 1):
+        p = punkter.get(s.punkt, {})
+        q = f"{s.svaghed} {s.hvorfor}"
+        und = praksis.lignende(q, kategorier=p.get("fejlkategorier"), dokumenttype=rapport.dokumenttype, k=2,
+                               udeluk=udeluk, kontekst=dok.tekst[:2500])
+        hol = praksis.holdt_lignende(q, tjekpunkt=s.punkt, dokumenttype=rapport.dokumenttype, k=2,
+                                     udeluk=udeluk, kontekst=dok.tekst[:2500])
+        if len(hol) < 2:
+            hol += [h for h in praksis.holdt_lignende(q, dokumenttype=rapport.dokumenttype, k=3, udeluk=udeluk,
+                                                      kontekst=dok.tekst[:2500]) if h["id"] not in {x["id"] for x in hol}][:2 - len(hol)]
+        linjer = [f"PUNKT {i} ({s.punkt} {s.titel}): {s.svaghed}",
+                  f"  Dokumentet: «{(s.citat_dokument or '(emnet mangler)')[:300]}»"]
+        linjer += [f"  UNDERKENDT {j}: Myndigheden: {e['fejl']} Nævnet: «{e['citat'][:300]}»" for j, e in enumerate(und, 1)]
+        linjer += [f"  HOLDT {j}: Myndigheden: {h['myndigheden_gjorde']} Nævnet: «{(h.get('citat_naevn') or h['hvorfor_tilstraekkeligt'])[:300]}»"
+                   for j, h in enumerate(hol, 1)]
+        blokke.append("\n".join(linjer))
+    tekst = dok.tekst[:40000]
+    return f"""Du er dommer i et klagenævn for miljøvurderinger. En kollega har peget på mulige svagheder i en
+{rapport.dokumenttype.replace('_', ' ')}. For hvert punkt får du to sager, hvor nævnet UNDERKENDTE en lignende
+vurdering, og to, hvor nævnet HOLDT (godtog) en lignende vurdering. Afgør for hvert punkt, hvilken gruppe
+dokumentets vurdering ligner mest.
+
+Vær nøgtern: de fleste påklagede afgørelser holder. En vurdering ligner kun UNDERKENDT, hvis den har samme slags
+konkrete fejl (fx bygger på afværge, forkert udgangspunkt, en del af projektet holdt udenfor, et konkret holdepunkt
+for påvirkning, som ikke er undersøgt). At en vurdering er kort, er ikke nok, hvis HOLDT-sagerne var lige så korte.
+
+{chr(10).join(blokke)}
+
+SVARFORMAT (kun JSON):
+{{"punkter": [{{"nr": 1, "ligner": "UNDERKENDT|HOLDT|UKLART", "sikker": true, "grund": "1 sætning"}}]}}
+
+DOKUMENT
+<<<
+{tekst}
+>>>"""
+
+
+def beregn_risiko(dommer: dict, dtype: str) -> dict | None:
+    """Samlet risiko ud fra dommerens afgørelser (kalibreret på dev-sættet, se evaluation/RESULTS.md)."""
+    pk = (dommer or {}).get("punkter") or []
+    if not isinstance(pk, list):
+        return None
+    sikre_u = sum(1 for p in pk if p.get("ligner") == "UNDERKENDT" and p.get("sikker"))
+    usikre_u = sum(1 for p in pk if p.get("ligner") == "UNDERKENDT" and not p.get("sikker"))
+    holdt = sum(1 for p in pk if p.get("ligner") == "HOLDT")
+    basis = BASISRATE.get(dtype, 31)
+    if sikre_u:
+        pct, niv = min(85, 55 + 10 * (sikre_u - 1) + 5 * usikre_u), "høj"
+    elif usikre_u:
+        pct, niv = max(basis, 40), "middel"
+    elif pk and holdt == len(pk):
+        pct, niv = max(5, round(basis * 0.4)), "lav"
+    else:
+        pct, niv = basis, "middel" if basis >= 30 else "lav"
+    return {"sandsynlighed": pct, "niveau": niv, "basisrate": basis,
+            "underkendt_sikre": sikre_u, "underkendt_usikre": usikre_u, "holdt": holdt, "punkter": len(pk)}
+
+
+def anvend_dommer(rapport: Rapport, svar: str) -> Rapport:
+    data = fortolk(svar)
+    risiko = beregn_risiko(data, rapport.dokumenttype)
+    if risiko is None:
+        return rapport
+    kand = [s for s in rapport.svagheder if s.kilde_lag == "model" and s.risiko in ("høj", "middel")][:MAKS_DOMMER_PUNKTER]
+    grunde = []
+    for p in data.get("punkter") or []:
+        try:
+            s = kand[int(p.get("nr")) - 1]
+        except (TypeError, ValueError, IndexError):
+            continue
+        if p.get("ligner") == "HOLDT":
+            s.risiko, s.niveau = "lav", "opmærksomhed"
+        elif p.get("ligner") == "UNDERKENDT" and p.get("sikker"):
+            s.risiko = "høj"
+            grunde.append(f"{s.titel}: {FORBUDT.sub('[udeladt formulering]', p.get('grund') or '')}")
+    rapport.svagheder.sort(key=lambda s: (s.niveau != "svaghed", {"høj": 0, "middel": 1, "lav": 2}.get(s.risiko or "lav", 3), -s.vægt))
+    gammel = rapport.udfald or {}
+    rapport.udfald = {**risiko, "afgoerende_punkt": None,
+                      "begrundelse": "; ".join(grunde[:2]) or ("Punkterne ligner vurderinger, nævnene har godtaget."
+                                                               if risiko["niveau"] == "lav" else gammel.get("begrundelse", "")),
+                      "model_sandsynlighed": gammel.get("sandsynlighed")}
+    return rapport
