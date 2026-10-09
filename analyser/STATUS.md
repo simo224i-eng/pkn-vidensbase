@@ -27,7 +27,14 @@ rørt). Beslutninger undervejs står i [`BESLUTNINGER.md`](BESLUTNINGER.md).
   foranstaltninger (50), bilag IV-arter (45), kompetence/procedure (44), forkert vurdering af om projektet/planen
   er omfattet (38), Natura 2000-væsentlighed (33), screeningskriterier ikke vurderet (25).
 
-## Testresultater (endelig version = runde 3)
+## Seneste måling (version 2, audit med 38 sager, der ikke er brugt til udvikling)
+
+- Fanger nævnets afgørende fejl i 19/19 ophævede sager (alle blandt de 3 første fund).
+- Risikoindikator skelner ophævet/stadfæstet med AUC 0,79; "høj" = ca. 2/3 ophævet, "lav" = ca. 1/7 ophævet ved
+  den reelle ophævelsesrate. Detaljer i `miljoejurist/evaluation/RESULTS.md`.
+- Rapporten har to niveauer: risiko for ophævelse og helgardering. Sonnet er standardmodel.
+
+## Testresultater (runde 3, før version 2)
 
 | | Med sprogmodel | Kun regler |
 |---|---|---|

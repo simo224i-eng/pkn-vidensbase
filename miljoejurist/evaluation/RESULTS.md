@@ -206,3 +206,34 @@ svagheder, så en del af fangsten skyldes bredde. Revisorerne er AI (Sonnet) og 
 
 **Næste forbedring.** Giv modellen modeksempler: stadfæstede sager, hvor nævnet fandt et emne tilstrækkeligt belyst,
 så den kan skelne en tynd, men lovlig vurdering fra en mangelfuld. Mål igen med samme 38 sager.
+
+## Version 2: kontrasteksempler, to niveauer og kalibreret risikoindikator (9. okt. 2026)
+
+**Ændringer.**
+- 195 stadfæstede sager (769 punkter med kontrollerede citater, `data/praksis_holdt.json`, `byg_holdt.py`) giver
+  modellen HOLDT-eksempler ved siden af UNDERKENDT-eksemplerne for hvert tjekpunkt.
+- Hvert fund får en ophævelsesrisiko (høj/middel/lav). Rapporten deles i "Punkter med risiko for ophævelse" og
+  "Særlige opmærksomhedspunkter (helgardering)". Er den samlede risiko lav, flyttes middel-punkter til helgardering.
+- Samlet risikoindikator: modellens rå score kalibreres med likelihood-ratios fra dev-sættet × basisraten for
+  afgørelsestypen (projektscreening 37 %, planscreening 18 %, miljørapport 27 %, § 25-tilladelse 44 %).
+- Sonnet er standardmodel (dev: AUC 0,76 mod Haikus 0,69).
+
+**Afprøvet og fravalgt.** Et separat dommer-trin (Haiku sammenligner hvert punkt med nærmeste underkendte og
+stadfæstede sager) gjorde det værre: 19/20 stadfæstede blev kaldt "ligner underkendt". Hypotesen om, at
+rekonstruktioner af stadfæstede sager er for tynde, holdt ikke (5 sager: rekonstruktion 55 % mod original 58 %).
+
+**Måling** (udviklingssæt T1/T3 til kalibrering; audit-sættet med 38 sager kun til den endelige måling):
+
+| | v1 (Haiku) | v2 (Sonnet) |
+|---|---|---|
+| Ophævede: nævnets afgørende fejl fanget | 17/19 + 2 delvist | **19/19**, alle blandt de 3 første |
+| Udfald, rå modelscore (AUC) | 0,68 | **0,79** |
+| Indikator "høj" | – | 9 ophævede / 2 stadfæstede |
+| Indikator "lav" | – | 5 ophævede / 11 stadfæstede |
+| Risikopunkter pr. sag, ophævede / stadfæstede (efter reglen om lav risiko) | 6,0 / 6,0 | 5,4 / 3,3 |
+| Helgarderingspunkter vurderet relevante / forkerte | – | 38 / 6 |
+| Ægte myndighedsdokumenter (9 ophævede, 10 stadfæstede), Haiku v2 | – | AUC 0,88 |
+
+Med den reelle andel ophævelser (ca. 30 %) svarer "høj" til ca. 2 ud af 3 ophævet og "lav" til ca. 1 ud af 7.
+Forbehold: små tal (38 + 19 sager), AI-revisorer, rekonstruerede dokumenter, og kalibreringen bygger på 50 sager.
+Reglen om lav risiko er målt ved simulation på audit-svarene (2 af 19 afgørende fund flyttes til helgardering).

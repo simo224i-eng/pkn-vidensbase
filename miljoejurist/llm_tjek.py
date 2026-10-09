@@ -200,6 +200,13 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
                           "afgoerende_punkt": sm.get("afgoerende_punkt"),
                           "begrundelse": FORBUDT.sub("[udeladt formulering]", sm.get("begrundelse") or ""),
                           "basisrate": BASISRATE.get(rapport.dokumenttype)}
+        # Er den samlede risiko lav, er "middel"-punkter opmærksomhedspunkter (audit v2: risikopunkter i stadfæstede
+        # sager 5,9 -> 3,3 pr. sag; punkterne bliver i rapporten med kilder, blot i helgarderingsafsnittet).
+        if rapport.udfald["niveau"] == "lav":
+            for sv in rapport.svagheder:
+                if sv.niveau == "svaghed" and sv.risiko == "middel":
+                    sv.niveau = "opmærksomhed"
+            rapport.svagheder.sort(key=lambda sv: (sv.niveau != "svaghed", -sv.vægt))
 
     rapport.ikke_vurderet = list(rapport.ikke_vurderet) + [
         FORBUDT.sub("[udeladt formulering]", x) for x in (data.get("ikke_vurderet") or [])][:12]
