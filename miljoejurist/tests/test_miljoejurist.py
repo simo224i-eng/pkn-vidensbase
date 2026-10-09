@@ -115,3 +115,14 @@ def test_selvstændig_server(monkeypatch):
     monkeypatch.setenv("MILJOEJURIST_API_KEYS", "k1")
     assert c.post("/v1/miljoejurist/tjek-tekst", json={"tekst": SVAG, "stedtjek": False}).status_code == 401
     assert c.post("/v1/miljoejurist/tjek-tekst", json={"tekst": SVAG, "stedtjek": False}, headers={"X-API-Key": "k1"}).status_code == 200
+
+
+def test_kalibrering_og_kontrasteksempler():
+    from miljoejurist import praksis
+    # Kalibreret risiko stiger med modellens score og følger afgørelsestypens basisrate
+    assert llm_tjek.kalibrér(40, "screening_plan") < llm_tjek.kalibrér(90, "screening_plan") < 50
+    assert llm_tjek.kalibrér(90, "projekttilladelse") > llm_tjek.kalibrér(90, "screening_plan")
+    # Stadfæstede sager med kontrollerede citater kan findes pr. tjekpunkt
+    if praksis.holdt_sager():
+        h = praksis.holdt_lignende("bilag IV-arter flagermus ikke undersøgt", tjekpunkt="D2", k=2)
+        assert h and all(x["tjekpunkt"] == "D2" and x["citat_naevn"] for x in h)

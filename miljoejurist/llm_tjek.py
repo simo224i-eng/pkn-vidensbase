@@ -22,6 +22,17 @@ MAKS_DOK = 70000
 # Andel af sager behandlet på indholdet, hvor klager fik helt eller delvist medhold (2020-2026, trin 1-analysen)
 BASISRATE = {"screening_projekt": 37, "screening_plan": 18, "miljoerapport_plan": 27, "projekttilladelse": 44}
 
+# Kalibrering af modellens rå score (Sonnet, dev-sættet: 30 ophævede + 20 stadfæstede rekonstruktioner, okt. 2026).
+# Likelihood-ratio pr. scoreinterval = P(interval | ophævet) / P(interval | stadfæstet); kombineres med
+# basisraten for afgørelsestypen (Bayes). Modellens frie tal er alt for højt (stadfæstede fik ~60), så det vises ikke.
+KALIBRERING = [(60, 0.28), (80, 1.03), (101, 2.02)]  # (øvre grænse for rå score, likelihood-ratio)
+
+
+def kalibrér(rå: int, dtype: str) -> int:
+    lr = next(lr for grænse, lr in KALIBRERING if rå < grænse)
+    prior = BASISRATE.get(dtype, 31) / 100
+    return round(100 * prior * lr / (prior * lr + 1 - prior))
+
 
 def byg_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None) -> str:
     dtype = rapport.dokumenttype
@@ -183,7 +194,9 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
     except (TypeError, ValueError):
         pct = None
     if pct is not None:
-        rapport.udfald = {"sandsynlighed": pct, "niveau": "høj" if pct >= 60 else ("middel" if pct >= 30 else "lav"),
+        kal = kalibrér(pct, rapport.dokumenttype)
+        rapport.udfald = {"sandsynlighed": kal, "model_score": pct,
+                          "niveau": "høj" if kal >= 45 else ("middel" if kal >= 20 else "lav"),
                           "afgoerende_punkt": sm.get("afgoerende_punkt"),
                           "begrundelse": FORBUDT.sub("[udeladt formulering]", sm.get("begrundelse") or ""),
                           "basisrate": BASISRATE.get(rapport.dokumenttype)}

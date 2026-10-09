@@ -55,7 +55,8 @@ def prompts():
         d = _dok(aid)
         r = tjek.tjek_regler(d, dtype=f["dokumenttype"], udeluk={f["sag"]})
         (UD / "regler" / f"{aid}.json").write_text(json.dumps(r.to_json(), ensure_ascii=False), encoding="utf-8")
-        (UD / "prompt" / f"{aid}.md").write_text(llm_tjek.byg_prompt(d, r, {f["sag"]}) + RISIKO, encoding="utf-8")
+        # v2: prompten har selv risikoniveauer og samlet vurdering (v1 brugte tillægget RISIKO)
+        (UD / "prompt" / f"{aid}.md").write_text(llm_tjek.byg_prompt(d, r, {f["sag"]}), encoding="utf-8")
     print("prompts:", len(list((UD / "prompt").glob("*.md"))))
 
 
@@ -71,11 +72,13 @@ def flet():
         r = tjek.tjek_regler(d, dtype=f["dokumenttype"], udeluk={f["sag"]})
         r = llm_tjek.supplér(r, d, None, {f["sag"]}, svar=svar)
         j = r.to_json()
-        j["risiko"] = llm_tjek.fortolk(svar).get("risiko")
+        j["risiko"] = llm_tjek.fortolk(svar).get("risiko") or (
+            {"sandsynlighed_underkendelse": r.udfald["sandsynlighed"], "model_score": r.udfald["model_score"]} if r.udfald else None)
         (UD / "rapport" / f"{aid}.json").write_text(json.dumps(j, ensure_ascii=False), encoding="utf-8")
         linjer = [f"# {aid}: rapport ({len(r.svagheder)} fund)", ""]
         for i, s in enumerate(r.svagheder, 1):
-            linjer += [f"{i}. [{s.niveau}] {s.punkt} {s.titel}: {s.svaghed}",
+            niv = "risiko for ophævelse" if s.niveau == "svaghed" else "opmærksomhedspunkt"
+            linjer += [f"{i}. [{niv}{', ' + s.risiko if s.risiko else ''}] {s.punkt} {s.titel}: {s.svaghed}",
                        f"   Citat: «{s.citat_dokument or '-'}»", f"   Hvorfor: {s.hvorfor or '-'}", ""]
         (UD / "rapport" / f"{aid}.md").write_text("\n".join(linjer), encoding="utf-8")
     print("rapporter:", len(list((UD / "rapport").glob("*.json"))))
@@ -100,6 +103,7 @@ def score():
         fund = rev.get("fund") or []
         svag = [x for x in fund if x.get("niveau", "svaghed") == "svaghed"]
         risiko = (rap.get("risiko") or {}).get("sandsynlighed_underkendelse")
+        rå = (rap.get("risiko") or {}).get("model_score", risiko)
         rows.append({"aid": aid, "sag": f["sag"], "gruppe": f["gruppe"], "type": f["dokumenttype"],
                      "fanget": rev.get("fanget"), "fanget_nr": rev.get("fanget_nr"),
                      "n_fund": len(rap["svagheder"]), "n_svag": sum(s["niveau"] == "svaghed" for s in rap["svagheder"]),
@@ -107,7 +111,10 @@ def score():
                      "relevante": sum(x.get("vurdering") == "relevant" for x in svag),
                      "tvivlsomme": sum(x.get("vurdering") == "tvivlsom" for x in svag),
                      "forkerte": sum(x.get("vurdering") == "forkert" for x in svag),
-                     "risiko": risiko, "regler_n": len(regler["svagheder"]),
+                     "risiko": risiko, "rå": rå, "regler_n": len(regler["svagheder"]),
+                     "n_opm": sum(s["niveau"] == "opmærksomhed" for s in rap["svagheder"]),
+                     "opm_relevante": sum(x.get("vurdering") == "relevant" for x in fund if x.get("niveau") == "opmærksomhed"),
+                     "opm_forkerte": sum(x.get("vurdering") == "forkert" for x in fund if x.get("niveau") == "opmærksomhed"),
                      "revisor_udfald": rev.get("revisor_ville_ophæve")})
     (HER / "audit_resultat.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
     oph = [r for r in rows if r["gruppe"] == "ophævet"]
@@ -130,6 +137,12 @@ def score():
             korrekt = sum(x >= t for x in rp) + sum(x < t for x in rs)
             print(f"    tærskel {t} %: {korrekt}/{len(rp)+len(rs)} rigtige ({sum(x>=t for x in rp)}/{len(rp)} ophævede, "
                   f"{sum(x<t for x in rs)}/{len(rs)} stadfæstede)")
+    ro = [r["rå"] for r in oph if r["rå"] is not None]; rs_ = [r["rå"] for r in sta if r["rå"] is not None]
+    if ro and rs_:
+        print(f"  rå modelscore: AUC {_auc(ro, rs_):.2f}")
+    for navn, g in (("ophævede", oph), ("stadfæstede", sta)):
+        print(f"  {navn}: opmærksomhedspunkter pr. sag {sum(r['n_opm'] for r in g)/max(len(g),1):.1f} "
+              f"(relevante {sum(r['opm_relevante'] for r in g)}, forkerte {sum(r['opm_forkerte'] for r in g)})")
     for navn, key in (("antal svagheder", "n_svag"), ("høj vægt", "n_høj"), ("regler", "regler_n")):
         print(f"  AUC {navn}: {_auc([r[key] for r in oph], [r[key] for r in sta]):.2f}")
 

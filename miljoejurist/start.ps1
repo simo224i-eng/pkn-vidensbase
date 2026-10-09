@@ -1,11 +1,11 @@
 # Start Miljøjuristen lokalt med dit eget Claude-abonnement (Claude Code) som sprogmodel.
 #
-#   powershell -ExecutionPolicy Bypass -File miljoejurist\start.ps1            # Haiku (standard)
-#   powershell -ExecutionPolicy Bypass -File miljoejurist\start.ps1 -Model sonnet
+#   powershell -ExecutionPolicy Bypass -File miljoejurist\start.ps1            # Sonnet (standard; bedst i test)
+#   powershell -ExecutionPolicy Bypass -File miljoejurist\start.ps1 -Model haiku   # billigere, svagere
 #
 # Kræver, at Claude Code er logget ind (kør claude.exe én gang og skriv /login).
 # Kun til personlig, lokal brug. Åbn derefter http://localhost:8766
-param([string]$Model = "haiku", [int]$Port = 8766)
+param([string]$Model = "sonnet", [int]$Port = 8766)
 
 $repo = Split-Path -Parent $PSScriptRoot
 $claude = (Get-Command claude -ErrorAction SilentlyContinue).Source
