@@ -34,7 +34,7 @@ def kalibrér(rå: int, dtype: str) -> int:
     return round(100 * prior * lr / (prior * lr + 1 - prior))
 
 
-def byg_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None) -> str:
+def byg_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None, plan=None) -> str:
     dtype = rapport.dokumenttype
     punkter = [p for p in tjekliste() if dtype in p["gælder"]]
     linjer = []
@@ -53,6 +53,23 @@ def byg_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None) 
                           for s in rapport.svagheder) or "(ingen)"
     tekst = dok.tekst[:MAKS_DOK]
     afkortet = "" if len(dok.tekst) <= MAKS_DOK else f"\n[Dokumentet er afkortet til de første {MAKS_DOK} tegn.]"
+    plansektion = ""
+    if plan is not None:
+        nt = "\n".join(f"- ({n['emne']}) «{n['sætning'][:300]}»" for n in plan.nøgletal) or "(ingen fundet)"
+        plansektion = f"""PLANENS RAMMER (fra {plan.titel}; {'uploadet af brugeren' if plan.kilde == 'upload' else 'hentet fra plandata.dk'})
+Sammenlign dokumentets beskrivelse og forudsætninger med det, planen faktisk muliggør (tjekpunkt A5): anvendelser,
+bebyggelsesprocent, etager og højder, antal boliger/etageareal, veje og anlæg, og hele planområdet. En uoverensstemmelse
+(fx dokumentet vurderer 3 etager, planen tillader 5; en del af planområdet eller en anvendelse er ikke vurderet) er en
+svaghed med "høj" ophævelsesrisiko, hvis den kan påvirke vurderingen af væsentlighed. Citér planen ordret i
+"citat_plan". PDF-tekst fra planer kan være uordnet (spalter); citér kun hele, sammenhængende stykker.
+Nøgletal fra planen:
+{nt}
+Planens bestemmelser (uddrag):
+<<<
+{plan.uddrag[:20000]}
+>>>
+
+"""
     basis = BASISRATE.get(dtype, 31)
     dtype_navn = {"screening_projekt": "projektscreeninger", "screening_plan": "planscreeninger", "miljoerapport_plan": "miljørapporter for planer", "projekttilladelse": "§ 25-tilladelser"}.get(dtype, "sager")
     return f"""Du er en erfaren miljøjurist, der gennemgår en {dtype.replace('_', ' ')} for svagheder,
@@ -106,12 +123,13 @@ HOLDT-eksemplerne. Nævnet består af mennesker og er ikke altid konsistent; giv
 
 SVARFORMAT (kun JSON, ingen anden tekst)
 {{"svagheder": [{{"punkt": "C3", "svaghed": "kort beskrivelse", "citat": "ordret citat eller null",
-  "hvorfor": "1-2 sætninger om hvorfor det er en svaghed efter loven/praksis", "ophaevelsesrisiko": "høj|middel|lav"}}],
+  "hvorfor": "1-2 sætninger om hvorfor det er en svaghed efter loven/praksis", "ophaevelsesrisiko": "høj|middel|lav",
+  "citat_plan": "ordret citat fra planens rammer, kun hvis svagheden handler om planen, ellers null"}}],
  "samlet": {{"sandsynlighed_ophaevelse": 0-100, "afgoerende_punkt": "punkt-id eller null",
   "begrundelse": "1-2 sætninger"}},
  "ikke_vurderet": ["forhold i dokumentet, du ikke kunne vurdere ud fra teksten"]}}
 
-DOKUMENT
+{plansektion}DOKUMENT
 <<<
 {tekst}{afkortet}
 >>>"""
@@ -137,9 +155,9 @@ _ALVOR = {"høj": 3.0, "middel": 2.0, "lav": 1.2}
 
 
 def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = None,
-            svar: str | None = None) -> Rapport:
+            svar: str | None = None, plan=None) -> Rapport:
     """Kør modellen (eller brug et færdigt svar) og flet dens fund ind i rapporten."""
-    prompt = byg_prompt(dok, rapport, udeluk)
+    prompt = byg_prompt(dok, rapport, udeluk, plan)
     if svar is None:
         svar = llm(prompt)
     data = fortolk(svar)
@@ -162,6 +180,10 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
             kilder += _lov_kilder(p, rapport.dokumenttype) + _vejl_kilder(p, rapport.dokumenttype) + _eu_kilder(p)
         kilder += praksis_kilder(f"{s.get('svaghed', '')} {s.get('hvorfor', '')} {citat or ''}",
                                  p.get("fejlkategorier"), rapport.dokumenttype, dok.tekst, udeluk or set())
+        cp = (s.get("citat_plan") or "").strip() or None
+        if cp and plan is not None and citatkontrol.find(cp, plan.tekst):
+            kilder.insert(0, Kilde(type="plan", ref=plan.titel, url=plan.url or "", citat=cp, citat_ok=True,
+                                   ekstra={"kilde": plan.kilde}))
         nye.append(Svaghed(punkt=p["id"], titel=p["titel"], art="model",
                            svaghed=FORBUDT.sub("[udeladt formulering]", s.get("svaghed") or ""),
                            citat_dokument=citat, citat_ok=ok, hvorfor=hvorfor,

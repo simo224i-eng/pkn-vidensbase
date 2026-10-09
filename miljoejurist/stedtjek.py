@@ -81,6 +81,7 @@ class Sted:
     kilde: str
     bbox: tuple
     geometri: object = None
+    doklink: str | None = None   # planens PDF på plandata (kun ved opslag på plan)
 
 
 def _get_json(url: str, retries: int = 3):
@@ -112,7 +113,8 @@ def plan_sted(kommune: str, plannr: str) -> Sted | None:
             if d and d.get("features"):
                 f = d["features"][-1]
                 g = _shape(f["geometry"])
-                return Sted(f"{f['properties'].get('plannavn')} ({kommune} {nr})", "plandata", g.bounds, g)
+                return Sted(f"{f['properties'].get('plannavn')} ({kommune} {nr})", "plandata", g.bounds, g,
+                            doklink=f["properties"].get("doklink"))
     return None
 
 
@@ -347,7 +349,8 @@ def stedtjek(tekst: str, sætninger: list[str], **placering) -> dict:
                 "note": "Placeringen kunne ikke findes. Angiv kommune og plannummer, en adresse eller koordinater."}
     fund = omgivelser(sted)
     sv = sammenlign(tekst, fund, sætninger)
-    return {"sted": {"beskrivelse": sted.beskrivelse, "kilde": sted.kilde, "bbox": [round(v) for v in sted.bbox]},
+    return {"sted": {"beskrivelse": sted.beskrivelse, "kilde": sted.kilde, "bbox": [round(v) for v in sted.bbox],
+                     "doklink": sted.doklink},
             "fund": [asdict(f) for f in fund], "svagheder": sv,
             "note": "Kortdata fra Danmarks Miljøportal og plandata.dk. Afstande er målt fra afgrænsningen (planer) "
                     "eller adressepunktet (projekter) og er vejledende."}

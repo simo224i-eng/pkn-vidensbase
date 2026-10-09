@@ -122,6 +122,7 @@ class Rapport:
     mindre: list[str] = field(default_factory=list)  # lavt prioriterede fund uden kilder
     sted: dict | None = None                         # stedtjek: placering og fund i kortlag
     udfald: dict | None = None                       # modellens samlede risiko for ophævelse (kalibreret indikator)
+    plan: dict | None = None                         # planens rammer brugt i tjekket (kilde, link, nøgletal)
 
     def to_json(self) -> dict:
         d = asdict(self)
@@ -133,7 +134,10 @@ def tjekliste() -> list[dict]:
     """Færdig tjekliste (data/tjekliste.json) eller grundpunkterne."""
     p = DATA / "tjekliste.json"
     if p.exists():
-        return json.loads(p.read_text(encoding="utf-8"))["punkter"]
+        punkter = json.loads(p.read_text(encoding="utf-8"))["punkter"]
+        kendte = {x["id"] for x in punkter}
+        # Grundpunkter, der er tilføjet efter seneste byg_tjekliste (fx A5), kommer med uden eksempler
+        return punkter + [dict(x, praksis_antal=x.get("praksis_antal", 4)) for x in PUNKTER if x["id"] not in kendte]
     return PUNKTER
 
 
@@ -339,11 +343,16 @@ def _stedsvagheder(r: Rapport, dok: Dokument, st: dict, udeluk: set[str]) -> Non
             spørgsmål=p.get("spørgsmål", ""), kilder=kilder, vægt=3.0, kilde_lag="stedtjek"))
 
 
+PLANTYPER = ("screening_plan", "miljoerapport_plan")
+
+
 def tjek(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None = None,
-         llm=None, sted: dict | None = None) -> Rapport:
+         llm=None, sted: dict | None = None, plan=None, hent_plan: bool = True) -> Rapport:
     """Kør regellaget, (hvis llm er givet) modellaget og (hvis sted er givet) stedtjekket.
 
-    llm: callable(prompt:str)->str. sted: {"kommune","plannr"} eller {"adresse"} eller {"auto": True}."""
+    llm: callable(prompt:str)->str. sted: {"kommune","plannr"} eller {"adresse"} eller {"auto": True}.
+    plan: planbestemmelser.Plan (fx fra uploadede bilag). Er den ikke givet, og findes planen på plandata via
+    stedtjekket, hentes planens PDF automatisk (hent_plan), når dokumentet er en plan-screening/miljørapport."""
     r = tjek_regler(dok, dtype, udeluk)
     st = None
     if sted is not None:
@@ -353,13 +362,26 @@ def tjek(dok: Dokument, dtype: str | None = None, udeluk: set[str] | None = None
                                    **{k: v for k, v in sted.items() if k in ("kommune", "plannr", "adresse") and v})
         except Exception as e:  # kortservices kan være nede; tjekket må ikke fejle af den grund
             st = {"sted": None, "fund": [], "svagheder": [], "note": f"Stedtjek kunne ikke gennemføres ({e})."}
+    if plan is None and hent_plan and r.dokumenttype in PLANTYPER and st and (st.get("sted") or {}).get("doklink"):
+        from . import planbestemmelser
+        plan = planbestemmelser.hent(st["sted"]["doklink"], st["sted"]["beskrivelse"])
+    if plan is not None:
+        r.plan = plan.til_json()
+        r.lag = r.lag + ["planens rammer"]
     if llm is not None:
         from . import llm_tjek
-        r = llm_tjek.supplér(r, dok, llm, udeluk=udeluk)
+        r = llm_tjek.supplér(r, dok, llm, udeluk=udeluk, plan=plan)
     if st is not None:
         r.sted = st
         _stedsvagheder(r, dok, st, udeluk or set())
-        _niveauer(r.svagheder)
+        if "model" in r.lag:
+            # Modellen har fastlagt niveauerne (risiko/helgardering); stedfund er risikopunkter med middel risiko
+            for s in r.svagheder:
+                if s.kilde_lag == "stedtjek" and s.risiko is None:
+                    s.risiko, s.niveau = "middel", "svaghed"
+            r.svagheder.sort(key=lambda s: (s.niveau != "svaghed", -s.vægt))
+        else:
+            _niveauer(r.svagheder)
         r.lag = r.lag + ["stedtjek"]
     return renset(r)
 
@@ -399,6 +421,11 @@ def som_markdown(r: Rapport) -> str:
             ud.append(f"- [{k.ref}]({k.url}): «{k.citat[:400]}»")
             for o in (k.ekstra or {}).get("originaler", [])[:1]:
                 ud.append(f"  - Myndighedens oprindelige dokument: [{o['titel'][:120]}]({o['url']}) ({o['type']})")
+        ud.append("")
+    if r.plan:
+        ud.append(f"## Planens rammer ({r.plan['titel']})" + (f" – [planen]({r.plan['url']})" if r.plan.get("url") else ""))
+        ud.append("_Dokumentet er sammenlignet med planens bestemmelser (tjekpunkt A5). Nøgletal fra planen:_")
+        ud += [f"- ({n['emne']}) «{n['sætning']}»" for n in r.plan.get("nøgletal", [])]
         ud.append("")
     if r.sted and r.sted.get("fund"):
         ud.append(f"## Stedfakta ({r.sted['sted']['beskrivelse'] if r.sted.get('sted') else ''})")

@@ -78,6 +78,23 @@ PUNKTER = [
         "søg": "lokalplan mindre område på lokalt plan rammer for anlægstilladelser bilag 1 og 2",
     },
     {
+        "id": "A5", "gruppe": "Omfattet og afgrænsning",
+        "titel": "Vurderingen dækker det, planen muliggør",
+        "spørgsmål": "Vurderer screeningen/miljørapporten det, planen maksimalt muliggør (anvendelser, "
+                     "bebyggelsesprocent, etager og højder, antal boliger/etageareal, veje og anlæg) i hele "
+                     "planområdet, og ikke kun det projekt, der forventes opført?",
+        "gælder": ["screening_plan", "miljoerapport_plan"],
+        "fejlkategorier": ["afgraensning_opsplitning", "sagsoplysning_dokumentation", "omfattet_bilag_projektbegreb"],
+        "lov": [("mvl", "bilag 3", "i hvilket omfang planen eller programmet kan danne grundlag for projekter"),
+                ("mvl", "§ 12", "den sandsynlige væsentlige indvirkning på miljøet af planens eller programmets gennemførelse")],
+        "vejl_søg": "planens rammer muliggør maksimale byggemuligheder hele planområdet miljøvurdering af planer",
+        "dækket": r"bebyggelsesprocent|etager|bygningshøjde|byggefelt|etageareal|planområde|planen muliggør|maksimal",
+        "svagt": "",
+        "kræver": r"planen muliggør|maksimal|bebyggelsesprocent|etager|højde",
+        "relevant_hvis": "",
+        "søg": "planen muliggør byggemuligheder etager højde bebyggelsesprocent hele planområdet",
+    },
+    {
         "id": "A4", "gruppe": "Omfattet og afgrænsning",
         "titel": "Screening efter, at projektet er påbegyndt (lovliggørelse)",
         "spørgsmål": "Er projektet helt eller delvist gennemført før screeningen? Så skal sagen behandles som "

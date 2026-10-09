@@ -23,7 +23,7 @@ const ART = { ikke_behandlet: "Ikke behandlet", uden_grundlag: "Uden synligt gru
   kriterier_mangler: "Kriterier mangler", model: "Fundet af sprogmodel", stedtjek: "Fundet på kort" };
 
 const state = { key: store.get("key", ""), health: null, text: "", dtype: "", model: false, sted: true,
-  kommune: "", plannr: "", adresse: "", udeluk: "", data: null, loading: false, error: "", loginError: "" };
+  kommune: "", plannr: "", adresse: "", udeluk: "", hentPlan: true, data: null, loading: false, error: "", loginError: "" };
 let seq = 0;
 
 class ApiError extends Error { constructor(status, msg) { super(msg); this.status = status; } }
@@ -41,6 +41,8 @@ async function run(form) {
   state.dtype = form.querySelector("#type").value;
   state.model = form.querySelector("#model").checked;
   state.sted = form.querySelector("#sted").checked;
+  state.hentPlan = form.querySelector("#hentplan").checked;
+  const bilag = [...(form.querySelector("#bilag")?.files || [])];
   for (const k of ["kommune", "plannr", "adresse", "udeluk"]) state[k] = form.querySelector("#" + k).value.trim();
   if (!file && state.text.trim().length < 200) { state.error = "Vælg en fil eller indsæt mindst et par afsnit tekst."; return render(); }
   state.loading = true; state.error = ""; render();
@@ -49,6 +51,8 @@ async function run(form) {
     if (file) {
       const fd = new FormData();
       fd.append("fil", file);
+      for (const b of bilag) fd.append("bilag", b);
+      fd.append("hent_plan", state.hentPlan ? "true" : "false");
       if (state.dtype) fd.append("dokumenttype", state.dtype);
       fd.append("brug_model", state.model ? "true" : "false");
       fd.append("stedtjek", state.sted ? "true" : "false");
@@ -57,7 +61,7 @@ async function run(form) {
     } else {
       r = await api("/v1/miljoejurist/tjek-tekst", { method: "POST", json: { tekst: state.text, dokumenttype: state.dtype || null,
         brug_model: state.model, stedtjek: state.sted, kommune: state.kommune || null, plannr: state.plannr || null, adresse: state.adresse || null,
-        udeluk: state.udeluk ? state.udeluk.split(/[,;\s]+/).filter(Boolean) : [] } });
+        udeluk: state.udeluk ? state.udeluk.split(/[,;\s]+/).filter(Boolean) : [], hent_plan: state.hentPlan } });
     }
     if (my === seq) state.data = r;
   } catch (e) {
@@ -68,7 +72,7 @@ async function run(form) {
 }
 
 function renderKilde(k) {
-  const t = { lov: "Lov", vejledning: "Vejledning", praksis: "Praksis", eu: "EU-dom", kort: "Kort" }[k.type] || k.type;
+  const t = { lov: "Lov", vejledning: "Vejledning", praksis: "Praksis", eu: "EU-dom", kort: "Kort", plan: "Planen" }[k.type] || k.type;
   return `<li class="src"><span class="tag">${esc(t)}</span>
     <a href="${esc(safeUrl(k.url))}" target="_blank" rel="noopener">${esc(k.ref)} ${icon("ext")}</a>
     <blockquote>${esc(k.citat)}${k.citat_ok ? "" : ' <span class="warn">kunne ikke genfindes ordret</span>'}</blockquote>
@@ -126,11 +130,20 @@ function renderResultat() {
       <p>${esc(d.udfald.begrundelse || "")}</p>
       <p class="sub">Udgangspunkt for denne afgørelsestype: ${esc(d.udfald.basisrate ?? "–")} % af de påklagede sager ophæves helt eller delvist. Indikatoren er en modelvurdering testet på nævnssager, ikke en forudsigelse af den konkrete sag.</p></div>` : ""}
     ${svag}
+    ${renderPlan(d.plan)}
     ${renderSted(d.sted)}
     ${d.mindre?.length ? `<details class="not"><summary><strong>Mindre bemærkninger (${d.mindre.length})</strong></summary><ul>${d.mindre.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}
     <section class="not"><h3>Hvad værktøjet ikke har vurderet</h3><ul>${d.ikke_vurderet.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
       ${d.punkter_ikke_relevante.length ? `<details><summary>Tjeklistepunkter, der ikke er kørt (${d.punkter_ikke_relevante.length})</summary><ul>${d.punkter_ikke_relevante.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}
     </section>`;
+}
+
+function renderPlan(pl) {
+  if (!pl) return "";
+  const nt = (pl.nøgletal || []).map((n) => `<li><span class="tag">${esc(n.emne)}</span>${esc(n.sætning)}</li>`).join("");
+  return `<section class="not"><h3>Planens rammer · ${pl.url ? `<a href="${esc(safeUrl(pl.url))}" target="_blank" rel="noopener">${esc(pl.titel)} ${icon("ext")}</a>` : esc(pl.titel)}</h3>
+    <p class="sub">${pl.kilde === "plandata" ? "Hentet fra plandata.dk." : "Uploadet."} Modellen har sammenlignet dokumentet med planens bestemmelser (tjekpunkt A5). Nøgletal fra planen (ordret):</p>
+    ${nt ? `<ul class="src">${nt}</ul>` : '<p class="sub">Ingen nøgletal fundet automatisk.</p>'}</section>`;
 }
 
 function renderLogin() {
@@ -156,6 +169,7 @@ function render() {
       Miljø- og Fødevareklagenævnet. Den vurderer ikke, om afgørelsen holder.</p>
     <form class="card form" data-act="tjek">
       <label class="file"><span>Dokument (PDF, Word, HTML eller tekst)</span><input type="file" id="fil" accept=".pdf,.docx,.txt,.html,.htm"></label>
+      <label class="file"><span>Lokalplan/planforslag og andre bilag (valgfrit, flere filer). Bruges til at tjekke, om vurderingen dækker det, planen muliggør.</span><input type="file" id="bilag" multiple accept=".pdf,.docx,.txt,.html,.htm"></label>
       <label class="sr" for="tekst">Eller indsæt tekst</label>
       <textarea id="tekst" rows="5" placeholder="…eller indsæt teksten fra screeningen her">${esc(state.text)}</textarea>
       <div class="sted">
@@ -163,6 +177,7 @@ function render() {
         <input id="kommune" placeholder="Kommune (fx Sønderborg)" value="${esc(state.kommune)}">
         <input id="plannr" placeholder="Plannr. (fx 4.1-10)" value="${esc(state.plannr)}">
         <input id="adresse" placeholder="…eller adresse" value="${esc(state.adresse)}">
+        <label class="chk" title="Gælder plan-screeninger og miljørapporter, når planen findes på plandata.dk"><input type="checkbox" id="hentplan" ${state.hentPlan ? "checked" : ""}> Hent planen fra plandata</label>
         <span class="hint">Tomme felter: placeringen gættes ud fra dokumentet</span>
       </div>
       <details class="sim"${state.udeluk ? " open" : ""}><summary>Simulation</summary>

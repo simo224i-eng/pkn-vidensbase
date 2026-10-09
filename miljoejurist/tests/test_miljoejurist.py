@@ -126,3 +126,22 @@ def test_kalibrering_og_kontrasteksempler():
     if praksis.holdt_sager():
         h = praksis.holdt_lignende("bilag IV-arter flagermus ikke undersøgt", tjekpunkt="D2", k=2)
         assert h and all(x["tjekpunkt"] == "D2" and x["citat_naevn"] for x in h)
+
+
+def test_planens_rammer_i_prompt_og_upload():
+    from fastapi.testclient import TestClient
+    from miljoejurist import planbestemmelser, server
+    plan_txt = ("Redegørelse\nLokalplanen giver mulighed for boliger.\n\nBestemmelser\n§ 1 Formål\nAt udlægge området til boliger.\n"
+                "§ 5 Bebyggelsens omfang\nBebyggelsesprocenten må ikke overstige 60. Bebyggelse må opføres i højst 5 etager.\n"
+                "Vedtagelsespåtegning\nVedtaget af byrådet.")
+    pl = planbestemmelser.fra_tekst(plan_txt, "Lokalplan 1")
+    assert pl.uddrag.startswith("§ 1 Formål") and "Vedtaget" not in pl.uddrag
+    assert any(n["emne"] == "etager" for n in pl.nøgletal)
+    d = dokument.fra_tekst(SVAG.replace("solcelleanlæg på 40 ha", "boliger i 3 etager"))
+    r = tjek.tjek_regler(d, dtype="screening_plan")
+    pr = llm_tjek.byg_prompt(d, r, plan=pl)
+    assert "PLANENS RAMMER" in pr and "højst 5 etager" in pr and "A5" in pr
+    c = TestClient(server.app)
+    res = c.post("/v1/miljoejurist/tjek", data={"stedtjek": "false", "dokumenttype": "screening_plan"},
+                 files=[("fil", ("s.txt", SVAG.encode(), "text/plain")), ("bilag", ("lp.txt", plan_txt.encode(), "text/plain"))])
+    assert res.status_code == 200 and res.json()["plan"]["titel"] == "lp.txt"
