@@ -61,7 +61,11 @@ def uddrag(tekst: str) -> str:
         b = _BESTEMMELSER.search(tekst)
         s = next((m for m in starter if b and m.start() > b.start()), starter[-1] if len(starter) > 1 else starter[0])
         slut = _SLUT.search(tekst, s.start() + 50)
-        return tekst[s.start(): slut.start() if slut else s.start() + MAKS_UDDRAG][:MAKS_UDDRAG]
+        ud = tekst[s.start(): slut.start() if slut else s.start() + MAKS_UDDRAG][:MAKS_UDDRAG]
+        if len(ud) < 3000 and len(tekst) - s.start() > 3000:
+            # Slutmarkøren ramte for tidligt (fx "vedtagelse" i en indholdsfortegnelse eller i en spalte)
+            ud = tekst[s.start(): s.start() + MAKS_UDDRAG]
+        return ud
     rx = re.compile("|".join(r for _, r in NØGLE), re.I)
     afsnit = [a for a in re.split(r"\n\s*\n", tekst) if rx.search(a)]
     return "\n\n".join(afsnit)[:MAKS_UDDRAG // 2]

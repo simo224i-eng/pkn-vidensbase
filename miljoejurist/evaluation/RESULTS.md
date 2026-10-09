@@ -237,3 +237,26 @@ rekonstruktioner af stadfæstede sager er for tynde, holdt ikke (5 sager: rekons
 Med den reelle andel ophævelser (ca. 30 %) svarer "høj" til ca. 2 ud af 3 ophævet og "lav" til ca. 1 ud af 7.
 Forbehold: små tal (38 + 19 sager), AI-revisorer, rekonstruerede dokumenter, og kalibreringen bygger på 50 sager.
 Reglen om lav risiko er målt ved simulation på audit-svarene (2 af 19 afgørende fund flyttes til helgardering).
+
+## Planens rammer (tjekpunkt A5): med og uden lokalplanen (9. okt. 2026)
+
+Brugeren kan nu uploade lokalplanen/planforslaget og bilag sammen med screeningen/miljørapporten, eller værktøjet
+henter planens PDF fra plandata.dk, når planen findes ved stedtjekket (`planbestemmelser.py`). Planens bestemmelser
+(fra § 1 Formål) og nøgletal (etager, højder, bebyggelsesprocent, boliger, areal, anvendelse) gives til modellen, som
+skal sammenligne dem med dokumentet og citere planen ordret; citaterne kontrolleres mod planens tekst.
+
+**Måling** (`koer_plan.py`): 20 rekonstruerede plan-screeninger (10 ophævede, 10 stadfæstede), hvor planens PDF kunne
+hentes fra plandata. Sonnet kørte hver sag med og uden planen; Sonnet-revisorer bedømte begge rapporter.
+
+| | Uden plan | Med plan |
+|---|---|---|
+| Skelner ophævet/stadfæstet (AUC, rå score) | 0,69 | **0,84** |
+| Nævnets afgørende fejl fanget (ophævede) | 9/10 | 8/10 + 1 delvist |
+| Fund med citat fra planen | 0 | 62 (61 korrekte ifølge revisor) |
+| Risikopunkter pr. sag, ophævede / stadfæstede | 3,4 / 1,8 | 5,1 / 2,7 |
+| Forkerte risikopunkter i stadfæstede | 10 | 15 |
+
+**Fortolkning.** Planen gør risikovurderingen markant bedre og giver præcise, kontrollerede plancitater. Fejlfangsten
+blev ikke højere her, fordi nævnets afgørende fejl i disse 10 sager mest handlede om andet end planens indhold (fx
+flagermus, høringsfrist, afværge); i én sag (altaner og støj) blev fejlen flyttet til helgardering. Med planen kommer
+der lidt flere risikopunkter, også i stadfæstede sager. Små tal (20 sager); rekonstruerede screeninger.
