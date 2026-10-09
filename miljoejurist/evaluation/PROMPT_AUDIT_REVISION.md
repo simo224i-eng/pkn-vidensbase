@@ -9,7 +9,7 @@ screeningsafgørelse. Du får for hver sag:
 
 Opgave pr. sag:
 
-1. Afgør ud fra nævnets vurdering, om nævnet ophævede/underkendte (helt eller delvist) eller stadfæstede.
+1. Nævnets udfald står øverst i vurderingsfilen; brug det (gæt ikke).
 2. Hvis nævnet underkendte: Fanger rapporten nævnets **afgørende** begrundelse?
    - "ja": et fund beskriver i det væsentlige samme mangel (samme emne og samme slags fejl).
    - "delvist": et fund rammer emnet, men ikke den egentlige fejl (fx peger på Natura 2000 generelt, hvor

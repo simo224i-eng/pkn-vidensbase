@@ -171,3 +171,38 @@ ikke i testsættene. Modellaget blev spillet af Haiku med præcis den prompt, si
 Haiku gav 6 svagheder og 2 opmærksomhedspunkter; de øvrige (opsplitning, grundvand, Natura 2000, § 3, kumulation)
 tog nævnet ikke stilling til, da fejl 1 var nok til ugyldighed. Indekset pegede først på en forkert screening
 (lokalplan 293); den rigtige blev fundet manuelt i dagsordenen og ligger nu i `tools/originaler/manuelle.json`.
+
+## Audit v1: fejlfangst, falske alarmer og udfaldsgæt (9. okt. 2026)
+
+**Design.** 40 nye screeningssager fra 2022–2026, som ingen tidligere test har brugt: 20 ophævede og 20
+stadfæstede, i blind rækkefølge (`forbered_audit.py`, `audit_facit.json`). Sonnet rekonstruerede kommunens screening
+ud fra sagsfremstillingen uden nævnets vurdering. Haiku spillede modellen med præcis sidens prompt plus et ekstra felt
+med sandsynlighed for underkendelse (kun i auditten). Sagens egen afgørelse var skjult fra praksissøgningen. Sonnet-
+revisorer bedømte hvert fund mod nævnets fulde vurdering (`PROMPT_AUDIT_REVISION.md`, `koer_audit.py`,
+`audit_resultat.json`). To sager udgik efter kontrol, fordi sagsfremstillingen indeholdt (dele af) nævnets vurdering
+(A_15, A_35), så tallene er for **38 sager (19 + 19)**.
+
+| Måling | Resultat |
+|---|---|
+| Ophævede: nævnets afgørende fejl fanget | **17/19 ja, 2/19 delvist, 0 nej**; alle 17 blandt de 3 første fund |
+| Ophævede: fund vurderet relevante / tvivlsomme / forkerte | 61 % / 39 % / 0 % |
+| Stadfæstede: fund vurderet relevante / tvivlsomme / forkerte | 11 % / 44 % / **46 %** |
+| Svagheder pr. sag | 6,0 i begge grupper |
+| Udfaldsgæt (Haiku): gns. risiko ophævede / stadfæstede | 70 % / 61 % (reelt ophæves ca. 30 %) |
+| Udfaldsgæt: evne til at skelne (AUC) | **0,68** (0,5 = tilfældigt) |
+| Udfaldsgæt ved tærskel 70 % | 24/38 rigtige (63 %) |
+| Antal svagheder som udfaldsmål (AUC) | 0,50 (skelner slet ikke) |
+
+**Fortolkning.**
+- Værktøjet er et godt **net**: når der er en fejl, som nævnet underkender på, står den næsten altid øverst i rapporten.
+- Det er et dårligt **filter**: i screeninger, nævnet stadfæstede, giver det lige så mange svagheder, og knap
+  halvdelen strider mod det, nævnet konkret fandt i orden. Rapporten kan altså ikke bruges til at sige, om en
+  screening holder.
+- Udfaldsgættet er svagt og fejlkalibreret (overvurderer risikoen kraftigt). Det bør ikke vises til brugere.
+
+**Forbehold.** Rekonstruktioner bygger på nævnets sagsfremstilling, som kan fremhæve netop det omtvistede punkt; det
+kan gøre fejlfangsten for høj (den ægte Gladsaxe-screening blev dog også fanget som nr. 1). Rapporten giver altid 6
+svagheder, så en del af fangsten skyldes bredde. Revisorerne er AI (Sonnet) og kendte udfaldet.
+
+**Næste forbedring.** Giv modellen modeksempler: stadfæstede sager, hvor nævnet fandt et emne tilstrækkeligt belyst,
+så den kan skelne en tynd, men lovlig vurdering fra en mangelfuld. Mål igen med samme 38 sager.

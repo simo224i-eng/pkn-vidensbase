@@ -19,6 +19,8 @@ from miljoejurist import corpus, dokument, llm_tjek, tjek  # noqa: E402
 UD = HER / "work" / "audit"
 FACIT = json.loads((HER / "audit_facit.json").read_text(encoding="utf-8"))
 V2 = REPO / "analyser" / "miljoevurdering" / "v2"
+# Udelukket efter kontrol: sagsfremstillingen indeholdt nævnets egen vurdering (A_15) eller dele af den (A_35)
+UDELUKKET = {"A_15", "A_35"}
 
 RISIKO = """
 
@@ -32,19 +34,28 @@ def _dok(aid):
     return dokument.fra_tekst((UD / "dok" / f"{aid}.txt").read_text(encoding="utf-8"), aid)
 
 
+def _vurdering(aid, f):
+    t = (V2 / "sager" / f"{f['sag']}.txt").read_text(encoding="utf-8")
+    udfald = "OPHÆVET/UNDERKENDT (helt eller delvist)" if f["gruppe"] == "ophævet" else "STADFÆSTET"
+    (UD / "vurdering" / f"{aid}.txt").write_text(f"NÆVNETS UDFALD (fra afgørelsen): {udfald}" + chr(10) * 2
+                                                 + corpus.nævnets_vurdering(t)[:60000], encoding="utf-8")
+
+
 def prompts():
+    """Prompts til sager uden prompt (eller alle med --alle); nævnets vurdering skrives altid igen."""
     for d in ("prompt", "vurdering", "regler"):
         (UD / d).mkdir(exist_ok=True)
     for aid, f in FACIT.items():
+        _vurdering(aid, f)
         if not (UD / "dok" / f"{aid}.txt").exists():
             print("mangler dok", aid)
+            continue
+        if (UD / "prompt" / f"{aid}.md").exists() and "--alle" not in sys.argv:
             continue
         d = _dok(aid)
         r = tjek.tjek_regler(d, dtype=f["dokumenttype"], udeluk={f["sag"]})
         (UD / "regler" / f"{aid}.json").write_text(json.dumps(r.to_json(), ensure_ascii=False), encoding="utf-8")
         (UD / "prompt" / f"{aid}.md").write_text(llm_tjek.byg_prompt(d, r, {f["sag"]}) + RISIKO, encoding="utf-8")
-        t = (V2 / "sager" / f"{f['sag']}.txt").read_text(encoding="utf-8")
-        (UD / "vurdering" / f"{aid}.txt").write_text(corpus.nævnets_vurdering(t)[:15000], encoding="utf-8")
     print("prompts:", len(list((UD / "prompt").glob("*.md"))))
 
 
@@ -79,6 +90,8 @@ def _auc(pos, neg):
 def score():
     rows = []
     for aid, f in FACIT.items():
+        if aid in UDELUKKET:
+            continue
         rp, rv = UD / "rapport" / f"{aid}.json", UD / "revision" / f"{aid}.json"
         if not rp.exists() or not rv.exists():
             continue
