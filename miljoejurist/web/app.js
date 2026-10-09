@@ -80,7 +80,7 @@ function renderSvaghed(s, n) {
   const cit = s.citat_dokument
     ? `<blockquote>«${esc(s.citat_dokument)}»${s.citat_ok === false ? ' <span class="warn">citatet kunne ikke genfindes ordret</span>' : ""}</blockquote>` : "";
   return `<article class="card svag">
-    <header><span class="n">${n}</span><h3>${esc(s.titel)} <span class="pid">${esc(s.punkt)}</span></h3><span class="art">${esc(ART[s.art] || s.art)}</span></header>
+    <header><span class="n">${n}</span><h3>${esc(s.titel)} <span class="pid">${esc(s.punkt)}</span></h3>${s.risiko ? `<span class="art rsk-${esc(s.risiko)}">Risiko: ${esc(s.risiko)}</span>` : `<span class="art">${esc(ART[s.art] || s.art)}</span>`}</header>
     <div class="row"><strong>Svaghed</strong><p>${esc(s.svaghed)}</p>${cit}</div>
     <div class="row"><strong>Hvorfor</strong><p>${esc(s.hvorfor || "–")}</p><p class="q">${esc(s.spørgsmål)}</p></div>
     <details class="row" ${n <= 2 ? "open" : ""}><summary><strong>Kilder (${s.kilder.length})</strong></summary><ul>${s.kilder.map(renderKilde).join("")}</ul></details>
@@ -103,8 +103,16 @@ function renderResultat() {
   if (state.loading) return '<div class="skel" style="height:110px"></div><div class="skel" style="height:240px"></div>';
   if (!d) return "";
   const typeNavn = (DOKTYPER.find((x) => x[0] === d.dokumenttype) || [0, d.dokumenttype])[1];
-  const svag = d.svagheder.length ? d.svagheder.map((s, i) => (s.niveau === "opmærksomhed" && (i === 0 || d.svagheder[i - 1].niveau !== "opmærksomhed")
-      ? '<h2 class="sec">Øvrige opmærksomhedspunkter</h2><p class="sub">Lavere prioritet: emner, der ikke ses behandlet, eller som nævnene sjældnere har underkendt på.</p>' : "") + renderSvaghed(s, i + 1)).join("")
+  const model = d.lag.includes("model");
+  const svag = d.svagheder.length ? d.svagheder.map((s, i) => {
+      const ny = i === 0 || d.svagheder[i - 1].niveau !== s.niveau;
+      let h = "";
+      if (ny && model && s.niveau === "svaghed") h = '<h2 class="sec">Punkter med risiko for ophævelse</h2>';
+      if (ny && s.niveau === "opmærksomhed") h = model
+        ? '<h2 class="sec">Særlige opmærksomhedspunkter (helgardering)</h2><p class="sub">Punkter, hvor vurderingen kan styrkes. Nævnene accepterer ofte en vurdering på dette niveau.</p>'
+        : '<h2 class="sec">Øvrige opmærksomhedspunkter</h2><p class="sub">Lavere prioritet: emner, der ikke ses behandlet, eller som nævnene sjældnere har underkendt på.</p>';
+      return h + renderSvaghed(s, i + 1);
+    }).join("")
     : '<div class="card empty"><h3>Værktøjets kontroller slog ikke ud</h3><p>Det er ikke en vurdering af, om afgørelsen holder. Se listen over, hvad værktøjet ikke vurderer.</p></div>';
   return `
     <div class="card sum">
@@ -113,6 +121,10 @@ function renderResultat() {
       <p>${esc(d.note)}</p>
       <button class="btn" data-act="dl">${icon("doc")}Hent rapport (Markdown)</button>
     </div>
+    ${d.udfald ? `<div class="card risk r-${esc(d.udfald.niveau)}"><div class="rk">Indikator for ophævelsesrisiko</div>
+      <div class="rv">${esc(d.udfald.niveau)} <span>ca. ${esc(d.udfald.sandsynlighed)} %</span></div>
+      <p>${esc(d.udfald.begrundelse || "")}</p>
+      <p class="sub">Udgangspunkt for denne afgørelsestype: ${esc(d.udfald.basisrate ?? "–")} % af de påklagede sager ophæves helt eller delvist. Indikatoren er en modelvurdering testet på nævnssager, ikke en forudsigelse af den konkrete sag.</p></div>` : ""}
     ${svag}
     ${renderSted(d.sted)}
     ${d.mindre?.length ? `<details class="not"><summary><strong>Mindre bemærkninger (${d.mindre.length})</strong></summary><ul>${d.mindre.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}

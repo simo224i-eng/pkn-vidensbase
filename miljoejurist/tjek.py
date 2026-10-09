@@ -105,7 +105,8 @@ class Svaghed:
     kilder: list[Kilde]
     vægt: float = 1.0
     kilde_lag: str = "regel"    # regel | model
-    niveau: str = "svaghed"     # svaghed | opmærksomhed (lavere prioritet)
+    niveau: str = "svaghed"     # svaghed (risiko for ophævelse) | opmærksomhed (helgardering)
+    risiko: str | None = None   # modellens ophævelsesrisiko for punktet: høj | middel | lav
 
 
 @dataclass
@@ -120,6 +121,7 @@ class Rapport:
     lag: list[str]
     mindre: list[str] = field(default_factory=list)  # lavt prioriterede fund uden kilder
     sted: dict | None = None                         # stedtjek: placering og fund i kortlag
+    udfald: dict | None = None                       # modellens samlede risiko for ophævelse (kalibreret indikator)
 
     def to_json(self) -> dict:
         d = asdict(self)
@@ -369,13 +371,23 @@ def som_markdown(r: Rapport) -> str:
     if not r.svagheder:
         ud += ["Værktøjets kontroller slog ikke ud på dette dokument. Det er ikke en vurdering af, "
                "om afgørelsen holder; se også listen over det, værktøjet ikke vurderer.", ""]
-    første_opm = True
+    if r.udfald:
+        u = r.udfald
+        ud += [f"**Indikator for ophævelsesrisiko:** {u['niveau']} (ca. {u['sandsynlighed']} %; udgangspunkt for denne "
+               f"afgørelsestype: {u.get('basisrate')} %). {u.get('begrundelse', '')}",
+               "_Indikatoren er en model-vurdering, testet på nævnssager; den er ikke en forudsigelse af den konkrete sag._", ""]
+    første_opm, første_svag = True, True
     for n, s in enumerate(r.svagheder, 1):
+        if s.niveau == "svaghed" and første_svag and s.risiko:
+            ud += ["# Punkter med risiko for ophævelse", ""]
+            første_svag = False
         if s.niveau == "opmærksomhed" and første_opm:
-            ud += ["# Øvrige opmærksomhedspunkter", "Lavere prioritet: emner, der ikke ses behandlet, eller "
-                   "som nævnene sjældnere har underkendt på.", ""]
+            ud += ["# Særlige opmærksomhedspunkter (helgardering)" if s.risiko else "# Øvrige opmærksomhedspunkter",
+                   "Punkter, hvor vurderingen kan styrkes. Nævnene accepterer ofte en vurdering på dette niveau."
+                   if s.risiko else "Lavere prioritet: emner, der ikke ses behandlet, eller som nævnene sjældnere har "
+                   "underkendt på.", ""]
             første_opm = False
-        ud.append(f"## {n}. {s.titel} ({s.punkt})")
+        ud.append(f"## {n}. {s.titel} ({s.punkt})" + (f" · risiko: {s.risiko}" if s.risiko else ""))
         ud.append(f"**Svaghed:** {s.svaghed}")
         if s.citat_dokument:
             mærke = "" if s.citat_ok else " ⚠ citatet kunne ikke genfindes ordret"

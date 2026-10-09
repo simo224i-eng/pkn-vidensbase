@@ -19,6 +19,9 @@ from .tjek import FORBUDT, Kilde, Rapport, Svaghed, tjekliste
 
 MAKS_DOK = 70000
 
+# Andel af sager behandlet på indholdet, hvor klager fik helt eller delvist medhold (2020-2026, trin 1-analysen)
+BASISRATE = {"screening_projekt": 37, "screening_plan": 18, "miljoerapport_plan": 27, "projekttilladelse": 44}
+
 
 def byg_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None) -> str:
     dtype = rapport.dokumenttype
@@ -28,12 +31,19 @@ def byg_prompt(dok: Dokument, rapport: Rapport, udeluk: set[str] | None = None) 
         eks = praksis.lignende(p.get("søg", p["titel"]), kategorier=p.get("fejlkategorier"),
                                dokumenttype=dtype, k=1, udeluk=udeluk, kontekst=dok.tekst[:2500])
         eks_txt = " | ".join(f"(en anden sag: {e['titel'][:90]}) {e['fejl']}" for e in eks)
+        holdt = praksis.holdt_lignende(p.get("søg", p["titel"]), tjekpunkt=p["id"], dokumenttype=dtype, k=1,
+                                       udeluk=udeluk, kontekst=dok.tekst[:2500])
+        holdt_txt = " | ".join(f"(en anden sag) myndigheden: {h['myndigheden_gjorde']} Nævnet: {h['hvorfor_tilstraekkeligt']}"
+                               for h in holdt)
         lov = "; ".join(f"{kode} {nr}" for kode, nr, _ in p.get("lov", []))
-        linjer.append(f"- {p['id']} {p['titel']}: {p['spørgsmål']} (Lov: {lov}) Eksempler fra praksis: {eks_txt}")
+        linjer.append(f"- {p['id']} {p['titel']}: {p['spørgsmål']} (Lov: {lov})\n    UNDERKENDT: {eks_txt or '-'}"
+                      + (f"\n    HOLDT: {holdt_txt}" if holdt_txt else ""))
     regelfund = "\n".join(f"- {s.punkt}: {s.svaghed}" + (f" «{s.citat_dokument[:200]}»" if s.citat_dokument else "")
                           for s in rapport.svagheder) or "(ingen)"
     tekst = dok.tekst[:MAKS_DOK]
     afkortet = "" if len(dok.tekst) <= MAKS_DOK else f"\n[Dokumentet er afkortet til de første {MAKS_DOK} tegn.]"
+    basis = BASISRATE.get(dtype, 31)
+    dtype_navn = {"screening_projekt": "projektscreeninger", "screening_plan": "planscreeninger", "miljoerapport_plan": "miljørapporter for planer", "projekttilladelse": "§ 25-tilladelser"}.get(dtype, "sager")
     return f"""Du er en erfaren miljøjurist, der gennemgår en {dtype.replace('_', ' ')} for svagheder,
 som Planklagenævnet eller Miljø- og Fødevareklagenævnet tidligere har underkendt.
 
@@ -45,12 +55,17 @@ med "[…]"). Handler svagheden om noget, der mangler helt, så sæt citat til n
 REGLER
 - Skriv aldrig, at afgørelsen er i orden, lovlig eller uden fejl. Du vurderer kun mulige svagheder.
 - Medtag kun svagheder, du kan pege på i teksten. Ingen generelle råd.
-- Prioritér: højst 8 svagheder, sorteret efter risikoen for, at et klagenævn underkender afgørelsen.
-  Spring emner over, der er uden betydning for netop dette projekt/denne plan og dette område.
-- "alvor": "høj" kun når dokumentet selv giver et konkret holdepunkt for en væsentlig påvirkning (fx
-  projektet ligger i eller tæt på Natura 2000, § 3-natur eller kendte levesteder; afgørelsen hviler på en
-  usikret foranstaltning; en del af projektet er holdt udenfor) OG vurderingen af netop det er mangelfuld.
-  "middel" når vurderingen er tynd, men uden et sådant holdepunkt. "lav" for formelle eller mindre forhold.
+- Højst 8 punkter. Giv hvert punkt en "ophaevelsesrisiko" = risikoen for, at et klagenævn ophæver afgørelsen
+  på netop dette punkt, hvis den påklages:
+  "høj": en fejl af den slags, nævnene ophæver på (se UNDERKENDT-eksemplerne og mønstrene nedenfor), OG
+  dokumentet selv giver et konkret holdepunkt for den (fx et kendt levested, en afstand på få hundrede meter, en
+  foranstaltning screeningen hviler på, en del af projektet der er holdt udenfor).
+  "middel": vurderingen er mangelfuld på et punkt, der har betydning for netop dette projekt/denne plan, men uden
+  et sådant holdepunkt.
+  "lav": vurderingen er kort eller kunne være grundigere, men svarer til det, nævnene typisk accepterer (se
+  HOLDT-eksemplerne). Det er et opmærksomhedspunkt, hvor myndigheden kan helgardere sig, ikke en ophævelsesgrund.
+- En kort vurdering er IKKE i sig selv en fejl. Nævnene stadfæster ofte korte screeninger, når der ikke er
+  konkrete holdepunkter for væsentlig påvirkning. Brug HOLDT-eksemplerne til at skelne.
 - Kriterier, der ikke er nævnt, men som åbenlyst er uden betydning for projektet, er ikke en svaghed.
 - Se især efter disse mønstre, som nævnene ofte underkender:
   * afværgeforanstaltninger eller vilkår, som screeningen selv fastsætter eller forudsætter (en screening kan
@@ -65,16 +80,24 @@ REGLER
 - Henvis kun til de bestemmelser, der står i tjeklisten.
 - Ingen personnavne i svaret.
 
-TJEKLISTE (eksemplerne er fra ANDRE sager og viser kun, hvad nævnene har underkendt; bland dem ikke
-sammen med dokumentet)
+TJEKLISTE (eksemplerne er fra ANDRE sager: UNDERKENDT = hvad nævnene ophævede på, HOLDT = hvad nævnene fandt
+tilstrækkeligt; bland dem ikke sammen med dokumentet)
 {chr(10).join(linjer)}
 
 REGELLAGETS FUND (kan være fejl eller mangle noget; brug dem som udgangspunkt)
 {regelfund}
 
+SAMLET RISIKO
+Vurdér til sidst sandsynligheden for, at klagenævnet ville ophæve afgørelsen helt eller delvist, hvis den blev
+påklaget. Udgangspunktet er {basis} % (andelen af {dtype_navn} med medhold ved nævnene 2020-2026). Gå kun klart
+over det, hvis der er mindst ét punkt med "høj" ophævelsesrisiko, og under det, hvis vurderingen svarer til
+HOLDT-eksemplerne. Nævnet består af mennesker og er ikke altid konsistent; giv derfor sjældent under 5 eller over 90.
+
 SVARFORMAT (kun JSON, ingen anden tekst)
 {{"svagheder": [{{"punkt": "C3", "svaghed": "kort beskrivelse", "citat": "ordret citat eller null",
-  "hvorfor": "1-2 sætninger om hvorfor det er en svaghed efter loven/praksis", "alvor": "høj|middel|lav"}}],
+  "hvorfor": "1-2 sætninger om hvorfor det er en svaghed efter loven/praksis", "ophaevelsesrisiko": "høj|middel|lav"}}],
+ "samlet": {{"sandsynlighed_ophaevelse": 0-100, "afgoerende_punkt": "punkt-id eller null",
+  "begrundelse": "1-2 sætninger"}},
  "ikke_vurderet": ["forhold i dokumentet, du ikke kunne vurdere ud fra teksten"]}}
 
 DOKUMENT
@@ -99,7 +122,7 @@ def fortolk(svar: str) -> dict:
             return {"svagheder": [], "ikke_vurderet": [], "fejl": f"ugyldig JSON: {e}"}
 
 
-_ALVOR = {"høj": 3.0, "middel": 2.0, "lav": 1.0}
+_ALVOR = {"høj": 3.0, "middel": 2.0, "lav": 1.2}
 
 
 def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = None,
@@ -132,7 +155,8 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
                            svaghed=FORBUDT.sub("[udeladt formulering]", s.get("svaghed") or ""),
                            citat_dokument=citat, citat_ok=ok, hvorfor=hvorfor,
                            spørgsmål=p.get("spørgsmål", ""), kilder=kilder,
-                           vægt=_ALVOR.get(s.get("alvor"), 1.5), kilde_lag="model"))
+                           vægt=_ALVOR.get(s.get("ophaevelsesrisiko") or s.get("alvor"), 1.5), kilde_lag="model",
+                           risiko=s.get("ophaevelsesrisiko") or s.get("alvor")))
     # Modellens fund først (de er konkrete), derefter regelfund for punkter, modellen ikke dækkede
     dækket = {s.punkt for s in nye}
     rest = [s for s in rapport.svagheder if s.punkt not in dækket]
@@ -143,12 +167,26 @@ def supplér(rapport: Rapport, dok: Dokument, llm, udeluk: set[str] | None = Non
     beholdes = [s for s in rest if s.art in ("svag_formulering", "kriterier_mangler")]
     for s in beholdes:
         s.vægt = round(s.vægt * 0.5, 2)
-    korte = [s for s in rest if s not in beholdes] + [s for s in nye if s.vægt <= 1.0]
-    nye = [s for s in nye if s.vægt > 1.0]
+    # Modellens "lav" er et opmærksomhedspunkt (helgardering) og beholdes med kilder; regellagets øvrige fund
+    # bliver korte bemærkninger.
+    korte = [s for s in rest if s not in beholdes]
     rapport.mindre = [f"{s.punkt} {s.titel}: {s.svaghed}" for s in korte]
+    for s in beholdes:
+        s.risiko = "lav"
     rapport.svagheder = nye + beholdes
-    from .tjek import _niveauer
-    _niveauer(rapport.svagheder)
+    for s in rapport.svagheder:
+        s.niveau = "svaghed" if s.risiko in ("høj", "middel") else "opmærksomhed"
+    rapport.svagheder.sort(key=lambda s: (s.niveau != "svaghed", -s.vægt))
+    sm = data.get("samlet") or {}
+    try:
+        pct = max(0, min(100, int(sm.get("sandsynlighed_ophaevelse"))))
+    except (TypeError, ValueError):
+        pct = None
+    if pct is not None:
+        rapport.udfald = {"sandsynlighed": pct, "niveau": "høj" if pct >= 60 else ("middel" if pct >= 30 else "lav"),
+                          "afgoerende_punkt": sm.get("afgoerende_punkt"),
+                          "begrundelse": FORBUDT.sub("[udeladt formulering]", sm.get("begrundelse") or ""),
+                          "basisrate": BASISRATE.get(rapport.dokumenttype)}
 
     rapport.ikke_vurderet = list(rapport.ikke_vurderet) + [
         FORBUDT.sub("[udeladt formulering]", x) for x in (data.get("ikke_vurderet") or [])][:12]

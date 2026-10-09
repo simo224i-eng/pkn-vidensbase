@@ -75,6 +75,14 @@ h1 { font: 500 34px/1.15 var(--serif); margin: 0 0 8px; letter-spacing: -.01em; 
 
 .sum { margin: 22px 0 12px; padding: 14px 16px; }
 .sum p { margin: 6px 0 10px; color: var(--ink-2); font-size: 14px; }
+.risk { padding: 14px 16px; margin: 12px 0; border-left: 4px solid var(--ink-3); }
+.risk .rk { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); }
+.risk .rv { font: 500 22px var(--serif); text-transform: capitalize; }
+.risk .rv span { font: 400 14px var(--sans); color: var(--ink-3); text-transform: none; }
+.risk p { margin: 6px 0 0; font-size: 14px; }
+.r-høj { border-left-color: var(--warn); } .r-middel { border-left-color: #c58a1c; } .r-lav { border-left-color: var(--accent); }
+.rsk-høj { background: color-mix(in srgb, var(--warn) 14%, transparent); color: var(--warn); }
+.rsk-middel { background: color-mix(in srgb, #c58a1c 16%, transparent); color: #a8741c; }
 .svag { padding: 14px 16px; margin: 12px 0; }
 .svag header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .svag h3 { margin: 0; font: 500 18px/1.3 var(--serif); flex: 1; min-width: 200px; }

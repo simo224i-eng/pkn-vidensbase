@@ -140,3 +140,47 @@ def hyppighed() -> dict[str, dict]:
             d["i_alt"] += 1
             d[s.get("dokumenttype") or "andet"] = d.get(s.get("dokumenttype") or "andet", 0) + 1
     return ud
+
+
+# ── Kontrasteksempler: hvad nævnet fandt tilstrækkeligt (stadfæstede sager) ────
+@lru_cache(maxsize=1)
+def holdt_sager() -> list[dict]:
+    p = DATA / "praksis_holdt.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else []
+
+
+@lru_cache(maxsize=1)
+def _holdt() -> list[tuple[dict, dict]]:
+    return [(s, h) for s in holdt_sager() for h in s["holdt"]]
+
+
+@lru_cache(maxsize=1)
+def _holdt_idx() -> BM25:
+    return BM25([f"{h['klagepunkt']} {h['myndigheden_gjorde']} {h['hvorfor_tilstraekkeligt']} {s['titel']}"
+                 for s, h in _holdt()])
+
+
+def holdt_lignende(q: str, tjekpunkt: str | None = None, dokumenttype: str | None = None, k: int = 1,
+                   udeluk: set[str] | None = None, kontekst: str = "") -> list[dict]:
+    """Stadfæstede sager, hvor nævnet fandt et lignende punkt tilstrækkeligt belyst."""
+    par = _holdt()
+    udeluk = udeluk or set()
+
+    def ok(i):
+        s, h = par[i]
+        return s["id"] not in udeluk and (not tjekpunkt or h.get("tjekpunkt") == tjekpunkt)
+
+    sc = _holdt_idx().search(f"{q} {kontekst[:600]}", k=50, filt=ok)
+    sc = sorted(sc, key=lambda x: -(x[1] + 0.3 * x[1] * (par[x[0]][0].get("dokumenttype") == dokumenttype)))
+    ud, set_ = [], set()
+    for i, _ in sc:
+        s, h = par[i]
+        if s["id"] in set_:
+            continue
+        set_.add(s["id"])
+        ud.append({"id": s["id"], "naevn": s["naevn"], "dato": s["dato"], "titel": s["titel"], "link": s["link"],
+                   **h})
+        if len(ud) >= k:
+            break
+    return ud
+
