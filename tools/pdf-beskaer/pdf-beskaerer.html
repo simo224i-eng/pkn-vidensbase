@@ -24,9 +24,9 @@
   <label>Fjern sidste <input id="back" type="number" min="0" value="1"> sider</label>
 </div>
 <div class="opts">
-  <label><input id="foot" type="checkbox" checked> Fjern sidefod: skjul nederste <input id="footmm" type="number" min="1" max="100" value="20"> mm på alle sider</label>
+  <label><input id="foot" type="checkbox" checked> Fjern sidefod: fjern indhold i nederste <input id="footmm" type="number" min="1" max="100" value="28"> mm på alle sider</label>
 </div>
-<p class="note">Sidefoden dækkes med hvidt. Teksten står stadig i filen under det hvide felt og kan evt. markeres/kopieres. Hæv antallet af mm, hvis noget af sidefoden stadig kan ses.</p>
+<p class="note">Tekst og streger i bunden slettes fra selve PDF'en, og området dækkes desuden med hvidt. Billeder i bunden dækkes kun. Vælg så mange mm, at hele sidefoden er med, men ikke selve indholdet.</p>
 <div id="drop">Træk PDF'er hertil, eller klik for at vælge<input id="file" type="file" accept="application/pdf" multiple hidden></div>
 <ul id="list"></ul>
 <p><button id="all" hidden>Download alle</button></p>
@@ -50,6 +50,67 @@
 </script>
 <script>
 const {PDFDocument,rgb}=PDFLib;
+
+const WS=' \t\r\n\f\0',DELIM='()<>[]{}/%',NUM=/^[+-]?(\d+\.?\d*|\.\d+)$/;
+const mul=(m,n)=>[m[0]*n[0]+m[1]*n[2],m[0]*n[1]+m[1]*n[3],m[2]*n[0]+m[3]*n[2],m[2]*n[1]+m[3]*n[3],m[4]*n[0]+m[5]*n[2]+n[4],m[4]*n[1]+m[5]*n[3]+n[5]];
+// Fjerner tekst-/stregoperatorer, hvis position ligger under 'band' over sidens underkant.
+function stripFooter(s,bottom,band){
+  const n=s.length;let i=0,last=0,out='',ops=[],opStart=0,removed=0;
+  let ctm=[1,0,0,1,0,0],stack=[],tm=[1,0,0,1,0,0],tlm=tm,tl=0,pathMax=null;
+  const skipStr=j=>{let d=0;for(;j<n;j++){const c=s[j];if(c==='\\')j++;else if(c==='(')d++;else if(c===')'){d--;if(!d)return j+1}}return n};
+  const cut=(a,b,rep='')=>{out+=s.slice(last,a)+rep;last=b;removed++};
+  const pt=(x,y)=>{const v=x*ctm[1]+y*ctm[3]+ctm[5];if(pathMax===null||v>pathMax)pathMax=v};
+  const nextLine=()=>{tlm=mul([1,0,0,1,0,-tl],tlm);tm=tlm};
+  while(i<n){
+    const c=s[i];
+    if(WS.includes(c)){i++;continue}
+    if(c==='%'){while(i<n&&s[i]!=='\n'&&s[i]!=='\r')i++;continue}
+    const start=i;let tok='',kind='o';
+    if(c==='(')i=skipStr(i);
+    else if(c==='<'){if(s[i+1]==='<')i+=2;else{i=s.indexOf('>',i);i=i<0?n:i+1}}
+    else if(c==='>')i+=s[i+1]==='>'?2:1;
+    else if(c==='['){let d=0;while(i<n){const ch=s[i];if(ch==='('){i=skipStr(i);continue}if(ch==='[')d++;else if(ch===']'){d--;if(!d){i++;break}}i++}}
+    else if(c===']'||c==='{'||c==='}'||c===')')i++;
+    else if(c==='/'){i++;while(i<n&&!WS.includes(s[i])&&!DELIM.includes(s[i]))i++}
+    else{while(i<n&&!WS.includes(s[i])&&!DELIM.includes(s[i]))i++;tok=s.slice(start,i);kind=NUM.test(tok)?'n':'op'}
+    if(kind!=='op'){if(!ops.length)opStart=start;ops.push(kind==='n'?parseFloat(tok):null);continue}
+    const a=ops,st=a.length?opStart:start;ops=[];
+    switch(tok){
+      case 'q':stack.push(ctm.slice());break;
+      case 'Q':if(stack.length)ctm=stack.pop();break;
+      case 'cm':if(a.length===6)ctm=mul(a,ctm);break;
+      case 'BT':tm=[1,0,0,1,0,0];tlm=tm;break;
+      case 'Tm':if(a.length===6){tm=a.slice();tlm=tm}break;
+      case 'TL':tl=a[0]||0;break;
+      case 'Td':case 'TD':if(a.length===2){if(tok==='TD')tl=-a[1];tlm=mul([1,0,0,1,a[0],a[1]],tlm);tm=tlm}break;
+      case 'T*':nextLine();break;
+      case "'":case '"':nextLine();case 'Tj':case 'TJ':
+        if(mul(tm,ctm)[5]-bottom<band)cut(st,i);break;
+      case 'm':case 'l':pt(a[0],a[1]);break;
+      case 'c':pt(a[0],a[1]);pt(a[2],a[3]);pt(a[4],a[5]);break;
+      case 'v':case 'y':pt(a[0],a[1]);pt(a[2],a[3]);break;
+      case 're':pt(a[0],a[1]);pt(a[0]+a[2],a[1]);pt(a[0],a[1]+a[3]);pt(a[0]+a[2],a[1]+a[3]);break;
+      case 'S':case 's':case 'f':case 'F':case 'f*':case 'B':case 'B*':case 'b':case 'b*':
+        if(pathMax!==null&&pathMax-bottom<band)cut(start,i,'n');pathMax=null;break;
+      case 'n':pathMax=null;break;
+      case 'BI':{const r=/\sID\s/g;r.lastIndex=i;const m=r.exec(s);if(m){const e=/\sEI(?=\s|$)/g;e.lastIndex=m.index+m[0].length;const q=e.exec(s);i=q?q.index+q[0].length:n}break}
+    }
+  }
+  return {text:out+s.slice(last),removed};
+}
+const bytesOf=st=>st instanceof PDFLib.PDFRawStream?PDFLib.decodePDFRawStream(st).decode():st.getUnencodedContents();
+function stripPage(doc,page,band){
+  const C=page.node.Contents();if(!C)return 0;
+  const list=C instanceof PDFLib.PDFArray?C.asArray().map(r=>doc.context.lookup(r)):[C];
+  let str='';
+  for(const st of list){const b=bytesOf(st);for(let k=0;k<b.length;k+=8192)str+=String.fromCharCode.apply(null,b.subarray(k,k+8192));str+='\n'}
+  const r=stripFooter(str,page.getCropBox().y,band);
+  if(r.removed){
+    const bytes=new Uint8Array(r.text.length);for(let k=0;k<bytes.length;k++)bytes[k]=r.text.charCodeAt(k);
+    page.node.set(PDFLib.PDFName.of('Contents'),doc.context.register(doc.context.flateStream(bytes)));
+  }
+  return r.removed;
+}
 const $=id=>document.getElementById(id);
 const drop=$('drop'),file=$('file'),list=$('list'),allBtn=$('all');
 let results=[];
@@ -70,15 +131,15 @@ async function handle(files){
       const n=src.getPageCount();
       if(n<=front+back){li.innerHTML+='<span class="err">sprunget over ('+n+' sider er for få)</span>';continue}
       const out=await PDFDocument.create();
-      const idx=[];for(let i=front;i<n-back;i++)idx.push(i);
+      let removed=0;const idx=[];for(let i=front;i<n-back;i++)idx.push(i);
       (await out.copyPages(src,idx)).forEach(p=>{
         out.addPage(p);
-        if(footPt>0){const b=p.getCropBox();p.drawRectangle({x:b.x-1,y:b.y-1,width:b.width+2,height:footPt+1,color:rgb(1,1,1),borderWidth:0})}
+        if(footPt>0){try{removed+=stripPage(out,p,footPt)}catch(e){}const b=p.getCropBox();p.drawRectangle({x:b.x-1,y:b.y-1,width:b.width+2,height:footPt+1,color:rgb(1,1,1),borderWidth:0})}
       });
       const bytes=await out.save();
       const r={name:f.name.replace(/\.pdf$/i,'')+'_klippet.pdf',url:URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}))};
       results.push(r);
-      li.innerHTML+='<span class="ok">'+n+' → '+idx.length+' sider</span> <button>Download</button>';
+      li.innerHTML+='<span class="ok">'+n+' → '+idx.length+' sider'+(footPt>0?', '+removed+' sidefodselementer fjernet':'')+'</span> <button>Download</button>';
       li.querySelector('button').onclick=()=>save(r);
       allBtn.hidden=results.length<2;
     }catch(e){li.innerHTML+='<span class="err">kunne ikke læses (krypteret eller ødelagt?)</span>'}
