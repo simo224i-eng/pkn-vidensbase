@@ -23,6 +23,10 @@
   <label>Fjern første <input id="front" type="number" min="0" value="2"> sider</label>
   <label>Fjern sidste <input id="back" type="number" min="0" value="1"> sider</label>
 </div>
+<div class="opts">
+  <label><input id="foot" type="checkbox" checked> Fjern sidefod: skjul nederste <input id="footmm" type="number" min="1" max="100" value="20"> mm på alle sider</label>
+</div>
+<p class="note">Sidefoden dækkes med hvidt. Teksten står stadig i filen under det hvide felt og kan evt. markeres/kopieres. Hæv antallet af mm, hvis noget af sidefoden stadig kan ses.</p>
 <div id="drop">Træk PDF'er hertil, eller klik for at vælge<input id="file" type="file" accept="application/pdf" multiple hidden></div>
 <ul id="list"></ul>
 <p><button id="all" hidden>Download alle</button></p>
@@ -45,7 +49,7 @@
 //# sourceMappingURL=pdf-lib.min.js.map
 </script>
 <script>
-const {PDFDocument}=PDFLib;
+const {PDFDocument,rgb}=PDFLib;
 const $=id=>document.getElementById(id);
 const drop=$('drop'),file=$('file'),list=$('list'),allBtn=$('all');
 let results=[];
@@ -57,6 +61,7 @@ drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');handle(e.dataTr
 function save(r){const a=document.createElement('a');a.href=r.url;a.download=r.name;document.body.appendChild(a);a.click();a.remove()}
 allBtn.onclick=()=>results.forEach((r,i)=>setTimeout(()=>save(r),i*300));
 async function handle(files){
+  const footPt=$('foot').checked?Math.max(0,+$('footmm').value||0)*72/25.4:0;
   const front=Math.max(0,+$('front').value||0),back=Math.max(0,+$('back').value||0);
   for(const f of files){
     const li=document.createElement('li');li.textContent=f.name+' … ';list.appendChild(li);
@@ -66,7 +71,10 @@ async function handle(files){
       if(n<=front+back){li.innerHTML+='<span class="err">sprunget over ('+n+' sider er for få)</span>';continue}
       const out=await PDFDocument.create();
       const idx=[];for(let i=front;i<n-back;i++)idx.push(i);
-      (await out.copyPages(src,idx)).forEach(p=>out.addPage(p));
+      (await out.copyPages(src,idx)).forEach(p=>{
+        out.addPage(p);
+        if(footPt>0){const b=p.getCropBox();p.drawRectangle({x:b.x-1,y:b.y-1,width:b.width+2,height:footPt+1,color:rgb(1,1,1),borderWidth:0})}
+      });
       const bytes=await out.save();
       const r={name:f.name.replace(/\.pdf$/i,'')+'_klippet.pdf',url:URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}))};
       results.push(r);
